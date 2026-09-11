@@ -1,9 +1,9 @@
 {
   "remaining": [
-    "Endpoint and joint measurability proofs",
-    "Complete source-normalized eta contract and production assembly",
-    "Independent fixed-version proof review and fresh encoder-denoiser/source admission",
-    "Focused production compilation, reader publication and integration"
+    "Independent full production proof review",
+    "Authored reader proof and full compiled-type anonymous reconstruction",
+    "Formal source admission and focused publication validation",
+    "Aggregate integration and delivery"
   ],
   "state": "EXPLORING",
   "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
@@ -31,5 +31,18 @@
     "reviewer": "depth_commit_verifier",
     "fixed_two_law_sha256": "ba720663284af1de8a5731bb2e851ec971d4fdf6041c7ca9d4c1d30c54e7aaa5",
     "result": "Two original laws independently replayed via stdin, exit0, standard three axioms; actual product pushforward, signs and scale accepted."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianArcLaw.lean",
+    "complete_contract": "Actual product pushforward at sqrt eta, all-real path derivative, all four endpoints, joint (h,r,x,z) measurability, eta scale identity",
+    "focused": "lake build Tests.SmoothedPicardHMCGaussianArcLaw",
+    "result": "PASS3117, exit0, standard three axioms, no lint",
+    "test_sha256": "354df2c4a325e1fe9a0d9e8747f8764d14927d17489803a4224d5000be7158b1",
+    "sha256": "6b137642c324565c87fe7bb38bd61c868dd7798995355baf3c2da966a99f9a3d"
+  },
+  "full_source_pre_review": {
+    "reviewer": "log_depth_source_review",
+    "boundary": "Not independently compiled by source reviewer; no formal encoder-decoder admission. Parameterized measure-family measurability, gradient conditions and MGF/clipping remain separate.",
+    "result": "No necessary correction to bounded packet. Actual independent joint law, covariance scales, derivative, endpoints and disclosed all-real/zero-dimensional extensions accepted."
   }
 }
