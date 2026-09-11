@@ -108,3 +108,20 @@ transitive import closure and reject ambiguous short names. This removes an
 impossible dependency, but does not turn source scanning into a Lean proof-term
 dependency certificate. The authored lesson separately lists the actual
 Mathlib dependencies.
+
+## Final direct-main integration admission
+
+User authorized direct main integration after protocol acceptance. Candidate
+`f92c2fa` incorporates upstream `b1847a9`. Independent `final_integration_review`
+confirmed exact preservation of all 213 upstream ledger lines and 35 audit
+objects, the own accepted audit, unchanged theorem/test/lesson/publication bytes
+from verified `e84cd69`, and the actual root test import. No blocking findings.
+The completed PR261 reservation was independently requeued with explicit reviewer
+provenance; no other owner MERGED transition was impersonated.
+
+Canonical full gate passed, including Tests (9110 jobs), ATLAS and fake-closure
+checks. Publication (33 items), semantic registry (36 audits), cells (45),
+44 focused Python tests, regenerated site and graph checks passed. The affected
+graph retains the same three connections; unchanged source/lesson/layout reuse
+the recorded desktop/mobile visual inspection. This closes integration of the
+Optlib-shaped converse, not the full Chewi Proposition 1.6 or its integral route.
