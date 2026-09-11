@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "VERIFIED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
   ],
@@ -92,5 +92,6 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
     "state": "DRAFT",
     "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1"
-  }
+  },
+  "reservation_resolution": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release."
 }
