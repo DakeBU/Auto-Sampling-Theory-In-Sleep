@@ -1,0 +1,16 @@
+{
+  "decoder": "kl_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of fresh anonymous English reconstruction; notation rendered as plain text. Supplied hashes and compiled flag reported, not independently verified by decoder.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-kl-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianKL.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "082819f76a10a57ca956004c42d0f1d904a16bd19027640c526a0cfa000e6fdc",
+  "lean_statement_sha256": "0d496a423492f919bf8ab6b3f4af968737c022b5df9c9594fa108e4628f99b1a",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, every pair of probability measures P,Q, and every real r,tau, assume r>=0,tau>0 and the actual extended-nonnegative infimum over all measures gamma on E times E whose first/second marginals are P,Q of the nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then klDiv(gaussianSmoothing(P,sqrt(tau)),gaussianSmoothing(Q,sqrt(tau)))<=ofReal(r^2/(2tau)). No attaining coupling is assumed. Gaussian smoothing is the addition pushforward of mu product kappa_sqrt(tau), where kappa_sqrt(tau) is the pushforward of the centered identity-covariance standard Gaussian by multiplication by sqrt(tau). Dimension zero is allowed. The conclusion concerns the actual extended-nonnegative divergence in the direction smoothed P relative to smoothed Q. For these probability laws mu,nu it equals ofReal(integral log((dmu/dnu).toReal) dmu) when mu is absolutely continuous with respect to nu and that log likelihood ratio is integrable under mu; otherwise it equals infinity. Absolute continuity and log-likelihood integrability are not additional hypotheses. The finite bound concerns the divergence itself, not its totalized real conversion. All space, measure and parameter quantifiers are universal. There are no additional dimension, moment, density or regularity assumptions in the printed statement. The constant is exactly 1/(2tau), without a dimension factor. The reconstruction uses only the printed statement and approved definitions; it makes no source-fidelity judgment and does not independently verify compilation or hashes.",
+  "source_fidelity_verdict": null
+}
