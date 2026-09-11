@@ -78,7 +78,15 @@
         "ProbabilityTheory.Kernel.withDensity",
         "MeasureTheory.Measure.tilted",
         "MeasureTheory.lintegral_tsum"
-      ]
+      ],
+      "assumptions": [
+        "S, X and A are arbitrary measurable spaces; Q:S->X is a Markov kernel.",
+        "nu is a fixed probability measure on A, and B is a fixed real number with B>0.",
+        "W:((S times X) times A)->Real is jointly measurable and satisfies |W((s,x),z)|<=B for every s,x,z.",
+        "A fixed x0 in X defines the output on the never-success event.",
+        "Each attempt draws independently from the displayed proposal/Poisson/infinite auxiliary/uniform product. Each retry is an independent whole attempt. Cost is the full N estimator calls for every attempt reached."
+      ],
+      "formula": "R(s)=Q(s)^{w(s,\\cdot)}=\\mathcal L(\\mathrm{out}_s),\\quad p_s=\\int e^{w(s,x)-B}Q(s)(dx)\\ge e^{-2B},\\quad\\mathbb E C_s=\\frac{2B}{p_s}\\le2B e^{2B}."
     }
   ]
 }

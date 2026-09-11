@@ -1,0 +1,27 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent production replay and separate compiled-type expansion check.",
+  "decision": "development-proof-accepted",
+  "commit": "fb5876a94b15795d05adf2bcedf9d74710dae221",
+  "command": "lake build Tests.SmoothedPicardHMCPoissonRejection",
+  "result": "PASS3638, exit0, no lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/PoissonRejection.lean": "4b28040efaf2c8817f99a8fee69b06ee6f1157c5e72f0dacf60a134e7e99676e",
+    "Tests/SmoothedPicardHMCPoissonRejection.lean": "078d3b40333fbe7a21cadf39aaaa9a4a3fe02adb5f3178bde10602e3174d4db0"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "All private helper proofs match independently checked scratch except namespace/private modifiers and whitespace.",
+    "One actual product attempt law underlies public conditional acceptance, accepted submeasure, exact p, first-success output, Markov and tilted law, null never-hit, failure tail and full-batch cost.",
+    "The successful batch is included; no current count/current acceptance independence is assumed.",
+    "Independent expanded type replay passed and matches the 3464-character registry statement. Six semantic definitions are unfolded with Meta.isDefEq checked.",
+    "Seven-step lesson/source pre-review accepted full public coverage and remaining FORS/gradient/Renyi boundaries."
+  ],
+  "expanded_statement_sha256": "e3c94b5385ecc55a260eb606c05e17f6a1b3bc088e69c2f56c77d0009a724bf0",
+  "qualification": "Development review only; formal source and fixed-commit admission separate."
+}
