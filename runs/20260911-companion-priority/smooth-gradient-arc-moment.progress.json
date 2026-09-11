@@ -1,9 +1,9 @@
 {
   "remaining": [
-    "Apply actual gradient Lipschitz and center bounds to positional exponential integrability",
-    "Assemble source constants and actual GaussianArcLaw pushforward consumer",
-    "Logarithmic conclusion with explicit log2",
-    "Independent full proof and formal source admission"
+    "Transfer true-gradient product result through actual GaussianArcLaw pushforward",
+    "Source norm-center initialization adapter and logarithmic conclusion with log2",
+    "Independent full production proof and source admission",
+    "Reader delivery and integration"
   ],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
@@ -15,8 +15,8 @@
     ],
     "command": "lake env lean .astis/SmoothGradientArcMoment.lean"
   },
-  "development_result": "Compiled positional exponential integrability and bound exp(2*c*beta^2*norm(h-xp)^2 + 4*d*c*beta^2*eta), derived from actual norm control and Gaussian quadratic moment. Product integrability/Fubini and absolute Gaussian factor2 also compile. Full true-gradient/arc and source constant assembly remain pending.",
-  "scratch_sha256": "6c40632fc0b352fc9a4554b35368c9b37a93e8be500416dc58c7c183c58d77d9",
+  "development_result": "Source range/constants, norm-controlled field product moment, and true differentiable-function gradient product moment now compile. True gradient result includes HasGradientAt, actual Gaussian product input and bound 2*exp(10*d*eta^2*lambda^2*beta^2). Original arc pushforward transfer and log form remain pending.",
+  "scratch_sha256": "5c24029eeed22eeb4dbb380672670d0a1f20abf5ac2b353be7f6c8941b15e1ef",
   "state": "EXPLORING",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
@@ -25,5 +25,10 @@
     "result": "Independent compile and mathematical development review accepted; no integrability circularity; final finite moment retains t<1/2.",
     "reviewer": "depth_commit_verifier",
     "sha256": "fa2e2cc5e4f7f72030230ffc6a2368066754267873dd1708fe41d59fd7b1af37"
+  },
+  "independent_integral_tools": {
+    "result": "Independent focused compile and mathematical review accepted product integrability before Fubini, positional domination, factor2 and exact constants. Later source constant and true gradient assembly not covered by this review.",
+    "sha256": "6c40632fc0b352fc9a4554b35368c9b37a93e8be500416dc58c7c183c58d77d9",
+    "reviewer": "depth_commit_verifier"
   }
 }
