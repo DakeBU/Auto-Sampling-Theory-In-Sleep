@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.4 (3.1), (3.3), Lemma3.1",
   "target_statement": "For the actual gradient step T(x)=x-h grad f(x), ||T(x)-z||\u00b2+2h(f(T(x))-f(z)) <= (1-alpha*h)||x-z||\u00b2 for every comparator z.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-strong-convex-first-order"
   ],
@@ -32,8 +32,8 @@
     ],
     "independent_verification": "smoothness_review at417d096; value_blind decoder, coco_source whole-module source review, converse_source_review exact repair review. See runs/semantic-roundtrip/andi-opt-gd-value.",
     "root_build": "Canonical website/scripts/lean_gate.py -> tools/astis.py check PASS9152 at21dfd69, 2026-09-11T12:23:47.006138+00:00; Tests root covers GDV and incoming GaussianArcLaw; ATLAS/fake closure passed.",
-    "graph_regeneration": "",
-    "pr": ""
+    "graph_regeneration": "build_site.py, bounded graph-check and check_site.py passed on combined21dfd69; desktop1280/mobile390 reader and8-node Lean branch visually checked; final merged-cell state regenerated during closeout.",
+    "pr": "Direct main push, user authorized; https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/943dcde6093b2e993fceb2a3196225e2e2931e24"
   },
   "blocked": {
     "reason": "",
