@@ -2,15 +2,16 @@
   "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
   "state": "EXPLORING",
   "remaining": [
-    "Apply coordinate swap and Jensen q-a.e. to actual auxiliary exponential input; prove outer proposal bound",
-    "Transfer exponential bound under actual clipped-output density and actual mean difference",
-    "Independent complete proof/source admission and reader integration"
+    "Focused production verification",
+    "Fresh anonymous reconstruction and formal source admission",
+    "Independent fixed-commit review and integration",
+    "Original reader and actual delivery"
   ],
   "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost.",
   "development_checkpoint": {
     "scratch": ".astis/ClippedMeanExponential.lean",
-    "sha256": "21b2302d37bfddaf00a971351392811a7af998682f3adae6bfbc0242576e56e1",
-    "session": 69716,
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "session": 43574,
     "exit_code": 0,
     "log": ".astis/clipped-mean-exponential-scratch.log",
     "axioms": [
@@ -18,11 +19,33 @@
       "Classical.choice",
       "Quot.sound"
     ],
-    "result": "Five compiled helpers: true product L1 assembly, actual uniform-time/Gaussian-pair exponential bound, actual measure-preserving coordinate swap with L1/integral transfer, and Jensen exponential mean bound retaining both integrability premises. Whole compile exit0 standard3/no lint. Intermediate only; actual q-a.e. application and clipped-law transfer remain."
+    "result": "Complete scratch public clipped_mean_exponential: actual m,mB,V measurable and meanerror<=V; three actual exponential L1/integral bounds, proposal<=2exp(-K),actual clipped output excess/error<=2exp(2B-K). q-a.e. conditionalL1 beforeJensen, true clipped normalization before density transfer. Wholecompileexit0 standard3/no lint. Independent fullproof/source preaudit pending; no production yet."
   },
   "independent_development_review": {
     "reviewer": "depth_commit_verifier",
-    "sha256": "21b2302d37bfddaf00a971351392811a7af998682f3adae6bfbc0242576e56e1",
-    "result": "Independent entire five-helper scratch compile exit0 standard3/no lint. Actual (x,(r,z))->(r,(x,z)) measure-preserving equivalence, L1 and integral equality verified. Jensen retains f and exp(c*f)-1 L1, obtains exponential L1 before convexity, and uses probability constant integral1. Previous actual clipping consumer/globalL1 proofs preserved. q-a.e. application,outerbound,actualclippedlaw transfer still pending. No VERIFIED."
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "result": "Independent entire complete scratch compile exit0 standard3/no lint; actual product L1/coordinate equivalence,q-a.e. Jensen,positive normalizer before actual clipped-density transfer,all3 outerL1/explicitconstants accepted. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "result": "Full source preaudit accepted without blocker/repair; no independent compile or formal anonymous reconstruction admission.",
+    "disclosures": [
+      "Positive beta/eta/B/d,ell>=2 and source residual/step assumptions retained; no beta0 or zeroD extension here.",
+      "qhat actual clipped tilt uses parent output identification; no separate pushforward equality returned.",
+      "Three exponential-minus-one L1 bounds, not normalized RNpowers/divergence/probability conjunct.",
+      "Intermediate exponential slice L1 only q-a.e.; pointwise mean-error bound holds everyx.",
+      "Factor2 retained; no log conclusion. Ideal-target connection,normalizedRenyi,initialization and costs separate."
+    ]
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedMeanExponential.lean",
+    "test": "Tests\\SmoothedPicardHMCClippedMeanExponential.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedMeanExponential.lean": "940629f7a09511eaf1b78f486e17e7fcad287efa3039908fbaeca5b602a01ebc",
+      "Tests\\SmoothedPicardHMCClippedMeanExponential.lean": "0b4f95acd7f76a2753c9cb01088be8824352d9e8f7c1d8b447324e8861a60353"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCClippedMeanExponential",
+    "state": "Focused production build passed: exit 0, 3727 jobs; public axiom check contains only propext, Classical.choice, Quot.sound."
   }
 }

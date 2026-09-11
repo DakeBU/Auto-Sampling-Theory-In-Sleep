@@ -2,7 +2,6 @@
   "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
   "state": "MERGED",
   "remaining": [
-    "Verify merge Lean CI34620919412 currently running",
     "Whole-Goal copy/associated Lean download entry gap remains"
   ],
   "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
@@ -88,6 +87,6 @@
     "commit": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
     "merged_at": "2026-09-11T16:15:13Z",
     "candidate": "54f994e7b2fd5fb115bbbb67a73b562ad5c1b0ae",
-    "post_merge": "Merge site34620919356 SUCCESS; fresh actual HTTP200 companion/module fullce8273bd provenance confirmed. MergeLean34620919412 still running."
+    "post_merge": "Merge site34620919356 and Lean34620919412 both SUCCESS; actual HTTP200 companion/module with fullce8273bd provenance verified."
   }
 }
