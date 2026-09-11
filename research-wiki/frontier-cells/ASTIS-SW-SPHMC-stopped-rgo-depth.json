@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 fixed terminal threshold and Theorem6.5 equation(6.4)",
   "target_statement": "Fix an initial explicit state s0 and positive-dimensional finite real Hilbert Borel space E. Let kappa>=1,0<c<1/4,q>=2,0<Delta<=1/2,0<gamma<=1,C>=8. For measurable eta on the full history state with 0<eta(s)<=c, use the source normalized variance a(s)=(eta(s)+tau(b(s)))/(1+b(s)), where K(b)=(1+b)/(kappa^-1+b) and tau is K when K>=2 and c otherwise. Compute L=q+log(K(b0)*finrank(E)*q/Delta), Aterminal=gamma/(sqrt(finrank(E)*L)+L), Bterminal=1/Aterminal and J=ceil(C log(e K(b0)/Aterminal)) from s0 once. Instantiate FiniteRGOProgram with this fixed threshold and actual supplied Markov observation Q and terminal Lterm. Prove its actual absorbed transition P has (P^J(s0))(terminal states)=1 and its recursive outputs satisfy R_(J+m)(s0)=R_J(s0) for every m. Retain the explicit existing logarithmic upper bound on J. Derive pathwise termination for all observations and transport it to actual kernel laws; never assume stopping or a common deterministic eta schedule.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-finite-rgo-program",
     "ASTIS-SW-SPHMC-logarithmic-depth"
@@ -26,10 +26,21 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCStoppedRGODepth",
+        "result": "PASS3757, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedRGODepth.lean": "69efdc66657ba541d84879804393038546f0fd16e1c70da4be2408503ecc9a90",
+          "Tests/SmoothedPicardHMCStoppedRGODepth.lean": "1a3ce14fcb355fc45cbee835f8e65027f120a7175418e24b3a99b975f7d64acd"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-stopped-rgo-depth.md",
     "planning_review": "Independent source reviewer accepted actual kernel-support and output stability consumer; requires initial-state-frozen threshold, actual positive finrank, normalized smoothness disclosure and explicit sufficient depth constant.",
-    "execution_boundary": "Root sole writer; FiniteRGOProgram pending fixed-commit admission; this packet EXPLORING."
+    "execution_boundary": "Root sole writer; FiniteRGOProgram actually merged PR271. StoppedRGODepth remains outside stabilization pending formal source review.",
+    "independent_proof_review": "runs/20260911-companion-priority/stopped-rgo-depth.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent final production replay; formal source and fixed-commit admission pending."
   },
   "blocked": {
     "reason": "",

@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth

@@ -12816,6 +12816,200 @@
           "evidence": "absorbing_program proves recursion and absorption; endpoint_path includes singleton adapter; absorbing_invariant consumes proved hTC."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCStoppedRGODepth",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-stopped-rgo-depth",
+        "anchor": "Algorithm3.3 fixed terminal level and Theorem6.5 equations(6.2)-(6.4)",
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "original_text": "E is finite-dimensional over the reals with its Borel measurable structure, and d=finrank_R(E)>0. mu is any probability measure; no density or moment assumption is added.\nkappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8 are explicit scalar conditions.\neta is measurable and lies in (0,c] at every state. It may depend on precision, center, count and full padded history; there is no common predetermined sequence across all paths.\ns0 is fixed before the terminal variance B, its inverse precision threshold and J are computed. These remain fixed throughout the entire execution.\nQ and Lterm are arbitrary Markov kernels. The actual absorbed update and all finite output kernels are constructed using FiniteRGOProgram.\nSource formulas correspond to baseline smoothness one. Initial precision may be zero or already beyond the threshold. Arbitrary starting count/history is not asserted to be a valid record of previous calls.\nLet E be a finite-dimensional real inner-product Borel space of dimension d=finrank_R(E)>0 and mu a probability measure. Use states s=(b,u,k,h) in NNReal times E times Nat times E^Nat. Fix kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Let eta be measurable on the full state and satisfy 0<eta(s)<=c everywhere. Fix initial s0 and arbitrary Markov observation and terminal kernels Q,Lterm. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) when K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Compute ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=ceil(C*log(e*K(b0)/B)) once from s0. There exist an update F, a Markov state kernel P and Markov output kernels R_n. F adds 1/a(s) to precision, updates the center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. P(s)=dirac s when 1/B<=b and is the F(s,.) pushforward of Q(s) otherwise. For all n, R_n=Lterm composed with P^n. B is positive, P^J(s0) assigns mass one to the terminal set {s:1/B<=b(s)}, and for every m, R_(J+m)(s0)=R_J(s0). Finally J<=(3*C+(C/2)*log(1/gamma))*ell.",
+        "text_sha256": "b97b545eab9d8fad9d32464ab4883787ba4c01d9786f95aeeae06ea4346e6bc1"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedRGODepth.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : MeasurableSpace E] [inst_1 : NormedAddCommGroup E] [inst_2 : InnerProductSpace ℝ E] [FiniteDimensional ℝ E]\n  [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] (η : ℝ≥0 × E × ℕ × (ℕ → E) → ℝ),\n  Measurable η →\n    ∀ (κ c q Δ γ C : ℝ),\n      1 ≤ κ →\n        0 < c →\n          c < 1 / 4 →\n            (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)), 0 < η s ∧ η s ≤ c) →\n              0 < Module.finrank ℝ E →\n                2 ≤ q →\n                  0 < Δ →\n                    Δ ≤ 1 / 2 →\n                      0 < γ →\n                        γ ≤ 1 →\n                          8 ≤ C →\n                            ∀ (s0 : ℝ≥0 × E × ℕ × (ℕ → E))\n                              (Q Lterm : ProbabilityTheory.Kernel (ℝ≥0 × E × ℕ × (ℕ → E)) E)\n                              [ProbabilityTheory.IsMarkovKernel Q] [ProbabilityTheory.IsMarkovKernel Lterm],\n                              have K := fun r => (1 + r) / (κ⁻¹ + r);\n                              have τ := fun r => if 2 ≤ K r then K r else c;\n                              have a := fun s => (η s + τ ↑s.1) / (1 + ↑s.1);\n                              have L := q + Real.log (K ↑s0.1 * ↑(Module.finrank ℝ E) * q / Δ);\n                              have B := γ / (√(↑(Module.finrank ℝ E) * L) + L);\n                              have J := ⌈C * Real.log (Real.exp 1 * K ↑s0.1 / B)⌉₊;\n                              ∃ F P R,\n                                (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)) (y : E),\n                                    ↑(F (s, y)).1 = ↑s.1 + (a s)⁻¹ ∧\n                                      (F (s, y)).2 =\n                                        ((↑s.1 + (a s)⁻¹)⁻¹ • (↑s.1 • s.2.1 + (a s)⁻¹ • y), s.2.2.1 + 1, fun n =>\n                                          Nat.casesOn n y s.2.2.2)) ∧\n                                  ProbabilityTheory.IsMarkovKernel P ∧\n                                    (∀ (n : ℕ), ProbabilityTheory.IsMarkovKernel (R n)) ∧\n                                      (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)),\n                                          P s =\n                                            if B⁻¹ ≤ ↑s.1 then MeasureTheory.Measure.dirac s\n                                            else MeasureTheory.Measure.map (fun y => F (s, y)) (Q s)) ∧\n                                        (∀ (n : ℕ), R n = Lterm ∘ₖ (P ^ n)) ∧\n                                          0 < B ∧\n                                            ((P ^ J) s0) {s | B⁻¹ ≤ ↑s.1} = 1 ∧\n                                              (∀ (m : ℕ), (R (J + m)) s0 = (R J) s0) ∧\n                                                ↑J ≤ (3 * C + C / 2 * Real.log (1 / γ)) * L",
+        "statement_sha256": "f8accd7626b16c62525db43f85ee4c0fdac05e176ba3f51e067d5e7fcc25f87f",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Production and independent focused PASS3757 standard axioms; independent complete scratch and localized production reviews accepted. Fixed-commit admission remains separate.",
+        "decoder_context": [
+          "Measure E is a countably additive measure. IsProbabilityMeasure means mass one. Kernel X Y is a measurable assignment of measures on Y to X; IsMarkovKernel means each fiber has mass one.",
+          "The state is the right-associated product NNReal times E times Nat times (Nat to E), with product measurable structures. For s=(b,u,k,h), s.1=b, s.2.1=u, s.2.2.1=k and s.2.2.2=h. Nat.casesOn n y h equals y at zero and h(m) when n=m+1.",
+          "Module.finrank R E is the dimension of E as an R vector space. Real.log is the natural logarithm; Real.exp 1 is e; Nat.ceil is the nonnegative integer ceiling; real casts of naturals and NNReal are used explicitly.",
+          "Measure.dirac s is the point mass at s, and Measure.map f mu is pushforward. A kernel evaluated at s and then a measurable set is the mass of that set under its fiber.",
+          "Kernel composition L circle_k P first applies P and then L. P^0 is the identity kernel and P^n composes n copies of P. Equality R n = L composed with P^n is equality of entire kernels, whereas equality R(J+m)(s0)=R(J)(s0) concerns only the displayed initial-state fibers."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "pending"
+      },
+      "publication_binding_sha256": "47c1534ae93dcc94a59cc56d672b94e83a01091846b626ed3bc6893e1a87d5df",
+      "publication_context": {
+        "file": "e4b9ff35f555768449a0b8da95e529ef08526c6c797f90f0ec7866d0e2beee3a",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth\n\n/-!\n# Actual stopped RGO depth and finite-cap stability\n\nSource: SPHMC arXiv:2609.06906v1 Algorithm 3.3 and Theorem 6.5, (6.2)-(6.4).\nFix the initial state first. Its terminal variance threshold and logarithmic\nstage bound remain fixed throughout the execution. The smoothing parameter\nmay depend measurably on the complete current state and observation history.\n\nThe source scalar formulas below use baseline smoothness normalized to one.\nThe dimension is the actual positive real finrank. C >= 8 is an explicit\nsufficient constant proved in LogarithmicDepth, not a numerical choice quoted\nfrom the paper. General smoothness requires the separate source scaling.\n\nThe proof invokes the actual FiniteRGOProgram, establishes probability-one\nterminal support at J, and hence proves output stability for all larger caps\nat the same initial state. It does not construct the concrete smoothed sampler\nor FORS, validate arbitrary initialized histories, or bound approximation error\nor expected gradient queries. Absorbing-state map representations add no oracle\ncalls. Different initial states need not share a threshold, transition or J.\n-/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth\n\nvariable {E : Type*} [MeasurableSpace E] [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [BorelSpace E]\nlocal notation \"PS\" => ℝ≥0 × E × ℕ × (ℕ → E)\n\n/-- With the source variance schedule and fixed initial-state threshold, the actual\nabsorbed RGO program reaches the terminal set by the explicit logarithmic stage bound.\nIts output law at that initial state is unchanged by any further cap extension. -/\ntheorem stopped_rgo_depth (μ : Measure E) [IsProbabilityMeasure μ]\n    (η : PS → ℝ) (hηm : Measurable η) (κ c q Δ γ C : ℝ)\n    (hκ : 1 ≤ κ) (hc : 0 < c) (hc1 : c < 1/4)\n    (hη : ∀ s, 0 < η s ∧ η s ≤ c) (hd : 0 < Module.finrank ℝ E) (hq : 2 ≤ q)\n    (hΔ : 0 < Δ) (hΔ1 : Δ ≤ 1/2) (hγ : 0 < γ) (hγ1 : γ ≤ 1) (hC : 8 ≤ C)\n    (s0 : PS) (Q Lterm : Kernel PS E) [IsMarkovKernel Q] [IsMarkovKernel Lterm] :\n    let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n    let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n    let a := fun s : PS => (η s+τ s.1)/(1+s.1)\n    let L := q+Real.log (K s0.1*Module.finrank ℝ E*q/Δ)\n    let B := γ/(Real.sqrt (Module.finrank ℝ E*L)+L)\n    let J := Nat.ceil (C*Real.log (Real.exp 1*K s0.1/B))\n    ∃ (F : PS × E → PS) (P : Kernel PS PS) (R : ℕ → Kernel PS E),\n      (∀ s y, ((F (s,y)).1 : ℝ) = (s.1 : ℝ)+(a s)⁻¹ ∧\n        (F (s,y)).2 =\n         (((s.1 : ℝ)+(a s)⁻¹)⁻¹ • ((s.1 : ℝ) • s.2.1+(a s)⁻¹ • y),\n          s.2.2.1+1,fun n => Nat.casesOn n y s.2.2.2)) ∧\n      IsMarkovKernel P ∧ (∀ n, IsMarkovKernel (R n)) ∧\n      (∀ s, P s = if B⁻¹ ≤ (s.1 : ℝ) then Measure.dirac s else\n        (Q s).map (fun y => F (s,y))) ∧\n      (∀ n, R n = Lterm ∘ₖ (P^n)) ∧\n      0 < B ∧ (P^J) s0 {s | B⁻¹ ≤ (s.1 : ℝ)} = 1 ∧\n      (∀ m, R (J+m) s0 = R J s0) ∧\n      (J : ℝ) ≤ (3*C+(C/2)*Real.log (1/γ))*L := by\n  classical\n  let statePath (G : PS × E → PS) (s : PS) (ys : ℕ → E) : ℕ → PS :=\n    Nat.rec s (fun n x => G (x,ys n))\n  have statePath_shift (G : (PS) × E → (PS)) (n : ℕ) (s : (PS)) (ys : ℕ → E) :\n      statePath G s ys (n+1) = statePath G (G (s,ys 0)) (fun k => ys (k+1)) n := by\n    induction n with\n    | zero => rfl\n    | succ n ih =>\n      change G (statePath G s ys (n+1),ys (n+1)) =\n        G (statePath G (G (s,ys 0)) (fun k => ys (k+1)) n,ys (n+1))\n      rw [ih]\n  have path_endpoint_mass (G : (PS) × E → (PS)) (hG : Measurable G)\n      (Q : Kernel (PS) E) [IsMarkovKernel Q] (P : Kernel (PS) (PS)) [IsMarkovKernel P]\n      (hP : ∀ s, P s = (Q s).map (fun y => G (s,y)))\n      (D : Set (PS)) (hD : MeasurableSet D) (n : ℕ) (s : (PS))\n      (hpaths : ∀ ys : ℕ → E, statePath G s ys n ∈ D) [Nonempty E] :\n      (P^n) s D = 1 := by\n    have hp (k : ℕ) : IsMarkovKernel (P^k) := by\n      induction k with\n      | zero => change IsMarkovKernel Kernel.id; infer_instance\n      | succ k ih =>\n        let := ih\n        rw [pow_succ]\n        change IsMarkovKernel ((P^k) ∘ₖ P)\n        infer_instance\n    induction n generalizing s with\n    | zero =>\n      classical\n      have hs := hpaths (fun _ => Classical.choice inferInstance)\n      change Measure.dirac s D = 1\n      exact Measure.dirac_apply_of_mem hs\n    | succ n ih =>\n      let := hp n\n      rw [pow_succ]\n      change ((P^n) ∘ₖ P) s D = 1\n      rw [Kernel.comp_apply' _ _ _ hD,hP,\n        lintegral_map ((P^n).measurable_coe hD)\n          (show Measurable (fun y : E => G (s,y)) from hG.comp measurable_prodMk_left)]\n      have hall (y : E) : (P^n) (G (s,y)) D = 1 := by\n        apply ih\n        intro ys\n        have hh := hpaths (fun k => Nat.casesOn k y ys)\n        rw [statePath_shift] at hh\n        exact hh\n      simp_rw [hall]\n      simp\n  have absorbed_precision_path (b : (PS) → ℝ) (η : (PS) → ℝ) (τ : ℝ → ℝ)\n      (F : (PS) × E → (PS)) (threshold : ℝ)\n      (hF : ∀ s y, b (F (s,y)) = b s + ((η s + τ (b s))/(1+b s))⁻¹)\n      (s0 : (PS)) (ys : ℕ → E) :\n      let G : (PS) × E → (PS) := fun p => if threshold ≤ b p.1 then p.1 else F p\n      let x := statePath G s0 ys\n      let r : ℕ → ℝ := Nat.rec (b s0) (fun n r => r + ((η (x n)+τ r)/(1+r))⁻¹)\n      ∀ n, threshold ≤ b (x n) ∨ b (x n) = r n := by\n    classical\n    intro G x r n\n    induction n with\n    | zero => exact Or.inr rfl\n    | succ n ih =>\n      have hx : x (n+1) = G (x n,ys n) := rfl\n      by_cases hs : threshold ≤ b (x n)\n      · left\n        rw [hx,show G (x n,ys n) = x n from if_pos hs]\n        exact hs\n      · right\n        have heq := ih.resolve_left hs\n        rw [hx,show G (x n,ys n) = F (x n,ys n) from if_neg hs,hF]\n        change b (x n) + ((η (x n)+τ (b (x n)))/(1+b (x n)))⁻¹ =\n          r n + ((η (x n)+τ (r n))/(1+r n))⁻¹\n        rw [heq]\n  have pathwise_log_depth (b : (PS) → ℝ) (η : (PS) → ℝ) (F : (PS) × E → (PS))\n      (κ c q Δ γ C : ℝ) (d : ℕ) (s0 : (PS))\n      (hκ : 1 ≤ κ) (hc : 0 < c) (hc1 : c < 1/4) (hb0 : 0 ≤ b s0)\n      (hη : ∀ s, 0 < η s ∧ η s ≤ c) (hd : 0 < d) (hq : 2 ≤ q)\n      (hΔ : 0 < Δ) (hΔ1 : Δ ≤ 1/2) (hγ : 0 < γ) (hγ1 : γ ≤ 1) (hC : 8 ≤ C) :\n      let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n      let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n      let L := q+Real.log (K (b s0)*d*q/Δ)\n      let B := γ/(Real.sqrt (d*L)+L)\n      let J := Nat.ceil (C*Real.log (Real.exp 1*K (b s0)/B))\n      (∀ s y, b (F (s,y)) = b s + ((η s+τ (b s))/(1+b s))⁻¹) →\n      ∀ ys : ℕ → E,\n        let G : (PS) × E → (PS) := fun p => if B⁻¹ ≤ b p.1 then p.1 else F p\n        B⁻¹ ≤ b (statePath G s0 ys J) := by\n    classical\n    intro K τ L B J hF ys G\n    let x := statePath G s0 ys\n    let r : ℕ → ℝ := Nat.rec (b s0) (fun n r => r + ((η (x n)+τ r)/(1+r))⁻¹)\n    have hh := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth\n      (η := fun n => η (x n)) hκ hc hc1 hb0 (fun n => hη (x n)) hd hq hΔ hΔ1 hγ hγ1 hC\n    change 2 ≤ L ∧ (0 < B ∧ B ≤ 1) ∧ 0 < J ∧ 0 < (r J)⁻¹ ∧ (r J)⁻¹ ≤ B ∧ _ at hh\n    obtain ⟨hL,hB,hJ,hrpos,hrB,hJbound⟩ := hh\n    have hr : 0 < r J := inv_pos.mp hrpos\n    have hbJ : B⁻¹ ≤ r J := by\n      rw [inv_eq_one_div]\n      apply (div_le_iff₀ hB.1).2\n      have hm : 1 ≤ B * r J := (div_le_iff₀ hr).1 (by simpa [one_div] using hrB)\n      simpa [mul_comm] using hm\n    have hinv := absorbed_precision_path b η τ F B⁻¹ hF s0 ys J\n    change B⁻¹ ≤ b (x J) ∨ b (x J) = r J at hinv\n    rcases hinv with h | h\n    · exact h\n    · change B⁻¹ ≤ b (x J)\n      rw [h]\n      exact hbJ\n  have source_variance (b : (PS) → ℝ) (hb : Measurable b) (hb0 : ∀ s, 0 ≤ b s)\n      (η : (PS) → ℝ) (hη : Measurable η) (hη0 : ∀ s, 0 < η s) (κ c : ℝ) (hc : 0 < c) :\n      let K := fun s => (1+b s)/(κ⁻¹+b s)\n      let τ := fun s => if 2 ≤ K s then K s else c\n      let a := fun s => (η s+τ s)/(1+b s)\n      Measurable a ∧ ∀ s, 0 < a s := by\n    intro K τ a\n    have hK : Measurable K := by dsimp [K]; fun_prop\n    have hτ : Measurable τ := Measurable.ite\n      (measurableSet_le measurable_const hK) hK measurable_const\n    refine ⟨(hη.add hτ).div (measurable_const.add hb),?_⟩\n    intro s\n    have ht : 0 < τ s := by\n      dsimp only [τ]\n      split_ifs with h\n      · linarith\n      · exact hc\n    exact div_pos (add_pos (hη0 s) ht) (by linarith [hb0 s])\n  have finite_output_stability (P : Kernel (PS) (PS)) [IsMarkovKernel P]\n      (L : Kernel (PS) E) [IsMarkovKernel L] (R : ℕ → Kernel (PS) E)\n      (hR : ∀ n, R n = L ∘ₖ (P^n)) (D : Set (PS)) (hD : MeasurableSet D)\n      (hstop : ∀ n s, s ∈ D → R n s = L s) (J : ℕ) (s : (PS))\n      (hmass : (P^J) s D = 1) : ∀ m, R (J+m) s = R J s := by\n    have hp (k : ℕ) : IsMarkovKernel (P^k) := by\n      induction k with\n      | zero => change IsMarkovKernel Kernel.id; infer_instance\n      | succ k ih =>\n        let := ih\n        rw [pow_succ]\n        change IsMarkovKernel ((P^k) ∘ₖ P)\n        infer_instance\n    let := hp J\n    have hae : ∀ᵐ t ∂((P^J) s), t ∈ D := (mem_ae_iff_prob_eq_one hD).2 hmass\n    intro m\n    let := hp m\n    rw [hR (J+m),Nat.add_comm J m,pow_add]\n    change (L ∘ₖ ((P^m) ∘ₖ (P^J))) s = R J s\n    rw [← Kernel.comp_assoc,← hR m,hR J,Kernel.comp_apply,Kernel.comp_apply]\n    apply Measure.bind_congr_right\n    filter_upwards [hae] with t ht\n    exact hstop m t ht\n  intro K τ a L B J\n  have hb : Measurable (fun s : PS => (s.1 : ℝ)) := by fun_prop\n  have hva := source_variance (fun s : PS => (s.1 : ℝ)) hb (fun s => s.1.coe_nonneg)\n    η hηm (fun s => (hη s).1) κ c hc\n  change Measurable a ∧ (∀ s, 0 < a s) at hva\n  obtain ⟨ha,ha0⟩ := hva\n  have hdepth := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth\n    (r₀ := (s0.1 : ℝ)) (η := fun _ => c) hκ hc hc1 s0.1.coe_nonneg\n    (fun _ => ⟨hc,le_rfl⟩) hd hq hΔ hΔ1 hγ hγ1 hC\n  change 2 ≤ L ∧ (0 < B ∧ B ≤ 1) ∧ 0 < J ∧ _ ∧ _ ∧\n    (J : ℝ) ≤ (3*C+(C/2)*Real.log (1/γ))*L at hdepth\n  have hB := hdepth.2.1.1\n  have hJB := hdepth.2.2.2.2.2\n  let threshold : ℝ≥0 := ⟨B⁻¹,le_of_lt (inv_pos.mpr hB)⟩\n  let F : PS × E → PS := fun p =>\n      (⟨(p.1.1 : ℝ)+(a p.1)⁻¹, add_nonneg p.1.1.coe_nonneg (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n       ((p.1.1 : ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1 : ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n       p.1.2.2.1+1, fun n => Nat.casesOn n p.2 p.1.2.2.2)\n  have hF : Measurable F := by\n    apply Measurable.prodMk\n    · exact Measurable.subtype_mk (by fun_prop)\n    · apply Measurable.prodMk\n      · fun_prop\n      · apply Measurable.prodMk\n        · fun_prop\n        · apply measurable_pi_lambda\n          intro n\n          cases n <;> fun_prop\n  obtain ⟨T,H,hT,hH,hTf,hHf,hprog⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program μ a ha ha0 threshold\n  obtain ⟨P,R,hP,hR,hPf,hzero,hrec,hstop,hpath,hideal⟩ := hprog Q Lterm inferInstance inferInstance\n  let := hP\n  let D : Set PS := {s | B⁻¹ ≤ (s.1 : ℝ)}\n  have hD : MeasurableSet D := measurableSet_le measurable_const hb\n  let G : PS × E → PS := fun p => if B⁻¹ ≤ (p.1.1 : ℝ) then p.1 else F p\n  have hG : Measurable G := Measurable.ite\n    (measurableSet_le measurable_const (hb.comp measurable_fst)) measurable_fst hF\n  have hcompare (s : PS) : (threshold ≤ s.1) ↔ B⁻¹ ≤ (s.1 : ℝ) := Iff.rfl\n  have hPf' (s : PS) : P s = if B⁻¹ ≤ (s.1 : ℝ) then Measure.dirac s else\n      (Q s).map (fun y => F (s,y)) := by\n    rw [hPf]\n    rfl\n  have hPmap (s : PS) : P s = (Q s).map (fun y => G (s,y)) := by\n    rw [hPf']\n    by_cases hs : B⁻¹ ≤ (s.1 : ℝ)\n    · simp only [if_pos hs,G]\n      simp [Measure.map_const]\n    · simp only [if_neg hs,G]\n  have hmass : (P^J) s0 D = 1 := by\n    apply path_endpoint_mass G hG Q P hPmap D hD J s0\n    intro ys\n    exact pathwise_log_depth (fun s : PS => (s.1 : ℝ)) η F κ c q Δ γ C\n      (Module.finrank ℝ E) s0 hκ hc hc1 s0.1.coe_nonneg hη hd hq hΔ hΔ1 hγ hγ1 hC\n      (fun _ _ => rfl) ys\n  have hRstep (n : ℕ) : R (n+1) = R n ∘ₖ P := by\n    ext s t ht\n    rw [Kernel.comp_apply,hPf,hrec]\n    by_cases hs : threshold ≤ s.1\n    · rw [if_pos hs,if_pos hs,Measure.dirac_bind (R n).measurable,hstop n s hs]\n    · rw [if_neg hs,if_neg hs]\n      change ((Q s).bind (fun y => R n (F (s,y)))) t =\n        (((Q s).map (fun y => F (s,y))).bind (R n)) t\n      rw [Measure.bind_apply ht (show AEMeasurable (fun y : E => R n (F (s,y))) (Q s)\n          from ((R n).measurable.comp (hF.comp measurable_prodMk_left)).aemeasurable),\n        Measure.bind_apply ht (R n).aemeasurable]\n      exact (lintegral_map ((R n).measurable_coe ht)\n        (show Measurable (fun y : E => F (s,y)) from hF.comp measurable_prodMk_left)).symm\n  have hRp (n : ℕ) : R n = Lterm ∘ₖ (P^n) := by\n    induction n with\n    | zero =>\n      change R 0 = Lterm ∘ₖ Kernel.id\n      rw [Kernel.comp_id,hzero]\n    | succ n ih =>\n      rw [hRstep,ih,pow_succ]\n      exact Kernel.comp_assoc Lterm (P^n) P\n  refine ⟨F,P,R,fun _ _ => ⟨rfl,rfl⟩,hP,hR,hPf',hRp,hB,hmass,?_,hJB⟩\n  exact finite_output_stability P Lterm R hRp D hD\n    (fun n s hs => hstop n s ((hcompare s).2 hs)) J s0 hmass\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Algorithm3.3 fixed terminal level and Theorem6.5 equations(6.2)-(6.4)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded absorbed execution and stopping semantics, no author endorsement implied."
+        },
+        "statement": "Let E be a finite-dimensional real inner-product Borel space of dimension d=finrank_R(E)>0 and mu a probability measure. Use states s=(b,u,k,h) in NNReal times E times Nat times E^Nat. Fix kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Let eta be measurable on the full state and satisfy 0<eta(s)<=c everywhere. Fix initial s0 and arbitrary Markov observation and terminal kernels Q,Lterm. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) when K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Compute ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=ceil(C*log(e*K(b0)/B)) once from s0. There exist an update F, a Markov state kernel P and Markov output kernels R_n. F adds 1/a(s) to precision, updates the center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. P(s)=dirac s when 1/B<=b and is the F(s,.) pushforward of Q(s) otherwise. For all n, R_n=Lterm composed with P^n. B is positive, P^J(s0) assigns mass one to the terminal set {s:1/B<=b(s)}, and for every m, R_(J+m)(s0)=R_J(s0). Finally J<=(3*C+(C/2)*log(1/gamma))*ell.",
+        "formulae": [
+          {
+            "label": "Actual stopping and output stability",
+            "tex": "(P^J(s_0))(D)=1,\\quad D=\\{s:B^{-1}\\le b(s)\\},\\qquad R_{J+m}(s_0)=R_J(s_0),\\quad J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)\\ell."
+          }
+        ],
+        "assumptions": [
+          "E is finite-dimensional over the reals with its Borel measurable structure, and d=finrank_R(E)>0. mu is any probability measure; no density or moment assumption is added.",
+          "kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8 are explicit scalar conditions.",
+          "eta is measurable and lies in (0,c] at every state. It may depend on precision, center, count and full padded history; there is no common predetermined sequence across all paths.",
+          "s0 is fixed before the terminal variance B, its inverse precision threshold and J are computed. These remain fixed throughout the entire execution.",
+          "Q and Lterm are arbitrary Markov kernels. The actual absorbed update and all finite output kernels are constructed using FiniteRGOProgram.",
+          "Source formulas correspond to baseline smoothness one. Initial precision may be zero or already beyond the threshold. Arbitrary starting count/history is not asserted to be a valid record of previous calls."
+        ],
+        "obligations": [
+          {
+            "id": "stopped-rgo-depth",
+            "label": "Actual terminal support by source depth and stability beyond the cap"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+          "title": "Actual RGO stopping depth and stability beyond the finite cap",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC v1 Algorithm 3.3 and Theorem 6.5, equations (6.2)-(6.4)",
+              "scope": "Actual absorbed state execution with source-shaped variance and fixed initial-state terminal level; not error or gradient-query complexity."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCStoppedRGODepth"
+          ],
+          "statement": "Let E be a finite-dimensional real inner-product Borel space of dimension d=finrank_R(E)>0 and mu a probability measure. Use states s=(b,u,k,h) in NNReal times E times Nat times E^Nat. Fix kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Let eta be measurable on the full state and satisfy 0<eta(s)<=c everywhere. Fix initial s0 and arbitrary Markov observation and terminal kernels Q,Lterm. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) when K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Compute ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=ceil(C*log(e*K(b0)/B)) once from s0. There exist an update F, a Markov state kernel P and Markov output kernels R_n. F adds 1/a(s) to precision, updates the center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. P(s)=dirac s when 1/B<=b and is the F(s,.) pushforward of Q(s) otherwise. For all n, R_n=Lterm composed with P^n. B is positive, P^J(s0) assigns mass one to the terminal set {s:1/B<=b(s)}, and for every m, R_(J+m)(s0)=R_J(s0). Finally J<=(3*C+(C/2)*log(1/gamma))*ell.",
+          "formula": "(P^J(s_0))(D)=1,\\quad D=\\{s:B^{-1}\\le b(s)\\},\\qquad R_{J+m}(s_0)=R_J(s_0),\\quad J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)\\ell.",
+          "assumptions": [
+            "E is finite-dimensional over the reals with its Borel measurable structure, and d=finrank_R(E)>0. mu is any probability measure; no density or moment assumption is added.",
+            "kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8 are explicit scalar conditions.",
+            "eta is measurable and lies in (0,c] at every state. It may depend on precision, center, count and full padded history; there is no common predetermined sequence across all paths.",
+            "s0 is fixed before the terminal variance B, its inverse precision threshold and J are computed. These remain fixed throughout the entire execution.",
+            "Q and Lterm are arbitrary Markov kernels. The actual absorbed update and all finite output kernels are constructed using FiniteRGOProgram.",
+            "Source formulas correspond to baseline smoothness one. Initial precision may be zero or already beyond the threshold. Arbitrary starting count/history is not asserted to be a valid record of previous calls."
+          ],
+          "steps": [
+            {
+              "title": "Construct the positive measurable source variance",
+              "text": "K composed with the precision coordinate is measurable, as is its comparison with two. The piecewise heat duration is measurable and positive: on its first branch it is at least two, and on the other it is c>0. The positive eta and denominator 1+b give a positive measurable a. A call to LogarithmicDepth with the auxiliary constant sequence c extracts B>0 and the explicit J bound, which depend only on the initial parameters. This auxiliary call is not used to replace the actual history-dependent schedule.",
+              "formula": "a(s)=\\frac{\\eta(s)+\\tau(b(s))}{1+b(s)}>0,\\qquad B=\\frac{\\gamma}{\\sqrt{d\\ell}+\\ell},\\quad J=\\left\\lceil C\\log\\frac{eK(b_0)}B\\right\\rceil.",
+              "lean": "Local source_variance; Measurable.ite; first LogarithmicDepth.terminal_depth invocation with constant c only for threshold positivity and the initial-data depth bound."
+            },
+            {
+              "title": "Instantiate the same explicit absorbed finite program",
+              "text": "Invoke FiniteRGOProgram with a and the fixed nonnegative threshold 1/B. Its actual update F changes precision, center, count and history. It supplies P and all R_n with the stopped and continuing recursion. Define G(s,y)=s at terminal states and F(s,y) elsewhere. P(s) is also the G(s,.) pushforward of Q(s): on the stopped branch a probability measure pushed through a constant map is dirac s. This representation does not add actual calls after stopping.",
+              "formula": "G(s,y)=\\begin{cases}s,&B^{-1}\\le b(s),\\\\F(s,y),&b(s)<B^{-1},\\end{cases}\\qquad P(s)=G(s,\\cdot)_\\#Q(s).",
+              "lean": "FiniteRGOProgram.finite_rgo_program; measurable product update, Measurable.ite, hPmap and Measure.map_const."
+            },
+            {
+              "title": "Prove every observation path reaches the threshold",
+              "text": "For an arbitrary observation sequence, follow the actual absorbed state path x_n. Define eta_n=eta(x_n), which satisfies the same positive upper bound on every path. Compare its precision with the unabsorbed scalar recursion driven by this particular sequence. Induction proves that x_n has already stopped or its precision equals that recursion. Apply LogarithmicDepth to eta_n. At J the auxiliary inverse precision is at most B, so either branch of the invariant implies that x_J is terminal. This is a pathwise use of a universally quantified sequence theorem, not a common schedule assumption.",
+              "formula": "B^{-1}\\le b(x_n)\\ \\text{or}\\ b(x_n)=r_n,\\qquad r_{n+1}=r_n+\\left(\\frac{\\eta(x_n)+\\tau(r_n)}{1+r_n}\\right)^{-1},\\qquad B^{-1}\\le b(x_J).",
+              "lean": "Local absorbed_precision_path and pathwise_log_depth; second LogarithmicDepth.terminal_depth invocation uses the actual path eta(x_n)."
+            },
+            {
+              "title": "Transfer the pathwise conclusion to the actual law",
+              "text": "For any depth n, if every observation sequence from a state has endpoint in a measurable set D, prove that P^n assigns D mass one. The zero-depth case is a point mass. For the successor, express P as the pushforward under G and integrate the n-step event mass. Each possible first observation leaves a shorter path whose every continuation ends in D, so the induction hypothesis makes the integrand one. Apply this result to the pathwise J bound and the measurable terminal set.",
+              "formula": "\\bigl[\\forall(y_0,y_1,\\ldots),\\ x_n\\in D\\bigr]\\Longrightarrow(P^n(s))(D)=1,\\qquad (P^J(s_0))(D)=1.",
+              "lean": "Local statePath_shift and path_endpoint_mass; Kernel.comp_apply, lintegral_map and probability normalization."
+            },
+            {
+              "title": "Identify recursive outputs with transition powers",
+              "text": "Use the actual finite-program recursion to show R_(n+1)=R_n composed with P. At stopped states, the point-mass transition and the already proved stopped output R_n(s)=Lterm(s) give the equality. On continuing states, pushforward integration gives precisely the same recursive bind. Induction starting from R_0=Lterm yields R_n=Lterm composed with P^n.",
+              "formula": "R_{n+1}=R_n\\circ_k P,\\qquad R_0=L_{\\rm term},\\qquad R_n=L_{\\rm term}\\circ_k P^n.",
+              "lean": "Main hRstep and hRp; actual hrec/hstop from FiniteRGOProgram, Measure.dirac_bind, Measure.bind_apply, lintegral_map and Kernel.comp_assoc."
+            },
+            {
+              "title": "Remove every larger finite cap at the fixed initial state",
+              "text": "Split J+m transitions into the first J and the remaining m. The J-step law is concentrated on terminal states, and on those states R_m equals Lterm. Their equality holds almost everywhere under that actual law, so binding with R_m or Lterm gives the same measure. This proves R_(J+m)(s0)=R_J(s0) for every m. It eliminates premature cap use for this execution without identifying the terminal sampler or its query cost.",
+              "formula": "R_{J+m}(s_0)=\\int R_m(s)\\,(P^J(s_0))(ds)=\\int L_{\\rm term}(s)\\,(P^J(s_0))(ds)=R_J(s_0).",
+              "lean": "Local finite_output_stability; mem_ae_iff_prob_eq_one, Measure.bind_congr_right, pow_add and Kernel.comp_assoc."
+            }
+          ],
+          "lean_statement": "Actual source-shaped absorbed state program reaches its fixed initial-state terminal threshold at the explicit logarithmic depth and has stable output for every larger finite cap.",
+          "lean_proof": "Measurable positive source variance, actual finite-program construction, pathwise depth, kernel-support induction and terminal almost-everywhere output identity.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth"
+          ],
+          "mathlib_dependencies": [
+            "Measurable.ite",
+            "MeasureTheory.Measure.map_const",
+            "ProbabilityTheory.Kernel.comp_assoc",
+            "MeasureTheory.Measure.bind_apply",
+            "MeasureTheory.lintegral_map",
+            "MeasureTheory.mem_ae_iff_prob_eq_one",
+            "MeasureTheory.Measure.bind_congr_right"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+          "role": "prerequisite",
+          "supports": [
+            "stopped-rgo-depth"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "The paper uses a Euclidean Gibbs target.",
+            "lean": "Any probability base on a positive-dimensional finite real Hilbert Borel space."
+          },
+          {
+            "source": "Normalized recursive variance is (eta+tau)/beta_A, with condition number determined by the current regularization.",
+            "lean": "a(s)=(eta(s)+tau(b))/(1+b), K(b)=(1+b)/(kappa^-1+b)."
+          },
+          {
+            "source": "A terminal level is fixed for the recursive execution; equation(6.4) selects a logarithmic stage bound.",
+            "lean": "Compute B and J from s0 once, then construct the fixed-threshold P and all R."
+          },
+          {
+            "source": "Sufficiently small and large universal constants select the terminal level and depth.",
+            "lean": "0<c<1/4,0<gamma<=1,C>=8; J<=(3C+(C/2)log(1/gamma))*ell."
+          },
+          {
+            "source": "The smoothing level is selected for each call and bounded by c.",
+            "lean": "Measurable eta on the full current state with 0<eta(s)<=c; actual absorbed paths induce their own eta sequences."
+          },
+          {
+            "source": "Full recursive sampler has FORS, approximation guarantees and query costs.",
+            "lean": "Any Markov Q,Lterm yield terminal support mass one by J and unchanged output at every larger cap."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional real inner-product Borel space with actual real dimension d>0, mu any probability measure on E, and S=NNReal times E times Nat times E^Nat. Write s=(b,u,k,h), casting b to a real in arithmetic. For any measurable eta:S to R, parameters kappa,c,q,Delta,gamma,C satisfying kappa>=1,0<c<1/4,0<eta(s)<=c for every state,q>=2,0<Delta<=1/2,0<gamma<=1,C>=8, any initial s0=(b0,u0,k0,h0) and any Markov kernels Q,Lterm:S to E, define K(r)=(1+r)/(kappa^-1+r), tau(r)=K(r) if K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Put ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=Nat.ceil(C*log(e*K(b0)/B)).\nThere exist a function F:S times E to S, a kernel P:S to S and a sequence R_n:S to E. For all s,y, the real cast of the first coordinate of F(s,y) is b_new=b+1/a(s), and its other coordinates are exactly b_new^-1*(b*u+y/a(s)),k+1,h_new, where h_new(0)=y and h_new(n+1)=h(n). Vector products mean scalar multiplication. P and every R_n are Markov. For every state s, P(s)=dirac s if b>=1/B, and otherwise P(s) is the pushforward of Q(s) by y to F(s,y). For every n, the entire kernel R_n equals Lterm composed with P^n, applying P^n first; P^0 is identity.\nB>0. The J-step state law from the specified s0 assigns mass one to states with precision at least 1/B. For every m, R_(J+m)(s0)=R_J(s0) as output measures at that initial state only, not necessarily as entire kernels. Finally J, cast to a real, is at most (3*C+(C/2)*log(1/gamma))*ell.\nK depends on kappa; tau on kappa,c; a on eta,kappa,c and current state. ell depends on q,kappa,b0,d,Delta; B additionally on gamma; J additionally on C. These constants do not depend on Q,Lterm,mu or the other initial coordinates. The stopping threshold is fixed using s0 although the fiber formula for P holds globally. The existential witnesses follow all supplied data. mu is supplied as a probability measure but does not otherwise occur in the displayed conditions or conclusion; no relation between mu,Q,Lterm beyond probability/Markov assumptions is stated. eta needs only measurability and the global bounds. Measurability of F is not a separate asserted conclusion.",
+        "text_sha256": "473a6d03ad9a261bf7c3b9b07766a2f8447ca147d458ef1480c379075e4912d2",
+        "decoder_packet_sha256": "e26ea94c278de869c44008e7927a448879c7eb1dfca851c7c0aa563e9a227298",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "stopped_blind_decoder",
+        "notes": [
+          "Fresh decoder preserved initial-state-frozen threshold, actual finrank, mass-one termination, fiber-only cap stability and exact depth coefficient. No query-cost conclusion inferred; mu is structurally supplied and F measurability is not a public conjunct."
+        ],
+        "decoder_run_sha256": "4e93668923f36c9c5e2133796a2decf3451f0a8e40600cb7a4cb6b6d662659bc",
+        "lean_statement_sha256": "f8accd7626b16c62525db43f85ee4c0fdac05e176ba3f51e067d5e7fcc25f87f",
+        "run_artifact": "runs/20260911-companion-priority/stopped-rgo-depth.decoder-result.json"
+      }
     }
   ]
 }

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-stopped-rgo-depth",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual RGO stopping depth and stability beyond the finite cap",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3 fixed terminal level and Theorem6.5 equations(6.2)-(6.4)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded absorbed execution and stopping semantics, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product Borel space of dimension d=finrank_R(E)>0 and mu a probability measure. Use states s=(b,u,k,h) in NNReal times E times Nat times E^Nat. Fix kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Let eta be measurable on the full state and satisfy 0<eta(s)<=c everywhere. Fix initial s0 and arbitrary Markov observation and terminal kernels Q,Lterm. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) when K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Compute ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=ceil(C*log(e*K(b0)/B)) once from s0. There exist an update F, a Markov state kernel P and Markov output kernels R_n. F adds 1/a(s) to precision, updates the center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. P(s)=dirac s when 1/B<=b and is the F(s,.) pushforward of Q(s) otherwise. For all n, R_n=Lterm composed with P^n. B is positive, P^J(s0) assigns mass one to the terminal set {s:1/B<=b(s)}, and for every m, R_(J+m)(s0)=R_J(s0). Finally J<=(3*C+(C/2)*log(1/gamma))*ell.",
+      "assumptions": [
+        "E is finite-dimensional over the reals with its Borel measurable structure, and d=finrank_R(E)>0. mu is any probability measure; no density or moment assumption is added.",
+        "kappa>=1, 0<c<1/4, q>=2, 0<Delta<=1/2, 0<gamma<=1 and C>=8 are explicit scalar conditions.",
+        "eta is measurable and lies in (0,c] at every state. It may depend on precision, center, count and full padded history; there is no common predetermined sequence across all paths.",
+        "s0 is fixed before the terminal variance B, its inverse precision threshold and J are computed. These remain fixed throughout the entire execution.",
+        "Q and Lterm are arbitrary Markov kernels. The actual absorbed update and all finite output kernels are constructed using FiniteRGOProgram.",
+        "Source formulas correspond to baseline smoothness one. Initial precision may be zero or already beyond the threshold. Arbitrary starting count/history is not asserted to be a valid record of previous calls."
+      ],
+      "formulae": [
+        {
+          "label": "Actual stopping and output stability",
+          "tex": "(P^J(s_0))(D)=1,\\quad D=\\{s:B^{-1}\\le b(s)\\},\\qquad R_{J+m}(s_0)=R_J(s_0),\\quad J\\le\\left(3C+\\frac C2\\log\\frac1\\gamma\\right)\\ell."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "stopped-rgo-depth",
+          "label": "Actual terminal support by source depth and stability beyond the cap"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+          "cell": "ASTIS-SW-SPHMC-stopped-rgo-depth",
+          "role": "prerequisite",
+          "supports": [
+            "stopped-rgo-depth"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCStoppedRGODepth",
+          "boundary": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "The paper uses a Euclidean Gibbs target.",
+              "lean": "Any probability base on a positive-dimensional finite real Hilbert Borel space.",
+              "classification": "generalization",
+              "reason": "The actual state transition bound does not need a potential, density or moments. d is the real finrank and strictly positive."
+            },
+            {
+              "source": "Normalized recursive variance is (eta+tau)/beta_A, with condition number determined by the current regularization.",
+              "lean": "a(s)=(eta(s)+tau(b))/(1+b), K(b)=(1+b)/(kappa^-1+b).",
+              "classification": "API-limitation",
+              "reason": "These are the source scalar formulas after baseline smoothness is normalized to one. A general beta needs its scaling adapter; arbitrary Q is not identified as the concrete sampler."
+            },
+            {
+              "source": "A terminal level is fixed for the recursive execution; equation(6.4) selects a logarithmic stage bound.",
+              "lean": "Compute B and J from s0 once, then construct the fixed-threshold P and all R.",
+              "classification": "same",
+              "reason": "The result is at that initial state. It does not claim all initial states share a threshold or one uniform J."
+            },
+            {
+              "source": "Sufficiently small and large universal constants select the terminal level and depth.",
+              "lean": "0<c<1/4,0<gamma<=1,C>=8; J<=(3C+(C/2)log(1/gamma))*ell.",
+              "classification": "source-implicit",
+              "reason": "The sufficient depth constant and threshold-dependent coefficient come from the already proved LogarithmicDepth; C>=8 is not quoted as a source-prescribed value."
+            },
+            {
+              "source": "The smoothing level is selected for each call and bounded by c.",
+              "lean": "Measurable eta on the full current state with 0<eta(s)<=c; actual absorbed paths induce their own eta sequences.",
+              "classification": "source-implicit",
+              "reason": "There is no common fixed schedule. The constant sequence call only extracts initial-parameter threshold positivity and J bound; termination uses actual path eta."
+            },
+            {
+              "source": "Full recursive sampler has FORS, approximation guarantees and query costs.",
+              "lean": "Any Markov Q,Lterm yield terminal support mass one by J and unchanged output at every larger cap.",
+              "classification": "API-limitation",
+              "reason": "This is an actual stage-transition bound and cap-removal prerequisite. It does not identify either concrete sampler, prove history validity or bound errors/gradient queries."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

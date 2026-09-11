@@ -1,0 +1,37 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCStoppedRGODepth",
+    "result": "PASS3757",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedRGODepth.lean": "69efdc66657ba541d84879804393038546f0fd16e1c70da4be2408503ecc9a90",
+      "Tests/SmoothedPicardHMCStoppedRGODepth.lean": "1a3ce14fcb355fc45cbee835f8e65027f120a7175418e24b3a99b975f7d64acd"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/stopped-rgo-depth.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCStoppedRGODepth"
+    ]
+  },
+  "mathematical_status": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed.",
+  "remaining": [
+    "Formal source and fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "General smoothness scaling and initialized history validity",
+    "Concrete FORS and actual approximate sampler",
+    "Errors and actual-input expected query costs",
+    "Both paper main results and agreed deliveries"
+  ]
+}

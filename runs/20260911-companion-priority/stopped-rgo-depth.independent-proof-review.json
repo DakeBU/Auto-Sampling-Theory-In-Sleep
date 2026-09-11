@@ -1,0 +1,29 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent scratch, localized production and final notation replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCStoppedRGODepth",
+  "result": "PASS3757, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedRGODepth.lean": "69efdc66657ba541d84879804393038546f0fd16e1c70da4be2408503ecc9a90",
+    "Tests/SmoothedPicardHMCStoppedRGODepth.lean": "1a3ce14fcb355fc45cbee835f8e65027f120a7175418e24b3a99b975f7d64acd"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Source variance measurable and positive with eta depending on full current state.",
+    "Initial state determines one fixed threshold and J; actual finrank is positive and C>=8 is a sufficient explicit constant.",
+    "Real FiniteRGOProgram supplies the transition and recursive outputs.",
+    "Every observation path is stopped or matches the scalar recursion driven by its own eta sequence; LogarithmicDepth forces stopping by J.",
+    "Actual pushforward/kernel-power induction gives terminal probability one; terminal a.e. equality gives output stability for all larger caps.",
+    "Single-public local proof retains all mathematics and removes scratch lint. No concrete FORS, sampler error, initialization validity or gradient-query count is inferred."
+  ],
+  "history": {
+    "scratch_sha256": "1605e9c9068cae0fb8ae3e61f871692b25edf83eaeb66009605192621a6889ab"
+  },
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}
