@@ -1,0 +1,66 @@
+{
+  "commit": "caaccad8bc8f8f51935a2b2c7a71a41c32d2dcb5",
+  "source_digest": "68a64728f580e8261aca6686ea9f6000f61eae849b0190dd75624c1db9023f5e",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 3334,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed; Tests9180",
+    "log": ".astis/joint-reference-gradient-descent-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 25486,
+    "exit_code": 0,
+    "log": ".astis/joint-reference-gradient-descent-reader-build.log"
+  },
+  "reader_check": {
+    "session": 22510,
+    "exit_code": 0,
+    "chapters": 12,
+    "modules": 649,
+    "declarations": 3896,
+    "reviewed_teaching_declarations": 77,
+    "log": ".astis/joint-reference-gradient-descent-reader-check.log"
+  },
+  "graph_check": ".astis/joint-reference-gradient-descent-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=caaccad#sphmc-joint-reference-gradient-descent",
+    "section": "sphmc-joint-reference-gradient-descent",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "clicked": [
+      "Lean statement · joint_reference_gradient_descent",
+      "Lean proof · joint_reference_gradient_descent",
+      "Source and reuse",
+      "Fourth mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1599,
+    "proof_code_characters": 4346,
+    "parents": "Three links: TerminalReferenceGradientDescent,ApproximateInitialGradientMoment,Calculus.Gradient continuous gradient.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "6 named declarations,Compiled gate at caaccad,zero placeholders; Not mapped is separate.",
+    "proof_screenshot": "Steps3/4 readable: strict terminal witness versus actual inner first-hit and joint measurability; no stopping-output identification."
+  },
+  "independent_precheck": "depth_commit_verifier accepted exact HEAD/digest/gate, unchanged production/source binding and sole stabilization ownership.",
+  "boundary": "Independent final local integration accepted. Remote CI,merge/live,global reader features,history/total costs and both main results remain open.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "caaccad8bc8f8f51935a2b2c7a71a41c32d2dcb5",
+    "source_digest": "68a64728f580e8261aca6686ea9f6000f61eae849b0190dd75624c1db9023f5e",
+    "evidence": "Independent exact HEAD/digest/gate and unchanged VERIFIED production/test/source binding accepted,reviewed gate passed. Final Tests9180,reader649/3896/77,static10closedfolds1599/4346codechars,3parents/currentcommit and graph no omissions verified. Browser evidence remains root. No local blocker; faithful transcription authorized."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "merge_commit": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
+  "checked_at": "2026-09-11T22:10:27.160201+00:00",
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "commit_present": true,
+      "declaration_present": true
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-approximateinitialgradientmoment.html",
+      "http_status": 200,
+      "commit_present": true,
+      "declaration_present": true
+    }
+  ],
+  "merge_site_run": 34652268218,
+  "merge_site_result": "SUCCESS",
+  "merge_lean_run": 34652268235,
+  "merge_lean_result": "SUCCESS",
+  "boundary": "All PR/merge Lean/Site CI passed and actual live commit/declaration provenance verified. Local browser QA remains separately recorded; neither full paper complete."
+}

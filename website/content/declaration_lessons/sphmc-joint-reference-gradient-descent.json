@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+      "title": "Actual joint inner reference stopping and expected count",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Section6.3 inner reference-point construction",
+          "scope": "Actual fixed-call inner rule and sufficient expected count; history and total sampler cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCJointReferenceGradientDescent"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume. Its real dimension d is strictly positive. U:E->R is C2.",
+        "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every x,v.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,rho_eta)^2<=ofReal(r^2), where pi=volume.tilted(-U) and rho_eta is the law of X+sqrt(eta)*Z for independent X~pi,Z~stdGaussian(E). W2 is the actual infimum of quadratic coupling costs.",
+        "Set A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a,M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For p=(y,z), set u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A).",
+        "Use T_p(x)=x-c^(-1)*grad F_p(x), start at y, and define N(p) as the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if one exists, otherwise zero. Define out(p)=T_p^N(p)(y). The finite-hit proof makes the default branch unreachable for every pair."
+      ],
+      "statement": "The actual inner stopping index N and output out are jointly measurable in the pair. For every pair the output satisfies gradient-square<=a*d, residual norm= A*norm(grad F_p(out))<=A*sqrt(a*d), every earlier index strictly fails the threshold, and N+1<=2+k*log(1+A*norm(grad F_p(y))^2/d). Under the actual nu.prod(stdGaussian(E)), N+1 is integrable and its expectation is at most 2+k*log(1+A*(M+tau*d/A^2)/d).",
+      "formula": "N=\\min\\{n:\\|\\nabla F_{Y,Z}(T_{Y,Z}^{n}(Y))\\|^2\\le ad\\},\\qquad \\mathbb E_{\\nu\\otimes G}(N+1)\\le2+k\\log\\!\\left(1+\\frac{A}{d}\\left(M+\\frac{\\tau d}{A^2}\\right)\\right).",
+      "boundary": "Actual inner threshold a*d is preserved; terminal d/A supplies only a finite witness and upper count, never an identical stopping time or output. The logarithmic formula is a derived sufficient bound. General beta, coordinate-free finite dimension and eta=0 extend the source; this theorem requires d>0,tau>0,0<alpha<=beta and allows r=0. The input W2 guarantee remains supplied. N+1 counts one base-gradient evaluation per visited point including the initial/final check, reused for the update; no evaluator trace or cross-sampler cache saving is proved. The theorem proves joint measurability in (Y,Z) at fixed parameters, not a kernel jointly in all parameters, conditional-history propagation, a stage sum or either complete main result.",
+      "steps": [
+        {
+          "title": "Identify the actual regularized gradient and positive parameters",
+          "text": "A=eta+tau is positive. The inherited genuine quadratic differentiation gives grad F_p(x)=grad U(x)+(x-u(p))/A. Thus c and a are positive and the gradient descent step is well defined. F is the actual regularized potential, not an abstract gradient field with an assumed moment.",
+          "formula": "\\nabla F_p(x)=\\nabla U(x)+A^{-1}(x-u(p)),\\qquad a>0,\\quad c>0.",
+          "lean": "actual_joint_program: H,hg; joint_reference_gradient_descent: hA,ha,hc,hgrad; TerminalReferenceGradientDescent.terminal_reference_gradient_descent"
+        },
+        {
+          "title": "Prove joint continuity of each actual finite iterate",
+          "text": "The center map p=(y,z) maps continuously to y+sqrt(tau)*z. Starting from the first projection, induct on the number of actual updates. Continuity of grad U and the algebraic update prove continuity of the whole pair-to-iterate map. Fixed-center continuity alone would not justify this conclusion.",
+          "formula": "x_0(p)=p_1,\\qquad x_{n+1}(p)=x_n(p)-c^{-1}\\bigl(\\nabla U(x_n(p))+A^{-1}(x_n(p)-u(p))\\bigr).",
+          "lean": "joint_iterates; actual_joint_program: hu,hgU,hTeq,hi; Function.iterate_succ_apply'"
+        },
+        {
+          "title": "Use the strict terminal index only as a finite witness",
+          "text": "The public terminal theorem gives a finite index hitting d/A and its pointwise count bound. Since d/A<=a*d, that point also witnesses existence for the actual inner predicate. jointIndex takes the least index of this inner predicate; Nat.find minimality makes it no larger than the witness and proves strict failure at every earlier index. The two stopping indices and outputs are not identified.",
+          "formula": "\\frac dA\\le ad,\\qquad N_{\\rm inner}\\le N_{\\rm terminal},\\qquad N_{\\rm inner}+1\\le2+k\\log\\!\\left(1+\\frac{A\\|\\nabla F_p(y)\\|^2}{d}\\right).",
+          "lean": "jointIndex; joint_stop: ht,hn,hle; actual_joint_program: hs,hw; Nat.find_spec; Nat.find_min; Nat.find_min'"
+        },
+        {
+          "title": "Obtain measurability of the first index and stopped output",
+          "text": "For each n, the actual gradient formula and joint iterate continuity make the inner stopping event measurable. The finite witness eliminates the default no-hit branch everywhere. Apply measurable_find to the index and Measurable.find to the stopped family of iterates. This proves measurability for the same pair that sets both center and starting point.",
+          "formula": "\\{p:\\|\\nabla F_p(x_n(p))\\|^2\\le ad\\}\\text{ is measurable},\\qquad p\\mapsto N(p),\\ p\\mapsto x_{N(p)}(p)\\text{ are measurable}.",
+          "lean": "actual_joint_program: hp; joint_stop: hNm,hOm; measurable_find; Measurable.find"
+        },
+        {
+          "title": "Derive the actual inner residual bound",
+          "text": "Rearrange the genuine gradient identity to express u-A*grad U(x)-x as -A*grad F_p(x). Taking norms gives the exact residual identity. At the actual stopped point, the inner threshold bounds the gradient norm by sqrt(a*d), hence the residual by A*sqrt(a*d). The terminal bound sqrt(d*A) is not asserted for this different output.",
+          "formula": "\\|u-A\\nabla U(\\mathrm{out})-\\mathrm{out}\\|=A\\|\\nabla F_p(\\mathrm{out})\\|\\le A\\sqrt{ad}.",
+          "lean": "joint_reference_gradient_descent: hres,hP; Real.le_sqrt_of_sq_le"
+        },
+        {
+          "title": "Consume the moment of the same random potential and initial state",
+          "text": "An explicit function equality identifies F_p with the potential used by ApproximateInitialGradientMoment. That theorem derives joint gradient-square integrability and the displayed moment from the actual W2 input. Its pair law is exactly nu.prod(G), with y both the initial point and part of u(p). No unconditional fixed-center expected-cost clause is used and no target moment is assumed.",
+          "formula": "g(p)=\\|\\nabla F_p(p_1)\\|^2\\in L^1(\\nu\\otimes G),\\qquad \\mathbb E g\\le M+\\frac{\\tau d}{A^2}.",
+          "lean": "joint_reference_gradient_descent: hMom,hFeq,hgi,hM,hgm; ApproximateInitialGradientMoment.approximate_initial_gradient_moment"
+        },
+        {
+          "title": "Establish logarithm and count integrability before expectation",
+          "text": "For nonnegative g and s=d/A>0, log(1+g/s) lies between zero and g/s, so it is integrable. At the upper mean m=M+tau*d/A^2, the logarithmic tangent bounds it by log(1+m/s)+(g-m)/(s+m). Integrate this inequality using the proved moment bound. The pointwise count estimate then gives N+1 integrability and the stated expected bound. N=0 still costs one gradient check; random histories and cumulative sampler costs require further proofs.",
+          "formula": "\\log(1+g/s)\\le\\log(1+m/s)+\\frac{g-m}{s+m},\\qquad \\mathbb E(N+1)\\le2+k\\log(1+m/s).",
+          "lean": "expected_count: hli,htangent,hlog,hci; joint_reference_gradient_descent: hE,ratio"
+        }
+      ],
+      "lean_statement": "Actual same-pair first-hit index and output, measurability, inner residual and first-hit/count properties, actual count L1 and expected bound.",
+      "lean_proof": "Joint iteration continuity, strict terminal witness for actual inner first hitting, measurable choice, genuine residual identity, same-potential moment consumption and integrable logarithmic tangent.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "Function.iterate_succ_apply'",
+        "measurable_find",
+        "Measurable.find",
+        "Nat.find_spec",
+        "Nat.find_min",
+        "Nat.find_min'",
+        "Real.le_sqrt_of_sq_le",
+        "Real.log_le_sub_one_of_pos",
+        "MeasureTheory.integral_mono"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "ebc8a313b66a6dbb5878c8e83d96d54cdcaaff44",
+    "gate": {
+      "production": "Production/test unchanged from independent PASS3725; Lean4.33.0 and standard3. Independent3236-character Meta.deltaExpand/isDefEq replay accepted.",
+      "publication": "Independent check_advance(reviewed=True) and actual publication --basea9145a9 exit0 PASS66 with all5private covered. Source,statement,reconstruction,wholemodule,decoder/reviewer packet/run hashes recomputed; anonymous and canonical packets byte-identical. External binding preimage independently matchesc4079a024682d3e27c514a2a70d4d748ebd900a07c49700e0842b0c66d36a8df.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_t",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "c4079a024682d3e27c514a2a70d4d748ebd900a07c49700e0842b0c66d36a8df",
+        "decoder_packet_sha256": "68f108d8856b66a582d2c6be544f6e394148975db021dad011cf4eb0c0c23eae",
+        "decoder_run_sha256": "a81000f46c4962c6db2626c9684ef983fe4c2f25fe7eacdf244d790f5cf3d1ca",
+        "reviewer_packet_sha256": "d3d131b30e71436121ff4252e08379ca8f2bdae1acd096b873f7963264618b18",
+        "review_run_sha256": "70cb525674566921045924632ae449659a9cc88a4386d4e238d94f069174cfb1",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual ad first-hit, joint measurability and actual input-moment count consumer; no supplied cost moment or substitution of terminal stopping rule. N+1 is mathematical visited-point count; gradient-query interpretation requires reuse for check/update,not evaluator trace."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent"
+    ],
+    "independent_checks": [
+      "Fixed commit clean and PROVED_LOCAL; no STABILIZING owner.",
+      "Seven semantic slots,seven steps,six informational deltas,no blockers/repairs.",
+      "VERIFIED-only; history and total cost,aggregate integration,reader delivery,merge/live and both full papers remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations."
+}

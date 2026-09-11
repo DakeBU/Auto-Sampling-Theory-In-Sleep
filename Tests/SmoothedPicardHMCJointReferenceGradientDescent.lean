@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent

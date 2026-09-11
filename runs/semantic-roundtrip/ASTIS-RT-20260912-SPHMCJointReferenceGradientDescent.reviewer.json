@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-b38b56c1b625d7e1",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_t",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-joint-reference-gradient-descent",
+    "anchor": "Section6.3 Reference point construction: actual inner stopping and expected count",
+    "original_text": "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume. Its real dimension d is strictly positive. U:E->R is C2.\nalpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every x,v.\neta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,rho_eta)^2<=ofReal(r^2), where pi=volume.tilted(-U) and rho_eta is the law of X+sqrt(eta)*Z for independent X~pi,Z~stdGaussian(E). W2 is the actual infimum of quadratic coupling costs.\nSet A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a,M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For p=(y,z), set u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A).\nUse T_p(x)=x-c^(-1)*grad F_p(x), start at y, and define N(p) as the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if one exists, otherwise zero. Define out(p)=T_p^N(p)(y). The finite-hit proof makes the default branch unreachable for every pair.\nThe actual inner stopping index N and output out are jointly measurable in the pair. For every pair the output satisfies gradient-square<=a*d, residual norm= A*norm(grad F_p(out))<=A*sqrt(a*d), every earlier index strictly fails the threshold, and N+1<=2+k*log(1+A*norm(grad F_p(y))^2/d). Under the actual nu.prod(stdGaussian(E)), N+1 is integrable and its expectation is at most 2+k*log(1+A*(M+tau*d/A^2)/d).",
+    "text_sha256": "854a8b951fd5e6a4c6aab608f719b4e9998aa581d7e51a76c29d15b7e0c87e28"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean",
+    "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E]\n  [inst_3 : FiniteDimensional ℝ E] [inst_4 : MeasurableSpace E] [inst_5 : BorelSpace E] {U : E → ℝ} {α β : NNReal},\n  0 < α →\n    α ≤ β →\n      ContDiff ℝ 2 U →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ U) x) v) v ∧ ((fderiv ℝ (fderiv ℝ U) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          ∀ {η τ r : ℝ},\n            0 ≤ η →\n              0 < τ →\n                0 ≤ r →\n                  0 < ↑(Module.finrank ℝ E) →\n                    ∀ (ν : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure ν],\n                      (InfSet.sInf\n                                {r |\n                                  ∃\n                                    γ ∈\n                                      {γ |\n                                        γ.fst = ν ∧\n                                          γ.snd =\n                                            MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                              ((MeasureTheory.MeasureSpace.volume.tilted fun x => -U x).prod\n                                                (MeasureTheory.Measure.map (fun z => √η • z)\n                                                  (ProbabilityTheory.stdGaussian E)))},\n                                    r = ∫⁻ (z : E × E), ENNReal.ofReal (‖z.1 - z.2‖ ^ 2) ∂γ} ^\n                              (1 / 2)) ^\n                            2 ≤\n                          ENNReal.ofReal (r ^ 2) →\n                        have d := ↑(Module.finrank ℝ E);\n                        have A := η + τ;\n                        have a := ↑α + A⁻¹;\n                        have c := ↑β + A⁻¹;\n                        have k := c / a;\n                        have M := 4 * ↑β * d + 4 * ↑β ^ 2 * η * d + 2 * ↑β ^ 2 * r ^ 2;\n                        have u := fun p => p.1 + √τ • p.2;\n                        have F := fun p x => U x + A⁻¹ / 2 * ‖x - u p‖ ^ 2;\n                        have T := fun p x => x - c⁻¹ • gradient (F p) x;\n                        have N := fun p =>\n                          if h : ∃ n, (fun p x => ‖gradient (F p) x‖ ^ 2) p ((T p)^[n] p.1) ≤ a * d then Nat.find h\n                          else 0;\n                        have out := fun p => (T p)^[N p] p.1;\n                        Measurable N ∧\n                          Measurable out ∧\n                            (∀ (p : E × E),\n                                ‖gradient (F p) (out p)‖ ^ 2 ≤ a * d ∧\n                                  ‖u p - A • gradient U (out p) - out p‖ = A * ‖gradient (F p) (out p)‖ ∧\n                                    ‖u p - A • gradient U (out p) - out p‖ ≤ A * √(a * d) ∧\n                                      (∀ j < N p, a * d < ‖gradient (F p) ((T p)^[j] p.1)‖ ^ 2) ∧\n                                        ↑(N p) + 1 ≤ k * Real.log (1 + A * ‖gradient (F p) p.1‖ ^ 2 / d) + 2) ∧\n                              MeasureTheory.Integrable (fun p => ↑(N p) + 1)\n                                  (ν.prod (ProbabilityTheory.stdGaussian E)) ∧\n                                ∫ (p : E × E), ↑(N p) + 1 ∂ν.prod (ProbabilityTheory.stdGaussian E) ≤\n                                  2 + k * Real.log (1 + A * (M + τ * d / A ^ 2) / d)",
+    "statement_sha256": "59d3bcbce87a2153c4bdad9b9001f2318d6fde1663441fd6c7a6fceeace9e167",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "设 \\(E\\) 是完备的有限维实内积空间，带有与其拓扑一致的 Borel 可测结构。记\n\\[\nd=\\dim_{\\mathbb R}E,\n\\]\n并假设 \\(d>0\\)。\n\n设 \\(U:E\\to\\mathbb R\\) 二次连续可微，非负实数 \\(\\alpha,\\beta\\) 满足 \\(0<\\alpha\\le\\beta\\)，且对所有 \\(x,v\\in E\\)，\n\\[\n\\alpha\\|v\\|^2\n\\le D^2U(x)[v,v]\n\\le\\beta\\|v\\|^2.\n\\]\n这里 \\(D^2U\\) 是实际的二阶 Fréchet 导数。\n\n任取实数 \\(\\eta,\\tau,r\\)，满足\n\\[\n\\eta\\ge0,\\qquad \\tau>0,\\qquad r\\ge0.\n\\]\n令 \\(G\\) 为 \\(E\\) 上均值为零、协方差为恒等算子的标准高斯概率测度，\\(\\lambda\\) 为该内积空间的 Lebesgue 体积测度。定义测度\n\\[\n\\mu=\\lambda.\\mathrm{tilted}(-U).\n\\]\n按照提供的定义，其相对于 \\(\\lambda\\) 的密度是\n\\[\nx\\longmapsto\n\\operatorname{ofReal}\\!\\left(\n\\frac{e^{-U(x)}}{\\int_E e^{-U(y)}\\,d\\lambda(y)}\n\\right).\n\\]\n这里分母是具有库中总定义约定的实 Bochner 积分：不可积时积分取零，实数除以零取零。因此，此处定义本身不额外附加分母正且有限或 \\(\\mu\\) 归一化的假设。\n\n令\n\\[\nG_\\eta=(z\\mapsto\\sqrt{\\eta}\\,z)_\\#G,\\qquad\n\\rho=(x,z\\mapsto x+z)_\\#(\\mu\\otimes G_\\eta).\n\\]\n任取 \\(E\\) 上概率测度 \\(\\nu\\)。令\n\\[\nI=\\inf\\left\\{\n\\int_{E\\times E}^{-}\n\\operatorname{ofReal}(\\|x-y\\|^2)\\,d\\gamma(x,y):\n\\gamma\\text{ 是 }E\\times E\\text{ 上测度， }\n\\gamma_1=\\nu,\\ \\gamma_2=\\rho\n\\right\\},\n\\]\n其中积分和下确界均在扩展非负实数中取值。假设\n\\[\n\\bigl(I^{1/2}\\bigr)^2\\le\\operatorname{ofReal}(r^2).\n\\]\n内层 \\(1/2\\) 次幂为扩展非负实数的实指数幂，外层平方为自然数幂。\n\n定义实数\n\\[\nA=\\eta+\\tau,\\qquad\na=\\alpha+A^{-1},\\qquad\nc=\\beta+A^{-1},\\qquad\nk=\\frac ca,\n\\]\n以及\n\\[\nM=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2.\n\\]\n\n对每一个参数对 \\(p=(y,z)\\in E\\times E\\)，定义\n\\[\nu_p=y+\\sqrt{\\tau}\\,z,\\qquad\nF_p(x)=U(x)+\\frac{1}{2A}\\|x-u_p\\|^2,\n\\]\n以及梯度迭代映射\n\\[\nT_p(x)=x-\\frac1c\\nabla F_p(x).\n\\]\n梯度始终针对状态变量 \\(x\\) 求取，参数 \\(p\\) 固定。令\n\\[\nx_{p,0}=y,\\qquad x_{p,n+1}=T_p(x_{p,n}).\n\\]\n\n若存在自然数 \\(n\\) 使\n\\[\n\\|\\nabla F_p(x_{p,n})\\|^2\\le ad,\n\\]\n则定义 \\(N(p)\\) 为满足该不等式的最小自然数；若不存在，则定义 \\(N(p)=0\\)。定义输出\n\\[\n\\operatorname{out}(p)=x_{p,N(p)}.\n\\]\n\n结论同时包括：\n\n1. \\(N:E\\times E\\to\\mathbb N\\) 和 \\(\\operatorname{out}:E\\times E\\to E\\) 都可测。\n\n2. 对所有 \\(p\\in E\\times E\\)，均有\n   \\[\n   \\|\\nabla F_p(\\operatorname{out}(p))\\|^2\\le ad,\n   \\]\n   \\[\n   \\|u_p-A\\nabla U(\\operatorname{out}(p))-\\operatorname{out}(p)\\|\n   =A\\|\\nabla F_p(\\operatorname{out}(p))\\|,\n   \\]\n   \\[\n   \\|u_p-A\\nabla U(\\operatorname{out}(p))-\\operatorname{out}(p)\\|\n   \\le A\\sqrt{ad}.\n   \\]\n   对每一个自然数 \\(j<N(p)\\)，还有严格不等式\n   \\[\n   ad<\\|\\nabla F_p(x_{p,j})\\|^2.\n   \\]\n   因而每个参数对都实际达到停止条件，定义中的“未命中则取零”分支不会造成未达标输出。\n\n3. 对所有 \\(p=(y,z)\\)，计数满足\n   \\[\n   N(p)+1\n   \\le k\\log\\!\\left(\n   1+\\frac{A\\|\\nabla F_p(y)\\|^2}{d}\n   \\right)+2.\n   \\]\n   此处 \\(N(p)\\) 是从初值出发执行的更新次数；结论直接控制的是 \\(N(p)+1\\)，包含初始状态的检查位置。若初值已满足停止条件，则 \\(N(p)=0\\)，该计数为 \\(1\\)。\n\n4. 实值函数 \\(p\\mapsto N(p)+1\\) 关于实际乘积概率测度 \\(\\nu\\otimes G\\) Bochner 可积，而且\n   \\[\n   \\int_{E\\times E}(N(p)+1)\\,d(\\nu\\otimes G)(p)\n   \\le\n   2+k\\log\\!\\left(\n   1+\\frac{A\\left(M+\\tau d/A^2\\right)}{d}\n   \\right).\n   \\]\n   因此随机输入可理解为相互独立的 \\(y\\sim\\nu\\) 与 \\(z\\sim G\\)。点态结论适用于所有参数对，积分结论则针对这一特定乘积测度。\n\n该陈述没有给出输出的分布等于某个目标测度、输出误差的分布距离界、精确最小化结论、运行时间的尾界，或额外随机抽样步骤。它也没有把梯度调用、函数调用、算术操作等具体实现成本定义为 \\(N+1\\)；所直接控制的是上述数学计数。没有单独列出 \\(\\operatorname{out}\\)、\\(U\\) 或梯度的可积性结论，也没有单独陈述 \\(\\mu\\) 的归一化定理。",
+    "text_sha256": "9ae776715582b59d6713c33ffe90f1022fa398846733e6e7d4354583ca70756a",
+    "decoder": "blind_reconstruction_t",
+    "decoder_packet_sha256": "68f108d8856b66a582d2c6be544f6e394148975db021dad011cf4eb0c0c23eae",
+    "decoder_run_sha256": "a81000f46c4962c6db2626c9684ef983fe4c2f25fe7eacdf244d790f5cf3d1ca",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "c4079a024682d3e27c514a2a70d4d748ebd900a07c49700e0842b0c66d36a8df",
+  "candidate_publication_context": {
+    "file": "ce4177fc912e33da7df6f6ed43db9ae64cfd7f499f34590dbc469c779b5c6db5",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment\nimport Mathlib.Tactic\n\nopen MeasureTheory Set InnerProductSpace ProbabilityTheory\nopen scoped RealInnerProductSpace NNReal\n/-!\n# Actual joint inner reference gradient descent\n\nSection 6.3 of Chen, Chewi, Lu and Zhang, arXiv:2609.06906v1, uses\ngradient-square threshold a*d for the inner reference construction. This\nmodule preserves that actual first-hit algorithm. The previously proved\nterminal threshold d/A is only a finite witness and a larger count bound;\nthe two stopping indices and outputs are not equated.\n\nThe same pair (Y,Z) determines the initial state Y and center Y+sqrt(tau)*Z.\nJoint iteration continuity proves stopping/output measurability. The actual\nWasserstein input supplies a proved joint initial moment, and logarithmic\nintegrability precedes integration of the count bound. N+1 includes the\ninitial and final gradient checks; no evaluator trace or cross-sampler\ncache discount is asserted.\n\nThe displayed logarithmic count bound is a sufficient bound derived using\nthe stricter terminal witness. General beta, coordinate-free dimension and\neta=0 extend the source setting; dimension is positive and tau>0. The\nupstream Wasserstein guarantee remains supplied. Conditional histories,\njoint dependence on all parameters, stage sums and both main results remain\nseparate proof obligations.\n-/\n\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nomit [CompleteSpace E] in\nprivate theorem joint_iterates {g : E → E} (hg : Continuous g)\n    {u : E × E → E} (hu : Continuous u) (A c : ℝ) (n : ℕ) :\n    Continuous (fun p : E × E =>\n      (fun x => x-c⁻¹ • (g x+A⁻¹ • (x-u p)))^[n] p.1) := by\n  induction n with\n  | zero => simpa only [Function.iterate_zero, id_eq] using continuous_fst\n  | succ n ih =>\n    simp only [Function.iterate_succ_apply']\n    exact ih.sub (((hg.comp ih).add ((ih.sub hu).const_smul _)).const_smul _)\n\nprivate def jointIndex (T : E × E → E → E) (g : E × E → E → ℝ)\n    (s : ℝ) (p : E × E) : ℕ := by\n  classical\n  exact if h : ∃ n, g p ((T p)^[n] p.1) ≤ s then Nat.find h else 0\n\nomit [CompleteSpace E] [InnerProductSpace ℝ E] in\nprivate theorem joint_stop [MeasurableSpace E] [BorelSpace E]\n    (T : E × E → E → E) (g : E × E → E → ℝ) (s : ℝ)\n    (B : E × E → ℝ)\n    (hi : ∀ n : ℕ, Measurable (fun p : E × E => (T p)^[n] p.1))\n    (hp : ∀ n : ℕ, MeasurableSet {p : E × E | g p ((T p)^[n] p.1) ≤ s})\n    (hw : ∀ p : E × E, ∃ n : ℕ, g p ((T p)^[n] p.1) ≤ s ∧ (n:ℝ)+1 ≤ B p) :\n    let N := jointIndex T g s\n    Measurable N ∧ Measurable (fun p => (T p)^[N p] p.1) ∧\n      ∀ p, g p ((T p)^[N p] p.1) ≤ s ∧\n        (∀ j < N p, s < g p ((T p)^[j] p.1)) ∧ (N p:ℝ)+1 ≤ B p := by\n  classical\n  let N := jointIndex T g s\n  have ht (p : E × E) : ∃ n, g p ((T p)^[n] p.1) ≤ s :=\n    let ⟨n,hn,_⟩ := hw p; ⟨n,hn⟩\n  have hn (p : E × E) : N p = Nat.find (ht p) := by\n    simp only [N,jointIndex,dif_pos (ht p)]\n  have hNm : Measurable N := by\n    have he : N = fun p => Nat.find (ht p) := funext hn\n    rw [he]\n    exact measurable_find ht hp\n  have hOm : Measurable (fun p => (T p)^[N p] p.1) := by\n    have he : (fun p => (T p)^[N p] p.1) =\n        (fun p => (T p)^[Nat.find (ht p)] p.1) := by funext p; rw [hn]\n    rw [he]\n    exact Measurable.find hi hp ht\n  refine ⟨hNm,hOm,fun p => ?_⟩\n  change g p ((T p)^[N p] p.1) ≤ s ∧\n    (∀ j < N p, s < g p ((T p)^[j] p.1)) ∧ (N p:ℝ)+1 ≤ B p\n  refine ⟨?_,?_,?_⟩\n  · rw [hn]; exact Nat.find_spec (ht p)\n  · intro j hj\n    rw [hn] at hj\n    exact lt_of_not_ge (Nat.find_min (ht p) hj)\n  · obtain ⟨n,hs,hB⟩ := hw p\n    have hle : N p ≤ n := by rw [hn]; exact Nat.find_min' (ht p) hs\n    have hr : (N p:ℝ) ≤ n := by exact_mod_cast hle\n    linarith\n\nprivate theorem actual_joint_program [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {α β : ℝ≥0}\n    (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ U) x v v ∧\n      fderiv ℝ (fderiv ℝ U) x v v ≤ (β:ℝ)*‖v‖^2)\n    (hαβ : α ≤ β) {A d τ : ℝ} (hA : 0 < A) (hd : 0 < d)\n    (hdim : d = Module.finrank ℝ E) :\n    let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n    let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n    let a := (α:ℝ)+A⁻¹\n    let c := (β:ℝ)+A⁻¹\n    let k := c/a\n    let T := fun p x => x-c⁻¹ • gradient (F p) x\n    let N := jointIndex T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n    Measurable N ∧ Measurable (fun p => (T p)^[N p] p.1) ∧\n      ∀ p, ‖gradient (F p) ((T p)^[N p] p.1)‖^2 ≤ a*d ∧\n        (∀ j < N p, a*d < ‖gradient (F p) ((T p)^[j] p.1)‖^2) ∧\n        (N p:ℝ)+1 ≤ k*Real.log (1+A*‖gradient (F p) p.1‖^2/d)+2 := by\n  let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n  let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n  let a := (α:ℝ)+A⁻¹\n  let c := (β:ℝ)+A⁻¹\n  let k := c/a\n  let T := fun p x => x-c⁻¹ • gradient (F p) x\n  have H (p : E × E) :=\n    TerminalReferenceGradientDescent.terminal_reference_gradient_descent\n      hU hH hαβ hA hd hdim (u p)\n  have hg (p : E × E) (x : E) :\n      gradient (F p) x=gradient U x+A⁻¹ • (x-u p) := (H p).2.2.2.1 x\n  have hu : Continuous u := continuous_fst.add (continuous_snd.const_smul _)\n  have hgU : Continuous (gradient U) :=\n    TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one\n      (hU.of_le (by norm_num))\n  have hTeq : T = fun p x => x-c⁻¹ • (gradient U x+A⁻¹ • (x-u p)) := by\n    funext p x; exact congrArg (fun z => x-c⁻¹ • z) (hg p x)\n  have hi (n : ℕ) : Continuous (fun p : E × E => (T p)^[n] p.1) := by\n    rw [hTeq]\n    exact joint_iterates hgU hu A c n\n  have hp (n : ℕ) : MeasurableSet\n      {p : E × E | ‖gradient (F p) ((T p)^[n] p.1)‖^2 ≤ a*d} := by\n    simp_rw [hg]\n    exact measurableSet_le\n      (((hgU.comp (hi n)).add (((hi n).sub hu).const_smul _)).norm.pow 2).measurable\n      measurable_const\n  have hs : d/A ≤ a*d := by\n    dsimp [a]\n    have hn := mul_nonneg α.coe_nonneg hd.le\n    rw [div_eq_mul_inv]\n    nlinarith\n  have hw (p : E × E) : ∃ n : ℕ,\n      ‖gradient (F p) ((T p)^[n] p.1)‖^2 ≤ a*d ∧\n      (n:ℝ)+1 ≤ k*Real.log (1+A*‖gradient (F p) p.1‖^2/d)+2 := by\n    have hv := (H p).2.2.2.2.2.2.1 p.1\n    exact ⟨_,hv.1.trans hs,hv.2.2.2.2.2⟩\n  exact joint_stop T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n    (fun p => k*Real.log (1+A*‖gradient (F p) p.1‖^2/d)+2)\n    (fun n => (hi n).measurable) hp hw\n\nprivate theorem expected_count {X : Type*} [MeasurableSpace X]\n    (μ : Measure X) [IsProbabilityMeasure μ] (g : X → ℝ) (N : X → ℕ)\n    {k s M : ℝ} (hk : 0 < k) (hs : 0 < s)\n    (hgm : Measurable g) (hgi : Integrable g μ) (hg : ∀ x, 0 ≤ g x)\n    (hNm : Measurable N) (hM : (∫ x, g x ∂μ) ≤ M)\n    (hbound : ∀ x, (N x:ℝ)+1 ≤ k*Real.log (1+g x/s)+2) :\n    Integrable (fun x => (N x:ℝ)+1) μ ∧\n      (∫ x, (N x:ℝ)+1 ∂μ) ≤ 2+k*Real.log (1+M/s) := by\n  have hM0 : 0 ≤ M := (integral_nonneg hg).trans hM\n  have hden : 0 < 1+M/s := by positivity\n  have hsm : 0 < s+M := by positivity\n  have hpos (x : X) : 0 < 1+g x/s := by have := hg x; positivity\n  have hl0 (x : X) : 0 ≤ Real.log (1+g x/s) :=\n    Real.log_nonneg (by have := div_nonneg (hg x) hs.le; linarith)\n  have hlub (x : X) : Real.log (1+g x/s) ≤ g x/s := by\n    have := Real.log_le_sub_one_of_pos (hpos x)\n    linarith\n  have hlm : Measurable (fun x => Real.log (1+g x/s)) :=\n    (measurable_const.add (hgm.div_const s)).log\n  have hli : Integrable (fun x => Real.log (1+g x/s)) μ :=\n    (hgi.div_const s).mono' hlm.aestronglyMeasurable (Filter.Eventually.of_forall fun x => by\n      rw [Real.norm_eq_abs,abs_of_nonneg (hl0 x)]\n      exact hlub x)\n  have htangent (x : X) : Real.log (1+g x/s) ≤\n      Real.log (1+M/s)+(g x-M)/(s+M) := by\n    have ht := Real.log_le_sub_one_of_pos (div_pos (hpos x) hden)\n    rw [Real.log_div (hpos x).ne' hden.ne'] at ht\n    have he : (1+g x/s)/(1+M/s)-1=(g x-M)/(s+M) := by\n      field_simp; ring\n    rw [he] at ht\n    linarith\n  have hsubi : Integrable (fun x => g x-M) μ := hgi.sub (integrable_const M)\n  have hdivi : Integrable (fun x => (g x-M)/(s+M)) μ := hsubi.div_const _\n  have hri : Integrable (fun x => Real.log (1+M/s)+(g x-M)/(s+M)) μ :=\n    (integrable_const _).add hdivi\n  have hj := integral_mono hli hri htangent\n  rw [integral_add (integrable_const _) hdivi,\n    integral_div,integral_sub hgi (integrable_const M)] at hj\n  simp only [integral_const,probReal_univ,smul_eq_mul,one_mul] at hj\n  have hlog : (∫ x, Real.log (1+g x/s) ∂μ) ≤ Real.log (1+M/s) := by\n    have hn : ((∫ x,g x ∂μ)-M)/(s+M) ≤ 0 :=\n      div_nonpos_of_nonpos_of_nonneg (sub_nonpos.mpr hM) hsm.le\n    linarith\n  have hbi : Integrable (fun x => k*Real.log (1+g x/s)+2) μ :=\n    (hli.const_mul k).add (integrable_const 2)\n  have hNr : Measurable (fun x => (N x:ℝ)) := measurable_from_nat.comp hNm\n  have hci : Integrable (fun x => (N x:ℝ)+1) μ :=\n    hbi.mono' (hNr.add measurable_const).aestronglyMeasurable\n      (Filter.Eventually.of_forall fun x => by\n        rw [Real.norm_eq_abs,abs_of_nonneg (by positivity : 0 ≤ (N x:ℝ)+1)]\n        exact hbound x)\n  refine ⟨hci,?_⟩\n  have hc := integral_mono hci hbi hbound\n  rw [integral_add (hli.const_mul k) (integrable_const 2),integral_const_mul] at hc\n  simp only [integral_const,probReal_univ,smul_eq_mul,one_mul] at hc\n  have hh := mul_le_mul_of_nonneg_left hlog hk.le\n  linarith\n\n\ntheorem joint_reference_gradient_descent [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ U) x v v ∧\n      fderiv ℝ (fderiv ℝ U) x v v ≤ (β:ℝ)*‖v‖^2)\n    {η τ r : ℝ} (hη : 0 ≤ η) (hτ : 0 < τ) (hr : 0 ≤ r)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (ν : Measure E) [IsProbabilityMeasure ν]\n    (hw : TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance ν\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n        ((volume : Measure E).tilted (fun x => -U x)) (Real.sqrt η)) ^ 2 ≤ ENNReal.ofReal (r^2)) :\n    let d : ℝ := Module.finrank ℝ E\n    let A := η+τ\n    let a := (α:ℝ)+A⁻¹\n    let c := (β:ℝ)+A⁻¹\n    let k := c/a\n    let M := 4*(β:ℝ)*d+4*(β:ℝ)^2*η*d+2*(β:ℝ)^2*r^2\n    let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n    let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n    let T := fun p x => x-c⁻¹ • gradient (F p) x\n    let N := jointIndex T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n    let out := fun p => (T p)^[N p] p.1\n    Measurable N ∧ Measurable out ∧\n      (∀ p, ‖gradient (F p) (out p)‖^2 ≤ a*d ∧\n        ‖u p-A • gradient U (out p)-out p‖ = A*‖gradient (F p) (out p)‖ ∧\n        ‖u p-A • gradient U (out p)-out p‖ ≤ A*Real.sqrt (a*d) ∧\n        (∀ j < N p, a*d < ‖gradient (F p) ((T p)^[j] p.1)‖^2) ∧\n        (N p:ℝ)+1 ≤ k*Real.log (1+A*‖gradient (F p) p.1‖^2/d)+2) ∧\n      Integrable (fun p => (N p:ℝ)+1) (ν.prod (stdGaussian E)) ∧\n      (∫ p, (N p:ℝ)+1 ∂ν.prod (stdGaussian E)) ≤\n        2+k*Real.log (1+A*(M+τ*d/A^2)/d) := by\n  let d : ℝ := Module.finrank ℝ E\n  let A := η+τ\n  let a := (α:ℝ)+A⁻¹\n  let c := (β:ℝ)+A⁻¹\n  let k := c/a\n  let M := 4*(β:ℝ)*d+4*(β:ℝ)^2*η*d+2*(β:ℝ)^2*r^2\n  let u := fun p : E × E => p.1+Real.sqrt τ • p.2\n  let F := fun p x => U x+A⁻¹/2*‖x-u p‖^2\n  let T := fun p x => x-c⁻¹ • gradient (F p) x\n  let N := jointIndex T (fun p x => ‖gradient (F p) x‖^2) (a*d)\n  let out := fun p => (T p)^[N p] p.1\n  have hA : 0 < A := add_pos_of_nonneg_of_pos hη hτ\n  have ha : 0 < a := add_pos_of_nonneg_of_pos α.coe_nonneg (inv_pos.mpr hA)\n  have hc : 0 < c := add_pos_of_nonneg_of_pos β.coe_nonneg (inv_pos.mpr hA)\n  have hP := actual_joint_program (τ:=τ) hU hH hαβ hA hd rfl\n  have hgrad (p : E × E) (x : E) :\n      gradient (F p) x=gradient U x+A⁻¹ • (x-u p) :=\n    (TerminalReferenceGradientDescent.terminal_reference_gradient_descent\n      hU hH hαβ hA hd rfl (u p)).2.2.2.1 x\n  have hres (p : E × E) (x : E) :\n      ‖u p-A • gradient U x-x‖=A*‖gradient (F p) x‖ := by\n    have he : u p-A • gradient U x-x=-(A • gradient (F p) x) := by\n      rw [hgrad,smul_add,smul_smul,mul_inv_cancel₀ hA.ne',one_smul]\n      abel\n    rw [he,norm_neg,norm_smul,Real.norm_eq_abs,abs_of_pos hA]\n  have hMom := ApproximateInitialGradientMoment.approximate_initial_gradient_moment\n    hα hαβ hU hH hη hτ hr ν hw\n  have hFeq (y z : E) :\n      (fun x => U x+‖x-(y+Real.sqrt τ • z)‖^2/(2*(η+τ)))=F (y,z) := by\n    funext x\n    dsimp [F,u,A]\n    simp only [div_eq_mul_inv,mul_inv_rev]\n    ring\n  have hgi : Integrable (fun p : E × E => ‖gradient (F p) p.1‖^2)\n      (ν.prod (stdGaussian E)) := by\n    simpa only [hFeq] using hMom.2.2.2.1\n  have hM : (∫ p : E × E, ‖gradient (F p) p.1‖^2 ∂ν.prod (stdGaussian E)) ≤\n      M+τ*d/A^2 := by\n    simpa only [hFeq] using hMom.2.2.2.2.2.1\n  have hgm : Measurable (fun p : E × E => ‖gradient (F p) p.1‖^2) := by\n    simp_rw [hgrad]\n    have hgU := TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one\n      (hU.of_le (by norm_num))\n    exact ((hgU.comp continuous_fst).add\n      ((continuous_fst.sub (continuous_fst.add (continuous_snd.const_smul _))).const_smul _)).norm.pow 2 |>.measurable\n  have ratio (z : ℝ) : z/(d/A)=A*z/d := by field_simp\n  have hE := expected_count (ν.prod (stdGaussian E))\n    (fun p => ‖gradient (F p) p.1‖^2) N (k:=k) (s:=d/A)\n    (div_pos hc ha) (div_pos hd hA)\n    hgm hgi (fun p => sq_nonneg _) hP.1 hM (fun p => by\n      simpa only [ratio] using (hP.2.2 p).2.2)\n  refine ⟨hP.1,hP.2.1,fun p => ?_,hE.1,?_⟩\n  · have hp := hP.2.2 p\n    refine ⟨hp.1,hres p _,?_,hp.2.1,hp.2.2⟩\n    rw [hres]\n    exact mul_le_mul_of_nonneg_left (Real.le_sqrt_of_sq_le hp.1) hA.le\n  · simpa only [ratio] using hE.2\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Section6.3 Reference point construction: actual inner stopping and expected count",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS expanded proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. The exact inner rule is retained; the explicit sufficient cost bound and remaining source consumers are disclosed."
+    },
+    "statement": "The actual inner stopping index N and output out are jointly measurable in the pair. For every pair the output satisfies gradient-square<=a*d, residual norm= A*norm(grad F_p(out))<=A*sqrt(a*d), every earlier index strictly fails the threshold, and N+1<=2+k*log(1+A*norm(grad F_p(y))^2/d). Under the actual nu.prod(stdGaussian(E)), N+1 is integrable and its expectation is at most 2+k*log(1+A*(M+tau*d/A^2)/d).",
+    "formulae": [
+      {
+        "label": "Actual inner rule and sufficient expected count",
+        "tex": "N=\\min\\{n:\\|\\nabla F_{Y,Z}(T_{Y,Z}^{n}(Y))\\|^2\\le ad\\},\\qquad \\mathbb E_{\\nu\\otimes G}(N+1)\\le2+k\\log\\!\\left(1+\\frac{A}{d}\\left(M+\\frac{\\tau d}{A^2}\\right)\\right)."
+      }
+    ],
+    "assumptions": [
+      "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume. Its real dimension d is strictly positive. U:E->R is C2.",
+      "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every x,v.",
+      "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,rho_eta)^2<=ofReal(r^2), where pi=volume.tilted(-U) and rho_eta is the law of X+sqrt(eta)*Z for independent X~pi,Z~stdGaussian(E). W2 is the actual infimum of quadratic coupling costs.",
+      "Set A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a,M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For p=(y,z), set u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A).",
+      "Use T_p(x)=x-c^(-1)*grad F_p(x), start at y, and define N(p) as the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if one exists, otherwise zero. Define out(p)=T_p^N(p)(y). The finite-hit proof makes the default branch unreachable for every pair."
+    ],
+    "obligations": [
+      {
+        "id": "actual-joint-inner-reference",
+        "label": "Actual joint inner reference stopping and expected count"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+      "title": "Actual joint inner reference stopping and expected count",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Section6.3 inner reference-point construction",
+          "scope": "Actual fixed-call inner rule and sufficient expected count; history and total sampler cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCJointReferenceGradientDescent"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume. Its real dimension d is strictly positive. U:E->R is C2.",
+        "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every x,v.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,rho_eta)^2<=ofReal(r^2), where pi=volume.tilted(-U) and rho_eta is the law of X+sqrt(eta)*Z for independent X~pi,Z~stdGaussian(E). W2 is the actual infimum of quadratic coupling costs.",
+        "Set A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a,M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For p=(y,z), set u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A).",
+        "Use T_p(x)=x-c^(-1)*grad F_p(x), start at y, and define N(p) as the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if one exists, otherwise zero. Define out(p)=T_p^N(p)(y). The finite-hit proof makes the default branch unreachable for every pair."
+      ],
+      "statement": "The actual inner stopping index N and output out are jointly measurable in the pair. For every pair the output satisfies gradient-square<=a*d, residual norm= A*norm(grad F_p(out))<=A*sqrt(a*d), every earlier index strictly fails the threshold, and N+1<=2+k*log(1+A*norm(grad F_p(y))^2/d). Under the actual nu.prod(stdGaussian(E)), N+1 is integrable and its expectation is at most 2+k*log(1+A*(M+tau*d/A^2)/d).",
+      "formula": "N=\\min\\{n:\\|\\nabla F_{Y,Z}(T_{Y,Z}^{n}(Y))\\|^2\\le ad\\},\\qquad \\mathbb E_{\\nu\\otimes G}(N+1)\\le2+k\\log\\!\\left(1+\\frac{A}{d}\\left(M+\\frac{\\tau d}{A^2}\\right)\\right).",
+      "steps": [
+        {
+          "title": "Identify the actual regularized gradient and positive parameters",
+          "text": "A=eta+tau is positive. The inherited genuine quadratic differentiation gives grad F_p(x)=grad U(x)+(x-u(p))/A. Thus c and a are positive and the gradient descent step is well defined. F is the actual regularized potential, not an abstract gradient field with an assumed moment.",
+          "formula": "\\nabla F_p(x)=\\nabla U(x)+A^{-1}(x-u(p)),\\qquad a>0,\\quad c>0.",
+          "lean": "actual_joint_program: H,hg; joint_reference_gradient_descent: hA,ha,hc,hgrad; TerminalReferenceGradientDescent.terminal_reference_gradient_descent"
+        },
+        {
+          "title": "Prove joint continuity of each actual finite iterate",
+          "text": "The center map p=(y,z) maps continuously to y+sqrt(tau)*z. Starting from the first projection, induct on the number of actual updates. Continuity of grad U and the algebraic update prove continuity of the whole pair-to-iterate map. Fixed-center continuity alone would not justify this conclusion.",
+          "formula": "x_0(p)=p_1,\\qquad x_{n+1}(p)=x_n(p)-c^{-1}\\bigl(\\nabla U(x_n(p))+A^{-1}(x_n(p)-u(p))\\bigr).",
+          "lean": "joint_iterates; actual_joint_program: hu,hgU,hTeq,hi; Function.iterate_succ_apply'"
+        },
+        {
+          "title": "Use the strict terminal index only as a finite witness",
+          "text": "The public terminal theorem gives a finite index hitting d/A and its pointwise count bound. Since d/A<=a*d, that point also witnesses existence for the actual inner predicate. jointIndex takes the least index of this inner predicate; Nat.find minimality makes it no larger than the witness and proves strict failure at every earlier index. The two stopping indices and outputs are not identified.",
+          "formula": "\\frac dA\\le ad,\\qquad N_{\\rm inner}\\le N_{\\rm terminal},\\qquad N_{\\rm inner}+1\\le2+k\\log\\!\\left(1+\\frac{A\\|\\nabla F_p(y)\\|^2}{d}\\right).",
+          "lean": "jointIndex; joint_stop: ht,hn,hle; actual_joint_program: hs,hw; Nat.find_spec; Nat.find_min; Nat.find_min'"
+        },
+        {
+          "title": "Obtain measurability of the first index and stopped output",
+          "text": "For each n, the actual gradient formula and joint iterate continuity make the inner stopping event measurable. The finite witness eliminates the default no-hit branch everywhere. Apply measurable_find to the index and Measurable.find to the stopped family of iterates. This proves measurability for the same pair that sets both center and starting point.",
+          "formula": "\\{p:\\|\\nabla F_p(x_n(p))\\|^2\\le ad\\}\\text{ is measurable},\\qquad p\\mapsto N(p),\\ p\\mapsto x_{N(p)}(p)\\text{ are measurable}.",
+          "lean": "actual_joint_program: hp; joint_stop: hNm,hOm; measurable_find; Measurable.find"
+        },
+        {
+          "title": "Derive the actual inner residual bound",
+          "text": "Rearrange the genuine gradient identity to express u-A*grad U(x)-x as -A*grad F_p(x). Taking norms gives the exact residual identity. At the actual stopped point, the inner threshold bounds the gradient norm by sqrt(a*d), hence the residual by A*sqrt(a*d). The terminal bound sqrt(d*A) is not asserted for this different output.",
+          "formula": "\\|u-A\\nabla U(\\mathrm{out})-\\mathrm{out}\\|=A\\|\\nabla F_p(\\mathrm{out})\\|\\le A\\sqrt{ad}.",
+          "lean": "joint_reference_gradient_descent: hres,hP; Real.le_sqrt_of_sq_le"
+        },
+        {
+          "title": "Consume the moment of the same random potential and initial state",
+          "text": "An explicit function equality identifies F_p with the potential used by ApproximateInitialGradientMoment. That theorem derives joint gradient-square integrability and the displayed moment from the actual W2 input. Its pair law is exactly nu.prod(G), with y both the initial point and part of u(p). No unconditional fixed-center expected-cost clause is used and no target moment is assumed.",
+          "formula": "g(p)=\\|\\nabla F_p(p_1)\\|^2\\in L^1(\\nu\\otimes G),\\qquad \\mathbb E g\\le M+\\frac{\\tau d}{A^2}.",
+          "lean": "joint_reference_gradient_descent: hMom,hFeq,hgi,hM,hgm; ApproximateInitialGradientMoment.approximate_initial_gradient_moment"
+        },
+        {
+          "title": "Establish logarithm and count integrability before expectation",
+          "text": "For nonnegative g and s=d/A>0, log(1+g/s) lies between zero and g/s, so it is integrable. At the upper mean m=M+tau*d/A^2, the logarithmic tangent bounds it by log(1+m/s)+(g-m)/(s+m). Integrate this inequality using the proved moment bound. The pointwise count estimate then gives N+1 integrability and the stated expected bound. N=0 still costs one gradient check; random histories and cumulative sampler costs require further proofs.",
+          "formula": "\\log(1+g/s)\\le\\log(1+m/s)+\\frac{g-m}{s+m},\\qquad \\mathbb E(N+1)\\le2+k\\log(1+m/s).",
+          "lean": "expected_count: hli,htangent,hlog,hci; joint_reference_gradient_descent: hE,ratio"
+        }
+      ],
+      "lean_statement": "Actual same-pair first-hit index and output, measurability, inner residual and first-hit/count properties, actual count L1 and expected bound.",
+      "lean_proof": "Joint iteration continuity, strict terminal witness for actual inner first hitting, measurable choice, genuine residual identity, same-potential moment consumption and integrable logarithmic tangent.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "Function.iterate_succ_apply'",
+        "measurable_find",
+        "Measurable.find",
+        "Nat.find_spec",
+        "Nat.find_min",
+        "Nat.find_min'",
+        "Real.le_sqrt_of_sq_le",
+        "Real.log_le_sub_one_of_pos",
+        "MeasureTheory.integral_mono"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+      "role": "proof-edge",
+      "supports": [
+        "actual-joint-inner-reference"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "The inner reference construction stops at gradient-square<=a*d.",
+        "lean": "The actual first-hit predicate is a*d; terminal d/A is only a witness and upper count."
+      },
+      {
+        "source": "The source gives asymptotic per-call reference cost.",
+        "lean": "Explicit sufficient count bound using the stricter terminal witness and derived M."
+      },
+      {
+        "source": "Normalized beta=1 and positive-dimensional Euclidean recursive setting.",
+        "lean": "General beta and coordinate-free finite dimension with d>0; eta=0 allowed,tau>0 retained."
+      },
+      {
+        "source": "The approximate input has an upstream Wasserstein error guarantee.",
+        "lean": "The actual W2 budget is supplied; r=0 allowed."
+      },
+      {
+        "source": "Reference gradient queries are counted in the complexity argument.",
+        "lean": "N+1 counts all visited-point gradient checks, including the final success."
+      },
+      {
+        "source": "The per-call reference construction participates in a recursive sampler.",
+        "lean": "Joint index/output measurability and actual pair-law expectation at fixed parameters."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "d3d131b30e71436121ff4252e08379ca8f2bdae1acd096b873f7963264618b18"
+}

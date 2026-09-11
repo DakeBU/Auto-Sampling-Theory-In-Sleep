@@ -1,0 +1,73 @@
+{
+  "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
+  "state": "STABILIZING",
+  "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
+  "remaining": [
+    "PR/merge CI and actual live deployment"
+  ],
+  "program_checkpoint": {
+    "path": ".astis/JointReferenceGradientDescentProgram.lean",
+    "sha256": "8de74b9ab7f578489b6a36b82a0187b1ed4c94972188792b3099a894fe3a1d81",
+    "session": 37649,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,standard3/no lint. Actual inner ad first-hit and joint measurability accepted, terminal d/A only witness/count upper bound; no private call/index equality. Development auxiliary tau may be any real; public Gaussian consumer retains tau>0."
+  },
+  "complete_scratch": {
+    "path": ".astis/JointReferenceGradientDescentComplete.lean",
+    "sha256": "e11ebcd1319adf2c3a75aeb92910fcacd4e4e440d227b6ee5511157644b9d812",
+    "session": 51588,
+    "exit_code": 0,
+    "result": "Complete public same-pair stopped GD consumer and actual input expected count compiled; standard3/no lint. Independent complete proof/source preaudit pending.",
+    "independent_review": "depth_commit_verifier independently compiled fixed source via stdin exit0,5theorems standard3/no lint; actual joint first-hit, residual and actual pair-law expected count accepted. Development only."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "e11ebcd1319adf2c3a75aeb92910fcacd4e4e440d227b6ee5511157644b9d812",
+    "result": "All4private theorem+jointIndex+public read; actual ad threshold preserved, terminal witness only, joint measurability and moment law correct,log L1 before integral. General beta/coordinate-free/eta0 extensions,d>0/tau>0,r0 allowed,suppliedW2,N+1 counting,no evaluator/history/full-parameter-kernel/stage sum disclosed. Formal decoder must expand actual jointIndex including unreachable fallback."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean",
+    "test": "Tests/SmoothedPicardHMCJointReferenceGradientDescent.lean",
+    "state": "Focused production PASS3725, public theorem standard3. No new-module lint; existing imported dependency warnings replayed. Independent production and formal source review pending.",
+    "session": 94826,
+    "exit_code": 0,
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean": "38ce7c874a2806e4502c3862214d3ef5e36df9ef847d478d79e8b90e8803f31c",
+      "Tests/SmoothedPicardHMCJointReferenceGradientDescent.lean": "f2f28ce75bca03d822db12c088833b18c85746284bf8a43fcfb34535c9006e3e"
+    }
+  },
+  "expanded_statement": {
+    "file": ".astis/joint-reference-gradient-descent-expanded.log",
+    "characters": 3236,
+    "sha256": "59d3bcbce87a2153c4bdad9b9001f2318d6fde1663441fd6c7a6fceeace9e167",
+    "session": 97823,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed full3236-character Meta.deltaExpand/isDefEq,exacthash,real ENNReal rpow/coupling/Gaussian maps and no source-name leakage."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "df9a1ce73f0a71cff07b0633e1e1f426e3139037",
+    "result": "Independent focused PASS3725 standard3,fake-closure scan passed; production differs from reviewed full scratch only in documentation and diagnostic prints. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-joint-reference-gradient-descent.json",
+    "state": "Seven authored steps,6deltas and5private accepted; publicationPASS66."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent"
+    ]
+  },
+  "admission_boundary": "VERIFIED atebc8a31. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json",
+  "integration_notes": {
+    "upstream": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
+    "boundary": "Independent final local integration accepted at caaccad; canonical gate,reader/graph and root browser QA passed. Remote delivery separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json"
+}
