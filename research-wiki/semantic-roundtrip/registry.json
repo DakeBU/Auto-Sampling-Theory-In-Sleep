@@ -12819,7 +12819,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCStoppedRGODepth",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-stopped-rgo-depth",
         "anchor": "Algorithm3.3 fixed terminal level and Theorem6.5 equations(6.2)-(6.4)",
@@ -12845,7 +12845,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "fa9fe59d97ebe2b10fa8feff397bee309577917ca7ac06c6780362779c278808",
+        "review_run_sha256": "d0003b49ed32a5a6710438b7965374d5c824f14f44b502c04896c5d5a3890a70",
+        "run_artifact": "runs/20260911-companion-priority/stopped-rgo-depth.source-review-result.json",
+        "evidence": "Independent source reviewer accepted all seven slots, six authored steps and six informational deltas. Canonical packet and source/statement/reconstruction/embedded-module hashes independently recomputed; current production equals embedded module and lesson/publication match. Directly audited primary Algorithm3.3, Section6.1 interface and Theorem6.5 equations(6.2)-(6.4) reused. Source is attributed expanded paraphrase. Binding authenticated in packet; external preimage, decoder/run and toolchain hashes not independently recomputed by source reviewer. No independent compile or fixed-commit admission here. No blockers or repairs. Zero precision and initially stopped states valid; zero dimension excluded; arbitrary history has no validity invariant."
       },
       "publication_binding_sha256": "47c1534ae93dcc94a59cc56d672b94e83a01091846b626ed3bc6893e1a87d5df",
       "publication_context": {
@@ -13009,7 +13016,90 @@
         "decoder_run_sha256": "4e93668923f36c9c5e2133796a2decf3451f0a8e40600cb7a4cb6b6d662659bc",
         "lean_statement_sha256": "f8accd7626b16c62525db43f85ee4c0fdac05e176ba3f51e067d5e7fcc25f87f",
         "run_artifact": "runs/20260911-companion-priority/stopped-rgo-depth.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Recursive target updates, fixed terminal level and logarithmic depth.",
+          "reconstructed": "Explicit F, actual absorbed P and R_n=Lterm composed with P^n.",
+          "relation": "explicit-elaboration",
+          "evidence": "FiniteRGOProgram is actually instantiated and its transition receives the support bound."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs targets and recursive calls.",
+          "reconstructed": "Positive real finrank Hilbert Borel E, arbitrary probability mu and concrete product history state.",
+          "relation": "stronger-in-lean",
+          "evidence": "No density, curvature or moments. mu supports parent-program reuse and does not constrain the supplied Q,Lterm in the conclusion."
+        },
+        "quantifiers": {
+          "original": "Fixed terminal level with initial-target-dependent bound.",
+          "reconstructed": "s0 determines B,J once; one F,P,R for all depths, stability only at s0.",
+          "relation": "same",
+          "evidence": "Every P fiber uses the fixed B; no whole-kernel output equality at a globally uniform J."
+        },
+        "assumptions": {
+          "original": "Bounded per-call levels and sufficient constants within concrete sampler setting.",
+          "reconstructed": "Measurable eta in (0,c], kappa>=1,0<c<1/4, positive actual dimension,q>=2,0<Delta<=1/2,0<gamma<=1,C>=8; arbitrary Markov Q,Lterm.",
+          "relation": "different",
+          "evidence": "No stopping, favorable support, accuracy or common schedule is assumed. The gamma range is for depth only, not asserted sufficient for FORS."
+        },
+        "conclusion": {
+          "original": "Actual termination by source depth and elimination of larger caps.",
+          "reconstructed": "B>0, actual terminal mass one at J, stable output at s0 for every larger cap, explicit J bound.",
+          "relation": "same",
+          "evidence": "pathwise_log_depth and path_endpoint_mass give actual support; finite_output_stability uses terminal concentration. F measurability is internal, not a public conjunct."
+        },
+        "scopes": {
+          "original": "Full source identifies approximate calls, FORS, errors and expected queries.",
+          "reconstructed": "Normalized scalar-schedule stage bound and cap removal for supplied kernels.",
+          "relation": "different",
+          "evidence": "Concrete sampler, history validity, errors and query counts remain excluded. Stage transitions are not gradient queries."
+        },
+        "constant_dependencies": {
+          "original": "Source equations(6.2)-(6.4) use regularized conditioning and sufficient constants.",
+          "reconstructed": "K=(1+b)/(kappa^-1+b), source tau,a; B,J depend on initial precision and displayed parameters.",
+          "relation": "explicit-elaboration",
+          "evidence": "Baseline smoothness one disclosed. C>=8 is a proved sufficient choice; upper coefficient retains (C/2)log(1/gamma)."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability/Hilbert setting with actual positive finrank.",
+          "evidence": "No density, curvature or moments. mu supports parent-program reuse and does not constrain the supplied Q,Lterm in the conclusion."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Normalized smoothness-one variance formulas; general scaling adapter remains.",
+          "evidence": "Baseline smoothness one disclosed. C>=8 is a proved sufficient choice; upper coefficient retains (C/2)log(1/gamma)."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Threshold and J are computed from s0 once and fixed.",
+          "evidence": "Every P fiber uses the fixed B; no whole-kernel output equality at a globally uniform J."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Explicit sufficient depth constants and gamma coefficient are not full FORS constant guarantees.",
+          "evidence": "Baseline smoothness one disclosed. C>=8 is a proved sufficient choice; upper coefficient retains (C/2)log(1/gamma)."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Pathwise eta(x_n) varies with history; constant-c invocation only establishes initial-data B positivity/J bound.",
+          "evidence": "No stopping, favorable support, accuracy or common schedule is assumed. The gamma range is for depth only, not asserted sufficient for FORS."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Arbitrary supplied kernels receive stage-depth and cap-stability, without concrete sampler, errors or costs.",
+          "evidence": "Concrete sampler, history validity, errors and query counts remain excluded. Stage transitions are not gradient queries."
+        }
+      ]
     }
   ]
 }
