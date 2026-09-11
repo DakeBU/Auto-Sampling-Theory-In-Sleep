@@ -1,0 +1,42 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCProxyReverseTransport",
+    "result": "PASS3729",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProxyReverseTransport.lean": "3e807035e4119972833a8ac8b9ad45d79eebd126bfbf054e5b475fa9e8f4d0fc",
+      "Tests/SmoothedPicardHMCProxyReverseTransport.lean": "7afcad01578292a5da49fc74f9a2cfca298015907341b35ad52eec245c4798b9"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/proxy-reverse-transport.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCProxyReverseTransport"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/proxy-reverse-transport.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii).",
+  "remaining": [
+    "Independent fixed-commit admission",
+    "Integration, aggregate and reader/graph delivery",
+    "Full Wp/Renyi interfaces and required marginal moments",
+    "Proxy-warmness, actual sampler/error/cost and both main results",
+    "Agreed copy/download and live compiled-badge synchronization"
+  ]
+}

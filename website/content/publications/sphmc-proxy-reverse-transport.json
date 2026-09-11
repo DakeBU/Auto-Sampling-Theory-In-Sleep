@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-proxy-reverse-transport",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "One truncation proxy for every Gaussian time and order",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemmas6.2 and6.3(ii), actual-budget proxy composition",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space. Let real p>=2,r>=0 and 0<delta<1. Suppose the actual infimum over couplings of the pth displacement integral is at most ofReal(r^p). There exist one probability proxy Pdag and one probability coupling Gamma of Pdag,Q such that every measurable event B satisfies |P.real B-Pdag.real B|<=delta and norm(x-y)<=r delta^(-1/p) Gamma-a.e. For this same Pdag and Gamma, every tau>0 and real q>1 satisfy: Htau Pdag is absolutely continuous with respect to Htau Q; its actual ENNReal RN qth-power integral is at most ofReal exp(q(q-1)r^2/(2tau delta^(2/p))); the real RN qth power is integrable under Htau Q, its integral has the same exponential bound, and its logarithm divided by q-1 is at most q r^2/(2tau delta^(2/p)). Htau is the existing actual GaussianSmoothing operator with scale sqrt(tau).",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+        "Real p>=2 inherited from the source Lemma6.2 proof route. Lemma6.3(ii) does not independently restate this range; the formal statement makes it explicit.",
+        "r>=0 and0<delta<1, including zero radius. The genuine infimum p-displacement transportCost(P,Q)<=ofReal(r^p) is the input, not a supplied optimal coupling or proxy.",
+        "Finite marginal p-moments are not assumed or concluded; this raw-budget theorem is an explicit generalization of the source Pp presentation. Its relation to a full Wp metric API remains separate.",
+        "The same proxy and coupling precede all tau>0,q>1. Their independence from tau is justified by the actual truncation construction, strengthening the source fixed-time presentation."
+      ],
+      "formulae": [
+        {
+          "label": "Uniform actual proxy bound",
+          "tex": "\\exists P^\\dagger,\\Gamma\\in\\Pi(P^\\dagger,Q):\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\forall\\tau>0,\\ q>1,\\quad\\frac{\\log\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qr^2}{2\\tau\\delta^{2/p}}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "one-proxy",
+          "label": "One actual probability proxy and coupling with eventwise TV and bounded displacement"
+        },
+        {
+          "id": "uniform-rn",
+          "label": "Same proxy has actual RN power/integrability/log bounds for every positive time and order greater than one"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport",
+          "cell": "ASTIS-SW-SPHMC-proxy-reverse-transport",
+          "role": "prerequisite",
+          "supports": [
+            "one-proxy",
+            "uniform-rn"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCProxyReverseTransport",
+          "boundary": "Actual infimum p-cost budget and eventwise TV/RN-log certificate for the Lemma6.2 to6.3(ii) route. One proxy is fixed before all tau,q. Full Wp/Renyi API identification, marginal moment conclusions, recursive warmness and actual sampler/error/query-cost results remain separate.",
+          "assumption_deltas": [
+            {
+              "source": "Lemma6.3(ii) uses P,Q in Pp and invokes Lemma6.2, which assumes p>=2; the former does not separately restate that range.",
+              "lean": "Explicit p>=2 and actual infimum displacement-cost budget, without marginal p-moment assumptions.",
+              "classification": "generalization",
+              "reason": "Retains the invoked proof route; finite coupling cost does not imply marginal moments. Full Wp API identification is separate."
+            },
+            {
+              "source": "The source states the bound at fixed heat time and uniformly over q>1.",
+              "lean": "One actual proxy and coupling precede every tau>0 and q>1.",
+              "classification": "generalization",
+              "reason": "The actual truncation construction is independent of both parameters."
+            },
+            {
+              "source": "Euclidean probability measures, TV proxy, and Renyi reverse-transport bound.",
+              "lean": "Finite-dimensional real inner-product Borel spaces including zero dimension; eventwise TV and actual RN integral/log certificate.",
+              "classification": "API-limitation",
+              "reason": "Explicit budget-form generalization; full Wasserstein/Renyi metric interfaces, recursive warmness and sampler costs are not claimed."
+            },
+            {
+              "source": "Exact q r^2/(2 tau delta^(2/p)) normalized logarithm bound.",
+              "lean": "Same coefficient, RN direction, denominator law, plus proved real-power integrability and finite ENNReal bound.",
+              "classification": "same",
+              "reason": "Actual truncation and Gaussian mixture theorems with exact positive-base exponent algebra."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

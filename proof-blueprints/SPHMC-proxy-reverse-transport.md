@@ -7,3 +7,5 @@ Substantive integration of actual optimizer/truncation and Gaussian mixture proo
 Call truncated_proxy once; extract actual Pdag=gamma.map T and Gamma=gamma.map(T,snd), all probability/marginal/TV/displacement facts before introducing tau,q. Apply actual GaussianMixture theorem to the same coupling and normalize (r delta^(-1/p))^2=r^2/delta^(2/p), with positive delta. Keep r0 valid. No new moment/optimizer hypothesis or toReal infinite-cost shortcut.
 
 Root sole writer; GaussianMixture remains sole STABILIZING. Emit the bounded publication packet before any Lean development.
+
+Production focused and independent replay PASS3729, standard three axioms. Single actual proxy precedes all tau,q with exact constants. PROVED_LOCAL only; formal source/fixed-commit admission and reader delivery pending.
