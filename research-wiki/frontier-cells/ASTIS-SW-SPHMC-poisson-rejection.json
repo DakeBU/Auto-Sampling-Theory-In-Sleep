@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Appendix A.1 Lemma A.2; arXiv:2608.05022v1 Algorithm 1 and Theorem 2.3",
   "target_statement": "For a measurable parameter space S, a Markov proposal kernel Q:S to X, auxiliary probability Xi on A, jointly measurable W:S times X times A to Real bounded in [-B,B] for a fixed B>0, and a default output x0, construct the actual independent one-attempt law from Q(s), Poisson(2B), an iid Xi stream and Uniform[0,1]. Read exactly the first N auxiliary coordinates and accept with the product of (B+W)/(2B). Prove the conditional acceptance probability exp(w(s,x)-B), w(s,x)=integral W(s,x,z) Xi(dz), and the accepted submeasure Q(s).withDensity(ofReal(exp(w(s,.)-B))). Its mass p(s) is positive and at least exp(-2B). On an actual iid sequence of whole attempts, construct the total first-success output with default x0 on never-success; prove that never-success has zero mass, the preceding-failure tail is (1-p(s))^m, and the output law is Q(s).tilted(w(s,.)), forming a measurable Markov kernel in s. Prove the actual full-batch accumulated auxiliary-query count including the successful attempt has expected value 2B/p(s)<=2B*exp(2B). Do not assume independence of the current acceptance event and its Poisson count.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "SPHMC Appendix A.1 Lemma A.2 and concrete terminal FORS construction needed by Theorem 6.5"
@@ -36,9 +36,10 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-poisson-rejection.md",
     "planning_review": "Independent log_depth_source_review accepted the actual iid attempt/retry and 2B/p mechanism with explicit default output, full-batch counting, all four independent coordinates and separate parameterized measurability. Parameterized output construction is part of this target, not already proved.",
-    "execution_boundary": "Root sole writer. Previous StoppedGaussianRGOError actually merged; PoissonRejection outside stabilization until formal source and fixed-commit verification.",
+    "execution_boundary": "Root sole writer; PoissonRejection sole STABILIZING. The next cost-tail contract must preserve the identified small-B source discrepancy.",
     "independent_proof_review": "runs/20260911-companion-priority/poisson-rejection.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL only; formal source and fixed-commit admission pending."
+    "admission_boundary": "VERIFIED at 5505e6f; aggregate, reader and integration validation remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/poisson-rejection.verified-admission.json"
   },
   "blocked": {
     "reason": "",
