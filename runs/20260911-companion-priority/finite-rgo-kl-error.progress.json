@@ -1,0 +1,37 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError.finite_rgo_kl_error"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCFiniteRGOKLError",
+    "result": "PASS3753",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOKLError.lean": "b985954172724c7d90e9390f9690d1014403fd9fc4210ba9e54e7a8821fbfaec",
+      "Tests/SmoothedPicardHMCFiniteRGOKLError.lean": "2b824154f1474e1a264dd371750dd03b83306ce4da8038f326ae4ea10a4ac238"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/finite-rgo-kl-error.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCFiniteRGOKLError"
+    ]
+  },
+  "mathematical_status": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation.",
+  "remaining": [
+    "Formal source and fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "Actual source two-noise observation kernel and stage Wasserstein accuracy",
+    "Concrete FORS and actual approximate sampler",
+    "Errors and actual-input expected query costs",
+    "Both paper main results and agreed deliveries"
+  ]
+}
