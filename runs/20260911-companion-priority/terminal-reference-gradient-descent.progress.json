@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -86,5 +86,9 @@
     ]
   },
   "admission_boundary": "VERIFIED at5f0529f. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/terminal-reference-gradient-descent.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/terminal-reference-gradient-descent.verified-admission.json",
+  "integration_notes": {
+    "upstream": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior cc1f333, metadata ancestry conflicts resolved after verifying main tree equals cc1f333; zero merge tree delta. Accepted program/source unchanged; aggregate pending."
+  }
 }
