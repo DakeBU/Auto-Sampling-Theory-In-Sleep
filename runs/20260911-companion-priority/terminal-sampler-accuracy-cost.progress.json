@@ -3,9 +3,22 @@
   "state": "EXPLORING",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Explicit parameter derivation",
-    "Actual output log accuracy with positive moments",
-    "Cached expected and tail gradient count",
-    "Independent proof/source admission and integration"
-  ]
+    "Actual clipped gradient stream/output identity and cached count convention",
+    "Instantiate existing PoissonQueryTail on exactly the same law/event/cost",
+    "Assemble actual output RN moment/log accuracy and cost public consumer",
+    "Independent complete proof/source admission and integration"
+  ],
+  "scratch_checkpoint": {
+    "path": ".astis/TerminalSamplerAccuracyCost.lean",
+    "sha256": "e850e00f1475df8ea71ee743338f1ddde9874efb9667c23deed5e69dc9a65190",
+    "session": 34665,
+    "exit_code": 0,
+    "result": "Seven private foundations compiled, standard three axioms/no lint: scaled and original parameter conditions, epsilon exponential error, actual RN moment positivity, logarithmic bound, cached expected count and logarithmic tail threshold shift. No public consumer, production or admission."
+  },
+  "independent_foundations_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "4e719427b94c1ce46bae469e71a72baefea011821d1a93d51695ce9039554550",
+    "scope": "First five private foundations only, before cost helpers.",
+    "result": "Independent normalized frozen-source stdin compilation exit0 standard3/no lint; parameter algebra, denominator RN positivity and finite-toReal/L1 before log accepted. No VERIFIED."
+  }
 }
