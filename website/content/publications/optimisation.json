@@ -195,6 +195,79 @@
             }
           ],
           "audit_id": "ASTIS-RT-ANDI-OPT-ConvexityC1"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+          "cell": "ASTIS-SHARED-gradient-hessian-ftc",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence"
+          ],
+          "boundary": "The source segment identity generalized from Euclidean space to complete real inner-product space. No convexity or Hessian bound is assumed.",
+          "assumption_deltas": [
+            {
+              "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+              "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v.",
+              "classification": "source-implicit",
+              "reason": "The finite-dimensional Hessian is represented invariantly by its bilinear evaluation. No independently supplied derivative, symmetry or integrability premise is added."
+            },
+            {
+              "source": "The FTC identity is on whole Euclidean space and has no modulus parameter.",
+              "lean": "Complete real inner-product space, with no modulus parameter.",
+              "classification": "generalization",
+              "reason": "The segment derivative and scalar integral require no finite dimension; x and v remain arbitrary."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-HessianFTC"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+          "cell": "ASTIS-SHARED-gradient-hessian-equivalence",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence"
+          ],
+          "boundary": "The two directions follow the source derivative-limit and Hessian-integral routes. The complete-space and signed-modulus scope is an explicit generalization.",
+          "assumption_deltas": [
+            {
+              "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+              "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v.",
+              "classification": "source-implicit",
+              "reason": "The finite-dimensional Hessian is represented invariantly by its bilinear evaluation. No independently supplied derivative, symmetry or integrability premise is added."
+            },
+            {
+              "source": "All Euclidean space and nonnegative modulus.",
+              "lean": "Complete real inner-product space; arbitrary real m in the equivalence.",
+              "classification": "generalization",
+              "reason": "The source adapter restores its domain and parameter range; shared proofs do not need positive dimension, positive m or nonzero direction."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientHessian"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+          "cell": "ASTIS-OPT-convexity-c2",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence",
+            "source-specialization-c2"
+          ],
+          "boundary": "Exact Proposition 1.6 part 2; part 1 remains provided by the unchanged C¹ theorem. This does not complete the chapter or assert a Riemannian analogue.",
+          "assumption_deltas": [
+            {
+              "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+              "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v.",
+              "classification": "source-implicit",
+              "reason": "The finite-dimensional Hessian is represented invariantly by its bilinear evaluation. No independently supplied derivative, symmetry or integrability premise is added."
+            },
+            {
+              "source": "All Euclidean space and nonnegative modulus.",
+              "lean": "Same whole Euclidean space and m>=0.",
+              "classification": "same",
+              "reason": "The source adapter restores its domain and parameter range; shared proofs do not need positive dimension, positive m or nonzero direction."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-ConvexityC2"
         }
       ]
     }

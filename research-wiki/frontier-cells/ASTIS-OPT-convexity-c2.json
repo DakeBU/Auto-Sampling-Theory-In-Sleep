@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-OPT-convexity-c2",
+  "route": "optimisation",
+  "title": "Chewi Proposition 1.6 C2 equivalence",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
+  "target_statement": "For C2 f on all Euclidean space and m>=0, chord strong convexity iff D2f(x)[v,v]>=m||v||^2.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-OPT-convexity-c1",
+    "ASTIS-SHARED-gradient-hessian-equivalence"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Proposition-1.6",
+    "optimisation:smoothness-equivalences"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS: existing ConvexityC1, HessianStrongConvexity, QuadraticRegularization and DisplacementMonotoneDerivative modules",
+      "Pinned Mathlib derivative slope, interval FTC and Riesz gradient APIs",
+      "Existing Optlib/CvxLean audit and independent bounded reuse search"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+    "canonical_shared_cell": "ASTIS-OPT-convexity-c2",
+    "notes": "Preserve existing scalar-convexity Hessian sufficient condition; add exact source derivative-limit and integral edges, with C1 equivalences reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Proposition 1.6 part 2, (1.5)-(1.6) and final proof paragraph",
+    "detail_status": "sufficient",
+    "gap": "Make epsilon>0 cancellation, actual Hessian representation and continuity/integrability explicit.",
+    "consulted": [
+      {
+        "source": "Pinned Mathlib calculus",
+        "anchor": "HasDerivAt.tendsto_slope_zero_right; intervalIntegral FTC",
+        "hypothesis_adapter": "C2 supplies genuine derivative of fderiv; evaluation gives scalar derivative and continuous integrand."
+      }
+    ],
+    "fidelity_boundary": "Shared complete real inner-product space and signed modulus generalize the source; final theorem restores finite Euclidean space and m>=0. No Riemannian extension."
+  }
+}

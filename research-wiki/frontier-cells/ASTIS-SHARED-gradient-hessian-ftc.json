@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-gradient-hessian-ftc",
+  "route": "shared",
+  "title": "Gradient difference as the Hessian segment integral",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
+  "target_statement": "For C2 f on a complete real inner-product space, pair the gradient difference with v and identify the integral of D2f(x+tv)[v,v].",
+  "status": "claimed",
+  "parents": [
+    "ContDiff.fderiv_right",
+    "intervalIntegral.integral_eq_sub_of_hasDerivAt"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Proposition-1.6",
+    "optimisation:smoothness-equivalences"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS: existing ConvexityC1, HessianStrongConvexity, QuadraticRegularization and DisplacementMonotoneDerivative modules",
+      "Pinned Mathlib derivative slope, interval FTC and Riesz gradient APIs",
+      "Existing Optlib/CvxLean audit and independent bounded reuse search"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+    "canonical_shared_cell": "ASTIS-SHARED-gradient-hessian-ftc",
+    "notes": "Preserve existing scalar-convexity Hessian sufficient condition; add exact source derivative-limit and integral edges, with C1 equivalences reused."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Proposition 1.6 part 2, (1.5)-(1.6) and final proof paragraph",
+    "detail_status": "sufficient",
+    "gap": "Make epsilon>0 cancellation, actual Hessian representation and continuity/integrability explicit.",
+    "consulted": [
+      {
+        "source": "Pinned Mathlib calculus",
+        "anchor": "HasDerivAt.tendsto_slope_zero_right; intervalIntegral FTC",
+        "hypothesis_adapter": "C2 supplies genuine derivative of fderiv; evaluation gives scalar derivative and continuous integrand."
+      }
+    ],
+    "fidelity_boundary": "Shared complete real inner-product space and signed modulus generalize the source; final theorem restores finite Euclidean space and m>=0. No Riemannian extension."
+  }
+}
