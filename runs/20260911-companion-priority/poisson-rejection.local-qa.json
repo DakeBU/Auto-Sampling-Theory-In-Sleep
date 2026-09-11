@@ -1,0 +1,46 @@
+{
+  "commit": "940f379fc993519f29120138f933356b34985d82",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "result": "Accepted fixed candidate: production/test hashes unchanged from VERIFIED5505e6f4, accepted binding/validator, append-only root imports, matching aggregate source digest, single STABILIZING lane.",
+    "boundary": "Source integration and local QA only; no merge, deployment or paper completion claim."
+  },
+  "aggregate": {
+    "status": "passed",
+    "jobs": 9144,
+    "source_digest": "aee13bfb51cc14af56ed210abc7eb3058dbfcabd39add2f65554ce80b1ba67bd"
+  },
+  "site": {
+    "status": "passed",
+    "modules": 614,
+    "declarations": 3724,
+    "reviewed_teaching": 77,
+    "check_log": ".astis/poisson-site-check.log"
+  },
+  "graph": {
+    "status": "checked",
+    "report": ".astis/poisson-graph-check.json",
+    "boundary": "Reference edges are not elaborated dependency certificates."
+  },
+  "browser": {
+    "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-poisson-rejection",
+    "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-poissonrejection.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-poissonrejection-poiss-0ec003d725",
+    "displayed_commit": "940f379fc993",
+    "steps": 7,
+    "initially_closed_disclosures": 10,
+    "math_errors": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Target module declaration"
+    ],
+    "statement_characters": 1633,
+    "proof_characters": 4231,
+    "card_labels": [
+      "Compiled",
+      "Not mapped"
+    ],
+    "boundary": "Local DOM and actual click verification; no deployment claim."
+  }
+}
