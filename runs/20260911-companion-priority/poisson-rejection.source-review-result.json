@@ -1,0 +1,144 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent formal source review.",
+  "reviewer_packet_sha256": "42734b42cfdc0a24dc00c3a3265b80f596018870c145e84939b693ae76c487e7",
+  "source_text_sha256": "e1153876f1d77b859a8a25b9871f5eaddd314f4f9f7e3c61146aec7e830c6909",
+  "lean_statement_sha256": "e3c94b5385ecc55a260eb606c05e17f6a1b3bc088e69c2f56c77d0009a724bf0",
+  "reconstruction_text_sha256": "b3a09acb503ebc10c00dcde939ac9226048e7c7bec0e92f07f76e3ed27aea2a5",
+  "embedded_module_text_sha256": "7ea28f567f1a3319f879aab01a5745e46d3fad03e40f6b0904be2565c48f08fe",
+  "publication_binding_sha256": "524049de2fdcec71c588b15f8e83f876bcbaba07ace833e9ba2f3451a65946ad",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Proposal, bounded conditional estimator, independent Poisson batch and repeated product acceptance.",
+      "reconstructed": "Actual independent four-coordinate attempts, iid whole-attempt stream, total first-success output and accumulated count.",
+      "relation": "explicit-elaboration",
+      "evidence": "Expanded products, finite acceptance, Nat.find default and preceding-failure cost are explicit."
+    },
+    "domains": {
+      "original": "A fixed proposal and conditional estimator; general FORS may use path proposal and endpoint.",
+      "reconstructed": "Arbitrary measurable parameter/proposal/auxiliary spaces, Markov Q, fixed auxiliary probability and jointly measurable W.",
+      "relation": "different",
+      "evidence": "Explicit parameterized extension, not representation of every abstract conditional estimator or path-endpoint simulator."
+    },
+    "quantifiers": {
+      "original": "Fixed proposal and bound determine the accepted law.",
+      "reconstructed": "For every admissible W,B,x0 there is one common R before all s; conditional acceptance for all x and tails for all n.",
+      "relation": "explicit-elaboration",
+      "evidence": "No measurable selection from separate fiberwise existence; only fiberwise out measurability claimed."
+    },
+    "assumptions": {
+      "original": "Bounded estimator realizations and independent copies with rate 2B.",
+      "reconstructed": "Fixed B>0, fixed probability nu, pointwise bound, joint measurability, explicit product draws and default.",
+      "relation": "explicit-elaboration",
+      "evidence": "Boundedness yields probability factors and integrability; no current count/acceptance independence."
+    },
+    "conclusion": {
+      "original": "Accepted exponential tilt and acceptance at least exp(-2B).",
+      "reconstructed": "Public conditional acceptance, accepted submeasure, exact p, actual tilt, termination, failure tail and exact full-batch expected cost.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual cylinders and Poisson mean prove retry and cost conclusions."
+    },
+    "scopes": {
+      "original": "Full FORS includes clipping, target approximation, endpoint and accuracy/query analyses.",
+      "reconstructed": "Already bounded mechanism and estimator expectation only; remaining FORS, gradient, clipping, Renyi and initialization obligations retained.",
+      "relation": "different",
+      "evidence": "Failure-prefix tails are not total-estimator-count tails."
+    },
+    "constant_dependencies": {
+      "original": "Rate 2B, factors (B+W)/(2B), exp(meanW) tilt and exp(-2B) acceptance.",
+      "reconstructed": "Same constants with expanded exact expected charge 2B/p<=2B exp(2B).",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual generating series, bounded mean and Tonelli; no extra numerical hypotheses."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Common measurable Markov family extends the fixed-proposal presentation; fixed auxiliary representation explicit.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 1."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Fixed positive B and everywhere bounded W preserve the mechanism.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 2."
+    },
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Infinite iid randomness supplies exactly the finite auxiliary prefix.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 3."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "Explicit default totalizes output on a proved null event.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 4."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "All conditional, accepted, mass and output identities are exported.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 5."
+    },
+    {
+      "slot": "constant_dependencies",
+      "severity": "informational",
+      "description": "Expected full-batch cost is derived, not a short-circuit or gradient theorem.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 6."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Concrete FORS estimator, clipping, target, accuracy and gradient-cost consumers remain separate.",
+      "evidence": "Independent reviewer accepted corresponding publication delta 7."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual attempt product, finite prefix, discrete measurability and N=0."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Uniform acceptance and product integral with Poisson generating series."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Actual accepted projection and public ha/hp, positive finite mass."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "First-hit cylinders, null never-hit, measurable total output and normalization."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Joint measurable density constructs Markov R; integrable normalization gives actual tilt."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Current full batch charged after previous failures; Tonelli and actual Poisson mean yield 2B/p."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Positive acceptance bound gives direct finite expected cost without approximation transfer."
+      }
+    ]
+  },
+  "review_evidence": "Independent formal source reviewer accepted all seven slots, seven authored steps and seven deltas; domain-mismatch with no blockers or repairs. Fresh primary Lemma A.2 and Algorithm1/Theorem2.3 compared. Source field is attributed ASTIS expanded paraphrase, not verbatim. Reviewer independently rehashed packet, source, expanded statement, reconstruction and embedded module, checked raw production and current lesson/publication. Binding authenticated within packet but external preimage not reconstructed. Compilation, Meta.isDefEq, decoder execution/run and test/dependency hashing were not independently rerun by this source reviewer. Acceptance is for bounded mechanism, not complete FORS or paper main results."
+}

@@ -31,7 +31,7 @@
   },
   "mathematical_status": "Actual independent proposal/Poisson/infinite-auxiliary/uniform attempt law; measurable total first-success output; common measurable Markov kernel equals true output and exponential tilt of mean W. Public conditional acceptance, accepted submeasure, exact mass and lower bound, never-hit zero, preceding-failure tail, full-batch expected auxiliary count 2B/p<=2B exp(2B). Fixed B>0 and fixed auxiliary probability law; jointly measurable everywhere bounded W.",
   "remaining": [
-    "Complete formal source review and independent fixed-commit admission",
+    "Independent fixed-commit admission",
     "Complete statement/source encoder-denoiser packet and independent formal admission",
     "Integrate aggregate imports and validate original reader delivery",
     "Actual gradient estimator and clipping, target log-weight identification, Renyi error, initialization and gradient/full FORS cost remain independent subsequent mathematical obligations"
@@ -45,9 +45,15 @@
     "artifact": "runs/20260911-companion-priority/poisson-rejection.independent-proof-review.json"
   },
   "source_fidelity": {
-    "state": "draft",
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
     "audits": [
       "ASTIS-RT-20260911-SPHMCPoissonRejection"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/poisson-rejection.source-review-result.json"
     ]
   }
 }
