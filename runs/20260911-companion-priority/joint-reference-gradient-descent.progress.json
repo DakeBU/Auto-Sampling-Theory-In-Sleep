@@ -3,9 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
-    "Independent complete proof/source preaudit",
-    "Production and focused test",
-    "Independent formal source admission and original reader delivery"
+    "Focused production compile and independent production review",
+    "Authored proof lesson, fresh decoder and formal source review",
+    "Independent admission and original reader integration/delivery"
   ],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
@@ -19,6 +19,23 @@
     "sha256": "e11ebcd1319adf2c3a75aeb92910fcacd4e4e440d227b6ee5511157644b9d812",
     "session": 51588,
     "exit_code": 0,
-    "result": "Complete public same-pair stopped GD consumer and actual input expected count compiled; standard3/no lint. Independent complete proof/source preaudit pending."
+    "result": "Complete public same-pair stopped GD consumer and actual input expected count compiled; standard3/no lint. Independent complete proof/source preaudit pending.",
+    "independent_review": "depth_commit_verifier independently compiled fixed source via stdin exit0,5theorems standard3/no lint; actual joint first-hit, residual and actual pair-law expected count accepted. Development only."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "e11ebcd1319adf2c3a75aeb92910fcacd4e4e440d227b6ee5511157644b9d812",
+    "result": "All4private theorem+jointIndex+public read; actual ad threshold preserved, terminal witness only, joint measurability and moment law correct,log L1 before integral. General beta/coordinate-free/eta0 extensions,d>0/tau>0,r0 allowed,suppliedW2,N+1 counting,no evaluator/history/full-parameter-kernel/stage sum disclosed. Formal decoder must expand actual jointIndex including unreachable fallback."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean",
+    "test": "Tests/SmoothedPicardHMCJointReferenceGradientDescent.lean",
+    "state": "Focused production PASS3725, public theorem standard3. No new-module lint; existing imported dependency warnings replayed. Independent production and formal source review pending.",
+    "session": 94826,
+    "exit_code": 0,
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean": "38ce7c874a2806e4502c3862214d3ef5e36df9ef847d478d79e8b90e8803f31c",
+      "Tests/SmoothedPicardHMCJointReferenceGradientDescent.lean": "f2f28ce75bca03d822db12c088833b18c85746284bf8a43fcfb34535c9006e3e"
+    }
   }
 }
