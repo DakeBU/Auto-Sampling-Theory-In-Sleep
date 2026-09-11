@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 §1.2 Proposition 1.6 part 1, equations (1.3)-(1.5) and its two affine-segment FTC identities.",
   "target_statement": "For C1 f on a complete real inner-product space, f(x+v)-f(x) equals integral_0^1 <grad f(x+s v),v> ds.",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "intervalIntegral.integral_eq_sub_of_hasDerivAt"
   ],
@@ -35,7 +35,7 @@
     "independent_verification": "c1_proof_review independently verified frozen commit7616533 hashes, focused2725 build, standard axioms and proof; c1_blind_decoder and c1_source_reviewer performed distinct bound source audits. Root records their explicit independent recommendations.",
     "root_build": "PASS: canonical tools/astis.py check via website/scripts/lean_gate.py on synchronized commit 51e07c9272d658dab3df704090adb11679a8cf0a, including root Tests (9114 jobs), fake-closure scan and pinned ATLAS validation. Gate timestamp 2026-09-11T02:33:47.182241+00:00.",
     "graph_regeneration": "PASS: website build and site check (12 chapters, 400 registered leaves, 584 modules, 3669 declarations); graph-check passed for all three C1 cells. Desktop 1280x720 and mobile 390x844 visual inspection of source reader and focused Lean graph: compiled declaration, actual named references, solid structural versus dashed evidence links; chapter remains partial. Long MathJax formulas scroll horizontally.",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/c6419942741d2ef3fe535859c22ef222aa936448"
   },
   "blocked": {
     "reason": "",

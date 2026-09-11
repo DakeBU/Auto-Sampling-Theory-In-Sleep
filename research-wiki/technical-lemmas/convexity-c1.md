@@ -59,3 +59,6 @@ compiled status and distinct structural/reference edges.
 Next dependency-ready optimisation work: inspect existing Hessian APIs and
 source detail for Proposition 1.6 part 2 before choosing one C2 implication.
 Do not mark the complete proposition or Riemannian analogue finished.
+
+Integrated directly into main at c6419942741d2ef3fe535859c22ef222aa936448 after all local gates and
+independent reviews passed; the atomic remote push succeeded. No PR created.
