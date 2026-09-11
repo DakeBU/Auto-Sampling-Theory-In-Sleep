@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-269cb97b00e7ac42",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {d : ℕ}\n  {f : EuclideanSpace ℝ (Fin d) → ℝ} {m : ℝ},\n  0 ≤ m →\n    ContDiff ℝ 1 f →\n      (StrongConvexOn Set.univ m f ↔\n          ∀ (x y : EuclideanSpace ℝ (Fin d)), f x + inner ℝ (gradient f x) (y - x) + m / 2 * ‖y - x‖ ^ 2 ≤ f y) ∧\n        (StrongConvexOn Set.univ m f ↔\n          ∀ (x y : EuclideanSpace ℝ (Fin d)), m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x))",
+    "statement_sha256": "269cb97b00e7ac4225a272d0c89a0a5748fd1ef4ffcb7c685752f5057ca4afd6",
+    "compiled": true,
+    "approved_definition_context": [
+      "ContDiff ℝ 1 f means that the real Fréchet derivative of f exists everywhere and depends continuously on the point.",
+      "For a complete real inner-product space, gradient f x is the Riesz vector of the Fréchet derivative of f at x; under the displayed differentiability hypothesis its pairing with v equals fderiv ℝ f x v.",
+      "The notation ∫ s in 0..1 denotes the oriented interval integral with respect to Lebesgue measure on the real parameter.",
+      "StrongConvexOn Set.univ m f means: for every x,y and real a,b with a>=0, b>=0 and a+b=1, f(a • x+b • y)<=a*f(x)+b*f(y)-a*b*(m/2*norm(x-y)^2). Domain convexity is automatic on univ; this definition does not itself restrict the sign of m.",
+      "EuclideanSpace ℝ (Fin d) is the real d-dimensional inner-product space with the l2 norm, including d=0."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "231c17fcd85c98c382001e234aca50a9686e5e0507fd9e02913aa42c0fa8815e"
+}

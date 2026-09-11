@@ -1,0 +1,176 @@
+{
+  "units": [
+    {
+      "title": "Integrate the gradient along a segment",
+      "statement": "For every x,v in a complete real inner-product space and every C¹ real-valued f, the difference f(x+v)−f(x) equals the integral of the gradient pairing along that segment.",
+      "formula": "f(x+v)-f(x)=\\int_0^1\\langle\\nabla f(x+sv),v\\rangle\\,ds.",
+      "assumptions": [
+        "E is a complete real inner-product space and f:E→ℝ is continuously Fréchet differentiable on all E.",
+        "gradient f is the genuine gradient supplied by C¹, not an unsupported totalized derivative.",
+        "x,v∈E are arbitrary, including v=0; the integral is with respect to Lebesgue measure on [0,1]."
+      ],
+      "steps": [
+        {
+          "title": "Differentiate the affine segment",
+          "text": "C¹ gives a genuine derivative of f at every point. The chain rule differentiates the composition with x+sv, including the two endpoints.",
+          "formula": "\\frac{d}{ds}f(x+sv)=\\langle\\nabla f(x+sv),v\\rangle.",
+          "lean": "hd: DifferentiableAt.hasGradientAt, HasFDerivAt.comp_hasDerivAt and the derivative of x+s•v."
+        },
+        {
+          "title": "Establish integrability, then apply FTC",
+          "text": "The derivative map is continuous because f is C¹. Evaluating it on the fixed direction v and composing with the segment gives a continuous scalar integrand; compact-interval integrability follows. FTC and the values at 0 and 1 give the identity.",
+          "formula": "\\int_0^1\\frac{d}{ds}f(x+sv)\\,ds=f(x+v)-f(x).",
+          "lean": "hc uses ContDiff.continuous_fderiv and Continuous.clm_apply; Continuous.intervalIntegrable and intervalIntegral.integral_eq_sub_of_hasDerivAt finish."
+        }
+      ],
+      "boundary": [
+        "A reusable Hilbert-space generalization of the segment identity used in the source; no convexity, Hessian, infinite-time integral or measure on E is asserted."
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ContDiff.continuous_fderiv; Continuous.clm_apply; InnerProductSpace.toDual_symm_apply",
+        "DifferentiableAt.hasGradientAt; HasFDerivAt.comp_hasDerivAt",
+        "Continuous.intervalIntegrable; intervalIntegral.integral_eq_sub_of_hasDerivAt"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.sub_eq_integral_gradient",
+      "kind": "theorem",
+      "lean_statement": "For every x,v in a complete real inner-product space and every C¹ real-valued f, the difference f(x+v)−f(x) equals the integral of the gradient pairing along that segment.",
+      "lean_proof": "C¹ gives a genuine derivative of f at every point. The chain rule differentiates the composition with x+sv, including the two endpoints. The derivative map is continuous because f is C¹. Evaluating it on the fixed direction v and composing with the segment gives a continuous scalar integrand; compact-interval integrability follows. FTC and the values at 0 and 1 give the identity.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 1",
+          "scope": "ASTIS-authored statement and explanation of the selected proof boundary."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC1.lean",
+          "label": "Focused mathematical consumers",
+          "scope": "Reversed segment, signed quadratic, stationary-point growth and zero-dimension tests."
+        }
+      ]
+    },
+    {
+      "title": "Recover the chord inequality by integration",
+      "statement": "For C¹ f on a complete real inner-product space, a global gradient monotonicity lower bound with any real modulus m implies StrongConvexOn univ m f.",
+      "formula": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2\\ \\Longrightarrow\\ f((1-t)x+ty)\\le(1-t)f(x)+tf(y)-\\frac m2t(1-t)\\|y-x\\|^2.",
+      "assumptions": [
+        "E is a complete real inner-product space and f:E→ℝ is continuously Fréchet differentiable on all E.",
+        "gradient f is the genuine gradient supplied by C¹, not an unsupported totalized derivative.",
+        "m∈ℝ may be negative, zero or positive. For all x,y∈E, the displayed gradient lower bound holds.",
+        "The conclusion includes every x,y and every t∈[0,1]."
+      ],
+      "steps": [
+        {
+          "title": "Compare two segment integrals",
+          "text": "Put v=y−x and fix 0≤t≤1. Apply the segment identity to v and to tv. Scalar linearity moves t outside the second integral.",
+          "formula": "A(s)=\\langle\\nabla f(x+sv),v\\rangle,\\quad B(s)=\\langle\\nabla f(x+stv),v\\rangle;\\quad f(y)-f(x)=\\int_0^1A(s)ds,\\quad f(x+tv)-f(x)=t\\int_0^1B(s)ds.",
+          "lean": "hy and hz invoke sub_eq_integral_gradient twice; smul_smul, inner_smul_right and integral_const_mul expose A and B."
+        },
+        {
+          "title": "Cancel a strictly positive displacement parameter",
+          "text": "The case t=1 is equality. For t<1 and 0<s<1, the difference of the two segment points is s(1−t)v. Apply gradient monotonicity and cancel s(1−t)>0. No division occurs at a zero displacement parameter.",
+          "formula": "A(s)-B(s)\\ge m s(1-t)\\|v\\|^2.",
+          "lean": "hdis and hscaled rewrite the gradient hypothesis; le_of_mul_le_mul_left uses mul_pos hs.1 (sub_pos.mpr ht1)."
+        },
+        {
+          "title": "Integrate the lower bound",
+          "text": "C¹ makes A and B continuous and hence interval integrable. The inequality on the open interval suffices because Lebesgue measure gives its endpoints zero mass. Integrate s from 0 to 1.",
+          "formula": "\\int_0^1(A-B)\\,ds\\ge\\frac m2(1-t)\\|v\\|^2.",
+          "lean": "integral_mono_on_of_le_Ioo, Continuous.intervalIntegrable, integral_sub, integral_id and scalar integral linearity."
+        },
+        {
+          "title": "Restore the chord residual",
+          "text": "Multiply the integrated lower bound by nonnegative t and substitute the two FTC identities. This gives the exact m/2 correction; it also covers t=0. The signed m is never divided by or required to be positive.",
+          "formula": "f(x+tv)-(1-t)f(x)-tf(y)=-t\\int_0^1(A-B)\\,ds\\le-\\frac m2t(1-t)\\|v\\|^2.",
+          "lean": "hpoint matches affine conventions; mul_le_mul_of_nonneg_left and ring arithmetic conclude StrongConvexOn."
+        }
+      ],
+      "boundary": [
+        "This follows the source integral route, generalized to complete real inner-product spaces and signed m. It is distinct from the previously published MVT converse.",
+        "No C²/Hessian characterization or convergence result is claimed."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.sub_eq_integral_gradient"
+      ],
+      "mathlib_dependencies": [
+        "intervalIntegral.integral_mono_on_of_le_Ioo; Continuous.intervalIntegrable",
+        "intervalIntegral.integral_sub, integral_const_mul, integral_mul_const; integral_id",
+        "norm_smul; inner_smul_right; inner_sub_left; le_of_mul_le_mul_left"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral",
+      "kind": "theorem",
+      "lean_statement": "For C¹ f on a complete real inner-product space, a global gradient monotonicity lower bound with any real modulus m implies StrongConvexOn univ m f.",
+      "lean_proof": "Put v=y−x and fix 0≤t≤1. Apply the segment identity to v and to tv. Scalar linearity moves t outside the second integral. The case t=1 is equality. For t<1 and 0<s<1, the difference of the two segment points is s(1−t)v. Apply gradient monotonicity and cancel s(1−t)>0. No division occurs at a zero displacement parameter. C¹ makes A and B continuous and hence interval integrable. The inequality on the open interval suffices because Lebesgue measure gives its endpoints zero mass. Integrate s from 0 to 1. Multiply the integrated lower bound by nonnegative t and substitute the two FTC identities. This gives the exact m/2 correction; it also covers t=0. The signed m is never divided by or required to be positive.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 1",
+          "scope": "ASTIS-authored statement and explanation of the selected proof boundary."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC1.lean",
+          "label": "Focused mathematical consumers",
+          "scope": "Reversed segment, signed quadratic, stationary-point growth and zero-dimension tests."
+        }
+      ]
+    },
+    {
+      "title": "The three C¹ convexity conditions are equivalent",
+      "statement": "Let d be a natural number, f:ℝᵈ→ℝ be C¹ on all Euclidean space, and m≥0. The strong-convexity chord inequality is equivalent both to the global quadratic lower model and to the quantitative gradient monotonicity inequality.",
+      "formula": "\\mathrm{StrongConvex}_m(f)\\ \\Longleftrightarrow\\ \\forall x,y,\\ f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac m2\\|y-x\\|^2\\ \\Longleftrightarrow\\ \\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2.",
+      "assumptions": [
+        "d∈ℕ; E=EuclideanSpace ℝ (Fin d), with its standard Euclidean inner product and norm. Zero dimension is allowed.",
+        "f:E→ℝ is C¹ on all E, and m∈ℝ satisfies m≥0, exactly the source parameter restriction.",
+        "All x,y are universally quantified over E; the chord condition includes every nonnegative pair of weights summing to one."
+      ],
+      "steps": [
+        {
+          "title": "Obtain the first-order model",
+          "text": "C¹ supplies the ambient gradients everywhere. Apply the already compiled shared lower-model theorem, whose proof takes the derivative limit of the strong-convexity chord inequality.",
+          "formula": "\\mathrm{StrongConvex}_m(f)\\Rightarrow f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac m2\\|y-x\\|^2.",
+          "lean": "hg derives HasGradientAt from hf; hforward calls StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn on univ."
+        },
+        {
+          "title": "Add the two endpoint models",
+          "text": "Assume only the global lower-model condition, apply it in both orders, and add. Function values cancel, the two half-quadratic terms add, and the inner products combine into a gradient difference.",
+          "formula": "m\\|y-x\\|^2\\le\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle.",
+          "lean": "hsum rewrites x−y=−(y−x), inner_neg_right and inner_sub_left, then uses linear arithmetic."
+        },
+        {
+          "title": "Close the cycle with the source integral argument",
+          "text": "The newly proved integral converse takes gradient monotonicity back to the chord condition. Package the two equivalences using this three-condition cycle.",
+          "formula": "(1.3)\\Rightarrow(1.4)\\Rightarrow(1.5)\\Rightarrow(1.3).",
+          "lean": "strongConvexOn_univ_of_gradient_mono_integral closes both reverse directions. The final statement is the conjunction of the two iff results."
+        }
+      ],
+      "boundary": [
+        "Exactly Proposition 1.6 part 1. The source C²/Hessian part and the full proposition remain open.",
+        "The declaration retains m≥0 even though its shared parents also handle signed m. No new convexity definition or caller-supplied gradient is introduced."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
+        "inner_neg_right; inner_sub_left; norm_neg"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+      "kind": "theorem",
+      "lean_statement": "Let d be a natural number, f:ℝᵈ→ℝ be C¹ on all Euclidean space, and m≥0. The strong-convexity chord inequality is equivalent both to the global quadratic lower model and to the quantitative gradient monotonicity inequality.",
+      "lean_proof": "C¹ supplies the ambient gradients everywhere. Apply the already compiled shared lower-model theorem, whose proof takes the derivative limit of the strong-convexity chord inequality. Assume only the global lower-model condition, apply it in both orders, and add. Function values cancel, the two half-quadratic terms add, and the inner products combine into a gradient difference. The newly proved integral converse takes gradient monotonicity back to the chord condition. Package the two equivalences using this three-condition cycle.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 1",
+          "scope": "ASTIS-authored statement and explanation of the selected proof boundary."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC1.lean",
+          "label": "Focused mathematical consumers",
+          "scope": "Reversed segment, signed quadratic, stationary-point growth and zero-dimension tests."
+        }
+      ]
+    }
+  ]
+}

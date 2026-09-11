@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-OPT-convexity-c1",
+  "route": "optimisation",
+  "title": "Chewi Proposition 1.6 C1 equivalences with the source integral proof",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 §1.2 Proposition 1.6 part 1, equations (1.3)-(1.5) and its two affine-segment FTC identities.",
+  "target_statement": "For f in C1 on real finite-dimensional Euclidean space and nonnegative alpha, strong convexity is equivalent to the global quadratic lower model and to quantitative gradient monotonicity; implement the source FTC chord route.",
+  "status": "proved_locally",
+  "parents": [
+    "ASTIS-SHARED-strong-convex-first-order",
+    "ASTIS-SHARED-gradient-integral-convexity"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Proposition-1.6",
+    "optimisation:gradient-flow"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS strong-convex first-order/converse and Hessian modules; no integral source-facing C1 equivalence found.",
+      "Pinned Mathlib intervalIntegral FTC and integral monotonicity APIs.",
+      "Pinned Optlib Lower_Strong_Convex already ported as a distinct MVT proof; preserve it.",
+      "GitHub open PR12 concerns Log-Concave Sampling semigroup/transport, not this optimisation source theorem."
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+    "canonical_shared_cell": "ASTIS-OPT-convexity-c1",
+    "notes": "Shared segment FTC/convexity facts live in Analysis, exact finite-dimensional C1 source theorem joins existing parents; no duplicate convexity or gradient definitions."
+  },
+  "evidence": {
+    "focused_checks": [
+      "lake build Tests.Shared.ConvexityC1 PASS (2725 jobs), independently repeated by c1_proof_review. Reversed FTC orientation, signed quadratic normalization, stationary-point growth and d=0 tested.",
+      "All three declarations depend only on propext, Classical.choice, Quot.sound."
+    ],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Proposition 1.6 part 1, (1.3)-(1.5)",
+    "detail_status": "sufficient",
+    "gap": "C1 gives genuine gradients and continuous segment integrands; cancellation at s(1-t)=0 must be handled, not divided by zero.",
+    "consulted": [
+      {
+        "source": "Mathlib MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+        "anchor": "integral_eq_sub_of_hasDerivAt",
+        "hypothesis_adapter": "Chain rule along affine segments; continuous integrands on compact intervals imply interval integrability."
+      }
+    ],
+    "fidelity_boundary": "C1 equivalences only; C2 Hessian part, full proposition and Riemannian extension remain separate."
+  }
+}
