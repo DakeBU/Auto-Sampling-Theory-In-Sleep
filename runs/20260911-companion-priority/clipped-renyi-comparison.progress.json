@@ -14,5 +14,12 @@
     "sha256": "a039ab3d8d88cff60723adc700fdd77489fc1622e8d5d2c3bc3ed77f06f8701e",
     "session": 50226,
     "exit_code": 0
+  },
+  "complete_scratch": {
+    "path": ".astis/ClippedRenyiComparison.lean",
+    "sha256": "d991ddfe83c8b1cd6753efb5d6cc2ccfe069576f9a6eecda79a8a4474e7e2083",
+    "session": 91649,
+    "exit_code": 0,
+    "result": "Complete actualpublic RN comparison compiled,standard3/no lint.15private and1public. Two real RN L1/momentbounds,two ENNRealbounds,bothprobabilities/mutualAC. Derivedidealstep,actualsourceparentmoments/idealidentification,weightedL1beforeRNalgebra. Independentcompleteproof/sourcepreaudit pending;no production."
   }
 }
