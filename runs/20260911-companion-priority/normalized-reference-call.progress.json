@@ -1,0 +1,24 @@
+{
+  "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
+  "state": "EXPLORING",
+  "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
+  "remaining": [
+    "Actual returned W2 coupling-cost bound",
+    "Actual Hessian/reference normalization and positive Gibbs normalization consumer",
+    "Independent complete proof/source admission and original reader delivery"
+  ],
+  "gibbs_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallGibbs.lean",
+    "sha256": "25cbc6726a39206348a2666f008e29918598f822d915793db78b19c499421e79",
+    "session": 62990,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,two private standard3/no lint. Genuine differential scaling and actual normalized Gibbs pushforward accepted; total-integral conventions handled without L1 assumption. Actual strong-convex consumer must still prove probability/finite positive normalizer."
+  },
+  "smoothing_checkpoint": {
+    "path": ".astis/NormalizedReferenceCallSmoothing.lean",
+    "sha256": "05ac9c983e191c660b9608d76e71903e18b571dc5cc749fbb7c22709bf1535a6",
+    "session": 37354,
+    "exit_code": 0,
+    "result": "Three private helpers standard3/no lint. Actual Gaussian smoothing law commutes with inverse scaling for SFinite input,nonzero scale and arbitrary noise scale. Independent increment review pending."
+  }
+}

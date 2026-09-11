@@ -69,5 +69,13 @@
     "upstream": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
     "boundary": "Independent final local integration accepted at caaccad; canonical gate,reader/graph and root browser QA passed. Remote delivery separate."
   },
-  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/291",
+    "head": "99c2c0bc672852a0c2737dcea57ac4157666960b",
+    "state": "OPEN; PR Site passed,Lean pending",
+    "lean_run": 34653896294,
+    "site_run": 34653896330,
+    "site_result": "SUCCESS; PR deployment skipped"
+  }
 }
