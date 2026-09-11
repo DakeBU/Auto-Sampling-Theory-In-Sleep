@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost

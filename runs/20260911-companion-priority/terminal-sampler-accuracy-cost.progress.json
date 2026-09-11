@@ -27,5 +27,33 @@
     "session": 59342,
     "exit_code": 0,
     "result": "Actual_program and18-conjunct public terminal_sampler_accuracy_cost compiled standard3/no lint. Actual iid law/output/never-hit, both RN moments and log accuracy, cached gradient expected and tail costs. Fourteen private declarations. No production/admission; independent full reviews pending."
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "result": "Independent whole frozen source stdin compile exit0,2prints standard3/no lint;14private and18publicconjuncts accepted. Actual stream/event/fullbatchcachedcost and RN measures checked. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "result": "Complete readonly source preaudit accepted; no contract/code blocker; no compile or formal decoder admission.",
+    "disclosures": [
+      "Explicit probability program and specified cached count, not verified evaluator/hardware trace.",
+      "Actual log RN expressions, no full named Renyi API; printed notation discrepancies retained.",
+      "Actual local tail theorem rather than unchecked external final constant substitution.",
+      "No convexity faithful to D1 smooth dependency, generalizes SPHMC convex fixed application;positive beta/dimension.",
+      "xp supplied, construction and its cost excluded; no joint kernel/outer recursion/fullpaper.",
+      "18publicconjuncts; internal parameter inequalities not extra conclusions."
+    ]
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalSamplerAccuracyCost.lean",
+    "test": "Tests\\SmoothedPicardHMCTerminalSamplerAccuracyCost.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalSamplerAccuracyCost.lean": "4ee703cbc18f13f2eab0cb95ca7dca000e962712f0f75413eae505fa447704ae",
+      "Tests\\SmoothedPicardHMCTerminalSamplerAccuracyCost.lean": "afcef68f7c6b5fbb7aab3d85e24e75615159a4160414ccf4daf7ca245faddd54"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost",
+    "state": "Focused production PASS3740, session44697 exit0, standard3/no lint. Independent fixed-commit production review and fresh formal source admission pending."
   }
 }
