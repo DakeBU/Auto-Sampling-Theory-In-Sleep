@@ -15,6 +15,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2
 import AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient
 
 /-!
 # Analysis technical lemma arsenal

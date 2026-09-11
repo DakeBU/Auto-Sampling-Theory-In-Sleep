@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "reviewer_packet_sha256": "8c62e4e9ac7518a52da253b060e02a2e1e8f511308714c620145f0c997d0617a",
+  "publication_binding_sha256": "65a5a0ac44c4e85b8b9e95b0faa3c92127dd2cd4ff2abc42898bbe4a6b3dfb56",
+  "semantic_slots": {
+    "objects": {
+      "original": "A C1 convex scalar function and its Euclidean gradient.",
+      "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
+      "source": "A C1 convex scalar function and its Euclidean gradient.",
+      "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+      "status": "explicit-elaboration",
+      "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+    },
+    "domains": {
+      "original": "All of real Euclidean d-space.",
+      "reconstructed": "All of any complete real inner-product space E.",
+      "relation": "different",
+      "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
+      "source": "All of real Euclidean d-space.",
+      "lean": "All of any complete real inner-product space E.",
+      "status": "different",
+      "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+    },
+    "quantifiers": {
+      "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+      "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+      "relation": "different",
+      "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
+      "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+      "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+      "status": "different",
+      "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+    },
+    "assumptions": {
+      "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+      "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
+      "relation": "explicit-elaboration",
+      "evidence": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity.",
+      "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+      "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
+      "status": "explicit-elaboration",
+      "explanation": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity."
+    },
+    "conclusion": {
+      "original": "Squared gradient norm <= beta times gradient-displacement pairing.",
+      "reconstructed": "The same division-free cocoercivity inequality.",
+      "relation": "equivalent",
+      "evidence": "On the common domain, both displayed norm-square and inner-product normalizations are identical.",
+      "source": "Squared gradient norm <= beta times gradient-displacement pairing.",
+      "lean": "The same division-free cocoercivity inequality.",
+      "status": "equivalent",
+      "explanation": "On the common domain, both displayed norm-square and inner-product normalizations are identical."
+    },
+    "scopes": {
+      "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+      "reconstructed": "Global pointwise deterministic inequality on univ.",
+      "relation": "same",
+      "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
+      "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+      "lean": "Global pointwise deterministic inequality on univ.",
+      "status": "same",
+      "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+    },
+    "constant_dependencies": {
+      "original": "The sole modulus beta from the quadratic model; coefficient beta.",
+      "reconstructed": "The same sole modulus, coefficient beta.",
+      "relation": "equivalent",
+      "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish.",
+      "source": "The sole modulus beta from the quadratic model; coefficient beta.",
+      "lean": "The same sole modulus, coefficient beta.",
+      "status": "equivalent",
+      "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
+      "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "Universal ambient-space quantification extends the Euclidean source class.",
+      "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Packet-bound independent review of ASTIS-REVIEW-ff861ff1f7ab123f. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. The beta upper model implies the beta+epsilon model for epsilon>0. Add the two ordered Bregman estimates: 2||d||^2<=2(beta+epsilon)<d,y-x>. Divide by 2 and take epsilon down to zero by continuity and closed order. This works regardless of the sign of the pairing and retains beta=0. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+  "review_run_sha256": "8e6450673e4a8b4594f7fec3c89d77e58d92db1be39d0b1563cfae842329491f",
+  "review_run_artifact": "/private/tmp/andi-coco-source-review-run.json",
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence.",
+    "proof_explanation": "The beta upper model implies the beta+epsilon model for epsilon>0. Add the two ordered Bregman estimates: 2||d||^2<=2(beta+epsilon)<d,y-x>. Divide by 2 and take epsilon down to zero by continuity and closed order. This works regardless of the sign of the pairing and retains beta=0.",
+    "constants": "Exact factors 2 beta and beta verified as applicable; no loss.",
+    "remaining_truth_boundary": "The infinite-dimensional extension remains ASTIS mathematics; the pinned source remains Euclidean."
+  },
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff861ff1f7ab123f. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. The beta upper model implies the beta+epsilon model for epsilon>0. Add the two ordered Bregman estimates: 2||d||^2<=2(beta+epsilon)<d,y-x>. Divide by 2 and take epsilon down to zero by continuity and closed order. This works regardless of the sign of the pairing and retains beta=0. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+    "review_run_sha256": "8e6450673e4a8b4594f7fec3c89d77e58d92db1be39d0b1563cfae842329491f",
+    "reviewer_packet_sha256": "8c62e4e9ac7518a52da253b060e02a2e1e8f511308714c620145f0c997d0617a"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_layout_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "65a3a471f32a1f072d9e53f4e89490d8a289c35b48d5ef65f9b6eb76fe1a5ba7",
+  "publication_binding_sha256": "c8152b82fe94a4c638d50575358c1c8cb468086f630f41c7c58845cc4dcb581a",
+  "semantic_slots": {
+    "objects": {
+      "original": "A real-valued function and its Euclidean gradient.",
+      "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
+    },
+    "domains": {
+      "original": "All of Euclidean d-space.",
+      "reconstructed": "All of any complete real inner-product space E.",
+      "relation": "stronger-in-lean",
+      "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
+    },
+    "quantifiers": {
+      "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+      "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+      "relation": "same",
+      "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
+    },
+    "assumptions": {
+      "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+      "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; strictly positive real beta.",
+      "relation": "stronger-in-lean",
+      "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Beta>0 restricts this declaration to the reciprocal formula's positive-denominator domain; it does not settle a reciprocal expression at zero."
+    },
+    "conclusion": {
+      "original": "Reciprocal Bregman lower bound (3.4).",
+      "reconstructed": "Squared gradient difference <= 2 beta times the Bregman gap.",
+      "relation": "equivalent",
+      "evidence": "Multiplication/division by 2 beta preserves order only for beta>0; exactly on that domain, the coefficients and endpoint orientation agree."
+    },
+    "scopes": {
+      "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+      "reconstructed": "The binding supports only bregman-positive-domain.",
+      "relation": "explicit-elaboration",
+      "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Acceptance is restricted to Euclidean specialization with beta>0, plus explicitly identified Hilbert generalization; no zero-denominator theorem or whole-exercise identity is claimed."
+    },
+    "constant_dependencies": {
+      "original": "Coefficient 1/(2 beta), using smoothness coefficient beta/2.",
+      "reconstructed": "Coefficient 2 beta after clearing the denominator.",
+      "relation": "equivalent",
+      "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. The trial step is beta inverse; its positivity is explicitly assumed."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+      "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "The Bregman declaration is restricted to beta>0.",
+      "evidence": "Definition 1.12 permits zero but (3.4) uses 1/(2 beta). The lesson and bregman-positive-domain binding correctly limit this proof edge. No separately reviewed repaired source statement is supplied or accepted."
+    }
+  ],
+  "verdict": "implicit-assumption-exposed",
+  "repairs": [],
+  "source_review": {
+    "decision": "accepted",
+    "evidence": "The packet-bound module uses convex first-order support at x and z=y-beta^-1 d, then the upper model from y to z. Subtraction leaves B_f(y,x)-||d||^2/(2 beta)>=0. The lesson explains the same elimination of f(z), sign, trial point and positive denominator. It cites the actual supporting-plane ASTIS call and separates Mathlib calls from external provenance. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit."
+  },
+  "review_evidence": "Fresh anti-anchored review of this exact canonical packet, its full bound Lean module and authored lesson, plus primary source Definition 1.12, Lemma 3.1 and Exercise 3.1 at https://arxiv.org/html/2605.07006v1#S3. No pre-existing reviews or registry were read. The original canonical layout packets were inspected as assigned before the coordinator supplied final replacements; exact structural comparison found packets 0 and 2 unchanged, and only the local d definition, synchronized lesson prose and binding hashes changed in packet 1. The packet-bound module uses convex first-order support at x and z=y-beta^-1 d, then the upper model from y to z. Subtraction leaves B_f(y,x)-||d||^2/(2 beta)>=0. The lesson explains the same elimination of f(z), sign, trial point and positive denominator. It cites the actual supporting-plane ASTIS call and separates Mathlib calls from external provenance. This is semantic and reader-exposition review, not an independently rerun compiler/build certificate, dependency provenance audit or rendered-layout inspection. No source repair is proposed or accepted.",
+  "input_artifacts": [
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-final-0.json",
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-0.json",
+    ".agents/skills/astis-semantic-roundtrip/SKILL.md",
+    "docs/theorem-publication-protocol.md",
+    "tools/astis_semantic_roundtrip.py severity/enum schema only",
+    "https://arxiv.org/html/2605.07006v1#S3"
+  ],
+  "review_run_sha256": "d5086330809a3795dbc6d3b8e32adbcd2e1bcfdc5957935a5e498a3d32345197"
+}

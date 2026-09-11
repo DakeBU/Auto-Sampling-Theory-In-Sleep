@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_layout_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "d3a5ebaadaa94bc723e3fb94384264474882fd381b798ca324172f6f0ebc3b4a",
+  "publication_binding_sha256": "a6b2e3e372b3e4f5412a23cb9156e3635662f331427e0a5fe1bffbe4c1049fc4",
+  "semantic_slots": {
+    "objects": {
+      "original": "A real-valued function and its Euclidean gradient.",
+      "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
+    },
+    "domains": {
+      "original": "All of Euclidean d-space.",
+      "reconstructed": "All of any complete real inner-product space E.",
+      "relation": "stronger-in-lean",
+      "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
+    },
+    "quantifiers": {
+      "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+      "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+      "relation": "same",
+      "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
+    },
+    "assumptions": {
+      "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+      "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; beta in NNReal.",
+      "relation": "explicit-elaboration",
+      "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Neither C2 nor a pre-assumed Lipschitz gradient is smuggled in. NNReal is an encoding of precisely beta>=0."
+    },
+    "conclusion": {
+      "original": "Global beta-Lipschitz gradient.",
+      "reconstructed": "LipschitzWith beta (gradient f).",
+      "relation": "equivalent",
+      "evidence": "The norm-distance characterization of LipschitzWith gives the same estimate for all pairs; exchanging x,y changes neither norm."
+    },
+    "scopes": {
+      "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+      "reconstructed": "The binding supports only gradient-lipschitz.",
+      "relation": "explicit-elaboration",
+      "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Euclidean specialization includes beta=0. The declaration is about the true gradient; it does not certify other section results or numerical convergence claims."
+    },
+    "constant_dependencies": {
+      "original": "Lipschitz constant beta, using smoothness coefficient beta/2.",
+      "reconstructed": "Exactly beta encoded as NNReal.",
+      "relation": "equivalent",
+      "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. The proof cancels only a strictly positive gradient-difference norm and never divides by beta."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+      "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "source_review": {
+    "decision": "accepted",
+    "evidence": "The module combines cocoercivity with the Cauchy-Schwarz upper bound multiplied by nonnegative beta. It treats zero gradient difference separately before positive norm cancellation. This matches the two lesson steps and retains beta=0 without inverse beta; NNReal introduces no stricter positivity or changed constant. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit."
+  },
+  "review_evidence": "Fresh anti-anchored review of this exact canonical packet, its full bound Lean module and authored lesson, plus primary source Definition 1.12, Lemma 3.1 and Exercise 3.1 at https://arxiv.org/html/2605.07006v1#S3. No pre-existing reviews or registry were read. The original canonical layout packets were inspected as assigned before the coordinator supplied final replacements; exact structural comparison found packets 0 and 2 unchanged, and only the local d definition, synchronized lesson prose and binding hashes changed in packet 1. The module combines cocoercivity with the Cauchy-Schwarz upper bound multiplied by nonnegative beta. It treats zero gradient difference separately before positive norm cancellation. This matches the two lesson steps and retains beta=0 without inverse beta; NNReal introduces no stricter positivity or changed constant. This is semantic and reader-exposition review, not an independently rerun compiler/build certificate, dependency provenance audit or rendered-layout inspection. No source repair is proposed or accepted.",
+  "input_artifacts": [
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-final-2.json",
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-2.json",
+    ".agents/skills/astis-semantic-roundtrip/SKILL.md",
+    "docs/theorem-publication-protocol.md",
+    "tools/astis_semantic_roundtrip.py severity/enum schema only",
+    "https://arxiv.org/html/2605.07006v1#S3"
+  ],
+  "review_run_sha256": "9f6ea558cf78783b56d1ba244bf06ebcdb849299d964be8060b67a7272e34c2d"
+}
