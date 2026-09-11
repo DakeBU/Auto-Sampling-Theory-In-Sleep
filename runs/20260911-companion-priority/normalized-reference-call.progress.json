@@ -93,5 +93,13 @@
     "upstream": "e933038111f3605aff343865a13de05987167fff",
     "boundary": "Independent final local integration accepted at cc0e120; canonicalgate,original reader/graph and root browser QA passed. Remote delivery separate."
   },
-  "local_qa": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/292",
+    "head": "0382e3786e62cbb13f93717d6e08629b560e890c",
+    "state": "OPEN; PR Site passed,Lean pending",
+    "lean_run": 34657202388,
+    "site_run": 34657202202,
+    "site_result": "SUCCESS; PR deployment skipped"
+  }
 }
