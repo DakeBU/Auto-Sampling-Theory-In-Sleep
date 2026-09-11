@@ -1,0 +1,47 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCGaussianPowerMoment",
+    "result": "PASS3120",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/Measure/GaussianLikelihood.lean": "c4a9adc373fb23eeeaa444b37dba2ff2a20d1fa937070295e102773cc8add4f4",
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianPowerMoment.lean": "190e9c4a09bb7ec39c8831e5dc09a00d1b4f942bff8c96756c58b3c8d05dcfaf",
+      "Tests/SmoothedPicardHMCGaussianPowerMoment.lean": "b6c79149423d274cc0456c4b1191f9dad24076de47d821426fb0351bb7cf2863"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/gaussian-power-moment.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-GaussianLikelihood",
+      "ASTIS-RT-20260911-SPHMCGaussianPowerMoment"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/gaussian-likelihood.source-review-result.json",
+      "runs/20260911-companion-priority/gaussian-power-moment.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3(ii). No mixture/data-processing power-divergence inequality, complete Renyi metric API, general reverse transport, proxy-warmness, sampler or query-cost conclusion. Finite marginal moments remain separate when later source consumers require them.",
+  "remaining": [
+    "Independent fixed-commit review",
+    "Integration, aggregate and reader/graph delivery",
+    "Independent mixture/data-processing inequality and general Gaussian reverse transport",
+    "Proxy-warmness, actual sampler/error/cost propagation and both paper main results",
+    "Remaining agreed reader/conversion/copy/download deliveries"
+  ]
+}

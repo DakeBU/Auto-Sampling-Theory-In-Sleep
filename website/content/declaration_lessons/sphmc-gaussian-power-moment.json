@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+          "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+      ],
+      "boundary": "Actual equal-covariance Gaussian likelihood/RN and power-moment prerequisite only. No mixture/data-processing inequality, general reverse transport, proxy-warmness, sampler error or query-cost guarantee. The explicit normalized log-moment is not a new packaged divergence API.",
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+      "title": "The actual translated Gaussian likelihood and RN derivative",
+      "statement": "Let E be a finite-dimensional real inner-product Borel space, x,y in E and tau>0. Define G_a as the pushforward of standard Gaussian by z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable, G_x=G_y.withDensity(ofReal L), G_x is absolutely continuous with respect to G_y, and its RN derivative equals ofReal L almost everywhere under G_y.",
+      "formula": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}",
+      "assumptions": [
+        "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+        "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+        "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+        "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+      ],
+      "steps": [
+        {
+          "title": "Translate the existing actual Gaussian density",
+          "text": "Apply the existing canonical-volume density theorem for sqrt(tau)Z. Push that measure through the measurable equivalence z to a+z. Translation preserves Haar volume and the inverse map is z-a, giving the normalized density centered at a.",
+          "formula": "G_a(dz)=C_\\tau e^{-\\|z-a\\|^2/(2\\tau)}\\,dz,\\qquad C_\\tau=(\\sqrt{2\\pi\\tau})^{-\\dim E}.",
+          "lean": "Local translated_density uses map_map, IsotropicGaussianDensity, measurableEquiv_map_withDensity and map_add_left_eq_self."
+        },
+        {
+          "title": "Prove actual multiplication of densities",
+          "text": "The norm identity norm(z-x)^2=norm(z-y)^2-2 inner(x-y,z-y)+norm(x-y)^2 shows the x-density equals the y-density times L. Measurability permits withDensity multiplication, proving equality of the actual measures.",
+          "formula": "C_\\tau e^{-\\|z-x\\|^2/(2\\tau)}=C_\\tau e^{-\\|z-y\\|^2/(2\\tau)}L(z).",
+          "lean": "norm_sub_sq_real and real_inner_comm establish the exponent identity; withDensity_mul identifies actual measures, not merely exponent expressions."
+        },
+        {
+          "title": "Identify absolute continuity and the RN version",
+          "text": "The explicit density is measurable and finite everywhere. Actual withDensity equality gives absolute continuity. G_y is a probability, so the standard RN identification theorem applies and yields the equality almost everywhere in the correct direction.",
+          "formula": "G_x\\ll G_y,\\qquad (G_x).\\operatorname{rnDeriv}(G_y)=L\\quad G_y\\text{-a.e.}",
+          "lean": "withDensity_absolutelyContinuous and Measure.rnDeriv_withDensity after deriving the probability instance for G_y."
+        }
+      ],
+      "lean_statement": "Measurability, actual withDensity equality, absolute continuity and RN a.e. equality for the explicitly defined Gaussian laws.",
+      "lean_proof": "The actual translated density helper is local; the public proof derives the likelihood equality and genuine RN identity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.rnDeriv_withDensity",
+        "MeasureTheory.withDensity_mul"
+      ]
+    },
+    {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+          "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+      ],
+      "boundary": "Actual equal-covariance Gaussian likelihood/RN and power-moment prerequisite only. No mixture/data-processing inequality, general reverse transport, proxy-warmness, sampler error or query-cost guarantee. The explicit normalized log-moment is not a new packaged divergence API.",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+      "title": "Exact integrable Gaussian RN power moment and normalized logarithm",
+      "statement": "For the same actual G_x,G_y on a finite-dimensional real inner-product Borel space, tau>0 and real q>1, retain the measurable likelihood L, actual withDensity equality, absolute continuity and RN identity. The qth power of the real-valued RN derivative is integrable under G_y, its integral is exp(q(q-1)norm(x-y)^2/(2tau)), and the logarithm of this integral divided by q-1 equals q norm(x-y)^2/(2tau).",
+      "formula": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}.",
+      "assumptions": [
+        "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+        "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+        "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+        "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+      ],
+      "steps": [
+        {
+          "title": "Obtain a genuine one-dimensional projection law",
+          "text": "For h=x-y, the continuous linear functional ell(z)=inner(h,z) sends standard Gaussian to a real Gaussian of mean zero and variance norm(h)^2. The existing one-dimensional exponential integrability and MGF theorem yield both an integrability fact and the exact integral.",
+          "formula": "\\langle h,Z\\rangle\\sim\\mathsf N(0,\\|h\\|^2),\\qquad\\mathbb E e^{a\\langle h,Z\\rangle}=e^{a^2\\|h\\|^2/2}.",
+          "lean": "Local linear_exp uses IsGaussian.map_eq_gaussianReal, integral_strongDual_stdGaussian, variance_dual_stdGaussian, integrable_exp_mul_gaussianReal and mgf_gaussianReal."
+        },
+        {
+          "title": "Pull the actual likelihood power back to standard Gaussian",
+          "text": "Set s=sqrt(tau), a=q/s and b=-q norm(h)^2/(2tau). Under the actual map z=y+sZ, real exponentiation gives L(z)^q=exp(b) exp(a inner(h,Z)). The map is measurable and the projected exponential is integrable, so the actual pushed-forward power is integrable.",
+          "formula": "L(y+\\sqrt\\tau Z)^q=e^{-q\\|h\\|^2/(2\\tau)}e^{(q/\\sqrt\\tau)\\langle h,Z\\rangle}.",
+          "lean": "Real.exp_mul, inner_smul_right, s^2=tau and integrable_map_measure establish the exact pullback and integrability."
+        },
+        {
+          "title": "Compute the exact power moment",
+          "text": "Use integral_map, take out exp(b), and substitute the one-dimensional MGF. The exponent b+a^2 norm(h)^2/2 simplifies to q(q-1)norm(h)^2/(2tau). Strictly positive tau justifies all reciprocal square-root operations.",
+          "formula": "b+\\frac{a^2\\|h\\|^2}{2}=\\frac{q(q-1)\\|h\\|^2}{2\\tau}.",
+          "lean": "Local power_moment returns integrability and equality together, with no assumed moment budget."
+        },
+        {
+          "title": "Transfer the result to the genuine RN derivative",
+          "text": "Apply the shared likelihood theorem to the same x,y,tau. Its a.e. RN equality and finite exponential density identify the qth powers after toReal. Transfer integrability and the integral by a.e. congruence.",
+          "formula": "\\left((G_x).\\operatorname{rnDeriv}(G_y)\\right)_{\\mathbb R}^{q}=L^q\\quad G_y\\text{-a.e.}",
+          "lean": "ENNReal.toReal_ofReal, Integrable.congr and integral_congr_ae use the actual RN equality, avoiding any inference from totalized infinite values."
+        },
+        {
+          "title": "Take the normalized logarithm without changing constants",
+          "text": "The exact integral is a positive exponential. Its logarithm equals the computed exponent; q>1 makes q-1 nonzero, yielding the exact Gaussian reverse-transport coefficient. Zero displacement or dimension gives moment one and logarithm zero.",
+          "formula": "\\frac{q(q-1)\\|h\\|^2}{2\\tau(q-1)}=\\frac{q\\|h\\|^2}{2\\tau}.",
+          "lean": "Real.log_exp and positive-order cancellation. No marginal mixture or sampler assertion is returned."
+        }
+      ],
+      "lean_statement": "Actual RN power integrability, exact integral and normalized log-moment, together with the same genuine Gaussian likelihood certificate.",
+      "lean_proof": "The one-dimensional projection/MGF and actual power integration helpers are local; the shared public likelihood theorem provides the RN identification.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.IsGaussian.map_eq_gaussianReal",
+        "ProbabilityTheory.mgf_gaussianReal",
+        "ProbabilityTheory.integrable_exp_mul_gaussianReal"
+      ]
+    }
+  ]
+}

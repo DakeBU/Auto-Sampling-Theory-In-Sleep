@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gaussian-likelihood",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "The actual translated Gaussian likelihood and RN derivative",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.3(ii) Gaussian likelihood prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+      },
+      "statement": "SPHMC Lemma6.3(ii) uses the heat-flow bound R_q(Pdag*gamma_tau || Q*gamma_tau)<=q Winfinity(Pdag,Q)^2/(2tau). The selected expanded Gaussian prerequisite, not the full mixture inequality, is the actual likelihood between equal-covariance translates: for G_a=Law(a+sqrt(tau)Z), tau>0, L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)) satisfies G_x=G_y.withDensity(ofReal L), absolute continuity and a.e. RN identification under G_y. Measurability and the measure identity are proved rather than assumed.",
+      "assumptions": [
+        "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+        "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+        "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+        "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+      ],
+      "formulae": [
+        {
+          "label": "Actual likelihood",
+          "tex": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-rn",
+          "label": "Actual Gaussian withDensity equality, absolute continuity and RN identification"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+          "cell": "ASTIS-SW-SPHMC-gaussian-likelihood",
+          "role": "prerequisite",
+          "supports": [
+            "actual-rn"
+          ],
+          "audit_id": "ASTIS-RT-20260911-GaussianLikelihood",
+          "boundary": "Actual equal-covariance Gaussian likelihood/RN and power-moment prerequisite only. No mixture/data-processing inequality, general reverse transport, proxy-warmness, sampler error or query-cost guarantee. The explicit normalized log-moment is not a new packaged divergence API.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean probabilities and Gaussian heat kernel.",
+              "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension.",
+              "classification": "generalization",
+              "reason": "Explicit coordinate-free finite-dimensional extension."
+            },
+            {
+              "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+              "lean": "Actual equal-covariance Gaussian likelihood",
+              "classification": "API-limitation",
+              "reason": "Expanded Gaussian prerequisite; mixing/data-processing, general reverse transport and full divergence API remain separate."
+            },
+            {
+              "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+              "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer.",
+              "classification": "same",
+              "reason": "The covariance, derivative direction and source coefficient are retained."
+            },
+            {
+              "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+              "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts.",
+              "classification": "source-implicit",
+              "reason": "No supplied likelihood, finite moment or nonzero-displacement premise."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sphmc-gaussian-power-moment",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Exact integrable Gaussian RN power moment and normalized logarithm",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.3(ii) exact Gaussian power-moment prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+      },
+      "statement": "The same SPHMC Lemma6.3(ii) reverse-transport ingredient is expanded at Gaussian centers x,y: for tau>0 and real q>1, the actual RN derivative dG_x/dG_y has an integrable qth power, with integral exp(q(q-1)norm(x-y)^2/(2tau)). Its normalized log-moment equals q norm(x-y)^2/(2tau), giving the precise single-Gaussian coefficient needed before the independent mixture argument. This is not the full reverse-transport theorem or a claim that the expanded proof is printed in the source.",
+      "assumptions": [
+        "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+        "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+        "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+        "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+      ],
+      "formulae": [
+        {
+          "label": "Exact RN moment",
+          "tex": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "integrable-power",
+          "label": "Actual RN qth-power integrability and exact moment"
+        },
+        {
+          "id": "exact-log",
+          "label": "Exact normalized log-moment q norm(x-y)^2/(2tau)"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+          "cell": "ASTIS-SW-SPHMC-gaussian-power-moment",
+          "role": "prerequisite",
+          "supports": [
+            "integrable-power",
+            "exact-log"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGaussianPowerMoment",
+          "boundary": "Actual equal-covariance Gaussian likelihood/RN and power-moment prerequisite only. No mixture/data-processing inequality, general reverse transport, proxy-warmness, sampler error or query-cost guarantee. The explicit normalized log-moment is not a new packaged divergence API.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean probabilities and Gaussian heat kernel.",
+              "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension.",
+              "classification": "generalization",
+              "reason": "Explicit coordinate-free finite-dimensional extension."
+            },
+            {
+              "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+              "lean": "Actual Gaussian RN power integral and normalized log-moment",
+              "classification": "API-limitation",
+              "reason": "Expanded Gaussian prerequisite; mixing/data-processing, general reverse transport and full divergence API remain separate."
+            },
+            {
+              "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+              "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer.",
+              "classification": "same",
+              "reason": "The covariance, derivative direction and source coefficient are retained."
+            },
+            {
+              "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+              "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts.",
+              "classification": "source-implicit",
+              "reason": "No supplied likelihood, finite moment or nonzero-displacement premise."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

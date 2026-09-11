@@ -7,3 +7,5 @@ Actual Gaussian likelihood and exact power moment prerequisite to SPHMC Lemma6.3
 Prove translated density from existing canonical-volume scaled-noise density and volume-preserving translation. Use inverse translation and exact square-norm identity to establish actual withDensity equality, absolute continuity and RN identity. Pull the qth moment back to standard Gaussian; use the genuine one-dimensional linear projection law, Gaussian exponential integrability and MGF, retaining exact constants and degenerate zero-dimensional case. Do not merely simplify exponents under an assumed measure identity.
 
 Two bounded publication packets must precede Lean development. Root sole writer; truncation PR259 remains sole STABILIZING. This next packet is EXPLORING only. PBPS and all prior unfinished frontiers remain preserved.
+
+Focused production and independent replay PASS3120. Actual withDensity/RN, integrable qth RN moment and normalized logarithm proved, helpers local. PROVED_LOCAL only; fresh anonymous reconstruction/source review, fixed-commit admission and delivery remain separate.

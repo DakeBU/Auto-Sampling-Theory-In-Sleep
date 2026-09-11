@@ -37,17 +37,24 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-truncation.md",
     "planning_review": "Independent log_depth_source_review primary/source and exact-API route review. Root confirmed actual compactness, general continuous-cost LSC, lower-semicontinuous minimum and coupling definitions.",
-    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous resolvent packet merged; website deployed and live anchors checked, merge Lean CI separate.",
+    "execution_boundary": "Root sole writer; packet actually merged and stabilization lane released.",
     "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API.",
     "independent_proof_review": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at79ed080; corrected root aggregatePASS9102, original companion and graph QA passed. Initial publication/import and local stale-site failures explicitly recorded; final-head CI/merge/deployment pending.",
+    "admission_boundary": "Independently VERIFIED and merged PR259; actual deployment pending.",
     "independent_verification": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS2621, independent complete-proof review and final hash-bound source audits accepted.",
     "integration": {
-      "progress": "runs/20260911-companion-priority/sphmc-truncation.progress.json",
-      "aggregate_candidate": "27e79663d04278401ce8e1710c37bcb36e8189cf",
-      "source_digest": "43b6b0c0151540952196af8a9c5140299aee05cef1c33d0bf6813fa602d907e7",
-      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259"
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
+      "commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+      "candidate": "93c77d60ce83cb0b758d80fc359791efbc6c6632",
+      "merged_at": "2026-09-11T00:05:19Z",
+      "independent_merge_review": "depth_commit_verifier accepted final fixed head; root verified same-head Lean and site CI success, made ready and merged with match-head-commit. PR description discloses initial changed-module publication failure, root import correction and stale local site failure followed by fresh build/validation.",
+      "candidate_ci": {
+        "lean": "34544004895 SUCCESS",
+        "site": "34544004870 SUCCESS; PR deployment skipped"
+      },
+      "post_merge": "Merge-commit CI and actual deployed reader pending.",
+      "truth_boundary": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion."
     }
   },
   "blocked": {
