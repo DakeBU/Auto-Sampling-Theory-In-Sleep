@@ -1,0 +1,122 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent complete source review.",
+  "reviewer_packet_sha256": "baa57af217edb18b97180889e36c6f261106df36f739c4df4ebf912706a42ce4",
+  "source_text_sha256": "b3b70ae1d96bbb15ddf7026ecef59a332c75a2b6aeace74796633420a2338141",
+  "lean_statement_sha256": "a040867917b60efd228265e544a35ce99e810abb702fcd7308a1740ec8459914",
+  "reconstruction_text_sha256": "f0860b8466169b294975bf8f9e2966f201a88fae3db204d25150ffb75e0e000d",
+  "embedded_module_text_sha256": "ae346f196667d7ac99221dbe37ef854f43758bd7b983bfb6e2cd4f1a31fb565d",
+  "publication_binding_sha256": "bac49f3202d5047ff1251e105c2a496ab4b302752726f5a1ae44134014f924fe",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Added Gaussian observation and recursive error.",
+      "reconstructed": "Actual T,H,Q,P,R and explicit F; Q adds variance tau/beta to M.",
+      "relation": "explicit-elaboration",
+      "evidence": "Measurable product/map constructs Q; actual parent hprog Q L used."
+    },
+    "domains": {
+      "original": "Euclidean Gibbs and curvature parameters.",
+      "reconstructed": "Any probability base on finite Hilbert Borel E, including dimension zero; algebraic positive beta,kappa,tau.",
+      "relation": "stronger-in-lean",
+      "evidence": "No Gibbs, curvature or marginal moments; parameter identification deferred."
+    },
+    "quantifiers": {
+      "original": "Ideal kernels precede actual kernels; all finite-depth budget.",
+      "reconstructed": "Same T,H before all admissible M,L, then one F,Q,P,R for all n,s.",
+      "relation": "same",
+      "evidence": "Continuing-state-only W2 and local KL; no n<=J premise."
+    },
+    "assumptions": {
+      "original": "A1 supplies W2 accuracy; source positive precision and algorithm conditions.",
+      "reconstructed": "Actual squaredW2 premise on M; Delta>=0,eta>=0,J>=0.",
+      "relation": "different",
+      "evidence": "hlocal is proved; no KL, terminal accuracy or finite terminal KL premise. Unused kappa measurability disclosed."
+    },
+    "conclusion": {
+      "original": "Derive local allocation then propagate with terminal error.",
+      "reconstructed": "LocalKL<=Delta²/(J+1); outputKL<=n times allocation plus actual P^n terminal integral.",
+      "relation": "same",
+      "evidence": "GaussianKL and parent actual-state bound plus probability normalization."
+    },
+    "scopes": {
+      "original": "Full source actual sampler, stopping, FORS and query costs.",
+      "reconstructed": "Actual Gaussian observation and finite transfer from supplied A1-compatible M.",
+      "relation": "different",
+      "evidence": "M implementation, threshold arrival, terminal accuracy, initialization and costs excluded."
+    },
+    "constant_dependencies": {
+      "original": "epsilon²=2tauDelta²/(kappa(J+1)), added variance tau/beta.",
+      "reconstructed": "Exactly same squared accuracy, denominator2tau/beta, ideal total variance(eta+tau)/beta.",
+      "relation": "same",
+      "evidence": "True W2-square identity and positive constant cancellation; no total-time denominator."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "General probability bases and algebraic parameters.",
+      "evidence": "No curvature ratio identification claimed."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "M accuracy supplied but actual Q and KL derived.",
+      "evidence": "hW, gaussian_kernel and hlocal; not Picard implementation."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Zero eta,Delta,J and all n permitted.",
+      "evidence": "Added time and J+1 positive; n>J not totalDelta guarantee."
+    },
+    {
+      "slot": "constant_dependencies",
+      "severity": "informational",
+      "description": "Source squared precision algebraically substituted.",
+      "evidence": "Exact hscale and unused kappa measurability disclosed; no selector implementation."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Terminal residual, stopping alignment and cost remain.",
+      "evidence": "Terminal integral under actual P^n unchanged."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Deterministic-state/Gaussian product, measurable scaling and addition construct global Markov Q with exact independent noise."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "TwoNoiseRGO semigroup at eta/beta,tau/beta including eta=0; add_div identifies total variance."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "W2-square true transport cost, nonnegative radius and GaussianKL give correct direction and added-time denominator; hscale exact."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "FiniteRGOKLError fixes T,H before actual Q,L and supplies actual update,P,R; W2 needed only continuing."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Stopped error zero and other errors uniformly bounded; actual P^j probabilities normalize each integral; terminal residual retained."
+      }
+    ]
+  },
+  "review_evidence": "Independent source reviewer accepted all seven slots, five authored steps and five informational deltas, no blockers or repairs. Recomputed canonical packet, source, complete statement, reconstruction and normalized embedded module hashes; current module matches. No elision found in supplied print; printer not rerun. Current lesson/publication match packet. Primary Theorem6.5 A1 and eq6.5 reused; source is expanded attributed paraphrase. Binding authenticated inside packet; external preimage, decoder/run/toolchain hashes not reconstructed here. No compile or axiom replay in source review. F measurability is not extra public conjunct; no marginal P2 or finite terminalKL inferred. Formal source acceptance only."
+}

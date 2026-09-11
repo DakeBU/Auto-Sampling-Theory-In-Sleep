@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 finite recursive error propagation, equations(6.5) and following induction",
   "target_statement": "For the explicit RGO history state, any probability base mu, positive measurable beta,kappa,tau and nonnegative measurable eta, set a=(eta+tau)/beta. Construct the actual ideal T,H first. For every Markov smoothed output M and terminal L, construct a measurable Markov Q with fibers GaussianSmoothing(M(s),sqrt(tau(s)/beta(s))) and the actual finite RGO P,R. Fix J and Delta>=0 and set eps(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). From the actual A1 squared-W2 bound between M(s) and GaussianSmoothing(T(s),sqrt(eta(s)/beta(s))) at every continuing state, derive KL(Q(s)||H(s))<=Delta^2/(J+1), then for every n,s derive KL(R_n(s)||T(s))<=n*Delta^2/(J+1)+integral KL(L(x)||T(x)) d(P^n(s)). Show actual update and recursion, all Markov semantics and actual Gaussian semigroup; no assumed observation KL or posterior consistency.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-finite-rgo-kl-error",
     "ASTIS-SW-SPHMC-two-noise-rgo",
@@ -28,10 +28,22 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCGaussianRGOErrorBudget",
+        "result": "PASS3755, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianRGOErrorBudget.lean": "d13fc45f4b2f424cb68991593b7fcb5a8aa8e56d42be032f022f4c0556e1deb2",
+          "Tests/SmoothedPicardHMCGaussianRGOErrorBudget.lean": "cf637d567222175c9e245b17795b3e412f153e96a4ae680b10f5cb6c54fab4f2"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-rgo-error-budget.md",
     "planning_review": "Source reviewer identified actual added Gaussian and source A1 stage precision as next substantive consumer. Preserve beta scaling, prove observation KL from squared W2 and retain terminal residual.",
-    "execution_boundary": "Root sole writer; FiniteRGOKLError undergoing admission; this packet EXPLORING when claimed."
+    "execution_boundary": "Root sole writer; GaussianRGOErrorBudget sole STABILIZING; StoppedGaussianRGOError EXPLORING.",
+    "independent_proof_review": "runs/20260911-companion-priority/gaussian-rgo-error-budget.independent-proof-review.json",
+    "admission_boundary": "VERIFIED at 6e73acf; no aggregate or reader integration admission yet.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-rgo-error-budget.verified-admission.json"
   },
   "blocked": {
     "reason": "",

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gaussian-rgo-error-budget",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Gaussian observation and finite recursive A1 budget",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem6.5 A1 actual Gaussian observation and equation(6.5) budget",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded actual Gaussian observation and finite accuracy budget, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product Borel space and mu a probability measure. Set S=NNReal times E times Nat times E^Nat. Let beta,kappa,tau:S to R be positive measurable functions and eta:S to R nonnegative measurable. Fix a nonnegative precision threshold theta, natural budget J and Delta>=0. Define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing with standard deviation sqrt(a(s)). These are chosen before arbitrary Markov smoothed-output M and terminal L. Suppose that on every continuing state, squared W2 from M(s) to T(s) smoothed at time eta(s)/beta(s) is at most ofReal(kappa(s)*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]/beta(s)). Then there exist F,Q,P and Markov output kernels R_n. F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), increments the count and prepends y to history. Q(s) is M(s) with an independent Gaussian of variance tau(s)/beta(s) added. P(s)=dirac s if theta<=b and otherwise the F(s,.) pushforward of Q(s). R_0=L, and R_(n+1)(s)=L(s) if stopped, otherwise the bind of Q(s) with R_n(F(s,y)). On every continuing state KL(Q(s)||H(s))<=ofReal(Delta^2/(J+1)). For all n,s, KL(R_n(s)||T(s)) is at most n*ofReal(Delta^2/(J+1)) plus integral KL(L(x)||T(x)) under P^n(s). All bounds are in extended nonnegative reals.",
+      "assumptions": [
+        "Finite-dimensional real Hilbert Borel E, including zero dimension; mu probability.",
+        "beta,kappa,tau are measurable and strictly positive everywhere; eta is measurable and nonnegative. Delta>=0, J natural, theta nonnegative and fixed.",
+        "M,L are measurable Markov kernels on the complete state. Ideal T,H are fixed before their selection.",
+        "Only continuing states require the displayed squared-W2 accuracy with epsilon(s)^2=2*tau(s)*Delta^2/(kappa(s)*(J+1)). No observation KL bound is assumed.",
+        "No stopping bound, terminal accuracy, finite terminal KL, marginal moment or cost-transfer premise is added."
+      ],
+      "formulae": [
+        {
+          "label": "Actual Gaussian finite error budget",
+          "tex": "\\operatorname{KL}(Q(s)\\Vert H(s))\\le\\frac{\\Delta^2}{J+1}\\quad(b(s)<\\theta),\\qquad\\operatorname{KL}(R_n(s)\\Vert T(s))\\le\\frac{n\\Delta^2}{J+1}+\\int\\operatorname{KL}(L(x)\\Vert T(x))\\,P^n(s)(dx)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "gaussian-rgo-error-budget",
+          "label": "Actual source Gaussian accuracy budget through finite recursion"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+          "cell": "ASTIS-SW-SPHMC-gaussian-rgo-error-budget",
+          "role": "prerequisite",
+          "supports": [
+            "gaussian-rgo-error-budget"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGaussianRGOErrorBudget",
+          "boundary": "M is a supplied Markov kernel satisfying the displayed squared-W2 guarantee; its implementation and A1 correctness are not proved here. beta,kappa,tau are positive measurable algebraic functions, not yet identified with source curvature and heat choices. kappa measurability is an unused input condition, not a proved precision-selection implementation. eta may be zero, Delta is nonnegative, J may be zero, and n is unrestricted. J is a budget parameter: for n>J this bound does not establish total error below Delta^2. No stopping support, FORS accuracy, initialization validity, expected query cost or marginal P2 conclusion is asserted; the terminal residual remains.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean Gibbs targets with source curvature parameters.",
+              "lean": "Any probability base on finite real Hilbert Borel E and positive measurable algebraic beta,kappa,tau.",
+              "classification": "generalization",
+              "reason": "No claim yet identifies beta,kappa with source curvature or tau with the selected heat branch; no density or marginal moment premise is added."
+            },
+            {
+              "source": "A1 returns a smoothed sampler with source-scaled Wasserstein accuracy.",
+              "lean": "A supplied Markov M satisfies the squared-W2 premise at continuing states; actual Q is constructed by adding independent Gaussian variance tau/beta.",
+              "classification": "API-limitation",
+              "reason": "This proves actual observation and recursive error transfer from the A1 interface, not concrete Picard implementation or its accuracy theorem."
+            },
+            {
+              "source": "Positive smoothing and precision and source logarithmic depth.",
+              "lean": "eta>=0, Delta>=0 and arbitrary natural J,n.",
+              "classification": "generalization",
+              "reason": "Zero parameters are valid for this algebraic transfer. J is only a budget parameter; for n>J no total-Delta guarantee follows."
+            },
+            {
+              "source": "Actual source equation(6.5) precision selection.",
+              "lean": "The same squared accuracy expression is substituted in the W2 premise; kappa measurability retained as an unused explicit input.",
+              "classification": "API-limitation",
+              "reason": "The cancellation is proved with added-noise denominator 2tau/beta; no implemented measurable precision selector is claimed."
+            },
+            {
+              "source": "Full recursion reaches a terminal FORS call and bounds its error and expected cost.",
+              "lean": "Actual finite program with terminal residual integral unchanged.",
+              "classification": "API-limitation",
+              "reason": "Same-program stopping support, FORS accuracy, initialized history and actual-input expected costs remain separate."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "decoder": "gaussian_budget_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent reconstruction, with formula notation converted to ASCII and bound coordinates consistently renamed.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-gaussian-budget-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianRGOErrorBudget.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "6e7a7d0be1f2b3db120b3c1a5ce9b99b83b6e4098547df0f3366241b46b862bb",
+  "lean_statement_sha256": "a040867917b60efd228265e544a35ce99e810abb702fcd7308a1740ec8459914",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product Borel space, mu any probability measure, and S=NNReal times E times Nat times E^Nat with s=(b,u,k,h). Give measurable beta,kappa,eta,tau:S to Real such that beta,kappa,tau are positive everywhere and eta is nonnegative everywhere. For every threshold B>=0, natural J, and real Delta>=0, define a(s)=(eta(s)+tau(s))/beta(s). There exist Markov T,H:S to E, with T_s equal to mu normalized by exp(-(b/2)*norm(x-u)^2) and H_s its Gaussian smoothing with standard deviation sqrt(a(s)). Gaussian smoothing adds independent centered isotropic noise with covariance the square of that standard deviation times identity.\nAfter T,H are fixed, for every pair of Markov M,L:S to E satisfying, at each continuing state b<B, squared W2(M_s,GaussianSmoothing(T_s,sqrt(eta(s)/beta(s))))<=ofReal((kappa(s)/beta(s))*[2*tau(s)*Delta^2/(kappa(s)*(J+1))]), there exist F:S times E to S, Markov Q:S to E, Markov P:S to S, and Markov R_n:S to E for every n.\nFor every s,y, F(s,y) has precision b_new=b+1/a(s), center b_new^-1*(b*u+y/a(s)), count k+1 and prepended history h_new(0)=y,h_new(m+1)=h(m). The first coordinate identity uses the real cast of NNReal; vector multiplication is real scalar multiplication. Q_s=GaussianSmoothing(M_s,sqrt(tau(s)/beta(s))). P_s=dirac s if B<=b, and otherwise the pushforward of Q_s under F(s,.). R_0=L; R_(n+1)(s)=L_s if B<=b and otherwise the bind of Q_s with y mapped to R_n(F(s,y)). Equality at the threshold is in the stopped branch.\nAt every continuing state KL(Q_s||H_s)<=ofReal(Delta^2/(J+1)). For every natural n and every initial s, KL(R_n(s)||T_s)<=n*ofReal(Delta^2/(J+1))+integral KL(L_x||T_x) under P^n(s). The terminal integral is extended nonnegative and can be infinity; P^0 is identity. The left reference is T at the initial state, whereas the terminal integral compares the target and terminal kernel at each time-n state. n is cast to ENNReal and J to Real in the formula.\nQuantifiers are all space,mu,parameter functions and their conditions, then every B,J,Delta, then existence of T,H, then every admissible M,L, then existence of F,Q,P,R satisfying all n,s conclusions. No n<=J requirement or threshold-hitting-by-J conclusion is asserted. No extra terminal accuracy, finite terminal KL or separate marginal second-moment assumption is present. F measurability is not a separate public conjunct.",
+  "source_fidelity_verdict": null
+}
