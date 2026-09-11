@@ -53,3 +53,40 @@ source repair and final graph publication are still pending at this checkpoint.
 Next bounded candidate: Theorem3.4's distance-plus-function-gap one-step
 inequality and scalar weighted summation, after a fresh reuse and ownership
 scan. Do not count the current distance theorem as that function-value result.
+
+Independent smoothness_review accepted proof b965caf and integration 1db153d;
+frozen proof/test/lesson/publication hashes unchanged. New root tests are
+reachable, Registry408→410, all59 baseline audits and original ledger lines
+preserved. gd_blind reconstructed the two anonymous packets; coco_source
+accepted scoped source support, retaining possible-source-error for the literal
+step statement and domain-mismatch for the iterated generalization. Independent
+converse_source_review accepted the exact nonnegative-step repair. The v2
+proposal only encodes its original reference/counterexample object as the
+schema-required string; both review artifacts remain. Audit admission does
+not erase the source-error verdict or rewrite the pinned source.
+
+Harness tests PASS250 with6skips. Publication48items, semantic61audits and
+2repair proposals, and70cells validate. Full integration gate and reader checks
+are running. The already-merged StoppedGaussianRGOError reservation was
+released through attributed independent historical-artifact preservation
+review and fresh actual PR275 Git merge evidence, without owner impersonation.
+
+Canonical full gate PASS9144 at 1db153d5b7d36b085658516fc5e9eabddc505295 on 2026-09-11T09:53:04.933234+00:00: root Tests including new test import, fake-closure scan, ATLAS36469declarations26books; independent harness250tests6skips.
+No Lean source or tests changed after this gate.
+
+Canonical website build/check PASS12chapters,410compiled local leaves,
+614modules,3690declarations,77reviewed teaching declarations. Both focused
+graph checks PASS. Actual desktop inspection: new source section preserves
+original wording, nonnegative-step repair, C1/Hilbert/zero-modulus differences
+and uncovered logarithmic complexity. Statement and proof formulas render;
+Lean disclosure contains actual source. Gradient-step graph has17nodes30edges
+and6direct relations: two scanned mathematical parents, actual iteration
+consumer, module ownership, source chapter and semantic audit. Solid structural
+edges and dashed scanner/source/review edges stay distinct; repair is a separate
+reviewed evidence node, not a Lean implication. Mobile390x844 statement and
+audit inspector are legible, documentwidth390 with0matherrors; default viewport
+restored. No source chapter completion badge was hand-edited.
+
+The final integration reviewer authorizes direct fast-forward after the now
+completed gate and reader checks, provided canonical main stays at bad36aa.
+Actual remote integration will be recorded only after a successful push.

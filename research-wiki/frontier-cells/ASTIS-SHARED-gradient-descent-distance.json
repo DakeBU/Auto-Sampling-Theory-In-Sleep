@@ -31,7 +31,7 @@
       "lake build Tests.Shared.GradientDescentContraction PASS2449 independently repeated, no warnings; standard axioms only."
     ],
     "independent_verification": "smoothness_review at b965caf proof/test/lesson/source-binding review and compile; independent gd_blind, coco_source, and exact-proposal repair acceptance in semantic registry.",
-    "root_build": "",
+    "root_build": "Canonical full gate PASS9144 at 1db153d5b7d36b085658516fc5e9eabddc505295 on 2026-09-11T09:53:04.933234+00:00: root Tests including new test import, fake-closure scan, ATLAS36469declarations26books; independent harness250tests6skips.",
     "graph_regeneration": "",
     "pr": ""
   },
