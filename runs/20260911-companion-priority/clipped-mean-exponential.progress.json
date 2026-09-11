@@ -1,0 +1,80 @@
+{
+  "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
+  "state": "STABILIZING",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost.",
+  "development_checkpoint": {
+    "scratch": ".astis/ClippedMeanExponential.lean",
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "session": 43574,
+    "exit_code": 0,
+    "log": ".astis/clipped-mean-exponential-scratch.log",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "result": "Complete scratch public clipped_mean_exponential: actual m,mB,V measurable and meanerror<=V; three actual exponential L1/integral bounds, proposal<=2exp(-K),actual clipped output excess/error<=2exp(2B-K). q-a.e. conditionalL1 beforeJensen, true clipped normalization before density transfer. Wholecompileexit0 standard3/no lint. Independent fullproof/source preaudit pending; no production yet."
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "result": "Independent entire complete scratch compile exit0 standard3/no lint; actual product L1/coordinate equivalence,q-a.e. Jensen,positive normalizer before actual clipped-density transfer,all3 outerL1/explicitconstants accepted. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "04fab115d7c3c4cf09f9d0bd9977dbd6ff09fbbf6730a3b76deae3fe37ab4bd4",
+    "result": "Full source preaudit accepted without blocker/repair; no independent compile or formal anonymous reconstruction admission.",
+    "disclosures": [
+      "Positive beta/eta/B/d,ell>=2 and source residual/step assumptions retained; no beta0 or zeroD extension here.",
+      "qhat actual clipped tilt uses parent output identification; no separate pushforward equality returned.",
+      "Three exponential-minus-one L1 bounds, not normalized RNpowers/divergence/probability conjunct.",
+      "Intermediate exponential slice L1 only q-a.e.; pointwise mean-error bound holds everyx.",
+      "Factor2 retained; no log conclusion. Ideal-target connection,normalizedRenyi,initialization and costs separate."
+    ]
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedMeanExponential.lean",
+    "test": "Tests\\SmoothedPicardHMCClippedMeanExponential.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedMeanExponential.lean": "940629f7a09511eaf1b78f486e17e7fcad287efa3039908fbaeca5b602a01ebc",
+      "Tests\\SmoothedPicardHMCClippedMeanExponential.lean": "0b4f95acd7f76a2753c9cb01088be8824352d9e8f7c1d8b447324e8861a60353"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCClippedMeanExponential",
+    "state": "Focused production build passed: exit 0, 3727 jobs; public axiom check contains only propext, Classical.choice, Quot.sound."
+  },
+  "expanded_statement": {
+    "file": ".astis/clipped-mean-exponential-expanded.log",
+    "sha256": "843d4191286cdbfcfe2db87cd1c1c356f19331776f2757fa3cd9e1a660fe413c",
+    "characters": 4278,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed Meta.deltaExpand/isDefEq: exit 0, 4278 characters, exact registry match, SHA843d4191286cdbfcfe2db87cd1c1c356f19331776f2757fa3cd9e1a660fe413c; no private/source names or ellipsis. No VERIFIED."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "928573a2e0d55d2fe0dd34ee4e8bba2fdf4cc614",
+    "result": "Hashes and normalized mathematical content matched accepted scratch; independent focusedPASS3727, standard3/no lint. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-clipped-mean-exponential.json",
+    "state": "Six authored steps and9private implementations accepted; publicationPASS60."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCClippedMeanExponential"
+    ]
+  },
+  "admission_boundary": "VERIFIED at4cb3594. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/clipped-mean-exponential.verified-admission.json",
+  "integration_notes": {
+    "upstream": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior54f994e, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "1552969449d278265c698983f0352f34de50bdcb572fd55fd53ebf40e97bffe8",
+  "source_sha256": "82f56eea7d5930959560c8f0b04f499bfec2b4334b998f549178771a0728435c",
+  "statement_sha256": "843d4191286cdbfcfe2db87cd1c1c356f19331776f2757fa3cd9e1a660fe413c",
+  "reconstruction_sha256": "4afc9e11fb424f59dce88c76237feb4c9deab78e5368f05fb45a53ae6c2a147c",
+  "module_sha256": "7c1c154b7c6a504ac036814a79842a9f7e75a086b15592656c262df36da35c42",
+  "module_raw_sha256": "940629f7a09511eaf1b78f486e17e7fcad287efa3039908fbaeca5b602a01ebc",
+  "publication_binding_sha256": "b5b3e40a3130f7c57f64fde291acf7128b203c61feffe6f154dc4257351a120e",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual gradient estimator, means, excess, proposal and implemented clipped law.",
+      "reconstructed": "Explicit W,m,mB,V,q,qhat with independent uniform/Gaussian input.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual definitions retained; no abstract witnesses."
+    },
+    "domains": {
+      "original": "Euclidean smooth sampling with positive dimension.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space with positive finrank.",
+      "relation": "different",
+      "evidence": "Disclosed coordinate-free generalization retains positive dimension."
+    },
+    "quantifiers": {
+      "original": "Fixed source call and auxiliary expectation for proposal/output clipping control.",
+      "reconstructed": "Fixed parameters and source center; every-x mean error and actual outer integrals.",
+      "relation": "explicit-elaboration",
+      "evidence": "Intermediate exponential sections/Jensen only q-a.e.; final mean error pointwise."
+    },
+    "assumptions": {
+      "original": "Positive eta,beta,B,d,ell>=2,residual and Claim2 step restriction.",
+      "reconstructed": "Exactly these inequalities,differentiable f and actual beta-Lipschitz gradient.",
+      "relation": "same",
+      "evidence": "64-condition and actual source h retained; no exponential L1/density bound assumed."
+    },
+    "conclusion": {
+      "original": "Proposal clipping moment transferred to clipped-output error.",
+      "reconstructed": "Measurable m,mB,V; V nonnegative and mean-error bound; three exponential-minus-one L1 and integral bounds.",
+      "relation": "explicit-elaboration",
+      "evidence": "No normalized RNpowers or divergence returned."
+    },
+    "scopes": {
+      "original": "Moment dependency used in Eq18 terminal comparison.",
+      "reconstructed": "Actual proposal and clipped-output moment only.",
+      "relation": "same",
+      "evidence": "Program parent identifies qhat; pushforward not repeated. Ideal comparison,adaptivekernel,init,cost separate."
+    },
+    "constant_dependencies": {
+      "original": "Factor2,scales40/8,and exp2B density transfer.",
+      "reconstructed": "K=min(B^2/(40 beta^2 d eta^2),B/(8 beta eta));2exp(-K),2exp(2B-K).",
+      "relation": "same",
+      "evidence": "Actual positive clipped normalizer gives density bound; no missing log2."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "True outer norm-integral L1 before integrable_prod_iff; actual fixed-time parent."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Actual associators and swap preserve distributions,integrability and integral."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Joint exponential L1 gives q-a.e. sections before Jensen; domination gives outer L1 before integration."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Actual common-C parent identifies m and every-x clipping error; nonnegative V from integrand."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Positive actual ZB and measurable density bound; weighted L1 before withDensity calculation in correct q-to-qhat direction."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Pointwise domination proves true-error qhat L1 and bound with factor2."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 9,
+    "declarations": [
+      "product_bound",
+      "exponential_mean_bound",
+      "integrated_exponential_mean",
+      "clipped_density_transfer",
+      "estimator",
+      "actual_time_product",
+      "swap_time_preserving",
+      "swap_time_integrable",
+      "actual_proposal_bound"
+    ],
+    "evidence": "All scratch bodies read; complete production diff only namespace/documentation/prints. All9private declarations covered by6steps; production equals bound wholemodule."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Coordinate-free domain preserves positive dimension.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Coordinate-free domain preserves positive dimension."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "same",
+      "description": "All positive parameters,ell>=2,residual and64-condition retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: All positive parameters,ell>=2,residual and64-condition retained."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "Ioc/Icc differ by null endpoint.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Ioc/Icc differ by null endpoint."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "same",
+      "description": "Selected nonlog moment preserves2,40,8; no complete normalized comparison.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Selected nonlog moment preserves2,40,8; no complete normalized comparison."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "source-implicit",
+      "description": "Joint L1,a.e.exponential sections and pointwise mean error distinguished/proved.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Joint L1,a.e.exponential sections and pointwise mean error distinguished/proved."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Actual clipped-output moment prerequisite only,not ideal/fullalgorithm.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Actual clipped-output moment prerequisite only,not ideal/fullalgorithm."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent formal review accepted7slots,6authoredsteps,6informationaldeltas,9private implementations; primary D1Claim2/Eq18/B12 and SPHMCA4(2) rechecked. Recomputed canonical packet,source,expandedstatement,reconstruction,wholemodule and rawproduction. Current lesson/publication/delta pairs matched bound context. Binding authenticated as packetfield; external binding preimage,decoderpacket/run,Meta replay,compile/axioms and fixed admission remain verifier obligations. No prior verdict/slots or registry admission consulted. Attributed paraphrase; no printed log-error import. No normalized RNpowers,RenyiAPI,ideal equality,adaptivekernel,init,cost or fullpaper. Root faithful transcription authorized; no VERIFIED."
+}

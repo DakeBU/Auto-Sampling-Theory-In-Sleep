@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-3954f4377b6d2ec5",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_n",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-clipped-mean-exponential",
+    "anchor": "Appendix D.1 Claim2/Eq18 and Lemma B.12; consumed by SPHMC Appendix A.4(2)",
+    "original_text": "E is a finite-dimensional real inner-product Borel space, d=finrank(E)>0. The actual potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2.\nSet g=grad f(x_plus), h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. These residual and step assumptions are retained exactly.\nLet P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z), define W(x,s)=<v,g-grad f(gamma)>.\nDefine m(x)=integral W(x,s) dnu(s), mB(x)=integral min(B,max(-B,W(x,s))) dnu(s), V(x)=integral max(abs(W(x,s))-B,0) dnu(s), qhat=q.tilted(mB), and K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). All functions and measures are actual definitions, not abstract witnesses.\nm, mB and V are measurable. For every x, V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function J(x)=exp(2*ell*V(x))-1 is integrable under q and qhat, with respective integrals at most 2*exp(-K) and 2*exp(2*B-K). The function exp(2*ell*abs(m(x)-mB(x)))-1 is qhat-integrable and its integral is at most 2*exp(2*B-K).",
+    "text_sha256": "82f56eea7d5930959560c8f0b04f499bfec2b4334b998f549178771a0728435c"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ClippedMeanExponential.lean",
+    "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (eta beta B ell : ℝ),\n      0 < eta →\n        ∀ (hbeta : 0 < beta),\n          0 < B →\n            2 ≤ ell →\n              0 < ↑(Module.finrank ℝ E) →\n                LipschitzWith ⟨beta, LT.lt.le hbeta⟩ (gradient f) →\n                  ∀ (x0 xp : E),\n                    ‖x0 - eta • gradient f xp - xp‖ ≤ √(↑(Module.finrank ℝ E) * eta) →\n                      64 * beta ^ 2 * (ell * ↑(Module.finrank ℝ E) / B + ell ^ 2) ≤ 1 / eta ^ 2 →\n                        have h := x0 - eta • gradient f xp;\n                        have q := MeasureTheory.Measure.map (fun z => h + √eta • z) (ProbabilityTheory.stdGaussian E);\n                        have P := MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E);\n                        have nu := (MeasureTheory.MeasureSpace.volume.restrict (Set.Ioc 0 1)).prod P;\n                        have m := fun x =>\n                          ∫ (a : ℝ × E),\n                            Inner.inner ℝ\n                              ((Real.pi / 2) •\n                                (Real.cos (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) -\n                                  Real.sin (Real.pi / 2 * (x, a).2.1) • (x, a).2.2))\n                              (gradient f xp -\n                                gradient f\n                                  (h + Real.sin (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) +\n                                    Real.cos (Real.pi / 2 * (x, a).2.1) • (x, a).2.2)) ∂nu;\n                        have mB := fun x =>\n                          ∫ (a : ℝ × E),\n                            Min.min B\n                              (Max.max (-B)\n                                (Inner.inner ℝ\n                                  ((Real.pi / 2) •\n                                    (Real.cos (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) -\n                                      Real.sin (Real.pi / 2 * (x, a).2.1) • (x, a).2.2))\n                                  (gradient f xp -\n                                    gradient f\n                                      (h + Real.sin (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) +\n                                        Real.cos (Real.pi / 2 * (x, a).2.1) • (x, a).2.2)))) ∂nu;\n                        have V := fun x =>\n                          ∫ (a : ℝ × E),\n                            Max.max\n                              (|Inner.inner ℝ\n                                    ((Real.pi / 2) •\n                                      (Real.cos (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) -\n                                        Real.sin (Real.pi / 2 * (x, a).2.1) • (x, a).2.2))\n                                    (gradient f xp -\n                                      gradient f\n                                        (h + Real.sin (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) +\n                                          Real.cos (Real.pi / 2 * (x, a).2.1) • (x, a).2.2))| -\n                                B)\n                              0 ∂nu;\n                        have qhat := q.tilted mB;\n                        have K :=\n                          Min.min (B ^ 2 / (40 * beta ^ 2 * ↑(Module.finrank ℝ E) * eta ^ 2)) (B / (8 * beta * eta));\n                        Measurable m ∧\n                          Measurable mB ∧\n                            Measurable V ∧\n                              (∀ (x : E), 0 ≤ V x ∧ |m x - mB x| ≤ V x) ∧\n                                MeasureTheory.Integrable (fun x => Real.exp (2 * ell * V x) - 1) q ∧\n                                  ∫ (x : E), Real.exp (2 * ell * V x) - 1 ∂q ≤ 2 * Real.exp (-K) ∧\n                                    MeasureTheory.Integrable (fun x => Real.exp (2 * ell * V x) - 1) qhat ∧\n                                      ∫ (x : E), Real.exp (2 * ell * V x) - 1 ∂qhat ≤ 2 * Real.exp (2 * B - K) ∧\n                                        MeasureTheory.Integrable (fun x => Real.exp (2 * ell * |m x - mB x|) - 1) qhat ∧\n                                          ∫ (x : E), Real.exp (2 * ell * |m x - mB x|) - 1 ∂qhat ≤\n                                            2 * Real.exp (2 * B - K)",
+    "statement_sha256": "843d4191286cdbfcfe2db87cd1c1c356f19331776f2757fa3cd9e1a660fe413c",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let E be a finite-dimensional real inner-product Borel space of real dimension d>0, f differentiable everywhere, eta,beta,B>0,ell>=2, and the actual gradient globally beta-Lipschitz. For arbitrary x0,xp assume norm(x0-eta grad f(xp)-xp)<=sqrt(d eta) and 64 beta^2(ell d/B+ell^2)<=eta^(-2). Define h=x0-eta grad f(xp), q=N(h,eta I), P=N(0,eta I), nu=Lebesgue restricted to (0,1] product P. With theta=pi t/2 define Y=h+sin(theta)(x-h)+cos(theta)z and S=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(xp)-grad f(Y) >. Let m(x)=integral S dnu, mB(x)=integral min(B,max(-B,S)) dnu, V(x)=integral max(abs(S)-B,0) dnu, qhat=q.tilted(mB), and K=min(B^2/(40 beta^2 d eta^2),B/(8 beta eta)). Then m,mB,V are measurable, and every x satisfies V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function exp(2ell V)-1 is Bochner integrable under q with integral<=2exp(-K), and under qhat with integral<=2exp(2B-K). The function exp(2ell abs(m-mB))-1 is Bochner integrable under qhat with integral<=2exp(2B-K).",
+    "text_sha256": "4afc9e11fb424f59dce88c76237feb4c9deab78e5368f05fb45a53ae6c2a147c",
+    "decoder": "blind_reconstruction_n",
+    "decoder_packet_sha256": "2aa6693507ef58527f6e96e2bc6769ba4475c3a5169c656c68a80ca8e9d59e89",
+    "decoder_run_sha256": "4f61bc53fb0f6d56773a4dbe9b3c4d61e1f9ded278b9d836505107a73da535d4",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "b5b3e40a3130f7c57f64fde291acf7128b203c61feffe6f154dc4257351a120e",
+  "candidate_publication_context": {
+    "file": "7c1c154b7c6a504ac036814a79842a9f7e75a086b15592656c262df36da35c42",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram\nimport Mathlib.Analysis.Convex.Integral\nimport Mathlib.Analysis.Convex.SpecificFunctions.Basic\nimport Mathlib.MeasureTheory.Measure.Tilted\nimport Mathlib.Tactic\n\n/-! Actual clipped-output exponential moment of the gradient mean error.\nSource: SPHMC arXiv:2609.06906v1 Appendix A.4(2), through\narXiv:2602.01338v1 Appendix D.1 Claim2/Eq18 and Lemma B.12.\n\nFixed-time clipping bounds are integrated under the actual uniform/Gaussian\nproduct, with true joint L1 before product reordering and a.e. Jensen.\nThe actual clipped normalizer gives the exp(2B) density domination. The\nproposal bound is 2exp(-K); the actual clipped-output bounds are 2exp(2B-K).\nAll three displayed exponential-minus-one functions have proved L1.\n\nParameters and dimension are positive and the source residual/step conditions\nare retained. qhat is the clipped tilt already identified with the actual\nprogram output by ClippedGradientProgram; this theorem does not return that\npushforward equality again. No two RN-power identities, normalized Renyi bound,\njoint adaptive kernel, initialization or oracle-cost result is asserted.\nThe factor2 is preserved; no logarithmic bound is asserted. -/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped RealInnerProductSpace ENNReal NNReal\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential\n\nprivate theorem product_bound {A : Type*} [MeasurableSpace A]\n    (mu : Measure ℝ) (nu : Measure A) [IsProbabilityMeasure mu] [IsProbabilityMeasure nu]\n    (F : ℝ × A → ℝ) (hF : Measurable F) (hpos : ∀ p, 0 ≤ F p)\n    (hi : ∀ r, Integrable (fun a => F (r,a)) nu) (M : ℝ)\n    (hb : ∀ r, (∫ a, F (r,a) ∂nu) ≤ M) :\n    Integrable F (mu.prod nu) ∧ (∫ p, F p ∂mu.prod nu) ≤ M := by\n  have hn (r : ℝ) : (∫ a, ‖F (r,a)‖ ∂nu) = ∫ a, F (r,a) ∂nu := by\n    apply integral_congr_ae\n    exact Filter.Eventually.of_forall (fun a => Real.norm_of_nonneg (hpos (r,a)))\n  have ho : Integrable (fun r => ∫ a, ‖F (r,a)‖ ∂nu) mu := by\n    apply (integrable_const M).mono' hF.stronglyMeasurable.norm.integral_prod_right'.aestronglyMeasurable\n    apply Filter.Eventually.of_forall\n    intro r\n    rw [Real.norm_eq_abs, abs_of_nonneg (integral_nonneg (fun a => norm_nonneg (F (r,a)))), hn]\n    exact hb r\n  have hp : Integrable F (mu.prod nu) :=\n    (integrable_prod_iff hF.aestronglyMeasurable).mpr\n      ⟨Filter.Eventually.of_forall hi, ho⟩\n  refine ⟨hp, ?_⟩\n  rw [integral_prod F hp]\n  simpa using integral_mono hp.integral_prod_left (integrable_const M) hb\n\nprivate theorem exponential_mean_bound {A : Type*} [MeasurableSpace A]\n    (nu : Measure A) [IsProbabilityMeasure nu] (f : A → ℝ) (c : ℝ)\n    (hi : Integrable f nu) (he : Integrable (fun a => Real.exp (c*f a)-1) nu) :\n    Real.exp (c*∫ a, f a ∂nu)-1 ≤ ∫ a, Real.exp (c*f a)-1 ∂nu := by\n  have hexp : Integrable (fun a => Real.exp (c*f a)) nu := by\n    convert! he.add (integrable_const (1 : ℝ)) using 1\n    funext a\n    simp only [Pi.add_apply]\n    ring\n  have hj := convexOn_exp.map_integral_le Real.continuous_exp.continuousOn\n    isClosed_univ (Filter.Eventually.of_forall (fun a => Set.mem_univ (c*f a)))\n    (hi.const_mul c) hexp\n  rw [integral_const_mul] at hj\n  rw [integral_sub hexp (integrable_const (1 : ℝ)), integral_const]\n  simpa using sub_le_sub_right hj 1\n\nprivate theorem integrated_exponential_mean {X A : Type*}\n    [MeasurableSpace X] [MeasurableSpace A]\n    (q : Measure X) (nu : Measure A) [IsProbabilityMeasure q] [IsProbabilityMeasure nu]\n    (D : X × A → ℝ) (hD : Measurable D) (hpos : ∀ p, 0 ≤ D p)\n    (hi : ∀ x, Integrable (fun a => D (x,a)) nu) (c : ℝ) (hc : 0 ≤ c)\n    (he : Integrable (fun p => Real.exp (c*D p)-1) (q.prod nu)) :\n    let V := fun x => ∫ a, D (x,a) ∂nu\n    Measurable V ∧ Integrable (fun x => Real.exp (c*V x)-1) q ∧\n      (∫ x, Real.exp (c*V x)-1 ∂q) ≤ ∫ p, Real.exp (c*D p)-1 ∂q.prod nu := by\n  let V := fun x => ∫ a, D (x,a) ∂nu\n  have hV : Measurable V := hD.stronglyMeasurable.integral_prod_right'.measurable\n  have hVp (x) : 0 ≤ V x := integral_nonneg (fun a => hpos (x,a))\n  have hJp (x) : 0 ≤ Real.exp (c*V x)-1 :=\n    sub_nonneg.mpr (Real.one_le_exp_iff.mpr (mul_nonneg hc (hVp x)))\n  have hJ : (fun x => Real.exp (c*V x)-1) ≤ᵐ[q]\n      (fun x => ∫ a, Real.exp (c*D (x,a))-1 ∂nu) := by\n    filter_upwards [he.prod_right_ae] with x hx\n    exact exponential_mean_bound nu (fun a => D (x,a)) c (hi x) hx\n  have hJi : Integrable (fun x => Real.exp (c*V x)-1) q := by\n    apply he.integral_prod_left.mono' (by fun_prop)\n    filter_upwards [hJ] with x hx\n    simpa only [Real.norm_eq_abs, abs_of_nonneg (hJp x)] using hx\n  refine ⟨hV, hJi, ?_⟩\n  rw [integral_prod _ he]\n  exact integral_mono_ae hJi he.integral_prod_left hJ\n\nprivate theorem clipped_density_transfer {X : Type*} [MeasurableSpace X]\n    (q : Measure X) (m J : X → ℝ) (hm : Measurable m) (hJ : Measurable J)\n    (hJpos : ∀ x, 0 ≤ J x) (hJi : Integrable J q) (B : ℝ)\n    (hmB : ∀ x, m x ≤ B) (hZ : Real.exp (-B) ≤ ∫ x, Real.exp (m x) ∂q) :\n    Integrable J (q.tilted m) ∧\n      (∫ x, J x ∂q.tilted m) ≤ Real.exp (2*B) * ∫ x, J x ∂q := by\n  let Z := ∫ x, Real.exp (m x) ∂q\n  let w := fun x => Real.exp (m x)/Z\n  have hZpos : 0 < Z := lt_of_lt_of_le (Real.exp_pos (-B)) hZ\n  have hw : Measurable w := hm.exp.div_const Z\n  have hwpos (x) : 0 ≤ w x := (div_pos (Real.exp_pos _) hZpos).le\n  have hwb (x) : w x ≤ Real.exp (2*B) := by\n    apply (div_le_iff₀ hZpos).mpr\n    calc\n      Real.exp (m x) ≤ Real.exp B := Real.exp_le_exp.mpr (hmB x)\n      _ = Real.exp (2*B) * Real.exp (-B) := by\n        rw [← Real.exp_add]\n        congr 1\n        ring\n      _ ≤ Real.exp (2*B)*Z := mul_le_mul_of_nonneg_left hZ (Real.exp_nonneg _)\n  have hi : Integrable (fun x => w x * J x) q := by\n    apply (hJi.const_mul (Real.exp (2*B))).mono' (hw.mul hJ).aestronglyMeasurable\n    apply Filter.Eventually.of_forall\n    intro x\n    simp only [Pi.mul_apply]\n    rw [Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (hwpos x) (hJpos x))]\n    exact mul_le_mul_of_nonneg_right (hwb x) (hJpos x)\n  have he : (fun x => (ENNReal.ofReal (w x)).toReal • J x) = fun x => w x * J x := by\n    funext x\n    rw [ENNReal.toReal_ofReal (hwpos x), smul_eq_mul]\n  constructor\n  · change Integrable J (q.withDensity (fun x => ENNReal.ofReal (w x)))\n    rw [integrable_withDensity_iff_integrable_smul' hw.ennreal_ofReal\n      (Filter.Eventually.of_forall (fun _ => ENNReal.ofReal_lt_top)), he]\n    exact hi\n  · change (∫ x, J x ∂q.withDensity (fun x => ENNReal.ofReal (w x))) ≤ _\n    rw [integral_withDensity_eq_integral_toReal_smul hw.ennreal_ofReal\n      (Filter.Eventually.of_forall (fun _ => ENNReal.ofReal_lt_top)), he,\n      ← integral_const_mul]\n    exact integral_mono hi (hJi.const_mul _) (fun x =>\n      mul_le_mul_of_nonneg_right (hwb x) (hJpos x))\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nprivate def estimator (f : E → ℝ) (h xp : E) (p : E × (ℝ × E)) : ℝ :=\n  inner ℝ ((Real.pi / 2) • (Real.cos (Real.pi / 2 * p.2.1) • (p.1-h) -\n    Real.sin (Real.pi / 2 * p.2.1) • p.2.2))\n    (gradient f xp - gradient f (h + Real.sin (Real.pi / 2 * p.2.1) • (p.1-h) +\n      Real.cos (Real.pi / 2 * p.2.1) • p.2.2))\n\nprivate theorem actual_time_product (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta B ell : ℝ) (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B)\n    (hell : 2 ≤ ell) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (hlip : LipschitzWith ⟨beta,hbeta.le⟩ (gradient f)) (h xp : E)\n    (hcenter : ‖h-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hstep : 64*beta^2*(ell*(Module.finrank ℝ E : ℝ)/B+ell^2) ≤ 1/eta^2) :\n    let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let U := volume.restrict (Set.Ioc (0 : ℝ) 1)\n    let F := fun p : ℝ × (E × E) =>\n      Real.exp (2*ell*max (|estimator f h xp (p.2.1,(p.1,p.2.2))|-B) 0)-1\n    Measurable F ∧ (∀ p, 0 ≤ F p) ∧ Integrable F (U.prod (q.prod P)) ∧\n      (∫ p, F p ∂U.prod (q.prod P)) ≤ 2*Real.exp (-min\n        (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))) := by\n  let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n  let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n  let U := volume.restrict (Set.Ioc (0 : ℝ) 1)\n  let F := fun p : ℝ × (E × E) =>\n    Real.exp (2*ell*max (|estimator f h xp (p.2.1,(p.1,p.2.2))|-B) 0)-1\n  let : IsProbabilityMeasure q := Measure.isProbabilityMeasure_map (by fun_prop)\n  let : IsProbabilityMeasure P := Measure.isProbabilityMeasure_map (by fun_prop)\n  let : IsProbabilityMeasure U := ⟨by simp [U]⟩\n  have hF : Measurable F := by\n    have hg := hlip.continuous.measurable\n    dsimp [F, estimator]\n    fun_prop\n  have hp (p) : 0 ≤ F p := by\n    dsimp [F]\n    apply sub_nonneg.mpr\n    apply Real.one_le_exp_iff.mpr\n    have he : 0 ≤ ell := by linarith\n    positivity\n  have hs (r : ℝ) :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping\n      f hf eta beta B ell heta hbeta hB hell hd hlip h xp r hcenter hstep\n  have hb := product_bound U (q.prod P) F hF hp\n    (fun r => (hs r).2.2.1) _ (fun r => (hs r).2.2.2)\n  exact ⟨hF, hp, hb.1, hb.2⟩\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [BorelSpace E] in\nprivate theorem swap_time_preserving (q P : Measure E) (U : Measure ℝ)\n    [IsProbabilityMeasure q] [IsProbabilityMeasure P] [IsProbabilityMeasure U] :\n    MeasurePreserving (fun p : E × (ℝ × E) => (p.2.1,(p.1,p.2.2)))\n      (q.prod (U.prod P)) (U.prod (q.prod P)) := by\n  exact ((measurePreserving_prodAssoc U q P).comp\n    ((Measure.measurePreserving_swap (μ := q) (ν := U)).prod (MeasurePreserving.id P))).comp\n      (MeasurePreserving.symm MeasurableEquiv.prodAssoc (measurePreserving_prodAssoc q U P))\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [BorelSpace E] in\nprivate theorem swap_time_integrable (q P : Measure E) (U : Measure ℝ)\n    [IsProbabilityMeasure q] [IsProbabilityMeasure P] [IsProbabilityMeasure U]\n    (F : ℝ × (E × E) → ℝ) (hF : Integrable F (U.prod (q.prod P))) :\n    Integrable (fun p : E × (ℝ × E) => F (p.2.1,(p.1,p.2.2))) (q.prod (U.prod P)) ∧\n      (∫ p : E × (ℝ × E), F (p.2.1,(p.1,p.2.2)) ∂q.prod (U.prod P)) =\n        ∫ p, F p ∂U.prod (q.prod P) := by\n  let T : E × (ℝ × E) ≃ᵐ ℝ × (E × E) :=\n    (MeasurableEquiv.prodAssoc.symm.trans\n      (MeasurableEquiv.prodComm.prodCongr (MeasurableEquiv.refl E))).trans\n        MeasurableEquiv.prodAssoc\n  have hT : MeasurePreserving T (q.prod (U.prod P)) (U.prod (q.prod P)) :=\n    swap_time_preserving q P U\n  exact ⟨hT.integrable_comp_of_integrable hF, hT.integral_comp' F⟩\n\nprivate theorem actual_proposal_bound (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta B ell : ℝ) (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B)\n    (hell : 2 ≤ ell) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (hlip : LipschitzWith ⟨beta,hbeta.le⟩ (gradient f)) (x0 xp : E)\n    (hcenter : ‖(x0-eta • gradient f xp)-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hstep : 64*beta^2*(ell*(Module.finrank ℝ E : ℝ)/B+ell^2) ≤ 1/eta^2) :\n    let h := x0-eta • gradient f xp\n    let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n    let V := fun x => ∫ a, max (|estimator f h xp (x,a)|-B) 0 ∂nu\n    Measurable V ∧ (∀ x, 0 ≤ V x) ∧\n      Integrable (fun x => Real.exp (2*ell*V x)-1) q ∧\n      (∫ x, Real.exp (2*ell*V x)-1 ∂q) ≤ 2*Real.exp (-min\n        (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))) := by\n  let h := x0-eta • gradient f xp\n  let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n  let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n  let U := volume.restrict (Set.Ioc (0 : ℝ) 1)\n  let nu := U.prod P\n  let D := fun p : E × (ℝ × E) => max (|estimator f h xp p|-B) 0\n  let : IsProbabilityMeasure q := Measure.isProbabilityMeasure_map (by fun_prop)\n  let : IsProbabilityMeasure P := Measure.isProbabilityMeasure_map (by fun_prop)\n  let : IsProbabilityMeasure U := ⟨by simp [U]⟩\n  have hD : Measurable D := by\n    have hg := hlip.continuous.measurable\n    dsimp [D, estimator]\n    fun_prop\n  have hp := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program\n    f hf eta beta B heta hbeta.le hB hlip x0 xp\n  have hDi (x : E) : Integrable (fun a => D (x,a)) nu :=\n    (hp.2.2.2.2.2.1 x).2.2.1\n  have ht := actual_time_product f hf eta beta B ell heta hbeta hB hell hd hlip h xp hcenter hstep\n  have hs := swap_time_integrable q P U _ ht.2.2.1\n  have he : Integrable (fun p => Real.exp (2*ell*D p)-1) (q.prod nu) := hs.1\n  have hj := integrated_exponential_mean q nu D hD (fun p => le_max_right _ _)\n    hDi (2*ell) (by linarith) he\n  refine ⟨hj.1, fun x => integral_nonneg (fun a => le_max_right _ _), hj.2.1, ?_⟩\n  exact hj.2.2.trans (hs.2.le.trans ht.2.2.2)\n\n/-- Actual proposal and clipped-output exponential mean-error bounds. -/\ntheorem clipped_mean_exponential (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta B ell : ℝ) (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B)\n    (hell : 2 ≤ ell) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (hlip : LipschitzWith ⟨beta,hbeta.le⟩ (gradient f)) (x0 xp : E)\n    (hcenter : ‖(x0-eta • gradient f xp)-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hstep : 64*beta^2*(ell*(Module.finrank ℝ E : ℝ)/B+ell^2) ≤ 1/eta^2) :\n    let h := x0-eta • gradient f xp\n    let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n    let m := fun x => ∫ a, estimator f h xp (x,a) ∂nu\n    let mB := fun x => ∫ a, min B (max (-B) (estimator f h xp (x,a))) ∂nu\n    let V := fun x => ∫ a, max (|estimator f h xp (x,a)|-B) 0 ∂nu\n    let qhat := q.tilted mB\n    let K := min (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))\n    Measurable m ∧ Measurable mB ∧ Measurable V ∧\n      (∀ x, 0 ≤ V x ∧ |m x-mB x| ≤ V x) ∧\n      Integrable (fun x => Real.exp (2*ell*V x)-1) q ∧\n      (∫ x, Real.exp (2*ell*V x)-1 ∂q) ≤ 2*Real.exp (-K) ∧\n      Integrable (fun x => Real.exp (2*ell*V x)-1) qhat ∧\n      (∫ x, Real.exp (2*ell*V x)-1 ∂qhat) ≤ 2*Real.exp (2*B-K) ∧\n      Integrable (fun x => Real.exp (2*ell*|m x-mB x|)-1) qhat ∧\n      (∫ x, Real.exp (2*ell*|m x-mB x|)-1 ∂qhat) ≤ 2*Real.exp (2*B-K) := by\n  let h := x0-eta • gradient f xp\n  let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n  let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n  let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n  let m := fun x => ∫ a, estimator f h xp (x,a) ∂nu\n  let mB := fun x => ∫ a, min B (max (-B) (estimator f h xp (x,a))) ∂nu\n  let V := fun x => ∫ a, max (|estimator f h xp (x,a)|-B) 0 ∂nu\n  let K := min (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))\n  have hp := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program\n    f hf eta beta B heta hbeta.le hB hlip x0 xp\n  have hmB : Measurable mB := hp.2.2.2.2.1\n  have hx := hp.2.2.2.2.2.1\n  have hmean := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean\n    f hf eta beta heta hbeta.le hlip h xp\n  let C := (∫ z, f (h+z) ∂P)-inner ℝ (gradient f xp) h\n  have hme (x : E) : m x = inner ℝ (gradient f xp) x-f x+C :=\n    (hmean.2.2.2 x).2.2.2\n  have hm : Measurable m := by\n    have heq : m = fun x => inner ℝ (gradient f xp) x-f x+C := funext hme\n    rw [heq]\n    exact ((by fun_prop : Measurable (fun x => inner ℝ (gradient f xp) x)).sub\n      hf.continuous.measurable).add_const C\n  have herr (x : E) : |m x-mB x| ≤ V x := by\n    rw [abs_sub_comm, hme]\n    exact (hx x).2.2.2.2\n  have hv := actual_proposal_bound f hf eta beta B ell heta hbeta hB hell hd hlip x0 xp hcenter hstep\n  have hV : Measurable V := hv.1\n  have he : 0 ≤ 2*ell := by linarith\n  have hJpos (x : E) : 0 ≤ Real.exp (2*ell*V x)-1 :=\n    sub_nonneg.mpr (Real.one_le_exp_iff.mpr (mul_nonneg he (hv.2.1 x)))\n  have ht := clipped_density_transfer q mB (fun x => Real.exp (2*ell*V x)-1)\n    hmB (by fun_prop) hJpos hv.2.2.1 B (fun x => (abs_le.mp ((hx x).2.2.2.1)).2)\n      hp.2.2.2.2.2.2.2.1\n  have hbound : (∫ x, Real.exp (2*ell*V x)-1 ∂q.tilted mB) ≤ 2*Real.exp (2*B-K) := by\n    calc\n      _ ≤ Real.exp (2*B)*(2*Real.exp (-K)) :=\n        ht.2.trans (mul_le_mul_of_nonneg_left hv.2.2.2 (Real.exp_nonneg _))\n      _ = _ := by\n        rw [← mul_assoc, mul_comm (Real.exp (2*B)) 2, mul_assoc, ← Real.exp_add]\n        congr 2\n  have hpoint (x : E) : Real.exp (2*ell*|m x-mB x|)-1 ≤ Real.exp (2*ell*V x)-1 := by\n    exact sub_le_sub_right (Real.exp_le_exp.mpr (mul_le_mul_of_nonneg_left (herr x) he)) 1\n  have hEpos (x : E) : 0 ≤ Real.exp (2*ell*|m x-mB x|)-1 :=\n    sub_nonneg.mpr (Real.one_le_exp_iff.mpr (mul_nonneg he (abs_nonneg _)))\n  have hEi : Integrable (fun x => Real.exp (2*ell*|m x-mB x|)-1) (q.tilted mB) := by\n    apply ht.1.mono' (by fun_prop)\n    exact Filter.Eventually.of_forall (fun x => by\n      simpa only [Real.norm_eq_abs, abs_of_nonneg (hEpos x)] using hpoint x)\n  exact ⟨hm, hmB, hV, fun x => ⟨hv.2.1 x, herr x⟩, hv.2.2.1, hv.2.2.2,\n    ht.1, hbound, hEi, (integral_mono hEi ht.1 hpoint).trans hbound⟩\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential\n\n\n\n\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2602.01338v1",
+      "edition": "arXiv:2602.01338v1",
+      "anchor": "Appendix D.1 Claim2/Eq18 and Lemma B.12; consumed by SPHMC Appendix A.4(2)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS mathematical restatement and exposition of the clipping moment argument used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+    },
+    "statement": "m, mB and V are measurable. For every x, V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function J(x)=exp(2*ell*V(x))-1 is integrable under q and qhat, with respective integrals at most 2*exp(-K) and 2*exp(2*B-K). The function exp(2*ell*abs(m(x)-mB(x)))-1 is qhat-integrable and its integral is at most 2*exp(2*B-K).",
+    "formulae": [
+      {
+        "label": "Actual clipped-output moment",
+        "tex": "\\mathbb E_q[e^{2\\ell V}-1]\\le 2e^{-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell V}-1]\\le 2e^{2B-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell|m-m_B|}-1]\\le 2e^{2B-K}."
+      }
+    ],
+    "assumptions": [
+      "E is a finite-dimensional real inner-product Borel space, d=finrank(E)>0. The actual potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2.",
+      "Set g=grad f(x_plus), h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. These residual and step assumptions are retained exactly.",
+      "Let P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z), define W(x,s)=<v,g-grad f(gamma)>.",
+      "Define m(x)=integral W(x,s) dnu(s), mB(x)=integral min(B,max(-B,W(x,s))) dnu(s), V(x)=integral max(abs(W(x,s))-B,0) dnu(s), qhat=q.tilted(mB), and K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). All functions and measures are actual definitions, not abstract witnesses."
+    ],
+    "obligations": [
+      {
+        "id": "actual-clipped-mean-exponential",
+        "label": "Actual proposal and clipped-output exponential mean-error integrability and bounds"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+      "title": "Actual clipped-output exponential mean-error bounds",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 Claim2, Eq18 and Lemma B.12",
+          "scope": "Actual exponential clipping moment needed for normalized comparison."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal sampler consumer; full accuracy and costs remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCClippedMeanExponential"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space, d=finrank(E)>0. The actual potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2.",
+        "Set g=grad f(x_plus), h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. These residual and step assumptions are retained exactly.",
+        "Let P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z), define W(x,s)=<v,g-grad f(gamma)>.",
+        "Define m(x)=integral W(x,s) dnu(s), mB(x)=integral min(B,max(-B,W(x,s))) dnu(s), V(x)=integral max(abs(W(x,s))-B,0) dnu(s), qhat=q.tilted(mB), and K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). All functions and measures are actual definitions, not abstract witnesses."
+      ],
+      "statement": "m, mB and V are measurable. For every x, V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function J(x)=exp(2*ell*V(x))-1 is integrable under q and qhat, with respective integrals at most 2*exp(-K) and 2*exp(2*B-K). The function exp(2*ell*abs(m(x)-mB(x)))-1 is qhat-integrable and its integral is at most 2*exp(2*B-K).",
+      "formula": "\\mathbb E_q[e^{2\\ell V}-1]\\le 2e^{-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell V}-1]\\le 2e^{2B-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell|m-m_B|}-1]\\le 2e^{2B-K}.",
+      "steps": [
+        {
+          "title": "Use the actual fixed-time clipping estimate",
+          "text": "For each real time r, the parent theorem applies to the actual independent proposal and auxiliary Gaussians. It proves integrability of the nonnegative exponential excess and its uniform bound. Joint measurability follows from the actual Lipschitz gradient and the explicit trigonometric estimator. Integrability of the section integrals follows by domination with the constant bound, so the product integrability criterion proves genuine joint L1 before any use of Fubini.",
+          "formula": "H(r,x,z)=e^{2\\ell(|W(x,r,z)|-B)_+}-1\\ge0,\\quad \\int H(r,x,z)\\,d(q\\otimes P)\\le2e^{-K}.",
+          "lean": "product_bound; actual_time_product; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping"
+        },
+        {
+          "title": "Reorder the independent inputs with a measure-preserving map",
+          "text": "Compose the measurable product associator, the swap of the proposal and time coordinates, and the inverse associator. This gives the actual map (x,(r,z)) to (r,(x,z)). Its measure-preserving property transfers joint integrability and the integral exactly, without replacing any marginal distribution or introducing a new independence assumption.",
+          "formula": "T_*(q\\otimes(U\\otimes P))=U\\otimes(q\\otimes P),\\qquad T(x,(r,z))=(r,(x,z)).",
+          "lean": "swap_time_preserving; swap_time_integrable; MeasureTheory.Measure.measurePreserving_swap"
+        },
+        {
+          "title": "Apply conditional Jensen only after establishing integrability",
+          "text": "The program parent proves integrability of the truncation excess for every fixed x. Genuine joint exponential L1 supplies exponential section integrability for q-almost every x. Apply convexity of the exponential on those sections. Measurability of V follows from the measurable parameter integral. The resulting nonnegative Jensen bound dominates J by an integrable section integral, proving outer L1 before integrating the inequality.",
+          "formula": "e^{2\\ell V(x)}-1\\le\\int\\!\\left(e^{2\\ell(|W(x,s)|-B)_+}-1\\right)d\\nu(s)\\quad(q\\text{-a.e. }x).",
+          "lean": "exponential_mean_bound; integrated_exponential_mean; actual_proposal_bound; convexOn_exp.map_integral_le"
+        },
+        {
+          "title": "Identify the actual means and the pointwise truncation error",
+          "text": "GradientArcMean identifies the untruncated mean with the actual affine potential expression using a single constant chosen independently of x. ClippedGradientProgram proves the corresponding error estimate and measurability for the actual clipped mean. Substituting the common mean identity gives the pointwise bound for every x. Nonnegativity of V comes from its nonnegative integrand.",
+          "formula": "m(x)=\\langle g,x\\rangle-f(x)+C,\\qquad 0\\le V(x),\\qquad |m(x)-m_B(x)|\\le V(x).",
+          "lean": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program"
+        },
+        {
+          "title": "Bound the actual clipped density using its positive normalizer",
+          "text": "The program parent gives abs(mB)<=B and ZB>=exp(-B)>0. Thus the actual clipped density w=exp(mB)/ZB is nonnegative, measurable and at most exp(2B). Dominate w*J by exp(2B)*J to prove weighted integrability first. The withDensity equivalence then gives J integrability under qhat, and integration of the density bound yields the clipped-output estimate. No closeness metric is used to transport this unbounded function.",
+          "formula": "Z_B=\\int e^{m_B}\\,dq\\ge e^{-B}>0,\\qquad 0\\le\\frac{e^{m_B(x)}}{Z_B}\\le e^{2B},\\qquad \\int J\\,d\\widehat q\\le e^{2B}\\int J\\,dq.",
+          "lean": "clipped_density_transfer; MeasureTheory.integrable_withDensity_iff_integrable_smul'; MeasureTheory.integral_withDensity_eq_integral_toReal_smul"
+        },
+        {
+          "title": "Dominate the true mean error under the clipped output law",
+          "text": "Since ell>=2, monotonicity of the exponential and the pointwise mean-error bound dominate the nonnegative true-error exponential by J. Its measurability and this domination prove its integrability under the actual clipped output law. Integrating gives the same bound, retaining the prefactor 2. Normalized comparison with the ideal law is a subsequent theorem obligation.",
+          "formula": "0\\le e^{2\\ell|m-m_B|}-1\\le e^{2\\ell V}-1,\\qquad \\int(e^{2\\ell|m-m_B|}-1)\\,d\\widehat q\\le2e^{2B-K}.",
+          "lean": "clipped_mean_exponential; MeasureTheory.Integrable.mono'; MeasureTheory.integral_mono"
+        }
+      ],
+      "lean_statement": "Three measurable actual means/excess functions, pointwise nonnegative excess and mean-error bound, three outer exponential L1 statements and three explicit integral bounds.",
+      "lean_proof": "Actual product L1, measure-preserving reordering, conditional Jensen, actual mean identity, positive clipped normalizer and density domination.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcClipping.smooth_gradient_arc_clipping",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean"
+      ],
+      "mathlib_dependencies": [
+        "convexOn_exp.map_integral_le",
+        "MeasureTheory.integrable_prod_iff",
+        "MeasureTheory.integrable_withDensity_iff_integrable_smul'",
+        "MeasureTheory.integral_mono"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+      "role": "proof-edge",
+      "supports": [
+        "actual-clipped-mean-exponential"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean smooth sampling in positive dimension.",
+        "lean": "Finite-dimensional real inner-product Borel space with strictly positive finrank."
+      },
+      {
+        "source": "Positive smoothness, clipping and step parameters with Claim2 residual and step conditions.",
+        "lean": "eta,beta,B,d>0,ell>=2, residual bound and the displayed 64-condition are retained."
+      },
+      {
+        "source": "Uniform auxiliary time on [0,1].",
+        "lean": "Restricted volume on (0,1], independently multiplied with the actual Gaussian."
+      },
+      {
+        "source": "Appendix D.1 Claim2 and Eq18 use exponential clipping control under the implemented clipped law.",
+        "lean": "Three explicit L1 statements and nonlogarithmic moment bounds, retaining factor 2 and constants 40 and 8."
+      },
+      {
+        "source": "Conditional Jensen and changes of integration order are used in the moment argument.",
+        "lean": "Joint L1 precedes Fubini; exponential section L1 is obtained q-almost everywhere; the actual mean-error bound is pointwise for every x."
+      },
+      {
+        "source": "SPHMC Appendix A.4(2) consumes a terminal approximate RGO.",
+        "lean": "qhat is the clipped tilt previously identified with actual program output; ideal comparison, full implementation accuracy and cost remain separate."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "1552969449d278265c698983f0352f34de50bdcb572fd55fd53ebf40e97bffe8"
+}

@@ -39,9 +39,16 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-ideal-rgo-identification.md",
     "planning_review": "Independent depth_commit_verifier accepted direct ideal-target route with beta*eta<1 and exact Gaussian likelihood cancellation; source Claim2 implies beta*eta<=1/(8ell)<=1/16. No new compiled result yet.",
-    "execution_boundary": "Root sole writer; IdealRGOIdentification sole STABILIZING; accepted production/source unchanged.",
+    "execution_boundary": "Actual PR283 merged and mergeSite/Lean CI both successful; actual original companion/module HTTP200 fullmergeprovenance verified. Stabilization lane released. Copy/download wholeGoal delivery gaps remain separate.",
     "admission_boundary": "VERIFIED atdd88e79. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/283",
+      "commit": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
+      "merged_at": "2026-09-11T16:15:13Z",
+      "candidate": "54f994e7b2fd5fb115bbbb67a73b562ad5c1b0ae",
+      "post_merge": "Merge CI and actual live provenance pending."
+    }
   },
   "blocked": {
     "reason": "",

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-clipped-mean-exponential",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual clipped-output exponential mean-error bounds",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 Claim2/Eq18 and Lemma B.12; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and exposition of the clipping moment argument used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+      },
+      "statement": "m, mB and V are measurable. For every x, V(x)>=0 and abs(m(x)-mB(x))<=V(x). The function J(x)=exp(2*ell*V(x))-1 is integrable under q and qhat, with respective integrals at most 2*exp(-K) and 2*exp(2*B-K). The function exp(2*ell*abs(m(x)-mB(x)))-1 is qhat-integrable and its integral is at most 2*exp(2*B-K).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space, d=finrank(E)>0. The actual potential f is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2.",
+        "Set g=grad f(x_plus), h=x0-eta*g. Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. These residual and step assumptions are retained exactly.",
+        "Let P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z), define W(x,s)=<v,g-grad f(gamma)>.",
+        "Define m(x)=integral W(x,s) dnu(s), mB(x)=integral min(B,max(-B,W(x,s))) dnu(s), V(x)=integral max(abs(W(x,s))-B,0) dnu(s), qhat=q.tilted(mB), and K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). All functions and measures are actual definitions, not abstract witnesses."
+      ],
+      "formulae": [
+        {
+          "label": "Actual clipped-output moment",
+          "tex": "\\mathbb E_q[e^{2\\ell V}-1]\\le 2e^{-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell V}-1]\\le 2e^{2B-K},\\qquad \\mathbb E_{\\widehat q}[e^{2\\ell|m-m_B|}-1]\\le 2e^{2B-K}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-clipped-mean-exponential",
+          "label": "Actual proposal and clipped-output exponential mean-error integrability and bounds"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+          "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
+          "role": "proof-edge",
+          "supports": [
+            "actual-clipped-mean-exponential"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCClippedMeanExponential",
+          "boundary": "This proves three exponential-minus-one integrability statements and their explicit bounds under the actual proposal and actual clipped tilt. ClippedGradientProgram already identifies qhat with the actual program output; this theorem does not repeat its pushforward equality. It does not assert normalized Radon-Nikodym power identities, a Renyi divergence bound, an ideal-target equality, a joint adaptive kernel, initialization or query cost. The factor 2 is retained and no logarithmic estimate is claimed. Neither full companion paper is complete.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean smooth sampling in positive dimension.",
+              "lean": "Finite-dimensional real inner-product Borel space with strictly positive finrank.",
+              "classification": "generalization",
+              "reason": "Coordinate-free Gaussian and gradient interfaces retain the positive dimension assumption."
+            },
+            {
+              "source": "Positive smoothness, clipping and step parameters with Claim2 residual and step conditions.",
+              "lean": "eta,beta,B,d>0,ell>=2, residual bound and the displayed 64-condition are retained.",
+              "classification": "same",
+              "reason": "This packet does not extend to beta=0 or zero dimension."
+            },
+            {
+              "source": "Uniform auxiliary time on [0,1].",
+              "lean": "Restricted volume on (0,1], independently multiplied with the actual Gaussian.",
+              "classification": "source-implicit",
+              "reason": "Endpoint differences have zero Lebesgue mass."
+            },
+            {
+              "source": "Appendix D.1 Claim2 and Eq18 use exponential clipping control under the implemented clipped law.",
+              "lean": "Three explicit L1 statements and nonlogarithmic moment bounds, retaining factor 2 and constants 40 and 8.",
+              "classification": "same",
+              "reason": "This is the moment dependency, not the entire normalized Renyi claim; no earlier logarithmic simplification is reused."
+            },
+            {
+              "source": "Conditional Jensen and changes of integration order are used in the moment argument.",
+              "lean": "Joint L1 precedes Fubini; exponential section L1 is obtained q-almost everywhere; the actual mean-error bound is pointwise for every x.",
+              "classification": "source-implicit",
+              "reason": "These distinct integrability and quantifier obligations are proved."
+            },
+            {
+              "source": "SPHMC Appendix A.4(2) consumes a terminal approximate RGO.",
+              "lean": "qhat is the clipped tilt previously identified with actual program output; ideal comparison, full implementation accuracy and cost remain separate.",
+              "classification": "same",
+              "reason": "No full paper or full algorithm completion is asserted."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

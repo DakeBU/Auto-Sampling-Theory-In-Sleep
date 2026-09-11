@@ -1,0 +1,19 @@
+{
+  "merge_commit": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
+  "page": {
+    "target_anchor": true,
+    "full_merge_provenance": true,
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200
+  },
+  "card": {
+    "full_merge_provenance": true,
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-idealrgoidentification.html",
+    "http_status": 200
+  },
+  "site_run": 34620919356,
+  "site_status": "success",
+  "merge_lean_run": 34620919412,
+  "merge_lean_status": "success",
+  "boundary": "Actual HTTP200 original companion and module with full merge provenance verified at prior checkpoint. Merge site and Lean workflows terminal success. Local UI evidence separate; copy/download delivery gaps and both fullpaper proofs remain."
+}
