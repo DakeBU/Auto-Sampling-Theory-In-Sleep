@@ -9798,52 +9798,60 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "A C¹ real-valued function, its gradient, and three quantitative convexity conditions.",
-          "reconstructed": "The same function/gradient and the chord, lower-model, and gradient-monotonicity predicates.",
-          "relation": "equivalent",
-          "evidence": "The actual gradient is obtained from C¹. StrongConvexOn unfolds to the source chord formula including its m/2 normalization."
+          "original": "A real-valued function f, its Euclidean gradient, the convexity chord, a quadratic lower model and a gradient monotonicity inequality.",
+          "reconstructed": "The same f and conditions, with gradient as the actual Riesz representative of the Fréchet derivative and StrongConvexOn as the chord predicate.",
+          "relation": "explicit-elaboration",
+          "evidence": "The displayed theorem and lesson refer to the genuine gradient of f. The module obtains HasGradientAt from ContDiff rather than assuming an unrelated gradient field. The decoded chord formula identifies the exact meaning of StrongConvexOn."
         },
         "domains": {
-          "original": "Whole real Euclidean d-space and a real nonnegative modulus.",
-          "reconstructed": "EuclideanSpace ℝ (Fin d), d∈ℕ, on univ; m∈ℝ with 0≤m.",
-          "relation": "explicit-elaboration",
-          "evidence": "PiL2 provides the Euclidean inner product and norm, not the supremum norm on plain functions. Zero dimension is permitted and gives the harmless singleton case; it does not alter any positive-dimensional source instance."
+          "original": "All of real Euclidean d-space.",
+          "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the domain of StrongConvexOn.",
+          "relation": "equivalent",
+          "evidence": "This is precisely the source whole-space Euclidean geometry and norm. The generalized Hilbert-space helper leaves do not enlarge the final theorem domain."
         },
         "quantifiers": {
-          "original": "All dimensions and admissible f,m; each condition is global in x,y and the chord in t∈[0,1].",
-          "reconstructed": "Implicit universal d,f,m, explicit 0≤m and C¹ premises, and both global equivalences.",
-          "relation": "equivalent",
-          "evidence": "Two iff results sharing the chord predicate express equivalence of all three conditions. Nonnegative weights summing to one are equivalent to the source t parameter."
+          "original": "For each d, f and m≥0; all x,y in the space and all chord parameters t∈[0,1].",
+          "reconstructed": "Universal implicit d,f,m, explicit m≥0 and C¹ premises, universally quantified x,y, and nonnegative chord weights a,b summing to one.",
+          "relation": "explicit-elaboration",
+          "evidence": "Setting a=1−t and b=t gives the source chord parameterization; conversely any such a,b gives t=b∈[0,1]. Zero dimension is explicitly allowed and harmless: the unique-point space satisfies all three conditions, and the source imposes no positive-dimension condition."
         },
         "assumptions": {
-          "original": "f is C¹ on all of ℝᵈ, and m≥0.",
-          "reconstructed": "ContDiff ℝ 1 f and the explicit premise _hm:0≤m.",
+          "original": "f is continuously differentiable on all ℝ^d and the fixed modulus m is nonnegative.",
+          "reconstructed": "ContDiff ℝ 1 f on all EuclideanSpace ℝ (Fin d), with 0≤m explicitly in the theorem.",
           "relation": "equivalent",
-          "evidence": "The sign premise is retained in the exported theorem despite being unused by the stronger supporting proof. Completeness and genuine gradients are consequences of the stated Euclidean C¹ setting, not extra assumptions."
+          "evidence": "Finite-dimensional continuous Fréchet differentiability agrees with source C¹. The nonnegativity hypothesis is retained even though helper proofs can handle signed m. The FTC helper derives integrability from continuity of the actual gradient pairing; it adds no hidden integrability, Hessian or smoothness premise."
         },
         "conclusion": {
-          "original": "The chord condition is equivalent to each of the lower-model and monotonicity conditions.",
-          "reconstructed": "(StrongConvexOn univ m f ↔ lower model) ∧ (StrongConvexOn univ m f ↔ gradient monotonicity).",
+          "original": "The chord condition is equivalent to the quadratic lower model and is also equivalent to quantitative gradient monotonicity.",
+          "reconstructed": "A conjunction of the same two iff statements.",
           "relation": "equivalent",
-          "evidence": "The lower model has +m/2*‖y−x‖²; the gradient inequality has m*‖y−x‖² and the same orientation. No implication is missing."
+          "evidence": "The code obtains chord⇒model from the named derivative-limit dependency, model⇒monotonicity by adding endpoint inequalities, and monotonicity⇒chord from the displayed two-segment FTC proof. The conjunction is equivalent to the lesson’s three-condition cycle. No Hessian equivalence occurs in this declaration."
         },
         "scopes": {
-          "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5).",
-          "reconstructed": "Only the C¹ three-condition equivalence.",
-          "relation": "same",
-          "evidence": "The authored lesson closes the three-arrow cycle. hforward calls the shared derivative-limit theorem; hsum adds endpoint models; the integral lemma closes the cycle. The candidate chapter also describes part 2 as a separate source obligation, but this declaration and binding do not certify it."
+          "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5), under C¹; the C² part is separate.",
+          "reconstructed": "The C¹ global pointwise cycle only; lesson title, original source text, theorem and binding supports all retain this boundary.",
+          "relation": "explicit-elaboration",
+          "evidence": "The publication chapter can state both C¹ and C² results, but this declaration supports only chord-to-model, model-to-monotonicity, monotonicity-to-chord and source-specialization-c1. Its code imports no C² result and asserts no Hessian conclusion. The name StrongConvexOn includes m=0, where its displayed chord means ordinary convexity."
         },
         "constant_dependencies": {
-          "original": "Fixed m≥0 and exact m/2 lower/chord corrections.",
-          "reconstructed": "Identical parameter and coefficients, uniform in dimension.",
+          "original": "The chord and lower-model quadratic coefficients are m/2; the monotonicity coefficient is the same m.",
+          "reconstructed": "The identical m/2 and m, with no dimension-dependent or unspecified constants.",
           "relation": "same",
-          "evidence": "There is no smoothness constant, Hessian bound, hidden dimension dependence, or restriction m>0; m=0 is retained."
+          "evidence": "Adding two endpoint lower models doubles the half-quadratic term to m. Conversely the integral of the segment parameter over [0,1] supplies 1/2. The code cancels only the positive factor s(1−t) when t<1; t=1 is handled separately and multiplication by t uses t≥0. No sign or norm division changes the constants."
         }
       },
-      "deltas": [],
+      "deltas": [
+        {
+          "slot": "scopes",
+          "kind": "separately-bound-reader-scope-update",
+          "severity": "informational",
+          "description": "The reader boundary now points to the separate C2 theorem while preserving this declaration as a C1-only result.",
+          "evidence": "Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary."
+        }
+      ],
       "verdict": "equivalent-after-elaboration",
       "repairs": [],
-      "publication_binding_sha256": "9e5aec078954d29d6a3120e33ffcc86252f5c4f2535f4cc22a823a7f5c29d22f",
+      "publication_binding_sha256": "06285748c2e647c8081904065c56214882749688ce010b88ae334edaa071ce6c",
       "publication_context": {
         "file": "d75bc538690de20976bb1fb9e8fc4d52178d118a7bef10392287d748b62c9f11",
         "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.Calculus.Deriv.AffineMap\nimport Mathlib.Analysis.InnerProductSpace.PiL2\nimport Mathlib.Analysis.SpecialFunctions.Integrals.Basic\nimport Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus\nimport Mathlib.Tactic.Module\n\n/-!\n# C¹ convexity equivalences and the affine-segment integral proof\n\nSource: Sinho Chewi, Lectures on Optimization, arXiv:2605.07006v1,\nProposition 1.6 part 1, equations (1.3)–(1.5). The shared integral leaves\nretain a complete real inner-product space and signed modulus. The final\ndeclaration specializes to the source's Euclidean C¹, nonnegative-modulus\nsetting. The C²/Hessian part is not asserted here.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\n\nopen Set MeasureTheory\nopen scoped RealInnerProductSpace\n\nset_option backward.isDefEq.respectTransparency false\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The fundamental theorem of calculus along an affine segment. Continuity\nand interval integrability of the genuine gradient pairing follow from C¹. -/\ntheorem sub_eq_integral_gradient {f : E → ℝ} (hf : ContDiff ℝ 1 f) (x v : E) :\n    f (x + v) - f x = ∫ s : ℝ in 0..1, inner ℝ (gradient f (x + s • v)) v := by\n  have hc : Continuous (fun s : ℝ => inner ℝ (gradient f (x + s • v)) v) := by\n    simpa [gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply continuous_const\n  have hd (s : ℝ) : HasDerivAt (fun t : ℝ => f (x + t • v))\n      (inner ℝ (gradient f (x + s • v)) v) s := by\n    convert! (hf.differentiable_one (x + s • v)).hasGradientAt.hasFDerivAt.comp_hasDerivAt s\n      (((hasDerivAt_id s).smul_const v).const_add x) using 1\n    simp\n  simpa using (intervalIntegral.integral_eq_sub_of_hasDerivAt\n    (fun s _ => hd s) (hc.intervalIntegrable 0 1)).symm\n\n/-- Quantitative gradient monotonicity implies the chord inequality by the\nsource's two affine-segment FTC identities and integration of their difference.\nThe modulus can be signed; no Hessian or extra integrability is assumed. -/\ntheorem strongConvexOn_univ_of_gradient_mono_integral\n    {f : E → ℝ} {m : ℝ} (hf : ContDiff ℝ 1 f)\n    (hm : ∀ x y : E, m * ‖y - x‖ ^ 2 ≤\n      inner ℝ (gradient f y - gradient f x) (y - x)) :\n    StrongConvexOn (univ : Set E) m f := by\n  refine ⟨convex_univ, ?_⟩\n  intro x _ y _ a t ha ht hat\n  have hat' : a = 1 - t := by linarith\n  subst a\n  have ht1 : t ≤ 1 := by linarith\n  rcases eq_or_lt_of_le ht1 with ht1 | ht1\n  · subst t\n    simp\n  let v := y - x\n  let A : ℝ → ℝ := fun s => inner ℝ (gradient f (x + s • v)) v\n  let B : ℝ → ℝ := fun s => inner ℝ (gradient f (x + (s * t) • v)) v\n  have hA : Continuous A := by\n    simpa [A, gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply continuous_const\n  have hB : Continuous B := by\n    simpa [B, gradient, Function.comp_def] using\n      ((hf.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add ((continuous_id.mul continuous_const).smul continuous_const))).clm_apply continuous_const\n  have hbound : ∫ s : ℝ in 0..1, m * s * (1 - t) * ‖v‖ ^ 2 ≤\n      ∫ s : ℝ in 0..1, (A s - B s) := by\n    apply intervalIntegral.integral_mono_on_of_le_Ioo (by norm_num)\n      ((show Continuous (fun s : ℝ => m * s * (1 - t) * ‖v‖ ^ 2) by fun_prop).intervalIntegrable 0 1)\n      ((hA.sub hB).intervalIntegrable 0 1)\n    intro s hs\n    have h := hm (x + (s * t) • v) (x + s • v)\n    have hdis : (x + s • v) - (x + (s * t) • v) = (s * (1 - t)) • v := by module\n    rw [hdis, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs, inner_smul_right] at h\n    have hscaled : (s * (1 - t)) * (m * s * (1 - t) * ‖v‖ ^ 2) ≤\n        (s * (1 - t)) * inner ℝ\n          (gradient f (x + s • v) - gradient f (x + (s * t) • v)) v := by nlinarith [h]\n    have hcancel := le_of_mul_le_mul_left hscaled (mul_pos hs.1 (sub_pos.mpr ht1))\n    simpa [A, B, inner_sub_left] using hcancel\n  have hpoly : (∫ s : ℝ in 0..1, m * s * (1 - t) * ‖v‖ ^ 2) =\n      m / 2 * (1 - t) * ‖v‖ ^ 2 := by\n    rw [intervalIntegral.integral_mul_const, intervalIntegral.integral_mul_const,\n      intervalIntegral.integral_const_mul, integral_id]\n    norm_num only [one_pow, zero_pow, sub_zero]\n    ring\n  rw [hpoly, intervalIntegral.integral_sub (hA.intervalIntegrable 0 1)\n    (hB.intervalIntegrable 0 1)] at hbound\n  have hy := sub_eq_integral_gradient hf x v\n  have hz := sub_eq_integral_gradient hf x (t • v)\n  have hpoint : (1 - t) • x + t • y = x + t • v := by dsimp [v]; module\n  have hys : x + v = y := by simp [v]\n  rw [hys] at hy\n  change f y - f x = ∫ s : ℝ in 0..1, A s at hy\n  simp only [smul_smul, inner_smul_right, intervalIntegral.integral_const_mul] at hz\n  change f (x + t • v) - f x = t * ∫ s : ℝ in 0..1, B s at hz\n  change f ((1 - t) • x + t • y) ≤ (1 - t) * f x + t * f y -\n    (1 - t) * t * (m / 2 * ‖x - y‖ ^ 2)\n  rw [hpoint, norm_sub_rev]\n  change f (x + t • v) ≤ (1 - t) * f x + t * f y -\n    (1 - t) * t * (m / 2 * ‖v‖ ^ 2)\n  nlinarith [mul_le_mul_of_nonneg_left hbound ht]\n\n/-- Proposition 1.6, part 1: on all of Euclidean space, the C¹ chord,\nquadratic lower-model and gradient-monotonicity conditions are equivalent.\nThe nonnegative modulus is retained exactly as in the source. -/\ntheorem convexity_equivalences {d : ℕ} {f : EuclideanSpace ℝ (Fin d) → ℝ}\n    {m : ℝ} (_hm : 0 ≤ m) (hf : ContDiff ℝ 1 f) :\n    (StrongConvexOn univ m f ↔ ∀ x y,\n      f x + inner ℝ (gradient f x) (y - x) + m / 2 * ‖y - x‖ ^ 2 ≤ f y) ∧\n    (StrongConvexOn univ m f ↔ ∀ x y,\n      m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x)) := by\n  have hg : ∀ z ∈ (univ : Set (EuclideanSpace ℝ (Fin d))),\n      HasGradientAt f (gradient f z) z := fun z _ => (hf.differentiable_one z).hasGradientAt\n  have hforward := fun (hsc : StrongConvexOn univ m f) x y =>\n    StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn hsc hg\n      (mem_univ x) (mem_univ y)\n  have hsum : (∀ x y, f x + inner ℝ (gradient f x) (y - x) +\n      m / 2 * ‖y - x‖ ^ 2 ≤ f y) → ∀ x y,\n      m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x) := by\n    intro hl x y\n    have hxy := hl x y\n    have hyx := hl y x\n    rw [show x - y = -(y - x) by abel, inner_neg_right, norm_neg] at hyx\n    rw [inner_sub_left]\n    linarith\n  exact ⟨⟨hforward, fun h => strongConvexOn_univ_of_gradient_mono_integral hf (hsum h)⟩,\n    ⟨fun h => hsum (hforward h), strongConvexOn_univ_of_gradient_mono_integral hf⟩⟩\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\n",
@@ -9983,13 +9991,13 @@
       },
       "source_review": {
         "state": "accepted",
-        "reviewer": "c1_source_reviewer",
+        "reviewer": "c2_source_reviewer",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Independently inspected Proposition 1.6 part 1 and Definition 1.5 at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared both exported iff statements, their actual Euclidean domain, C¹ and sign premises, authored lesson and the full proof cycle. Also read StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn: it supplies the chord derivative-limit step through a genuine HasGradientAt premise, which the candidate derives from C¹. Exact source boundary is supported. No assumption repair is proposed; no C²/Hessian completion is implied.",
-        "review_run_sha256": "ff4a61203ce3e10412923e1327aa608c5ee825e595f5a906fa0c46f5e5d7d31f",
-        "reviewer_packet_sha256": "f2bd7b3573635992bd9edf0d0afbcafc4e7e5761d2517be30ddc356b3de513a3",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c1/source-review-2.json"
+        "evidence": "Independently compared all seven slots, the embedded C1 module, declaration lesson and original blind reconstruction with the primary source https://arxiv.org/html/2605.07006v1#S1.SS2, Definition 1.5 and Proposition 1.6 part 1, equations (1.3)–(1.5), using the source already opened during this review session. No canonical registry or previous C1 verdict was inspected. The final theorem faithfully states both equivalences on all Euclidean space with C1 and m≥0. Its proof cycle matches the source: chord derivative limit via the named prior dependency, addition of endpoint models, and the explicitly displayed two-segment FTC converse. Compilation remains packet-reported and is not rerun for this prose-only scope review. Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary.",
+        "review_run_sha256": "c0dc77dd9103316631a870c5e68b44c2eeb1c6bccd15c6d820152b85157e9fd4",
+        "reviewer_packet_sha256": "e1b544a7380b4978faa096fb6af964ee1ce7ad5de141f84682f14a7f6c15e896",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-source-review.json"
       },
       "reconstruction": {
         "text": "For every natural number d (including zero), every f:ℝᵈ→ℝ on Euclidean space with its usual inner product and ℓ² norm, and every real m≥0, suppose f is continuously Fréchet differentiable on all of ℝᵈ. Then both equivalences hold: (1) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, f(x)+⟨∇f(x),y−x⟩+(m/2)‖y−x‖²≤f(y); (2) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Here m-strong convexity means that for all x,y and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖².",
@@ -10554,6 +10562,729 @@
           "evidence": "Concrete source times, adaptive/historykernels, approximate recursion anderrors/costs excluded."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-HessianFTC",
+      "state": "source-reviewed",
+      "graph_node": "ASTIS-SHARED-gradient-hessian-ftc",
+      "source": {
+        "source_id": "chewi-opt-v1-prop-1-6",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
+        "original_text": "For a twice continuously differentiable real-valued f on all real Euclidean d-space and every x,v, the inner product of grad f(x+v)-grad f(x) with v equals the integral from 0 to 1 of the Hessian quadratic form D2f(x+t v)[v,v] with respect to dt. This is the FTC identity used in the final proof paragraph.",
+        "text_sha256": "162cdd20b00f0edebdb01e6beb4757c3b291716ea5440ab1354ce7479dbe05a7"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC2.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ},\n  ContDiff ℝ 2 f →\n    ∀ (x v : E),\n      inner ℝ (gradient f (x + v) - gradient f x) v = ∫ (t : ℝ) in 0..1, ((fderiv ℝ (fderiv ℝ f) (x + t • v)) v) v",
+        "statement_sha256": "99bf0ad924b004f9273de4b32ab295265863003fcd49131b13e5d6f8ec8a38a6",
+        "compiled": true,
+        "formalizer": "andi-opt-c2-worker",
+        "decoder_context": [
+          "ContDiff ℝ 2 f means that the real Frechet derivative exists everywhere and is continuously Frechet differentiable.",
+          "For a complete real inner-product space, gradient f x is the Riesz vector of fderiv ℝ f x, so inner ℝ (gradient f x) v = fderiv ℝ f x v.",
+          "The expression (fderiv ℝ (fderiv ℝ f) x v) v is the second Frechet derivative evaluated twice at v. Under the displayed regularity it is a genuine second derivative.",
+          "The notation ∫ t in 0..1 denotes the oriented real interval integral with respect to Lebesgue measure.",
+          "StrongConvexOn Set.univ m f means: for all x,y and a,b>=0 with a+b=1, f(a • x+b • y)<=a*f(x)+b*f(y)-a*b*(m/2*norm(x-y)^2). The definition itself does not restrict the sign of m.",
+          "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "All real Euclidean d-space.",
+          "reconstructed": "Any complete real inner-product space, including infinite-dimensional spaces.",
+          "relation": "stronger-in-lean",
+          "evidence": "This is a genuine domain generalization, not literal source equality. The module preamble, lesson assumption 1 and candidate_assumptions explicitly disclose it. The scalar FTC proof only requires the displayed Fréchet regularity and the Riesz gradient interface."
+        },
+        "quantifiers": {
+          "original": "The source identity uses arbitrary x,y and their displacement y−x.",
+          "reconstructed": "For every x,v, with endpoints x and x+v.",
+          "relation": "equivalent",
+          "evidence": "On the source domain use v=y−x, or conversely y=x+v. There is no nonzero-direction restriction; v=0 gives both sides zero."
+        },
+        "assumptions": {
+          "original": "Twice continuous differentiability on the whole Euclidean domain.",
+          "reconstructed": "ContDiff ℝ 2 f everywhere on a complete real inner-product space.",
+          "relation": "explicit-elaboration",
+          "evidence": "In finite dimension C² and twice continuously Fréchet differentiable agree. The code obtains ContDiff ℝ 1 (fderiv ℝ f), differentiates its affine-segment evaluation, and obtains continuity of the second derivative. Compact-interval integrability follows from that continuity, with no omitted domination, boundary or boundedness assumption. The domain extension is recorded separately."
+        },
+        "conclusion": {
+          "original": "The gradient difference paired with the displacement equals the segment integral of its Hessian quadratic form.",
+          "reconstructed": "The identical scalar equality, using x+v and iterated Fréchet derivative notation.",
+          "relation": "equivalent",
+          "evidence": "The lesson defines g(t)=Df(x+t v)[v]. The code proves its genuine derivative and applies FTC to obtain g(1)−g(0), then rewrites the endpoints using the Riesz gradient. Specialization to ℝ^d yields exactly the final source identity."
+        },
+        "scopes": {
+          "original": "An exact global identity within the C² part of the proof, with ordinary dt on [0,1].",
+          "reconstructed": "An exact equality of real numbers; an oriented interval integral against real Lebesgue measure with endpoints 0 and 1.",
+          "relation": "explicit-elaboration",
+          "evidence": "Continuity makes the scalar integral agree with the classical source integral. No distributional, almost-everywhere, local-domain or asymptotic interpretation is substituted. Although the proposition has a nonnegative modulus, the identity itself has no modulus and does not require monotonicity."
+        },
+        "constant_dependencies": {
+          "original": "Unit integration interval; no modulus or unspecified multiplicative constant.",
+          "reconstructed": "Endpoints 0 and 1; no modulus, dimension factor or hidden constant.",
+          "relation": "same",
+          "evidence": "The segment has parameter length one, and the Hessian is evaluated twice on the unnormalized direction. No norm or time rescaling changes the identity."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-domain-generalization",
+          "severity": "informational",
+          "description": "The reusable proof edge extends the Euclidean source identity to complete real Hilbert spaces.",
+          "evidence": "The Lean E typeclasses and declaration lesson state completeness and real inner-product structure; candidate_assumptions contrasts this with the whole Euclidean source domain."
+        }
+      ],
+      "verdict": "domain-mismatch",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict records a real extension, not a defect or exact-source claim. Its Euclidean specialization is source faithful, and its generalized proof and lesson are mathematically sound.",
+        "review_run_sha256": "de24a33e7ee6f39c5a25684b7712995802137f22c66dc9f269db0382a31aeed5",
+        "reviewer_packet_sha256": "31950ea83d5f42cdd9e2593f77f6d636dfcf634576a67e6fc490a0bcd24b8d6f",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-0.json"
+      },
+      "publication_binding_sha256": "243be87dc1ffeabc7e67a0f65fd3c5223bd7276130dc718f07da6a664cafd822",
+      "publication_context": {
+        "file": "6609531642e87b06d655644da406bf6fb84f85df2c36ed627adf0c8851b0ae81",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\nimport Mathlib.Analysis.Calculus.ContDiff.Comp\nimport Mathlib.Analysis.Calculus.Deriv.Slope\n\n/-!\n# C² convexity and genuine Hessian lower bounds\n\nChewi, Lectures on Optimization, arXiv:2605.07006v1, Proposition 1.6\npart 2. The two directions follow the source's positive-direction derivative\nlimit and affine-segment Hessian integral. Existing scalar-convexity proofs\nremain separate. Shared leaves allow signed modulus on complete real\ninner-product spaces; the final theorem restores the Euclidean source domain.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n\nopen Set Filter MeasureTheory\nopen scoped Topology RealInnerProductSpace\n\nset_option backward.isDefEq.respectTransparency false\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The genuine Hessian integrates to the gradient difference paired with the\nsegment direction. C² supplies continuity and integrability. -/\ntheorem gradient_sub_inner_eq_integral_fderiv2\n    {f : E → ℝ} (hf : ContDiff ℝ 2 f) (x v : E) :\n    inner ℝ (gradient f (x + v) - gradient f x) v =\n      ∫ t : ℝ in 0..1, (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  have hd (t : ℝ) : HasDerivAt (fun s : ℝ => fderiv ℝ f (x + s • v) v)\n      ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n    convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n      (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n      (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n  have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n    (((hfd.continuous_fderiv (by norm_num)).comp\n      (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n        continuous_const).clm_apply continuous_const\n  simpa [inner_sub_left, gradient, Function.comp_def] using\n    (intervalIntegral.integral_eq_sub_of_hasDerivAt\n      (fun t _ => hd t) (hc.intervalIntegrable 0 1)).symm\n\n/-- Global quantitative gradient monotonicity is equivalent to the genuine\nHessian diagonal lower bound, by a right derivative limit and the FTC. -/\ntheorem gradient_mono_iff_fderiv2_lower\n    {f : E → ℝ} {m : ℝ} (hf : ContDiff ℝ 2 f) :\n    (∀ x y : E, m * ‖y - x‖ ^ 2 ≤\n      inner ℝ (gradient f y - gradient f x) (y - x)) ↔\n    ∀ x v : E, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  constructor\n  · intro hm x v\n    let g : ℝ → ℝ := fun t => fderiv ℝ f (x + t • v) v\n    have hdAll (t : ℝ) : HasDerivAt g\n        ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n      convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n        (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n        (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n    have hd : HasDerivAt g ((fderiv ℝ (fderiv ℝ f) x v) v) 0 := by\n      simpa using hdAll 0\n    apply ge_of_tendsto hd.tendsto_slope_zero_right\n    filter_upwards [self_mem_nhdsWithin] with t ht\n    have ht : 0 < t := ht\n    have h := hm x (x + t • v)\n    rw [add_sub_cancel_left, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs,\n      inner_smul_right, inner_sub_left] at h\n    have hscaled : t * (m * ‖v‖ ^ 2) ≤ g t - g 0 := by\n      apply le_of_mul_le_mul_left (a := t) _ ht\n      simpa [g, gradient, Function.comp_def, pow_two, mul_assoc, mul_left_comm, mul_comm] using h\n    simpa [smul_eq_mul, div_eq_inv_mul] using\n      (le_div_iff₀ ht).mpr (by simpa [mul_comm] using hscaled)\n  · intro hH x y\n    let v := y - x\n    have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n      (((hfd.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n          continuous_const).clm_apply continuous_const\n    have h := intervalIntegral.integral_mono_on (by norm_num : (0 : ℝ) ≤ 1)\n      (intervalIntegrable_const : IntervalIntegrable (fun _ : ℝ => m * ‖v‖ ^ 2) volume 0 1)\n      (hc.intervalIntegrable 0 1) (fun t _ => hH (x + t • v) v)\n    rw [← gradient_sub_inner_eq_integral_fderiv2 hf x v] at h\n    simpa [v] using h\n\n/-- Proposition 1.6 part 2, with the source's whole Euclidean domain,\nnonnegative modulus and C² regularity. Together with the C¹ theorem this\nconnects all four source conditions. -/\ntheorem strongConvexOn_iff_fderiv2_lower\n    {d : ℕ} {f : EuclideanSpace ℝ (Fin d) → ℝ} {m : ℝ}\n    (hm : 0 ≤ m) (hf : ContDiff ℝ 2 f) :\n    StrongConvexOn univ m f ↔\n      ∀ x v, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  exact (ConvexityC1.convexity_equivalences hm (hf.of_le (by norm_num))).2.trans\n    (gradient_mono_iff_fderiv2_lower hf)\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "§1.2, Definition 1.5 and Proposition 1.6; equations (1.3)–(1.6)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+        },
+        "statement": "For a continuously differentiable real-valued function on Euclidean space and a nonnegative modulus, the chord inequality, quadratic lower model and gradient monotonicity inequality below are equivalent. Under twice continuous differentiability they are also equivalent to the Hessian bound.",
+        "formulae": [
+          {
+            "label": "(1.3) · chord",
+            "tex": "f((1-t)x+ty)\\le (1-t)f(x)+tf(y)-\\frac\\alpha2t(1-t)\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d,\\ t\\in[0,1]."
+          },
+          {
+            "label": "(1.4) · lower model",
+            "tex": "f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\alpha2\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.5) · gradient monotonicity",
+            "tex": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge\\alpha\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.6) · Hessian",
+            "tex": "\\langle v,\\nabla^2f(x)v\\rangle\\ge\\alpha\\|v\\|^2,\\quad x,v\\in\\mathbb R^d."
+          }
+        ],
+        "assumptions": [
+          "The domain is all of real d-dimensional Euclidean space; α ≥ 0.",
+          "The first three conditions use f ∈ C¹; the Hessian equivalence uses f ∈ C².",
+          "All points and directions below are universally quantified. The chord parameter lies in [0,1]."
+        ],
+        "obligations": [
+          {
+            "id": "chord-to-model",
+            "label": "(1.3) → (1.4): affine segment, positive division, genuine derivative limit"
+          },
+          {
+            "id": "model-to-monotonicity",
+            "label": "(1.4) → (1.5): sum endpoint lower bounds"
+          },
+          {
+            "id": "monotonicity-to-chord",
+            "label": "(1.5) → (1.3): fundamental theorem of calculus with its regularity hypotheses"
+          },
+          {
+            "id": "hessian-equivalence",
+            "label": "(1.5) ↔ (1.6): derivative limit and Hessian integral"
+          },
+          {
+            "id": "source-specialization-c1",
+            "label": "Exact whole-space C¹ three-condition equivalence and independent fidelity review"
+          },
+          {
+            "id": "source-specialization-c2",
+            "label": "Exact C² Hessian equivalence and independent fidelity review"
+          }
+        ],
+        "lesson": {
+          "title": "Integrate the Hessian along a segment",
+          "statement": "For every C² real-valued f on a complete real inner-product space and every x,v, the gradient difference between x+v and x, paired with v, equals the integral of the Hessian quadratic form along that segment.",
+          "formula": "\\langle\\nabla f(x+v)-\\nabla f(x),v\\rangle=\\int_0^1 D^2f(x+tv)[v,v]\\,dt.",
+          "assumptions": [
+            "E is a complete real inner-product space; f:E→ℝ is twice continuously Fréchet differentiable everywhere.",
+            "The Hessian quadratic form means the genuine second derivative D²f(x)[v,v]=(fderiv ℝ (fderiv ℝ f) x v) v. The pairing with the actual gradient equals Df(x)[v].",
+            "x,v∈E are arbitrary, including v=0. The integral uses real Lebesgue measure on [0,1]."
+          ],
+          "steps": [
+            {
+              "title": "Differentiate the scalar gradient pairing",
+              "text": "Set g(t)=Df(x+tv)[v]. Because f is C², Df is C¹; compose its derivative with the affine segment and evaluate the resulting linear functional at the fixed v.",
+              "formula": "g(t)=Df(x+tv)[v],\\qquad g^{\\prime}(t)=D^2f(x+tv)[v,v].",
+              "lean": "hfd uses ContDiff.fderiv_right. hd uses HasFDerivAt.comp_hasDerivAt and HasDerivAt.clm_apply."
+            },
+            {
+              "title": "Integrate the genuine derivative",
+              "text": "The second derivative is continuous. Composition with the segment and two evaluations preserve continuity, giving interval integrability. FTC gives g(1)−g(0). The gradient pairing identity identifies the endpoints.",
+              "formula": "\\int_0^1g^{\\prime}(t)\\,dt=g(1)-g(0)=\\langle\\nabla f(x+v)-\\nabla f(x),v\\rangle.",
+              "lean": "hc: ContDiff.continuous_fderiv and Continuous.clm_apply; Continuous.intervalIntegrable and intervalIntegral.integral_eq_sub_of_hasDerivAt; gradient/Riesz simplification."
+            }
+          ],
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "ContDiff.fderiv_right; ContDiff.differentiable_one; ContDiff.continuous_fderiv",
+            "HasFDerivAt.comp_hasDerivAt; HasDerivAt.clm_apply; Continuous.clm_apply",
+            "Continuous.intervalIntegrable; intervalIntegral.integral_eq_sub_of_hasDerivAt; InnerProductSpace.toDual_symm_apply"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+          "kind": "theorem",
+          "lean_statement": "For every C² real-valued f on a complete real inner-product space and every x,v, the gradient difference between x+v and x, paired with v, equals the integral of the Hessian quadratic form along that segment.",
+          "lean_proof": "Set g(t)=Df(x+tv)[v]. Because f is C², Df is C¹; compose its derivative with the affine segment and evaluate the resulting linear functional at the fixed v. The second derivative is continuous. Composition with the segment and two evaluations preserve continuity, giving interval integrability. FTC gives g(1)−g(0). The gradient pairing identity identifies the endpoints.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+              "label": "Sinho Chewi, Proposition 1.6 part 2",
+              "scope": "ASTIS-authored explanation of the pinned source proof."
+            },
+            {
+              "path": "Tests/Shared/ConvexityC2.lean",
+              "label": "Focused consumers and boundary cases",
+              "scope": "Checks the actual declarations and their composition."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+            "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v."
+          },
+          {
+            "source": "The FTC identity is on whole Euclidean space and has no modulus parameter.",
+            "lean": "Complete real inner-product space, with no modulus parameter."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption, and let f:E→ℝ be twice continuously Fréchet differentiable on all of E. For every x,v∈E, the inner product of ∇f(x+v)−∇f(x) with v equals the Lebesgue integral from 0 to 1 of the second Fréchet derivative at x+t v evaluated on (v,v): ⟨∇f(x+v)−∇f(x),v⟩ = ∫₀¹ D²f(x+t v)[v,v] dt. The gradient is the Riesz representative of the first Fréchet derivative. The integral is the oriented real interval integral, here with endpoints 0 and 1. There are no restrictions on x or v and no convexity or sign assumptions.",
+        "text_sha256": "0e951e6a7f2ddc4d6561e18eb2d676381f5adb162634651a61067813c5ad73aa",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "6b50ae39f765d66960f46ee3590cfd5bad16e407bf2f6002703d23313a3ce2d9",
+        "decoder_packet_sha256": "b424dfa809a7dc193dfe87a34709eae2965026fdaf81a1e83be6cb3c8d013add",
+        "source_text_visible": false,
+        "lean_statement_sha256": "99bf0ad924b004f9273de4b32ab295265863003fcd49131b13e5d6f8ec8a38a6",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-0.json"
+      }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientHessian",
+      "state": "source-reviewed",
+      "graph_node": "ASTIS-SHARED-gradient-hessian-equivalence",
+      "source": {
+        "source_id": "chewi-opt-v1-prop-1-6",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
+        "original_text": "For a twice continuously differentiable f on all real Euclidean d-space and a nonnegative real m, the global condition <grad f(y)-grad f(x),y-x> >= m||y-x||^2 for all x,y is equivalent to <v,Hessian f(x)v> >= m||v||^2 for all x,v. Forward uses the positive directional increment and derivative limit; reverse integrates the Hessian along the segment.",
+        "text_sha256": "aadf71cd8bc41d4235279c804d8ca2660e7e12fbfabc73c8a05ee4352d6427b3"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC2.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {m : ℝ},\n  ContDiff ℝ 2 f →\n    ((∀ (x y : E), m * ‖y - x‖ ^ 2 ≤ inner ℝ (gradient f y - gradient f x) (y - x)) ↔\n      ∀ (x v : E), m * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ f) x) v) v)",
+        "statement_sha256": "a6cead6293e7349725fb555540f689c550d81abf486d53b204e6fad5460af4c0",
+        "compiled": true,
+        "formalizer": "andi-opt-c2-worker",
+        "decoder_context": [
+          "ContDiff ℝ 2 f means that the real Frechet derivative exists everywhere and is continuously Frechet differentiable.",
+          "For a complete real inner-product space, gradient f x is the Riesz vector of fderiv ℝ f x, so inner ℝ (gradient f x) v = fderiv ℝ f x v.",
+          "The expression (fderiv ℝ (fderiv ℝ f) x v) v is the second Frechet derivative evaluated twice at v. Under the displayed regularity it is a genuine second derivative.",
+          "The notation ∫ t in 0..1 denotes the oriented real interval integral with respect to Lebesgue measure.",
+          "StrongConvexOn Set.univ m f means: for all x,y and a,b>=0 with a+b=1, f(a • x+b • y)<=a*f(x)+b*f(y)-a*b*(m/2*norm(x-y)^2). The definition itself does not restrict the sign of m.",
+          "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "All real Euclidean d-space.",
+          "reconstructed": "Any complete real inner-product space.",
+          "relation": "stronger-in-lean",
+          "evidence": "The domain extension is explicit in the module preamble, lesson and candidate_assumptions. Both directions use scalar differentiation and integration along a segment; neither compactness of the ambient space nor finite-dimensional Hessian matrices is used."
+        },
+        "quantifiers": {
+          "original": "For each fixed nonnegative m, equivalence of all-pairs gradient monotonicity and the Hessian bound at all points and directions.",
+          "reconstructed": "For each fixed arbitrary real m, the same two globally quantified conditions.",
+          "relation": "stronger-in-lean",
+          "evidence": "The scope of x,y,x,v agrees. The only parameter-quantifier extension is from m≥0 to all real m. The identical fixed m is retained on both sides; it is not allowed to depend on the points or directions."
+        },
+        "assumptions": {
+          "original": "C² on ℝ^d, with m≥0 inherited from Proposition 1.6.",
+          "reconstructed": "ContDiff ℝ 2 f on a complete real inner-product space, with no sign assumption on m.",
+          "relation": "weaker-in-lean",
+          "evidence": "The omitted sign restriction is deliberate and disclosed by candidate_assumptions and lesson assumption 3. In the forward proof only positive t is cancelled; neither m nor the direction norm is divided by. The reverse proof integrates an inequality against positive measure, valid also for negative m. C² supplies all derivative and interval-integrability requirements."
+        },
+        "conclusion": {
+          "original": "Condition (1.5) is equivalent to condition (1.6).",
+          "reconstructed": "The same quantitative gradient/Hessian equivalence in Fréchet notation.",
+          "relation": "equivalent",
+          "evidence": "Forward: at x+t v, t>0 gives t²m‖v‖² ≤ t(g(t)−g(0)); two positive cancellations give m‖v‖² ≤ (g(t)−g(0))/t. The genuine right derivative at zero supplies D²f(x)[v,v]. Reverse: integrate the Hessian bound along x+t(y−x) and use the reviewed scalar FTC identity."
+        },
+        "scopes": {
+          "original": "Global, pointwise inequalities equivalent under C²; source uses a positive directional limit and the segment FTC.",
+          "reconstructed": "Global, pointwise inequalities in an iff, established by the same right-limit and integral mechanisms.",
+          "relation": "same",
+          "evidence": "All points and directions are unrestricted, including zero displacement. No conclusion is assumed as a premise: hf is the only regularity premise, hm and hH are introduced separately within the respective implication branches."
+        },
+        "constant_dependencies": {
+          "original": "The same nonnegative m multiplies the squared norm in both inequalities.",
+          "reconstructed": "The same signed m multiplies the same squared norms, with no dimension factor.",
+          "relation": "explicit-elaboration",
+          "evidence": "Integration is over an interval of length one, so ∫₀¹m‖v‖²dt=m‖v‖². The source modulus α is renamed m without scaling; the sign-domain extension is recorded in assumptions and quantifiers."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "kind": "explicit-domain-generalization",
+          "severity": "informational",
+          "description": "The equivalence is proved on complete real Hilbert spaces, beyond the finite-dimensional source.",
+          "evidence": "The typeclasses, lesson and scoped assumptions all state the extension."
+        },
+        {
+          "slot": "assumptions",
+          "kind": "explicit-signed-modulus-generalization",
+          "severity": "informational",
+          "description": "The reusable equivalence permits negative m, whereas the source proposition assumes a nonnegative modulus.",
+          "evidence": "Only the positive segment parameter is cancelled, and the converse uses monotonicity of integration; the proof remains valid for signed m. The publication lesson explicitly says any real m."
+        }
+      ],
+      "verdict": "domain-mismatch",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict and the signed-modulus delta must remain visible; this declaration is not literally the source-domain proposition. The generalized proof is valid, and the final theorem separately restores the source domain and sign restriction.",
+        "review_run_sha256": "3c0dc61f0ead3ecf59a7971b9fcea8abc7852f641876001408c4844918411212",
+        "reviewer_packet_sha256": "9013b94bfb4f3e9ae25829c5eea870769c2f0339110efef99aaf383b2665fc2a",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-1.json"
+      },
+      "publication_binding_sha256": "011027cccfca2832b1cae2d20bcd532fe5dd9589c008dcc1212e5718e05b29b9",
+      "publication_context": {
+        "file": "6609531642e87b06d655644da406bf6fb84f85df2c36ed627adf0c8851b0ae81",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\nimport Mathlib.Analysis.Calculus.ContDiff.Comp\nimport Mathlib.Analysis.Calculus.Deriv.Slope\n\n/-!\n# C² convexity and genuine Hessian lower bounds\n\nChewi, Lectures on Optimization, arXiv:2605.07006v1, Proposition 1.6\npart 2. The two directions follow the source's positive-direction derivative\nlimit and affine-segment Hessian integral. Existing scalar-convexity proofs\nremain separate. Shared leaves allow signed modulus on complete real\ninner-product spaces; the final theorem restores the Euclidean source domain.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n\nopen Set Filter MeasureTheory\nopen scoped Topology RealInnerProductSpace\n\nset_option backward.isDefEq.respectTransparency false\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The genuine Hessian integrates to the gradient difference paired with the\nsegment direction. C² supplies continuity and integrability. -/\ntheorem gradient_sub_inner_eq_integral_fderiv2\n    {f : E → ℝ} (hf : ContDiff ℝ 2 f) (x v : E) :\n    inner ℝ (gradient f (x + v) - gradient f x) v =\n      ∫ t : ℝ in 0..1, (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  have hd (t : ℝ) : HasDerivAt (fun s : ℝ => fderiv ℝ f (x + s • v) v)\n      ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n    convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n      (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n      (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n  have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n    (((hfd.continuous_fderiv (by norm_num)).comp\n      (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n        continuous_const).clm_apply continuous_const\n  simpa [inner_sub_left, gradient, Function.comp_def] using\n    (intervalIntegral.integral_eq_sub_of_hasDerivAt\n      (fun t _ => hd t) (hc.intervalIntegrable 0 1)).symm\n\n/-- Global quantitative gradient monotonicity is equivalent to the genuine\nHessian diagonal lower bound, by a right derivative limit and the FTC. -/\ntheorem gradient_mono_iff_fderiv2_lower\n    {f : E → ℝ} {m : ℝ} (hf : ContDiff ℝ 2 f) :\n    (∀ x y : E, m * ‖y - x‖ ^ 2 ≤\n      inner ℝ (gradient f y - gradient f x) (y - x)) ↔\n    ∀ x v : E, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  constructor\n  · intro hm x v\n    let g : ℝ → ℝ := fun t => fderiv ℝ f (x + t • v) v\n    have hdAll (t : ℝ) : HasDerivAt g\n        ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n      convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n        (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n        (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n    have hd : HasDerivAt g ((fderiv ℝ (fderiv ℝ f) x v) v) 0 := by\n      simpa using hdAll 0\n    apply ge_of_tendsto hd.tendsto_slope_zero_right\n    filter_upwards [self_mem_nhdsWithin] with t ht\n    have ht : 0 < t := ht\n    have h := hm x (x + t • v)\n    rw [add_sub_cancel_left, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs,\n      inner_smul_right, inner_sub_left] at h\n    have hscaled : t * (m * ‖v‖ ^ 2) ≤ g t - g 0 := by\n      apply le_of_mul_le_mul_left (a := t) _ ht\n      simpa [g, gradient, Function.comp_def, pow_two, mul_assoc, mul_left_comm, mul_comm] using h\n    simpa [smul_eq_mul, div_eq_inv_mul] using\n      (le_div_iff₀ ht).mpr (by simpa [mul_comm] using hscaled)\n  · intro hH x y\n    let v := y - x\n    have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n      (((hfd.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n          continuous_const).clm_apply continuous_const\n    have h := intervalIntegral.integral_mono_on (by norm_num : (0 : ℝ) ≤ 1)\n      (intervalIntegrable_const : IntervalIntegrable (fun _ : ℝ => m * ‖v‖ ^ 2) volume 0 1)\n      (hc.intervalIntegrable 0 1) (fun t _ => hH (x + t • v) v)\n    rw [← gradient_sub_inner_eq_integral_fderiv2 hf x v] at h\n    simpa [v] using h\n\n/-- Proposition 1.6 part 2, with the source's whole Euclidean domain,\nnonnegative modulus and C² regularity. Together with the C¹ theorem this\nconnects all four source conditions. -/\ntheorem strongConvexOn_iff_fderiv2_lower\n    {d : ℕ} {f : EuclideanSpace ℝ (Fin d) → ℝ} {m : ℝ}\n    (hm : 0 ≤ m) (hf : ContDiff ℝ 2 f) :\n    StrongConvexOn univ m f ↔\n      ∀ x v, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  exact (ConvexityC1.convexity_equivalences hm (hf.of_le (by norm_num))).2.trans\n    (gradient_mono_iff_fderiv2_lower hf)\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "§1.2, Definition 1.5 and Proposition 1.6; equations (1.3)–(1.6)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+        },
+        "statement": "For a continuously differentiable real-valued function on Euclidean space and a nonnegative modulus, the chord inequality, quadratic lower model and gradient monotonicity inequality below are equivalent. Under twice continuous differentiability they are also equivalent to the Hessian bound.",
+        "formulae": [
+          {
+            "label": "(1.3) · chord",
+            "tex": "f((1-t)x+ty)\\le (1-t)f(x)+tf(y)-\\frac\\alpha2t(1-t)\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d,\\ t\\in[0,1]."
+          },
+          {
+            "label": "(1.4) · lower model",
+            "tex": "f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\alpha2\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.5) · gradient monotonicity",
+            "tex": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge\\alpha\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.6) · Hessian",
+            "tex": "\\langle v,\\nabla^2f(x)v\\rangle\\ge\\alpha\\|v\\|^2,\\quad x,v\\in\\mathbb R^d."
+          }
+        ],
+        "assumptions": [
+          "The domain is all of real d-dimensional Euclidean space; α ≥ 0.",
+          "The first three conditions use f ∈ C¹; the Hessian equivalence uses f ∈ C².",
+          "All points and directions below are universally quantified. The chord parameter lies in [0,1]."
+        ],
+        "obligations": [
+          {
+            "id": "chord-to-model",
+            "label": "(1.3) → (1.4): affine segment, positive division, genuine derivative limit"
+          },
+          {
+            "id": "model-to-monotonicity",
+            "label": "(1.4) → (1.5): sum endpoint lower bounds"
+          },
+          {
+            "id": "monotonicity-to-chord",
+            "label": "(1.5) → (1.3): fundamental theorem of calculus with its regularity hypotheses"
+          },
+          {
+            "id": "hessian-equivalence",
+            "label": "(1.5) ↔ (1.6): derivative limit and Hessian integral"
+          },
+          {
+            "id": "source-specialization-c1",
+            "label": "Exact whole-space C¹ three-condition equivalence and independent fidelity review"
+          },
+          {
+            "id": "source-specialization-c2",
+            "label": "Exact C² Hessian equivalence and independent fidelity review"
+          }
+        ],
+        "lesson": {
+          "title": "Gradient monotonicity is equivalent to a Hessian lower bound",
+          "statement": "For C² f on a complete real inner-product space and any real m, the global quantitative gradient monotonicity inequality is equivalent to D²f(x)[v,v]≥m‖v‖² at every point and direction.",
+          "formula": "\\bigl[\\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2\\bigr]\\ \\Longleftrightarrow\\ \\bigl[\\forall x,v,\\ D^2f(x)[v,v]\\ge m\\|v\\|^2\\bigr].",
+          "assumptions": [
+            "E is a complete real inner-product space; f:E→ℝ is twice continuously Fréchet differentiable everywhere.",
+            "The Hessian quadratic form means the genuine second derivative D²f(x)[v,v]=(fderiv ℝ (fderiv ℝ f) x v) v. The pairing with the actual gradient equals Df(x)[v].",
+            "m is any real number; all x,y and v range over all E. No positivity of m or nonzero direction is required."
+          ],
+          "steps": [
+            {
+              "title": "Use a positive directional increment",
+              "text": "Fix x,v and let g(t)=Df(x+tv)[v]. Apply gradient monotonicity at x and x+tv with t>0. The displacement is tv and its squared norm is t²‖v‖². Cancelling the positive t and dividing once more by t gives a bound on the difference quotient.",
+              "formula": "t^2m\\|v\\|^2\\le t(g(t)-g(0)),\\qquad m\\|v\\|^2\\le\\frac{g(t)-g(0)}t.",
+              "lean": "hm, norm_smul, sq_abs and inner_smul_right give h; le_of_mul_le_mul_left and le_div_iff₀ cancel only ht:0<t."
+            },
+            {
+              "title": "Pass to the right derivative",
+              "text": "C² gives g′(0)=D²f(x)[v,v]. The displayed inequality holds for all positive t, so passage to t↓0 preserves it. Neither m nor ‖v‖ is divided by.",
+              "formula": "m\\|v\\|^2\\le\\lim_{t\\downarrow0}\\frac{g(t)-g(0)}t=D^2f(x)[v,v].",
+              "lean": "hdAll and hd establish the genuine scalar derivative; HasDerivAt.tendsto_slope_zero_right and ge_of_tendsto pass to the limit."
+            },
+            {
+              "title": "Integrate the Hessian lower bound for the converse",
+              "text": "For v=y−x the Hessian bound holds along x+tv. C² gives a continuous integrand and interval integrability. Integrate the constant lower bound over an interval of length one, then use the preceding segment identity.",
+              "formula": "\\langle\\nabla f(y)-\\nabla f(x),v\\rangle=\\int_0^1D^2f(x+tv)[v,v]dt\\ge\\int_0^1m\\|v\\|^2dt=m\\|v\\|^2.",
+              "lean": "intervalIntegral.integral_mono_on compares integrals; gradient_sub_inner_eq_integral_fderiv2 identifies the result."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2"
+          ],
+          "mathlib_dependencies": [
+            "ContDiff.fderiv_right; HasFDerivAt.comp_hasDerivAt; HasDerivAt.clm_apply",
+            "HasDerivAt.tendsto_slope_zero_right; ge_of_tendsto; self_mem_nhdsWithin",
+            "intervalIntegral.integral_mono_on; Continuous.intervalIntegrable; intervalIntegral.integral_const"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+          "kind": "theorem",
+          "lean_statement": "For C² f on a complete real inner-product space and any real m, the global quantitative gradient monotonicity inequality is equivalent to D²f(x)[v,v]≥m‖v‖² at every point and direction.",
+          "lean_proof": "Fix x,v and let g(t)=Df(x+tv)[v]. Apply gradient monotonicity at x and x+tv with t>0. The displacement is tv and its squared norm is t²‖v‖². Cancelling the positive t and dividing once more by t gives a bound on the difference quotient. C² gives g′(0)=D²f(x)[v,v]. The displayed inequality holds for all positive t, so passage to t↓0 preserves it. Neither m nor ‖v‖ is divided by. For v=y−x the Hessian bound holds along x+tv. C² gives a continuous integrand and interval integrability. Integrate the constant lower bound over an interval of length one, then use the preceding segment identity.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+              "label": "Sinho Chewi, Proposition 1.6 part 2",
+              "scope": "ASTIS-authored explanation of the pinned source proof."
+            },
+            {
+              "path": "Tests/Shared/ConvexityC2.lean",
+              "label": "Focused consumers and boundary cases",
+              "scope": "Checks the actual declarations and their composition."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+            "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v."
+          },
+          {
+            "source": "All Euclidean space and nonnegative modulus.",
+            "lean": "Complete real inner-product space; arbitrary real m in the equivalence."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption. Let f:E→ℝ be twice continuously Fréchet differentiable on all of E, and let m be any real number, without a sign restriction. Then the following two global statements are equivalent: (1) for every x,y∈E, m‖y−x‖² ≤ ⟨∇f(y)−∇f(x),y−x⟩; (2) for every x,v∈E, m‖v‖² ≤ D²f(x)[v,v]. The gradient is the Riesz representative of the first Fréchet derivative, and D²f(x)[v,v] means the derivative of the first Fréchet derivative at x applied successively to v and v. The same fixed m is used in both inequalities.",
+        "text_sha256": "5d2a992f44dd7a660ecba8d612920168b9d2ddecce9a17f7107c7a0e017cfc7a",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "7ebea7873208b6c6cac5e1f212f29c17a89bc7ef1f91e52d88132a9be75bb417",
+        "decoder_packet_sha256": "95f674a3d216c1480438cf4329054a5c562eafa96dc4c4f7d007b58370c76afc",
+        "source_text_visible": false,
+        "lean_statement_sha256": "a6cead6293e7349725fb555540f689c550d81abf486d53b204e6fad5460af4c0",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-1.json"
+      }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-ConvexityC2",
+      "state": "source-reviewed",
+      "graph_node": "ASTIS-OPT-convexity-c2",
+      "source": {
+        "source_id": "chewi-opt-v1-prop-1-6",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 2, (1.5)-(1.6), final proof paragraph",
+        "original_text": "For every natural dimension d, every nonnegative real m and every twice continuously differentiable real-valued f on all Euclidean d-space, the strong-convexity chord condition with correction (m/2)t(1-t)||y-x||^2 is equivalent to <v,Hessian f(x)v> >= m||v||^2 for every x,v. This selects Proposition 1.6 part 2; part 1 is already a dependency.",
+        "text_sha256": "7b3f4e8d3709516b03996afebebbc280e31b695d6411b19ee2a2e99367ffd4a0"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC2.lean",
+        "statement": "∀ {d : ℕ}\n  {f : EuclideanSpace ℝ (Fin d) → ℝ} {m : ℝ},\n  0 ≤ m →\n    ContDiff ℝ 2 f →\n      (StrongConvexOn Set.univ m f ↔ ∀ (x v : EuclideanSpace ℝ (Fin d)), m * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ f) x) v) v)",
+        "statement_sha256": "03f0fc47f48ca0ebd9d3e2ed16e53a706309fe1507b0d9593d38bfa0838f5bf1",
+        "compiled": true,
+        "formalizer": "andi-opt-c2-worker",
+        "decoder_context": [
+          "ContDiff ℝ 2 f means that the real Frechet derivative exists everywhere and is continuously Frechet differentiable.",
+          "For a complete real inner-product space, gradient f x is the Riesz vector of fderiv ℝ f x, so inner ℝ (gradient f x) v = fderiv ℝ f x v.",
+          "The expression (fderiv ℝ (fderiv ℝ f) x v) v is the second Frechet derivative evaluated twice at v. Under the displayed regularity it is a genuine second derivative.",
+          "The notation ∫ t in 0..1 denotes the oriented real interval integral with respect to Lebesgue measure.",
+          "StrongConvexOn Set.univ m f means: for all x,y and a,b>=0 with a+b=1, f(a • x+b • y)<=a*f(x)+b*f(y)-a*b*(m/2*norm(x-y)^2). The definition itself does not restrict the sign of m.",
+          "EuclideanSpace ℝ (Fin d) is real d-dimensional Euclidean space, including d=0."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+          "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+          "relation": "explicit-elaboration",
+          "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+        },
+        "domains": {
+          "original": "The whole real Euclidean d-space.",
+          "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the convexity domain.",
+          "relation": "equivalent",
+          "evidence": "This restores precisely the source geometry and whole-space restriction. The standard inner product/norm gives the source Hessian quadratic form via the second Fréchet derivative."
+        },
+        "quantifiers": {
+          "original": "For each dimension, each C² f and each m≥0; chord condition for every x,y,t∈[0,1], Hessian bound for every x,v.",
+          "reconstructed": "Implicit universal d,f,m, explicit nonnegativity and C² hypotheses, StrongConvexOn univ, and ∀ x v for the Hessian condition.",
+          "relation": "explicit-elaboration",
+          "evidence": "The decoded chord weights a,b≥0 with a+b=1 correspond bijectively to a=1−t,b=t, t∈[0,1]. d=0 is explicitly allowed in the lesson; the source does not exclude it, and in the zero-dimensional space both conditions hold without a nonzero-direction requirement."
+        },
+        "assumptions": {
+          "original": "m≥0 and f twice continuously differentiable on all ℝ^d.",
+          "reconstructed": "hm:0≤m and hf:ContDiff ℝ 2 f on all EuclideanSpace ℝ (Fin d).",
+          "relation": "equivalent",
+          "evidence": "The final theorem restores the sign and dimension boundary of Proposition 1.6. C² implies C¹ for the earlier equivalence. No coercivity, strictly positive modulus, Hessian upper bound, compactness or minimizer existence is assumed."
+        },
+        "conclusion": {
+          "original": "The chord inequality (1.3) is equivalent to the Hessian lower bound (1.6).",
+          "reconstructed": "StrongConvexOn univ m f iff ∀ x v, m‖v‖²≤D²f(x)[v,v].",
+          "relation": "equivalent",
+          "evidence": "The reconstruction spells out the chord correction as ab(m/2)‖x−y‖², identical to the source correction with a=1−t,b=t and symmetry of distance. The code composes the C¹ chord/gradient iff with the reviewed gradient/Hessian iff, implementing the source proof route."
+        },
+        "scopes": {
+          "original": "Pointwise global convexity equivalence under C²; m=0 means ordinary convexity.",
+          "reconstructed": "A global iff, with all-space StrongConvexOn interpreted by the displayed chord formula, including m=0.",
+          "relation": "explicit-elaboration",
+          "evidence": "The Lean name strongConvexOn does not silently exclude m=0: hm is nonnegative, and the decoded/lesson chord formula is the governing meaning. On the source domain Fréchet and classical Hessian senses agree."
+        },
+        "constant_dependencies": {
+          "original": "Chord correction m/2 and Hessian lower bound m, with no dimension-dependent factor.",
+          "reconstructed": "The same m/2 and m, with the norm from the same Euclidean inner product.",
+          "relation": "same",
+          "evidence": "Neither joining the two iff statements nor identifying the Hessian rescales the modulus. No unspecified constants or dependencies are introduced."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "scopes",
+          "kind": "notation-elaboration",
+          "severity": "informational",
+          "description": "StrongConvexOn at m=0 expresses ordinary convexity despite the theorem name.",
+          "evidence": "The actual nonnegativity hypothesis and published chord formula explicitly include zero and preserve Definition 1.5."
+        },
+        {
+          "slot": "quantifiers",
+          "kind": "degenerate-dimension-elaboration",
+          "severity": "informational",
+          "description": "The natural-number dimension includes zero, a harmless explicit boundary case.",
+          "evidence": "The lesson says d=0 is allowed; source imposes no d>0 assumption. There are no nonzero directions in that case, and both chord and Hessian conditions reduce to identities."
+        }
+      ],
+      "verdict": "equivalent-after-elaboration",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "c2_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as the faithful Euclidean C² specialization of Proposition 1.6 part 2. The chord-weight, Hessian and zero-modulus notation elaborations preserve all mathematical content and constants.",
+        "review_run_sha256": "a2b15036eba6fc718e61af20fff784dc602c88ccf773ffb6099947bd6f6b6268",
+        "reviewer_packet_sha256": "054e65a50d3e3c7cce2c0a0c48ad652d1aa81813d8db0d5b4f2aca291ff1c6ee",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/source-review-2.json"
+      },
+      "publication_binding_sha256": "dde91b1aa148d346bd1c8765ab051ae12f5af7c6fb9231c8107ba4999c121b6a",
+      "publication_context": {
+        "file": "6609531642e87b06d655644da406bf6fb84f85df2c36ed627adf0c8851b0ae81",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1\nimport Mathlib.Analysis.Calculus.ContDiff.Comp\nimport Mathlib.Analysis.Calculus.Deriv.Slope\n\n/-!\n# C² convexity and genuine Hessian lower bounds\n\nChewi, Lectures on Optimization, arXiv:2605.07006v1, Proposition 1.6\npart 2. The two directions follow the source's positive-direction derivative\nlimit and affine-segment Hessian integral. Existing scalar-convexity proofs\nremain separate. Shared leaves allow signed modulus on complete real\ninner-product spaces; the final theorem restores the Euclidean source domain.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n\nopen Set Filter MeasureTheory\nopen scoped Topology RealInnerProductSpace\n\nset_option backward.isDefEq.respectTransparency false\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The genuine Hessian integrates to the gradient difference paired with the\nsegment direction. C² supplies continuity and integrability. -/\ntheorem gradient_sub_inner_eq_integral_fderiv2\n    {f : E → ℝ} (hf : ContDiff ℝ 2 f) (x v : E) :\n    inner ℝ (gradient f (x + v) - gradient f x) v =\n      ∫ t : ℝ in 0..1, (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  have hd (t : ℝ) : HasDerivAt (fun s : ℝ => fderiv ℝ f (x + s • v) v)\n      ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n    convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n      (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n      (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n  have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n    (((hfd.continuous_fderiv (by norm_num)).comp\n      (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n        continuous_const).clm_apply continuous_const\n  simpa [inner_sub_left, gradient, Function.comp_def] using\n    (intervalIntegral.integral_eq_sub_of_hasDerivAt\n      (fun t _ => hd t) (hc.intervalIntegrable 0 1)).symm\n\n/-- Global quantitative gradient monotonicity is equivalent to the genuine\nHessian diagonal lower bound, by a right derivative limit and the FTC. -/\ntheorem gradient_mono_iff_fderiv2_lower\n    {f : E → ℝ} {m : ℝ} (hf : ContDiff ℝ 2 f) :\n    (∀ x y : E, m * ‖y - x‖ ^ 2 ≤\n      inner ℝ (gradient f y - gradient f x) (y - x)) ↔\n    ∀ x v : E, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)\n  constructor\n  · intro hm x v\n    let g : ℝ → ℝ := fun t => fderiv ℝ f (x + t • v) v\n    have hdAll (t : ℝ) : HasDerivAt g\n        ((fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) t := by\n      convert ((hfd.differentiable_one _).hasFDerivAt.comp_hasDerivAt t\n        (((hasDerivAt_id t).smul_const v).const_add x)).clm_apply\n        (hasDerivAt_const t v) using 1 <;> first | rfl | simp\n    have hd : HasDerivAt g ((fderiv ℝ (fderiv ℝ f) x v) v) 0 := by\n      simpa using hdAll 0\n    apply ge_of_tendsto hd.tendsto_slope_zero_right\n    filter_upwards [self_mem_nhdsWithin] with t ht\n    have ht : 0 < t := ht\n    have h := hm x (x + t • v)\n    rw [add_sub_cancel_left, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs,\n      inner_smul_right, inner_sub_left] at h\n    have hscaled : t * (m * ‖v‖ ^ 2) ≤ g t - g 0 := by\n      apply le_of_mul_le_mul_left (a := t) _ ht\n      simpa [g, gradient, Function.comp_def, pow_two, mul_assoc, mul_left_comm, mul_comm] using h\n    simpa [smul_eq_mul, div_eq_inv_mul] using\n      (le_div_iff₀ ht).mpr (by simpa [mul_comm] using hscaled)\n  · intro hH x y\n    let v := y - x\n    have hc : Continuous (fun t : ℝ => (fderiv ℝ (fderiv ℝ f) (x + t • v) v) v) :=\n      (((hfd.continuous_fderiv (by norm_num)).comp\n        (continuous_const.add (continuous_id.smul continuous_const))).clm_apply\n          continuous_const).clm_apply continuous_const\n    have h := intervalIntegral.integral_mono_on (by norm_num : (0 : ℝ) ≤ 1)\n      (intervalIntegrable_const : IntervalIntegrable (fun _ : ℝ => m * ‖v‖ ^ 2) volume 0 1)\n      (hc.intervalIntegrable 0 1) (fun t _ => hH (x + t • v) v)\n    rw [← gradient_sub_inner_eq_integral_fderiv2 hf x v] at h\n    simpa [v] using h\n\n/-- Proposition 1.6 part 2, with the source's whole Euclidean domain,\nnonnegative modulus and C² regularity. Together with the C¹ theorem this\nconnects all four source conditions. -/\ntheorem strongConvexOn_iff_fderiv2_lower\n    {d : ℕ} {f : EuclideanSpace ℝ (Fin d) → ℝ} {m : ℝ}\n    (hm : 0 ≤ m) (hf : ContDiff ℝ 2 f) :\n    StrongConvexOn univ m f ↔\n      ∀ x v, m * ‖v‖ ^ 2 ≤ (fderiv ℝ (fderiv ℝ f) x v) v := by\n  exact (ConvexityC1.convexity_equivalences hm (hf.of_le (by norm_num))).2.trans\n    (gradient_mono_iff_fderiv2_lower hf)\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "§1.2, Definition 1.5 and Proposition 1.6; equations (1.3)–(1.6)",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+        },
+        "statement": "For a continuously differentiable real-valued function on Euclidean space and a nonnegative modulus, the chord inequality, quadratic lower model and gradient monotonicity inequality below are equivalent. Under twice continuous differentiability they are also equivalent to the Hessian bound.",
+        "formulae": [
+          {
+            "label": "(1.3) · chord",
+            "tex": "f((1-t)x+ty)\\le (1-t)f(x)+tf(y)-\\frac\\alpha2t(1-t)\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d,\\ t\\in[0,1]."
+          },
+          {
+            "label": "(1.4) · lower model",
+            "tex": "f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\alpha2\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.5) · gradient monotonicity",
+            "tex": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge\\alpha\\|y-x\\|^2,\\quad x,y\\in\\mathbb R^d."
+          },
+          {
+            "label": "(1.6) · Hessian",
+            "tex": "\\langle v,\\nabla^2f(x)v\\rangle\\ge\\alpha\\|v\\|^2,\\quad x,v\\in\\mathbb R^d."
+          }
+        ],
+        "assumptions": [
+          "The domain is all of real d-dimensional Euclidean space; α ≥ 0.",
+          "The first three conditions use f ∈ C¹; the Hessian equivalence uses f ∈ C².",
+          "All points and directions below are universally quantified. The chord parameter lies in [0,1]."
+        ],
+        "obligations": [
+          {
+            "id": "chord-to-model",
+            "label": "(1.3) → (1.4): affine segment, positive division, genuine derivative limit"
+          },
+          {
+            "id": "model-to-monotonicity",
+            "label": "(1.4) → (1.5): sum endpoint lower bounds"
+          },
+          {
+            "id": "monotonicity-to-chord",
+            "label": "(1.5) → (1.3): fundamental theorem of calculus with its regularity hypotheses"
+          },
+          {
+            "id": "hessian-equivalence",
+            "label": "(1.5) ↔ (1.6): derivative limit and Hessian integral"
+          },
+          {
+            "id": "source-specialization-c1",
+            "label": "Exact whole-space C¹ three-condition equivalence and independent fidelity review"
+          },
+          {
+            "id": "source-specialization-c2",
+            "label": "Exact C² Hessian equivalence and independent fidelity review"
+          }
+        ],
+        "lesson": {
+          "title": "C² strong convexity is equivalent to the Hessian bound",
+          "statement": "For every natural dimension d, every nonnegative real m and every C² f on all Euclidean d-space, f is m-strongly convex if and only if its Hessian quadratic form is at least m times squared norm in every direction at every point.",
+          "formula": "\\mathrm{StrongConvex}_m(f)\\quad\\Longleftrightarrow\\quad\\forall x,v\\in\\mathbb R^d,\\ D^2f(x)[v,v]\\ge m\\|v\\|^2.",
+          "assumptions": [
+            "d∈ℕ and E=EuclideanSpace ℝ (Fin d), with its standard real inner product and norm; d=0 is allowed.",
+            "f:E→ℝ is C² on all E and m∈ℝ satisfies m≥0, exactly as in the source.",
+            "StrongConvexOn univ m f uses the chord correction (m/2)t(1−t)‖y−x‖² for all x,y and t∈[0,1]. D²f is the genuine second derivative, written as a bilinear evaluation."
+          ],
+          "steps": [
+            {
+              "title": "Reuse the C¹ equivalence",
+              "text": "C² implies C¹. Apply the already proved source equivalence between the chord condition and global gradient monotonicity.",
+              "formula": "\\mathrm{StrongConvex}_m(f)\\Longleftrightarrow\\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2.",
+              "lean": "ContDiff.of_le supplies C¹; ConvexityC1.convexity_equivalences supplies its second iff."
+            },
+            {
+              "title": "Join the Hessian equivalence",
+              "text": "Compose with the derivative-limit/integral equivalence above. On Euclidean space D²f(x)[v,v] is the source Hessian matrix quadratic form. This finishes part 2 and connects it to the lower-model equivalence already in part 1.",
+              "formula": "\\text{chord}\\Longleftrightarrow\\text{gradient monotonicity}\\Longleftrightarrow\\text{Hessian lower bound}.",
+              "lean": "Iff.trans with gradient_mono_iff_fderiv2_lower. No alternative assumed convexity or gradient interface is substituted."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower"
+          ],
+          "mathlib_dependencies": [
+            "ContDiff.of_le; Iff.trans"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+          "kind": "theorem",
+          "lean_statement": "For every natural dimension d, every nonnegative real m and every C² f on all Euclidean d-space, f is m-strongly convex if and only if its Hessian quadratic form is at least m times squared norm in every direction at every point.",
+          "lean_proof": "C² implies C¹. Apply the already proved source equivalence between the chord condition and global gradient monotonicity. Compose with the derivative-limit/integral equivalence above. On Euclidean space D²f(x)[v,v] is the source Hessian matrix quadratic form. This finishes part 2 and connects it to the lower-model equivalence already in part 1.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+              "label": "Sinho Chewi, Proposition 1.6 part 2",
+              "scope": "ASTIS-authored explanation of the pinned source proof."
+            },
+            {
+              "path": "Tests/Shared/ConvexityC2.lean",
+              "label": "Focused consumers and boundary cases",
+              "scope": "Checks the actual declarations and their composition."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-equivalence",
+            "source-specialization-c2"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Twice continuous differentiability and the usual Euclidean Hessian.",
+            "lean": "ContDiff ℝ 2 f supplies the genuine derivative of fderiv, continuous scalar Hessian integrands and interval integrability. The quadratic form is (fderiv ℝ (fderiv ℝ f) x v) v."
+          },
+          {
+            "source": "All Euclidean space and nonnegative modulus.",
+            "lean": "Same whole Euclidean space and m>=0."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every natural number d, including d=0, every function f:ℝᵈ→ℝ on real d-dimensional Euclidean space, and every real number m≥0, suppose f is twice continuously Fréchet differentiable on all of ℝᵈ. Then f is m-strongly convex on the whole space if and only if, for every x,v∈ℝᵈ, m‖v‖² ≤ D²f(x)[v,v]. Here m-strong convexity means exactly that for every x,y∈ℝᵈ and every real a,b≥0 with a+b=1, f(a x+b y) ≤ a f(x)+b f(y)−a b (m/2)‖x−y‖². The second derivative is the derivative of the first Fréchet derivative, evaluated twice on v. The same m appears in the interpolation inequality and the second-derivative bound; m=0 is included.",
+        "text_sha256": "27044b0baca2c88214beba2f4c6507e92f6de867fa87075f37fe91bf37c771e2",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "79d50ab5f5c54d0a74e8f02ec80e32da79346e3a29e422a82b69569d49ab82e5",
+        "decoder_packet_sha256": "886a79ac322a43efc62dd31e5ab66105295b3caa5d358e669fd22679a9dcbd6a",
+        "source_text_visible": false,
+        "lean_statement_sha256": "03f0fc47f48ca0ebd9d3e2ed16e53a706309fe1507b0d9593d38bfa0838f5bf1",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-2.json"
+      }
     }
   ]
 }

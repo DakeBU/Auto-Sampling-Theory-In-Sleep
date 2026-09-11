@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "reviewer": "c2_source_reviewer",
+  "reviewer_packet_sha256": "9013b94bfb4f3e9ae25829c5eea870769c2f0339110efef99aaf383b2665fc2a",
+  "semantic_slots": {
+    "objects": {
+      "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+      "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+      "relation": "explicit-elaboration",
+      "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+    },
+    "domains": {
+      "original": "All real Euclidean d-space.",
+      "reconstructed": "Any complete real inner-product space.",
+      "relation": "stronger-in-lean",
+      "evidence": "The domain extension is explicit in the module preamble, lesson and candidate_assumptions. Both directions use scalar differentiation and integration along a segment; neither compactness of the ambient space nor finite-dimensional Hessian matrices is used."
+    },
+    "quantifiers": {
+      "original": "For each fixed nonnegative m, equivalence of all-pairs gradient monotonicity and the Hessian bound at all points and directions.",
+      "reconstructed": "For each fixed arbitrary real m, the same two globally quantified conditions.",
+      "relation": "stronger-in-lean",
+      "evidence": "The scope of x,y,x,v agrees. The only parameter-quantifier extension is from m≥0 to all real m. The identical fixed m is retained on both sides; it is not allowed to depend on the points or directions."
+    },
+    "assumptions": {
+      "original": "C² on ℝ^d, with m≥0 inherited from Proposition 1.6.",
+      "reconstructed": "ContDiff ℝ 2 f on a complete real inner-product space, with no sign assumption on m.",
+      "relation": "weaker-in-lean",
+      "evidence": "The omitted sign restriction is deliberate and disclosed by candidate_assumptions and lesson assumption 3. In the forward proof only positive t is cancelled; neither m nor the direction norm is divided by. The reverse proof integrates an inequality against positive measure, valid also for negative m. C² supplies all derivative and interval-integrability requirements."
+    },
+    "conclusion": {
+      "original": "Condition (1.5) is equivalent to condition (1.6).",
+      "reconstructed": "The same quantitative gradient/Hessian equivalence in Fréchet notation.",
+      "relation": "equivalent",
+      "evidence": "Forward: at x+t v, t>0 gives t²m‖v‖² ≤ t(g(t)−g(0)); two positive cancellations give m‖v‖² ≤ (g(t)−g(0))/t. The genuine right derivative at zero supplies D²f(x)[v,v]. Reverse: integrate the Hessian bound along x+t(y−x) and use the reviewed scalar FTC identity."
+    },
+    "scopes": {
+      "original": "Global, pointwise inequalities equivalent under C²; source uses a positive directional limit and the segment FTC.",
+      "reconstructed": "Global, pointwise inequalities in an iff, established by the same right-limit and integral mechanisms.",
+      "relation": "same",
+      "evidence": "All points and directions are unrestricted, including zero displacement. No conclusion is assumed as a premise: hf is the only regularity premise, hm and hH are introduced separately within the respective implication branches."
+    },
+    "constant_dependencies": {
+      "original": "The same nonnegative m multiplies the squared norm in both inequalities.",
+      "reconstructed": "The same signed m multiplies the same squared norms, with no dimension factor.",
+      "relation": "explicit-elaboration",
+      "evidence": "Integration is over an interval of length one, so ∫₀¹m‖v‖²dt=m‖v‖². The source modulus α is renamed m without scaling; the sign-domain extension is recorded in assumptions and quantifiers."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "kind": "explicit-domain-generalization",
+      "severity": "informational",
+      "description": "The equivalence is proved on complete real Hilbert spaces, beyond the finite-dimensional source.",
+      "evidence": "The typeclasses, lesson and scoped assumptions all state the extension."
+    },
+    {
+      "slot": "assumptions",
+      "kind": "explicit-signed-modulus-generalization",
+      "severity": "informational",
+      "description": "The reusable equivalence permits negative m, whereas the source proposition assumes a nonnegative modulus.",
+      "evidence": "Only the positive segment parameter is cancelled, and the converse uses monotonicity of integration; the proof remains valid for signed m. The publication lesson explicitly says any real m."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict and the signed-modulus delta must remain visible; this declaration is not literally the source-domain proposition. The generalized proof is valid, and the final theorem separately restores the source domain and sign restriction.",
+  "source_review": {
+    "decision": "accepted",
+    "state": "accepted",
+    "reviewer": "c2_source_reviewer",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "9013b94bfb4f3e9ae25829c5eea870769c2f0339110efef99aaf383b2665fc2a",
+    "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as an explicitly generalized reusable proof edge. The domain-mismatch verdict and the signed-modulus delta must remain visible; this declaration is not literally the source-domain proposition. The generalized proof is valid, and the final theorem separately restores the source domain and sign restriction.",
+    "review_run_sha256": "3fe2fdd320a4e07092a1a053d5e7de77cfded142141966b4a862fa4e908f5d8e"
+  },
+  "review_run_sha256": "3fe2fdd320a4e07092a1a053d5e7de77cfded142141966b4a862fa4e908f5d8e"
+}

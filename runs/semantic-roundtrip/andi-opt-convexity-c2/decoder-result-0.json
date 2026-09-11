@@ -1,0 +1,20 @@
+{
+  "reconstructed_theorem_text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption, and let f:E→ℝ be twice continuously Fréchet differentiable on all of E. For every x,v∈E, the inner product of ∇f(x+v)−∇f(x) with v equals the Lebesgue integral from 0 to 1 of the second Fréchet derivative at x+t v evaluated on (v,v): ⟨∇f(x+v)−∇f(x),v⟩ = ∫₀¹ D²f(x+t v)[v,v] dt. The gradient is the Riesz representative of the first Fréchet derivative. The integral is the oriented real interval integral, here with endpoints 0 and 1. There are no restrictions on x or v and no convexity or sign assumptions.",
+  "reconstructed_text_sha256": "0e951e6a7f2ddc4d6561e18eb2d676381f5adb162634651a61067813c5ad73aa",
+  "objects": "E, f, x, v, the gradient of f, and the second Fréchet derivative of f.",
+  "domains": "E is a complete real inner-product space; f:E→ℝ; x,v∈E; t∈ℝ is integrated from 0 to 1 against Lebesgue measure.",
+  "quantifiers": "Universal over E and f satisfying the assumptions, then universal over x and v.",
+  "assumptions": "f is C² on all E. Completeness and real inner-product structure are global assumptions.",
+  "conclusion": "⟨∇f(x+v)−∇f(x),v⟩ = ∫₀¹ D²f(x+t v)[v,v] dt for all x,v.",
+  "scopes": "Regularity and the asserted property hold on the entire displayed space, not merely on a subset or at selected points.",
+  "constant_dependencies": "Only the fixed integration endpoints 0 and 1 occur; there are no existential constants.",
+  "decoder": "Independent source-blind semantic decoder; only the three specified anonymous packets were read.",
+  "source_text_visible": false,
+  "decoder_packet_sha256": "b424dfa809a7dc193dfe87a34709eae2965026fdaf81a1e83be6cb3c8d013add",
+  "packet_file_sha256": "7d835fc8ca7a12b6f83198ffb18f7084b3e6d9e321dfcf3772ca68fb13d97cae",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "ambiguities": []
+}

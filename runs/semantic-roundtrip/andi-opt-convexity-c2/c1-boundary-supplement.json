@@ -1,0 +1,13 @@
+{
+  "purpose": "Review exact current reader-scope sentence separately; canonical anti-anchored packet deliberately omits boundary fields. No prior fidelity verdict is supplied.",
+  "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+  "lesson_file": "website/content/declaration_lessons/convexity-c1.json",
+  "lesson_file_sha256": "8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6",
+  "current_boundary": [
+    "Exactly Proposition 1.6 part 1. The separate ConvexityC2.strongConvexOn_iff_fderiv2_lower declaration now supplies the C²/Hessian equivalence; this declaration itself covers only the C¹ conditions.",
+    "The declaration retains m≥0 even though its shared parents also handle signed m. No new convexity definition or caller-supplied gradient is introduced."
+  ],
+  "reviewer_packet_sha256": "e1b544a7380b4978faa096fb6af964ee1ce7ad5de141f84682f14a7f6c15e896",
+  "publication_binding_sha256": "06285748c2e647c8081904065c56214882749688ce010b88ae334edaa071ce6c",
+  "scope": "Only this reader scope sentence changes. C1 code, statement, mathematical proof and reconstruction are unchanged; check mathematical correctness against C1 source and newly reviewed C2 result."
+}

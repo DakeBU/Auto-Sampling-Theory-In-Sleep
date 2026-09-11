@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "reviewer": "c2_source_reviewer",
+  "reviewer_packet_sha256": "054e65a50d3e3c7cce2c0a0c48ad652d1aa81813d8db0d5b4f2aca291ff1c6ee",
+  "semantic_slots": {
+    "objects": {
+      "original": "Real-valued f, Euclidean gradient, and Hessian quadratic form.",
+      "reconstructed": "Real-valued f, gradient as the Riesz representative of Df, and D²f(x)[v,v] as two evaluations of fderiv (fderiv f).",
+      "relation": "explicit-elaboration",
+      "evidence": "The actual module differentiates t ↦ Df(x+t v)[v]. In Euclidean space its derivative is the classical Hessian quadratic form; real inner-product symmetry accounts for the source pairing order. No independently postulated Hessian or gradient is substituted."
+    },
+    "domains": {
+      "original": "The whole real Euclidean d-space.",
+      "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the convexity domain.",
+      "relation": "equivalent",
+      "evidence": "This restores precisely the source geometry and whole-space restriction. The standard inner product/norm gives the source Hessian quadratic form via the second Fréchet derivative."
+    },
+    "quantifiers": {
+      "original": "For each dimension, each C² f and each m≥0; chord condition for every x,y,t∈[0,1], Hessian bound for every x,v.",
+      "reconstructed": "Implicit universal d,f,m, explicit nonnegativity and C² hypotheses, StrongConvexOn univ, and ∀ x v for the Hessian condition.",
+      "relation": "explicit-elaboration",
+      "evidence": "The decoded chord weights a,b≥0 with a+b=1 correspond bijectively to a=1−t,b=t, t∈[0,1]. d=0 is explicitly allowed in the lesson; the source does not exclude it, and in the zero-dimensional space both conditions hold without a nonzero-direction requirement."
+    },
+    "assumptions": {
+      "original": "m≥0 and f twice continuously differentiable on all ℝ^d.",
+      "reconstructed": "hm:0≤m and hf:ContDiff ℝ 2 f on all EuclideanSpace ℝ (Fin d).",
+      "relation": "equivalent",
+      "evidence": "The final theorem restores the sign and dimension boundary of Proposition 1.6. C² implies C¹ for the earlier equivalence. No coercivity, strictly positive modulus, Hessian upper bound, compactness or minimizer existence is assumed."
+    },
+    "conclusion": {
+      "original": "The chord inequality (1.3) is equivalent to the Hessian lower bound (1.6).",
+      "reconstructed": "StrongConvexOn univ m f iff ∀ x v, m‖v‖²≤D²f(x)[v,v].",
+      "relation": "equivalent",
+      "evidence": "The reconstruction spells out the chord correction as ab(m/2)‖x−y‖², identical to the source correction with a=1−t,b=t and symmetry of distance. The code composes the C¹ chord/gradient iff with the reviewed gradient/Hessian iff, implementing the source proof route."
+    },
+    "scopes": {
+      "original": "Pointwise global convexity equivalence under C²; m=0 means ordinary convexity.",
+      "reconstructed": "A global iff, with all-space StrongConvexOn interpreted by the displayed chord formula, including m=0.",
+      "relation": "explicit-elaboration",
+      "evidence": "The Lean name strongConvexOn does not silently exclude m=0: hm is nonnegative, and the decoded/lesson chord formula is the governing meaning. On the source domain Fréchet and classical Hessian senses agree."
+    },
+    "constant_dependencies": {
+      "original": "Chord correction m/2 and Hessian lower bound m, with no dimension-dependent factor.",
+      "reconstructed": "The same m/2 and m, with the norm from the same Euclidean inner product.",
+      "relation": "same",
+      "evidence": "Neither joining the two iff statements nor identifying the Hessian rescales the modulus. No unspecified constants or dependencies are introduced."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "scopes",
+      "kind": "notation-elaboration",
+      "severity": "informational",
+      "description": "StrongConvexOn at m=0 expresses ordinary convexity despite the theorem name.",
+      "evidence": "The actual nonnegativity hypothesis and published chord formula explicitly include zero and preserve Definition 1.5."
+    },
+    {
+      "slot": "quantifiers",
+      "kind": "degenerate-dimension-elaboration",
+      "severity": "informational",
+      "description": "The natural-number dimension includes zero, a harmless explicit boundary case.",
+      "evidence": "The lesson says d=0 is allowed; source imposes no d>0 assumption. There are no nonzero directions in that case, and both chord and Hessian conditions reduce to identities."
+    }
+  ],
+  "verdict": "equivalent-after-elaboration",
+  "repairs": [],
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as the faithful Euclidean C² specialization of Proposition 1.6 part 2. The chord-weight, Hessian and zero-modulus notation elaborations preserve all mathematical content and constants.",
+  "source_review": {
+    "decision": "accepted",
+    "state": "accepted",
+    "reviewer": "c2_source_reviewer",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "054e65a50d3e3c7cce2c0a0c48ad652d1aa81813d8db0d5b4f2aca291ff1c6ee",
+    "evidence": "Independently opened https://arxiv.org/html/2605.07006v1#S1.SS2: Definition 1.5 and Proposition 1.6, equations (1.3)–(1.6), especially the final proof paragraph. Compared the full candidate Lean module and the declaration-specific lesson, formulae and candidate_assumptions embedded in the packet against this primary source and the blind reconstruction. No canonical semantic registry or previous verdict was inspected. Compilation is packet-reported; this semantic review does not replace the independent build/fake-closure gate. Accepted as the faithful Euclidean C² specialization of Proposition 1.6 part 2. The chord-weight, Hessian and zero-modulus notation elaborations preserve all mathematical content and constants.",
+    "review_run_sha256": "f5507f85ae40b73cc2ebe91da01d16754e4b7a35228f1b97a48fdcd309e1a637"
+  },
+  "review_run_sha256": "f5507f85ae40b73cc2ebe91da01d16754e4b7a35228f1b97a48fdcd309e1a637"
+}

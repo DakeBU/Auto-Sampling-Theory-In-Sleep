@@ -1,0 +1,39 @@
+{
+  "verifier_id": "c2_route_review",
+  "verified_commit": "724e90f519b8c8dc642a9acd093727ef586c600f",
+  "findings": [],
+  "file_hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC2.lean": "6609531642e87b06d655644da406bf6fb84f85df2c36ed627adf0c8851b0ae81",
+    "Tests/Shared/ConvexityC2.lean": "95cfd28cfb1e397462db2b739648184eeb733003f7ecc438fd31fe5345b8bc21",
+    "website/content/declaration_lessons/convexity-c2.json": "1baa276cd492eeeef70c18f2b7acb218b91839bcf5630a6f0069884cdf58d1c8"
+  },
+  "gate": "Independently repeated focused build PASS2727, no warnings; only propext/Classical.choice/Quot.sound.",
+  "fake_closure_scan": "Independent canonical scoped scan on committed production/test blobs:0hits.",
+  "source_audit": "Independent source-aware route review plus separate c2_blind_decoder and c2_source_reviewer packet-bound accepted source audits. All7 slots compared; two accepted generalizations and one exact source specialization.",
+  "recording_provenance": "Root sole writer records explicit independent recommendation after its source-audit/publication conditions fulfilled.",
+  "sync": "22f0e576fd0c963e0bc823a0e03e3113bd5b01f9 merges main79dc552 without conflicts; all41 upstream source audit objects preserved exactly.",
+  "integration_boundary": "Root gate, Registry/imports and site/graph checks follow on synchronized tree.",
+  "integration_review": {
+    "reviewer": "c2_route_review",
+    "commit": "554d5aeb39543effccd746d9d63bde00b33f2563",
+    "findings": [],
+    "scope": "Root Analysis/Tests reachability, exactly3 Registry entries400->403 and Basic, unchanged proof/test/lesson/publication, all41 upstream audits preserved, publication35items and semantic44audits passed.",
+    "fixture_followup": "Independently reviewed be256cc3c9ade86e54266de21ebe33090a16e0e3fd541ab9199935a7d2f0b2e2: completed obligation card and explicit unbound-obligation TODO regression; chapter partial remains. Independent35publication tests PASS; no renderer/gate weakening."
+  },
+  "final_acceptance": {
+    "owner": "andi-opt-c2-integration",
+    "checked_commit": "01ceeefa207915c119a533c99a76aea4cd5fcb01",
+    "gate": "PASS canonical gate including root Tests9120jobs, fake-closure and ATLAS36469declarations/26books, 2026-09-11T03:46:25.537792+00:00.",
+    "protocol_tests": "PASS250tests,6skipped on synchronized tree; publication36source items, semantic45audits and frontier54cells validated.",
+    "reader_graph": "PASS canonical website/scripts/build_site.py and check_site.py:12chapters,403compiled local leaves,590modules,3674declarations; all3C2 graph checks PASS. Prior desktop/mobile inspection reused for byte-identical C2 lessons; new C1 boundary confirmed in generated chapter and both lesson pages. Chapter remains partial.",
+    "followup": "C1 boundary-only update independently accepted using anti-anchored packet plus separately disclosed exact boundary supplement and actual lesson bytes. No C1 mathematical or decoder change; historical artifacts retained.",
+    "site_entrypoint": "The preliminary tools/astis.py site-build/site-check invocation omitted the canonical website source-index and graph enrichment and failed. Rebuilt and checked via the same website/scripts entrypoints as CI; no gate or renderer changed."
+  },
+  "latest_sync": {
+    "commit": "01ceeefa207915c119a533c99a76aea4cd5fcb01",
+    "upstream": "2f54fc9e768879b6d0a3b78ac3745df90f067453",
+    "preservation": "Independent c2_route_review audited unchanged RGOBackward accepted proof/publication artifacts against ebaa88025ba28ebc2013c959e9a0d6fca3ffc2b6. GitHub confirms PR264 merged. Stale reservation released with attributed preservation evidence, not a fresh proof claim.",
+    "ledger_merge": "Exact common prefix, exact local unique tail, exact upstream unique tail; only byte-identical duplicates omitted. Concurrent GaussianKL STABILIZING->VERIFIED preservation and original-owner STABILIZING->MERGED records are branch-local events, not a fabricated sequential chain. Original-owner upstream MERGED is replayed last. No timestamp sorting or historical event rewriting.",
+    "audit_merge": "Three-way audit-id merge preserves upstream entries and the separately independently reviewed C1 boundary binding."
+  }
+}

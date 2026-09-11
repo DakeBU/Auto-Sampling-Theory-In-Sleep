@@ -1,0 +1,162 @@
+{
+  "units": [
+    {
+      "title": "Integrate the Hessian along a segment",
+      "statement": "For every C² real-valued f on a complete real inner-product space and every x,v, the gradient difference between x+v and x, paired with v, equals the integral of the Hessian quadratic form along that segment.",
+      "formula": "\\langle\\nabla f(x+v)-\\nabla f(x),v\\rangle=\\int_0^1 D^2f(x+tv)[v,v]\\,dt.",
+      "assumptions": [
+        "E is a complete real inner-product space; f:E→ℝ is twice continuously Fréchet differentiable everywhere.",
+        "The Hessian quadratic form means the genuine second derivative D²f(x)[v,v]=(fderiv ℝ (fderiv ℝ f) x v) v. The pairing with the actual gradient equals Df(x)[v].",
+        "x,v∈E are arbitrary, including v=0. The integral uses real Lebesgue measure on [0,1]."
+      ],
+      "steps": [
+        {
+          "title": "Differentiate the scalar gradient pairing",
+          "text": "Set g(t)=Df(x+tv)[v]. Because f is C², Df is C¹; compose its derivative with the affine segment and evaluate the resulting linear functional at the fixed v.",
+          "formula": "g(t)=Df(x+tv)[v],\\qquad g^{\\prime}(t)=D^2f(x+tv)[v,v].",
+          "lean": "hfd uses ContDiff.fderiv_right. hd uses HasFDerivAt.comp_hasDerivAt and HasDerivAt.clm_apply."
+        },
+        {
+          "title": "Integrate the genuine derivative",
+          "text": "The second derivative is continuous. Composition with the segment and two evaluations preserve continuity, giving interval integrability. FTC gives g(1)−g(0). The gradient pairing identity identifies the endpoints.",
+          "formula": "\\int_0^1g^{\\prime}(t)\\,dt=g(1)-g(0)=\\langle\\nabla f(x+v)-\\nabla f(x),v\\rangle.",
+          "lean": "hc: ContDiff.continuous_fderiv and Continuous.clm_apply; Continuous.intervalIntegrable and intervalIntegral.integral_eq_sub_of_hasDerivAt; gradient/Riesz simplification."
+        }
+      ],
+      "boundary": [
+        "The source segment identity generalized from Euclidean space to complete real inner-product space. No convexity or Hessian bound is assumed."
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ContDiff.fderiv_right; ContDiff.differentiable_one; ContDiff.continuous_fderiv",
+        "HasFDerivAt.comp_hasDerivAt; HasDerivAt.clm_apply; Continuous.clm_apply",
+        "Continuous.intervalIntegrable; intervalIntegral.integral_eq_sub_of_hasDerivAt; InnerProductSpace.toDual_symm_apply"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2",
+      "kind": "theorem",
+      "lean_statement": "For every C² real-valued f on a complete real inner-product space and every x,v, the gradient difference between x+v and x, paired with v, equals the integral of the Hessian quadratic form along that segment.",
+      "lean_proof": "Set g(t)=Df(x+tv)[v]. Because f is C², Df is C¹; compose its derivative with the affine segment and evaluate the resulting linear functional at the fixed v. The second derivative is continuous. Composition with the segment and two evaluations preserve continuity, giving interval integrability. FTC gives g(1)−g(0). The gradient pairing identity identifies the endpoints.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 2",
+          "scope": "ASTIS-authored explanation of the pinned source proof."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC2.lean",
+          "label": "Focused consumers and boundary cases",
+          "scope": "Checks the actual declarations and their composition."
+        }
+      ]
+    },
+    {
+      "title": "Gradient monotonicity is equivalent to a Hessian lower bound",
+      "statement": "For C² f on a complete real inner-product space and any real m, the global quantitative gradient monotonicity inequality is equivalent to D²f(x)[v,v]≥m‖v‖² at every point and direction.",
+      "formula": "\\bigl[\\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2\\bigr]\\ \\Longleftrightarrow\\ \\bigl[\\forall x,v,\\ D^2f(x)[v,v]\\ge m\\|v\\|^2\\bigr].",
+      "assumptions": [
+        "E is a complete real inner-product space; f:E→ℝ is twice continuously Fréchet differentiable everywhere.",
+        "The Hessian quadratic form means the genuine second derivative D²f(x)[v,v]=(fderiv ℝ (fderiv ℝ f) x v) v. The pairing with the actual gradient equals Df(x)[v].",
+        "m is any real number; all x,y and v range over all E. No positivity of m or nonzero direction is required."
+      ],
+      "steps": [
+        {
+          "title": "Use a positive directional increment",
+          "text": "Fix x,v and let g(t)=Df(x+tv)[v]. Apply gradient monotonicity at x and x+tv with t>0. The displacement is tv and its squared norm is t²‖v‖². Cancelling the positive t and dividing once more by t gives a bound on the difference quotient.",
+          "formula": "t^2m\\|v\\|^2\\le t(g(t)-g(0)),\\qquad m\\|v\\|^2\\le\\frac{g(t)-g(0)}t.",
+          "lean": "hm, norm_smul, sq_abs and inner_smul_right give h; le_of_mul_le_mul_left and le_div_iff₀ cancel only ht:0<t."
+        },
+        {
+          "title": "Pass to the right derivative",
+          "text": "C² gives g′(0)=D²f(x)[v,v]. The displayed inequality holds for all positive t, so passage to t↓0 preserves it. Neither m nor ‖v‖ is divided by.",
+          "formula": "m\\|v\\|^2\\le\\lim_{t\\downarrow0}\\frac{g(t)-g(0)}t=D^2f(x)[v,v].",
+          "lean": "hdAll and hd establish the genuine scalar derivative; HasDerivAt.tendsto_slope_zero_right and ge_of_tendsto pass to the limit."
+        },
+        {
+          "title": "Integrate the Hessian lower bound for the converse",
+          "text": "For v=y−x the Hessian bound holds along x+tv. C² gives a continuous integrand and interval integrability. Integrate the constant lower bound over an interval of length one, then use the preceding segment identity.",
+          "formula": "\\langle\\nabla f(y)-\\nabla f(x),v\\rangle=\\int_0^1D^2f(x+tv)[v,v]dt\\ge\\int_0^1m\\|v\\|^2dt=m\\|v\\|^2.",
+          "lean": "intervalIntegral.integral_mono_on compares integrals; gradient_sub_inner_eq_integral_fderiv2 identifies the result."
+        }
+      ],
+      "boundary": [
+        "The two directions follow the source derivative-limit and Hessian-integral routes. The complete-space and signed-modulus scope is an explicit generalization.",
+        "No independent Hessian field, symmetry assumption, measure on E or supplied integrability premise is introduced."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_sub_inner_eq_integral_fderiv2"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.fderiv_right; HasFDerivAt.comp_hasDerivAt; HasDerivAt.clm_apply",
+        "HasDerivAt.tendsto_slope_zero_right; ge_of_tendsto; self_mem_nhdsWithin",
+        "intervalIntegral.integral_mono_on; Continuous.intervalIntegrable; intervalIntegral.integral_const"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower",
+      "kind": "theorem",
+      "lean_statement": "For C² f on a complete real inner-product space and any real m, the global quantitative gradient monotonicity inequality is equivalent to D²f(x)[v,v]≥m‖v‖² at every point and direction.",
+      "lean_proof": "Fix x,v and let g(t)=Df(x+tv)[v]. Apply gradient monotonicity at x and x+tv with t>0. The displacement is tv and its squared norm is t²‖v‖². Cancelling the positive t and dividing once more by t gives a bound on the difference quotient. C² gives g′(0)=D²f(x)[v,v]. The displayed inequality holds for all positive t, so passage to t↓0 preserves it. Neither m nor ‖v‖ is divided by. For v=y−x the Hessian bound holds along x+tv. C² gives a continuous integrand and interval integrability. Integrate the constant lower bound over an interval of length one, then use the preceding segment identity.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 2",
+          "scope": "ASTIS-authored explanation of the pinned source proof."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC2.lean",
+          "label": "Focused consumers and boundary cases",
+          "scope": "Checks the actual declarations and their composition."
+        }
+      ]
+    },
+    {
+      "title": "C² strong convexity is equivalent to the Hessian bound",
+      "statement": "For every natural dimension d, every nonnegative real m and every C² f on all Euclidean d-space, f is m-strongly convex if and only if its Hessian quadratic form is at least m times squared norm in every direction at every point.",
+      "formula": "\\mathrm{StrongConvex}_m(f)\\quad\\Longleftrightarrow\\quad\\forall x,v\\in\\mathbb R^d,\\ D^2f(x)[v,v]\\ge m\\|v\\|^2.",
+      "assumptions": [
+        "d∈ℕ and E=EuclideanSpace ℝ (Fin d), with its standard real inner product and norm; d=0 is allowed.",
+        "f:E→ℝ is C² on all E and m∈ℝ satisfies m≥0, exactly as in the source.",
+        "StrongConvexOn univ m f uses the chord correction (m/2)t(1−t)‖y−x‖² for all x,y and t∈[0,1]. D²f is the genuine second derivative, written as a bilinear evaluation."
+      ],
+      "steps": [
+        {
+          "title": "Reuse the C¹ equivalence",
+          "text": "C² implies C¹. Apply the already proved source equivalence between the chord condition and global gradient monotonicity.",
+          "formula": "\\mathrm{StrongConvex}_m(f)\\Longleftrightarrow\\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\ge m\\|y-x\\|^2.",
+          "lean": "ContDiff.of_le supplies C¹; ConvexityC1.convexity_equivalences supplies its second iff."
+        },
+        {
+          "title": "Join the Hessian equivalence",
+          "text": "Compose with the derivative-limit/integral equivalence above. On Euclidean space D²f(x)[v,v] is the source Hessian matrix quadratic form. This finishes part 2 and connects it to the lower-model equivalence already in part 1.",
+          "formula": "\\text{chord}\\Longleftrightarrow\\text{gradient monotonicity}\\Longleftrightarrow\\text{Hessian lower bound}.",
+          "lean": "Iff.trans with gradient_mono_iff_fderiv2_lower. No alternative assumed convexity or gradient interface is substituted."
+        }
+      ],
+      "boundary": [
+        "Exact Proposition 1.6 part 2; part 1 remains provided by the unchanged C¹ theorem. This does not complete the chapter or assert a Riemannian analogue.",
+        "Earlier first-order leaves retain their explicitly recorded historical review debt; this result does not rewrite their audit history."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.of_le; Iff.trans"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.strongConvexOn_iff_fderiv2_lower",
+      "kind": "theorem",
+      "lean_statement": "For every natural dimension d, every nonnegative real m and every C² f on all Euclidean d-space, f is m-strongly convex if and only if its Hessian quadratic form is at least m times squared norm in every direction at every point.",
+      "lean_proof": "C² implies C¹. Apply the already proved source equivalence between the chord condition and global gradient monotonicity. Compose with the derivative-limit/integral equivalence above. On Euclidean space D²f(x)[v,v] is the source Hessian matrix quadratic form. This finishes part 2 and connects it to the lower-model equivalence already in part 1.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Proposition 1.6 part 2",
+          "scope": "ASTIS-authored explanation of the pinned source proof."
+        },
+        {
+          "path": "Tests/Shared/ConvexityC2.lean",
+          "label": "Focused consumers and boundary cases",
+          "scope": "Checks the actual declarations and their composition."
+        }
+      ]
+    }
+  ]
+}

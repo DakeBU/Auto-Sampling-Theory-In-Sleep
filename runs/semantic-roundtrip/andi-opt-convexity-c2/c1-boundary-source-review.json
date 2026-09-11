@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "reviewer": "c2_source_reviewer",
+  "reviewer_packet_sha256": "e1b544a7380b4978faa096fb6af964ee1ce7ad5de141f84682f14a7f6c15e896",
+  "semantic_slots": {
+    "objects": {
+      "original": "A real-valued function f, its Euclidean gradient, the convexity chord, a quadratic lower model and a gradient monotonicity inequality.",
+      "reconstructed": "The same f and conditions, with gradient as the actual Riesz representative of the Fréchet derivative and StrongConvexOn as the chord predicate.",
+      "relation": "explicit-elaboration",
+      "evidence": "The displayed theorem and lesson refer to the genuine gradient of f. The module obtains HasGradientAt from ContDiff rather than assuming an unrelated gradient field. The decoded chord formula identifies the exact meaning of StrongConvexOn."
+    },
+    "domains": {
+      "original": "All of real Euclidean d-space.",
+      "reconstructed": "EuclideanSpace ℝ (Fin d), with Set.univ as the domain of StrongConvexOn.",
+      "relation": "equivalent",
+      "evidence": "This is precisely the source whole-space Euclidean geometry and norm. The generalized Hilbert-space helper leaves do not enlarge the final theorem domain."
+    },
+    "quantifiers": {
+      "original": "For each d, f and m≥0; all x,y in the space and all chord parameters t∈[0,1].",
+      "reconstructed": "Universal implicit d,f,m, explicit m≥0 and C¹ premises, universally quantified x,y, and nonnegative chord weights a,b summing to one.",
+      "relation": "explicit-elaboration",
+      "evidence": "Setting a=1−t and b=t gives the source chord parameterization; conversely any such a,b gives t=b∈[0,1]. Zero dimension is explicitly allowed and harmless: the unique-point space satisfies all three conditions, and the source imposes no positive-dimension condition."
+    },
+    "assumptions": {
+      "original": "f is continuously differentiable on all ℝ^d and the fixed modulus m is nonnegative.",
+      "reconstructed": "ContDiff ℝ 1 f on all EuclideanSpace ℝ (Fin d), with 0≤m explicitly in the theorem.",
+      "relation": "equivalent",
+      "evidence": "Finite-dimensional continuous Fréchet differentiability agrees with source C¹. The nonnegativity hypothesis is retained even though helper proofs can handle signed m. The FTC helper derives integrability from continuity of the actual gradient pairing; it adds no hidden integrability, Hessian or smoothness premise."
+    },
+    "conclusion": {
+      "original": "The chord condition is equivalent to the quadratic lower model and is also equivalent to quantitative gradient monotonicity.",
+      "reconstructed": "A conjunction of the same two iff statements.",
+      "relation": "equivalent",
+      "evidence": "The code obtains chord⇒model from the named derivative-limit dependency, model⇒monotonicity by adding endpoint inequalities, and monotonicity⇒chord from the displayed two-segment FTC proof. The conjunction is equivalent to the lesson’s three-condition cycle. No Hessian equivalence occurs in this declaration."
+    },
+    "scopes": {
+      "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5), under C¹; the C² part is separate.",
+      "reconstructed": "The C¹ global pointwise cycle only; lesson title, original source text, theorem and binding supports all retain this boundary.",
+      "relation": "explicit-elaboration",
+      "evidence": "The publication chapter can state both C¹ and C² results, but this declaration supports only chord-to-model, model-to-monotonicity, monotonicity-to-chord and source-specialization-c1. Its code imports no C² result and asserts no Hessian conclusion. The name StrongConvexOn includes m=0, where its displayed chord means ordinary convexity."
+    },
+    "constant_dependencies": {
+      "original": "The chord and lower-model quadratic coefficients are m/2; the monotonicity coefficient is the same m.",
+      "reconstructed": "The identical m/2 and m, with no dimension-dependent or unspecified constants.",
+      "relation": "same",
+      "evidence": "Adding two endpoint lower models doubles the half-quadratic term to m. Conversely the integral of the segment parameter over [0,1] supplies 1/2. The code cancels only the positive factor s(1−t) when t<1; t=1 is handled separately and multiplication by t uses t≥0. No sign or norm division changes the constants."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "scopes",
+      "kind": "separately-bound-reader-scope-update",
+      "severity": "informational",
+      "description": "The reader boundary now points to the separate C2 theorem while preserving this declaration as a C1-only result.",
+      "evidence": "Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary."
+    }
+  ],
+  "verdict": "equivalent-after-elaboration",
+  "repairs": [],
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently compared all seven slots, the embedded C1 module, declaration lesson and original blind reconstruction with the primary source https://arxiv.org/html/2605.07006v1#S1.SS2, Definition 1.5 and Proposition 1.6 part 1, equations (1.3)–(1.5), using the source already opened during this review session. No canonical registry or previous C1 verdict was inspected. The final theorem faithfully states both equivalences on all Euclidean space with C1 and m≥0. Its proof cycle matches the source: chord derivative limit via the named prior dependency, addition of endpoint models, and the explicitly displayed two-segment FTC converse. Compilation remains packet-reported and is not rerun for this prose-only scope review. Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary.",
+  "scope_review": {
+    "decision": "accepted",
+    "supplement_path": "runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json",
+    "supplement_sha256": "e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f",
+    "lesson_file": "website/content/declaration_lessons/convexity-c1.json",
+    "lesson_file_sha256": "8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6",
+    "publication_binding_sha256": "06285748c2e647c8081904065c56214882749688ce010b88ae334edaa071ce6c",
+    "current_boundary": [
+      "Exactly Proposition 1.6 part 1. The separate ConvexityC2.strongConvexOn_iff_fderiv2_lower declaration now supplies the C²/Hessian equivalence; this declaration itself covers only the C¹ conditions.",
+      "The declaration retains m≥0 even though its shared parents also handle signed m. No new convexity definition or caller-supplied gradient is introduced."
+    ],
+    "evidence": "Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary."
+  },
+  "source_review": {
+    "decision": "accepted",
+    "state": "accepted",
+    "reviewer": "c2_source_reviewer",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "e1b544a7380b4978faa096fb6af964ee1ce7ad5de141f84682f14a7f6c15e896",
+    "evidence": "Independently compared all seven slots, the embedded C1 module, declaration lesson and original blind reconstruction with the primary source https://arxiv.org/html/2605.07006v1#S1.SS2, Definition 1.5 and Proposition 1.6 part 1, equations (1.3)–(1.5), using the source already opened during this review session. No canonical registry or previous C1 verdict was inspected. The final theorem faithfully states both equivalences on all Euclidean space with C1 and m≥0. Its proof cycle matches the source: chord derivative limit via the named prior dependency, addition of endpoint models, and the explicitly displayed two-segment FTC converse. Compilation remains packet-reported and is not rerun for this prose-only scope review. Separate prose-scope inspection: read supplement runs/semantic-roundtrip/andi-opt-convexity-c2/c1-boundary-supplement.json (SHA256 e192ca3bfce216124d869497b8a1ecc299d097a4706dffa16637651d17eec13f) and current lesson website/content/declaration_lessons/convexity-c1.json (SHA256 8ae208fe7f0a98fa785117b4b949e9f279677d4c065acbddb22e69db6d5787d6). Actual lesson bytes match the supplement hash; the final declaration boundary exactly matches current_boundary. The packet SHA and publication binding SHA in the supplement equal the canonical anti-anchored packet fields. Removing only boundary from the actual final lesson gives exactly the packet lesson. The boundary text was NOT present in the anti-anchored body; this inspection is separately attributed. Its explicit restriction of the C1 declaration to Proposition 1.6 part 1 agrees with the theorem and binding supports. Its reference to the separate C2 strongConvexOn_iff_fderiv2_lower theorem is supported by the C2 declaration and proof previously independently inspected in reviewer-2.json, not by transferring C2 content into the C1 theorem. It does not retrospectively change the original C1 source selection, confer Hessian coverage on that declaration, or erase its historical boundary.",
+    "review_run_sha256": "109e1d29a694687101304fab1ad8c2bf8a4a205ab438304f830be4b23b7e8b31"
+  },
+  "review_run_sha256": "109e1d29a694687101304fab1ad8c2bf8a4a205ab438304f830be4b23b7e8b31"
+}

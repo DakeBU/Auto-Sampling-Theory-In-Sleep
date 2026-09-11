@@ -1,0 +1,20 @@
+{
+  "reconstructed_theorem_text": "For every natural number d, including d=0, every function f:ℝᵈ→ℝ on real d-dimensional Euclidean space, and every real number m≥0, suppose f is twice continuously Fréchet differentiable on all of ℝᵈ. Then f is m-strongly convex on the whole space if and only if, for every x,v∈ℝᵈ, m‖v‖² ≤ D²f(x)[v,v]. Here m-strong convexity means exactly that for every x,y∈ℝᵈ and every real a,b≥0 with a+b=1, f(a x+b y) ≤ a f(x)+b f(y)−a b (m/2)‖x−y‖². The second derivative is the derivative of the first Fréchet derivative, evaluated twice on v. The same m appears in the interpolation inequality and the second-derivative bound; m=0 is included.",
+  "reconstructed_text_sha256": "27044b0baca2c88214beba2f4c6507e92f6de867fa87075f37fe91bf37c771e2",
+  "objects": "d, Euclidean space ℝᵈ, f, m, points x,y, directions v, and real interpolation weights a,b.",
+  "domains": "d∈ℕ, including 0; f:EuclideanSpace ℝ (Fin d)→ℝ; m∈ℝ; x,y,v in that Euclidean space; a,b∈ℝ.",
+  "quantifiers": "Universal over d, f and m satisfying the assumptions; the strong-convexity side universally quantifies x,y,a,b subject to the stated weight constraints, and the derivative side universally quantifies x,v.",
+  "assumptions": "0≤m and f is C² on all ℝᵈ. No positivity assumption on d.",
+  "conclusion": "(∀x,y,a,b with a,b≥0 and a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b (m/2)‖x−y‖²) ↔ (∀x,v, m‖v‖²≤D²f(x)[v,v]).",
+  "scopes": "Regularity and the asserted property hold on the entire displayed space, not merely on a subset or at selected points.",
+  "constant_dependencies": "m≥0 is globally fixed and shared by both statements; the interpolation correction has coefficient a b m/2. There are no existential or dimension-dependent constants.",
+  "decoder": "Independent source-blind semantic decoder; only the three specified anonymous packets were read.",
+  "source_text_visible": false,
+  "decoder_packet_sha256": "886a79ac322a43efc62dd31e5ab66105295b3caa5d358e669fd22679a9dcbd6a",
+  "packet_file_sha256": "628d58ab1cb956f9fca3153c77509b7f8b559a1a9b5685e0f06a7188b4393b5c",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "ambiguities": []
+}
