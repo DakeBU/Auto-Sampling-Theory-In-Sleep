@@ -1,0 +1,29 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent scratch, localized production and final production replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCStoppedGaussianRGOError",
+  "result": "PASS3761, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedGaussianRGOError.lean": "1cc66b628310a257bb76fcf2b57fd0b7b2eae7090ff7c560b4fd5b7edc317697",
+    "Tests/SmoothedPicardHMCStoppedGaussianRGOError.lean": "629a6e6a394ebcdc4893d5437ce8208c95837da9ae4cd9f5cd5804cf9f8afd55"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Public contract and main proof match reviewed full scratch; helper recursive output proof is local.",
+    "Source scalar K(b), tau and actual state-dependent eta are used; constant-c auxiliary call only proves B positive.",
+    "All update coordinates, actual P fibers and recursive R powers are explicitly identified between the error and stopped programs.",
+    "Actual P^J(s0) gives the terminal set mass one; restriction leaves that measure unchanged.",
+    "The unconditional residual may be infinite; total Delta squared requires terminal KL on D only and is propagated beyond J using cap stability.",
+    "Six-step lesson source pre-review by log_depth_source_review accepted the explicit boundaries; Picard, FORS, initialization and costs remain open."
+  ],
+  "history": {
+    "scratch_sha256": "934815e2b691dc72e217a9db46f12d784f24aa54e174df7f1be018e872ba18ee"
+  },
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

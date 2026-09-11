@@ -29,6 +29,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError
 
 /-!
 # ASTIS example cases

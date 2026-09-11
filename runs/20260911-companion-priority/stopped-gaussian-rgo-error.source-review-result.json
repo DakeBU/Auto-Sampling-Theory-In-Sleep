@@ -1,0 +1,133 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent complete source review.",
+  "reviewer_packet_sha256": "e4d884b7dce86c68d950fe4a10457a56cf0f0363ffc8cbffdce6e81dded0c81b",
+  "source_text_sha256": "97690622005adc2a6962f2d30b24082b0db122056702ce829734fd030e5ce830",
+  "lean_statement_sha256": "ad8dbf2d012d285953c65bcd8e51f1011b5bc54944865ea10d77da83f9b515ef",
+  "reconstruction_text_sha256": "5ab74c03250060b491dec6285ae3852ee2ecf46f75cf441fe68e4717d7c9ac53",
+  "embedded_module_text_sha256": "ee3ee1735f22d5e743d8b42b9924653e375be8bd9dd73ace9fe4b63f155562bd",
+  "publication_binding_sha256": "2af405924189b4b92e0b542fdae13ded1f35e4ab6489bfc7c142a7069cec4c44",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Recursive RGO targets, observations and backward outputs.",
+      "reconstructed": "Actual T,H, supplied M,L, explicit F,Q,P and R_n.",
+      "relation": "explicit-elaboration",
+      "evidence": "hFeq,hPeq,hReq prove actual shared witnesses."
+    },
+    "domains": {
+      "original": "Euclidean Gibbs targets with source curvature.",
+      "reconstructed": "Any probability base on finite real Hilbert Borel E with positive dimension and unrestricted history.",
+      "relation": "different",
+      "evidence": "No density, smoothness, convexity or marginal moment premise; disclosed generalization."
+    },
+    "quantifiers": {
+      "original": "History-conditional stage guarantees and initial-data-dependent terminal scale/depth.",
+      "reconstructed": "Fix eta,s0,B,J,D,T,H before universal M,L; then construct F,Q,P,R with all-m stability.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual eta depends on all coordinates; B,J stay fixed and output conclusions concern s0."
+    },
+    "assumptions": {
+      "original": "Implemented A1 and terminal construction supplying accuracy.",
+      "reconstructed": "Supplied M accuracy off D; L unrestricted for residual, terminal KL on D only for implication.",
+      "relation": "different",
+      "evidence": "hW supplies transport; hterminal introduced after residual; no stopping conclusion assumed."
+    },
+    "conclusion": {
+      "original": "Recursive allocation plus terminal accuracy yields total error.",
+      "reconstructed": "Actual terminal mass one, cap stability, restricted residual and conditional Delta squared bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual hmass and hrestrict; hbound at J and stability to J+m."
+    },
+    "scopes": {
+      "original": "Full result includes reference points, FORS and complexity.",
+      "reconstructed": "Published stopping/error prerequisite only; no implemented Picard/FORS, history invariant or costs.",
+      "relation": "different",
+      "evidence": "Header, lesson and binding disclose missing work; no extra public F measurability or J upper bound."
+    },
+    "constant_dependencies": {
+      "original": "Local normalized parameters, q=2 and universal sufficient constants.",
+      "reconstructed": "beta=1+b,K=(1+b)/(kappa^-1+b),tau branch,c in (0,1/4),gamma in (0,1],C>=8.",
+      "relation": "different",
+      "evidence": "Parent receives K(b), not baseline kappa. Explicit constants prove depth/interface, not numerical source constants or FORS sufficiency."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "General probability base replaces source Gibbs curvature domain.",
+      "evidence": "First delta and absent curvature hypotheses."
+    },
+    {
+      "slot": "constant_dependencies",
+      "severity": "informational",
+      "description": "Explicit sufficient constants, q=2 and initial fixed depth.",
+      "evidence": "Second delta; auxiliary depth only positivity."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "A1 is supplied while actual added Gaussian Q is constructed.",
+      "evidence": "Third delta and hprog M L hM hL hW."
+    },
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Actual stopping and error witnesses are explicitly identified.",
+      "evidence": "Fourth delta; hFeq,hPeq,hRp,hReq."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "FORS terminal accuracy remains an interface after unrestricted residual.",
+      "evidence": "Fifth delta and final implication."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Initialization, reference points, valid history and actual cost remain open.",
+      "evidence": "Sixth delta and header."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Measurable positive source parameters; constant-c depth invocation extracts only hB."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Gaussian budget uses beta=1+b,kappa=K(b), retaining actual Q and program."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "All update coordinates compared by Prod.ext/Subtype.ext, then actual transition equality."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Explicit F gives internal measurability; local recursion proves powers and handles zero."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Actual terminal membership yields restriction identity, allowing infinite residual."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Terminal premise used only on D; probability normalization and exact J arithmetic, then cap stability."
+      }
+    ]
+  },
+  "review_evidence": "Independent reviewer accepted seven slots, six authored steps and six deltas with no blockers or repairs. Independently recomputed packet, source, printed statement, reconstruction and embedded module hashes. Current production equals embedded text; lesson/publication checked. Binding field authenticated in packet, external binding preimage not reconstructed. Decoder/run artifacts and byte-serialization reconciliation not independently rehashed by source reviewer. No compile or fixed-commit admission in this review. Primary Theorem6.5 and proof compared; source text is attributed expanded contract, not verbatim. Accepted stopping/error prerequisite with domain-mismatch, not equivalence to full source theorem."
+}

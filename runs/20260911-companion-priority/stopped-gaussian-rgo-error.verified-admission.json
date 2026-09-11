@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "213155a4b3b27f731f2755ef4e7c3209b0c7bcf7",
+    "gate": {
+      "production": "Independent PASS3761 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "stopped_gaussian_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "2af405924189b4b92e0b542fdae13ded1f35e4ab6489bfc7c142a7069cec4c44",
+        "decoder_packet_sha256": "22589b1c18a05ca76fb7009d62c765fbc63cc99267f02aa83ab546313398ab14",
+        "decoder_run_sha256": "be6f59d3c09ce9b95e75ee7e8b7afc985789d5a90bfa3907b44e7c4356f6263d",
+        "reviewer_packet_sha256": "e4d884b7dce86c68d950fe4a10457a56cf0f0363ffc8cbffdce6e81dded0c81b",
+        "review_run_sha256": "b43e2af183110ec95abcc64c06109a465a9e4b2446607df96f1e6c526ac13c67",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual program alignment, stopping support, terminal-set residual and terminal-only accuracy implication."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, six authored steps, six informational deltas; no blockers or repairs.",
+      "GaussianRGOErrorBudget actually merged PR274. This independent admission covers VERIFIED only; integration is a separate step."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here."
+}
