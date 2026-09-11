@@ -94,3 +94,17 @@ Final fresh `coco_layout_source` reviews accepted exact revised packets; the
 local notation issue is retained in review evidence. Publication45items and
 semantic57audits PASS on the final binding. Canonical website build/check PASS12chapters,408compiled local leaves,608modules,3686declarations; all3cell graph checks PASS. Actual desktop source/proof/Lean disclosure inspected; final cocoercivity graph10nodes15edges5direct relations, Bregman parent and Lipschitz consumer, solid structural vs dashed scanned/source/audit edges, compiled target and partial chapter. Mobile390x844 statement formulas and inspector legible; documentwidth390,0matherrors. No Riemannian/companion credit. Viewport reset; temporary tab/server closed.
 Actual main integration is recorded only after the push succeeds.
+
+Actual atomic push integrated main and task branch at
+6065400403908cb58353accbe0fa7fedba1b80b6. SAU and three cells are now MERGED.
+The final stabilized-status edit invalidated the local graph fingerprint; the
+actual merged-status view is regenerated and checked before closeout. This is
+a reader metadata refresh, not a change to compiled mathematics or a claim
+that GitHub CI/deployment has already finished.
+
+Merged-status regeneration completed: canonical site check PASS12chapters,
+608modules,3686declarations,77reviewed teaching declarations. All three focused
+graph checks PASS and their bounded reports exactly equal the versions already
+visually inspected; mathematical lesson and proof bytes are unchanged. Thus
+the actual desktop/mobile QA remains applicable. No graph/cell input is changed
+after this final regenerated check.
