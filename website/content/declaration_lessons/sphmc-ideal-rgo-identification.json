@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+      "title": "Actual ideal RGO identification and normalization",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 Eq. (18) and ideal target",
+          "scope": "Unclipped gradient-arc mean and ideal normalized target."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Consumer of the ideal target construction; terminal approximation remains separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCIdealRGOIdentification"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz, with beta>=0. Fix eta>0 satisfying beta*eta<1 and arbitrary x0,x_plus in E. No convexity or second differentiability is assumed.",
+        "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P, G=(z->x0+sqrt(eta) z)_*stdGaussian(E), and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Thus time and auxiliary Gaussian inputs are independent.",
+        "For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z). The actual untruncated estimator is W(x,s)=<v,g-grad f(gamma)>. Define m(x)=integral W(x,s) dnu(s) and V(x)=f(x)+norm(x-x0)^2/(2eta). These are definitions of actual functions and laws, not assumptions about their means or integrability."
+      ],
+      "statement": "exp(-f) is G-integrable with strictly positive real integral; exp(m) is q-integrable with strictly positive real integral; exp(-V) is canonical-volume-integrable with strictly positive real integral. The actual q.tilted(m) equals G.tilted(-f) and also equals volume.withDensity(x -> ofReal(exp(-V(x))/integral exp(-V) dvolume)).",
+      "formula": "q.\\mathrm{tilted}(m)=G.\\mathrm{tilted}(-f)=\\frac{e^{-V(x)}}{\\int_Ee^{-V(y)}\\,dy}\\,dx,\\qquad V(x)=f(x)+\\frac{\\|x-x_0\\|^2}{2\\eta}.",
+      "boundary": "This identifies the actual unclipped-mean ideal RGO and proves its positive finite normalization. beta*eta<1 is sufficient and contains the source Claim2 small-step range, not equivalent to all its conditions. Arbitrary reference x_plus, beta0, zero dimension and coordinate-free spaces are disclosed extensions. The public theorem has eight conclusions: three L1 statements, three positive real integrals and two measure equalities. Probability of the resulting law follows, but no separate IsProbabilityMeasure conjunct or joint adaptive-parameter kernel is returned. Clipped-vs-ideal Renyi accuracy, initialization, implementation and query costs remain separate. Neither full companion paper is complete.",
+      "steps": [
+        {
+          "title": "Obtain the sharp lower Taylor estimate from first derivatives",
+          "text": "For fixed u, consider H(t)=f(x0+t u)-t<grad f(x0),u>+(beta/2)t^2 norm(u)^2 on [0,1]. Differentiate the actual potential along this path. The Lipschitz gradient bound and Cauchy-Schwarz make H prime nonnegative. Monotonicity therefore gives H(1)>=H(0). This retains the precise beta/2 coefficient without a Hessian or convexity assumption.",
+          "formula": "f(x_0+u)\\ge f(x_0)+\\langle\\nabla f(x_0),u\\rangle-\\frac\\beta2\\|u\\|^2.",
+          "lean": "smooth_lower; monotoneOn_of_deriv_nonneg"
+        },
+        {
+          "title": "Prove a coercive envelope and actual volume integrability",
+          "text": "Set k=1/eta-beta>0. Adding the proximal quadratic to the lower Taylor bound gives a quadratic with coefficient k/2. Young inequality absorbs the linear gradient term, leaving coefficient k/4. Exponentiation bounds the actual weight by an integrable translated Gaussian envelope. Continuity supplies measurability. The actual canonical volume is nonzero, so the integral of this everywhere positive integrable exponential is strictly positive.",
+          "formula": "V(x_0+u)\\ge f(x_0)-\\frac{\\|\\nabla f(x_0)\\|^2}{k}+\\frac{k}{4}\\|u\\|^2,\\qquad k=\\eta^{-1}-\\beta>0.",
+          "lean": "regularized_lower; ideal_volume_integrable; AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq; MeasureTheory.integral_exp_pos"
+        },
+        {
+          "title": "Normalize under the actual Gaussian input",
+          "text": "Reuse the public scaled Gaussian density and prove the translation adapter by pushforward composition and volume translation invariance. Multiplying this density by exp(-f) gives c_eta exp(-V), where c_eta is the strictly positive Gaussian normalization constant. The withDensity integrability equivalence transfers the established volume L1 to the actual Gaussian G. Its probability property and integrability imply a strictly positive real integral. Applying the same density identity to the tilt gives the explicit normalized volume law.",
+          "formula": "G(dx)=c_\\eta e^{-\\|x-x_0\\|^2/(2\\eta)}dx,\\qquad c_\\eta=(\\sqrt{2\\pi\\eta})^{-\\dim E}>0.",
+          "lean": "translated_density; ideal_gaussian_integrable; ideal_volume_law; AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity"
+        },
+        {
+          "title": "Use the actual gradient-arc mean with one common constant",
+          "text": "Instantiate the proved GradientArcMean result at h=x0-eta grad f(x_plus). It already establishes the auxiliary integrability needed for its Fubini argument. Expanding the local estimator verifies that it is exactly the same sine/cosine arc and gradient difference. Its potential expectation defines C before x is chosen, and gives the actual mean identity for every x. No affine mean formula is assumed in place of the random estimator.",
+          "formula": "m(x)=\\langle g,x\\rangle-f(x)+C,\\qquad C=\\mathbb E_{Z\\sim P}f(h+Z)-\\langle g,h\\rangle.",
+          "lean": "estimator; actual_mean_tilt; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean"
+        },
+        {
+          "title": "Cancel the actual translated Gaussian likelihood",
+          "text": "The public Gaussian likelihood theorem gives q=G.withDensity(L) in the correct direction. Substituting h-x0=-eta g yields log L=-<g,x-x0>-eta norm(g)^2/2. Multiplication by the actual exponential mean leaves A exp(-f), where A is positive and independent of x. This uses the actual proposal measure, not an abstract density selected to satisfy the conclusion.",
+          "formula": "L(x)e^{m(x)}=A e^{-f(x)},\\qquad A=e^{C+\\langle g,x_0\\rangle-\\eta\\|g\\|^2/2}>0.",
+          "lean": "affine_gaussian_tilt; AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+        },
+        {
+          "title": "Transfer integrability before cancelling normalizers",
+          "text": "The weighted integrability equivalence and the previous product identity prove exp(m) is q-integrable. Integration gives Z_q=A Z_G, hence Z_q>0. Only then expand the definition of exponential tilt and compose the two withDensity operations. The same positive A cancels in numerator and denominator. Combine this law equality with the established normalized volume identity and all three positive integrability statements.",
+          "formula": "Z_q=\\int e^m\\,dq=A\\int e^{-f}\\,dG=A Z_G>0,\\qquad \\frac{L e^m}{Z_q}=\\frac{e^{-f}}{Z_G}.",
+          "lean": "tilt_change_density; ideal_rgo_identification; MeasureTheory.integrable_withDensity_iff_integrable_smul'; MeasureTheory.integral_withDensity_eq_integral_toReal_smul; MeasureTheory.withDensity_mul"
+        }
+      ],
+      "lean_statement": "Three actual exponential L1 and positive real integral pairs, plus shifted-Gaussian/ideal Gaussian and normalized-volume measure identities.",
+      "lean_proof": "Sharp first-derivative Taylor bound, Gaussian envelope, actual density transfer, actual parent mean, positive likelihood factor and normalizer cancellation.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Integrability.integrable_exp_neg_add_mul_norm_sub_sq"
+      ],
+      "mathlib_dependencies": [
+        "monotoneOn_of_deriv_nonneg",
+        "MeasureTheory.integral_exp_pos",
+        "MeasureTheory.integrable_withDensity_iff_integrable_smul'",
+        "MeasureTheory.integral_withDensity_eq_integral_toReal_smul",
+        "MeasureTheory.withDensity_mul"
+      ]
+    }
+  ]
+}

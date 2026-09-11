@@ -1,0 +1,85 @@
+{
+  "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
+  "state": "STABILIZING",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
+  "development_checkpoint": {
+    "scratch": ".astis/IdealRGOIdentification.lean",
+    "sha256": "d7f2366e55b3342fef1acc716d3ee6c16a1bb1c5ea522b8c11b92cac0ad71412",
+    "command": "lake env lean .astis/IdealRGOIdentification.lean",
+    "session": 6048,
+    "exit_code": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "log": ".astis/ideal-rgo-identification-scratch.log",
+    "result": "Complete scratch public ideal_rgo_identification: all three exponential weights integrable with strictly positive real integrals; actual unclipped gradient-arc mean under independent uniform-time/Gaussian input; shifted-Gaussian tilt equals ideal G0 tilt and explicit normalized canonical-volume density. Whole compile exit0 standard3/no lint. Production/source admission pending."
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "d7f2366e55b3342fef1acc716d3ee6c16a1bb1c5ea522b8c11b92cac0ad71412",
+    "result": "Independent entire scratch compile exit0, standard3/no lint. Full eight-conjunct target accepted: actual Gaussian likelihood sign and positive constant, actual parent mean with common C, all3 L1/positive integrals and exact normalized volume law. Full betaeta<1, arbitraryxp, no C2/convexity/extra center precision. No production VERIFIED."
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\IdealRGOIdentification.lean",
+    "test": "Tests\\SmoothedPicardHMCIdealRGOIdentification.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\IdealRGOIdentification.lean": "74a4e485bbe75f56ce79dafa90e6563517fc2617d4a408dfa552dc56a5814996",
+      "Tests\\SmoothedPicardHMCIdealRGOIdentification.lean": "5ca87e173d4fe74326257339b2dad8e55e0f59c240f5417352e4895568eda2c5"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCIdealRGOIdentification",
+    "state": "focused build PASS3659 exit0 standard3/no lint",
+    "focused_session": 35481
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "d7f2366e55b3342fef1acc716d3ee6c16a1bb1c5ea522b8c11b92cac0ad71412",
+    "result": "Full scratch source preaudit accepted without blocker or repair; no independent compile/formal source admission.",
+    "disclosures": [
+      "betaeta<1 is a sufficient range containing Claim2 small-step range, not equivalent to its full conditions.",
+      "No convexity or C2; strict betaeta<1 is meaningful for negative quadratic counterexample at equality.",
+      "Arbitrary xp, beta0, dimension0 and coordinate-free spaces are extensions; center residual remains needed for later clipping accuracy.",
+      "Eight public conclusions; probability instance is derivable but not separately returned. No joint adaptive kernel.",
+      "Clipped/ideal Renyi comparison, initialization and implementation cost remain independent."
+    ]
+  },
+  "expanded_statement": {
+    "file": ".astis/ideal-rgo-identification-expanded-statement.txt",
+    "sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
+    "characters": 2040,
+    "definitionally_equal": true,
+    "source_name_free": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "4d165850ae8b25e5fa2dc5bdbe508f6a12a8a1a8",
+    "result": "Hashes and normalized mathematical content matched accepted scratch; independent focusedPASS3659, standard3/no lint. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-ideal-rgo-identification.json",
+    "state": "Six authored steps and10private implementations accepted; publicationPASS59."
+  },
+  "independent_expansion_review": {
+    "reviewer": "depth_commit_verifier",
+    "result": "Independent replay exit0 Meta.isDefEq; 2040characters SHA2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79; complete actual estimator/product mean and eightconclusions; no source names, opaque private proof leaks or ellipses. No VERIFIED."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCIdealRGOIdentification"
+    ]
+  },
+  "admission_boundary": "VERIFIED atdd88e79. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/ideal-rgo-identification.verified-admission.json",
+  "integration_notes": {
+    "upstream": "840f48dd1881ec348c167b1628b031f83dec9417",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior895c48b, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
+}

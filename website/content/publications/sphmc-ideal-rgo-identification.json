@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-ideal-rgo-identification",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual ideal RGO identification and normalization",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 Eq18 ideal target identification; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and exposition of the ideal target construction used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+      },
+      "statement": "exp(-f) is G-integrable with strictly positive real integral; exp(m) is q-integrable with strictly positive real integral; exp(-V) is canonical-volume-integrable with strictly positive real integral. The actual q.tilted(m) equals G.tilted(-f) and also equals volume.withDensity(x -> ofReal(exp(-V(x))/integral exp(-V) dvolume)).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel sigma-algebra and canonical volume. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz, with beta>=0. Fix eta>0 satisfying beta*eta<1 and arbitrary x0,x_plus in E. No convexity or second differentiability is assumed.",
+        "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=volume restricted to (0,1], nu=U product P, G=(z->x0+sqrt(eta) z)_*stdGaussian(E), and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Thus time and auxiliary Gaussian inputs are independent.",
+        "For s=(r,z), theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z and v=(pi/2)(cos(theta)(x-h)-sin(theta)z). The actual untruncated estimator is W(x,s)=<v,g-grad f(gamma)>. Define m(x)=integral W(x,s) dnu(s) and V(x)=f(x)+norm(x-x0)^2/(2eta). These are definitions of actual functions and laws, not assumptions about their means or integrability."
+      ],
+      "formulae": [
+        {
+          "label": "Actual ideal RGO law",
+          "tex": "q.\\mathrm{tilted}(m)=G.\\mathrm{tilted}(-f)=\\frac{e^{-V(x)}}{\\int_Ee^{-V(y)}\\,dy}\\,dx,\\qquad V(x)=f(x)+\\frac{\\|x-x_0\\|^2}{2\\eta}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-ideal-rgo-identification",
+          "label": "Actual unclipped-mean target identification with positive finite normalization"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+          "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
+          "role": "proof-edge",
+          "supports": [
+            "actual-ideal-rgo-identification"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCIdealRGOIdentification",
+          "boundary": "This identifies the actual unclipped-mean ideal RGO and proves its positive finite normalization. beta*eta<1 is sufficient and contains the source Claim2 small-step range, not equivalent to all its conditions. Arbitrary reference x_plus, beta0, zero dimension and coordinate-free spaces are disclosed extensions. The public theorem has eight conclusions: three L1 statements, three positive real integrals and two measure equalities. Probability of the resulting law follows, but no separate IsProbabilityMeasure conjunct or joint adaptive-parameter kernel is returned. Clipped-vs-ideal Renyi accuracy, initialization, implementation and query costs remain separate. Neither full companion paper is complete.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean smooth setting in positive dimension.",
+              "lean": "Finite-dimensional real inner-product Borel space with canonical volume, including dimension zero.",
+              "classification": "generalization",
+              "reason": "Coordinate-free Gaussian and inner-product results apply, without division by dimension."
+            },
+            {
+              "source": "The smoothness constant is conventionally positive.",
+              "lean": "beta is a nonnegative real parameter (NNReal); beta=0 is allowed.",
+              "classification": "generalization",
+              "reason": "No division by beta is used."
+            },
+            {
+              "source": "Claim2 uses a stronger small-step condition together with ell>=2 for clipping accuracy.",
+              "lean": "eta>0 and beta*eta<1 suffice for this ideal target identification and normalization.",
+              "classification": "generalization",
+              "reason": "The source smooth Claim2 range implies beta*eta<=1/(8ell)<=1/16. The ideal-only contract does not assert the clipping accuracy conclusion. Strict inequality matters: a negative quadratic can make V constant at beta*eta=1 in positive dimension."
+            },
+            {
+              "source": "A reference-point residual bound is used for downstream clipping control.",
+              "lean": "x_plus is arbitrary for ideal mean identification.",
+              "classification": "generalization",
+              "reason": "The likelihood cancels the affine gradient term for every reference point; the residual condition is retained for later clipping estimates."
+            },
+            {
+              "source": "Uniform time is sampled on [0,1].",
+              "lean": "U is volume restricted to Ioc(0,1), independently multiplied by the actual auxiliary Gaussian.",
+              "classification": "source-implicit",
+              "reason": "The endpoints are Lebesgue-null. The true path and auxiliary product are retained."
+            },
+            {
+              "source": "The ideal RGO is the normalized density proportional to exp(-V).",
+              "lean": "All three required exponential weights are proved integrable with strictly positive real normalizers before identifying the measures.",
+              "classification": "source-implicit",
+              "reason": "No assumed integrability or mean identity replaces the actual Gaussian/gradient definitions; no totalized zero denominator supplies a fake equality."
+            },
+            {
+              "source": "SPHMC A.4(2) uses the ideal construction in a terminal approximate implementation.",
+              "lean": "Fixed-parameter ideal target identification only; no clipped Renyi, joint adaptive kernel, initialization or cost theorem.",
+              "classification": "same",
+              "reason": "This is the selected dependency, not the complete implementation or full paper theorem."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

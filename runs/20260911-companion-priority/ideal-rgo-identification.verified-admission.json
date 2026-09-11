@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "dd88e79e563ebf04be1ab2bbb4a057bad9f6dddc",
+    "gate": {
+      "production": "Unchanged production/test, independently focusedPASS3659; actual ideal gradient mean and all three positive normalizations/measure identities reviewed, standard3nolint. Independent2040-character source-free Meta expansion and defeq replay accepted.",
+      "publication": "Independent reviewed validator and actual check --base 8868fbb PASS59; all10private implementations covered. External binding preimage,wholemodule,lesson,source,reconstruction,packets,runs,test hashes verified; anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCIdealRGOIdentification",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_m",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "b85e042e7bb5728226be2c67a2fcefa96e5446155850da26a0801c0a2592165b",
+        "decoder_packet_sha256": "22967d6218dc50344bb117971b73b62058a6d9140ee6d1cccb9841a78af7445e",
+        "decoder_run_sha256": "4ffb67c048b4fa3db015a54c49604c0ed79fe2203c1338bb5798e12400dc7e94",
+        "reviewer_packet_sha256": "091abdb02f7dd3c88788ee253a0f672b2cef5f8d95472c52b060f481e7c20ac3",
+        "review_run_sha256": "471d691b5e74935a5261b97ab6bcadde8f787572d35cf75241b1d120a2675fab",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual source center/gradient arc mean, three true exponential L1 and positive normalizers, exact shifted Gaussian tilt and normalized volume density."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification"
+    ],
+    "independent_checks": [
+      "7 semantic slots,6 authored steps,7 informational differences; no blockers/repairs.",
+      "Fixedcommit clean; production/test unchanged; root unique writer and no active stabilizer.",
+      "Actual wholemodule and external binding preimage independently checked.",
+      "VERIFIED-only; clipped Renyi,adaptive kernels,initialization,cost,aggregate,reader,merge and full papers not completed."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete."
+}

@@ -1,9 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-gradient-program",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Verify final merge Lean CI34615645105"
   ],
   "boundary": "Fixed-center actual clipped program and mean truncation error only. No ideal Gibbs normalization/identification, normalized Renyi accuracy, adaptive eta kernel, initialization, or full gradient query accounting. Auxiliary time differs from acceptance uniform. Count includes successful batch; cached reference gradient preparation is separate. Uniform O(1) cost still needs source B=Theta(1) and accuracy parameters. Neither main paper complete.",
   "development_checkpoint": {
@@ -80,10 +79,19 @@
       "ASTIS-RT-20260911-SPHMCClippedGradientProgram"
     ]
   },
-  "admission_boundary": "VERIFIED atf334384. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "admission_boundary": "Actual PR282 merged after independent exact-candidate integration and successful same-head PR CI. Merge CI/live remain separate; neither paper complete.",
   "independent_admission": "runs/20260911-companion-priority/clipped-gradient-program.verified-admission.json",
   "integration_notes": {
-    "upstream": "715630c8eec0ea00bd32b9091fe1177ee07afa29",
-    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior3341e09, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
-  }
+    "candidate": "895c48b1a4b0c47e1c73875f2c2b3aa851f04da8",
+    "qa": "runs/20260911-companion-priority/clipped-gradient-program.local-qa.json",
+    "boundary": "Exact-candidate canonical, original reader and graph complete; actual merge established."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/282",
+    "commit": "840f48dd1881ec348c167b1628b031f83dec9417",
+    "merged_at": "2026-09-11T15:21:30Z",
+    "candidate": "895c48b1a4b0c47e1c73875f2c2b3aa851f04da8",
+    "post_merge": "Site34615645078 success and exact original live reader/module full merge provenance verified. MergeLean34615645105 confirmedrunning."
+  },
+  "live_delivery": "runs/20260911-companion-priority/clipped-gradient-program.live-delivery.json"
 }

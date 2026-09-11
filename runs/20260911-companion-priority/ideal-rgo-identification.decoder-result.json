@@ -1,0 +1,29 @@
+{
+  "decoder": "blind_reconstruction_m",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent reconstructed_statement and scope_notes/ambiguities from fresh source-blind response.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-m.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCIdealRGOIdentification.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "22967d6218dc50344bb117971b73b62058a6d9140ee6d1cccb9841a78af7445e",
+  "lean_statement_sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space equipped with its Borel measurable structure and canonical Lebesgue measure λ. Let f:E→ℝ be differentiable everywhere, with globally β-Lipschitz gradient for some β≥0. For any η>0 satisfying βη<1 and arbitrary x₀,xₚ∈E, define h=x₀−η∇f(xₚ), P=N(0,ηI), G=N(x₀,ηI), q=N(h,ηI), and ν=Unif((0,1])⊗P. Set m(x)=∫⟨(π/2)[cos(πt/2)(x−h)−sin(πt/2)z], ∇f(xₚ)−∇f(h+sin(πt/2)(x−h)+cos(πt/2)z)⟩ν(d(t,z)), and V(x)=f(x)+‖x−x₀‖²/(2η). Then exp(−f) is G-integrable with strictly positive integral, exp(m) is q-integrable with strictly positive integral, and exp(−V) is λ-integrable with strictly positive integral. Moreover, the normalized exponential tilt of q by m equals both the normalized exponential tilt of G by −f and the probability measure with Lebesgue density exp(−V)/∫exp(−V)dλ.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "The theorem is universally quantified over the space, function, Lipschitz constant, admissible step size, and both points, in that order.",
+    "Every local definition is inside the scope of x₀ and xₚ. In particular, h, q, and m may depend on xₚ, whereas G and V do not.",
+    "The integral defining m averages with respect to a fixed product measure ν; x is not integrated there.",
+    "The scalar multiplier π/2 applies to the entire vector cos(πt/2)(x−h)−sin(πt/2)z.",
+    "The final equalities show that the resulting tilted measure is independent of the arbitrary choice of xₚ.",
+    "No convexity of f, minimizer condition on xₚ, or equation relating xₚ to h is assumed.",
+    "Integrability of the unregularized density exp(−f) against Lebesgue measure is not asserted.",
+    "The conclusion does not separately assert integrability of the inner integrand defining m, a pointwise simplification of m, a moment bound, or an algorithmic sampling guarantee.",
+    "No pointwise equality between unnormalized densities, or equality of their respective normalization constants, is directly asserted.",
+    "There is no unresolved notation ambiguity under the supplied definition context.",
+    "The displayed type defines m using Lean's real Bochner integral but does not include a separate conclusion certifying integrability of that inner integrand; such a certificate must not be attributed to this theorem's stated conclusion alone."
+  ]
+}
