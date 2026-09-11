@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.3(i), A1 Gaussian smoothing reverse transport used in Theorem6.5",
   "target_statement": "For probability P,Q on finite-dimensional real inner-product Borel E, r>=0 and tau>0, actual infimum squared-displacement transportCost(P,Q)<=ofReal(r^2) implies InformationTheory.klDiv(GaussianSmoothing P sqrt(tau),GaussianSmoothing Q sqrt(tau))<=ofReal(r^2/(2tau)). The actual ENNReal KL is used; derive all needed joint-law RN and LLR integrability from the displacement budget.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-optimal-continuous-cost",
     "ASTIS-SW-SPHMC-gaussian-likelihood"
@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-kl.md",
     "planning_review": "Independent log_depth_source_review primary Lemma6.3(i)/Theorem6.5 audit: A1 Gaussian KL is a dependency-ready actual measure consumer; quadratic displacement suffices, exponential moments are unavailable.",
-    "execution_boundary": "Root sole writer. Proxy PR262 actually merged; Gaussian KL PROVED_LOCAL with independent replay, formal source/fixed-commit admission pending.",
+    "execution_boundary": "Root sole writer and sole STABILIZING owner; Proxy PR262 merged.",
     "ownership_note": "One source consumer; no invented second consumer.",
     "development_checks": [
       {
@@ -50,7 +50,8 @@
     ],
     "shorter_route_review": "Independent log_depth_source_review accepted direct joint withDensity proof from retained-parameter product-map laws and fixed-fiber GaussianLikelihood measure equality. No fiber a.e. assertion is promoted to a joint pointwise identity; L measurable. RN first B-a.e. then AC transfers to A-a.e. No displacement moments needed for this equality.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-kl.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent proof/replay; formal source/fixed-commit admission and integrated reader delivery pending."
+    "admission_boundary": "VERIFIED at 5ac734cf9d3206add1609738315b53d6eb242826; aggregate and reader/graph pending.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json"
   },
   "blocked": {
     "reason": "",

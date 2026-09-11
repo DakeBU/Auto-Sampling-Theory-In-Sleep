@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
   ],
@@ -33,10 +33,10 @@
   },
   "mathematical_status": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.",
   "remaining": [
-    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Full W2 interface and marginal moment correspondence",
     "Actual recursive kernels, sampler error and query costs",
     "Both paper main results and agreed remaining reader/copy/download deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json"
 }

@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii).",
   "remaining": [
-    "Verify merge CI and actual deployed reader/badges",
+    "Verify merge Lean; online Lean-gate badge synchronization remains a separate delivery frontier",
     "Full Wp/Renyi interfaces and required marginal moments",
     "Proxy-warmness, actual sampler/error/cost and both main results",
     "Agreed copy/download and live compiled-badge synchronization"
@@ -181,7 +181,24 @@
       "lean": "34553341586 SUCCESS",
       "site": "34553341667 SUCCESS; PR deploy skipped"
     },
-    "post_merge": "Actual merge CI/deployment pending. Prior local and CI artifact QA remain bound to their recorded commits.",
+    "post_merge": "Actual site deployment and HTTP/provenance verified; merge Lean remains in progress.",
     "truth_boundary": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii)."
+  },
+  "actual_deployment": {
+    "merge_commit": "99aa05261932aa9f5e243e42eea2723916dc28b3",
+    "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200,
+    "anchor": "sphmc-proxy-reverse-transport",
+    "merge_provenance": true,
+    "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-proxyreversetransport.html",
+    "card_http_status": 200,
+    "card_labels": [
+      "Partial",
+      "Not mapped"
+    ],
+    "boundary": "Actual deployed HTTP/provenance/labels; earlier CI artifact and local visual checks remain separately pinned.",
+    "site_run": "34554353780 SUCCESS",
+    "deploy_job": "103124345372 SUCCESS",
+    "merge_lean": "34554353868 in_progress; independently checked, not a success claim"
   }
 }

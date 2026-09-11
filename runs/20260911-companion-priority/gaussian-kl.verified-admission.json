@@ -1,0 +1,48 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "5ac734cf9d3206add1609738315b53d6eb242826",
+    "gate": {
+      "production": "Independent focused PASS3739 reused at unchanged raw hashes; freshly printed complete statement identical to registry and anonymous packet.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance reviewed=True PASS",
+      "tests_scope": "Axiom checks only; actual consumer attains the quadratic cost infimum, constructs joint Gaussian likelihoods, proves LLR integrability and projects actual KL."
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCGaussianKL",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "kl_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "a5ba8bf373c190ec876febbce52c4d7cf9caa188f42355cd3394e60d2d20e064",
+        "decoder_packet_sha256": "082819f76a10a57ca956004c42d0f1d904a16bd19027640c526a0cfa000e6fdc",
+        "decoder_run_sha256": "54fd14720c4e98db3c042d95243cb5262a3d400273eb604ef504bf2ec0fdd4d2",
+        "reviewer_packet_sha256": "3bc483e6efde6dd9bfe0ebff079fec6dc9ae140d2f8ce08058968ea0ff68293e",
+        "review_run_sha256": "7d0ce1a0f6973e0538d9e4af0b5f75ed0624def6715b91483e4dc9e913069d64",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused Tests, standard axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
+    ],
+    "independent_checks": [
+      "Clean fixed HEAD and worktree/commit consistency verified.",
+      "All source, statement, reconstruction, packet and run hashes verified; external binding preimage independently recomputed.",
+      "Seven slots, seven steps, four informational deltas; no blockers or repairs.",
+      "No current STABILIZING owner; previous merge Lean pending not counted successful."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED and sole STABILIZING authorization.",
+  "boundary": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate."
+}
