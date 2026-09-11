@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Definition1.12 equation(1.7), Proposition1.13 C2 clause",
   "target_statement": "For C2 f on a complete real inner-product space and any real beta, the global quadratic upper model with beta/2 is equivalent to the genuine Hessian diagonal upper bound with beta.",
-  "status": "independently_verified",
+  "status": "stabilized",
   "parents": [
     "ASTIS-SHARED-smoothness-c1",
     "ASTIS-SHARED-gradient-hessian-equivalence"
@@ -32,8 +32,8 @@
       "lake build Tests.Shared.SmoothnessEquivalences PASS2727 independently repeated; no warnings; only propext, Classical.choice and Quot.sound."
     ],
     "independent_verification": "smoothness_review fixed5434944361508bbe8e41eba9135d071f17978532 proof/test review and build; independent smoothness_blind and smoothness_source accepted exact packet-bound source generalizations.",
-    "root_build": "",
-    "graph_regeneration": "",
+    "root_build": "PASS canonical tools/astis.py check via website/scripts/lean_gate.py;9124jobs including rootTests, fake-closure, ATLAS36469declarations/26books at2026-09-11T04:40:45.532304+00:00. Checked commite42cf9db4d4830cc31ea5e24a7477d26eef44155. PASS250tests,6skips; independent publication38/semantic48.",
+    "graph_regeneration": "PASS canonical website build/check:12chapters,405compiled local leaves,594modules,3677declarations. Both cell graph checks PASS. Actual desktop source formulas and C2 sign-reversal proof inspected; focused branch14nodes25edges5direct relations, two actual named parents, solid structural/dashed reference signals, compiled target and partial chapter. Mobile390x844 statement and inspector legible; temporary viewport reset, tab and local server closed. Generalizations remain visible as domain-mismatch; no exact-source badge is forced.",
     "pr": ""
   },
   "blocked": {

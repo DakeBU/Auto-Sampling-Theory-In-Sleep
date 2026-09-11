@@ -14,5 +14,18 @@
   "consumer_checks": "Signed sharp quadratic, C1 beta0 concave non-Lipschitz boundary, genuine C2 gradient-step descent and zero-dimensional beta0 constant instance.",
   "integration_boundary": "Frozen commit is not root-reachable yet. Independent reviewer explicitly requires Analysis/Tests root imports and full gate before integration.",
   "recording_provenance": "Root sole writer records explicit independent recommendation; VERIFIED only after separate sourceaccepted and publicationPASS.",
-  "queue_coordination": "Independent smoothness_review preservation audit of already merged PR265 released its stale reservation. Historical VERIFIED4e1490a and merged4e94f0a production/test/publication/audit bytes unchanged; gh merge confirmed2026-09-11T04:12:59Z. No fresh proof claim or impersonated owner MERGED."
+  "queue_coordination": "Independent smoothness_review preservation audit of already merged PR265 released its stale reservation. Historical VERIFIED4e1490a and merged4e94f0a production/test/publication/audit bytes unchanged; gh merge confirmed2026-09-11T04:12:59Z. No fresh proof claim or impersonated owner MERGED.",
+  "integration_review": {
+    "reviewer": "smoothness_review",
+    "checked_commit": "e42cf9db4d4830cc31ea5e24a7477d26eef44155",
+    "findings": [],
+    "scope": "Proof/test/lesson/publication bytes unchanged; root imports reachable; exactly2 Registry entries403->405; all46upstream audit objects preserved; both source-result raw hashes and embedded module checked. Independent publication38 and semantic48 PASS."
+  },
+  "final_acceptance": {
+    "owner": "andi-smooth-integration",
+    "checked_commit": "e42cf9db4d4830cc31ea5e24a7477d26eef44155",
+    "gate": "PASS canonical tools/astis.py check via website/scripts/lean_gate.py;9124jobs including rootTests, fake-closure, ATLAS36469declarations/26books at2026-09-11T04:40:45.532304+00:00.",
+    "protocol_tests": "PASS250tests,6skips; independent publication38/semantic48.",
+    "reader_graph": "PASS canonical website build/check:12chapters,405compiled local leaves,594modules,3677declarations. Both cell graph checks PASS. Actual desktop source formulas and C2 sign-reversal proof inspected; focused branch14nodes25edges5direct relations, two actual named parents, solid structural/dashed reference signals, compiled target and partial chapter. Mobile390x844 statement and inspector legible; temporary viewport reset, tab and local server closed. Generalizations remain visible as domain-mismatch; no exact-source badge is forced."
+  }
 }

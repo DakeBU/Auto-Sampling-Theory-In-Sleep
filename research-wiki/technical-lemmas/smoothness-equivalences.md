@@ -65,3 +65,23 @@ rewriting historical events or impersonating its owner's MERGED transition.
 Root Analysis and Tests imports now reach the new module and focused tests.
 Registry adds exactly two declarations, count403→405. The joint full gate and
 reader/graph acceptance remain required on this integrated tree.
+
+Canonical whole-project gate passed on e42cf9db4d4830cc31ea5e24a7477d26eef44155
+at2026-09-11T04:40:45.532304+00:00:9124jobs including root Tests, fake-closure
+scan and pinned ATLAS36469declarations/26books. Full harness passed250tests
+with6optional/environment skips. Independent final integration review on the
+same commit confirmed both root imports, exactly2Registry additions, unchanged
+reviewed proof/test/lesson/publication bytes, all46upstream audits intact,
+correct new packet/result hashes and publication38/semantic48 PASS.
+
+Canonical website build/check passed:12chapters,405compiled local leaves,
+594modules,3677declarations. Both cell graph checks passed. Desktop source
+formulas and the C2 sign-reversal proof were visually inspected; focused graph
+14nodes25edges5direct relations shows two actual named parents, solid module
+structure versus dashed scanned references/source/audit links, compiled target
+and partial chapter. Mobile390x844 reader/inspector are legible. Temporary
+viewport, tab and server cleaned up. Source generalizations remain visible as
+domain-mismatch; no exact-source/chapter badge is forced or hand-edited.
+Ready for authorized direct-main integration. Next useful bounded target:
+convex one-sided smoothness to gradient Lipschitz/cocoercivity; first audit the
+precise source regularity and reuse Optlib/Mathlib/QuadraticRegularization.
