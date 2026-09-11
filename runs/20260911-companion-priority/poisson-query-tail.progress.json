@@ -1,5 +1,5 @@
 {
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
   "focused_check": {
     "command": "lake build Tests.SmoothedPicardHMCPoissonQueryTail",

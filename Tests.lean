@@ -149,6 +149,7 @@ import Tests.SmoothedPicardHMCFiniteRGOKLError
 import Tests.SmoothedPicardHMCGaussianRGOErrorBudget
 import Tests.SmoothedPicardHMCStoppedGaussianRGOError
 import Tests.SmoothedPicardHMCPoissonRejection
+import Tests.SmoothedPicardHMCPoissonQueryTail
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are
