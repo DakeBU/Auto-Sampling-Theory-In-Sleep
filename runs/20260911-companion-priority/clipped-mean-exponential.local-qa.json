@@ -1,0 +1,69 @@
+{
+  "commit": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
+  "source_digest": "b267d099d75276254f712f8850e5337b9779c5660578a0b2e7406f25fbbe1b32",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 81212,
+    "exit_code": 0,
+    "result": "PASS9167",
+    "log": ".astis/clipped-mean-exponential-integration-gate.log"
+  },
+  "reader_build": {
+    "session": 95749,
+    "exit_code": 0,
+    "log": ".astis/clipped-mean-exponential-reader-build-final.log"
+  },
+  "reader_check": {
+    "session": 51124,
+    "exit_code": 0,
+    "log": ".astis/clipped-mean-exponential-reader-check-final.log",
+    "chapters": 12,
+    "modules": 637,
+    "declarations": 3838,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/clipped-mean-exponential-graph-check-final.json",
+  "gate_evidence_repair": "Initial build16194/check91585 structurally passed but actual card Partial exposed stale prior54f994e gate record. Exact unchanged clean HEAD and actual canonical81212 PASS9167 were independently rechecked; root recorded actual completed gate, then fullbuild95749/check51124 and final actual browser card now show Lean gate passed/Compiled. No extra Lean run inferred.",
+  "browser": {
+    "provenance": "Actual root browser clicks and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=ead9e06final",
+    "section": "sphmc-clipped-mean-exponential",
+    "authored_steps": 6,
+    "initial_details": 9,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "First and fifth mathematical proof headings",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1423,
+    "proof_code_characters": 4354,
+    "katex_errors": 0,
+    "parents": "Actual SmoothGradientArcClipping,ClippedGradientProgram,GradientArcMean and primary D1/SPHMCA4(2) links present.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Final actual module card: 10 declarations, Lean gate passed/Compiled, zero placeholders. Not mapped remains distinct."
+  },
+  "remaining": [
+    "Independent final integration review",
+    "Same-head remote CI,actual merge/deployment",
+    "Whole-Goal copy/citation/full associated Lean download features"
+  ],
+  "boundary": "Selected actual clipped-output moment only. Neither full paper complete. No normalized RNpowers/RenyiAPI,adaptivekernel,initialization,cost. Reader copy/download/citation gaps remain explicit.",
+  "independent_integration": {
+    "result": "Accepted final local integration; exact HEAD/digest/binding, PASS9167, final build/check and graph verified. Root browser provenance retained. CI/merge/deploy and full Goal delivery remain.",
+    "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
+    "transcription_authorized": true,
+    "reviewer": "depth_commit_verifier"
+  }
+}

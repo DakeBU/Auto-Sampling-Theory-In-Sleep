@@ -76,5 +76,14 @@
   "integration_notes": {
     "upstream": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
     "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior54f994e, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
-  }
+  },
+  "integration_pr": {
+    "lean_run": "34625895155",
+    "state": "OPEN; both CI IN_PROGRESS",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/284",
+    "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
+    "site_run": "34625895277",
+    "number": 284
+  },
+  "local_qa": "runs/20260911-companion-priority/clipped-mean-exponential.local-qa.json"
 }

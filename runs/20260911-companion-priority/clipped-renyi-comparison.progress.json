@@ -1,0 +1,18 @@
+{
+  "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
+  "state": "EXPLORING",
+  "remaining": [
+    "Actual tilt/ideal identification and probabilities",
+    "True RN powers and weightedL1",
+    "Bidirectional explicit moment bounds",
+    "Independent proof/source admission and original reader integration"
+  ],
+  "boundary": "Actual fixed-call normalized bidirectional RN-power moment comparison. The order is the denominator-measure ell-power used by B12 proof and D1; printed B7/section1.3 definitions are inconsistent and must be disclosed. B12 intermediate step has a gap for1<ell<2; actualconsumerell>=2 avoids it, without modifying the source theorem. No logarithmic Renyi API,parameter selection,reference initialization,adaptive kernel,query cost or fullpaper completion. No TV transport of unbounded costs.",
+  "scratch_checkpoint": {
+    "path": ".astis/ClippedRenyiComparison.lean",
+    "result": "Five private foundations compiled; standard three axioms/no lint. Exponential domination,power Jensen,true error L1,exponential Jensen,inverse normalizer power via two exponential Jensen applications. No actual public RN comparison or production theorem yet.",
+    "sha256": "a039ab3d8d88cff60723adc700fdd77489fc1622e8d5d2c3bc3ed77f06f8701e",
+    "session": 50226,
+    "exit_code": 0
+  }
+}
