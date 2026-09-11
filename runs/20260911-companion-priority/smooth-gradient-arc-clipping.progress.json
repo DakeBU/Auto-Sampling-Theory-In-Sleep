@@ -1,0 +1,18 @@
+{
+  "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
+  "state": "EXPLORING",
+  "remaining": [
+    "Compile pointwise excess domination and exact source parameter algebra",
+    "Actual gradient estimator consumer with integrability before integral comparison",
+    "Independent proof and source reviews, publication and integration"
+  ],
+  "boundary": "Actual smooth estimator clipping-excess moment only. Actual source center construction, target log-weight mean, normalized Renyi error, initialization and terminal query cost remain separate. No assumed MGF, surrogate estimator or full sampler completion.",
+  "scratch": ".astis/SmoothGradientArcClipping.lean",
+  "scratch_sha256": "241f6e84c2e46e695e52a761e0d161b3c6f8c5955f05afa1d1511fec46887483",
+  "development_result": "Pointwise nonnegative exponential clipping-excess domination and integrability-before-integral comparison compiled, standard three axioms, no lint. Exact source parameter algebra and actual estimator consumer remain pending.",
+  "local_check": {
+    "command": "lake env lean .astis/SmoothGradientArcClipping.lean",
+    "exit_code": 0,
+    "log": ".astis/smooth-gradient-arc-clipping-scratch.log"
+  }
+}
