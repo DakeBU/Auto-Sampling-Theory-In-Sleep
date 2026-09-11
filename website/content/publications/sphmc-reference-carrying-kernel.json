@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-reference-carrying-kernel",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual reference-carrying recursive Markov transition",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3 and Section6.3: actual reference-carrying recursive state transition",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded proof component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S.Zhang,Smoothed Picard Hamiltonian Monte Carlo. Actual single-step program semantics,not a full sampling theorem."
+      },
+      "statement": "For every state,v>0 and bplus=b+1/v. N,out and update are jointly measurable. For every state/sample/noise triple,the actual stopped gradient-square is at most (alpha+bplus)*d and every earlier iterate strictly exceeds it; grad F_p(w)=grad V(w)+bplus*(w-uplus). The true source potential satisfies W_p(w)=F_p(w)+b*v^(-1)/(2*(b+v^(-1)))*norm(u-y)^2,so their gradients and all GD iterates from x with step1/(beta+bplus) coincide. The scaled reference sqrt(beta+bplus)*out has gradient-square at most d/((beta+bplus)/(alpha+bplus)) for F_p(./sqrt(beta+bplus)). There exists an actual Markov state transition P with P(s)=dirac(s) when theta<=b,and otherwise P(s)=update(s,.)#(M(s) x G). Its single-step reference-deleted marginal is dirac(project(s)) in the first branch and oldUpdate(s,.)#(M(s) x G) in the second.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel structure and d=dim(E)>0. V:E->R is C2; 0<alpha<=beta and alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w.",
+        "The complete retained state is s=(b,u,xref,k,h) in NNReal x E x E x Nat x (Nat->E). The precision b is nonnegative; u and xref are original-coordinate points; k is a count and h a padded most-recent-first observation history. No admissibility or valid-history invariant is assumed for the old state.",
+        "eta,tau are measurable positive real functions of the complete retained state. M is an actual Markov kernel from that state to E, interpreted as the current sampler output in ORIGINAL coordinates BEFORE the fresh noise; no sampler accuracy or moment property is assumed. The supplied threshold theta is a nonnegative precision threshold.",
+        "For s and fresh pair (x,z), v(s)=(eta(s)+tau(s))/(beta+b), bplus=b+toNNReal(1/v(s)), y=x+sqrt(tau(s)/(beta+b))*z and uplus=(bplus)^(-1)*(b*u+v(s)^(-1)*y). The theorem proves v>0 and the real equality bplus=b+1/v, so toNNReal does not truncate.",
+        "F_p(w)=V(w)+bplus/2*norm(w-uplus)^2 and W_p(w)=V(w)+b/2*norm(w-u)^2+1/(2v)*norm(w-y)^2 for p=(s,(x,z)). Let T_p(w)=w-(beta+bplus)^(-1)*grad F_p(w), q_n(p)=norm(grad F_p(T_p^n(x)))^2. N(p) is the least n with q_n(p)<=(alpha+bplus)*d if one exists,otherwise zero. out(p)=T_p^N(p)(x),starting at the pre-noise x.",
+        "update(p)=(bplus,uplus,out(p),k+1,hplus), where hplus(0)=y and hplus(n+1)=h(n). project(s)=(b,u,k,h) removes only the reference. oldUpdate(p)=(bplus,uplus,k+1,hplus). G denotes the standard Gaussian probability on E; the product M(s) x G means the new noise is independent conditional on the complete state."
+      ],
+      "formulae": [
+        {
+          "label": "Actual enhanced transition and first-hit reference",
+          "tex": "P(s)=\\begin{cases}\\delta_s,&\\theta\\le b,\\\\ \\mathrm{update}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta,\\end{cases}\\qquad \\|\\nabla F_p(\\mathrm{out}(p))\\|^2\\le(\\alpha+b^+)d."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-reference-carrying-kernel",
+          "label": "Actual reference-carrying recursive Markov transition"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+          "cell": "ASTIS-SW-SPHMC-reference-carrying-kernel",
+          "role": "proof-edge",
+          "supports": [
+            "actual-reference-carrying-kernel"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCReferenceCarryingKernel",
+          "boundary": "Actual single-step enhanced Markov program,not a sampler-accuracy or cost theorem. M outputs and stored reference are in original coordinates. theta is supplied: positive theta corresponds to A<=Abar iff b>=1/Abar; exact source threshold and finite reachability remain open. theta=0 immediately absorbs. Terminal self-loop neither runs FORS nor returns a final sample. Old reference admissibility and valid initial history are not required. General beta and coordinate-free positive dimension extend the normalized source; alpha,eta,tau are positive,b may be zero. Since M,eta,tau can depend on the deleted reference,one-step projection does not imply that the whole projected process is Markov. No conditional precision,query count,tail,full Gibbs normalization or either main result is concluded.",
+          "assumption_deltas": [
+            {
+              "source": "Source current sampler output is followed by fresh Gaussian noise.",
+              "lean": "Actual M is in original coordinates; GD starts before fresh noise.",
+              "classification": "same",
+              "reason": "Original coordinate convention is explicit; M is Markov but no accuracy premise is supplied."
+            },
+            {
+              "source": "Source next reference uses the inner gradient threshold.",
+              "lean": "Actual first(alpha+bplus)*d hit; strictterminal witness only.",
+              "classification": "same",
+              "reason": "No supplied reference or substitution of terminal stopping output."
+            },
+            {
+              "source": "Normalized Euclidean recursive setting.",
+              "lean": "General beta,coordinate-free d>0,alpha/eta/taupositive,b0allowed.",
+              "classification": "generalization",
+              "reason": "Domain extension is explicit and zero dimension excluded."
+            },
+            {
+              "source": "Source precision stopping condition uses an actual cutoff.",
+              "lean": "Supplied nonnegative theta; positive precision-threshold interpretation,theta0 immediateabsorption.",
+              "classification": "source-implicit",
+              "reason": "Exact source cutoff and finite reachability are not proved; selfloop is not FORS or finaloutput."
+            },
+            {
+              "source": "References and histories arise along a valid source execution.",
+              "lean": "Arbitrary previous reference,count and history admitted.",
+              "classification": "generalization",
+              "reason": "New reference is proved admissible; initial history invariants are not assumed or concluded."
+            },
+            {
+              "source": "Recursive state tracks actual source updates.",
+              "lean": "Explicit Markov enhanced transition and single-step projection only.",
+              "classification": "source-implicit",
+              "reason": "Dependence on deleted reference blocks automatic projected-chain Markovness; no accuracy or costs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
