@@ -1,0 +1,84 @@
+{
+  "semantic_slots": {
+    "objects": {
+      "original": "C¹ real-valued f, its gradient, and a quantitative monotonicity/chord pair.",
+      "reconstructed": "The same objects with a Hilbert-space gradient and StrongConvexOn.",
+      "relation": "explicit-elaboration",
+      "evidence": "Mathlib StrongConvexOn is UniformConvexOn with modulus r↦m/2*r². This is a quantitative chord predicate even for signed m."
+    },
+    "domains": {
+      "original": "All of ℝᵈ, with nonnegative real modulus.",
+      "reconstructed": "All of a complete real inner-product space E, with arbitrary real modulus.",
+      "relation": "different",
+      "evidence": "Neither finite-dimensionality nor 0≤m is present. The wider domain is a reusable generalization, not the literal source statement."
+    },
+    "quantifiers": {
+      "original": "Every pair x,y in the domain; chord parameter t∈[0,1].",
+      "reconstructed": "Every x,y in E; every pair of nonnegative real weights a,t with a+t=1.",
+      "relation": "equivalent",
+      "evidence": "Set a=1−t. Conversely, nonnegative weights summing to one imply t∈[0,1]. The proof uses exactly this change of variables."
+    },
+    "assumptions": {
+      "original": "C¹ regularity, nonnegative m, and the global gradient lower bound.",
+      "reconstructed": "C¹ regularity and the same global gradient bound; m may have either sign.",
+      "relation": "weaker-in-lean",
+      "evidence": "The source sign hypothesis is absent from this reusable lemma. The proof only cancels s(1−t)>0 and multiplies by t≥0, so it does not need m≥0. No added regularity or integrability assumption is used."
+    },
+    "conclusion": {
+      "original": "The chord bound with correction (m/2)t(1−t)‖y−x‖².",
+      "reconstructed": "StrongConvexOn univ m f with exactly that correction.",
+      "relation": "equivalent",
+      "evidence": "Expanding the Mathlib definitions and replacing ‖x−y‖ by ‖y−x‖ yields the stated inequality. For m<0 it should be understood as the signed chord predicate, not ordinary positive strong convexity."
+    },
+    "scopes": {
+      "original": "The (1.5)→(1.3) direction within Proposition 1.6 part 1.",
+      "reconstructed": "The same direction proved by two segment FTC identities and integration.",
+      "relation": "same",
+      "evidence": "The lesson and code compare A and B. At t=1 the chord is equality. For t<1, the proof cancels s(1−t) on s∈(0,1), integrates via the null-endpoint lemma, and covers t=0 by multiplication by zero. It asserts no Hessian result."
+    },
+    "constant_dependencies": {
+      "original": "The same modulus in monotonicity and the half-modulus in the chord correction.",
+      "reconstructed": "m becomes m/2 through ∫₀¹s ds=1/2.",
+      "relation": "same",
+      "evidence": "hpoly preserves the exact factor 1/2; no dimension constants, losses, or sign-dependent constants enter."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "relation": "different",
+      "original": "Finite-dimensional Euclidean whole space",
+      "reconstructed": "Arbitrary complete real inner-product whole space",
+      "classification": "reusable-generalization",
+      "evidence": "Restriction to EuclideanSpace ℝ (Fin d) recovers the source domain. This is not an equivalence claim between the unrestricted source and Lean statements and requires no source repair.",
+      "severity": "informational",
+      "description": "The Lean leaf generalizes the selected finite-dimensional Euclidean source boundary to arbitrary complete real inner-product spaces. The publication lesson explicitly identifies this generalization; acceptance is restricted to the selected Euclidean source boundary, and the unrestricted semantic verdict remains domain-mismatch."
+    },
+    {
+      "slot": "assumptions",
+      "relation": "weaker-in-lean",
+      "original": "m≥0",
+      "reconstructed": "m∈ℝ without a sign restriction",
+      "classification": "reusable-generalization",
+      "evidence": "The proof retains the signed chord inequality. Source use must specialize m≥0; the source was not altered.",
+      "severity": "informational",
+      "description": "The Lean converse permits every real modulus, whereas the selected source theorem assumes a nonnegative modulus. This valid, explicitly disclosed reusable generalization is informational for the specialized source admission; no source assumption is changed and the source use retains m≥0."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "reviewer": "c1_source_reviewer",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently inspected the exact primary-source (1.5)→(1.3) two-integral argument at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared the candidate code and every authored proof step. Checked the actual Mathlib StrongConvexOn and intervalIntegral.integral_mono_on_of_le_Ioo definitions/contracts. The endpoint split and strict-positive cancellation are valid, including v=0 and t=0. Signed m introduces no invalid sign step. Acceptance is for the selected source implication after specialization to Euclidean space and m≥0. Hilbert spaces and signed m remain explicitly recorded generalizations, not corrected source assumptions.",
+  "review_run_sha256": "",
+  "reviewer_packet_sha256": "47e78083a97ec16d45c8861633a802415ba7f75cfa0a377f053bbaf7da7377f8",
+  "source_review": {
+    "decision": "accepted",
+    "reviewer": "c1_source_reviewer",
+    "evidence": "Independently inspected the exact primary-source (1.5)→(1.3) two-integral argument at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared the candidate code and every authored proof step. Checked the actual Mathlib StrongConvexOn and intervalIntegral.integral_mono_on_of_le_Ioo definitions/contracts. The endpoint split and strict-positive cancellation are valid, including v=0 and t=0. Signed m introduces no invalid sign step. Acceptance is for the selected source implication after specialization to Euclidean space and m≥0. Hilbert spaces and signed m remain explicitly recorded generalizations, not corrected source assumptions.",
+    "reviewer_packet_sha256": "47e78083a97ec16d45c8861633a802415ba7f75cfa0a377f053bbaf7da7377f8",
+    "accepted_boundary": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 1, (1.5) to (1.3) integral proof",
+    "generalization_is_source_correction": false
+  }
+}

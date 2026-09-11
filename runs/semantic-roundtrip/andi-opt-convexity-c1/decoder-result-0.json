@@ -1,0 +1,21 @@
+{
+  "reconstructed_theorem_text": "Let E be any complete real inner-product space and f:E→ℝ any continuously Fréchet differentiable function. For every x,v∈E, f(x+v)−f(x)=∫₀¹⟨∇f(x+s v),v⟩ ds, where the integral is the oriented Lebesgue interval integral in the real parameter s and the gradient is the Riesz representative of the Fréchet derivative.",
+  "objects": "A complete real inner-product space E; a real-valued function f; vectors x and v; the gradient ∇f; the real integration parameter s.",
+  "domains": "E has a normed additive commutative group structure, a compatible real inner-product space structure, and is complete. f has domain all of E and codomain ℝ. x,v lie in E; s is real, integrated from 0 to 1 with Lebesgue measure.",
+  "quantifiers": "Universally quantify E with its displayed structures and f:E→ℝ. If f is C¹, universally quantify x,v∈E. The variable s is bound by the integral.",
+  "assumptions": "E is a complete real inner-product space. f is continuously Fréchet differentiable on all of E. No finite-dimensionality, convexity, sign, or nonzero-vector assumption is present.",
+  "conclusion": "For every x,v, f(x+v)−f(x) equals the integral from 0 to 1 of the inner product of ∇f(x+s v) with v.",
+  "scopes": "The identity holds globally for every segment parameterized by x+s v, including v=0, in an arbitrary complete real inner-product space. No separate measurability or integrability hypothesis is displayed. The interval integral is with respect to the real parameter, not a measure on E.",
+  "constant_dependencies": "The fixed scalar endpoints are 0 and 1, and the multiplicative coefficient is exactly 1. There are no existential constants or parameter-dependent bounds.",
+  "reconstructed_text_sha256": "b499386e7d9d8fd71f92fdfa495ba8a35cd2ea501e4c0595afa2ba3c27a6681d",
+  "decoder": "c1_blind_decoder",
+  "source_text_visible": false,
+  "input_artifacts": [
+    "/private/tmp/astis-blind-3917/input-0.json"
+  ],
+  "packet_id": "ASTIS-BLIND-5369c27b9303f8aa",
+  "packet_sha256": "31da2f66b8fda98d360128f6b50db93f5b1ba621b9ad3dfd17d3c6515efad9f2",
+  "statement_sha256": "5369c27b9303f8aa32f8f111575fef6ff2918f48c9a43bbf9fd85c5a65e96c42",
+  "ambiguities": [],
+  "decoder_run_sha256": "d109a2bc16db3ed91b6a33deb38e0d05bb6532921e46afe48a38541bc0f384fd"
+}

@@ -56,8 +56,12 @@
           "label": "(1.5) ↔ (1.6): derivative limit and Hessian integral"
         },
         {
-          "id": "source-specialization",
-          "label": "Whole-space C¹/C² source-facing adapters and independent fidelity review"
+          "id": "source-specialization-c1",
+          "label": "Exact whole-space C¹ three-condition equivalence and independent fidelity review"
+        },
+        {
+          "id": "source-specialization-c2",
+          "label": "Exact C² Hessian equivalence and independent fidelity review"
         }
       ],
       "bindings": [
@@ -116,6 +120,81 @@
             "file_sha256": "6efa3254bc53f8bd93423d56c79f38b90af35f0097e1223940c328861b336c17",
             "reason": "Historical independent Lean/source review is not a blind semantic round trip. Source fidelity remains pending; changing the Lean file invalidates this grandfathering."
           }
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.sub_eq_integral_gradient",
+          "cell": "ASTIS-SHARED-segment-gradient-ftc",
+          "role": "proof-edge",
+          "supports": [
+            "monotonicity-to-chord"
+          ],
+          "boundary": "C¹ proof boundary only; no C²/Hessian equivalence or full-proposition completion.",
+          "assumption_deltas": [
+            {
+              "source": "The source proof uses C¹, genuine gradients and the segment FTC identities.",
+              "lean": "ContDiff ℝ 1 f supplies HasGradientAt and continuous segment integrands, hence interval integrability.",
+              "classification": "source-implicit",
+              "reason": "Continuity and integrability are derived; no measurable representative, domination or extra analytic premise is assumed."
+            },
+            {
+              "source": "Whole Euclidean space and nonnegative modulus (where relevant).",
+              "lean": "Complete real inner-product space; signed modulus for the chord lemma.",
+              "classification": "generalization",
+              "reason": "The final source adapter restores the exact source hypotheses; the reusable proof leaves need no finite-dimensional or positivity argument."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-SegmentFTC"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral",
+          "cell": "ASTIS-SHARED-gradient-integral-convexity",
+          "role": "proof-edge",
+          "supports": [
+            "monotonicity-to-chord"
+          ],
+          "boundary": "C¹ proof boundary only; no C²/Hessian equivalence or full-proposition completion.",
+          "assumption_deltas": [
+            {
+              "source": "The source proof uses C¹, genuine gradients and the segment FTC identities.",
+              "lean": "ContDiff ℝ 1 f supplies HasGradientAt and continuous segment integrands, hence interval integrability.",
+              "classification": "source-implicit",
+              "reason": "Continuity and integrability are derived; no measurable representative, domination or extra analytic premise is assumed."
+            },
+            {
+              "source": "Whole Euclidean space and nonnegative modulus (where relevant).",
+              "lean": "Complete real inner-product space; signed modulus for the chord lemma.",
+              "classification": "generalization",
+              "reason": "The final source adapter restores the exact source hypotheses; the reusable proof leaves need no finite-dimensional or positivity argument."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-IntegralChord"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+          "cell": "ASTIS-OPT-convexity-c1",
+          "role": "proof-edge",
+          "supports": [
+            "chord-to-model",
+            "model-to-monotonicity",
+            "monotonicity-to-chord",
+            "source-specialization-c1"
+          ],
+          "boundary": "C¹ proof boundary only; no C²/Hessian equivalence or full-proposition completion.",
+          "assumption_deltas": [
+            {
+              "source": "The source proof uses C¹, genuine gradients and the segment FTC identities.",
+              "lean": "ContDiff ℝ 1 f supplies HasGradientAt and continuous segment integrands, hence interval integrability.",
+              "classification": "source-implicit",
+              "reason": "Continuity and integrability are derived; no measurable representative, domination or extra analytic premise is assumed."
+            },
+            {
+              "source": "Whole Euclidean space and nonnegative modulus (where relevant).",
+              "lean": "Same Euclidean whole-space C¹ and nonnegative modulus.",
+              "classification": "same",
+              "reason": "The final source adapter restores the exact source hypotheses; the reusable proof leaves need no finite-dimensional or positivity argument."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-ConvexityC1"
         }
       ]
     }

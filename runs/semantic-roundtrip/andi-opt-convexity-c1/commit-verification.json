@@ -1,0 +1,29 @@
+{
+  "verifier_id": "c1_proof_review",
+  "verified_commit": "7616533a656e149a972c1d52af4bbbcdec148baa",
+  "findings": [],
+  "file_hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexityC1.lean": "d75bc538690de20976bb1fb9e8fc4d52178d118a7bef10392287d748b62c9f11",
+    "Tests/Shared/ConvexityC1.lean": "6dffc733f68ea1162eced21e3967596769780f2be4c36eb07a484063d1db4908",
+    "website/content/declaration_lessons/convexity-c1.json": "b7a5fd47262666e893f7043f85dd3b035faf12762d316a564dac50ea2a95e06b"
+  },
+  "gate": "Independent focused build PASS 2725 jobs, reused after exact frozen-commit byte comparison.",
+  "fake_closure_scan": "No findings; all three declarations use only propext, Classical.choice, Quot.sound.",
+  "source_audit": "Separate c1_source_reviewer accepted bound SegmentFTC, IntegralChord and ConvexityC1 audits. First two retain domain-mismatch generalizations; final is equivalent-after-elaboration. Semantic and publication validation passed.",
+  "admission_recommendation": "Conditions fulfilled; source audits accepted and publication validation passed. VERIFIED recorded under independent reviewer identity with explicit attribution.",
+  "integration_boundary": "Root imports and aggregate tests are stabilization obligations; unchanged proof review can be reused.",
+  "integration_review": {
+    "reviewer": "c1_proof_review",
+    "commit": "d7cffce795629b161e7db39eba00609228b012a6",
+    "findings": [],
+    "scope": "Root imports, exact3 Registry entries and count, all source binding/packet/run hashes, unchanged proof/lesson; Python fixture change validates all bindings while retaining2 historical names.",
+    "sync": "51e07c9 incorporates99aa052 without conflicts. Root confirmed all upstream audit objects unchanged and expected frozen proxy hashes; complete gate rerun required for changed aggregate tree."
+  },
+  "stabilization_checks": {
+    "owner": "andi-opt-c1-integration",
+    "checked_commit": "51e07c9272d658dab3df704090adb11679a8cf0a",
+    "gate": "PASS full canonical Lean/fake-closure/ATLAS gate; root Tests 9114 jobs. Proof/test/lesson hashes unchanged.",
+    "publication": "PASS 34 source items, 40 semantic audits, 49 frontier cells; all 44 focused Python tests passed.",
+    "reader_graph": "PASS site build/check and all three graph checks; actual desktop/mobile visual inspection completed. C2 and full proposition remain partial."
+  }
+}
