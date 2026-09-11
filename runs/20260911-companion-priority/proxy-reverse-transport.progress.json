@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii).",
   "remaining": [
-    "Final-head independent merge review, CI and actual merge/deployment",
+    "Verify merge CI and actual deployed reader/badges",
     "Full Wp/Renyi interfaces and required marginal moments",
     "Proxy-warmness, actual sampler/error/cost and both main results",
     "Agreed copy/download and live compiled-badge synchronization"
@@ -92,8 +92,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/262",
-    "state": "OPEN ready",
-    "boundary": "Upstream merge resolved preserving collaborator changes; fresh aggregate and final-head CI/review required."
+    "state": "MERGED",
+    "boundary": "Actual merge verified; merge CI and actual deployed reader/badges pending.",
+    "head": "183b927f4faa210c7a863b2de9b0daac6ad4ee46"
   },
   "upstream_integration": {
     "previous_candidate": "74d877edafb303812f9793781d77f1d242eca3c2",
@@ -112,6 +113,75 @@
       "44 tests for modified publication/site tools PASS30.458s",
       "git diff --check PASS"
     ],
-    "boundary": "Earlier local reader/browser QA remains bound to435106d; after upstream integration, fresh aggregate and final-head CI/review pending. No new local renderer or online badge claim."
+    "boundary": "Earlier local reader/browser QA remains bound to435106d; after upstream integration, fresh aggregate and final-head CI/review pending. No new local renderer or online badge claim.",
+    "fresh_aggregate": {
+      "passed": true,
+      "commit": "183b927f4faa210c7a863b2de9b0daac6ad4ee46",
+      "source_digest": "dc716531849ae243790579c82f9fdfd5417727ec75b3b1a1d7c57da5ee85aeb9",
+      "generated_at": "2026-09-11T02:14:45.446657+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+      "jobs": 9112,
+      "exit_code": 0,
+      "log": ".astis\\proxy-upstream-aggregate.log",
+      "log_sha256": "096d4db205a7e4afbe460c06c636a40874096d5a57a3b3a3a3d253a86a8a6b3c"
+    },
+    "final_ci_artifact_review": {
+      "run": "34553341667 SUCCESS",
+      "run_head": "183b927f4faa210c7a863b2de9b0daac6ad4ee46",
+      "artifact_id": 10181651856,
+      "artifact_name": "github-pages",
+      "archive_sha256": "e61014a12cb6944d9081b5da08ae4e501eceaac25a6e1d6aa01ad5a1969d6a86",
+      "rendered_commit": "031be1df053a08a87140aa1ffd4572cae46708aa",
+      "tree": "c7c769b753c14453e2cd929c0179b4307777fd60",
+      "provenance": "GitHub API verified run head183b927 and synthetic merge031be1d parents e2c32c5/183b927; both commits have identical tree. Actual targeted archive slice extracted72files with path/type checks; no local rebuild.",
+      "proxy": {
+        "entry": "sphmc-proxy-reverse-transport",
+        "initially_closed": 8,
+        "proof_steps": 5,
+        "statement_chars": 1218,
+        "proof_chars": 2443,
+        "namespace_end_retained": true,
+        "formula_errors": 0,
+        "disclosures": "Full statement, proof and reuse actually opened",
+        "graph": "5nodes3edges2relations; actual declaration and evidence-card click",
+        "badges": [
+          "Partial",
+          "Not mapped"
+        ]
+      },
+      "collaborator": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse.strongConvexOn_of_gradient_inner_lower_bound",
+        "card": "Actual card inspected;7 external Mathlib imports, imported-by Analysis and Tests.Shared.StrongConvexGradientConverse; no placeholder flagged.",
+        "graph": "5nodes4edges3relations; actual declaration and exact card clicked.",
+        "badges": [
+          "Partial",
+          "Not mapped"
+        ],
+        "theorem_page": {
+          "path": "theorems/autosamplingtheory-technicallemmas-analysis-strongconvexgradientconverse-strongconvexon-of-gradient-inner-lower-bound.html",
+          "dependencies": "No dependency found by the conservative source scanner.",
+          "gate_banner": "Lean gate not recorded for this source state",
+          "compiled_gate_command_label": "lake build Tests",
+          "formula_errors": 0
+        }
+      },
+      "boundary": "Artifact-specific targeted acceptance. Old full local QA belongs to435106d. Actual online deployment and final merge remain separate; no compiled badge inferred from another gate."
+    }
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/262",
+    "commit": "99aa05261932aa9f5e243e42eea2723916dc28b3",
+    "candidate": "183b927f4faa210c7a863b2de9b0daac6ad4ee46",
+    "merged_at": "2026-09-11T02:22:14Z",
+    "independent_merge_review": "depth_commit_verifier accepted upstream preservation, fresh aggregate and final CI artifact smoke, conditional on same-head Lean success. Root verified both same-head CIs success, unchanged MERGEABLE head, then match-head merge succeeded.",
+    "candidate_ci": {
+      "lean": "34553341586 SUCCESS",
+      "site": "34553341667 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Actual merge CI/deployment pending. Prior local and CI artifact QA remain bound to their recorded commits.",
+    "truth_boundary": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii)."
   }
 }

@@ -1,0 +1,42 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCGaussianKL",
+    "result": "PASS3739",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianKL.lean": "809625e286b2daa61d7d2c41475ab28171d9e864f19000205c35a89c39706961",
+      "Tests/SmoothedPicardHMCGaussianKL.lean": "af73a7d8c759eb1bc8ac76350e35f619935d16966e8c8fc614244dccb4d317d7"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/gaussian-kl.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGaussianKL"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/gaussian-kl.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.",
+  "remaining": [
+    "Independent fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "Full W2 interface and marginal moment correspondence",
+    "Actual recursive kernels, sampler error and query costs",
+    "Both paper main results and agreed remaining reader/copy/download deliveries"
+  ]
+}

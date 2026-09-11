@@ -1,0 +1,29 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent read-only complete proof review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCGaussianKL",
+  "result": "PASS3739,exit0; only old parent lint.",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianKL.lean": "809625e286b2daa61d7d2c41475ab28171d9e864f19000205c35a89c39706961",
+    "Tests/SmoothedPicardHMCGaussianKL.lean": "af73a7d8c759eb1bc8ac76350e35f619935d16966e8c8fc614244dccb4d317d7"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Actual infimum attains optimal coupling; finite budget proves squared displacement integrability.",
+    "Joint Gaussian withDensity/RN/LLR directions correct; LLR equality transferred by actual absolute continuity.",
+    "Squared displacement gives first moment; product Gaussian cross term absolutely integrable and mean zero.",
+    "LLR integrability precedes actual KL formula; no totalized-integral shortcut.",
+    "Actual output marginals are GaussianSmoothing P,Q; KL data processing yields exact r^2/(2tau).",
+    "Zero radius and dimension allowed; no marginal second moments or exponential displacement moment. Nonnegative radius interface retained explicitly.",
+    "Tests query axioms; production theorem is actual Gaussian KL consumer, fake-closure scan passed."
+  ],
+  "qualifications": [
+    "Formal source/fixed-commit admission, W2 API, recursive sampler/error/cost and both main results remain separate."
+  ]
+}

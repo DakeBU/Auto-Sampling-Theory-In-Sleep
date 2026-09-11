@@ -9004,6 +9004,277 @@
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-gradient-converse/decoder-result.json"
       }
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCGaussianKL",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-gaussian-kl",
+        "anchor": "Lemma6.3(i), actual quadratic-budget Gaussian KL reverse transport",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.\nr>=0 and tau>0. Zero radius is included; nonnegative radius is retained for its geometric meaning although the algebra uses only r^2.\nThe actual extended nonnegative infimum quadratic displacement transportCost(P,Q)<=ofReal(r^2) is the input; no optimizer or supplied coupling premise.\nSource Lemma6.3(i) uses Euclidean marginal P2 membership and W2. The proved raw-cost formulation and finite-dimensional inner-product domain are explicit generalizations; finite displacement cost does not imply marginal moments.\nInformationTheory.klDiv is the actual ENNReal divergence, with absolute continuity and LLR integrability proved before using its real integral formula. No exponential displacement moment is required.\nLet P,Q be probability measures on a finite-dimensional real inner-product Borel space E, including dimension zero. Let r>=0 and tau>0. Suppose the actual infimum over couplings gamma of the extended nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then the actual extended-nonnegative InformationTheory.klDiv of GaussianSmoothing P sqrt(tau) relative to GaussianSmoothing Q sqrt(tau) is at most ofReal(r^2/(2tau)). GaussianSmoothing is the product-noise addition pushforward with centered identity-covariance standard Gaussian, scaled by sqrt(tau). No marginal second moments, optimizer, Gaussian KL formula or target LLR integrability are assumed.",
+        "text_sha256": "55ab70e32993ccc307a2f75b7384325ff1b3f60a6221b8d3098dbef8a9656384"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianKL.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (r τ : ℝ),\n  0 ≤ r →\n    0 < τ →\n      AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)) P\n            Q ≤\n          ENNReal.ofReal (r ^ 2) →\n        InformationTheory.klDiv (AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing P √τ)\n            (AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing Q √τ) ≤\n          ENNReal.ofReal (r ^ 2 / (2 * τ))",
+        "statement_sha256": "0d496a423492f919bf8ab6b3f4af968737c022b5df9c9594fa108e4628f99b1a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Root production focused PASS3739, standard three axioms, no new lint. Independent replay/proof review and source/fixed-commit admission recorded separately.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed.",
+          "Transport.transportCost c P Q is sInf of the set of extended nonnegative numbers r for which there exists a measure gamma with gamma.fst=P and gamma.snd=Q and r=integral c dgamma. Thus it is the actual infimum over all couplings, not a supplied optimizer.",
+          "The actual stdGaussian E is the pushforward of the product of one-dimensional gaussianReal 0 1 laws through the canonical orthonormal-basis linear isometry into E. This is the centered Gaussian with identity covariance, including the zero-dimensional case. Measure.real B is the toReal of the measure of B.",
+          "InformationTheory.klDiv mu nu is an extended nonnegative quantity: if mu is absolutely continuous with respect to nu and llr(mu,nu) is integrable under mu, it is ofReal(integral llr(mu,nu) dmu + nu.real(univ)-mu.real(univ)); otherwise it is infinity. Here llr(mu,nu)(z)=Real.log((mu.rnDeriv nu z).toReal). The displayed probability hypotheses make both mass terms one, but no integrability premise may be inserted. The asserted finite upper bound is for this actual ENNReal divergence, not its totalized toReal."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "3bc483e6efde6dd9bfe0ebff079fec6dc9ae140d2f8ce08058968ea0ff68293e",
+        "review_run_sha256": "7d0ce1a0f6973e0538d9e4af0b5f75ed0624def6715b91483e4dc9e913069d64",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-kl.source-review-result.json",
+        "evidence": "Independent fresh primary Lemma6.3(i)/Theorem6.5 A1 review and complete production/seven-step comparison. Canonical packet, source, statement, reconstruction and normalized module hashes independently recomputed. Embedded production equals disk; seven lesson steps/fields and publication context match, including consistent extra boundary. Source hash binds expanded paraphrase, not verbatim source. Binding authenticated in packet; external preimage not independently reconstructed. No independent compilation or fixed-commit admission in source review."
+      },
+      "publication_binding_sha256": "a5ba8bf373c190ec876febbce52c4d7cf9caa188f42355cd3394e60d2d20e064",
+      "publication_context": {
+        "file": "402f321751911eb35357928c6be08fce0a095795a1cfe77237aae59c24015ac1",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing\nimport AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\nimport Mathlib.InformationTheory.KullbackLeibler.DataProcessing\n\n/-!\n# Actual Gaussian KL reverse transport\n\nExpanded proof of arXiv:2609.06906v1 Lemma6.3(i), used by the A1 branch of\nTheorem6.5. The actual infimum quadratic displacement budget yields an optimal\ncoupling. Its joint Gaussian laws have a proved likelihood and integrable LLR;\nKL data processing then gives the actual GaussianSmoothing bound.\n\nFinite-dimensional real inner-product Borel spaces, including dimension zero,\nand the raw-cost budget explicitly generalize the source Euclidean P2/W2\npresentation. Finite displacement cost does not imply marginal second moments.\nFull W2 API identification, recursive kernels, sampler errors and query costs\nremain separate. No exponential displacement moment or Gaussian KL premise is\nassumed, and no totalized real integral substitutes for integrability.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL\nopen MeasureTheory ProbabilityTheory\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen scoped ENNReal NNReal RealInnerProductSpace\n\n/-- Actual ENNReal KL smoothing bound from the genuine quadratic transport budget. -/\ntheorem gaussian_kl_reverse_transport {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (r τ : ℝ) (_hr : 0 ≤ r) (hτ : 0 < τ)\n    (hcost : Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖^2)) P Q ≤\n      ENNReal.ofReal (r^2)) :\n    InformationTheory.klDiv (GaussianSmoothing.gaussianSmoothing P (Real.sqrt τ))\n      (GaussianSmoothing.gaussianSmoothing Q (Real.sqrt τ)) ≤ ENNReal.ofReal (r^2/(2*τ)) := by\n  have crossMoment (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (h2 : Integrable (fun c : E × E => ‖c.1-c.2‖^2) γ) :\n      Integrable (fun z : (E × E) × E => inner ℝ (z.1.1-z.1.2) z.2)\n        (γ.prod (stdGaussian E)) ∧\n      (∫ z : (E × E) × E, inner ℝ (z.1.1-z.1.2) z.2 ∂γ.prod (stdGaussian E)) = 0 := by\n    have hd : Integrable (fun c : E × E => c.1-c.2) γ := by\n      apply Integrable.mono' ((integrable_const (1 : ℝ)).add h2) (by fun_prop)\n      filter_upwards [] with c\n      change ‖c.1-c.2‖ ≤ 1 + ‖c.1-c.2‖^2\n      have hn := norm_nonneg (c.1-c.2)\n      nlinarith [sq_nonneg (‖c.1-c.2‖-1)]\n    have hz : Integrable (fun z : E => z) (stdGaussian E) := IsGaussian.integrable_id\n    have hi : Integrable (fun z : (E × E) × E => inner ℝ (z.1.1-z.1.2) z.2)\n        (γ.prod (stdGaussian E)) :=\n      hd.op_fst_snd (by fun_prop) ⟨1, by intro x y; simpa using abs_real_inner_le_norm x y⟩ hz\n    refine ⟨hi, ?_⟩\n    rw [integral_prod _ hi]\n    have hm (c : E × E) : (∫ z : E, inner ℝ (c.1-c.2) z ∂stdGaussian E) = 0 := by\n      change (∫ z : E, (innerSL ℝ (c.1-c.2)) z ∂stdGaussian E) = 0\n      rw [(innerSL ℝ (c.1-c.2)).integral_comp_comm hz]\n      simp [integral_id_stdGaussian]\n    simp_rw [hm]\n    simp\n  have jointLikelihood (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (a b : E × E → E) (ha : Measurable a) (hb : Measurable b)\n      (τ : ℝ) (hτ : 0 < τ) :\n      let A := (γ.prod (stdGaussian E)).map (fun w => (w.1,a w.1+Real.sqrt τ • w.2))\n      let B := (γ.prod (stdGaussian E)).map (fun w => (w.1,b w.1+Real.sqrt τ • w.2))\n      let L := fun w : (E × E) × E => ENNReal.ofReal (Real.exp\n        (inner ℝ (a w.1-b w.1) (w.2-b w.1)/τ-‖a w.1-b w.1‖^2/(2*τ)))\n      Measurable L ∧ A = B.withDensity L := by\n    dsimp only\n    let L := fun w : (E × E) × E => ENNReal.ofReal (Real.exp\n      (inner ℝ (a w.1-b w.1) (w.2-b w.1)/τ-‖a w.1-b w.1‖^2/(2*τ)))\n    have hL : Measurable L := by unfold L; fun_prop\n    refine ⟨hL, ?_⟩\n    apply Measure.ext_of_lintegral\n    intro f hf\n    rw [lintegral_map hf (by fun_prop),lintegral_prod _ (by fun_prop),\n      lintegral_withDensity_eq_lintegral_mul _ hL hf,\n      lintegral_map (hL.mul hf) (by fun_prop),lintegral_prod _ (by fun_prop)]\n    apply lintegral_congr\n    intro c\n    change (∫⁻ z, f (c,a c+Real.sqrt τ • z) ∂stdGaussian E) =\n      ∫⁻ z, L (c,b c+Real.sqrt τ • z) * f (c,b c+Real.sqrt τ • z) ∂stdGaussian E\n    have hf' : Measurable (fun z : E => f (c,z)) := hf.comp (measurable_const.prodMk measurable_id)\n    have hLc : Measurable (fun z : E => L (c,z)) := hL.comp (measurable_const.prodMk measurable_id)\n    have hlaw := (GaussianLikelihood.translated_gaussian_likelihood (a c) (b c) τ hτ).2.1\n    dsimp only at hlaw\n    calc\n      _ = ∫⁻ z, f (c,z) ∂(stdGaussian E).map (fun z => a c+Real.sqrt τ • z) :=\n        (lintegral_map hf' (by fun_prop)).symm\n      _ = ∫⁻ z, L (c,z)*f (c,z) ∂(stdGaussian E).map (fun z => b c+Real.sqrt τ • z) := by\n        rw [hlaw,lintegral_withDensity_eq_lintegral_mul _ (by fun_prop) hf']\n        rfl\n      _ = _ := lintegral_map (show Measurable (fun z => L (c,z)*f (c,z)) from hLc.mul hf') (by fun_prop)\n  have llrAlgebra (x y z : E) (τ : ℝ) (hτ : 0 < τ) :\n      inner ℝ (x-y) (x+Real.sqrt τ • z-y)/τ-‖x-y‖^2/(2*τ) =\n        ‖x-y‖^2/(2*τ)+inner ℝ (x-y) z/Real.sqrt τ := by\n    have hs : Real.sqrt τ ≠ 0 := (Real.sqrt_pos.mpr hτ).ne'\n    rw [show x+Real.sqrt τ • z-y = (x-y)+Real.sqrt τ • z by abel,\n      inner_add_right,real_inner_smul_right,real_inner_self_eq_norm_sq]\n    have ht : τ = (Real.sqrt τ)^2 := (Real.sq_sqrt hτ.le).symm\n    rw [ht]\n    rw [Real.sqrt_sq (Real.sqrt_nonneg τ)]\n    field_simp\n    ring\n  have jointKL (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (h2 : Integrable (fun c : E × E => ‖c.1-c.2‖^2) γ)\n      (τ : ℝ) (hτ : 0 < τ) :\n      let A := (γ.prod (stdGaussian E)).map (fun w => (w.1,w.1.1+Real.sqrt τ • w.2))\n      let B := (γ.prod (stdGaussian E)).map (fun w => (w.1,w.1.2+Real.sqrt τ • w.2))\n      InformationTheory.klDiv A B = ENNReal.ofReal ((∫ c, ‖c.1-c.2‖^2 ∂γ)/(2*τ)) := by\n    let F := fun w : (E × E) × E => (w.1,w.1.1+Real.sqrt τ • w.2)\n    let G := fun w : (E × E) × E => (w.1,w.1.2+Real.sqrt τ • w.2)\n    let A := (γ.prod (stdGaussian E)).map F\n    let B := (γ.prod (stdGaussian E)).map G\n    let ℓ := fun w : (E × E) × E => inner ℝ (w.1.1-w.1.2) (w.2-w.1.2)/τ-‖w.1.1-w.1.2‖^2/(2*τ)\n    let L := fun w => ENNReal.ofReal (Real.exp (ℓ w))\n    have hF : Measurable F := by unfold F; fun_prop\n    have hG : Measurable G := by unfold G; fun_prop\n    have hℓ : Measurable ℓ := by unfold ℓ; fun_prop\n    have hL : Measurable L := by unfold L; fun_prop\n    have hA : IsProbabilityMeasure A := Measure.isProbabilityMeasure_map hF.aemeasurable\n    have hB : IsProbabilityMeasure B := Measure.isProbabilityMeasure_map hG.aemeasurable\n    let := hA\n    let := hB\n    have hab : A = B.withDensity L :=\n      (jointLikelihood γ Prod.fst Prod.snd measurable_fst measurable_snd τ hτ).2\n    have hac : A ≪ B := by rw [hab]; exact withDensity_absolutelyContinuous _ _\n    have hrn : A.rnDeriv B =ᵐ[B] L := by rw [hab]; exact Measure.rnDeriv_withDensity _ hL\n    have hlog : llr A B =ᵐ[A] ℓ := by\n      filter_upwards [hac.ae_eq hrn] with w hw\n      simp only [llr,hw,L,ENNReal.toReal_ofReal (Real.exp_pos _).le,Real.log_exp]\n    have hpull : (fun w => ℓ (F w)) = fun w : (E × E) × E =>\n        ‖w.1.1-w.1.2‖^2/(2*τ)+inner ℝ (w.1.1-w.1.2) w.2/Real.sqrt τ := by\n      funext w\n      exact llrAlgebra w.1.1 w.1.2 w.2 τ hτ\n    obtain ⟨hc,hcz⟩ := crossMoment γ h2\n    have hip : Integrable (fun w => ℓ (F w)) (γ.prod (stdGaussian E)) := by\n      rw [hpull]\n      exact ((h2.comp_fst (stdGaussian E)).div_const _).add (hc.div_const _)\n    have hiℓ : Integrable ℓ A := (integrable_map_measure hℓ.aestronglyMeasurable hF.aemeasurable).mpr hip\n    have hillr : Integrable (llr A B) A := hiℓ.congr hlog.symm\n    have hfstint : (∫ w : (E × E) × E, ‖w.1.1-w.1.2‖^2 ∂γ.prod (stdGaussian E)) =\n        ∫ c : E × E, ‖c.1-c.2‖^2 ∂γ := by\n      simpa using (integral_fun_fst (μ := γ) (ν := stdGaussian E) (fun c : E × E => ‖c.1-c.2‖^2))\n    have hint : (∫ w, ℓ w ∂A) = (∫ c, ‖c.1-c.2‖^2 ∂γ)/(2*τ) := by\n      rw [show A = (γ.prod (stdGaussian E)).map F from rfl,\n        integral_map hF.aemeasurable hℓ.aestronglyMeasurable]\n      change (∫ w, (fun w => ℓ (F w)) w ∂γ.prod (stdGaussian E)) = _\n      rw [hpull,integral_add ((h2.comp_fst _).div_const _) (hc.div_const _),\n        integral_div,integral_div,hcz]\n      rw [hfstint]\n      simp\n    change InformationTheory.klDiv A B = _\n    rw [InformationTheory.klDiv_of_ac_of_integrable hac hillr,integral_congr_ae hlog,hint]\n    simp\n  have gaussianMarginal (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (a : E × E → E) (ha : Measurable a) (τ : ℝ) :\n      ((γ.prod (stdGaussian E)).map (fun w => (w.1,a w.1+Real.sqrt τ • w.2))).map Prod.snd =\n        GaussianSmoothing.gaussianSmoothing (γ.map a) (Real.sqrt τ) := by\n    have hprob : IsProbabilityMeasure (γ.map a) := Measure.isProbabilityMeasure_map ha.aemeasurable\n    let := hprob\n    have smoothing_law (μ : Measure E) [IsProbabilityMeasure μ] :\n        GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ) =\n          (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2) := by\n      unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n        GaussianSmoothing.scaledStdGaussian\n      have hp := Measure.map_prod_map μ (stdGaussian E) measurable_id\n        (by fun_prop : Measurable (fun z : E => Real.sqrt τ • z))\n      simp only [Measure.map_id] at hp\n      rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [smoothing_law,Measure.map_map measurable_snd (by fun_prop)]\n    have hp := Measure.map_prod_map γ (stdGaussian E) ha measurable_id\n    simp only [Measure.map_id] at hp\n    rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  have hn (z : E × E) : 0 ≤ ‖z.1-z.2‖^2 := sq_nonneg _\n  let c : E × E → ℝ≥0 := fun z => ⟨‖z.1-z.2‖^2,hn z⟩\n  have hf : Continuous (fun z : E × E => ‖z.1-z.2‖^2) := by fun_prop\n  have hc : Continuous c := hf.subtype_mk _\n  obtain ⟨γ,hprob,hcouple,hopt⟩ := OptimalContinuousCost.exists_optimal_coupling P Q c hc\n  let : IsProbabilityMeasure γ := hprob\n  have heq : (fun z => (c z : ℝ≥0∞)) = (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖^2)) := by\n    funext z\n    exact (ENNReal.ofReal_eq_coe_nnreal (hn z)).symm\n  rw [heq] at hopt\n  have hfinite : (∫⁻ z, ENNReal.ofReal (‖z.1-z.2‖^2) ∂γ) ≠ ∞ :=\n    ne_of_lt (lt_of_le_of_lt (hopt.le.trans hcost) ENNReal.ofReal_lt_top)\n  have hnon : 0 ≤ᵐ[γ] (fun z : E × E => ‖z.1-z.2‖^2) := Filter.Eventually.of_forall hn\n  have hI := (lintegral_ofReal_ne_top_iff_integrable hf.aestronglyMeasurable hnon).mp hfinite\n  have hbudget : (∫ z, ‖z.1-z.2‖^2 ∂γ) ≤ r^2 := by\n    rw [integral_eq_lintegral_of_nonneg_ae hnon hf.aestronglyMeasurable]\n    have hh := ENNReal.toReal_mono ENNReal.ofReal_ne_top (hopt.le.trans hcost)\n    simpa [ENNReal.toReal_ofReal (sq_nonneg r)] using hh\n  let A := (γ.prod (stdGaussian E)).map (fun w => (w.1,w.1.1+Real.sqrt τ • w.2))\n  let B := (γ.prod (stdGaussian E)).map (fun w => (w.1,w.1.2+Real.sqrt τ • w.2))\n  have hA : IsProbabilityMeasure A := Measure.isProbabilityMeasure_map (by fun_prop)\n  have hB : IsProbabilityMeasure B := Measure.isProbabilityMeasure_map (by fun_prop)\n  let := hA\n  let := hB\n  have hfst : γ.map Prod.fst = P := hcouple.1\n  have hsnd : γ.map Prod.snd = Q := hcouple.2\n  have hAP : A.map Prod.snd = GaussianSmoothing.gaussianSmoothing P (Real.sqrt τ) := by\n    have hh := gaussianMarginal γ Prod.fst measurable_fst τ\n    rw [hfst] at hh\n    exact hh\n  have hBQ : B.map Prod.snd = GaussianSmoothing.gaussianSmoothing Q (Real.sqrt τ) := by\n    have hh := gaussianMarginal γ Prod.snd measurable_snd τ\n    rw [hsnd] at hh\n    exact hh\n  have hd := InformationTheory.klDiv_map_le A B measurable_snd\n  have hj : InformationTheory.klDiv A B = ENNReal.ofReal ((∫ c, ‖c.1-c.2‖^2 ∂γ)/(2*τ)) :=\n    jointKL γ hI τ hτ\n  rw [hAP,hBQ,hj] at hd\n  exact hd.trans (ENNReal.ofReal_le_ofReal (div_le_div_of_nonneg_right hbudget (by positivity)))\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(i), actual quadratic-budget Gaussian KL reverse transport",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E, including dimension zero. Let r>=0 and tau>0. Suppose the actual infimum over couplings gamma of the extended nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then the actual extended-nonnegative InformationTheory.klDiv of GaussianSmoothing P sqrt(tau) relative to GaussianSmoothing Q sqrt(tau) is at most ofReal(r^2/(2tau)). GaussianSmoothing is the product-noise addition pushforward with centered identity-covariance standard Gaussian, scaled by sqrt(tau). No marginal second moments, optimizer, Gaussian KL formula or target LLR integrability are assumed.",
+        "formulae": [
+          {
+            "label": "Actual Gaussian KL reverse transport",
+            "tex": "\\inf_{\\gamma\\in\\Pi(P,Q)}\\int\\|x-y\\|^2\\,d\\gamma\\le r^2\\quad\\Longrightarrow\\quad\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\frac{r^2}{2\\tau}."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+          "r>=0 and tau>0. Zero radius is included; nonnegative radius is retained for its geometric meaning although the algebra uses only r^2.",
+          "The actual extended nonnegative infimum quadratic displacement transportCost(P,Q)<=ofReal(r^2) is the input; no optimizer or supplied coupling premise.",
+          "Source Lemma6.3(i) uses Euclidean marginal P2 membership and W2. The proved raw-cost formulation and finite-dimensional inner-product domain are explicit generalizations; finite displacement cost does not imply marginal moments.",
+          "InformationTheory.klDiv is the actual ENNReal divergence, with absolute continuity and LLR integrability proved before using its real integral formula. No exponential displacement moment is required."
+        ],
+        "obligations": [
+          {
+            "id": "actual-kl",
+            "label": "Actual ENNReal Gaussian KL bound from the true quadratic transport infimum"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+          "title": "Gaussian KL reverse transport from the actual quadratic transport budget",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(i)",
+              "scope": "Expanded actual-budget Gaussian regularization inequality used by Theorem6.5 A1; not a proof of the full recursive algorithm."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianKL"
+          ],
+          "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E, including dimension zero. Let r>=0 and tau>0. Suppose the actual infimum over couplings gamma of the extended nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then the actual extended-nonnegative InformationTheory.klDiv of GaussianSmoothing P sqrt(tau) relative to GaussianSmoothing Q sqrt(tau) is at most ofReal(r^2/(2tau)). GaussianSmoothing is the product-noise addition pushforward with centered identity-covariance standard Gaussian, scaled by sqrt(tau). No marginal second moments, optimizer, Gaussian KL formula or target LLR integrability are assumed.",
+          "formula": "\\inf_{\\gamma\\in\\Pi(P,Q)}\\int\\|x-y\\|^2\\,d\\gamma\\le r^2\\quad\\Longrightarrow\\quad\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\frac{r^2}{2\\tau}.",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+            "r>=0 and tau>0. Zero radius is included; nonnegative radius is retained for its geometric meaning although the algebra uses only r^2.",
+            "The actual extended nonnegative infimum quadratic displacement transportCost(P,Q)<=ofReal(r^2) is the input; no optimizer or supplied coupling premise.",
+            "Source Lemma6.3(i) uses Euclidean marginal P2 membership and W2. The proved raw-cost formulation and finite-dimensional inner-product domain are explicit generalizations; finite displacement cost does not imply marginal moments.",
+            "InformationTheory.klDiv is the actual ENNReal divergence, with absolute continuity and LLR integrability proved before using its real integral formula. No exponential displacement moment is required."
+          ],
+          "steps": [
+            {
+              "title": "Attain the genuine quadratic transport cost",
+              "text": "Apply the existing optimal-coupling theorem to the continuous nonnegative cost norm(x-y)^2. Its actual optimum equals the infimum in the hypothesis. The finite budget yields integrability of the squared displacement and the real expectation bound; no individual marginal moment is inferred.",
+              "formula": "\\exists\\gamma\\in\\Pi(P,Q):\\quad\\int\\|x-y\\|^2d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int\\|x-y\\|^2d\\rho\\le r^2.",
+              "lean": "OptimalContinuousCost.exists_optimal_coupling; hfinite, hI and hbudget convert only the finite nonnegative integral."
+            },
+            {
+              "title": "Identify the joint Gaussian likelihood as a measure equality",
+              "text": "On the actual product gamma times standard Gaussian, retain c=(x,y) and map the noise to x+sqrt(tau)Z or y+sqrt(tau)Z, defining joint probability laws A,B. Nonnegative integral extensionality and the known fixed-center Gaussian likelihood give A=B.withDensity L. The likelihood is jointly measurable; no fiber a.e. identity is promoted to a pointwise joint identity.",
+              "formula": "L(c,z)=\\exp\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\qquad A=L\\,B.",
+              "lean": "jointLikelihood expands the product integral and applies translated_gaussian_likelihood for each retained c."
+            },
+            {
+              "title": "Use the likelihood under the correct joint law",
+              "text": "The withDensity equality gives A absolutely continuous with respect to B and RN=L B-a.e. Transfer that equality to A-a.e. using absolute continuity. Under A, z=x+sqrt(tau)Z, so the log likelihood has a positive quadratic term and a centered inner-product term.",
+              "formula": "\\log L(c,x+\\sqrt\\tau Z)=\\frac{\\|x-y\\|^2}{2\\tau}+\\frac{\\langle x-y,Z\\rangle}{\\sqrt\\tau}.",
+              "lean": "hrn then hac.ae_eq yields hlog; llrAlgebra proves the exact A-parameterized identity."
+            },
+            {
+              "title": "Prove absolute integrability before taking expectations",
+              "text": "The bound norm(d)<=1+norm(d)^2 gives displacement integrability. Product integrability of the inner product follows from abs(inner(d,Z))<=norm(d)norm(Z) and the Gaussian first moment. Fubini and the continuous linear inner-product functional then give zero expectation, using the actual product measure and Gaussian zero mean.",
+              "formula": "\\mathbb E_{\\gamma\\otimes G}|\\langle x-y,Z\\rangle|<\\infty,\\qquad\\mathbb E_{\\gamma\\otimes G}\\langle x-y,Z\\rangle=0.",
+              "lean": "crossMoment uses Integrable.op_fst_snd, integral_prod, continuous-linear-map integral interchange and integral_id_stdGaussian."
+            },
+            {
+              "title": "Calculate the actual joint KL divergence",
+              "text": "Both terms of the pulled-back LLR are integrable. Transfer integrability through the measurable map and the A-a.e. LLR identity. Apply the actual klDiv formula; the probability mass corrections cancel, leaving the quadratic displacement expectation divided by 2tau.",
+              "formula": "\\operatorname{KL}(A\\|B)=\\frac1{2\\tau}\\int\\|x-y\\|^2d\\gamma.",
+              "lean": "jointKL proves Integrable(llr A B) A before klDiv_of_ac_of_integrable; all real integral manipulations are justified."
+            },
+            {
+              "title": "Identify both actual output marginals",
+              "text": "Project each retained-parameter joint law to its output coordinate. Composition of pushforwards and the product-map identity show that the marginals are the existing GaussianSmoothing operators applied to the actual coupling marginals P,Q.",
+              "formula": "(\\operatorname{snd})_\\#A=H_\\tau P,\\qquad(\\operatorname{snd})_\\#B=H_\\tau Q.",
+              "lean": "gaussianMarginal uses Measure.map_prod_map and Measure.map_map; hAP,hBQ use hcouple.1 and hcouple.2."
+            },
+            {
+              "title": "Apply KL data processing and the finite budget",
+              "text": "Apply the existing actual KL data-processing inequality to the same output projection for A and B. Substitute the exact joint KL and actual marginal identities, then divide the proved budget by positive 2tau and use ENNReal.ofReal monotonicity.",
+              "formula": "\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\operatorname{KL}(A\\|B)\\le\\frac{r^2}{2\\tau}.",
+              "lean": "InformationTheory.klDiv_map_le followed by hj, hAP, hBQ and hbudget. No totalized-toReal shortcut, Renyi limit, or TV-to-cost transfer."
+            }
+          ],
+          "lean_statement": "Actual ENNReal KL of Gaussian smoothing is bounded by r^2/(2tau) from the true quadratic transport budget.",
+          "lean_proof": "Actual optimal coupling, joint Gaussian likelihood and integrable LLR formula, followed by exact marginal identification and KL data processing.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+          ],
+          "mathlib_dependencies": [
+            "InformationTheory.klDiv_map_le",
+            "InformationTheory.klDiv_of_ac_of_integrable",
+            "MeasureTheory.Integrable.op_fst_snd",
+            "ProbabilityTheory.integral_id_stdGaussian"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+          "role": "prerequisite",
+          "supports": [
+            "actual-kl"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Lemma6.3(i) states Gaussian KL reverse transport for Euclidean P2 probabilities using W2.",
+            "lean": "Finite-dimensional real inner-product Borel probabilities including zero dimension, with actual infimum quadratic-cost budget and no marginal moments."
+          },
+          {
+            "source": "Positive heat time with exact coefficient 1/(2tau).",
+            "lean": "tau>0,nonnegative radius r and actual ENNReal KL <=ofReal(r^2/(2tau))."
+          },
+          {
+            "source": "The standard Gaussian regularization inequality is invoked in the A1 stage of Theorem6.5.",
+            "lean": "Expanded optimal coupling, joint likelihood, proved LLR integrability, exact output marginals and KL data processing."
+          },
+          {
+            "source": "Full recursive sampling main results also require actual conditional kernels and costs.",
+            "lean": "This actual probability-measure Gaussian KL prerequisite only."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E with its Borel measurable structure, every pair of probability measures P,Q, and every real r,tau, assume r>=0,tau>0 and the actual extended-nonnegative infimum over all measures gamma on E times E whose first/second marginals are P,Q of the nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then klDiv(gaussianSmoothing(P,sqrt(tau)),gaussianSmoothing(Q,sqrt(tau)))<=ofReal(r^2/(2tau)). No attaining coupling is assumed. Gaussian smoothing is the addition pushforward of mu product kappa_sqrt(tau), where kappa_sqrt(tau) is the pushforward of the centered identity-covariance standard Gaussian by multiplication by sqrt(tau). Dimension zero is allowed. The conclusion concerns the actual extended-nonnegative divergence in the direction smoothed P relative to smoothed Q. For these probability laws mu,nu it equals ofReal(integral log((dmu/dnu).toReal) dmu) when mu is absolutely continuous with respect to nu and that log likelihood ratio is integrable under mu; otherwise it equals infinity. Absolute continuity and log-likelihood integrability are not additional hypotheses. The finite bound concerns the divergence itself, not its totalized real conversion. All space, measure and parameter quantifiers are universal. There are no additional dimension, moment, density or regularity assumptions in the printed statement. The constant is exactly 1/(2tau), without a dimension factor. The reconstruction uses only the printed statement and approved definitions; it makes no source-fidelity judgment and does not independently verify compilation or hashes.",
+        "text_sha256": "801bb0f91fb60eee7266f15e5d703b9a3486c7a225a85c124b352bcee9754aa2",
+        "decoder_packet_sha256": "082819f76a10a57ca956004c42d0f1d904a16bd19027640c526a0cfa000e6fdc",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "kl_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent saw only the anonymous statement and approved definitions. Actual infimum, Gaussian normalization, ENNReal KL direction and non-hypothesis status of LLR integrability preserved. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "54fd14720c4e98db3c042d95243cb5262a3d400273eb604ef504bf2ec0fdd4d2",
+        "lean_statement_sha256": "0d496a423492f919bf8ab6b3f4af968737c022b5df9c9594fa108e4628f99b1a",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-kl.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Gaussian convolutions and forward KL.",
+          "reconstructed": "Existing GaussianSmoothing P/Q sqrt(tau) and actual ENNReal klDiv.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual output-map identities; covariance tau I; direction smoothed P relative to smoothed Q."
+        },
+        "domains": {
+          "original": "Euclidean probabilities.",
+          "reconstructed": "Finite-dimensional real inner-product Borel probabilities including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive dimension or division by dimension."
+        },
+        "quantifiers": {
+          "original": "Every eligible law pair and positive heat time.",
+          "reconstructed": "Universal E,P,Q,r,tau under budget/sign conditions.",
+          "relation": "explicit-elaboration",
+          "evidence": "Explicit radius budget; no supplied coupling or optimizer premise."
+        },
+        "assumptions": {
+          "original": "Marginal P2 membership and W2.",
+          "reconstructed": "Actual infimum quadratic-cost <=ofReal(r^2),r>=0,tau>0; no marginal moments.",
+          "relation": "stronger-in-lean",
+          "evidence": "Optimum and displacement integrability derived; marginal moments neither used nor concluded."
+        },
+        "conclusion": {
+          "original": "Gaussian KL <= W2(P,Q)^2/(2tau).",
+          "reconstructed": "Actual ENNReal KL <=ofReal(r^2/(2tau)).",
+          "relation": "explicit-elaboration",
+          "evidence": "Disclosed radius budget; actual divergence, not totalized toReal. Full W2 identity separate."
+        },
+        "scopes": {
+          "original": "Gaussian regularization used by Theorem6.5 A1.",
+          "reconstructed": "Actual measure Gaussian KL prerequisite via joint likelihood/projection.",
+          "relation": "different",
+          "evidence": "Recursive kernels, sampler errors and query costs excluded."
+        },
+        "constant_dependencies": {
+          "original": "Exact dimension-free coefficient1/(2tau).",
+          "reconstructed": "ofReal(r^2/(2tau)),tau>0,r0 allowed.",
+          "relation": "same",
+          "evidence": "A-parameterized positive quadratic LLR term; cross mean zero and probability corrections cancel."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit finite-dimensional generalization includes zero dimension.",
+          "evidence": "No positive dimension or division by dimension."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Raw displacement-cost budget generalizes marginal P2; no marginal moment inference.",
+          "evidence": "Optimum and displacement integrability derived; marginal moments neither used nor concluded."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Radius r^2 budget, not a full W2 metric API identity.",
+          "evidence": "Disclosed radius budget; actual divergence, not totalized toReal. Full W2 identity separate."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Joint likelihood and KL projection elaborate the source short joint-convexity argument without Gaussian KL or exponential-moment premises.",
+          "evidence": "Recursive kernels, sampler errors and query costs excluded."
+        }
+      ]
     }
   ]
 }

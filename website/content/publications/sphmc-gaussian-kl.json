@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gaussian-kl",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Gaussian KL reverse transport from the actual quadratic transport budget",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.3(i), actual quadratic-budget Gaussian KL reverse transport",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E, including dimension zero. Let r>=0 and tau>0. Suppose the actual infimum over couplings gamma of the extended nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then the actual extended-nonnegative InformationTheory.klDiv of GaussianSmoothing P sqrt(tau) relative to GaussianSmoothing Q sqrt(tau) is at most ofReal(r^2/(2tau)). GaussianSmoothing is the product-noise addition pushforward with centered identity-covariance standard Gaussian, scaled by sqrt(tau). No marginal second moments, optimizer, Gaussian KL formula or target LLR integrability are assumed.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+        "r>=0 and tau>0. Zero radius is included; nonnegative radius is retained for its geometric meaning although the algebra uses only r^2.",
+        "The actual extended nonnegative infimum quadratic displacement transportCost(P,Q)<=ofReal(r^2) is the input; no optimizer or supplied coupling premise.",
+        "Source Lemma6.3(i) uses Euclidean marginal P2 membership and W2. The proved raw-cost formulation and finite-dimensional inner-product domain are explicit generalizations; finite displacement cost does not imply marginal moments.",
+        "InformationTheory.klDiv is the actual ENNReal divergence, with absolute continuity and LLR integrability proved before using its real integral formula. No exponential displacement moment is required."
+      ],
+      "formulae": [
+        {
+          "label": "Actual Gaussian KL reverse transport",
+          "tex": "\\inf_{\\gamma\\in\\Pi(P,Q)}\\int\\|x-y\\|^2\\,d\\gamma\\le r^2\\quad\\Longrightarrow\\quad\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\frac{r^2}{2\\tau}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-kl",
+          "label": "Actual ENNReal Gaussian KL bound from the true quadratic transport infimum"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+          "cell": "ASTIS-SW-SPHMC-gaussian-kl",
+          "role": "prerequisite",
+          "supports": [
+            "actual-kl"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGaussianKL",
+          "boundary": "Actual ENNReal KL Gaussian reverse transport from a genuine quadratic transport-cost budget. Explicit generalization of Euclidean marginal-P2/W2 presentation; no marginal moments inferred. Full W2 API identification, recursive kernels, sampler errors and query costs remain separate.",
+          "assumption_deltas": [
+            {
+              "source": "Lemma6.3(i) states Gaussian KL reverse transport for Euclidean P2 probabilities using W2.",
+              "lean": "Finite-dimensional real inner-product Borel probabilities including zero dimension, with actual infimum quadratic-cost budget and no marginal moments.",
+              "classification": "generalization",
+              "reason": "The proof uses only finite coupling displacement moment, which does not imply marginal second moments; full W2 API identification remains separate."
+            },
+            {
+              "source": "Positive heat time with exact coefficient 1/(2tau).",
+              "lean": "tau>0,nonnegative radius r and actual ENNReal KL <=ofReal(r^2/(2tau)).",
+              "classification": "same",
+              "reason": "Actual noise scale sqrt(tau), forward KL direction and exact joint LLR formula preserve normalization."
+            },
+            {
+              "source": "The standard Gaussian regularization inequality is invoked in the A1 stage of Theorem6.5.",
+              "lean": "Expanded optimal coupling, joint likelihood, proved LLR integrability, exact output marginals and KL data processing.",
+              "classification": "source-implicit",
+              "reason": "No Gaussian KL contract, optimizer, target integrability or exponential displacement moment is assumed."
+            },
+            {
+              "source": "Full recursive sampling main results also require actual conditional kernels and costs.",
+              "lean": "This actual probability-measure Gaussian KL prerequisite only.",
+              "classification": "API-limitation",
+              "reason": "Recursive kernels, full Wasserstein API, sampler error and query-cost statements are not claimed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

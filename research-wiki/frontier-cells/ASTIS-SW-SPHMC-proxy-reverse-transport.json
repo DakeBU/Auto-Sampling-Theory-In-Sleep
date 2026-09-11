@@ -38,11 +38,24 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-proxy-reverse-transport.md",
     "planning_review": "Independent depth_commit_verifier primary/source route audit: legitimate integration-node eliminating supplied coupling and retaining same witness before forall tau,q; inherited p>=2 and raw-cost API boundary explicit.",
-    "execution_boundary": "Root sole writer and sole STABILIZING owner; Mixture PR261 merged.",
+    "execution_boundary": "Root sole writer; proxy merged, stabilization lane released.",
     "ownership_note": "One actual source consumer; no invented shared-floor second consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/proxy-reverse-transport.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at d16398d01018b0990d10ff6ca7fbbff5b2144055; aggregate and reader/graph pending.",
-    "independent_verification": "runs/20260911-companion-priority/proxy-reverse-transport.verified-admission.json"
+    "admission_boundary": "Independently VERIFIED and actually merged PR262 after preserved collaborator integration and final CI artifact acceptance; merge CI/deployment separate.",
+    "independent_verification": "runs/20260911-companion-priority/proxy-reverse-transport.verified-admission.json",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/262",
+      "commit": "99aa05261932aa9f5e243e42eea2723916dc28b3",
+      "candidate": "183b927f4faa210c7a863b2de9b0daac6ad4ee46",
+      "merged_at": "2026-09-11T02:22:14Z",
+      "independent_merge_review": "depth_commit_verifier accepted upstream preservation, fresh aggregate and final CI artifact smoke, conditional on same-head Lean success. Root verified both same-head CIs success, unchanged MERGEABLE head, then match-head merge succeeded.",
+      "candidate_ci": {
+        "lean": "34553341586 SUCCESS",
+        "site": "34553341667 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": "Actual merge CI/deployment pending. Prior local and CI artifact QA remain bound to their recorded commits.",
+      "truth_boundary": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii)."
+    }
   },
   "blocked": {
     "reason": "",

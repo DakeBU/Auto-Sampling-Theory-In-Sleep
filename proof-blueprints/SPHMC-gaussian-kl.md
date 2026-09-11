@@ -9,3 +9,5 @@ Attain the actual cost. Form two joint Gaussian laws on ((x,y),z) with common co
 Root sole writer. Emit bounded publication packet before any Lean development.
 
 Development checkpoint: quadratic-displacement control gives integrability and zero mean of the independent Gaussian cross inner product (scratch compiled). A joint product-map/volume-density identity also compiled, but the shorter selected route now obtains the actual joint withDensity equality directly by integral extensionality, expanding the product integral, and the existing GaussianLikelihood measure equality at each retained coupling parameter. This avoids repeating Gaussian density arithmetic and avoids parameter-dependent null-set promotion. The direct joint-likelihood and A-parameterized LLR algebra are being compiled; no production KL theorem is claimed.
+
+Production focused and independent replay PASS3739, standard three axioms, no new lint. The actual joint KL formula, output laws and infimum-budget consumer are complete in the single production declaration. PROVED_LOCAL only; anonymous/source/fixed-commit admission and integration remain separate.

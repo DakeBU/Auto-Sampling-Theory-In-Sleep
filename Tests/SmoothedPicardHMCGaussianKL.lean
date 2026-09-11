@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport
