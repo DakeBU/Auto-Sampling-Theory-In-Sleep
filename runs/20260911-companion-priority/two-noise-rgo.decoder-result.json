@@ -1,0 +1,16 @@
+{
+  "decoder": "two_noise_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful plain-text transcription of independent anonymous reconstruction; supplied identifiers not independently verified by decoder.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-two-noise-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCTwoNoiseRGO.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "e3ae30d5f10af7a6c78f66a70ef21b002a22358eb757fe4cb0bfcf71532a07b8",
+  "lean_statement_sha256": "823a02fae44fdba23ffbb85825efd9dfb141131833b5b6ef2ab92391cb7a1075",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space with its Borel structure; zero dimension is permitted. Let mu be any probability measure. For any real b,eta,tau with b>=0,eta>=0,tau>0 and any u, let rho be mu reweighted by exp(-(b/2)*norm(x-u)^2) and normalized by its integral. Let S_s(P) be the actual law of X+sZ under P times the centered identity-covariance standard Gaussian. Then rho is probability and S_sqrt(tau)(S_sqrt(eta)(rho))=S_sqrt(eta+tau)(rho). There exists one measurable Markov kernel K such that for every y, K(y) is rho reweighted by exp(-norm(x-y)^2/(2*(eta+tau))) and normalized by its rho integral. The exact measure identity K composed with S_sqrt(tau)(S_sqrt(eta)(rho))=rho holds. Kernel composition with P assigns each measurable B the integral K(y,B) dP(y), and each fiber is probability. The same K simultaneously satisfies for every probability nu and real r>=0: if W2(nu,S_sqrt(eta)(rho))<=ofReal(r), then actual KL(K composed with S_sqrt(tau)(nu),rho)<=ofReal(r^2/(2*tau)). W2(P,Q) is the extended-nonnegative square root of the actual infimum over measures Gamma whose first marginal is P and second is Q of the extended-nonnegative integral of ofReal(norm(x-y)^2). No separate second-moment hypothesis on either marginal is imposed. The divergence direction is reconstructed output relative to rho. Actual ENNReal KL for probability laws equals ofReal(integral log((dP/dQ).toReal) dP) when P is absolutely continuous relative to Q and that logarithm is P-integrable, and infinity otherwise. Neither absolute continuity nor log-integrability is an extra premise. K may depend on E,mu,b,eta,tau,u but is chosen before nu,r. Its fiber formula is everywhere, not only almost everywhere. Its tilt uses total eta+tau, while the bound uses added tau exactly, coefficient1/(2*tau). Only the anonymous statement and approved definitions were used; no source-fidelity or compilation judgment.",
+  "source_fidelity_verdict": null
+}

@@ -1,0 +1,122 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent seven-slot/five-step source review.",
+  "reviewer_packet_sha256": "f4d4fa7288faf5bdc9e003fed1b522e650cf5339e276052dbb808e0127408236",
+  "source_text_sha256": "b7b4d3fc329a605e50fdc6405e8ae1a86aa0514c191760033a469c977f53ca57",
+  "lean_statement_sha256": "823a02fae44fdba23ffbb85825efd9dfb141131833b5b6ef2ab92391cb7a1075",
+  "reconstruction_text_sha256": "0d6e813afddee8bb7d2bf94b32cc2fbc01b096303d40cd3b8c3d9112631b1f09",
+  "embedded_module_text_sha256": "17bcb1a829bd7c87459c1391a358b93b38153c9da6b3905cb9db7e4e56a9de7a",
+  "publication_binding_sha256": "d6a70f51528eadff525e3368faefbd80079d54df1954ee629fa9e77e0b1d5634",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Proposal near already-smoothed target, added independent Gaussian noise and exact backward RGO.",
+      "reconstructed": "Actual GaussianSmoothing, Samplinglib ENNReal W2, one Markov kernel and actual ENNReal output KL.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual two-noise law and existing W2 square identity; no symbolic/toReal replacement."
+    },
+    "domains": {
+      "original": "Euclidean regularized Gibbs targets.",
+      "reconstructed": "Quadratically tilted arbitrary probability bases on finite-dimensional real inner-product Borel spaces including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No concrete potential, curvature or positive-dimension premise."
+    },
+    "quantifiers": {
+      "original": "Exact backward kernel fixed by target/stage independently of proposal.",
+      "reconstructed": "One K after mu,b,eta,tau,u and before all probabilitynu andr>=0, everyyfiber.",
+      "relation": "same",
+      "evidence": "Witness supplied before nu,r; no joint parameter selection."
+    },
+    "assumptions": {
+      "original": "Source Gibbs/P2 data and positive stage noises.",
+      "reconstructed": "Probability base,b>=0,eta>=0,tau>0,actualW2(nu,H_eta rho)<=ofRealr; no marginalmoments.",
+      "relation": "stronger-in-lean",
+      "evidence": "Zeroexistingnoise allowed; hcost derived from squaredactualW2, no optimizer or P2inference."
+    },
+    "conclusion": {
+      "original": "Summed variance, exact backward recovery and added-noise KL control.",
+      "reconstructed": "ActualH_tauH_eta rho=H_(eta+tau)rho, everypointtotal-timekernel,recovery,KL(KH_tau nu||rho)<=ofReal(r^2/(2tau)).",
+      "relation": "explicit-elaboration",
+      "evidence": "Characteristic-function uniqueness, RGOBackward and same-kernel data processing prove actual outputs."
+    },
+    "scopes": {
+      "original": "Normalized history-dependent approximate recursion of Theorem6.5.",
+      "reconstructed": "Fixed-target exacttwo-noisestage with generalprobabilitybase.",
+      "relation": "different",
+      "evidence": "Concrete source times, adaptive/historykernels, approximate recursion anderrors/costs excluded."
+    },
+    "constant_dependencies": {
+      "original": "Totalvariance determinesbackwardRGO; newlyaddedvariance determinesGaussianKL denominator.",
+      "reconstructed": "Kernel denominator2(eta+tau); KLdenominator2tau; inputagainstH_eta rho.",
+      "relation": "same",
+      "evidence": "RGOBackward attotal; GaussianKL attau againstH_eta rho; no dimensionfactor."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "General probability-base/finite-dimensional formulation abstracts concrete Gibbs.",
+      "evidence": "No concrete potential, curvature or positive-dimension premise."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "No individual P2 assumption; eta0 allowed, finite W2 does not imply marginal moments.",
+      "evidence": "Zeroexistingnoise allowed; hcost derived from squaredactualW2, no optimizer or P2inference."
+    },
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Actual W2 input is implemented and is not a deferred correspondence gap.",
+      "evidence": "Actual two-noise law and existing W2 square identity; no symbolic/toReal replacement."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Fixed stage does not assert concrete beta-normalized time substitution or history-dependent approximate sampling.",
+      "evidence": "Concrete source times, adaptive/historykernels, approximate recursion anderrors/costs excluded."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "General semigroup remains localhelper, not separately public Gaussian-law API.",
+      "evidence": "Concrete source times, adaptive/historykernels, approximate recursion anderrors/costs excluded."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Scaled Gaussian characteristic functions and sqrt(s)^2=s for nonnegative s including0."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Probability instances,charFun_conv and ext_of_charFun prove actual law equality; no cancellation of input characteristic function."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Positive total eta+tau RGOBackward supplies actual target probability,oneK,everypointfiber,recovery."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "hsem rewrites actual recovery to two-noise target for sameK."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "nu,r afterK; exact W2 square identity gives hcost; GaussianKL ataddedtau andsameK data processing plusrecovery yieldbound."
+      }
+    ]
+  },
+  "review_evidence": "Independent primary-source audit reused for Theorem6.5 stage/Lemma6.3(i), complete actual-W2 production and five-step comparison. Canonical packet/source/statement/reconstruction/module hashes independently recomputed; embedded production and lesson/publication fields match disk. Source text is expanded attributed paraphrase, not verbatim. Binding authenticated inside packet, external preimage not independently reconstructed. No independent compilation or fixed-commit admission in this source review. No blocker/repair; eta0,b0,r0,zero-dimension confirmed. Concrete source times/Gibbs, joint parameters/history, approximate samplers/measurable proxies, accumulated errors/costs and individual P2 remain separate."
+}
