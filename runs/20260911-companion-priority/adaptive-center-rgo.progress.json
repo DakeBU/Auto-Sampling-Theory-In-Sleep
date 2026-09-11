@@ -1,0 +1,96 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCAdaptiveCenterRGO",
+    "result": "PASS3748",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveCenterRGO.lean": "254968e4855e99be51ff17abed6d3e9b5deb87c98bc3308005699fd56622a3b6",
+      "Tests/SmoothedPicardHMCAdaptiveCenterRGO.lean": "41c445f7801534f9b8cab524b998d44b19b8200034032fa0d9ddcbc0b786396c"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/adaptive-center-rgo.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCAdaptiveCenterRGO"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/adaptive-center-rgo.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem.",
+  "remaining": [
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete Gibbs specialization and joint parameter/history obligations",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/adaptive-center-rgo.verified-admission.json",
+  "integration": {
+    "commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde",
+    "aggregate": {
+      "result": "PASS9124",
+      "gate": {
+        "passed": true,
+        "commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde",
+        "source_digest": "8a0a448cae45233ca9d390637e687fb4807dd740c7320c5f88bbcff31d4b04af",
+        "generated_at": "2026-09-11T04:16:32.343643+00:00",
+        "commands": [
+          "python3 tools/astis.py check"
+        ],
+        "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+      },
+      "log": ".astis/adaptive-center-aggregate.log"
+    },
+    "site": {
+      "build": "PASS594 modules3676 declarations",
+      "check": "PASS77 reviewed teaching declarations",
+      "build_log": ".astis/adaptive-center-site-build.log",
+      "check_log": ".astis/adaptive-center-site-check.log"
+    },
+    "reader": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "anchor": "sphmc-adaptive-center-rgo",
+      "proof_steps": 5,
+      "initially_closed_disclosures": 8,
+      "statement_chars": 678,
+      "proof_chars": 4688,
+      "proof_complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "visual": "Actual screenshot verified section recovery and retained-center joint event integration, with complete proof expansion."
+    },
+    "graph": {
+      "check": "PASS",
+      "artifact": ".astis/adaptive-center-graph-check.json",
+      "focused_nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-adaptivecenterrgo.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-adaptivecenterrgo-adap-af6d209fd0",
+      "local_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+    },
+    "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/266",
+    "state": "DRAFT",
+    "local_qa_commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde"
+  }
+}

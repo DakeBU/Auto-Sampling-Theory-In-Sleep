@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-adaptive-kl-error",
+  "route": "samplewiki-route",
+  "title": "Actual adaptive backward-kernel KL error propagation",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 recursive error propagation after equations(6.5)-(6.7)",
+  "target_statement": "For fixed probability base mu on finite-dimensional real inner-product Borel E,b>=0,a>0, construct the actual AdaptiveCenter target, forward and retained-center backward Markov kernels T,H,B with their everywhere normalized fibers and ideal joint recovery. For every probability center law lambda, every probability input joint law P on E times E, and every actual Markov kernel L from E times E to E times E, prove measurability of s to actual ENNReal klDiv(L s,B s), and klDiv(L composed with P,lambda compProd T)<=klDiv(P,lambda compProd H)+integral klDiv(L s,B s) dP(s). Derive the conditional KL integral identity from jointly measurable kernel RN derivatives, including non-AC and infinite branches; do not assume KL measurability, chain-integral identity, desired sampler error or ideal recovery.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-adaptive-center-rgo",
+    "ASTIS-SW-SPHMC-two-noise-rgo"
+  ],
+  "consumers": [
+    "Theorem6.5 A1 backward induction: actual input divergence plus integrated conditional recursive error"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Mathlib KullbackLeibler ChainRule: klDiv_compProd_eq_add has joint KL second term, not fiber integral",
+      "Mathlib Kernel.RadonNikodym: measurable_rnDeriv, measurableSet_absolutelyContinuous and rnDeriv_eq_rnDeriv_measure",
+      "Mathlib compProd RN TODO and actual KL nonnegative klFun integral",
+      "Samplinglib AdaptiveCenterRGO ideal joint recovery and TwoNoiseRGO input guarantee"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-adaptive-kl-error.md",
+    "planning_review": "Independent log_depth_source_review identifies actual conditional KL integral/measurability as substantive missing edge; root primary source rechecked.",
+    "execution_boundary": "Root sole writer; TwoNoise sole STABILIZING; AdaptiveCenter VERIFIED. This packet EXPLORING.",
+    "ownership_note": "One concrete paper consumer; no invented shared reuse."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Theorem6.5 A1 recursive error propagation",
+    "detail_status": "omitted",
+    "gap": "Measurable actual fiber KL and conditional KL integral identity needed before substituting uniform recursive error.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "anchor": "Theorem6.5 proof A1",
+        "hypothesis_adapter": "Expanded exact kernel-level error calculus; no assumed approximate sampler accuracy."
+      }
+    ],
+    "fidelity_boundary": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual conditional entropy decomposition and composed output law, not an assumption-to-conclusion wrapper."
+  }
+}

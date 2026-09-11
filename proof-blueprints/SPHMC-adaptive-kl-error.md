@@ -1,0 +1,9 @@
+# Actual adaptive backward KL error
+
+For fixed probability base mu on finite-dimensional real inner-product Borel E,b>=0,a>0, construct the actual AdaptiveCenter target, forward and retained-center backward Markov kernels T,H,B with their everywhere normalized fibers and ideal joint recovery. For every probability center law lambda, every probability input joint law P on E times E, and every actual Markov kernel L from E times E to E times E, prove measurability of s to actual ENNReal klDiv(L s,B s), and klDiv(L composed with P,lambda compProd T)<=klDiv(P,lambda compProd H)+integral klDiv(L s,B s) dP(s). Derive the conditional KL integral identity from jointly measurable kernel RN derivatives, including non-AC and infinite branches; do not assume KL measurability, chain-integral identity, desired sampler error or ideal recovery.
+
+Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.
+
+Prove measurable fiber KL using measurable kernel RN and measurable AC set. Identify joint RN from the actual withDensity/disintegration identity. Split joint AC vs non-AC; derive fiber-AC almost everywhere or infinite fiber KL on positive mass. Use nonnegative klFun integrals and compProd Tonelli. Then actual chain rule, output projection data processing and constructed AdaptiveCenter recovery give the desired bound.
+
+Root sole writer; bounded publication packet before Lean development.
