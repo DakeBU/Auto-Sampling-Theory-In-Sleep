@@ -1,0 +1,144 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent formal anti-anchored review.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "6721cde20d8b61d61728db3284e5fd5765b9ef218de6c8ea8375d6cf220db0dd",
+  "source_sha256": "9b390c3831c7875e4d1c23374c8e93b318189ea9ced34b136c82cd04927f2f0d",
+  "statement_sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
+  "reconstruction_sha256": "a93711a6c9fade3575d6b50f80ec9dedd1ca6f6292665e6aa59e48a826d109b6",
+  "module_sha256": "97db509a522f0048383553cf18742a19f48f4f18f55345bfa648078d60dbffd9",
+  "module_raw_sha256": "a9294cbfda5c53804095c49fa02a3bb763e59447125bdc8be20f18c4b9ed67b6",
+  "test_raw_sha256": "8dd99ff577f77bb34c775180dded0f66a64277d817ddbbf46952e82db69e7f3a",
+  "publication_binding_sha256": "c88a1d373736de86779f3363dfae4e5bbc6c862db66e979f555f284f73d7911d",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual gradient-arc estimator, clipping excess and Gaussian product input.",
+      "reconstructed": "Explicit velocity paired with gradient difference, positive excess and affine standard-Gaussian product maps.",
+      "relation": "explicit-elaboration",
+      "evidence": "Expanded type exposes both private semantic definitions; actual same W and mu consumed by parent."
+    },
+    "domains": {
+      "original": "Euclidean smooth s=1 with positive dimension and beta.",
+      "reconstructed": "Finite-dimensional real inner-product Borel space with positive finrank and beta.",
+      "relation": "different",
+      "evidence": "Disclosed coordinate-free extension; no zero dimension or zero beta."
+    },
+    "quantifiers": {
+      "original": "Each r in [0,1] and source reference-center construction.",
+      "reconstructed": "Every real r and arbitrary h,xp satisfying residual bound.",
+      "relation": "stronger-in-lean",
+      "evidence": "Fixed-r result only; random-time integral and joint parameter kernel not asserted."
+    },
+    "assumptions": {
+      "original": "Positive eta,beta,B,d; ell>=2; smoothness, residual and step restriction.",
+      "reconstructed": "Differentiable f with actual beta-Lipschitz gradient and same numerical conditions.",
+      "relation": "explicit-elaboration",
+      "evidence": "Positive denominators; parent MGF and integrability derived, not assumed."
+    },
+    "conclusion": {
+      "original": "Clipping-excess exponential expectation bounded with factor2.",
+      "reconstructed": "Same bound plus measurability of W,F and integrability of F.",
+      "relation": "explicit-elaboration",
+      "evidence": "Four public conclusions; integrability precedes comparison."
+    },
+    "scopes": {
+      "original": "Claim2 intermediate estimate before normalized approximation.",
+      "reconstructed": "Actual fixed-time clipping-excess estimate only.",
+      "relation": "same",
+      "evidence": "Random-time averaging, mean, target law, Renyi, initialization and cost explicitly remain."
+    },
+    "constant_dependencies": {
+      "original": "Step64; factor2; denominators40 and8.",
+      "reconstructed": "Same explicit constants and dependencies.",
+      "relation": "same",
+      "evidence": "lambda=min(1/(4 beta eta),B/(20 beta² d eta²)); actual cap and minimum proofs."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Positive-dimensional coordinate-free domain; positivity preserved.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "generalization",
+      "description": "All-real r supported by parent; random-time averaging not asserted.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "generalization",
+      "description": "Arbitrary residual-controlled center; source center construction deferred.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "same",
+      "description": "Positive parameters, ell and step retained without assumed MGF or integrability.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Actual measurability and integrability proved; bound unchanged.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Selected Claim2 only; arbitrary B does not imply uniform constant cost.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source review accepted this disclosed difference."
+    }
+  ],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Parameter helpers prove both lambda caps from the step restriction with positive denominator cancellation and MGF range."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Pointwise clipping domination handles zero and positive excess, including nonnegativity."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Actual parent MGF uses the same input, arc, velocity and gradient difference; Lipschitz continuity proves measurability."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Integrable.mono' is applied before integral_mono and integral_const_mul; no default-value integral reasoning."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Second cap bounds exponent; positive B/2 distributes over minimum and gives exact40/8; exponential monotonicity."
+      }
+    ]
+  },
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent primary-source review accepted seven slots, five authored steps, six informational differences and all six private implementations. Source D.1 Claim2 and SPHMC A.4(2) consumer independently checked. Canonical packet, source, statement, reconstruction, embedded module and raw production/test hashes recomputed; lesson/publication/context checked. External binding preimage, decoder artifact hashes, compilation, Meta.isDefEq and fixed-commit admission remain separate verifier obligations. Disclosed domain/time/center extensions accepted, not full-paper equivalence."
+}

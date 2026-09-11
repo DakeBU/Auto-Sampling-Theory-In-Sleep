@@ -17000,7 +17000,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcClipping",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-smooth-gradient-arc-clipping",
         "anchor": "Appendix D.1 Claim2, smooth s=1; consumed by SPHMC Appendix A.4(2)",
@@ -17025,7 +17025,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "6721cde20d8b61d61728db3284e5fd5765b9ef218de6c8ea8375d6cf220db0dd",
+        "review_run_sha256": "36a31cfb821afafedffb9f32dd62411a6ad4f6794ed128f948fcd275030cf255",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.source-review-result.json",
+        "evidence": "Independent primary-source review accepted seven slots, five authored steps, six informational differences and all six private implementations. Source D.1 Claim2 and SPHMC A.4(2) consumer independently checked. Canonical packet, source, statement, reconstruction, embedded module and raw production/test hashes recomputed; lesson/publication/context checked. External binding preimage, decoder artifact hashes, compilation, Meta.isDefEq and fixed-commit admission remain separate verifier obligations. Disclosed domain/time/center extensions accepted, not full-paper equivalence."
       },
       "publication_binding_sha256": "c88a1d373736de86779f3363dfae4e5bbc6c862db66e979f555f284f73d7911d",
       "publication_context": {
@@ -17183,7 +17190,102 @@
         "decoder_run_sha256": "70a9df209fee8fc196eaa66f5ccf8a5fe31b2718bc5825c4265a75d8a31afe33",
         "lean_statement_sha256": "c5357edb19582fcb44c247f5b7b084e967a9013f2cd32e68ed401e7ec5dd0ce0",
         "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual gradient-arc estimator, clipping excess and Gaussian product input.",
+          "reconstructed": "Explicit velocity paired with gradient difference, positive excess and affine standard-Gaussian product maps.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expanded type exposes both private semantic definitions; actual same W and mu consumed by parent."
+        },
+        "domains": {
+          "original": "Euclidean smooth s=1 with positive dimension and beta.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space with positive finrank and beta.",
+          "relation": "different",
+          "evidence": "Disclosed coordinate-free extension; no zero dimension or zero beta."
+        },
+        "quantifiers": {
+          "original": "Each r in [0,1] and source reference-center construction.",
+          "reconstructed": "Every real r and arbitrary h,xp satisfying residual bound.",
+          "relation": "stronger-in-lean",
+          "evidence": "Fixed-r result only; random-time integral and joint parameter kernel not asserted."
+        },
+        "assumptions": {
+          "original": "Positive eta,beta,B,d; ell>=2; smoothness, residual and step restriction.",
+          "reconstructed": "Differentiable f with actual beta-Lipschitz gradient and same numerical conditions.",
+          "relation": "explicit-elaboration",
+          "evidence": "Positive denominators; parent MGF and integrability derived, not assumed."
+        },
+        "conclusion": {
+          "original": "Clipping-excess exponential expectation bounded with factor2.",
+          "reconstructed": "Same bound plus measurability of W,F and integrability of F.",
+          "relation": "explicit-elaboration",
+          "evidence": "Four public conclusions; integrability precedes comparison."
+        },
+        "scopes": {
+          "original": "Claim2 intermediate estimate before normalized approximation.",
+          "reconstructed": "Actual fixed-time clipping-excess estimate only.",
+          "relation": "same",
+          "evidence": "Random-time averaging, mean, target law, Renyi, initialization and cost explicitly remain."
+        },
+        "constant_dependencies": {
+          "original": "Step64; factor2; denominators40 and8.",
+          "reconstructed": "Same explicit constants and dependencies.",
+          "relation": "same",
+          "evidence": "lambda=min(1/(4 beta eta),B/(20 beta² d eta²)); actual cap and minimum proofs."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Positive-dimensional coordinate-free domain; positivity preserved.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "description": "All-real r supported by parent; random-time averaging not asserted.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "description": "Arbitrary residual-controlled center; source center construction deferred.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Positive parameters, ell and step retained without assumed MGF or integrability.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Actual measurability and integrability proved; bound unchanged.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Selected Claim2 only; arbitrary B does not imply uniform constant cost.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal source review accepted this disclosed difference."
+        }
+      ]
     }
   ]
 }
