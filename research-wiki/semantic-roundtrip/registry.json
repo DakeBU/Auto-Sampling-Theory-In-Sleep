@@ -15518,6 +15518,214 @@
           "evidence": "Independent reviewer accepted corresponding publication delta 7."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCPoissonQueryTail",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-poisson-query-tail",
+        "anchor": "Appendix A.1 and Theorem A.4(2); independently derived bounded-program query-tail prerequisite",
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "original_text": "S, X and A are arbitrary measurable spaces. Q:S->X is a Markov kernel and nu is a fixed probability law on A.\nB>0 is fixed across parameters. W:((S times X) times A)->Real is jointly measurable and |W((s,x),z)|<=B for every s,x,z.\nA default x0:X is supplied for the parent output construction; the cost bound does not depend on its value.\nAt each parameter s an attempt independently draws x~Q(s), N~Poisson(2B), an infinite iid auxiliary sequence z~nu^ℕ, of which only the first N entries are read, and U~Uniform[0,1]. It accepts when U<=product_{i<N}(B+W((s,x),z_i))/(2B). Whole attempts are iid.\nC is the extended nonnegative sum of N_n over all attempts n whose preceding attempts failed, including the first successful batch. On never-success it is the sum over every batch.\nFor every parameter s and failure tolerance 0<delta<1, set L=log(2/delta) and m=ceil(exp(2B)L).\nUnder the displayed measurable bounded-estimator experiment, the actual full-batch query count satisfies P(C>2B(e-1)m+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance probability is derived from the actual parent program and is not an extra hypothesis. The first inequality retains the integer ceiling; the second is an explicit single-log bound for fixed B. Both hold for every B>0, including arbitrarily small B, and every 0<delta<1.",
+        "text_sha256": "8cde07d0bfc6f0f71d2578098dd126ff607ab2a8b2f4c0a6bb7e62f4b20205c4"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/PoissonQueryTail.lean",
+        "statement": "∀ {S : Type u_1} {X : Type u_2} {A : Type u_3} [inst : MeasurableSpace S] [inst_1 : MeasurableSpace X]\n  [inst_2 : MeasurableSpace A] (Q : ProbabilityTheory.Kernel S X) [ProbabilityTheory.IsMarkovKernel Q]\n  (ν : MeasureTheory.Measure A) [MeasureTheory.IsProbabilityMeasure ν] (W : (S × X) × A → ℝ),\n  Measurable W →\n    ∀ (B : ℝ) (hB : 0 < B),\n      (∀ (s : S) (x : X) (z : A), |W ((s, x), z)| ≤ B) →\n        ∀ (x₀ : X) (s : S) (δ : ℝ),\n          0 < δ →\n            δ < 1 →\n              have Λ :=\n                (Q s).prod\n                  ((ProbabilityTheory.poissonMeasure\n                        ⟨2 * B,\n                          le_of_lt\n                            (mul_pos\n                              (Mathlib.Meta.Positivity.pos_of_isNat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2))\n                                (Eq.refl (Nat.ble 1 2)))\n                              hB)⟩).prod\n                    ((MeasureTheory.Measure.infinitePi fun x => ν).prod\n                      (MeasureTheory.MeasureSpace.volume.restrict (Set.Icc 0 1))));\n              have E := {p | p.2.2.2 ≤ ∏ i, (B + (fun p => W ((s, p.1), p.2)) (p.1, p.2.2.1 ↑i)) / (2 * B)};\n              have ρ := MeasureTheory.Measure.infinitePi fun x => Λ;\n              have C := fun ω => ∑' (n : ℕ), if ∀ i < n, ω i ∉ E then (fun p => ↑p.2.1) (ω n) else 0;\n              have L := Real.log (2 / δ);\n              have m := ⌈Real.exp (2 * B) * L⌉₊;\n              ρ {ω | ENNReal.ofReal (2 * B * (Real.exp 1 - 1) * ↑m + L) < C ω} ≤ ENNReal.ofReal δ ∧\n                ρ\n                    {ω |\n                      ENNReal.ofReal ((2 * B * (Real.exp 1 - 1) * (Real.exp (2 * B) + 1 / Real.log 2) + 1) * L) < C ω} ≤\n                  ENNReal.ofReal δ",
+        "statement_sha256": "4f459c5c4615a58900b0317c9a84e272c66b86a36f099b37bc64b03da356f21f",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production PASS3639 at0279556847aac3554c4119c420d992a886b6b559. Independent development replay of identical production source hash bf4b45d5937d93a31e0a8470ac7b1a7002f4222bc73546cd48588cf240cd4d58 passed with standard three axioms. PoissonTailExpandedStatement.lean expands five semantic definitions and checks Meta.isDefEq; exit0. Formal source admission remains separate.",
+        "decoder_context": [
+          "A Markov kernel is a measurable family of probability measures. IsProbabilityMeasure means total mass one.",
+          "Measure.prod is independent product; Measure.infinitePi is the probability law of the entire sequence of independent displayed coordinates. poissonMeasure r is the actual Poisson law of nonnegative real rate r.",
+          "Attempt coordinates p.1, p.2.1, p.2.2.1 and p.2.2.2 belong respectively to X, Nat, Nat->A and Real. volume.restrict(Icc 0 1) is the probability law uniform on the closed unit interval.",
+          "Fin n indexes 0 through n-1; the empty product is one. Natural ceiling ceil(x) is the least nonnegative integer at least x.",
+          "ENNReal is the extended nonnegative real line. ofReal agrees with real embedding on nonnegative inputs and sends negative inputs to zero. Infinite sums and costs can be infinite. The indicator condition in the displayed sum checks earlier attempt indices only.",
+          "The semantic definitions were expanded from the compiled type and Lean checked definitional equality. Subtype constructor proof terms assert nonnegativity and do not add a probabilistic assumption. The quantified default x0 need not occur in the tail expression.",
+          "In the displayed E definition, the implicit finite product domain is Fin p.2.1. Thus it uses exactly the first p.2.1 auxiliary coordinates; the outer cost summation is over all natural n."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "pending"
+      },
+      "publication_binding_sha256": "5c5e3a16baec06a20f80d4a9997a6c47da352738606205a04cf484717528acf2",
+      "publication_context": {
+        "file": "e26ca9f22be281951aa5598cd9724483cfab8705ca17f1d47cf64cd356e28118",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection\n\n/-!\nActual full-batch query tails for bounded Poisson rejection.\n\nSupporting derivation for SPHMC arXiv:2609.06906v1 Appendix A.1/A.4(2).\nThis is not the unrestricted printed threshold in external arXiv:2608.05022v1\nTheorem 2.3. The ceiling and explicit K(B) retain the small-B regime.\nUniform terminal-state complexity still requires a universal bound on B and a\nseparate account of actual gradient queries per estimator call.\n-/\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal BigOperators\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail\n\nprivate theorem poisson_power_integral (r : ℝ≥0) (t : ℝ) :\n    ∫ n, t ^ n ∂poissonMeasure r = Real.exp ((r : ℝ) * (t - 1)) := by\n  rw [integral_poissonMeasure]\n  have hs := (NormedSpace.expSeries_div_hasSum_exp ((r : ℝ) * t)).mul_left\n    (Real.exp (-(r : ℝ)))\n  have he : Real.exp (-(r : ℝ)) * NormedSpace.exp ((r : ℝ) * t) =\n      Real.exp ((r : ℝ) * (t - 1)) := by\n    rw [← Real.exp_eq_exp_ℝ, ← Real.exp_add]\n    congr 1\n    ring\n  rw [he] at hs\n  convert hs.tsum_eq using 1\n  congr 1\n  funext n\n  simp only [smul_eq_mul, mul_pow]\n  ring\n\nprivate theorem iid_prefix_law {A : Type*} [MeasurableSpace A]\n    (ν : Measure A) [IsProbabilityMeasure ν] (n : ℕ) :\n    (Measure.infinitePi (fun _ : ℕ => ν)).map\n      (fun z (i : Fin n) => z i.val) = Measure.pi (fun _ : Fin n => ν) := by\n  rw [Measure.map_infinitePi_infinitePi_of_inj Fin.val_injective,\n    Measure.infinitePi_eq_pi]\n\nprivate noncomputable def unitUniform : Measure ℝ := volume.restrict (Set.Icc 0 1)\n\nprivate instance unitUniform_probability : IsProbabilityMeasure unitUniform := by\n  constructor\n  simp [unitUniform, Real.volume_Icc]\n\nprivate noncomputable def totalCost {Y : Type*} (A : Set Y) (c : Y → ℝ≥0∞)\n    (ω : ℕ → Y) : ℝ≥0∞ := by\n  classical\n  exact ∑' n : ℕ, if ∀ i < n, ω i ∉ A then c (ω n) else 0\n\nprivate theorem failure_prefix_probability {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (A : Set Y)\n    (hA : MeasurableSet A) (n : ℕ) :\n    (Measure.infinitePi (fun _ : ℕ => ν))\n      {ω | ∀ i < n, ω i ∉ A} = (ν Aᶜ)^n := by\n  have he : {ω : ℕ → Y | ∀ i < n, ω i ∉ A} =\n      Set.pi (Finset.range n) (fun _ => Aᶜ) := by\n    ext ω\n    simp\n  rw [he, Measure.infinitePi_pi _ (fun _ _ => hA.compl)]\n  simp\n\nprivate theorem totalCost_le_prefix {Y : Type*} (E : Set Y) (c : Y → ℝ≥0∞)\n    (ω : ℕ → Y) (m : ℕ) (hhit : ∃ j < m, ω j ∈ E) :\n    totalCost E c ω ≤ ∑ n ∈ Finset.range m, c (ω n) := by\n  classical\n  unfold totalCost\n  rw [tsum_eq_sum (s := Finset.range m)]\n  · apply Finset.sum_le_sum\n    intro n _\n    split\n    · exact le_rfl\n    · exact bot_le\n  · intro n hn\n    obtain ⟨j, hjm, hj⟩ := hhit\n    have hmn : m ≤ n := Nat.le_of_not_gt (by simpa using hn)\n    have hnot : ¬ ∀ i < n, ω i ∉ E := fun h => h j (lt_of_lt_of_le hjm hmn) hj\n    simp [hnot]\n\nprivate theorem cost_tail_subset {Y : Type*} (E : Set Y) (c : Y → ℝ≥0∞)\n    (m : ℕ) (t : ℝ≥0∞) :\n    {ω | t < totalCost E c ω} ⊆\n      {ω | ∀ i < m, ω i ∉ E} ∪ {ω | t < ∑ n ∈ Finset.range m, c (ω n)} := by\n  classical\n  intro ω hω\n  by_cases hf : ∀ i < m, ω i ∉ E\n  · exact Or.inl hf\n  · right\n    push Not at hf\n    exact lt_of_lt_of_le hω (totalCost_le_prefix E c ω m hf)\n\nprivate theorem poisson_exponential_integrable (r : ℝ≥0) :\n    Integrable (fun n : ℕ => Real.exp (n : ℝ)) (poissonMeasure r) := by\n  apply integrable_poissonMeasure_iff.mpr\n  have hs := (NormedSpace.expSeries_div_hasSum_exp ((r : ℝ) * Real.exp 1)).mul_left\n    (Real.exp (-(r : ℝ)))\n  convert! hs.summable using 1\n  funext n\n  have he : Real.exp (n : ℝ) = (Real.exp 1)^n := by\n    simp [← Real.exp_nat_mul]\n  rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos (n : ℝ)), he]\n  simp only [mul_pow]\n  ring\n\nprivate theorem poisson_exponential_moment (r : ℝ≥0) :\n    ∫⁻ n : ℕ, ENNReal.ofReal (Real.exp (n : ℝ)) ∂poissonMeasure r =\n      ENNReal.ofReal (Real.exp ((r : ℝ) * (Real.exp 1 - 1))) := by\n  rw [← ofReal_integral_eq_lintegral_ofReal (poisson_exponential_integrable r)\n    (Filter.Eventually.of_forall fun n => (Real.exp_pos (n : ℝ)).le)]\n  congr 1\n  have he : (fun n : ℕ => Real.exp (n : ℝ)) = (fun n => (Real.exp 1)^n) := by\n    funext n\n    simp [← Real.exp_nat_mul]\n  rw [he, poisson_power_integral]\n\nprivate theorem fixed_prefix_exponential_moment {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (N : Y → ℕ) (hN : Measurable N)\n    (r : ℝ≥0) (hlaw : ν.map N = poissonMeasure r) (m : ℕ) :\n    ∫⁻ ω : ℕ → Y, ENNReal.ofReal (∏ i : Fin m, Real.exp (N (ω i.val) : ℝ))\n      ∂Measure.infinitePi (fun _ : ℕ => ν) =\n      ENNReal.ofReal ((Real.exp ((r : ℝ) * (Real.exp 1 - 1)))^m) := by\n  let g : Y → ℝ := fun y => Real.exp (N y : ℝ)\n  have hg : Measurable g := by fun_prop\n  have hi : Integrable g ν := by\n    have h := poisson_exponential_integrable r\n    rw [← hlaw] at h\n    exact h.comp_aemeasurable hN.aemeasurable\n  have hmean : ∫ y, g y ∂ν = Real.exp ((r : ℝ) * (Real.exp 1 - 1)) := by\n    change (∫ y, Real.exp (N y : ℝ) ∂ν) = _\n    rw [← integral_map hN.aemeasurable\n      (show AEStronglyMeasurable (fun n : ℕ => Real.exp (n : ℝ)) (ν.map N) from\n        Measurable.of_discrete.aestronglyMeasurable), hlaw]\n    have he : (fun n : ℕ => Real.exp (n : ℝ)) = (fun n => (Real.exp 1)^n) := by\n      funext n\n      simp [← Real.exp_nat_mul]\n    rw [he, poisson_power_integral]\n  let f : (Fin m → Y) → ℝ := fun z => ∏ i, g (z i)\n  have hf : Measurable f := by dsimp [f]; fun_prop\n  have hfi : Integrable f (Measure.pi (fun _ : Fin m => ν)) := Integrable.fintype_prod (fun _ => hi)\n  have hp : Measurable (fun ω : ℕ → Y => fun i : Fin m => ω i.val) := by fun_prop\n  rw [← lintegral_map hf.ennreal_ofReal hp, iid_prefix_law]\n  rw [← ofReal_integral_eq_lintegral_ofReal hfi\n    (Filter.Eventually.of_forall (fun z => Finset.prod_nonneg (fun i _ => (Real.exp_pos _).le)))]\n  congr 1\n  rw [integral_fintype_prod_eq_pow (ι := Fin m) (μ := ν) g, hmean]\n  simp\n\nprivate theorem fixed_prefix_chernoff {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (N : Y → ℕ) (hN : Measurable N)\n    (r : ℝ≥0) (hlaw : ν.map N = poissonMeasure r) (m : ℕ) (t : ℝ) :\n    Measure.infinitePi (fun _ : ℕ => ν)\n      {ω | t < ∑ i : Fin m, (N (ω i.val) : ℝ)} ≤\n      ENNReal.ofReal ((Real.exp ((r : ℝ) * (Real.exp 1 - 1)))^m) /\n        ENNReal.ofReal (Real.exp t) := by\n  let f : (ℕ → Y) → ℝ≥0∞ := fun ω =>\n    ENNReal.ofReal (∏ i : Fin m, Real.exp (N (ω i.val) : ℝ))\n  have hf : Measurable f := by dsimp [f]; fun_prop\n  have hsub : {ω | t < ∑ i : Fin m, (N (ω i.val) : ℝ)} ⊆\n      {ω | ENNReal.ofReal (Real.exp t) ≤ f ω} := by\n    intro ω hω\n    dsimp [f]\n    apply ENNReal.ofReal_le_ofReal\n    rw [← Real.exp_sum]\n    exact (Real.exp_le_exp.mpr hω.le)\n  exact (measure_mono hsub).trans (by\n    have h := meas_ge_le_lintegral_div (μ := Measure.infinitePi (fun _ : ℕ => ν)) hf.aemeasurable\n      (show ENNReal.ofReal (Real.exp t) ≠ 0 by positivity) ENNReal.ofReal_ne_top\n    dsimp [f] at h\n    rw [fixed_prefix_exponential_moment ν N hN r hlaw m] at h\n    exact h)\n\nprivate theorem fixed_prefix_chernoff_shift {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (N : Y → ℕ) (hN : Measurable N)\n    (r : ℝ≥0) (hlaw : ν.map N = poissonMeasure r) (m : ℕ) (L : ℝ) :\n    Measure.infinitePi (fun _ : ℕ => ν)\n      {ω | (r : ℝ) * (Real.exp 1 - 1) * m + L <\n        ∑ i : Fin m, (N (ω i.val) : ℝ)} ≤ ENNReal.ofReal (Real.exp (-L)) := by\n  have h := fixed_prefix_chernoff ν N hN r hlaw m\n    ((r : ℝ) * (Real.exp 1 - 1) * m + L)\n  convert h using 1\n  rw [← Real.exp_nat_mul, ← ENNReal.ofReal_div_of_pos (Real.exp_pos _), ← Real.exp_sub]\n  congr 2\n  ring\n\nprivate theorem full_batch_cost_tail {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (E : Set Y) (hE : MeasurableSet E)\n    (N : Y → ℕ) (hN : Measurable N) (r : ℝ≥0)\n    (hlaw : ν.map N = poissonMeasure r) (m : ℕ) (L : ℝ)\n    (ht : 0 ≤ (r : ℝ) * (Real.exp 1 - 1) * m + L) :\n    Measure.infinitePi (fun _ : ℕ => ν)\n      {ω | ENNReal.ofReal ((r : ℝ) * (Real.exp 1 - 1) * m + L) <\n        totalCost E (fun y => (N y : ℝ≥0∞)) ω} ≤\n      (ν Eᶜ)^m + ENNReal.ofReal (Real.exp (-L)) := by\n  have hs := cost_tail_subset E (fun y => (N y : ℝ≥0∞)) m\n    (ENNReal.ofReal ((r : ℝ) * (Real.exp 1 - 1) * m + L))\n  refine (measure_mono hs).trans ((measure_union_le _ _).trans ?_)\n  rw [failure_prefix_probability ν E hE m]\n  apply add_le_add le_rfl\n  have he : {ω : ℕ → Y | ENNReal.ofReal ((r : ℝ) * (Real.exp 1 - 1) * m + L) <\n      ∑ n ∈ Finset.range m, (N (ω n) : ℝ≥0∞)} =\n      {ω | (r : ℝ) * (Real.exp 1 - 1) * m + L < ∑ i : Fin m, (N (ω i.val) : ℝ)} := by\n    ext ω\n    have hc : (∑ n ∈ Finset.range m, (N (ω n) : ℝ≥0∞)) =\n        ENNReal.ofReal (∑ i : Fin m, (N (ω i.val) : ℝ)) := by\n      rw [← Fin.sum_univ_eq_sum_range (fun n => (N (ω n) : ℝ≥0∞)) m]\n      rw [ENNReal.ofReal_sum_of_nonneg (fun _ _ => Nat.cast_nonneg _)]\n      simp\n    simp only [Set.mem_ofPred_eq, hc, ENNReal.ofReal_lt_ofReal_iff_of_nonneg ht]\n  rw [he]\n  exact fixed_prefix_chernoff_shift ν N hN r hlaw m L\n\nprivate theorem failure_power_exponential_bound {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (E : Set Y) (hE : MeasurableSet E)\n    (a : ℝ) (ha : a ≤ (ν E).toReal) (m : ℕ) :\n    (ν Eᶜ)^m ≤ ENNReal.ofReal (Real.exp (-a * m)) := by\n  have hq : ν Eᶜ ≤ ENNReal.ofReal (Real.exp (-a)) := by\n    rw [← ENNReal.ofReal_toReal (measure_ne_top ν Eᶜ)]\n    apply ENNReal.ofReal_le_ofReal\n    have he : (ν Eᶜ).toReal = 1 - (ν E).toReal := by\n      rw [prob_compl_eq_one_sub hE, ENNReal.toReal_sub_of_le (prob_le_one) (by simp)]\n      simp\n    rw [he]\n    have hex := Real.add_one_le_exp (-a)\n    linarith\n  have hp := pow_le_pow_left' hq m\n  simpa only [← ENNReal.ofReal_pow (Real.exp_nonneg _), ← Real.exp_nat_mul,\n    mul_comm (m : ℝ) (-a)] using hp\n\nprivate theorem actual_attempt_count_law {X A : Type*} [MeasurableSpace X] [MeasurableSpace A]\n    (μ : Measure X) [IsProbabilityMeasure μ] (ν : Measure A) [IsProbabilityMeasure ν]\n    (r : ℝ≥0) :\n    (μ.prod ((poissonMeasure r).prod\n      ((Measure.infinitePi (fun _ : ℕ => ν)).prod unitUniform))).map\n        (fun p : X × (ℕ × ((ℕ → A) × ℝ)) => p.2.1) = poissonMeasure r := by\n  change Measure.map (Prod.fst ∘ Prod.snd) _ = _\n  rw [← Measure.map_map measurable_fst measurable_snd]\n  simp\n\nprivate theorem full_batch_cost_tail_of_budget {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (E : Set Y) (hE : MeasurableSet E)\n    (N : Y → ℕ) (hN : Measurable N) (r : ℝ≥0)\n    (hlaw : ν.map N = poissonMeasure r) (m : ℕ) (L a : ℝ)\n    (hL : 0 ≤ L) (ha : a ≤ (ν E).toReal) (hm : L ≤ a * m) :\n    Measure.infinitePi (fun _ : ℕ => ν)\n      {ω | ENNReal.ofReal ((r : ℝ) * (Real.exp 1 - 1) * m + L) <\n        totalCost E (fun y => (N y : ℝ≥0∞)) ω} ≤\n      ENNReal.ofReal (2 * Real.exp (-L)) := by\n  have hpos : 0 ≤ Real.exp 1 - 1 := by\n    have h := Real.add_one_le_exp 1\n    linarith\n  have ht : 0 ≤ (r : ℝ) * (Real.exp 1 - 1) * m + L := by positivity\n  have hp : (ν Eᶜ)^m ≤ ENNReal.ofReal (Real.exp (-L)) :=\n    (failure_power_exponential_bound ν E hE a ha m).trans\n      (ENNReal.ofReal_le_ofReal (Real.exp_le_exp.mpr (by linarith)))\n  refine (full_batch_cost_tail ν E hE N hN r hlaw m L ht).trans ?_\n  calc\n    (ν Eᶜ)^m + ENNReal.ofReal (Real.exp (-L)) ≤\n        ENNReal.ofReal (Real.exp (-L)) + ENNReal.ofReal (Real.exp (-L)) := add_le_add hp le_rfl\n    _ = ENNReal.ofReal (2 * Real.exp (-L)) := by\n      rw [← ENNReal.ofReal_add (Real.exp_nonneg _) (Real.exp_nonneg _)]\n      congr 1\n      ring\n\nprivate theorem poisson_tail_budget (B L : ℝ) :\n    L ≤ Real.exp (-2 * B) * (⌈Real.exp (2 * B) * L⌉₊ : ℝ) := by\n  have he : Real.exp (-2 * B) * Real.exp (2 * B) = 1 := by\n    rw [← Real.exp_add]\n    ring_nf\n    exact Real.exp_zero\n  calc\n    L = Real.exp (-2 * B) * (Real.exp (2 * B) * L) := by rw [← mul_assoc, he, one_mul]\n    _ ≤ Real.exp (-2 * B) * (⌈Real.exp (2 * B) * L⌉₊ : ℝ) :=\n      mul_le_mul_of_nonneg_left (Nat.le_ceil _) (Real.exp_nonneg _)\n\nprivate theorem delta_log_budget (δ : ℝ) (hδ : 0 < δ) (hδ1 : δ < 1) :\n    0 ≤ Real.log (2 / δ) ∧ 2 * Real.exp (-Real.log (2 / δ)) = δ := by\n  constructor\n  · apply Real.log_nonneg\n    apply (le_div_iff₀ hδ).2\n    linarith\n  · rw [Real.exp_neg, Real.exp_log (by positivity : 0 < 2 / δ)]\n    field_simp\n\nprivate theorem full_batch_cost_delta_tail {Y : Type*} [MeasurableSpace Y]\n    (ν : Measure Y) [IsProbabilityMeasure ν] (E : Set Y) (hE : MeasurableSet E)\n    (N : Y → ℕ) (hN : Measurable N) (B : ℝ) (hB : 0 < B)\n    (hlaw : ν.map N = poissonMeasure (⟨2 * B, by positivity⟩ : ℝ≥0))\n    (haccept : ENNReal.ofReal (Real.exp (-2 * B)) ≤ ν E)\n    (δ : ℝ) (hδ : 0 < δ) (hδ1 : δ < 1) :\n    let L := Real.log (2 / δ)\n    let m := ⌈Real.exp (2 * B) * L⌉₊\n    Measure.infinitePi (fun _ : ℕ => ν)\n      {ω | ENNReal.ofReal (2 * B * (Real.exp 1 - 1) * m + L) <\n        totalCost E (fun y => (N y : ℝ≥0∞)) ω} ≤ ENNReal.ofReal δ := by\n  dsimp only\n  have ha : Real.exp (-2 * B) ≤ (ν E).toReal := by\n    have h := ENNReal.toReal_mono (measure_ne_top ν E) haccept\n    simpa only [ENNReal.toReal_ofReal (Real.exp_nonneg _)] using h\n  have h := full_batch_cost_tail_of_budget ν E hE N hN\n    (⟨2 * B, by positivity⟩ : ℝ≥0) hlaw\n    ⌈Real.exp (2 * B) * Real.log (2 / δ)⌉₊ (Real.log (2 / δ))\n    (Real.exp (-2 * B)) (delta_log_budget δ hδ hδ1).1 ha\n    (poisson_tail_budget B (Real.log (2 / δ)))\n  rw [(delta_log_budget δ hδ hδ1).2] at h\n  exact h\n\nprivate theorem ceil_threshold_le_single_log (B L : ℝ) (hB : 0 ≤ B)\n    (hL : Real.log 2 ≤ L) :\n    2 * B * (Real.exp 1 - 1) * (⌈Real.exp (2 * B) * L⌉₊ : ℝ) + L ≤\n      (2 * B * (Real.exp 1 - 1) * (Real.exp (2 * B) + 1 / Real.log 2) + 1) * L := by\n  have hl2 : 0 < Real.log 2 := Real.log_pos (by norm_num)\n  have hl : 0 ≤ L := le_trans hl2.le hL\n  have hc : (⌈Real.exp (2 * B) * L⌉₊ : ℝ) ≤ Real.exp (2 * B) * L + 1 :=\n    (Nat.ceil_lt_add_one (by positivity)).le\n  have h1 : 1 ≤ L / Real.log 2 := (le_div_iff₀ hl2).2 (by simpa using hL)\n  have hp : 0 ≤ 2 * B * (Real.exp 1 - 1) := by\n    have he := Real.add_one_le_exp 1\n    have : 0 ≤ Real.exp 1 - 1 := by linarith\n    positivity\n  calc\n    _ ≤ 2 * B * (Real.exp 1 - 1) * (Real.exp (2 * B) * L + L / Real.log 2) + L :=\n      add_le_add (mul_le_mul_of_nonneg_left (hc.trans (add_le_add le_rfl h1)) hp) le_rfl\n    _ = _ := by ring\n\nprivate abbrev Attempt (X A : Type*) := X × (ℕ × ((ℕ → A) × ℝ))\n\nprivate noncomputable def attemptLaw {X A : Type*} [MeasurableSpace X] [MeasurableSpace A]\n    (μ : Measure X) (ν : Measure A) [IsProbabilityMeasure ν] (r : ℝ≥0) :\n    Measure (Attempt X A) :=\n  μ.prod ((poissonMeasure r).prod\n    ((Measure.infinitePi (fun _ : ℕ => ν)).prod unitUniform))\n\nprivate instance attemptLaw_probability {X A : Type*} [MeasurableSpace X] [MeasurableSpace A]\n    (μ : Measure X) [IsProbabilityMeasure μ] (ν : Measure A) [IsProbabilityMeasure ν]\n    (r : ℝ≥0) : IsProbabilityMeasure (attemptLaw μ ν r) := by\n  unfold attemptLaw\n  infer_instance\n\nprivate def accepted {X A : Type*} (W : X × A → ℝ) (B : ℝ) : Set (Attempt X A) :=\n  {p | p.2.2.2 ≤ ∏ i : Fin p.2.1, (B + W (p.1,p.2.2.1 i.val)) / (2 * B)}\n\nprivate theorem measurable_accepted {X A : Type*} [MeasurableSpace X] [MeasurableSpace A]\n    (W : X × A → ℝ) (hW : Measurable W) (B : ℝ) : MeasurableSet (accepted W B) := by\n  have hf : Measurable (fun p : ℕ × (X × ((ℕ → A) × ℝ)) =>\n      ∏ i : Fin p.1, (B + W (p.2.1,p.2.2.1 i.val)) / (2 * B)) := by\n    apply measurable_from_prod_countable_right\n    intro n\n    change Measurable (fun p : X × ((ℕ → A) × ℝ) =>\n      ∏ i : Fin n, (B + W (p.1,p.2.1 i.val)) / (2 * B))\n    apply Finset.measurable_fun_prod\n    intro i _\n    fun_prop\n  exact measurableSet_le (by fun_prop) (hf.comp\n    (show Measurable (fun p : Attempt X A => (p.2.1, (p.1,p.2.2))) by fun_prop))\n\ntheorem poisson_query_tail {S X A : Type*}\n    [MeasurableSpace S] [MeasurableSpace X] [MeasurableSpace A]\n    (Q : Kernel S X) [IsMarkovKernel Q] (ν : Measure A) [IsProbabilityMeasure ν]\n    (W : (S × X) × A → ℝ) (hW : Measurable W)\n    (B : ℝ) (hB : 0 < B) (hb : ∀ s x z, |W ((s,x),z)| ≤ B) (x₀ : X)\n    (s : S) (δ : ℝ) (hδ : 0 < δ) (hδ1 : δ < 1) :\n    let Λ := attemptLaw (Q s) ν (⟨2 * B, by positivity⟩ : ℝ≥0)\n    let E := accepted (fun p : X × A => W ((s,p.1),p.2)) B\n    let ρ := Measure.infinitePi (fun _ : ℕ => Λ)\n    let C := totalCost E (fun p => (p.2.1 : ℝ≥0∞))\n    let L := Real.log (2 / δ)\n    let m := ⌈Real.exp (2 * B) * L⌉₊\n    ρ {ω | ENNReal.ofReal (2 * B * (Real.exp 1 - 1) * m + L) < C ω} ≤ ENNReal.ofReal δ ∧\n    ρ {ω | ENNReal.ofReal\n      ((2 * B * (Real.exp 1 - 1) * (Real.exp (2 * B) + 1 / Real.log 2) + 1) * L) < C ω}\n        ≤ ENNReal.ofReal δ := by\n  dsimp only\n  let r : ℝ≥0 := ⟨2 * B, by positivity⟩\n  let Λ := attemptLaw (Q s) ν r\n  let E := accepted (fun p : X × A => W ((s,p.1),p.2)) B\n  have hE : MeasurableSet E := measurable_accepted _ (hW.comp (by fun_prop)) B\n  have hlaw : Λ.map (fun p => p.2.1) = poissonMeasure r :=\n    actual_attempt_count_law (Q s) ν r\n  obtain ⟨R, hR, hs⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output\n      Q ν W hW B hB hb x₀\n  obtain ⟨_, _, _, _, _, _, _, _, haccept, _, _⟩ := hs s\n  change ENNReal.ofReal (Real.exp (-2 * B)) ≤ Λ E at haccept\n  have ht := full_batch_cost_delta_tail Λ E hE\n    (fun p => p.2.1) (by fun_prop) B hB hlaw haccept δ hδ hδ1\n  refine ⟨ht, ?_⟩\n  have hlog : Real.log 2 ≤ Real.log (2 / δ) := by\n    apply Real.log_le_log (by norm_num)\n    apply (le_div_iff₀ hδ).2\n    linarith\n  have hc := ceil_threshold_le_single_log B (Real.log (2 / δ)) hB.le hlog\n  refine (measure_mono (fun ω hω => ?_)).trans ht\n  exact lt_of_le_of_lt (ENNReal.ofReal_le_ofReal hc) hω\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Appendix A.1 and Theorem A.4(2); independently derived bounded-program query-tail prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang are the source authors. The exact expanded supporting tail inequality and proof below are an independent ASTIS derivation, not a quotation of the printed external tail formula or author endorsement."
+        },
+        "statement": "Under the displayed measurable bounded-estimator experiment, the actual full-batch query count satisfies P(C>2B(e-1)m+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance probability is derived from the actual parent program and is not an extra hypothesis. The first inequality retains the integer ceiling; the second is an explicit single-log bound for fixed B. Both hold for every B>0, including arbitrarily small B, and every 0<delta<1.",
+        "formulae": [
+          {
+            "label": "Actual full-batch tail and explicit single-log constant",
+            "tex": "L=\\log(2/\\delta),\\quad m=\\lceil e^{2B}L\\rceil,\\quad K(B)=2B(e-1)(e^{2B}+1/\\log2)+1,\\qquad \\mathbb P(C>2B(e-1)m+L)\\le\\delta,\\quad\\mathbb P(C>K(B)L)\\le\\delta."
+          }
+        ],
+        "assumptions": [
+          "S, X and A are arbitrary measurable spaces. Q:S->X is a Markov kernel and nu is a fixed probability law on A.",
+          "B>0 is fixed across parameters. W:((S times X) times A)->Real is jointly measurable and |W((s,x),z)|<=B for every s,x,z.",
+          "A default x0:X is supplied for the parent output construction; the cost bound does not depend on its value.",
+          "At each parameter s an attempt independently draws x~Q(s), N~Poisson(2B), an infinite iid auxiliary sequence z~nu^ℕ, of which only the first N entries are read, and U~Uniform[0,1]. It accepts when U<=product_{i<N}(B+W((s,x),z_i))/(2B). Whole attempts are iid.",
+          "C is the extended nonnegative sum of N_n over all attempts n whose preceding attempts failed, including the first successful batch. On never-success it is the sum over every batch.",
+          "For every parameter s and failure tolerance 0<delta<1, set L=log(2/delta) and m=ceil(exp(2B)L)."
+        ],
+        "obligations": [
+          {
+            "id": "poisson-query-tail",
+            "label": "Actual bounded Poisson estimator-count tail needed before terminal gradient-cost accounting"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+          "title": "Actual Poisson rejection query tails with explicit constants",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC v1 Appendix A.1 and Theorem A.4(2)",
+              "scope": "Bounded rejection mechanism and the terminal routine consumer requiring a single-log cost tail; the present supporting bound is an independent ASTIS derivation."
+            },
+            {
+              "url": "https://arxiv.org/html/2608.05022v1",
+              "label": "Poisson rejection Algorithm 1 and Theorem 2.3",
+              "scope": "Actual full Poisson batches. The unrestricted printed tail formula is not asserted here; its small-B discrepancy remains explicit."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCPoissonQueryTail"
+          ],
+          "assumptions": [
+            "S, X and A are arbitrary measurable spaces. Q:S->X is a Markov kernel and nu is a fixed probability law on A.",
+            "B>0 is fixed across parameters. W:((S times X) times A)->Real is jointly measurable and |W((s,x),z)|<=B for every s,x,z.",
+            "A default x0:X is supplied for the parent output construction; the cost bound does not depend on its value.",
+            "At each parameter s an attempt independently draws x~Q(s), N~Poisson(2B), an infinite iid auxiliary sequence z~nu^ℕ, of which only the first N entries are read, and U~Uniform[0,1]. It accepts when U<=product_{i<N}(B+W((s,x),z_i))/(2B). Whole attempts are iid.",
+            "C is the extended nonnegative sum of N_n over all attempts n whose preceding attempts failed, including the first successful batch. On never-success it is the sum over every batch.",
+            "For every parameter s and failure tolerance 0<delta<1, set L=log(2/delta) and m=ceil(exp(2B)L)."
+          ],
+          "statement": "Under the displayed measurable bounded-estimator experiment, the actual full-batch query count satisfies P(C>2B(e-1)m+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance probability is derived from the actual parent program and is not an extra hypothesis. The first inequality retains the integer ceiling; the second is an explicit single-log bound for fixed B. Both hold for every B>0, including arbitrarily small B, and every 0<delta<1.",
+          "formula": "L=\\log(2/\\delta),\\quad m=\\lceil e^{2B}L\\rceil,\\quad K(B)=2B(e-1)(e^{2B}+1/\\log2)+1,\\qquad \\mathbb P(C>2B(e-1)m+L)\\le\\delta,\\quad\\mathbb P(C>K(B)L)\\le\\delta.",
+          "steps": [
+            {
+              "title": "Use the same actual program and its proved acceptance probability",
+              "text": "The existing production theorem supplies p_s>=exp(-2B) for the actual acceptance event under the actual four-coordinate attempt law. Definitional equality aligns both definitions. Mapping the attempt to its N coordinate gives Poisson(2B); measurability follows from product coordinates and finite products on each discrete N stratum.",
+              "formula": "p_s=\\Lambda_s(E_s)\\ge e^{-2B},\\qquad (N)_\\#\\Lambda_s=\\operatorname{Poisson}(2B).",
+              "lean": "poisson_rejection_output; actual_attempt_count_law; measurable_accepted"
+            },
+            {
+              "title": "Compare the stopped cost to a deterministic prefix on each path",
+              "text": "If any attempt j<m succeeds, every charged term at index n>=m vanishes because the earlier-success predicate is false. Therefore C is at most S_m=sum_{n<m}N_n on this event. A large stopped cost thus requires either all m attempts to fail or a large fixed-prefix sum. This comparison uses no stopping-time/count independence.",
+              "formula": "\\{C>t\\}\\subseteq\\{\\text{all }i<m\\text{ fail}\\}\\cup\\{S_m>t\\},\\qquad S_m=\\sum_{i<m}N_i.",
+              "lean": "totalCost_le_prefix; cost_tail_subset"
+            },
+            {
+              "title": "Integrate the actual Poisson exponential moment",
+              "text": "First prove integrability of exp(N) using the convergent exponential series weighted by the Poisson mass. The true count law then gives E exp(N)=exp(2B(e-1)). The finite-coordinate pushforward of the iid stream is the finite product measure, so product integration gives E exp(S_m)=exp(2Bm(e-1)).",
+              "formula": "\\mathbb E e^N=e^{2B(e-1)},\\qquad\\mathbb E e^{S_m}=e^{2Bm(e-1)}.",
+              "lean": "poisson_exponential_integrable; poisson_exponential_moment; fixed_prefix_exponential_moment"
+            },
+            {
+              "title": "Apply exponential Markov to the fixed prefix",
+              "text": "Exponentiation sends S_m>2Bm(e-1)+L into an event where exp(S_m) exceeds the corresponding positive threshold. Markov and the exact exponential moment cancel the Poisson contribution, leaving exp(-L). All conversions to extended nonnegative integrals have integrability or positivity witnesses.",
+              "formula": "\\mathbb P(S_m>2Bm(e-1)+L)\\le e^{-L}.",
+              "lean": "fixed_prefix_chernoff; fixed_prefix_chernoff_shift"
+            },
+            {
+              "title": "Budget the probability of all preceding failures",
+              "text": "The actual iid cylinder law gives failure probability (1-p_s)^m. For a=exp(-2B), the inequality 1-p_s<=exp(-a) follows from p_s>=a and 1-a<=exp(-a). The ceiling choice ensures a*m>=L. The failure term is therefore at most exp(-L). Probability finiteness is established before taking real parts.",
+              "formula": "(1-p_s)^m\\le e^{-e^{-2B}m}\\le e^{-L},\\qquad e^{-2B}\\lceil e^{2B}L\\rceil\\ge L.",
+              "lean": "failure_power_exponential_bound; poisson_tail_budget"
+            },
+            {
+              "title": "Combine both events at the requested failure tolerance",
+              "text": "The union bound gives at most 2exp(-L). With L=log(2/delta), this equals delta. The nonnegative total cost is left as its full infinite sum, so the bound covers all paths, including any never-success path; it is not a theorem only about attempt counts.",
+              "formula": "\\mathbb P(C>2B(e-1)m+L)\\le 2e^{-L}=\\delta.",
+              "lean": "full_batch_cost_tail; full_batch_cost_tail_of_budget; delta_log_budget; full_batch_cost_delta_tail"
+            },
+            {
+              "title": "Expose the single-log coefficient and its dependence on B",
+              "text": "Because 0<delta<1, L>=log(2)>0. Thus m<=exp(2B)L+1<=(exp(2B)+1/log(2))L. The resulting larger threshold K(B)L has a smaller exceedance event. K depends on B: converting this to a universal terminal gradient-cost statement still needs a uniform B bound and the concrete per-estimator gradient cost.",
+              "formula": "m\\le(e^{2B}+1/\\log2)L,\\qquad2B(e-1)m+L\\le K(B)L.",
+              "lean": "ceil_threshold_le_single_log; measure_mono"
+            }
+          ],
+          "lean_statement": "Two explicit high-probability bounds for the same actual full-batch Poisson rejection cost.",
+          "lean_proof": "Actual parent acceptance bound, coordinate law, pathwise prefix truncation, Poisson exponential series, iid product moment, exponential Markov, failure budget and ceiling comparison.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.infinitePi",
+            "ProbabilityTheory.poissonMeasure",
+            "MeasureTheory.meas_ge_le_lintegral_div",
+            "MeasureTheory.integral_fintype_prod_eq_pow",
+            "Nat.le_ceil",
+            "Nat.ceil_lt_add_one"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+          "role": "prerequisite",
+          "supports": [
+            "poisson-query-tail"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "The FORS rejection mechanism uses a proposal, Poisson batch and independent auxiliary draws.",
+            "lean": "Same four-coordinate attempt law and first-success full-batch cost as the existing production theorem; Markov parameter family and fixed auxiliary law are explicit."
+          },
+          {
+            "source": "The bounded mechanism uses B>0 and estimator values in [-B,B].",
+            "lean": "One B>0 and jointly measurable W bounded everywhere by B for all parameters; no B>=1 assumption."
+          },
+          {
+            "source": "The algorithm repeatedly draws whole Poisson batches until acceptance.",
+            "lean": "C sums every reached full batch, including success; its infinite-sum definition also covers never-success paths."
+          },
+          {
+            "source": "SPHMC A.4(2) requires a single-log high-probability query bound with a universal constant in its stated regime.",
+            "lean": "For 0<delta<1, the exact ceiling threshold and explicit K(B)log(2/delta) tail are proved for estimator calls."
+          },
+          {
+            "source": "External arXiv:2608.05022v1 Theorem2.3 prints 3B exp(2B) log(2/delta) for unrestricted B>0.",
+            "lean": "The new supporting bound is 2B(e-1)ceil(exp(2B)L)+L, and K(B)L, where L=log(2/delta)."
+          },
+          {
+            "source": "The complete terminal routine includes clipping, target approximation, reference construction and query accounting.",
+            "lean": "Those remaining obligations and both paper main results are not claimed. A default x0 is supplied solely for the existing actual-output theorem."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let S, X and A be arbitrary measurable spaces, Q a Markov kernel from S to X, nu a probability measure on A, and W: (S x X) x A -> R a measurable function. Suppose B > 0 and |W((s,x),z)| <= B for every s in S, x in X and z in A. For every x0 in X, s in S and real delta with 0 < delta < 1, make the following definitions. One attempt p=(x,N,z,u) has law Lambda=(Q s) x Poisson(2B) x nu^NAT x Uniform([0,1]), with independent coordinates; z is an infinite sequence in A. An attempt is accepted on E={p: u <= product_{i=0}^{N-1} (B+W((s,x),z_i))/(2B)}, where the empty product is 1. Let rho=Lambda^NAT be the law of an independent sequence of attempts omega. Define the extended nonnegative cost C(omega)=sum_{n=0}^infinity [N_n if omega_i is not in E for every i<n, and 0 otherwise]. Set L=log(2/delta) and m=ceil_NAT(exp(2B)L). Then both rho{C > 2B(exp(1)-1)m+L} <= delta and rho{C > [2B(exp(1)-1)(exp(2B)+1/log(2))+1]L} <= delta hold. In each inequality the real threshold and delta are embedded using ENNReal.ofReal, and probability and cost are extended nonnegative reals. The cost includes the count of the first accepted attempt, when one exists, and otherwise sums all attempt counts. The quantified x0 does not occur in any definition or bound. Acceptance uses a non-strict inequality and the tail events use strict inequalities.",
+        "text_sha256": "3deba8c83d95208740ebf46ca1f60e35f6524d1ddf3dd549729c10adc619fd01",
+        "decoder_packet_sha256": "5f00bdde253cb795042cf508f2557bc6793ecaa5fab916ee9a7a0517b65233bf",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_g",
+        "notes": [
+          "Exact full-batch cost includes success and sums all attempts on never-success.",
+          "The same fixed B bounds all parameters; K(B) depends only on B, not a universal source gradient-cost assertion.",
+          "The only packet amendment clarified the implicit finite product domain Fin p.2.1. The source-blind decoder rehashed the amended packet and explicitly confirmed unchanged reconstructed text. No source text was shown.",
+          "No unresolved ambiguity; x0 is quantified but does not occur in the cost expression."
+        ],
+        "decoder_run_sha256": "8a345c5b1c63426326ac0cc211f6b51d8e7e46ad203cc4cb0f469af996eb5418",
+        "lean_statement_sha256": "4f459c5c4615a58900b0317c9a84e272c66b86a36f099b37bc64b03da356f21f",
+        "run_artifact": "runs/20260911-companion-priority/poisson-query-tail.decoder-result.json"
+      }
     }
   ]
 }

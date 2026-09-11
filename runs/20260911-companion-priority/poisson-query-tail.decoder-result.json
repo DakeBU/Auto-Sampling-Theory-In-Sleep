@@ -1,0 +1,23 @@
+{
+  "decoder": "blind_reconstruction_g",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent source-blind reconstructed theorem text, hash independently checked; decoder confirmed final amended approved-context packet.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-g.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCPoissonQueryTail.decoder.json",
+  "initial_packet_sha256": "dee5e6c315695301fcb53aa602080edfb6825689a1a3fd4f5f36f6d961ba5cbb",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "5f00bdde253cb795042cf508f2557bc6793ecaa5fab916ee9a7a0517b65233bf",
+  "lean_statement_sha256": "4f459c5c4615a58900b0317c9a84e272c66b86a36f099b37bc64b03da356f21f",
+  "reconstructed_theorem_text": "Let S, X and A be arbitrary measurable spaces, Q a Markov kernel from S to X, nu a probability measure on A, and W: (S x X) x A -> R a measurable function. Suppose B > 0 and |W((s,x),z)| <= B for every s in S, x in X and z in A. For every x0 in X, s in S and real delta with 0 < delta < 1, make the following definitions. One attempt p=(x,N,z,u) has law Lambda=(Q s) x Poisson(2B) x nu^NAT x Uniform([0,1]), with independent coordinates; z is an infinite sequence in A. An attempt is accepted on E={p: u <= product_{i=0}^{N-1} (B+W((s,x),z_i))/(2B)}, where the empty product is 1. Let rho=Lambda^NAT be the law of an independent sequence of attempts omega. Define the extended nonnegative cost C(omega)=sum_{n=0}^infinity [N_n if omega_i is not in E for every i<n, and 0 otherwise]. Set L=log(2/delta) and m=ceil_NAT(exp(2B)L). Then both rho{C > 2B(exp(1)-1)m+L} <= delta and rho{C > [2B(exp(1)-1)(exp(2B)+1/log(2))+1]L} <= delta hold. In each inequality the real threshold and delta are embedded using ENNReal.ofReal, and probability and cost are extended nonnegative reals. The cost includes the count of the first accepted attempt, when one exists, and otherwise sums all attempt counts. The quantified x0 does not occur in any definition or bound. Acceptance uses a non-strict inequality and the tail events use strict inequalities.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "Exact full-batch cost includes success and sums all attempts on never-success.",
+    "The same fixed B bounds all parameters; K(B) depends only on B, not a universal source gradient-cost assertion.",
+    "The only packet amendment clarified the implicit finite product domain Fin p.2.1. The source-blind decoder rehashed the amended packet and explicitly confirmed unchanged reconstructed text. No source text was shown.",
+    "No unresolved ambiguity; x0 is quantified but does not occur in the cost expression."
+  ]
+}

@@ -1,12 +1,16 @@
 {
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
   "focused_check": {
     "command": "lake build Tests.SmoothedPicardHMCPoissonQueryTail",
     "result": "PASS3639",
     "production_sha256": "bf4b45d5937d93a31e0a8470ac7b1a7002f4222bc73546cd48588cf240cd4d58",
     "test_sha256": "15b1817c59c7ea387c1874c74123087e7aa9f94761637abf779846338cd75f07",
-    "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
   },
   "mathematical_status": "Actual bounded Poisson rejection full-batch estimator count C, including the successful batch. For 0<delta<1 and L=log(2/delta), proves P(C>2B(e-1)ceil(exp(2B)L)+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance lower bound is obtained from the existing production PoissonRejection theorem, not assumed. Actual product count law, pathwise truncation, iid prefix Chernoff and failure bounds are proved.",
   "independent_development_review": {
@@ -24,10 +28,19 @@
     "boundary": "Pre-review only; no formal encoder-denoiser admission."
   },
   "remaining": [
-    "Authored mathematical lesson and publication/source binding with explicit constants and boundaries.",
     "Expand actual compiled private definitions, run fresh source-blind reconstruction and independent formal source review.",
     "Fixed-commit independent admission, aggregate imports, original reader/conversion delivery and integration.",
     "Uniform B control, actual clipped gradient estimator, target/Renyi error, reference point and initialization, gradient query cost and other terminal implementation overhead remain separate."
   ],
-  "admission_boundary": "Focused production compilation and independent development review do not establish PROVED_LOCAL, VERIFIED, integration, deployment or either paper main result. Root aggregate imports are not yet changed."
+  "admission_boundary": "PROVED_LOCAL after focused compilation and authored publication validation. Independent development proof review and fresh blind reconstruction completed. Formal source review and fixed-commit VERIFIED admission remain pending; no root aggregate imports or main theorem completion claim.",
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-poisson-query-tail.json",
+    "state": "Seven authored steps and publication validation passed; blind reconstruction complete; formal source review pending."
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCPoissonQueryTail"
+    ]
+  }
 }

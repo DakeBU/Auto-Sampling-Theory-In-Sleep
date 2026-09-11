@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-poisson-query-tail",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Poisson rejection query tails with explicit constants",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Appendix A.1 and Theorem A.4(2); independently derived bounded-program query-tail prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang are the source authors. The exact expanded supporting tail inequality and proof below are an independent ASTIS derivation, not a quotation of the printed external tail formula or author endorsement."
+      },
+      "statement": "Under the displayed measurable bounded-estimator experiment, the actual full-batch query count satisfies P(C>2B(e-1)m+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance probability is derived from the actual parent program and is not an extra hypothesis. The first inequality retains the integer ceiling; the second is an explicit single-log bound for fixed B. Both hold for every B>0, including arbitrarily small B, and every 0<delta<1.",
+      "assumptions": [
+        "S, X and A are arbitrary measurable spaces. Q:S->X is a Markov kernel and nu is a fixed probability law on A.",
+        "B>0 is fixed across parameters. W:((S times X) times A)->Real is jointly measurable and |W((s,x),z)|<=B for every s,x,z.",
+        "A default x0:X is supplied for the parent output construction; the cost bound does not depend on its value.",
+        "At each parameter s an attempt independently draws x~Q(s), N~Poisson(2B), an infinite iid auxiliary sequence z~nu^ℕ, of which only the first N entries are read, and U~Uniform[0,1]. It accepts when U<=product_{i<N}(B+W((s,x),z_i))/(2B). Whole attempts are iid.",
+        "C is the extended nonnegative sum of N_n over all attempts n whose preceding attempts failed, including the first successful batch. On never-success it is the sum over every batch.",
+        "For every parameter s and failure tolerance 0<delta<1, set L=log(2/delta) and m=ceil(exp(2B)L)."
+      ],
+      "formulae": [
+        {
+          "label": "Actual full-batch tail and explicit single-log constant",
+          "tex": "L=\\log(2/\\delta),\\quad m=\\lceil e^{2B}L\\rceil,\\quad K(B)=2B(e-1)(e^{2B}+1/\\log2)+1,\\qquad \\mathbb P(C>2B(e-1)m+L)\\le\\delta,\\quad\\mathbb P(C>K(B)L)\\le\\delta."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "poisson-query-tail",
+          "label": "Actual bounded Poisson estimator-count tail needed before terminal gradient-cost accounting"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+          "cell": "ASTIS-SW-SPHMC-poisson-query-tail",
+          "role": "prerequisite",
+          "supports": [
+            "poisson-query-tail"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCPoissonQueryTail",
+          "boundary": "Counts full-batch estimator evaluations, including the successful batch, not automatically gradient queries or wall-clock time. A universal terminal-state constant requires uniform control of B and a separate cost account for each estimator call and other work. Actual clipped gradient estimators, target log-weight identification, Renyi error, reference points and initialization remain separate. This independently derived supporting inequality does not assert or silently repair the unrestricted printed 3B exp(2B) log(2/delta) threshold in external Theorem 2.3.",
+          "assumption_deltas": [
+            {
+              "source": "The FORS rejection mechanism uses a proposal, Poisson batch and independent auxiliary draws.",
+              "lean": "Same four-coordinate attempt law and first-success full-batch cost as the existing production theorem; Markov parameter family and fixed auxiliary law are explicit.",
+              "classification": "generalization",
+              "reason": "The parameterized measurable presentation supports repeated source calls without substituting an abstract cost variable."
+            },
+            {
+              "source": "The bounded mechanism uses B>0 and estimator values in [-B,B].",
+              "lean": "One B>0 and jointly measurable W bounded everywhere by B for all parameters; no B>=1 assumption.",
+              "classification": "same",
+              "reason": "The tail proof retains arbitrarily small positive B."
+            },
+            {
+              "source": "The algorithm repeatedly draws whole Poisson batches until acceptance.",
+              "lean": "C sums every reached full batch, including success; its infinite-sum definition also covers never-success paths.",
+              "classification": "source-implicit",
+              "reason": "The proof uses a pathwise comparison and true iid-prefix law, never current count/acceptance independence."
+            },
+            {
+              "source": "SPHMC A.4(2) requires a single-log high-probability query bound with a universal constant in its stated regime.",
+              "lean": "For 0<delta<1, the exact ceiling threshold and explicit K(B)log(2/delta) tail are proved for estimator calls.",
+              "classification": "API-limitation",
+              "reason": "Uniform B and concrete per-estimator gradient cost remain necessary source adapters; this is a prerequisite rather than A.4 completion."
+            },
+            {
+              "source": "External arXiv:2608.05022v1 Theorem2.3 prints 3B exp(2B) log(2/delta) for unrestricted B>0.",
+              "lean": "The new supporting bound is 2B(e-1)ceil(exp(2B)L)+L, and K(B)L, where L=log(2/delta).",
+              "classification": "unresolved",
+              "reason": "The independent small-B audit identified a possible-source-error in the printed threshold. This separate valid derivation neither asserts that formula nor silently edits or formally repairs it."
+            },
+            {
+              "source": "The complete terminal routine includes clipping, target approximation, reference construction and query accounting.",
+              "lean": "Those remaining obligations and both paper main results are not claimed. A default x0 is supplied solely for the existing actual-output theorem.",
+              "classification": "API-limitation",
+              "reason": "The cost bound is about the actual bounded rejection program and is independent of x0; no TV-to-unbounded-cost transfer occurs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
