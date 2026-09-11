@@ -9737,7 +9737,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-HessianFTC",
-      "state": "draft",
+      "state": "blind-reconstructed",
       "graph_node": "ASTIS-SHARED-gradient-hessian-ftc",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -9894,11 +9894,25 @@
             "lean": "Complete real inner-product space, with no modulus parameter."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption, and let f:E→ℝ be twice continuously Fréchet differentiable on all of E. For every x,v∈E, the inner product of ∇f(x+v)−∇f(x) with v equals the Lebesgue integral from 0 to 1 of the second Fréchet derivative at x+t v evaluated on (v,v): ⟨∇f(x+v)−∇f(x),v⟩ = ∫₀¹ D²f(x+t v)[v,v] dt. The gradient is the Riesz representative of the first Fréchet derivative. The integral is the oriented real interval integral, here with endpoints 0 and 1. There are no restrictions on x or v and no convexity or sign assumptions.",
+        "text_sha256": "0e951e6a7f2ddc4d6561e18eb2d676381f5adb162634651a61067813c5ad73aa",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "6b50ae39f765d66960f46ee3590cfd5bad16e407bf2f6002703d23313a3ce2d9",
+        "decoder_packet_sha256": "b424dfa809a7dc193dfe87a34709eae2965026fdaf81a1e83be6cb3c8d013add",
+        "source_text_visible": false,
+        "lean_statement_sha256": "99bf0ad924b004f9273de4b32ab295265863003fcd49131b13e5d6f8ec8a38a6",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-0.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-GradientHessian",
-      "state": "draft",
+      "state": "blind-reconstructed",
       "graph_node": "ASTIS-SHARED-gradient-hessian-equivalence",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -10063,11 +10077,25 @@
             "lean": "Complete real inner-product space; arbitrary real m in the equivalence."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption. Let f:E→ℝ be twice continuously Fréchet differentiable on all of E, and let m be any real number, without a sign restriction. Then the following two global statements are equivalent: (1) for every x,y∈E, m‖y−x‖² ≤ ⟨∇f(y)−∇f(x),y−x⟩; (2) for every x,v∈E, m‖v‖² ≤ D²f(x)[v,v]. The gradient is the Riesz representative of the first Fréchet derivative, and D²f(x)[v,v] means the derivative of the first Fréchet derivative at x applied successively to v and v. The same fixed m is used in both inequalities.",
+        "text_sha256": "5d2a992f44dd7a660ecba8d612920168b9d2ddecce9a17f7107c7a0e017cfc7a",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "7ebea7873208b6c6cac5e1f212f29c17a89bc7ef1f91e52d88132a9be75bb417",
+        "decoder_packet_sha256": "95f674a3d216c1480438cf4329054a5c562eafa96dc4c4f7d007b58370c76afc",
+        "source_text_visible": false,
+        "lean_statement_sha256": "a6cead6293e7349725fb555540f689c550d81abf486d53b204e6fad5460af4c0",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-1.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-ConvexityC2",
-      "state": "draft",
+      "state": "blind-reconstructed",
       "graph_node": "ASTIS-OPT-convexity-c2",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -10226,6 +10254,20 @@
             "lean": "Same whole Euclidean space and m>=0."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "For every natural number d, including d=0, every function f:ℝᵈ→ℝ on real d-dimensional Euclidean space, and every real number m≥0, suppose f is twice continuously Fréchet differentiable on all of ℝᵈ. Then f is m-strongly convex on the whole space if and only if, for every x,v∈ℝᵈ, m‖v‖² ≤ D²f(x)[v,v]. Here m-strong convexity means exactly that for every x,y∈ℝᵈ and every real a,b≥0 with a+b=1, f(a x+b y) ≤ a f(x)+b f(y)−a b (m/2)‖x−y‖². The second derivative is the derivative of the first Fréchet derivative, evaluated twice on v. The same m appears in the interpolation inequality and the second-derivative bound; m=0 is included.",
+        "text_sha256": "27044b0baca2c88214beba2f4c6507e92f6de867fa87075f37fe91bf37c771e2",
+        "decoder": "c2_blind_decoder",
+        "decoder_run_sha256": "79d50ab5f5c54d0a74e8f02ec80e32da79346e3a29e422a82b69569d49ab82e5",
+        "decoder_packet_sha256": "886a79ac322a43efc62dd31e5ab66105295b3caa5d358e669fd22679a9dcbd6a",
+        "source_text_visible": false,
+        "lean_statement_sha256": "03f0fc47f48ca0ebd9d3e2ed16e53a706309fe1507b0d9593d38bfa0838f5bf1",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c2/decoder-result-2.json"
       }
     }
   ]

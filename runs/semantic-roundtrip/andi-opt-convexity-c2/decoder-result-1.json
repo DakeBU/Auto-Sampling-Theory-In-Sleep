@@ -1,0 +1,20 @@
+{
+  "reconstructed_theorem_text": "Let E be any complete real inner-product space (a real Hilbert space), with no finite-dimensionality assumption. Let f:E→ℝ be twice continuously Fréchet differentiable on all of E, and let m be any real number, without a sign restriction. Then the following two global statements are equivalent: (1) for every x,y∈E, m‖y−x‖² ≤ ⟨∇f(y)−∇f(x),y−x⟩; (2) for every x,v∈E, m‖v‖² ≤ D²f(x)[v,v]. The gradient is the Riesz representative of the first Fréchet derivative, and D²f(x)[v,v] means the derivative of the first Fréchet derivative at x applied successively to v and v. The same fixed m is used in both inequalities.",
+  "reconstructed_text_sha256": "5d2a992f44dd7a660ecba8d612920168b9d2ddecce9a17f7107c7a0e017cfc7a",
+  "objects": "E, f, m, pairs x,y, directions v, the gradient, and the second Fréchet derivative.",
+  "domains": "E is a complete real inner-product space; f:E→ℝ; m∈ℝ; x,y,v∈E.",
+  "quantifiers": "Universal over E, f and m satisfying the assumptions; each side of the equivalence has its own universal point/direction quantifiers.",
+  "assumptions": "f is C² on all E. Completeness and real inner-product structure are global assumptions. No sign assumption on m.",
+  "conclusion": "(∀x,y, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩) ↔ (∀x,v, m‖v‖²≤D²f(x)[v,v]).",
+  "scopes": "Regularity and the asserted property hold on the entire displayed space, not merely on a subset or at selected points.",
+  "constant_dependencies": "m is an arbitrary globally fixed real parameter shared by both statements; there are no existential or dimension-dependent constants.",
+  "decoder": "Independent source-blind semantic decoder; only the three specified anonymous packets were read.",
+  "source_text_visible": false,
+  "decoder_packet_sha256": "95f674a3d216c1480438cf4329054a5c562eafa96dc4c4f7d007b58370c76afc",
+  "packet_file_sha256": "ef973337337db9646a3fce2ec74e5a469ee9d66dd5999a88dc92f3f6fabecf6d",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "ambiguities": []
+}
