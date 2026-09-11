@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -65,5 +65,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atebc8a31. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json",
+  "integration_notes": {
+    "upstream": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
+    "boundary": "Ancestry merge dd915b7 has zero tree delta. Root sole stabilization owner. Full canonical gate and original reader/graph QA pending."
+  }
 }
