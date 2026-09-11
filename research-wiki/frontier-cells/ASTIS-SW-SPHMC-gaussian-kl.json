@@ -29,8 +29,17 @@
     "focused_checks": [],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-kl.md",
     "planning_review": "Independent log_depth_source_review primary Lemma6.3(i)/Theorem6.5 audit: A1 Gaussian KL is a dependency-ready actual measure consumer; quadratic displacement suffices, exponential moments are unavailable.",
-    "execution_boundary": "Root sole writer; proxy reverse transport remains sole STABILIZING. Gaussian KL EXPLORING only.",
-    "ownership_note": "One source consumer; no invented second consumer."
+    "execution_boundary": "Root sole writer; proxy remains sole STABILIZING in PR262. Gaussian KL EXPLORING, no production theorem or KL bound admitted. Direct joint-likelihood and parameterized LLR algebra scratch compilation ongoing.",
+    "ownership_note": "One source consumer; no invented second consumer.",
+    "development_checks": [
+      {
+        "command": "lake env lean .astis/GaussianKLScratch.lean",
+        "result": "exit0; mixed inner product absolute integrability and zero integral from quadratic displacement, plus actual joint Gaussian map/volume-density identity. No production declaration or independent admission.",
+        "file_sha256": "66e75357d9be5ab65b5f41250c19e4f2fb9ef422a38755a8d65c7ca2b55621f2",
+        "log": ".astis/gaussian-kl-scratch.log"
+      }
+    ],
+    "shorter_route_review": "Independent log_depth_source_review accepted direct joint withDensity proof from retained-parameter product-map laws and fixed-fiber GaussianLikelihood measure equality. No fiber a.e. assertion is promoted to a joint pointwise identity; L measurable. RN first B-a.e. then AC transfers to A-a.e. No displacement moments needed for this equality."
   },
   "blocked": {
     "reason": "",
