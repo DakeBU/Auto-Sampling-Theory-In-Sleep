@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA, merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -85,5 +85,6 @@
       "ASTIS-RT-20260912-SPHMCTerminalReferenceGradientDescent"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
+  "admission_boundary": "VERIFIED at5f0529f. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/terminal-reference-gradient-descent.verified-admission.json"
 }

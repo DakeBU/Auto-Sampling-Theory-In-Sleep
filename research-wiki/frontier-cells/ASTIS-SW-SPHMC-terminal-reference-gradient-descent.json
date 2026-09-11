@@ -6,7 +6,7 @@
   "title": "Actual gradient descent terminal reference construction",
   "source_anchor": "SPHMC arXiv:2609.06906v1 section6.3 Reference point construction and Terminal stage",
   "target_statement": "For actual C2 V with global Hessian bounds mI<=HessV<=betaI,0<=m<=beta,A>0,d=finrank E>0, define F=V+norm(x-u)^2/(2A),alpha=m+1/A,betaF=beta+1/A,kappa=betaF/alpha and actual GD T=x-betaF^-1*gradientF. Construct first N(v) with normgradientF(T^N v)^2<=d/A. Prove finite termination, measurable N and output, exact gradient/residual identity and terminal center residual<=sqrt(d*A). Prove N<=Nat.ceil(kappa*log(1+A*normgradientF(v)^2/d)), cost N+1 including final gradient check. For any probability initial law with actual gradient squared L1 and moment<=M derive cost L1 and expected cost<=2+kappa*log(1+A*M/d).",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-gradient-step-contraction",
     "ASTIS-SHARED-quadratic-regularization"
@@ -40,7 +40,8 @@
     "proof_plan": "proof-blueprints/SPHMC-terminal-reference-gradient-descent.md",
     "planning_review": "Independent source/dependency review log_depth_source_review and mathematical contract review depth_commit_verifier accepted actual GD, adjacent-iterate route, Nat.ceil certificate, measurability/L1 obligations and counting convention.",
     "execution_boundary": "Root sole writer; prior terminal sampler PR287 merged, all CI/live complete, no active stabilizer. Current reference packet EXPLORING; complete production/focused and independent development/expanded reviews accepted, formal anonymous/source admission pending.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED at5f0529f. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/terminal-reference-gradient-descent.verified-admission.json"
   },
   "blocked": {
     "reason": "",
