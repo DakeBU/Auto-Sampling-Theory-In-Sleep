@@ -1,0 +1,64 @@
+{
+  "commit": "3341e0931ab048662af20df11218a3c6665835c9",
+  "source_digest": "ed301ce5d5b04bdd8900cc9c8ac998b90b79a5159a0c516314c5c2dc56440228",
+  "status": "passed-local",
+  "root_integration": {
+    "session": 55564,
+    "exit_code": 0,
+    "result": "PASS9161",
+    "log": ".astis/gradient-arc-mean-integration-gate.log"
+  },
+  "reader_build": {
+    "session": 23097,
+    "exit_code": 0,
+    "log": ".astis/gradient-arc-mean-reader-build.log"
+  },
+  "reader_check": {
+    "session": 19700,
+    "exit_code": 0,
+    "log": ".astis/gradient-arc-mean-reader-check.log",
+    "chapters": 12,
+    "modules": 631,
+    "declarations": 3803,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/gradient-arc-mean-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser interactions and viewed screenshots; not an independent browser review.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=3341e09",
+    "section": "sphmc-gradient-arc-mean",
+    "authored_steps": 6,
+    "initial_details": 9,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement · gradient_arc_mean",
+      "Lean proof · gradient_arc_mean",
+      "Source and reuse"
+    ],
+    "statement_code_characters": 838,
+    "proof_code_characters": 1409,
+    "katex_errors": 0,
+    "source_and_parent_links": "Actual Appendix D.1, SPHMC Appendix A.4(2), GaussianArcLaw and exact module context present.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Clicked Open reader / evidence card; exact module shows Compiled, zero placeholders, ten declarations with Compiled and Not mapped. Mapping and source fidelity are separate."
+  },
+  "remaining": [
+    "Same-head remote Lean CI",
+    "Merge and actual deployment"
+  ],
+  "paper_completion": false,
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "3341e0931ab048662af20df11218a3c6665835c9",
+    "status": "accepted",
+    "authorization": "Independent reviewer explicitly accepted fixed candidate and authorized faithful root transcription. Verified unchanged production/test, binding, unique stabilization, exact digest, canonical and site logs, graph coverage, root browser provenance. No independent browser claim."
+  }
+}

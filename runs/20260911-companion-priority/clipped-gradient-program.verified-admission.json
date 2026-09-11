@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "f33438407ee90f9862569f8ee397e7e0945fa232",
+    "gate": {
+      "production": "Unchanged production/test, independently focusedPASS3722; full actual input/mean/normalizer/retry/cost proof reviewed, standard3nolint. Independent5582-character source-free Meta expansion and defeq replay accepted.",
+      "publication": "Independent reviewed validator and actual check --base origin/main PASS58; all13private implementations covered. External binding preimage,wholemodule,lesson,source,reconstruction,packets,runs,test hashes verified; anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCClippedGradientProgram",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_l",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "047291482786e6fc30d6dc23fc076506230bae2ab2691434a11b314036ed3204",
+        "decoder_packet_sha256": "5286a9bc2c8639eb71453501e86be83341dbdd4c5aa08d3cd707be530d7de513",
+        "decoder_run_sha256": "eb6e06363820f46edf30004ea7709610f806110437786a6de0871f948d911542",
+        "reviewer_packet_sha256": "9f2cbbe769b0e03b24f803004a6979955db885d6207a4f3d5454f469081d63e9",
+        "review_run_sha256": "68638d2f9eaf7c18cc185f411d1bdcafafd511f53c2ffec3fd1d5408bf6efefb",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual source center/gradient arc, clipped mean error with L1, clipped normalization, identical iid first-success program and full-batch actual count."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program"
+    ],
+    "independent_checks": [
+      "7 semantic slots,7 authored steps,8 informational differences; no blockers/repairs.",
+      "Fixedcommit clean; production/test unchanged; root unique writer and no active stabilizer.",
+      "Actual wholemodule and external binding preimage independently checked.",
+      "VERIFIED-only; ideal Gibbs/RGO,Renyi,full gradient-oracle accounting,aggregate,reader,merge and full papers not completed."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Fixed-center actual clipped program and mean truncation error only. No ideal Gibbs normalization/identification, normalized Renyi accuracy, adaptive eta kernel, initialization, or full gradient query accounting. Auxiliary time differs from acceptance uniform. Count includes successful batch; cached reference gradient preparation is separate. Uniform O(1) cost still needs source B=Theta(1) and accuracy parameters. Neither main paper complete."
+}

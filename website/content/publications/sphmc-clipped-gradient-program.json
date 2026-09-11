@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-clipped-gradient-program",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual clipped-gradient Poisson retry program",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 Eq18 and clipping mean comparison; consumed by SPHMC A.4(2), actual Poisson mechanism A.1 Lemma A.2",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and exposition of the actual clipped gradient-path program, a dependency used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+      },
+      "statement": "The actual nu and q are probability measures. W and Wc are jointly measurable in (x,r,z), and m is measurable. For every x, W(x,.) and Wc(x,.) and the excess max(abs(W(x,.))-B,0) are nu-integrable; abs(m(x))<=B and abs(m(x)-(<g,x>-f(x)+C))<=integral max(abs(W(x,a))-B,0) dnu(a). The function exp(m) is q-integrable and exp(-B)<=Z<=exp(B). The first-success output is measurable and its actual rho-pushforward equals q.tilted(m). The never-success event has rho-measure zero. With p_acc=Lambda(accepted), p_acc=ofReal(exp(-B)*Z)>=ofReal(exp(-2B)); the extended-nonnegative expectation of Q is p_acc^(-1)*ofReal(2B), and is at most ofReal(2B*exp(2B)).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with Borel sigma-algebra and explicit second countability. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. Fix eta>0, beta>=0, B>0 and x0,x_plus in E. No convexity, positive dimension, center residual or small-step condition is needed for this selected clipped-program result.",
+        "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=Lebesgue restricted to (0,1], nu=U product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Before choosing x define C=integral f(h+z) dP(z)-<g,h>. The parent mean theorem proves integrability underlying this C.",
+        "For x in E, r in R and z in E, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), W(x,(r,z))=<v,g-grad f(gamma)>. Define Wc=min(B,max(-B,W)), m(x)=integral Wc(x,a) dnu(a), and Z=integral exp(m(x)) dq(x).",
+        "An attempt is p=(x,N,(a_stream,u)), with law Lambda=q product [Poisson(2B) product (nu^N product Uniform[0,1])]; nu^N denotes the infinite iid auxiliary sequence indexed by natural numbers. All these factors are independent. Accept p when u<=product over i<N of (B+Wc(x,a_i))/(2B). The auxiliary time r inside a_i and acceptance uniform u are distinct random inputs.",
+        "Let rho=Lambda^N be the infinite iid sequence of attempts. Output the proposal of the first accepted attempt, using the least natural index; if no attempt succeeds return x0. Define Q(omega)=sum over n>=0 of N_n times the indicator that every i<n failed. This counts all estimator calls in the successful batch as well as failed batches."
+      ],
+      "formulae": [
+        {
+          "label": "Actual clipped law, mean error and full-batch count",
+          "tex": "\\widehat q=q.\\mathrm{tilted}(m),\\quad e^{-B}\\le Z\\le e^B,\\quad |m(x)-(\\langle g,x\\rangle-f(x)+C)|\\le\\mathbb E_\\nu(|W_x|-B)_+,\\quad\\mathbb E_\\rho Q=\\frac{2B}{e^{-B}Z}\\le2Be^{2B}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-clipped-gradient-program",
+          "label": "Actual clipped estimator input, normalized retry output and true-input mean/cost bounds"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program",
+          "cell": "ASTIS-SW-SPHMC-clipped-gradient-program",
+          "role": "proof-edge",
+          "supports": [
+            "actual-clipped-gradient-program"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCClippedGradientProgram",
+          "boundary": "This is a fixed-parameter actual clipped program, including its true-input estimator count. Coordinate-free spaces, zero dimension and beta=0 are disclosed extensions. The output law is the normalized clipped tilt; the ideal Gibbs/RGO law, positive finite ideal normalization, normalized Renyi accuracy, adaptive eta/x0/x_plus kernel and initialization remain separate. Potential L1 for C is supplied by the parent proof, not separately returned as a public conjunct here. No separate RN bound is asserted. Cost counts complete batches of estimator calls, including success; reference-gradient preparation, full gradient-oracle accounting and random-number cost are not proved. An arbitrary B>0 bound 2B exp(2B) is not a uniform constant-cost theorem; source parameter and accuracy conditions are still required. Neither companion paper is complete.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean smooth setting with positive dimension.",
+              "lean": "Finite-dimensional real inner-product Borel space including zero dimension; explicit second countability.",
+              "classification": "generalization",
+              "reason": "All operations and Gaussian laws are coordinate-free. No division by dimension occurs; second countability is automatic here."
+            },
+            {
+              "source": "Smoothness coefficient is conventionally positive.",
+              "lean": "beta>=0 and differentiable f with the actual beta-Lipschitz gradient.",
+              "classification": "generalization",
+              "reason": "The beta0 case satisfies the same proof; no division by beta is used."
+            },
+            {
+              "source": "Clipping is part of an accuracy theorem with step, residual and parameter conditions.",
+              "lean": "eta>0 and B>0 suffice for this fixed actual clipped law, mean error and 2Bexp(2B) estimator-count bound.",
+              "classification": "generalization",
+              "reason": "These selected construction results do not need the additional conditions used to make excess small or obtain the source uniform constant cost. Those conclusions are not asserted."
+            },
+            {
+              "source": "Auxiliary time and acceptance uniform are separately sampled on [0,1].",
+              "lean": "Auxiliary time uses Ioc(0,1); acceptance uniform uses Icc(0,1); they are independent factors.",
+              "classification": "source-implicit",
+              "reason": "Lebesgue endpoints have zero mass. The variables remain distinct, and the acceptance product reads only the first Poisson-many auxiliary coordinates."
+            },
+            {
+              "source": "The clipped expectation determines a normalized output law, and the unclipped mean identifies the log weight up to a constant.",
+              "lean": "Joint measurability including x, all needed auxiliary L1, measurable m, same C, integrable exp(m), and positive finite clipped Z are proved.",
+              "classification": "source-implicit",
+              "reason": "No assumed mean or integrability replaces the actual estimator. Clipping yields its own normalization and does not establish ideal Gibbs normalization."
+            },
+            {
+              "source": "Repeat the actual independent attempts until success.",
+              "lean": "First accepted index via Nat.find; default x0 on the never-hit event with probability zero.",
+              "classification": "source-implicit",
+              "reason": "The explicit default makes the output total; exact parent definitions preserve the same almost-sure algorithm and actual law."
+            },
+            {
+              "source": "Full-batch Poisson estimation is used for the gradient implementation.",
+              "lean": "Cost is the complete estimator-call count, including the successful batch, under the actual iid law.",
+              "classification": "same",
+              "reason": "The proved selected counter is not yet a full gradient-oracle accounting model. Cached reference-gradient preparation and accuracy-dependent uniform constants remain separate."
+            },
+            {
+              "source": "D.1 construction supports the terminal normalized approximation in SPHMC A.4(2).",
+              "lean": "Fixed eta,beta,B,x0,x_plus; actual clipped tilt and mean error only, no global adaptive-parameter kernel or ideal/Renyi theorem.",
+              "classification": "same",
+              "reason": "This is the selected actual-program proof edge; the remaining downstream conditions are retained rather than claimed from this result."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

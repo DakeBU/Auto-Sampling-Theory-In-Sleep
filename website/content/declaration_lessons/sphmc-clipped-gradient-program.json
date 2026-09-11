@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program",
+      "title": "Actual clipped-gradient Poisson retry program",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "Appendix D.1 Eq. (18) and clipping comparison",
+          "scope": "Actual clipped gradient estimator output and mean truncation step."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendices A.4(2) and A.1 Lemma A.2",
+          "scope": "Terminal gradient approximation and the bounded Poisson rejection mechanism; full accuracy and oracle cost separate."
+        },
+        {
+          "url": "https://arxiv.org/html/2608.05022v1",
+          "label": "Algorithm 1",
+          "scope": "Actual full-batch Poisson rejection mechanism reused through its proved parent."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCClippedGradientProgram"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with Borel sigma-algebra and explicit second countability. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. Fix eta>0, beta>=0, B>0 and x0,x_plus in E. No convexity, positive dimension, center residual or small-step condition is needed for this selected clipped-program result.",
+        "Set g=grad f(x_plus), h=x0-eta*g, P=(z->sqrt(eta) z)_*stdGaussian(E), U=Lebesgue restricted to (0,1], nu=U product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). Before choosing x define C=integral f(h+z) dP(z)-<g,h>. The parent mean theorem proves integrability underlying this C.",
+        "For x in E, r in R and z in E, theta=pi*r/2, gamma=h+sin(theta)(x-h)+cos(theta)z, v=(pi/2)(cos(theta)(x-h)-sin(theta)z), W(x,(r,z))=<v,g-grad f(gamma)>. Define Wc=min(B,max(-B,W)), m(x)=integral Wc(x,a) dnu(a), and Z=integral exp(m(x)) dq(x).",
+        "An attempt is p=(x,N,(a_stream,u)), with law Lambda=q product [Poisson(2B) product (nu^N product Uniform[0,1])]; nu^N denotes the infinite iid auxiliary sequence indexed by natural numbers. All these factors are independent. Accept p when u<=product over i<N of (B+Wc(x,a_i))/(2B). The auxiliary time r inside a_i and acceptance uniform u are distinct random inputs.",
+        "Let rho=Lambda^N be the infinite iid sequence of attempts. Output the proposal of the first accepted attempt, using the least natural index; if no attempt succeeds return x0. Define Q(omega)=sum over n>=0 of N_n times the indicator that every i<n failed. This counts all estimator calls in the successful batch as well as failed batches."
+      ],
+      "statement": "The actual nu and q are probability measures. W and Wc are jointly measurable in (x,r,z), and m is measurable. For every x, W(x,.) and Wc(x,.) and the excess max(abs(W(x,.))-B,0) are nu-integrable; abs(m(x))<=B and abs(m(x)-(<g,x>-f(x)+C))<=integral max(abs(W(x,a))-B,0) dnu(a). The function exp(m) is q-integrable and exp(-B)<=Z<=exp(B). The first-success output is measurable and its actual rho-pushforward equals q.tilted(m). The never-success event has rho-measure zero. With p_acc=Lambda(accepted), p_acc=ofReal(exp(-B)*Z)>=ofReal(exp(-2B)); the extended-nonnegative expectation of Q is p_acc^(-1)*ofReal(2B), and is at most ofReal(2B*exp(2B)).",
+      "formula": "\\widehat q=q.\\mathrm{tilted}(m),\\quad e^{-B}\\le Z\\le e^B,\\quad |m(x)-(\\langle g,x\\rangle-f(x)+C)|\\le\\mathbb E_\\nu(|W_x|-B)_+,\\quad\\mathbb E_\\rho Q=\\frac{2B}{e^{-B}Z}\\le2Be^{2B}.",
+      "boundary": "This is a fixed-parameter actual clipped program, including its true-input estimator count. Coordinate-free spaces, zero dimension and beta=0 are disclosed extensions. The output law is the normalized clipped tilt; the ideal Gibbs/RGO law, positive finite ideal normalization, normalized Renyi accuracy, adaptive eta/x0/x_plus kernel and initialization remain separate. Potential L1 for C is supplied by the parent proof, not separately returned as a public conjunct here. No separate RN bound is asserted. Cost counts complete batches of estimator calls, including success; reference-gradient preparation, full gradient-oracle accounting and random-number cost are not proved. An arbitrary B>0 bound 2B exp(2B) is not a uniform constant-cost theorem; source parameter and accuracy conditions are still required. Neither companion paper is complete.",
+      "steps": [
+        {
+          "title": "Use the source center and actual independent inputs",
+          "text": "Substitute h=x0-eta grad f(x_plus) in the already proved path-mean theorem. Its constant C is fixed before every x. Continuity of the actual gradient and the explicit sine/cosine path proves measurability jointly in x and both auxiliary variables. Clipping is a continuous min/max operation. The scaled and translated Gaussian pushforwards and uniform-time product are genuine probability laws.",
+          "formula": "h=x_0-\\eta\\nabla f(x_+),\\qquad q=\\mathcal N(h,\\eta I),\\qquad\\nu=U\\otimes\\mathcal N(0,\\eta I).",
+          "lean": "actual_clipped_input; GradientArcMean.gradient_arc_mean; MeasureTheory.Measure.isProbabilityMeasure_map"
+        },
+        {
+          "title": "Prove the exact clipping loss before integrating",
+          "text": "Split a real estimator value into the three regions below -B, within [-B,B], and above B. The resulting identities give both the everywhere bound on the clipped value and the exact positive-excess loss. These are pointwise real inequalities, independent of any probability approximation.",
+          "formula": "|\\operatorname{clip}_{[-B,B]}(t)|\\le B,\\qquad|\\operatorname{clip}_{[-B,B]}(t)-t|=(|t|-B)_+.",
+          "lean": "clip_bounds; clip_error"
+        },
+        {
+          "title": "Control the actual mean by an integrable excess",
+          "text": "Bound the measurable clipped estimator by the integrable constant B. The parent gives actual unclipped L1. Hence their difference and its absolute value are integrable, and the exact clipping identity proves excess integrability. Only then subtract their integrals and apply the absolute-integral inequality. Integrating -B<=Wc<=B proves the mean bound. Substituting the parent identity retains the same C.",
+          "formula": "|m(x)-\\mathbb E_\\nu W_x|\\le\\mathbb E_\\nu|W_x^c-W_x|=\\mathbb E_\\nu(|W_x|-B)_+,\\qquad |m(x)|\\le B.",
+          "lean": "clipped_mean; actual_clipped_input; MeasureTheory.integral_sub; MeasureTheory.abs_integral_le_integral_abs; MeasureTheory.integral_mono"
+        },
+        {
+          "title": "Normalize the clipped law with proved bounds",
+          "text": "Measurable parameter integration makes m measurable. Its bound implies exp(-B)<=exp(m(x))<=exp(B). The upper constant is integrable under actual probability q, so exp(m) is integrable. Integrating the two pointwise bounds establishes a strictly positive finite Z. This argument normalizes only the clipped target; it uses no unproved exponential-integrability assumption for the ideal potential.",
+          "formula": "0<e^{-B}\\le Z=\\int e^{m(x)}q(dx)\\le e^B<\\infty.",
+          "lean": "clipped_normalizer; MeasureTheory.StronglyMeasurable.integral_prod_right'; MeasureTheory.Integrable.mono'; MeasureTheory.integral_mono"
+        },
+        {
+          "title": "Identify the same actual first-success program",
+          "text": "Instantiate the established Poisson rejection theorem with the constant proposal kernel q and the actual clipped W. Expand the attempt, acceptance, first-output and cost definitions and check definitional equality with the parent program. Each attempt draws independent proposal, Poisson count, auxiliary stream and acceptance uniform. The first-success output uses the least accepted index and the explicit null-event default x0. The inherited law identifies the actual pushforward as the clipped exponential tilt, rather than merely constructing an abstract comparison law.",
+          "formula": "\\rho=\\Lambda^{\\mathbb N},\\quad\\rho\\circ\\mathrm{out}^{-1}=q.\\mathrm{tilted}(m),\\quad\\rho(\\text{no accepted attempt})=0.",
+          "lean": "actual_retry; PoissonRejection.poisson_rejection_output; attempts; accepted; output"
+        },
+        {
+          "title": "Compute acceptance using the finite clipped normalizer",
+          "text": "The actual parent program gives acceptance mass as the integral of exp(m-B). Its integrability follows from that of exp(m). Nonnegativity justifies converting the real integral to the extended-nonnegative integral; constant factor extraction then gives exp(-B)Z. The same-program lower acceptance bound is exp(-2B).",
+          "formula": "p_{\\rm acc}=\\int e^{m(x)-B}q(dx)=e^{-B}Z\\ge e^{-2B}.",
+          "lean": "actual_retry; MeasureTheory.ofReal_integral_eq_lintegral_ofReal; MeasureTheory.integral_div; Real.exp_neg"
+        },
+        {
+          "title": "Charge the successful batch under the actual input law",
+          "text": "At index n, charge its full Poisson count whenever all earlier attempts failed; current acceptance is not assumed independent of that count. The parent theorem already proves the resulting stopped-sum expectation for these iid attempts. Substitute the actual acceptance mass. The bound uses its positive lower bound and remains attached to rho throughout. This is an estimator-call count; translating it into complete oracle accounting and a uniform constant bound requires later work.",
+          "formula": "Q=\\sum_{n\\ge0}N_n\\mathbf1\\{\\text{all }i<n\\text{ failed}\\},\\qquad\\mathbb E_\\rho Q=p_{\\rm acc}^{-1}(2B)\\le2Be^{2B}.",
+          "lean": "queryCount; actual_retry; PoissonRejection.poisson_rejection_output; clipped_gradient_program"
+        }
+      ],
+      "lean_statement": "Actual clipped-input measurability and L1, common-C mean loss, positive finite clipped normalization, exact first-success law and full-batch expected count.",
+      "lean_proof": "Pointwise clipping identities, actual parent mean, integrable domination, measurable integration, normalization bounds, and definitional reuse of the true iid rejection program.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.isProbabilityMeasure_map",
+        "MeasureTheory.integral_sub",
+        "MeasureTheory.abs_integral_le_integral_abs",
+        "MeasureTheory.integral_mono",
+        "MeasureTheory.StronglyMeasurable.integral_prod_right'",
+        "MeasureTheory.ofReal_integral_eq_lintegral_ofReal",
+        "MeasureTheory.integral_div"
+      ]
+    }
+  ]
+}
