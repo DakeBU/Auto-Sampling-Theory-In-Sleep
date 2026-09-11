@@ -36,7 +36,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-moment.md",
     "planning_review": "Independent log_depth_source_review verified source smooth lambda range, factor2 and actual gradient consumer; exact quadratic Gaussian moment needed.",
-    "execution_boundary": "Production Lean and focused test compiled; complete scratch independently reviewed. EXPLORING only until authored publication validation and formal source admission. Neither paper main result is complete.",
+    "execution_boundary": "Root sole writer; SmoothGradientArcMoment sole STABILIZING; original source and compiled proof unchanged.",
     "development_review": {
       "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
       "proof_reviewer": "depth_commit_verifier",
