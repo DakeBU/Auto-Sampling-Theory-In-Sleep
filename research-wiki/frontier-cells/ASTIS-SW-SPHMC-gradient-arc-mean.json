@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-gradient-arc-mean.md",
     "planning_review": "Independent depth_commit_verifier and log_depth_source_review accepted signs, actual input and joint integrability route; one C fixed before all x. Planning only.",
-    "execution_boundary": "Root sole writer; clipping actual PR280 merged and no active stabilizer. Actual arc mean EXPLORING.",
+    "execution_boundary": "Root sole writer; GradientArcMean sole STABILIZING; accepted production/source unchanged.",
     "development_boundary": "Complete production locally compiled; independent complete scratch proof and source preaudit accepted. Still EXPLORING until full publication/source admission.",
     "admission_boundary": "VERIFIED ataf4ebc6. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/gradient-arc-mean.verified-admission.json"
