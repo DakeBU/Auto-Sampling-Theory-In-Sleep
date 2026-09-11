@@ -90,3 +90,15 @@ restored. No source chapter completion badge was hand-edited.
 The final integration reviewer authorizes direct fast-forward after the now
 completed gate and reader checks, provided canonical main stays at bad36aa.
 Actual remote integration will be recorded only after a successful push.
+
+Actual atomic push succeeded: main bad36aa→b4e5eeb2a31cb26ac99afef41dcf970a927c6bb6 and the task
+branch updated together. SAU and both cells are now MERGED. Their status and
+graph-evidence changes require regeneration of graph inputs before closeout;
+this is metadata refresh, with no new theorem change or remote-CI claim.
+
+Merged-status canonical rebuild/check PASS; both focused graph reports are
+exactly equal to the already visually inspected reports. No mathematical
+lesson, source, production or test bytes changed, so the independent audits,
+full Lean gate and desktop/mobile QA are reused. Temporary tab/server closed,
+viewport reset. Only unrelated preexisting untracked files remain outside this
+contribution. Next bounded target remains the separate function-value estimate.
