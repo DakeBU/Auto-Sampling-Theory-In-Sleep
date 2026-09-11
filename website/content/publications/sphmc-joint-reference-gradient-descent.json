@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-joint-reference-gradient-descent",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual joint inner reference stopping and expected count",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section6.3 Reference point construction: actual inner stopping and expected count",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. The exact inner rule is retained; the explicit sufficient cost bound and remaining source consumers are disclosed."
+      },
+      "statement": "The actual inner stopping index N and output out are jointly measurable in the pair. For every pair the output satisfies gradient-square<=a*d, residual norm= A*norm(grad F_p(out))<=A*sqrt(a*d), every earlier index strictly fails the threshold, and N+1<=2+k*log(1+A*norm(grad F_p(y))^2/d). Under the actual nu.prod(stdGaussian(E)), N+1 is integrable and its expectation is at most 2+k*log(1+A*(M+tau*d/A^2)/d).",
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume. Its real dimension d is strictly positive. U:E->R is C2.",
+        "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every x,v.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,rho_eta)^2<=ofReal(r^2), where pi=volume.tilted(-U) and rho_eta is the law of X+sqrt(eta)*Z for independent X~pi,Z~stdGaussian(E). W2 is the actual infimum of quadratic coupling costs.",
+        "Set A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a,M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For p=(y,z), set u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A).",
+        "Use T_p(x)=x-c^(-1)*grad F_p(x), start at y, and define N(p) as the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if one exists, otherwise zero. Define out(p)=T_p^N(p)(y). The finite-hit proof makes the default branch unreachable for every pair."
+      ],
+      "formulae": [
+        {
+          "label": "Actual inner rule and sufficient expected count",
+          "tex": "N=\\min\\{n:\\|\\nabla F_{Y,Z}(T_{Y,Z}^{n}(Y))\\|^2\\le ad\\},\\qquad \\mathbb E_{\\nu\\otimes G}(N+1)\\le2+k\\log\\!\\left(1+\\frac{A}{d}\\left(M+\\frac{\\tau d}{A^2}\\right)\\right)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-joint-inner-reference",
+          "label": "Actual joint inner reference stopping and expected count"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+          "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
+          "role": "proof-edge",
+          "supports": [
+            "actual-joint-inner-reference"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent",
+          "boundary": "Actual inner threshold a*d is preserved; terminal d/A supplies only a finite witness and upper count, never an identical stopping time or output. The logarithmic formula is a derived sufficient bound. General beta, coordinate-free finite dimension and eta=0 extend the source; this theorem requires d>0,tau>0,0<alpha<=beta and allows r=0. The input W2 guarantee remains supplied. N+1 counts one base-gradient evaluation per visited point including the initial/final check, reused for the update; no evaluator trace or cross-sampler cache saving is proved. The theorem proves joint measurability in (Y,Z) at fixed parameters, not a kernel jointly in all parameters, conditional-history propagation, a stage sum or either complete main result.",
+          "assumption_deltas": [
+            {
+              "source": "The inner reference construction stops at gradient-square<=a*d.",
+              "lean": "The actual first-hit predicate is a*d; terminal d/A is only a witness and upper count.",
+              "classification": "same",
+              "reason": "No algorithm substitution or equality of the different stopping outputs is used."
+            },
+            {
+              "source": "The source gives asymptotic per-call reference cost.",
+              "lean": "Explicit sufficient count bound using the stricter terminal witness and derived M.",
+              "classification": "source-implicit",
+              "reason": "The log formula is a derived upper bound, not a printed exact count formula or a completed all-stage complexity."
+            },
+            {
+              "source": "Normalized beta=1 and positive-dimensional Euclidean recursive setting.",
+              "lean": "General beta and coordinate-free finite dimension with d>0; eta=0 allowed,tau>0 retained.",
+              "classification": "generalization",
+              "reason": "No dimension-zero claim here; curvature excludes beta=0. The beta=1 source setting is included."
+            },
+            {
+              "source": "The approximate input has an upstream Wasserstein error guarantee.",
+              "lean": "The actual W2 budget is supplied; r=0 allowed.",
+              "classification": "same",
+              "reason": "This result consumes the input guarantee rather than establishing the upstream sampler precision."
+            },
+            {
+              "source": "Reference gradient queries are counted in the complexity argument.",
+              "lean": "N+1 counts all visited-point gradient checks, including the final success.",
+              "classification": "source-implicit",
+              "reason": "A mathematical evaluation count with reuse for updates; no evaluator trace or cross-sampler cache deduction."
+            },
+            {
+              "source": "The per-call reference construction participates in a recursive sampler.",
+              "lean": "Joint index/output measurability and actual pair-law expectation at fixed parameters.",
+              "classification": "same",
+              "reason": "Conditional histories, joint kernels over all parameters and cumulative costs remain open."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

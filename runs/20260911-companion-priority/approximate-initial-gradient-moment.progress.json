@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-approximate-initial-gradient-moment",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "gaussian_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentGaussian.lean",
     "sha256": "475adc0e2ea56fe4aeff92a5ff0226278b885e51fbfc42432f2e110668adc842",
@@ -11,7 +11,7 @@
   },
   "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
   "remaining": [
-    "PR/merge CI and actual live deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "perturbation_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
@@ -95,9 +95,12 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
     "head": "a9145a969184d1900d277718b57da72b333e7563",
-    "state": "OPEN; site PR check passed,Lean PR check pending",
+    "state": "MERGED; all PR checks passed; merge CI/live pending",
     "lean_run": 34651132920,
     "site_run": 34651132992,
-    "site_result": "SUCCESS; PR deployment skipped"
+    "site_result": "SUCCESS; PR deployment skipped",
+    "merge_commit": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
+    "merged_at": "2026-09-11T22:03:24Z",
+    "lean_pr_result": "SUCCESS"
   }
 }

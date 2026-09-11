@@ -37,5 +37,24 @@
       "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/JointReferenceGradientDescent.lean": "38ce7c874a2806e4502c3862214d3ef5e36df9ef847d478d79e8b90e8803f31c",
       "Tests/SmoothedPicardHMCJointReferenceGradientDescent.lean": "f2f28ce75bca03d822db12c088833b18c85746284bf8a43fcfb34535c9006e3e"
     }
+  },
+  "expanded_statement": {
+    "file": ".astis/joint-reference-gradient-descent-expanded.log",
+    "characters": 3236,
+    "sha256": "59d3bcbce87a2153c4bdad9b9001f2318d6fde1663441fd6c7a6fceeace9e167",
+    "session": 97823,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed expanded3236characters and exacthash; actual first-hit definition and all project cost/smoothing definitions expanded,Meta.isDefEq passed."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "df9a1ce73f0a71cff07b0633e1e1f426e3139037",
+    "result": "Independent focused PASS3725 standard3,fake-closure scan passed; production differs from reviewed full scratch only in documentation and diagnostic prints. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-joint-reference-gradient-descent.json",
+    "state": "Seven authored steps,six disclosed differences; independent formal source review pending."
   }
 }

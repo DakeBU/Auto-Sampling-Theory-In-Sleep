@@ -6,7 +6,7 @@
   "title": "Actual approximate initial gradient moment",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section6.3 Reference point construction: actual approximate and regularized initial gradient moments",
   "target_statement": "For genuine C2 U with alpha/beta Hessian bounds,0<alpha<=beta, define actual pi=volume.tilted(-U) and rho_eta=gaussianSmoothing(pi,sqrt eta). For eta>=0,tau>0,r>=0 and actual probability nu with W2(nu,rho_eta)^2<=ofReal(r^2), prove actual gradient-square L1(nu) and expectation<=M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. On actual nu.prod(stdGaussian), define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)). Prove grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z, its joint square L1, and exact expected square = integral norm(grad U)^2 dnu + tau*d/(eta+tau)^2, hence <=M+tau*d/(eta+tau)^2. Derive ideal/smoothed/actual moments, all coupling/product integrability and Gaussian cross-term cancellation rather than assuming them.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-gibbs-gradient-moment",
     "ASTIS-SHARED-quadratic-regularization"
@@ -41,9 +41,18 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-approximate-initial-gradient-moment.md",
     "planning_review": "Independent log_depth_source_review accepted near-optimal coupling route and exact independent-Gaussian expected square formula, including required cross-term absolute integrability and fixed-call/history boundary.",
-    "execution_boundary": "Root sole writer and current sole STABILIZING owner; prior Gibbs packet fully merged/delivered. Proof and source binding unchanged.",
+    "execution_boundary": "Actual merge releases stabilization lane. Post-merge CI/live tracked separately; neither full main result complete.",
     "admission_boundary": "VERIFIED at7a6a7b3. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json",
+    "root_build": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json: independent exact a13eee3 canonical gate,Tests9178",
+    "graph_regeneration": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json: full reader build/check,graph and actual root browser QA",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
+      "commit": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
+      "merged_at": "2026-09-11T22:03:24Z",
+      "post_merge": "All PR Lean/Site checks passed; merge CI and live pending."
+    }
   },
   "blocked": {
     "reason": "",
