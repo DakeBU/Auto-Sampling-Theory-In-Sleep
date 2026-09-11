@@ -1,0 +1,66 @@
+{
+  "commit": "cc0e1207d8a906bd786235a56362e95e9735ed01",
+  "source_digest": "d7d763a346aaa341a0ad655975a84ab15404ef3967079d4df88ef6bfc022ed15",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 51395,
+    "exit_code": 0,
+    "result": "Canonical ASTIS gate passed; first build9012,Tests9182; exact commit/digest in .astis/site-lean-gate.json",
+    "log": ".astis/normalized-reference-call-lean-gate-completion.json is root-transcribed visible terminal excerpt,not raw stdout; actual generated canonical evidence .astis/site-lean-gate.json",
+    "completion_artifact": "runs/20260911-companion-priority/normalized-reference-call.lean-gate-completion.json"
+  },
+  "reader_build": {
+    "session": 73504,
+    "exit_code": 0,
+    "log": ".astis/normalized-reference-call-reader-build.log"
+  },
+  "reader_check": {
+    "session": 93366,
+    "exit_code": 0,
+    "chapters": 12,
+    "modules": 651,
+    "declarations": 3904,
+    "reviewed_teaching_declarations": 77,
+    "log": ".astis/normalized-reference-call-reader-check.log"
+  },
+  "graph_check": ".astis/normalized-reference-call-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=cc0e120#sphmc-normalized-reference-call",
+    "section": "sphmc-normalized-reference-call",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "clicked": [
+      "Lean statement · normalized_reference_call",
+      "Lean proof · normalized_reference_call",
+      "Source and reuse",
+      "Eighth mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 2749,
+    "proof_code_characters": 4748,
+    "parents": "Five links: JointReferenceGradientDescent,HessianStrongConvexity,StrongConvexGibbsIntegrability,WassersteinSpace.wassersteinDistance_sq,Transport cost upper bound.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "8 named declarations,Compiled gate at cc0e120,zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps7/8 readable: actual coupling infimum inequality,returned B/c,source k*epsilon^2/c=epsilon^2/a,and supplied sampler guarantee boundary."
+  },
+  "boundary": "Independent final local integration accepted. Remote CI,merge/live,global reader features,history/totalcost and both main results remain open.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "cc0e1207d8a906bd786235a56362e95e9735ed01",
+    "source_digest": "d7d763a346aaa341a0ad655975a84ab15404ef3967079d4df88ef6bfc022ed15",
+    "evidence": "Independently recomputed exact HEAD/digest/gate,unchanged VERIFIED production/test/source registry,reviewed gate and sole stabilization owner accepted. Full build/check12chapters651modules3904decl77teaching,static11closedfolds2749/4748chars5parents/currentcommit,graph no omissions verified. CanonicalgateJSON is actual generated evidence; Tests9182 excerpt is root terminal transcription,not independently captured rawstdout. Browser operations/screenshots remain root. No local blocker; faithful transcription authorized."
+  }
+}

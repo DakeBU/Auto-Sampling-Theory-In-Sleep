@@ -1,0 +1,12 @@
+{
+  "provenance": "Root faithful transcription of tools.write_stdin terminal result for session51395; this is not an independently captured raw stdout file. Canonical source-bound evidence is .astis/site-lean-gate.json.",
+  "session_id": 51395,
+  "chunk_id": "c83bac",
+  "exit_code": 0,
+  "original_token_count": 129066,
+  "displayed_output_was_truncated": true,
+  "visible_tail": "✔ [9180/9182] Built Tests.Basic (28s)\n✔ [9181/9182] Built Tests (15s)\nBuild completed successfully (9182 jobs).\nATLAS memory check passed: 36469 named declarations, 26 books, index fb43cfe200da\n$ lake exe cache get\n$ lake build\n$ lake build Tests\n$ C:\\Users\\admin\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe tools/atlas_memory.py check\nASTIS check passed\nRecorded current Lean gate evidence at .astis\\site-lean-gate.json",
+  "visible_initial_build_total": 9012,
+  "commit": "cc0e1207d8a906bd786235a56362e95e9735ed01",
+  "source_digest": "d7d763a346aaa341a0ad655975a84ab15404ef3967079d4df88ef6bfc022ed15"
+}
