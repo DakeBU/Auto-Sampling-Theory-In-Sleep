@@ -6,7 +6,7 @@
   "title": "Actual clipped versus ideal normalized RN powers",
   "source_anchor": "SPHMC arXiv:2609.06906v1 A.4(2), via arXiv:2602.01338v1 D.1 Eq18 and B.12 Eq17",
   "target_statement": "Under the exact ClippedMeanExponential hypotheses (positive eta,beta,B,d;ell>=2;actual differentiable potential with beta-Lipschitz gradient;source reference residual and64-step condition), retain actual W,mB,q and define qhat=q.tilted(mB),pi=N(x0,eta I).tilted(-f). Prove pi and qhat are probability measures and mutually absolutely continuous. Prove both actual RN ell-powers, (pi.rnDeriv qhat)^ell under qhat and (qhat.rnDeriv pi)^ell under pi, have integrable real versions and ENNReal integrals <=ofReal(1+2exp(2B-K)); their real integrals minus1 <=2exp(2B-K), K=min(B^2/(40beta^2 d eta^2),B/(8beta eta)). Derive beta eta<1 from existing hypotheses, identify actual ideal law by parent, and prove all weighted L1 before normalizer/density algebra.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-clipped-mean-exponential",
     "ASTIS-SW-SPHMC-ideal-rgo-identification",
@@ -40,7 +40,8 @@
     "proof_plan": "proof-blueprints/SPHMC-clipped-renyi-comparison.md",
     "planning_review": "Independent log_depth_source_review source/route audit accepted actual denominator-measure ell-powers, explicit source order discrepancy and ell>=2 range.",
     "execution_boundary": "Root sole writer; priorClippedMeanExponential PR284 merged; no active stabilizer. ClippedRenyiComparison EXPLORING; fullscratch compiled, independent reviews pending.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json"
   },
   "blocked": {
     "reason": "",
