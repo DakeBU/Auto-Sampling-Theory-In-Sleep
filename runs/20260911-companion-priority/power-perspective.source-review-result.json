@@ -1,0 +1,99 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent seven-slot source review; prose compacted without changing judgments or limits.",
+  "reviewer_packet_sha256": "a41bf2938886ebfa45137e0cc51a2a46f07252d754924128d0d8ab2b9355957d",
+  "source_text_sha256": "4b1132ef845764282e1d5ec31646b41d6103dbe3b6e757625e9cac81ef6ad40e",
+  "lean_statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+  "reconstruction_text_sha256": "f55e4d93e02a19009d8219a1438d073ef08c08e64e8001c5a318ee25b5a238d5",
+  "embedded_module_text_sha256": "3ae1f1b7bdb7e50f3d47e0e3e8c8198bb693b4b876b3b067028717866a6b7252",
+  "publication_binding_sha256": "c1da25b6ad6601607f7afacf4a4bcab1ff88889a2908165978f380e7462aa016",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Paper invokes Gaussian reverse transport; selected expanded ingredient is integral power perspective.",
+      "reconstructed": "ENNReal a,b, nonnegative integrals and a^q/b^(q-1).",
+      "relation": "explicit-elaboration",
+      "evidence": "Publication identifies expanded scalar ingredient, not a printed theorem."
+    },
+    "domains": {
+      "original": "Euclidean probability application.",
+      "reconstructed": "Arbitrary measurable space and measure; no probability or sigma-finiteness.",
+      "relation": "stronger-in-lean",
+      "evidence": "Only MeasurableSpace X and Measure X domain data."
+    },
+    "quantifiers": {
+      "original": "Each eligible measure, functions and real q>1.",
+      "reconstructed": "Universal measure/functions followed by every real q>1.",
+      "relation": "same",
+      "evidence": "Anonymous statement preserves all universals; no proxy existential claimed."
+    },
+    "assumptions": {
+      "original": "Expanded argument needs positive finite denominator values a.e. and positive finite denominator integral.",
+      "reconstructed": "AEMeasurable a,b; b nonzero finite a.e.; integral b nonzero finite; q>1.",
+      "relation": "explicit-elaboration",
+      "evidence": "hbpos,hB0,hBtop justify cancellation; no numerator or RHS finiteness premise."
+    },
+    "conclusion": {
+      "original": "Expanded Holder perspective with coefficient one.",
+      "reconstructed": "Exactly the ENNReal inequality including infinite numerator and RHS.",
+      "relation": "same",
+      "evidence": "ENNReal Holder, monotone powers and division; no toReal conversion."
+    },
+    "scopes": {
+      "original": "Full Lemma6.3(ii) also constructs truncation proxy and mixed TV/Renyi bounds.",
+      "reconstructed": "Scalar prerequisite only.",
+      "relation": "different",
+      "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+    },
+    "constant_dependencies": {
+      "original": "Scalar inequality coefficient one.",
+      "reconstructed": "Coefficient one; only q determines exponents.",
+      "relation": "same",
+      "evidence": "No dimension, mass or other multiplicative constant."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit generalization beyond Euclidean probability application.",
+      "evidence": "Only MeasurableSpace X and Measure X domain data."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+      "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "hrec reconstructs a a.e. with positive finite b, permitting a0/infinity."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "ENNReal Holder applies to nonnegative exponents summing to one, no finite numerator moment."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Monotone powers and exact exponents give A^q<=C B^(q-1)."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "div_le_iff uses positive finite B^(q-1); no infinite-to-real conversion."
+      }
+    ]
+  },
+  "review_evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+}

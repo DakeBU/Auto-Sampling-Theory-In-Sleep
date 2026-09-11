@@ -7999,6 +7999,518 @@
           "evidence": "Finite explicit RN density a.e. justifies toReal; integrability/integral transfer by a.e. congruence."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PowerPerspective",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-power-perspective",
+        "anchor": "Lemma6.3(ii) expanded Holder perspective",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.\na,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.\nThe integral of b is nonzero and finite, and real q>1.\nThe integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem.\nLet mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+        "text_sha256": "4b1132ef845764282e1d5ec31646b41d6103dbe3b6e757625e9cac81ef6ad40e"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean",
+        "statement": "∀ {X : Type u_1}\n  [inst : MeasurableSpace X] (μ : MeasureTheory.Measure X) (a b : X → ENNReal),\n  AEMeasurable a μ →\n    AEMeasurable b μ →\n      (∀ᵐ (x : X) ∂μ, b x ≠ 0 ∧ b x ≠ ⊤) →\n        ∫⁻ (x : X), b x ∂μ ≠ 0 →\n          ∫⁻ (x : X), b x ∂μ ≠ ⊤ →\n            ∀ (q : ℝ),\n              1 < q → (∫⁻ (x : X), a x ∂μ) ^ q / (∫⁻ (x : X), b x ∂μ) ^ (q - 1) ≤ ∫⁻ (x : X), a x ^ q / b x ^ (q - 1) ∂μ",
+        "statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3702, independently replayed with only parent lint; only propext/Classical.choice/Quot.sound. Complete development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "a41bf2938886ebfa45137e0cc51a2a46f07252d754924128d0d8ab2b9355957d",
+        "review_run_sha256": "5b21e62b31fe4994e1d05938ddcbae42fe47f8c183398890dec78255397e3fcf",
+        "run_artifact": "runs/20260911-companion-priority/power-perspective.source-review-result.json",
+        "evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+      },
+      "publication_binding_sha256": "c1da25b6ad6601607f7afacf4a4bcab1ff88889a2908165978f380e7462aa016",
+      "publication_context": {
+        "file": "3ae1f1b7bdb7e50f3d47e0e3e8c8198bb693b4b876b3b067028717866a6b7252",
+        "current_lean_module": "import Mathlib.MeasureTheory.Integral.MeanInequalities\n\n/-!\n# Power perspective for nonnegative integrals\n\nExpanded Holder ingredient for arXiv:2609.06906v1 Lemma6.3(ii), consumed by\nactual bounded-displacement Gaussian mixture reverse transport. Only the\ndenominator is required positive and finite; numerator and perspective\nintegrals may be infinite. This alone is not Gaussian reverse transport.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\nopen MeasureTheory\nopen scoped ENNReal\n\n/-- Holder gives the power-perspective inequality without assuming finite\nnumerator or right-hand integral. The denominator is positive and finite. -/\ntheorem lintegral_perspective_le {X : Type*} [MeasurableSpace X] (μ : Measure X)\n    (a b : X → ℝ≥0∞) (ha : AEMeasurable a μ) (hb : AEMeasurable b μ)\n    (hbpos : ∀ᵐ x ∂μ, b x ≠ 0 ∧ b x ≠ ⊤)\n    (hB0 : (∫⁻ x, b x ∂μ) ≠ 0) (hBtop : (∫⁻ x, b x ∂μ) ≠ ⊤)\n    (q : ℝ) (hq : 1 < q) :\n    (∫⁻ x, a x ∂μ)^q / (∫⁻ x, b x ∂μ)^(q-1) ≤\n      ∫⁻ x, a x^q / b x^(q-1) ∂μ := by\n  have hq0 : 0 < q := by linarith\n  have hi : 0 ≤ 1/q := by positivity\n  have hj : 0 ≤ 1-1/q := by rw [sub_nonneg,div_le_one hq0]; linarith\n  have he1 : q*(1/q) = 1 := by field_simp\n  have he2 : (q-1)*(1/q) = 1-1/q := by field_simp\n  have he3 : (1-1/q)*q = q-1 := by field_simp\n  have hrec : (fun x => (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q)) =ᵐ[μ] a := by\n    filter_upwards [hbpos] with x hx\n    rw [ENNReal.div_rpow_of_nonneg _ _ hi, ← ENNReal.rpow_mul,\n      ← ENNReal.rpow_mul,he1,he2,ENNReal.rpow_one]\n    exact ENNReal.div_mul_cancel\n      (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hx.1) hx.2))\n      (ENNReal.rpow_ne_top_of_nonneg hj hx.2)\n  have h := ENNReal.lintegral_mul_norm_pow_le\n    ((ha.pow_const q).div (hb.pow_const (q-1))) hb hi hj (by ring : 1/q+(1-1/q)=1)\n  change (∫⁻ x, (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q) ∂μ) ≤\n    (∫⁻ x, a x^q / b x^(q-1) ∂μ)^(1/q) * (∫⁻ x, b x ∂μ)^(1-1/q) at h\n  rw [lintegral_congr_ae hrec] at h\n  have hh := ENNReal.rpow_le_rpow h hq0.le\n  rw [ENNReal.mul_rpow_of_nonneg _ _ hq0.le, ← ENNReal.rpow_mul,\n    ← ENNReal.rpow_mul,he3,mul_comm (1/q) q,he1,ENNReal.rpow_one] at hh\n  exact (ENNReal.div_le_iff\n    (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hB0) hBtop))\n    (ENNReal.rpow_ne_top_of_nonneg (by linarith) hBtop)).mpr hh\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) expanded Holder perspective",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+        },
+        "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+        "formulae": [
+          {
+            "label": "Integral perspective",
+            "tex": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty."
+          }
+        ],
+        "assumptions": [
+          "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+          "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+          "The integral of b is nonzero and finite, and real q>1.",
+          "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+        ],
+        "obligations": [
+          {
+            "id": "perspective",
+            "label": "Extended nonnegative Holder perspective with potentially infinite numerator and right side"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded proof of the bounded-displacement Gaussian reverse-transport ingredient; original truncation composition separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianMixture"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+          "title": "Power perspective from Holder with infinite moments allowed",
+          "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+          "formula": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty.",
+          "assumptions": [
+            "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+            "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+            "The integral of b is nonzero and finite, and real q>1.",
+            "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+          ],
+          "steps": [
+            {
+              "title": "Reconstruct the numerator pointwise",
+              "text": "Set F=a^q/b^(q-1), alpha=1/q and beta=1-1/q. Positive finite b permits cancellation of b^beta, while a may be zero or infinite. Therefore F^alpha b^beta=a almost everywhere.",
+              "formula": "F^{1/q}b^{1-1/q}=\\frac{a}{b^{1-1/q}}b^{1-1/q}=a.",
+              "lean": "ENNReal.div_rpow_of_nonneg, rpow_mul and div_mul_cancel with explicit nonzero/finite denominator."
+            },
+            {
+              "title": "Apply nonnegative integral Holder",
+              "text": "The exponents alpha,beta are nonnegative and sum to one. Extended nonnegative Holder gives A<=C^(1/q) B^beta for A=integral a and C=integral F. This theorem does not require either A or C finite.",
+              "formula": "A\\le C^{1/q}B^{1-1/q}.",
+              "lean": "ENNReal.lintegral_mul_norm_pow_le and lintegral_congr_ae use the reconstruction, retaining infinite branches."
+            },
+            {
+              "title": "Raise the inequality to q",
+              "text": "Since q>0, raising both sides preserves order. Real-power multiplication identities hold in ENNReal for these nonnegative powers and give A^q<=C B^(q-1).",
+              "formula": "A^q\\le C B^{q-1}.",
+              "lean": "ENNReal.rpow_le_rpow, mul_rpow_of_nonneg and rpow_mul; exact scalar exponent identities."
+            },
+            {
+              "title": "Divide by the positive finite denominator integral",
+              "text": "B is positive and finite, so B^(q-1) is nonzero and finite. The extended-real division equivalence gives the claimed perspective inequality without converting an infinite quantity to a real number.",
+              "formula": "\\frac{A^q}{B^{q-1}}\\le C.",
+              "lean": "ENNReal.div_le_iff, rpow_pos and rpow_ne_top_of_nonneg."
+            }
+          ],
+          "lean_statement": "The extended nonnegative integral power-perspective inequality with only positive finite denominator conditions.",
+          "lean_proof": "Direct Holder, pointwise reconstruction and exact power/division algebra; no assumed perspective or moment inequality.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "ENNReal.lintegral_mul_norm_pow_le",
+            "ENNReal.div_le_iff",
+            "ENNReal.rpow_mul"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+          "role": "prerequisite",
+          "supports": [
+            "perspective"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+            "lean": "Arbitrary measurable space and measure for the scalar Holder perspective."
+          },
+          {
+            "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+            "lean": "Scalar integral perspective only."
+          },
+          {
+            "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+            "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds."
+          },
+          {
+            "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+            "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every measurable space X, every extended nonnegative measure mu on X, and every pair of functions a,b:X to [0,infinity], assume a and b are measurable up to a mu-null set, 0<b(x)<infinity for mu-almost every x, and 0<integral b dmu<infinity. Then for every real q>1, (integral a dmu)^q/(integral b dmu)^(q-1) is at most integral a(x)^q/b(x)^(q-1) dmu(x). Every displayed integral is the extended nonnegative Lebesgue integral, and powers and division use extended nonnegative real conventions. No finiteness assumption is imposed on a, its integral, or the right-hand integral; in particular integral a=infinity is included. No probability, finite-total-mass, or sigma-finiteness hypothesis is imposed on mu. There are no additional constants. No ambiguity in the quantified inequality using the supplied extended-real conventions.",
+        "text_sha256": "f55e4d93e02a19009d8219a1438d073ef08c08e64e8001c5a318ee25b5a238d5",
+        "decoder_packet_sha256": "278437de5f0228426ee8bc0489ca362589ee2a3a6ba6b04c55ab3dc53f8962fb",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "mixture_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent read only two anonymous statement/definition packets. Preserved infinite numerator, actual smoothing definition, RN direction, integrability and logarithm. Decoder explicitly retained named stdGaussian without adding normalization absent from supplied definition context; source reviewer must verify the actual definition. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "b1f39413218130917bbb1dd56a7cdf35f4db2d1774207fd06b10b01a466f3b00",
+        "lean_statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+        "run_artifact": "runs/20260911-companion-priority/power-perspective.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Paper invokes Gaussian reverse transport; selected expanded ingredient is integral power perspective.",
+          "reconstructed": "ENNReal a,b, nonnegative integrals and a^q/b^(q-1).",
+          "relation": "explicit-elaboration",
+          "evidence": "Publication identifies expanded scalar ingredient, not a printed theorem."
+        },
+        "domains": {
+          "original": "Euclidean probability application.",
+          "reconstructed": "Arbitrary measurable space and measure; no probability or sigma-finiteness.",
+          "relation": "stronger-in-lean",
+          "evidence": "Only MeasurableSpace X and Measure X domain data."
+        },
+        "quantifiers": {
+          "original": "Each eligible measure, functions and real q>1.",
+          "reconstructed": "Universal measure/functions followed by every real q>1.",
+          "relation": "same",
+          "evidence": "Anonymous statement preserves all universals; no proxy existential claimed."
+        },
+        "assumptions": {
+          "original": "Expanded argument needs positive finite denominator values a.e. and positive finite denominator integral.",
+          "reconstructed": "AEMeasurable a,b; b nonzero finite a.e.; integral b nonzero finite; q>1.",
+          "relation": "explicit-elaboration",
+          "evidence": "hbpos,hB0,hBtop justify cancellation; no numerator or RHS finiteness premise."
+        },
+        "conclusion": {
+          "original": "Expanded Holder perspective with coefficient one.",
+          "reconstructed": "Exactly the ENNReal inequality including infinite numerator and RHS.",
+          "relation": "same",
+          "evidence": "ENNReal Holder, monotone powers and division; no toReal conversion."
+        },
+        "scopes": {
+          "original": "Full Lemma6.3(ii) also constructs truncation proxy and mixed TV/Renyi bounds.",
+          "reconstructed": "Scalar prerequisite only.",
+          "relation": "different",
+          "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+        },
+        "constant_dependencies": {
+          "original": "Scalar inequality coefficient one.",
+          "reconstructed": "Coefficient one; only q determines exponents.",
+          "relation": "same",
+          "evidence": "No dimension, mass or other multiplicative constant."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit generalization beyond Euclidean probability application.",
+          "evidence": "Only MeasurableSpace X and Measure X domain data."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+          "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCGaussianMixture",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-gaussian-mixture",
+        "anchor": "Lemma6.3(ii) bounded-displacement Gaussian mixture ingredient",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.\ngamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.\ntau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.\nNo density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.\nThe source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate.\nLet P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+        "text_sha256": "849a79868392dbac254e53d29d6a85f125b03d4e7c797a5374036fe676d240c1"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianMixture.lean",
+        "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (γ : MeasureTheory.Measure (E × E)),\n  AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ P Q →\n    ∀ (τ q t : ℝ),\n      0 < τ →\n        1 < q →\n          0 ≤ t →\n            (∀ᵐ (c : E × E) ∂γ, ‖c.1 - c.2‖ ≤ t) →\n              have H := fun μ => AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ √τ;\n              (H P).AbsolutelyContinuous (H Q) ∧\n                ∫⁻ (z : E), (H P).rnDeriv (H Q) z ^ q ∂H Q ≤ ENNReal.ofReal (Real.exp (q * (q - 1) * t ^ 2 / (2 * τ))) ∧\n                  MeasureTheory.Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal ^ q) (H Q) ∧\n                    ∫ (z : E), ((H P).rnDeriv (H Q) z).toReal ^ q ∂H Q ≤ Real.exp (q * (q - 1) * t ^ 2 / (2 * τ)) ∧\n                      Real.log (∫ (z : E), ((H P).rnDeriv (H Q) z).toReal ^ q ∂H Q) / (q - 1) ≤ q * t ^ 2 / (2 * τ)",
+        "statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3702, independently replayed with only parent lint; only propext/Classical.choice/Quot.sound. Complete development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "5d040e943f063a20c55a368a57966f3bfb2a92619a57174967f18bf179e4122f",
+        "review_run_sha256": "0a1b66ed33cb2882ffb943189f2a70baa779a37f9afd237d2573a7cc31a5caf6",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-mixture.source-review-result.json",
+        "evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+      },
+      "publication_binding_sha256": "c9d8d1d900d51b1bf0c4cb6006060894565521e7c23e4cc3ab4c4922a2070e3f",
+      "publication_context": {
+        "file": "94c047725224c531d33946c4f164ec5abf68084c716af169cdbd9742a3dc721f",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing\n\n/-!\n# Actual Gaussian mixture reverse transport\n\nExpanded bounded-displacement ingredient of arXiv:2609.06906v1 Lemma6.3(ii).\nThe existing independent Gaussian smoothing law has an actual finite RN power\nmoment bounded by exp(q(q-1)t^2/(2 tau)). Prove all density identities,\nmeasurability, positivity, finite moments and logarithm conditions internally.\nFinite-dimensional real inner-product Borel spaces include zero dimension;\nno marginal moment assumption is needed for this bounded-coupling ingredient.\nThe coupling is supplied; truncation and the single proxy before forall q\nremain a separate composition. No full Wasserstein/Renyi API, proxy warmness,\nsampler or query-cost theorem is claimed.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- An actual bounded-displacement coupling controls the actual Gaussian\nsmoothed RN power moment, its integrability and its normalized logarithm. -/\ntheorem bounded_displacement_reverse_transport {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (γ : Measure (E × E))\n    (hγ : Transport.IsCoupling γ P Q)\n    (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n    (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n    let H := fun μ : Measure E => GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ)\n    H P ≪ H Q ∧\n      (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤ ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∧\n      Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) ∧\n      (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤ Real.exp (q*(q-1)*t^2/(2*τ)) ∧\n      Real.log (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q)/(q-1) ≤ q*t^2/(2*τ) := by\n  let gd := fun (τ : ℝ) (a z : E) => ENNReal.ofReal\n    (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E * Real.exp (-‖z-a‖^2/(2*τ)))\n  have gd_law (a : E) (τ : ℝ) (hτ : 0 < τ) :\n      (stdGaussian E).map (fun z => a+Real.sqrt τ • z) =\n        (volume : Measure E).withDensity (gd τ a) := by\n    have hmap : (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        ((stdGaussian E).map (fun z : E => Real.sqrt τ • z)).map (MeasurableEquiv.addLeft a) := by\n      rw [Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [hmap,IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity τ hτ,\n      RadonNikodym.measurableEquiv_map_withDensity (MeasurableEquiv.addLeft a) _ (by fun_prop)]\n    have hvol : (volume : Measure E).map (MeasurableEquiv.addLeft a) = volume :=\n      Measure.IsAddLeftInvariant.map_add_left_eq_self a\n    rw [hvol]\n    congr 1\n    funext z\n    simp [gd,MeasurableEquiv.addLeft,sub_eq_add_neg,add_comm]\n  have mix_density (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) (hτ : 0 < τ) :\n      (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2) =\n        (volume : Measure E).withDensity (fun z => ∫⁻ a, gd τ a z ∂μ) := by\n    have hg : Measurable (fun p : E × E => gd τ p.1 p.2) := by unfold gd; fun_prop\n    have hmix : Measurable (fun z => ∫⁻ a, gd τ a z ∂μ) := hg.lintegral_prod_left'\n    apply Measure.ext_of_lintegral\n    intro f hf\n    rw [lintegral_map hf (by fun_prop),lintegral_prod _ (by fun_prop),\n      lintegral_withDensity_eq_lintegral_mul _ hmix hf]\n    calc\n      (∫⁻ a, ∫⁻ z, f (a+Real.sqrt τ • z) ∂stdGaussian E ∂μ) =\n          ∫⁻ a, ∫⁻ z, gd τ a z * f z ∂volume ∂μ := by\n        apply lintegral_congr\n        intro a\n        rw [← lintegral_map hf (by fun_prop),gd_law a τ hτ,\n          lintegral_withDensity_eq_lintegral_mul _ (by unfold gd; fun_prop) hf]\n        rfl\n      _ = ∫⁻ z, ∫⁻ a, gd τ a z * f z ∂μ ∂volume :=\n        lintegral_lintegral_swap (hg.mul (hf.comp measurable_snd)).aemeasurable\n      _ = ∫⁻ z, (∫⁻ a, gd τ a z ∂μ) * f z ∂volume := by\n        apply lintegral_congr\n        intro z\n        exact lintegral_mul_const _ (by unfold gd; fun_prop)\n  have gd_bounds (τ : ℝ) (hτ : 0 < τ) (a z : E) :\n      0 < gd τ a z ∧ gd τ a z ≤ ENNReal.ofReal\n        (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E) := by\n    have hC : 0 < ((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E := by positivity\n    constructor\n    · unfold gd\n      exact ENNReal.ofReal_pos.mpr (mul_pos hC (Real.exp_pos _))\n    · unfold gd\n      apply ENNReal.ofReal_le_ofReal\n      have he : Real.exp (-‖z-a‖^2/(2*τ)) ≤ 1 := by\n        apply Real.exp_le_one_iff.mpr\n        exact div_nonpos_of_nonpos_of_nonneg (neg_nonpos.mpr (sq_nonneg _)) (by positivity)\n      simpa using mul_le_mul_of_nonneg_left he hC.le\n  have mix_bounds (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) (hτ : 0 < τ)\n      (z : E) : 0 < (∫⁻ a, gd τ a z ∂μ) ∧ (∫⁻ a, gd τ a z ∂μ) ≠ ⊤ := by\n    constructor\n    · apply pos_iff_ne_zero.mpr\n      intro h\n      have hz := (lintegral_eq_zero_iff (by unfold gd; fun_prop)).mp h\n      have hf : ∀ᵐ a ∂μ, False := by\n        filter_upwards [hz] with a ha\n        exact (ne_of_gt (gd_bounds τ hτ a z).1) ha\n      have hm : μ = 0 := by simpa using hf\n      exact IsProbabilityMeasure.ne_zero μ hm\n    · apply ne_top_of_le_ne_top (ENNReal.ofReal_ne_top (r :=\n        ((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E))\n      calc\n        (∫⁻ a, gd τ a z ∂μ) ≤ ∫⁻ _ : E, ENNReal.ofReal\n            (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E) ∂μ :=\n          lintegral_mono (fun a => (gd_bounds τ hτ a z).2)\n        _ = _ := by simp\n  have density_power (μ : Measure E)\n      (f g : E → ℝ≥0∞) (hf : Measurable f) (hg : Measurable g)\n      [SigmaFinite (μ.withDensity g)] (hgpos : ∀ x, g x ≠ 0 ∧ g x ≠ ⊤)\n      (q : ℝ) (hq : 1 < q) :\n      μ.withDensity f ≪ μ.withDensity g ∧\n        (∫⁻ x, ((μ.withDensity f).rnDeriv (μ.withDensity g) x)^q ∂μ.withDensity g) =\n          ∫⁻ x, f x^q / g x^(q-1) ∂μ := by\n    have heq : μ.withDensity f = (μ.withDensity g).withDensity (fun x => f x/g x) := by\n      rw [← withDensity_mul μ (g := fun x => f x/g x) hg (hf.div hg)]\n      congr 1\n      funext x\n      exact (mul_comm _ _).trans (ENNReal.div_mul_cancel (hgpos x).1 (hgpos x).2) |>.symm\n    constructor\n    · rw [heq]\n      exact withDensity_absolutelyContinuous _ _\n    · have hrn : (μ.withDensity f).rnDeriv (μ.withDensity g) =ᵐ[μ.withDensity g]\n          (fun x => f x/g x) := by\n        rw [heq]\n        exact Measure.rnDeriv_withDensity _ (hf.div hg)\n      have hpow : (fun x => ((μ.withDensity f).rnDeriv (μ.withDensity g) x)^q) =ᵐ[μ.withDensity g]\n          (fun x => (f x/g x)^q) := hrn.fun_comp (fun x : ℝ≥0∞ => x^q)\n      rw [lintegral_congr_ae hpow,\n        lintegral_withDensity_eq_lintegral_mul _ hg\n          (show Measurable (fun x => (f x/g x)^q) from (hf.div hg).pow_const q)]\n      apply lintegral_congr\n      intro x\n      change g x * (f x/g x)^q = f x^q / g x^(q-1)\n      rw [ENNReal.div_rpow_of_nonneg _ _ (by linarith),div_eq_mul_inv,mul_left_comm]\n      congr 1\n      calc\n        g x * (g x^q)⁻¹ = g x^(1 : ℝ) * g x^(-q) := by\n          rw [ENNReal.rpow_one,ENNReal.rpow_neg]\n        _ = g x^(1-q) := by\n          rw [← ENNReal.rpow_add _ _ (hgpos x).1 (hgpos x).2]\n          rfl\n        _ = (g x^(q-1))⁻¹ := by\n          rw [← ENNReal.rpow_neg]\n          congr 1\n          ring\n  have gd_power_moment (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n      (∫⁻ z, gd τ x z^q / gd τ y z^(q-1) ∂volume) =\n        ENNReal.ofReal (Real.exp (q*(q-1)*‖x-y‖^2/(2*τ))) := by\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity (gd τ y)) := by\n      rw [← gd_law y τ hτ]\n      exact Measure.isProbabilityMeasure_map (by fun_prop)\n    have hd := (density_power (volume : Measure E) (gd τ x) (gd τ y)\n      (by unfold gd; fun_prop) (by unfold gd; fun_prop)\n      (fun z => ⟨ne_of_gt (gd_bounds τ hτ y z).1,ENNReal.ofReal_ne_top⟩) q hq).2\n    rw [← gd_law x τ hτ,← gd_law y τ hτ] at hd\n    obtain ⟨_,_,_,hrn,hI,hm,_⟩ :=\n      AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment x y τ q hτ hq\n    have hi := ofReal_integral_eq_lintegral_ofReal hI\n      (Filter.Eventually.of_forall (fun z => Real.rpow_nonneg ENNReal.toReal_nonneg q))\n    rw [hm] at hi\n    rw [← hd]\n    refine (lintegral_congr_ae ?_).trans hi.symm\n    filter_upwards [hrn] with z hz\n    rw [← ENNReal.ofReal_rpow_of_nonneg ENNReal.toReal_nonneg (by linarith),\n      ENNReal.ofReal_toReal (by rw [hz]; exact ENNReal.ofReal_ne_top)]\n  have mixture_power_bound (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n      (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n      (∫⁻ z : E, (∫⁻ c, gd τ c.1 z ∂γ)^q /\n        (∫⁻ c, gd τ c.2 z ∂γ)^(q-1) ∂volume) ≤\n        ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) := by\n    have hb : ∀ z : E, 0 < (∫⁻ c, gd τ c.2 z ∂γ) ∧\n        (∫⁻ c, gd τ c.2 z ∂γ) ≠ ⊤ := by\n      intro z\n      let : IsProbabilityMeasure (γ.map Prod.snd) := Measure.isProbabilityMeasure_map (by fun_prop)\n      have h := mix_bounds (γ.map Prod.snd) τ hτ z\n      rw [lintegral_map (by unfold gd; fun_prop) measurable_snd] at h\n      exact h\n    calc\n      _ ≤ ∫⁻ z : E, ∫⁻ c, gd τ c.1 z^q / gd τ c.2 z^(q-1) ∂γ ∂volume := by\n        apply lintegral_mono\n        intro z\n        exact PowerPerspective.lintegral_perspective_le γ (fun c => gd τ c.1 z) (fun c => gd τ c.2 z)\n          (by unfold gd; fun_prop) (by unfold gd; fun_prop)\n          (Filter.Eventually.of_forall (fun c => ⟨ne_of_gt (gd_bounds τ hτ c.2 z).1,ENNReal.ofReal_ne_top⟩))\n          (ne_of_gt (hb z).1) (hb z).2 q hq\n      _ = ∫⁻ c, ∫⁻ z : E, gd τ c.1 z^q / gd τ c.2 z^(q-1) ∂volume ∂γ := by\n        apply lintegral_lintegral_swap\n        unfold gd\n        fun_prop\n      _ = ∫⁻ c, ENNReal.ofReal (Real.exp (q*(q-1)*‖c.1-c.2‖^2/(2*τ))) ∂γ := by\n        apply lintegral_congr\n        intro c\n        exact gd_power_moment c.1 c.2 τ q hτ hq\n      _ ≤ ∫⁻ _ : E × E, ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∂γ := by\n        apply lintegral_mono_ae\n        filter_upwards [hdisp] with c hc\n        apply ENNReal.ofReal_le_ofReal\n        apply Real.exp_le_exp.mpr\n        apply div_le_div_of_nonneg_right _ (by positivity)\n        apply mul_le_mul_of_nonneg_left _ (by positivity)\n        have hn := norm_nonneg (c.1-c.2)\n        nlinarith\n      _ = _ := by simp\n  have bounded_mix (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (hγ : Transport.IsCoupling γ P Q)\n      (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n      (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n      let H := fun μ : Measure E => (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2)\n      H P ≪ H Q ∧\n        (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤ ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∧\n        Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) ∧\n        (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤ Real.exp (q*(q-1)*t^2/(2*τ)) ∧\n        Real.log (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q)/(q-1) ≤ q*t^2/(2*τ) := by\n    let H := fun μ : Measure E => (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2)\n    let a := fun z => ∫⁻ x, gd τ x z ∂P\n    let b := fun z => ∫⁻ x, gd τ x z ∂Q\n    have ha : Measurable a := by\n      exact (show Measurable (fun p : E × E => gd τ p.1 p.2) by unfold gd; fun_prop).lintegral_prod_left'\n    have hb : Measurable b := by\n      exact (show Measurable (fun p : E × E => gd τ p.1 p.2) by unfold gd; fun_prop).lintegral_prod_left'\n    have hA : H P = (volume : Measure E).withDensity a := mix_density P τ hτ\n    have hB : H Q = (volume : Measure E).withDensity b := mix_density Q τ hτ\n    let : IsProbabilityMeasure (H P) := Measure.isProbabilityMeasure_map (by fun_prop)\n    let : IsProbabilityMeasure (H Q) := Measure.isProbabilityMeasure_map (by fun_prop)\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity a) := hA ▸ inferInstance\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity b) := hB ▸ inferInstance\n    have hap : ∀ z, a z ≠ 0 ∧ a z ≠ ⊤ := fun z =>\n      ⟨ne_of_gt (mix_bounds P τ hτ z).1,(mix_bounds P τ hτ z).2⟩\n    have hbp : ∀ z, b z ≠ 0 ∧ b z ≠ ⊤ := fun z =>\n      ⟨ne_of_gt (mix_bounds Q τ hτ z).1,(mix_bounds Q τ hτ z).2⟩\n    obtain ⟨hac,hd⟩ := density_power (volume : Measure E) a b ha hb hbp q hq\n    have hback := (density_power (volume : Measure E) b a hb ha hap q hq).1\n    rw [← hA,← hB] at hac hd hback\n    have hbound : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤\n        ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) := by\n      rw [hd]\n      have hp : ∀ z, a z = ∫⁻ c, gd τ c.1 z ∂γ := by\n        intro z\n        dsimp only [a]\n        rw [← hγ.1]\n        exact lintegral_map (by unfold gd; fun_prop) measurable_fst\n      have hq' : ∀ z, b z = ∫⁻ c, gd τ c.2 z ∂γ := by\n        intro z\n        dsimp only [b]\n        rw [← hγ.2]\n        exact lintegral_map (by unfold gd; fun_prop) measurable_snd\n      simp_rw [hp,hq']\n      exact mixture_power_bound γ τ q t hτ hq ht hdisp\n    have hfin : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≠ ⊤ :=\n      ne_top_of_le_ne_top ENNReal.ofReal_ne_top hbound\n    have hm : Measurable (fun z => ((H P).rnDeriv (H Q) z)^q) :=\n      (Measure.measurable_rnDeriv _ _).pow_const q\n    have hI : Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) := by\n      simpa only [ENNReal.toReal_rpow] using integrable_toReal_of_lintegral_ne_top hm.aemeasurable hfin\n    have hre : (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) =\n        (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q).toReal := by\n      simp_rw [ENNReal.toReal_rpow]\n      apply integral_toReal hm.aemeasurable\n      filter_upwards [Measure.rnDeriv_lt_top (H P) (H Q)] with z hz\n      exact ENNReal.rpow_lt_top_of_nonneg (by linarith) hz.ne\n    have hrb : (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤\n        Real.exp (q*(q-1)*t^2/(2*τ)) := by\n      rw [hre]\n      simpa only [ENNReal.toReal_ofReal (Real.exp_pos _).le] using\n        ENNReal.toReal_mono ENNReal.ofReal_ne_top hbound\n    have hp0 : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≠ 0 := by\n      intro hz\n      have he := (lintegral_eq_zero_iff hm).mp hz\n      have hpos := Measure.rnDeriv_pos' hback\n      have hf : ∀ᵐ z ∂H Q, False := by\n        filter_upwards [he,hpos] with z he hp\n        exact (ne_of_gt (ENNReal.rpow_pos_of_nonneg hp (by linarith))) he\n      exact IsProbabilityMeasure.ne_zero (H Q) (by simpa using hf)\n    have hipos : 0 < (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) := by\n      rw [hre]\n      exact ENNReal.toReal_pos hp0 hfin\n    refine ⟨hac,hbound,hI,hrb,?_⟩\n    have hl := Real.log_le_log hipos hrb\n    rw [Real.log_exp] at hl\n    have hh := div_le_div_of_nonneg_right hl (show 0 ≤ q-1 by linarith)\n    have he : (q*(q-1)*t^2/(2*τ))/(q-1) = q*t^2/(2*τ) := by\n      have hn : q-1 ≠ 0 := by linarith\n      field_simp\n    exact hh.trans_eq he\n  have smoothing_law (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) :\n      GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ) =\n        (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2) := by\n    unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n      GaussianSmoothing.scaledStdGaussian\n    have hp := Measure.map_prod_map μ (stdGaussian E) measurable_id\n      (by fun_prop : Measurable (fun z : E => Real.sqrt τ • z))\n    simp only [Measure.map_id] at hp\n    rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  let : IsProbabilityMeasure γ := Transport.isProbabilityMeasure_of_isCoupling_left hγ\n  have h := bounded_mix P Q γ hγ τ q t hτ hq ht hdisp\n  dsimp only\n  simpa only [smoothing_law] using h\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) bounded-displacement Gaussian mixture ingredient",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+        },
+        "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+        "formulae": [
+          {
+            "label": "Actual Gaussian mixture RN bound",
+            "tex": "H_\\tau P\\ll H_\\tau Q,\\qquad\\int\\!\\left(\\frac{dH_\\tau P}{dH_\\tau Q}\\right)^q dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)},\\qquad\\frac{\\log\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qt^2}{2\\tau}."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.",
+          "gamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.",
+          "tau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.",
+          "No density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.",
+          "The source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate."
+        ],
+        "obligations": [
+          {
+            "id": "actual-mixture-rn",
+            "label": "Actual smoothed law absolute continuity and finite ENNReal RN power bound"
+          },
+          {
+            "id": "integrable-real-power",
+            "label": "Real RN power integrability and exponential integral bound"
+          },
+          {
+            "id": "normalized-log",
+            "label": "Positive actual moment and exact normalized logarithm upper bound"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded proof of the bounded-displacement Gaussian reverse-transport ingredient; original truncation composition separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianMixture"
+          ],
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+          "title": "Actual Gaussian mixture reverse transport from a bounded coupling",
+          "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+          "formula": "H_\\tau P\\ll H_\\tau Q,\\qquad\\int\\!\\left(\\frac{dH_\\tau P}{dH_\\tau Q}\\right)^q dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)},\\qquad\\frac{\\log\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qt^2}{2\\tau}.",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.",
+            "gamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.",
+            "tau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.",
+            "No density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.",
+            "The source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate."
+          ],
+          "steps": [
+            {
+              "title": "Identify actual Gaussian and mixture densities",
+              "text": "Translate the existing scaled standard-Gaussian volume density to each center. For an arbitrary probability mu, test both candidate measures against every measurable ENNReal function. The product-map integral and Tonelli show that independent Gaussian addition equals volume.withDensity of the actual mixture density.",
+              "formula": "g_\\tau(x,z)=C_\\tau e^{-\\|z-x\\|^2/(2\\tau)},\\qquad H_\\tau\\mu(dz)=\\left(\\int g_\\tau(x,z)\\,d\\mu(x)\\right)dz.",
+              "lean": "Local gd_law and mix_density use IsotropicGaussianDensity, translation invariance, Measure.ext_of_lintegral, lintegral_map and Tonelli. Local smoothing_law identifies the existing GaussianSmoothing API."
+            },
+            {
+              "title": "Prove the mixture densities positive and finite",
+              "text": "Every Gaussian density lies strictly between zero and the finite constant C_tau. Its average under a probability therefore is finite. If this average were zero, the density would vanish almost everywhere, contradicting its strict positivity and the nonzero probability measure.",
+              "formula": "0<g_\\tau(x,z)\\le C_\\tau,\\qquad 0<\\int g_\\tau(x,z)\\,d\\mu(x)\\le C_\\tau<\\infty.",
+              "lean": "Local gd_bounds and mix_bounds derive the conditions for division and RN identification; no marginal moments are used."
+            },
+            {
+              "title": "Identify the actual RN power integral",
+              "text": "For measurable densities a,b with b positive and finite, withDensity multiplication proves volume.withDensity a=(volume.withDensity b).withDensity(a/b). Thus the actual RN derivative is a/b almost everywhere under the denominator law. Exact nonnegative power algebra turns its qth-power integral into the volume integral of a^q/b^(q-1).",
+              "formula": "\\int\\left(\\frac{d(a\\,dz)}{d(b\\,dz)}\\right)^q b\\,dz=\\int\\frac{a^q}{b^{q-1}}\\,dz.",
+              "lean": "Local density_power derives absolute continuity and the integral identity from withDensity_mul and Measure.rnDeriv_withDensity. The direction and reference measure are preserved."
+            },
+            {
+              "title": "Reuse the exact single-Gaussian moment",
+              "text": "Apply the previous actual Gaussian RN power-moment theorem at each fixed pair of centers. Its proven integrability identifies the ENNReal integral after finite RN conversion. Combined with the density identity, this gives the exact fiber integral; no a.e. equality is promoted to a joint pointwise statement.",
+              "formula": "\\int\\frac{g_\\tau(x,z)^q}{g_\\tau(y,z)^{q-1}}\\,dz=e^{q(q-1)\\|x-y\\|^2/(2\\tau)}.",
+              "lean": "Local gd_power_moment calls GaussianPowerMoment.gaussian_power_moment, density_power and ofReal_integral_eq_lintegral_ofReal."
+            },
+            {
+              "title": "Apply Holder and Tonelli over the actual coupling",
+              "text": "For each z, the coupling marginals express the smoothed densities as averages of g_tau(x,z) and g_tau(y,z). Apply the shared perspective inequality, then exchange nonnegative integrals by Tonelli and substitute the fixed-center formula. Intermediate integrals may be infinite.",
+              "formula": "\\int\\frac{(\\int g_x\\,d\\gamma)^q}{(\\int g_y\\,d\\gamma)^{q-1}}\\,dz\\le\\int e^{q(q-1)\\|x-y\\|^2/(2\\tau)}\\,d\\gamma.",
+              "lean": "Local mixture_power_bound calls PowerPerspective.lintegral_perspective_le; joint measurability and probability/volume sigma-finiteness justify Tonelli."
+            },
+            {
+              "title": "Use bounded displacement to establish finite moments",
+              "text": "The nonnegative coefficient q(q-1)/(2tau) and a.e. displacement bound make the last integrand at most exp(q(q-1)t^2/(2tau)). Since gamma is a probability, this proves a finite ENNReal bound. Only now derive integrability of the real RN power and its real integral bound.",
+              "formula": "\\int e^{q(q-1)\\|x-y\\|^2/(2\\tau)}\\,d\\gamma\\le e^{q(q-1)t^2/(2\\tau)}<\\infty.",
+              "lean": "Local bounded_mix derives gamma marginal mixture identities, integrable_toReal_of_lintegral_ne_top and integral_toReal; rnDeriv_lt_top justifies finite conversion."
+            },
+            {
+              "title": "Prove positivity before taking the logarithm",
+              "text": "Both mixture densities are positive, so the smoothed laws are mutually absolutely continuous. Reverse absolute continuity gives positivity of the forward RN derivative under HQ; its qth-power integral is positive. Log monotonicity and division by q-1>0 give the exact normalized bound. Neither t nor the dimension is divided by.",
+              "formula": "0<\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q,\\qquad\\frac{q(q-1)t^2}{2\\tau(q-1)}=\\frac{qt^2}{2\\tau}.",
+              "lean": "Measure.rnDeriv_pos', lintegral_eq_zero_iff, ENNReal.toReal_pos, Real.log_le_log and exact cancellation. The final public statement uses GaussianSmoothing directly."
+            }
+          ],
+          "lean_statement": "Actual GaussianSmoothing absolute continuity, ENNReal power bound, real-power integrability and integral bound, and normalized logarithm bound.",
+          "lean_proof": "All Gaussian-density, mixture, RN, fiber, finite-moment and logarithm helpers are local; the shared perspective and previous GaussianPowerMoment are actual proof consumers.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.rnDeriv_withDensity",
+            "MeasureTheory.lintegral_lintegral_swap",
+            "MeasureTheory.integrable_toReal_of_lintegral_ne_top",
+            "MeasureTheory.Measure.rnDeriv_pos'"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+          "role": "prerequisite",
+          "supports": [
+            "actual-mixture-rn",
+            "integrable-real-power",
+            "normalized-log"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+            "lean": "Finite-dimensional real inner-product Borel E, including zero dimension; probabilities and an actual bounded-displacement coupling, without marginal moment requirements."
+          },
+          {
+            "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+            "lean": "Actual GaussianSmoothing RN moment and normalized logarithm under a supplied bounded coupling."
+          },
+          {
+            "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+            "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds."
+          },
+          {
+            "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+            "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E, including dimension zero, equipped with its Borel measurable structure, let P,Q be probability measures on E and gamma a measure on E times E whose first-coordinate pushforward is P and second-coordinate pushforward is Q. For every triple of real tau,q,t, assume tau>0,q>1,t>=0 and norm(x-y)<=t for gamma-almost every (x,y). Define kappa as the pushforward of the measure named stdGaussian under z to sqrt(tau)z. For each measure mu, define Hmu as the pushforward of mu product kappa under (x,z) to x+z, the actual Gaussian-smoothing law defined through product measure and addition pushforward. Write r(z)=d(HP)/d(HQ)(z) for the extended nonnegative RN derivative and r_R(z)=toReal(r(z)), using the totalized conversion at infinity. All five conclusions hold: HP is absolutely continuous with respect to HQ; the extended nonnegative Lebesgue integral of r^q under HQ is at most ofReal(exp(q(q-1)t^2/(2tau))); the real-valued r_R^q is integrable under HQ, meaning a.e. strong measurability and finite integral of norm; its real Bochner integral is at most exp(q(q-1)t^2/(2tau)); and the real logarithm of that same real integral divided by q-1 is at most q t^2/(2tau). Every integral uses HQ and the derivative direction is d(HP)/d(HQ). The conclusions apply to each supplied coupling satisfying the a.e. displacement bound. No density, moment or positive-dimension assumption is imposed. The bounds depend only on tau,q,t with exactly the displayed constants. The extended integral is bounded by a finite exponential and the real integral has an explicit integrability conclusion. Definition-context limitation: the supplied context identifies stdGaussian by name without expanding its construction or normalization; this reconstruction retains that exact named measure without adding a covariance or density formula.",
+        "text_sha256": "6b59210304d24cfd9e92cbf04f8e0d1400721361531393efd2c3f2fe9d7027d7",
+        "decoder_packet_sha256": "37af294e334057a2bbf26a666361c56a650ef663cb3ed38da8373a8a2f269c8d",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "mixture_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent read only two anonymous statement/definition packets. Preserved infinite numerator, actual smoothing definition, RN direction, integrability and logarithm. Decoder explicitly retained named stdGaussian without adding normalization absent from supplied definition context; source reviewer must verify the actual definition. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "589b0bf16237986b2ce097c163eac970aebcc8aefe1c1478a5314890ce8d4bb3",
+        "lean_statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-mixture.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Independent N(0,tau I) convolution, forward Renyi direction.",
+          "reconstructed": "Existing GaussianSmoothing, actual coupling and rnDeriv(HP,HQ) under HQ.",
+          "relation": "explicit-elaboration",
+          "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+        },
+        "domains": {
+          "original": "Euclidean probability laws.",
+          "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive dimension; normalization has natural-number dimensional power."
+        },
+        "quantifiers": {
+          "original": "Full lemma selects one proxy before all q; bounded estimate applies to each fixed pair.",
+          "reconstructed": "Every actual supplied coupling and tau>0,q>1,t>=0 with a.e. displacement bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "No proxy construction or replacement of its all-q quantifier asserted."
+        },
+        "assumptions": {
+          "original": "Full lemma assumes marginal Pp; selected estimate uses bounded displacement and positive heat time.",
+          "reconstructed": "Probabilities, actual coupling,tau>0,q>1,t>=0 and displacement<=t; no marginal moments.",
+          "relation": "stronger-in-lean",
+          "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+        },
+        "conclusion": {
+          "original": "Bounded-displacement normalized Renyi bound qt^2/(2tau).",
+          "reconstructed": "Actual AC, finite ENNReal power bound, real integrability/exponential bound and normalized log bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "All five conjuncts use same forward RN and HQ; finite conversion precedes log."
+        },
+        "scopes": {
+          "original": "Full Lemma6.3(ii) combines truncation and reverse transport in metric/divergence notation.",
+          "reconstructed": "Supplied-coupling Gaussian mixture with explicit moments/logarithms.",
+          "relation": "different",
+          "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+        },
+        "constant_dependencies": {
+          "original": "Covariance tau I and normalized q/(2tau).",
+          "reconstructed": "q(q-1)t^2/(2tau) moment exponent and qt^2/(2tau) logarithm.",
+          "relation": "same",
+          "evidence": "sqrt(tau), exact fixed-center moment, displacement comparison and q-1 cancellation; no dimension factor."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit generalization beyond Euclidean probability application.",
+          "evidence": "No positive dimension; normalization has natural-number dimensional power."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+          "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Marginal Pp membership unnecessary for bounded coupling ingredient; no marginal moments established.",
+          "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Decoder normalization limitation independently resolved from actual stdGaussian construction and scaled density proof.",
+          "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+        }
+      ]
     }
   ]
 }

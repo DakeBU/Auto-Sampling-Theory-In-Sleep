@@ -1,0 +1,30 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent read-only production proof review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCGaussianMixture",
+  "result": "PASS3702, exit0; only existing parent lint.",
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean": "06f0313f049b40a74752fb3e5bab02b514e8a0931fe0f8cec7c7e0e79d4b19dd",
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianMixture.lean": "16045045717534aa4c85dff8d57b58b421cb560a87d60a5ee1be19949dd77380",
+    "Tests/SmoothedPicardHMCGaussianMixture.lean": "62348e9172195cc5c498837f6aeaaa7f293e6d8aef497036a4f6ef411382ce1d"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Shared perspective permits infinite numerator and right side; canceled denominator quantities are proved positive finite.",
+    "Actual product-map Gaussian smoothing density, joint measurability, Tonelli and everywhere positive finite mixture densities; no marginal moments assumed.",
+    "Actual measure equality, absolute continuity, RN and perspective integral identity proved.",
+    "ENNReal Holder and Gaussian fiber moment precede displacement finite bound and real integral conversion.",
+    "Separate strict positivity of moment before log; no use of log0 or toReal infinity.",
+    "Coupling implies probability gamma; final statement uses existing GaussianSmoothing law and exact q(q-1)t^2/(2tau), qt^2/(2tau), valid t0 and zero dimension.",
+    "Actual mixture reverse-transport consumer; Tests only query axioms. Truncation composition and full paper remain separate."
+  ],
+  "qualifications": [
+    "Formal source audit, lesson acceptance and fixed-commit admission remain separate."
+  ]
+}

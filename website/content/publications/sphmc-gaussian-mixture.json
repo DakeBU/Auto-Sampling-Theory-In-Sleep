@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-power-perspective",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Power perspective from Holder with infinite moments allowed",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.3(ii) expanded Holder perspective",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+      },
+      "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+      "assumptions": [
+        "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+        "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+        "The integral of b is nonzero and finite, and real q>1.",
+        "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+      ],
+      "formulae": [
+        {
+          "label": "Integral perspective",
+          "tex": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "perspective",
+          "label": "Extended nonnegative Holder perspective with potentially infinite numerator and right side"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+          "cell": "ASTIS-SW-SPHMC-power-perspective",
+          "role": "prerequisite",
+          "supports": [
+            "perspective"
+          ],
+          "audit_id": "ASTIS-RT-20260911-PowerPerspective",
+          "boundary": "Expanded bounded-displacement Gaussian mixture ingredient of SPHMC Lemma6.3(ii). The actual coupling is supplied; choosing a single truncation proxy before all q remains separate. No marginal moment conclusion, complete Wasserstein/Renyi API, proxy-warmness, sampler or query-cost theorem.",
+          "assumption_deltas": [
+            {
+              "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+              "lean": "Arbitrary measurable space and measure for the scalar Holder perspective.",
+              "classification": "generalization",
+              "reason": "Explicit expanded ingredient with independently proved denominator conditions; finite displacement does not imply marginal moments."
+            },
+            {
+              "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+              "lean": "Scalar integral perspective only.",
+              "classification": "API-limitation",
+              "reason": "No truncation composition, complete Wasserstein/Renyi API, warmness recursion or sampler cost is claimed."
+            },
+            {
+              "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+              "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds.",
+              "classification": "same",
+              "reason": "Covariance tau I comes from sqrt(tau) noise. RN direction and denominator law agree."
+            },
+            {
+              "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+              "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer.",
+              "classification": "source-implicit",
+              "reason": "No assumed mixture inequality or Gaussian density/moment contract replaces the proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sphmc-gaussian-mixture",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Gaussian mixture reverse transport from a bounded coupling",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.3(ii) bounded-displacement Gaussian mixture ingredient",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+      },
+      "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.",
+        "gamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.",
+        "tau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.",
+        "No density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.",
+        "The source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate."
+      ],
+      "formulae": [
+        {
+          "label": "Actual Gaussian mixture RN bound",
+          "tex": "H_\\tau P\\ll H_\\tau Q,\\qquad\\int\\!\\left(\\frac{dH_\\tau P}{dH_\\tau Q}\\right)^q dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)},\\qquad\\frac{\\log\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qt^2}{2\\tau}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-mixture-rn",
+          "label": "Actual smoothed law absolute continuity and finite ENNReal RN power bound"
+        },
+        {
+          "id": "integrable-real-power",
+          "label": "Real RN power integrability and exponential integral bound"
+        },
+        {
+          "id": "normalized-log",
+          "label": "Positive actual moment and exact normalized logarithm upper bound"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+          "cell": "ASTIS-SW-SPHMC-gaussian-mixture",
+          "role": "prerequisite",
+          "supports": [
+            "actual-mixture-rn",
+            "integrable-real-power",
+            "normalized-log"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGaussianMixture",
+          "boundary": "Expanded bounded-displacement Gaussian mixture ingredient of SPHMC Lemma6.3(ii). The actual coupling is supplied; choosing a single truncation proxy before all q remains separate. No marginal moment conclusion, complete Wasserstein/Renyi API, proxy-warmness, sampler or query-cost theorem.",
+          "assumption_deltas": [
+            {
+              "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+              "lean": "Finite-dimensional real inner-product Borel E, including zero dimension; probabilities and an actual bounded-displacement coupling, without marginal moment requirements.",
+              "classification": "generalization",
+              "reason": "Explicit expanded ingredient with independently proved denominator conditions; finite displacement does not imply marginal moments."
+            },
+            {
+              "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+              "lean": "Actual GaussianSmoothing RN moment and normalized logarithm under a supplied bounded coupling.",
+              "classification": "API-limitation",
+              "reason": "No truncation composition, complete Wasserstein/Renyi API, warmness recursion or sampler cost is claimed."
+            },
+            {
+              "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+              "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds.",
+              "classification": "same",
+              "reason": "Covariance tau I comes from sqrt(tau) noise. RN direction and denominator law agree."
+            },
+            {
+              "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+              "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer.",
+              "classification": "source-implicit",
+              "reason": "No assumed mixture inequality or Gaussian density/moment contract replaces the proof."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
