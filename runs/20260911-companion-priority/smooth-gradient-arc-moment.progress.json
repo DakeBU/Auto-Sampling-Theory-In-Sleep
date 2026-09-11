@@ -1,9 +1,7 @@
 {
   "remaining": [
-    "Formal independent source and authored-proof audit",
-    "Publication validation and PROVED_LOCAL admission",
-    "Fixed-commit VERIFIED admission",
-    "Aggregate integration, reader/graph delivery, merge and deployment"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and deployment"
   ],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
@@ -17,7 +15,7 @@
   },
   "development_result": "Complete actual smooth-gradient arc consumer compiles: true derivative/gradient, actual independent Gaussian input and arc velocity, source norm initialization, measurable and integrable exponential estimator, factor2 MGF and log2 bound.",
   "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
   "boundary": "Production and fixed-commit independent focused proof pass; fresh anonymous reconstruction complete. Formal source review pending; private implementation publication gate correctly remains closed. Neither paper main result is complete.",
@@ -64,15 +62,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-smooth-gradient-arc-moment.json",
-    "state": "Six authored mathematical steps; formal review pending."
+    "state": "Six authored steps accepted; publication PASS52."
   },
   "source_fidelity": {
-    "state": "pending",
-    "audit": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
-    "decoder": "blind_reconstruction_i",
-    "decoder_result": "runs/20260911-companion-priority/smooth-gradient-arc-moment.decoder-result.json",
-    "reconstruction_sha256": "6950dea3be6c58746e2595dd54416a70c7b494e6822e21617bc7b1e4215519e2",
-    "decoder_result_boundary": "Independent source-blind reconstruction returned exact full contract, no ambiguities. This is not source acceptance.",
-    "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266"
-  }
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment"
+    ]
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment",
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

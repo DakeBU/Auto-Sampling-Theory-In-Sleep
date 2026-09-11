@@ -16093,7 +16093,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-smooth-gradient-arc-moment",
         "anchor": "Appendix D.1 Claim 1 proof and Claim 2, smooth s=1 moment; consumed by SPHMC Appendix A.4(2)",
@@ -16118,7 +16118,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "1c6f8e6cb63e0a60aa71b49074cd23097e4af48868c030d2cc5aafe2338fba8d",
+        "review_run_sha256": "f33338a942f1a78cb0a30d693ba0835b268ecaf69859c4138f7827be55a14145",
+        "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-moment.source-review-result.json",
+        "evidence": "Independent anti-anchored review accepted seven slots, six authored steps and six informational deltas, no blockers/issues/repairs. Domain-mismatch records valid disclosed extensions, not full SPHMC equivalence. Fresh primary source comparison confirmed proof/Claim2 factor2. Packet, source, statement, reconstruction and embedded/current module hashes independently recomputed. Current lesson/publication matched. External binding preimage, compilation, fixed commit, Meta expansion, decoder execution and dependency hashes remain separate verifier obligations."
       },
       "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266",
       "publication_context": {
@@ -16283,7 +16290,102 @@
         "decoder_run_sha256": "4357ef157c597a6cd84664305e001d86f076b5bdefd5bd396eab38c7c3f9ef0f",
         "lean_statement_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
         "run_artifact": "runs/20260911-companion-priority/smooth-gradient-arc-moment.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Gradient-arc estimator under independent proposal and auxiliary Gaussians.",
+          "reconstructed": "Actual gradient, explicit trigonometric arc/velocity, exponential integrand and original affine-Gaussian product input.",
+          "relation": "explicit-elaboration",
+          "evidence": "HasGradientAt exported; actual GaussianArcLaw pushforward transfers both integrability and bound."
+        },
+        "domains": {
+          "original": "Smooth Euclidean case in positive dimension.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space including zero dimension.",
+          "relation": "different",
+          "evidence": "No positive-finrank premise; empty orthonormal product remains valid."
+        },
+        "quantifiers": {
+          "original": "Time in [0,1] and reference-constructed center.",
+          "reconstructed": "Every real r and arbitrary h,xp satisfying the same distance bound.",
+          "relation": "stronger-in-lean",
+          "evidence": "Parent law holds all-real; moment uses only center inequality."
+        },
+        "assumptions": {
+          "original": "Differentiable potential, beta-Lipschitz gradient, positive eta and smooth range.",
+          "reconstructed": "Actual gradient Lipschitzness, beta>=0, eta>0, lambda>=0, center and polynomial range.",
+          "relation": "different",
+          "evidence": "Division-free range allows beta0; no moment, measurability or integrability premise added."
+        },
+        "conclusion": {
+          "original": "Claim1 proof and Claim2 retain factor2 exponential moment.",
+          "reconstructed": "Measurability, Bochner integrability, factor2 MGF and log2 bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "All analytic obligations are conclusions; not the printed no-log2 statement."
+        },
+        "scopes": {
+          "original": "Moment feeds clipping and normalized terminal-target accuracy.",
+          "reconstructed": "Actual smooth moment only.",
+          "relation": "different",
+          "evidence": "Clipping, target mean, normalized Renyi, initialization and costs explicitly remain open."
+        },
+        "constant_dependencies": {
+          "original": "Range12, exponent10, factor2 and exact Gaussian scales.",
+          "reconstructed": "Same explicit coefficients and scales, with log2.",
+          "relation": "same",
+          "evidence": "pi²<=12 and quadratic range give coefficient9 then10."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Zero dimension and beta0 valid without division; constant gradient yields zero estimator.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "All-real time follows from parent law.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "severity": "informational",
+          "description": "Arbitrary center satisfies exact source distance condition; construction separate.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "severity": "informational",
+          "description": "Actual differentiability, gradient Lipschitzness and smooth polynomial range match selected nonnegative-lambda contract.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "conclusion",
+          "classification": "same",
+          "severity": "informational",
+          "description": "Factor2/log2 matches cited proof-supported contract, not differing printed Claim1.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "severity": "informational",
+          "description": "Actual input, gradient identity, measurability and integrability are proved.",
+          "evidence": "Independent formal reviewer accepted this disclosed delta.",
+          "blocking": false
+        }
+      ]
     }
   ]
 }
