@@ -21,7 +21,7 @@
   },
   "lean_merge_ci": {
     "run": 34632097645,
-    "state": "IN_PROGRESS last checked"
+    "state": "SUCCESS; exact722f040 head verified by gh run view"
   },
   "boundary": "HTTP availability and exact merge provenance for selected companion/module, not full-paper or global copy/citation/download completion."
 }

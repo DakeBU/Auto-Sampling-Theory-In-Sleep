@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-renyi-comparison.md",
     "planning_review": "Independent log_depth_source_review source/route audit accepted actual denominator-measure ell-powers, explicit source order discrepancy and ell>=2 range.",
-    "execution_boundary": "PR286 actually merged; stabilization lane released. MergeCI/live pending.",
+    "execution_boundary": "Selected RN packet merged; all PR/mergeCI and exact live provenance complete. Stabilization lane released; whole paper/delivery requirements remain.",
     "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json",
     "integration_merge": {

@@ -1,12 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Independent full proof and source preaudit",
-    "Production and focused verification",
-    "Fresh anonymous reconstruction/formal source admission",
-    "Integration and actual original reader delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis/TerminalSamplerAccuracyCost.lean",
@@ -54,7 +52,7 @@
       "Tests\\SmoothedPicardHMCTerminalSamplerAccuracyCost.lean": "afcef68f7c6b5fbb7aab3d85e24e75615159a4160414ccf4daf7ca245faddd54"
     },
     "focused_command": "lake build Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost",
-    "state": "Focused production PASS3740, session44697 exit0, standard3/no lint. Independent fixed-commit production review and fresh formal source admission pending."
+    "state": "Focused PASS3740 and independent production review accepted; formal source review accepted; fixed admission pending."
   },
   "expanded_statement": {
     "file": ".astis/terminal-sampler-accuracy-cost-expanded.log",
@@ -69,5 +67,39 @@
     "reviewer": "depth_commit_verifier",
     "commit": "610b935b1b6ad6d32322830d0c0c767e1bda3498",
     "result": "Unchanged reviewed mathematical proof, independent focused PASS3740 standard3; independent corrected expanded9141chars SHA2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742, Meta.isDefEq success and no private/source names or ellipsis. No VERIFIED."
-  }
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-terminal-sampler-accuracy-cost.json",
+    "state": "Eight authored steps and14private implementations accepted; publicationPASS62."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_p",
+    "packet_sha256": "6f1628e177d6044036c23ca72875ee05f8279ea1312587b4b30e41b25023a82d",
+    "result": "All18conjuncts reconstructed. Initial pretty-printed product index limitation resolved by supplementary type-explicit compiled acceptance definition; same source-blind decoder confirmed Fin N and per-factor division.",
+    "supplement": {
+      "script": ".astis/TerminalSamplerAcceptanceIndex.lean",
+      "log": ".astis/terminal-sampler-acceptance-index.log",
+      "characters": 1572,
+      "sha256": "b37c71f67d785859229524cc4a87c6ba8a762ab23a464d728e80495868895544",
+      "independent_review": "depth_commit_verifier replay exit0/Meta.isDefEq, exact context/packet hash verified, no source/private leaks. Initial panic output rejected; final safe Name pattern match used."
+    }
+  },
+  "formal_source_review": {
+    "state": "accepted",
+    "reviewer": "log_depth_source_review",
+    "packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost.reviewer.json",
+    "packet_sha256": "e1d1aa4137386fe993981c7767659a54eeab22c74f424cf01834b89fcb8e06c3",
+    "binding": "77b538ad85ac31b8a0261e2d32e235b7adb84a822b834f0e43a6c764c47b3a9c",
+    "verdict": "domain-mismatch",
+    "result_file": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.source-review-result.json"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }
