@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "reviewer_packet_sha256": "815d3f98b0ae7394a6ced5ca385c5d073641c75a0fa865b52e81f9a4ac6b6f4a",
+  "publication_binding_sha256": "3511b2d60eccba25df9181e9dea89bcdfd160236804393aab5f07543769d78ee",
+  "semantic_slots": {
+    "objects": {
+      "original": "A C1 convex scalar function and its Euclidean gradient.",
+      "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
+      "source": "A C1 convex scalar function and its Euclidean gradient.",
+      "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+      "status": "explicit-elaboration",
+      "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+    },
+    "domains": {
+      "original": "All of real Euclidean d-space.",
+      "reconstructed": "All of any complete real inner-product space E.",
+      "relation": "different",
+      "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
+      "source": "All of real Euclidean d-space.",
+      "lean": "All of any complete real inner-product space E.",
+      "status": "different",
+      "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+    },
+    "quantifiers": {
+      "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+      "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+      "relation": "different",
+      "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
+      "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+      "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+      "status": "different",
+      "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+    },
+    "assumptions": {
+      "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+      "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
+      "relation": "stronger-in-lean",
+      "evidence": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence.",
+      "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+      "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
+      "status": "stronger-in-lean",
+      "explanation": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence."
+    },
+    "conclusion": {
+      "original": "Reciprocal Bregman lower bound (3.4).",
+      "reconstructed": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
+      "relation": "equivalent",
+      "evidence": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2.",
+      "source": "Reciprocal Bregman lower bound (3.4).",
+      "lean": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
+      "status": "equivalent",
+      "explanation": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2."
+    },
+    "scopes": {
+      "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+      "reconstructed": "Global pointwise deterministic inequality on univ.",
+      "relation": "same",
+      "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
+      "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+      "lean": "Global pointwise deterministic inequality on univ.",
+      "status": "same",
+      "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+    },
+    "constant_dependencies": {
+      "original": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
+      "reconstructed": "The same sole modulus, coefficient 2 beta in the scaled form.",
+      "relation": "equivalent",
+      "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison.",
+      "source": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
+      "lean": "The same sole modulus, coefficient 2 beta in the scaled form.",
+      "status": "equivalent",
+      "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
+      "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
+    },
+    {
+      "slot": "quantifiers",
+      "severity": "informational",
+      "description": "Universal ambient-space quantification extends the Euclidean source class.",
+      "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "Explicit beta>0 restricts the reciprocal assertion to its meaningful denominator domain.",
+      "evidence": "Definition 1.12 states beta>=0; Exercise 3.1 displays 1/(2 beta) without an explicit positive restriction. Candidate obligation bregman-positive-domain and the lesson make the scope explicit. Accepted solely as that scoped result; no source repair is proposed or accepted."
+    }
+  ],
+  "verdict": "implicit-assumption-exposed",
+  "repairs": [],
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Packet-bound independent review of ASTIS-REVIEW-ff0f17478d545c1f. Specialization to E=EuclideanSpace R (Fin d) and beta>0 yields source (3.4) after division by 2 beta. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization. No claim is made that the reciprocal source expression is defined at beta=0. Let d=grad f(y)-grad f(x) and z=y-d/beta. Supporting-plane lower bound at x and the upper model at y imply B_f(y,x)>=<d,d>/beta-||d||^2/(2 beta)=||d||^2/(2 beta). The lesson follows exactly this algebra and clears only positive denominators. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+  "review_run_sha256": "8e6450673e4a8b4594f7fec3c89d77e58d92db1be39d0b1563cfae842329491f",
+  "review_run_artifact": "/private/tmp/andi-coco-source-review-run.json",
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Specialization to E=EuclideanSpace R (Fin d) and beta>0 yields source (3.4) after division by 2 beta. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization. No claim is made that the reciprocal source expression is defined at beta=0.",
+    "proof_explanation": "Let d=grad f(y)-grad f(x) and z=y-d/beta. Supporting-plane lower bound at x and the upper model at y imply B_f(y,x)>=<d,d>/beta-||d||^2/(2 beta)=||d||^2/(2 beta). The lesson follows exactly this algebra and clears only positive denominators.",
+    "constants": "Exact factors 2 beta and beta verified as applicable; no loss.",
+    "remaining_truth_boundary": "Acceptance preserves pinned-source scope and does not relabel the generalization as source equivalence. Beta=0 reciprocal (3.4) remains outside the accepted obligation."
+  },
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff0f17478d545c1f. Specialization to E=EuclideanSpace R (Fin d) and beta>0 yields source (3.4) after division by 2 beta. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization. No claim is made that the reciprocal source expression is defined at beta=0. Let d=grad f(y)-grad f(x) and z=y-d/beta. Supporting-plane lower bound at x and the upper model at y imply B_f(y,x)>=<d,d>/beta-||d||^2/(2 beta)=||d||^2/(2 beta). The lesson follows exactly this algebra and clears only positive denominators. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+    "review_run_sha256": "8e6450673e4a8b4594f7fec3c89d77e58d92db1be39d0b1563cfae842329491f",
+    "reviewer_packet_sha256": "815d3f98b0ae7394a6ced5ca385c5d073641c75a0fa865b52e81f9a4ac6b6f4a"
+  }
+}

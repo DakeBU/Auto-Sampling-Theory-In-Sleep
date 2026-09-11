@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.1 (3.4) positive denominator domain",
   "target_statement": "For C1 convex f on a complete real inner-product space with global quadratic upper model of positive beta, squared gradient difference is at most 2 beta times the Bregman gap.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-strong-convex-gradient-monotonicity",
     "ASTIS-SHARED-smoothness-c1"
@@ -28,8 +28,10 @@
     "notes": "Adapt tilted-descent mathematics through existing first-order lower and explicit quadratic upper models; no wholesale external library port."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.ConvexSmoothGradient PASS2728 independently repeated; no warnings; standard axioms only."
+    ],
+    "independent_verification": "smoothness_review fixed04ad482f3bf397c1d5fe40e8ced7772f4315f0b2 proof/test/lesson review and build; independent coco_blind and coco_source accepted exact packet-bound source scope.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

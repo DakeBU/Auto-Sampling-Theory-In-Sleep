@@ -12552,7 +12552,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-BregmanGradient",
-      "state": "draft",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-convex-bregman-gradient",
       "source": {
         "source_id": "chewi-opt-v1-exercise-3-1",
@@ -12574,12 +12574,109 @@
           "NNReal is the type of nonnegative real numbers; LipschitzWith b g means dist (g x) (g y) <= (b:ℝ) * dist x y for every x,y."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "A C1 convex scalar function and its Euclidean gradient.",
+          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "relation": "explicit-elaboration",
+          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
+          "source": "A C1 convex scalar function and its Euclidean gradient.",
+          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "status": "explicit-elaboration",
+          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+        },
+        "domains": {
+          "original": "All of real Euclidean d-space.",
+          "reconstructed": "All of any complete real inner-product space E.",
+          "relation": "different",
+          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
+          "source": "All of real Euclidean d-space.",
+          "lean": "All of any complete real inner-product space E.",
+          "status": "different",
+          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+        },
+        "quantifiers": {
+          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "relation": "different",
+          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
+          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "status": "different",
+          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+        },
+        "assumptions": {
+          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
+          "relation": "stronger-in-lean",
+          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence.",
+          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
+          "status": "stronger-in-lean",
+          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence."
+        },
+        "conclusion": {
+          "original": "Reciprocal Bregman lower bound (3.4).",
+          "reconstructed": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
+          "relation": "equivalent",
+          "evidence": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2.",
+          "source": "Reciprocal Bregman lower bound (3.4).",
+          "lean": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
+          "status": "equivalent",
+          "explanation": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2."
+        },
+        "scopes": {
+          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "reconstructed": "Global pointwise deterministic inequality on univ.",
+          "relation": "same",
+          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
+          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "lean": "Global pointwise deterministic inequality on univ.",
+          "status": "same",
+          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+        },
+        "constant_dependencies": {
+          "original": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
+          "reconstructed": "The same sole modulus, coefficient 2 beta in the scaled form.",
+          "relation": "equivalent",
+          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison.",
+          "source": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
+          "lean": "The same sole modulus, coefficient 2 beta in the scaled form.",
+          "status": "equivalent",
+          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
+          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Universal ambient-space quantification extends the Euclidean source class.",
+          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "review",
+          "description": "Explicit beta>0 restricts the reciprocal assertion to its meaningful denominator domain.",
+          "evidence": "Definition 1.12 states beta>=0; Exercise 3.1 displays 1/(2 beta) without an explicit positive restriction. Candidate obligation bregman-positive-domain and the lesson make the scope explicit. Accepted solely as that scoped result; no source repair is proposed or accepted."
+        }
+      ],
+      "verdict": "implicit-assumption-exposed",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "coco_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff0f17478d545c1f. Specialization to E=EuclideanSpace R (Fin d) and beta>0 yields source (3.4) after division by 2 beta. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization. No claim is made that the reciprocal source expression is defined at beta=0. Let d=grad f(y)-grad f(x) and z=y-d/beta. Supporting-plane lower bound at x and the upper model at y imply B_f(y,x)>=<d,d>/beta-||d||^2/(2 beta)=||d||^2/(2 beta). The lesson follows exactly this algebra and clears only positive denominators. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+        "review_run_sha256": "6923be579032685e89c6ed5e48e279c7a421860038922c08e46b541510cf4396",
+        "reviewer_packet_sha256": "815d3f98b0ae7394a6ced5ca385c5d073641c75a0fa865b52e81f9a4ac6b6f4a",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-0.json"
       },
       "publication_binding_sha256": "3511b2d60eccba25df9181e9dea89bcdfd160236804393aab5f07543769d78ee",
       "publication_context": {
@@ -12711,11 +12808,25 @@
             "lean": "β>0; shared scaled Bregman formula equivalent to (3.4) only in this domain."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be strictly positive real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ 2β(f(y)−f(x)−⟨∇f(x),y−x⟩).",
+        "text_sha256": "5a737b33446f6f7ac68a19b5c67c0fd1407926c41ae51fcbf3bbb657c2914b9b",
+        "decoder": "coco_blind",
+        "decoder_run_sha256": "70055cba660b18ac118feec7683c3286a3ba1f8ed18b3fbb3a9856a97b778685",
+        "decoder_packet_sha256": "4c8968b53068c72cdde0db05e79080a25e8156b7cc2f3d508833494297e9aa29",
+        "source_text_visible": false,
+        "lean_statement_sha256": "41a84902aee84efafe01fbccfe8504d69414d1057d8d132aa0059eae65670c63",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/decoder-result.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-Cocoercivity",
-      "state": "draft",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-convex-cocoercivity",
       "source": {
         "source_id": "chewi-opt-v1-exercise-3-1",
@@ -12737,12 +12848,103 @@
           "NNReal is the type of nonnegative real numbers; LipschitzWith b g means dist (g x) (g y) <= (b:ℝ) * dist x y for every x,y."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "A C1 convex scalar function and its Euclidean gradient.",
+          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "relation": "explicit-elaboration",
+          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
+          "source": "A C1 convex scalar function and its Euclidean gradient.",
+          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "status": "explicit-elaboration",
+          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+        },
+        "domains": {
+          "original": "All of real Euclidean d-space.",
+          "reconstructed": "All of any complete real inner-product space E.",
+          "relation": "different",
+          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
+          "source": "All of real Euclidean d-space.",
+          "lean": "All of any complete real inner-product space E.",
+          "status": "different",
+          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+        },
+        "quantifiers": {
+          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "relation": "different",
+          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
+          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "status": "different",
+          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+        },
+        "assumptions": {
+          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
+          "relation": "explicit-elaboration",
+          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity.",
+          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
+          "status": "explicit-elaboration",
+          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity."
+        },
+        "conclusion": {
+          "original": "Squared gradient norm <= beta times gradient-displacement pairing.",
+          "reconstructed": "The same division-free cocoercivity inequality.",
+          "relation": "equivalent",
+          "evidence": "On the common domain, both displayed norm-square and inner-product normalizations are identical.",
+          "source": "Squared gradient norm <= beta times gradient-displacement pairing.",
+          "lean": "The same division-free cocoercivity inequality.",
+          "status": "equivalent",
+          "explanation": "On the common domain, both displayed norm-square and inner-product normalizations are identical."
+        },
+        "scopes": {
+          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "reconstructed": "Global pointwise deterministic inequality on univ.",
+          "relation": "same",
+          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
+          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "lean": "Global pointwise deterministic inequality on univ.",
+          "status": "same",
+          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+        },
+        "constant_dependencies": {
+          "original": "The sole modulus beta from the quadratic model; coefficient beta.",
+          "reconstructed": "The same sole modulus, coefficient beta.",
+          "relation": "equivalent",
+          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish.",
+          "source": "The sole modulus beta from the quadratic model; coefficient beta.",
+          "lean": "The same sole modulus, coefficient beta.",
+          "status": "equivalent",
+          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
+          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Universal ambient-space quantification extends the Euclidean source class.",
+          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "coco_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff861ff1f7ab123f. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. The beta upper model implies the beta+epsilon model for epsilon>0. Add the two ordered Bregman estimates: 2||d||^2<=2(beta+epsilon)<d,y-x>. Divide by 2 and take epsilon down to zero by continuity and closed order. This works regardless of the sign of the pairing and retains beta=0. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+        "review_run_sha256": "99a7239fb3dff986c8e8981fbb3b5a98b204047fbf2a35902958f852a7d97bf7",
+        "reviewer_packet_sha256": "8c62e4e9ac7518a52da253b060e02a2e1e8f511308714c620145f0c997d0617a",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-1.json"
       },
       "publication_binding_sha256": "65a5a0ac44c4e85b8b9e95b0faa3c92127dd2cd4ff2abc42898bbe4a6b3dfb56",
       "publication_context": {
@@ -12874,11 +13076,25 @@
             "lean": "β≥0; division-free (3.5), with zero handled by positive relaxation and a limit."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ β⟨∇f(y)−∇f(x),y−x⟩.",
+        "text_sha256": "e9d80f8d532859ef57362ce5daab235dd0aa1b4a150b03f527834b842efe33bb",
+        "decoder": "coco_blind",
+        "decoder_run_sha256": "70055cba660b18ac118feec7683c3286a3ba1f8ed18b3fbb3a9856a97b778685",
+        "decoder_packet_sha256": "20d8a997b0d916f1f9e579d25c37bcfb8e5c890d78faa36097011982522ffaef",
+        "source_text_visible": false,
+        "lean_statement_sha256": "4c9e2e0dca99bbb272b8999af437d8974b4c669f9e4101ec8492a1c24e7e28e4",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/decoder-result.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-ConvexSmoothLipschitz",
-      "state": "draft",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-convex-smooth-lipschitz",
       "source": {
         "source_id": "chewi-opt-v1-exercise-3-1",
@@ -12900,12 +13116,103 @@
           "NNReal is the type of nonnegative real numbers; LipschitzWith b g means dist (g x) (g y) <= (b:ℝ) * dist x y for every x,y."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "A C1 convex scalar function and its Euclidean gradient.",
+          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "relation": "explicit-elaboration",
+          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
+          "source": "A C1 convex scalar function and its Euclidean gradient.",
+          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "status": "explicit-elaboration",
+          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+        },
+        "domains": {
+          "original": "All of real Euclidean d-space.",
+          "reconstructed": "All of any complete real inner-product space E.",
+          "relation": "different",
+          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
+          "source": "All of real Euclidean d-space.",
+          "lean": "All of any complete real inner-product space E.",
+          "status": "different",
+          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+        },
+        "quantifiers": {
+          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "relation": "different",
+          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
+          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
+          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
+          "status": "different",
+          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+        },
+        "assumptions": {
+          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0 encoded as NNReal.",
+          "relation": "explicit-elaboration",
+          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity.",
+          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
+          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0 encoded as NNReal.",
+          "status": "explicit-elaboration",
+          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity."
+        },
+        "conclusion": {
+          "original": "The gradient is globally beta-Lipschitz.",
+          "reconstructed": "LipschitzWith beta (gradient f).",
+          "relation": "equivalent",
+          "evidence": "On the common domain, the metric definition unfolds to the same norm bound; simultaneous reversal of endpoints preserves both norms.",
+          "source": "The gradient is globally beta-Lipschitz.",
+          "lean": "LipschitzWith beta (gradient f).",
+          "status": "equivalent",
+          "explanation": "On the common domain, the metric definition unfolds to the same norm bound; simultaneous reversal of endpoints preserves both norms."
+        },
+        "scopes": {
+          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "reconstructed": "Global pointwise deterministic inequality on univ.",
+          "relation": "same",
+          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
+          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
+          "lean": "Global pointwise deterministic inequality on univ.",
+          "status": "same",
+          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+        },
+        "constant_dependencies": {
+          "original": "The sole modulus beta from the quadratic model; coefficient beta.",
+          "reconstructed": "The same sole modulus, coefficient beta.",
+          "relation": "equivalent",
+          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish.",
+          "source": "The sole modulus beta from the quadratic model; coefficient beta.",
+          "lean": "The same sole modulus, coefficient beta.",
+          "status": "equivalent",
+          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
+          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Universal ambient-space quantification extends the Euclidean source class.",
+          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "coco_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Packet-bound independent review of ASTIS-REVIEW-9dab2a8ad08c5faa. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. Cocoercivity and Cauchy-Schwarz yield ||d||^2<=beta||d||||y-x||. Separate ||d||=0; otherwise cancel its positive value. No cancellation of beta occurs, so beta=0 is covered. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
+        "review_run_sha256": "5e9eb08169e80e8ef625fe0edf111cce86b50b64f478326b249754ec8609e0d9",
+        "reviewer_packet_sha256": "1d9a3002628d9a35e7538d158d6c57e7ddedccdc27e343477db38e5c283935c6",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-2.json"
       },
       "publication_binding_sha256": "52d317258a30935ae6cdaf776bb2779722d8fe72f1ca8b6a2afd18b61bea128a",
       "publication_context": {
@@ -13031,6 +13338,20 @@
             "lean": "β:NNReal; Lipschitz bound includes β=0 and uses no reciprocal."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then ∇f:E→E is globally β-Lipschitz: for every x,y∈E, ‖∇f(x)−∇f(y)‖ ≤ β‖x−y‖.",
+        "text_sha256": "fc45bce1cf85d118a69dce36c6472990631691e22e27e54df99a57c9982e5434",
+        "decoder": "coco_blind",
+        "decoder_run_sha256": "70055cba660b18ac118feec7683c3286a3ba1f8ed18b3fbb3a9856a97b778685",
+        "decoder_packet_sha256": "4697ab369680d53e0d8f379b47d971a880ed198119c901f36d0fbf79281836d7",
+        "source_text_visible": false,
+        "lean_statement_sha256": "10a0dd248fc2466fb2869b8048f5a94c16096dc1484370147a6c317182af1ce4",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/decoder-result.json"
       }
     }
   ]

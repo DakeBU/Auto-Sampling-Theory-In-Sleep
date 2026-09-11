@@ -1,0 +1,42 @@
+{
+  "reviewer": "coco_source",
+  "role": "independent anti-anchored source semantic and publication reviewer",
+  "input_artifacts": [
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-0.json",
+      "packet_sha256": "815d3f98b0ae7394a6ced5ca385c5d073641c75a0fa865b52e81f9a4ac6b6f4a",
+      "publication_binding_sha256": "3511b2d60eccba25df9181e9dea89bcdfd160236804393aab5f07543769d78ee"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-1.json",
+      "packet_sha256": "8c62e4e9ac7518a52da253b060e02a2e1e8f511308714c620145f0c997d0617a",
+      "publication_binding_sha256": "65a5a0ac44c4e85b8b9e95b0faa3c92127dd2cd4ff2abc42898bbe4a6b3dfb56"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-2.json",
+      "packet_sha256": "1d9a3002628d9a35e7538d158d6c57e7ddedccdc27e343477db38e5c283935c6",
+      "publication_binding_sha256": "52d317258a30935ae6cdaf776bb2779722d8fe72f1ca8b6a2afd18b61bea128a"
+    }
+  ],
+  "independence": {
+    "formalizer": "andi-coco-worker",
+    "decoder": "coco_blind",
+    "source_reviewer": "coco_source",
+    "prior_reviews_read": false,
+    "registry_read": false
+  },
+  "additional_inputs": [
+    ".agents/skills/astis-semantic-roundtrip/SKILL.md",
+    "tools/astis_semantic_roundtrip.py: validation and packet hashing code only",
+    "https://arxiv.org/html/2605.07006v1#S3"
+  ],
+  "primary_source_check": "Read Definition 1.12, Exercise 3.1 and displayed (3.4)-(3.5) in the pinned primary-source HTML. The supplied source restatements accurately preserve the Euclidean domain, C1 requirement, nonnegative beta definition and missing explicit positive reciprocal domain.",
+  "method": "Compare all seven slots, independently calculate tangent-plane trial-point argument, endpoint summation, epsilon limit and Cauchy-Schwarz cancellation, and compare every bound lesson statement/formula/step to the supplied full Lean module. Compiler validity is packet evidence, not evidence of source fidelity.",
+  "findings": [
+    "All domains are genuinely generalized from Euclidean space to arbitrary complete real inner-product space; these are not equivalent propositions.",
+    "Positive beta is needed to interpret source reciprocal (3.4); the theorem and lesson are explicitly scoped to that domain, with no proposed rewrite of the pinned source.",
+    "Division-free cocoercivity and Lipschitz estimates correctly include beta=0; relaxation to beta+epsilon and closed real order justify the boundary.",
+    "All lesson constants and proof steps agree with the displayed Lean module and genuine gradient definition."
+  ],
+  "limits": "No historical verdicts, source repairs, registry, or external Optlib source inspected. No Lean compiler rerun by this source reviewer. Exact-proposal repair acceptance is not granted."
+}

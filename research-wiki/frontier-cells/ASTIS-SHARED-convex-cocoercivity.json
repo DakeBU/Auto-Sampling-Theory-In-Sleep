@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.1 (3.5)",
   "target_statement": "Under the same C1 convex global model with beta>=0, squared gradient difference is at most beta times its pairing with the point difference.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-convex-bregman-gradient"
   ],
@@ -27,8 +27,10 @@
     "notes": "Adapt tilted-descent mathematics through existing first-order lower and explicit quadratic upper models; no wholesale external library port."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.ConvexSmoothGradient PASS2728 independently repeated; no warnings; standard axioms only."
+    ],
+    "independent_verification": "smoothness_review fixed04ad482f3bf397c1d5fe40e8ced7772f4315f0b2 proof/test/lesson review and build; independent coco_blind and coco_source accepted exact packet-bound source scope.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

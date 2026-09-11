@@ -73,6 +73,36 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.convex-smooth.bregman-gradient",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_gap_sq_le_bregman",
+    upstreamDecl := "Exercise3.1 (3.4), positive reciprocal domain",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual parent of cocoercivity; positive-domain reciprocal consumer.",
+    note := "C1 convex global quadratic upper model on a complete real inner-product space. Positive reciprocal scope and Hilbert generalization explicit; scaled cocoercivity and Lipschitz include beta=0. Not a SALD or companion-paper theorem."
+  },
+  {
+    key := "analysis.convex-smooth.cocoercivity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_cocoercive",
+    upstreamDecl := "Exercise3.1 (3.5), including zero modulus",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual parent of Lipschitz; nonexpansive gradient-step consumer.",
+    note := "C1 convex global quadratic upper model on a complete real inner-product space. Positive reciprocal scope and Hilbert generalization explicit; scaled cocoercivity and Lipschitz include beta=0. Not a SALD or companion-paper theorem."
+  },
+  {
+    key := "analysis.convex-smooth.gradient-lipschitz",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_lipschitz",
+    upstreamDecl := "Exercise3.1 Cauchy-Schwarz conclusion",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual consumer of prior C1 single-sided smoothness equivalence with convexity; zero-modulus gradient constancy.",
+    note := "C1 convex global quadratic upper model on a complete real inner-product space. Positive reciprocal scope and Hilbert generalization explicit; scaled cocoercivity and Lipschitz include beta=0. Not a SALD or companion-paper theorem."
+  },
+  {
     key := "analysis.smoothness.c1-upper-equivalence",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
     upstreamDecl := "Definition1.12 (1.7), Proposition1.13 C1 clause",
