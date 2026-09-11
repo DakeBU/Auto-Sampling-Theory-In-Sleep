@@ -8739,7 +8739,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-SegmentFTC",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-segment-gradient-ftc",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -8762,9 +8762,63 @@
           "EuclideanSpace ℝ (Fin d) is the real d-dimensional inner-product space with the l2 norm, including d=0."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "A real-valued C¹ function and its Euclidean gradient, with an affine segment.",
+          "reconstructed": "A real-valued C¹ function and its Hilbert-space gradient, with the same affine segment.",
+          "relation": "explicit-elaboration",
+          "evidence": "The packet module obtains HasGradientAt from hf.differentiable_one; the gradient is the Riesz representative of the actual derivative."
+        },
+        "domains": {
+          "original": "All of finite-dimensional real Euclidean space.",
+          "reconstructed": "All of an arbitrary complete real inner-product space E.",
+          "relation": "different",
+          "evidence": "E has no finite-dimensionality constraint. The declaration specializes to EuclideanSpace ℝ (Fin d), but its unrestricted statement is broader."
+        },
+        "quantifiers": {
+          "original": "Every x and direction v in the Euclidean domain.",
+          "reconstructed": "Every x,v in E; every admissible E and C¹ f.",
+          "relation": "explicit-elaboration",
+          "evidence": "Changing y to x+v is bijective for fixed x. There is no restriction v≠0. The additional ambient-space generality is recorded in domains."
+        },
+        "assumptions": {
+          "original": "Continuous differentiability on the whole Euclidean domain.",
+          "reconstructed": "ContDiff ℝ 1 f on all E; completeness of E.",
+          "relation": "explicit-elaboration",
+          "evidence": "ContDiff is continuous Fréchet differentiability here. Euclidean completeness is automatic. hc derives scalar continuity and interval integrability; hd derives the segment derivative. Neither is an added source assumption."
+        },
+        "conclusion": {
+          "original": "f(x+v)−f(x)=∫₀¹⟨∇f(x+sv),v⟩ ds.",
+          "reconstructed": "The same equality, with the intervalIntegral over real Lebesgue measure.",
+          "relation": "equivalent",
+          "evidence": "FTC gives the difference of endpoint values. Endpoints have zero Lebesgue mass, so [0,1] and the interval-integral convention agree."
+        },
+        "scopes": {
+          "original": "The first FTC identity in the (1.5)→(1.3) proof of part 1.",
+          "reconstructed": "One standalone FTC leaf, with no convexity or Hessian conclusion.",
+          "relation": "same",
+          "evidence": "The publication binding supports monotonicity-to-chord. The lesson consistently describes only this identity and labels the complete inner-product domain."
+        },
+        "constant_dependencies": {
+          "original": "Unit integration interval and coefficient one; no modulus in the identity.",
+          "reconstructed": "The same interval and coefficients, independent of dimension or modulus.",
+          "relation": "same",
+          "evidence": "No auxiliary constants or parameter restrictions occur in this declaration."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "relation": "different",
+          "original": "Finite-dimensional Euclidean whole space",
+          "reconstructed": "Arbitrary complete real inner-product whole space",
+          "classification": "reusable-generalization",
+          "evidence": "Restriction to EuclideanSpace ℝ (Fin d) recovers the source domain. This is not an equivalence claim between the unrestricted source and Lean statements and requires no source repair.",
+          "severity": "informational",
+          "description": "The Lean leaf generalizes the selected finite-dimensional Euclidean source boundary to arbitrary complete real inner-product spaces. The publication lesson explicitly identifies this generalization; acceptance is restricted to the selected Euclidean source boundary, and the unrestricted semantic verdict remains domain-mismatch."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "publication_binding_sha256": "2fa9b442bca3d4691a86e088156bae8306a56e79aa8a9e413bb7f170cc337805",
       "publication_context": {
@@ -8894,7 +8948,14 @@
         ]
       },
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c1_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently opened the exact primary-source HTML at https://arxiv.org/html/2605.07006v1#S1.SS2; inspected Definition 1.5, Proposition 1.6 part 1 and its first FTC identity. Audited the supplied current_lean_module and declaration lesson. The chain rule and continuous derivative evaluation justify hd and hc; Mathlib integral_eq_sub_of_hasDerivAt requires precisely the derived derivative and interval integrability. The authored explanation is accurate. Acceptance is for the selected Euclidean FTC source boundary; the complete-inner-product-space extension is explicitly broader and is not a source correction.",
+        "review_run_sha256": "d49d0383ca9582d267583ea90874be8f41773198e30f3f81da2bc758f917db11",
+        "reviewer_packet_sha256": "8edf5bfd30a24e313864da98afe3e665797e74d94558f56ed45f9baaa00744c3",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c1/source-review-0.json"
       },
       "reconstruction": {
         "text": "Let E be any complete real inner-product space and f:E→ℝ any continuously Fréchet differentiable function. For every x,v∈E, f(x+v)−f(x)=∫₀¹⟨∇f(x+s v),v⟩ ds, where the integral is the oriented Lebesgue interval integral in the real parameter s and the gradient is the Riesz representative of the Fréchet derivative.",
@@ -8913,7 +8974,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-IntegralChord",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-gradient-integral-convexity",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -8936,9 +8997,73 @@
           "EuclideanSpace ℝ (Fin d) is the real d-dimensional inner-product space with the l2 norm, including d=0."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "original": "C¹ real-valued f, its gradient, and a quantitative monotonicity/chord pair.",
+          "reconstructed": "The same objects with a Hilbert-space gradient and StrongConvexOn.",
+          "relation": "explicit-elaboration",
+          "evidence": "Mathlib StrongConvexOn is UniformConvexOn with modulus r↦m/2*r². This is a quantitative chord predicate even for signed m."
+        },
+        "domains": {
+          "original": "All of ℝᵈ, with nonnegative real modulus.",
+          "reconstructed": "All of a complete real inner-product space E, with arbitrary real modulus.",
+          "relation": "different",
+          "evidence": "Neither finite-dimensionality nor 0≤m is present. The wider domain is a reusable generalization, not the literal source statement."
+        },
+        "quantifiers": {
+          "original": "Every pair x,y in the domain; chord parameter t∈[0,1].",
+          "reconstructed": "Every x,y in E; every pair of nonnegative real weights a,t with a+t=1.",
+          "relation": "equivalent",
+          "evidence": "Set a=1−t. Conversely, nonnegative weights summing to one imply t∈[0,1]. The proof uses exactly this change of variables."
+        },
+        "assumptions": {
+          "original": "C¹ regularity, nonnegative m, and the global gradient lower bound.",
+          "reconstructed": "C¹ regularity and the same global gradient bound; m may have either sign.",
+          "relation": "weaker-in-lean",
+          "evidence": "The source sign hypothesis is absent from this reusable lemma. The proof only cancels s(1−t)>0 and multiplies by t≥0, so it does not need m≥0. No added regularity or integrability assumption is used."
+        },
+        "conclusion": {
+          "original": "The chord bound with correction (m/2)t(1−t)‖y−x‖².",
+          "reconstructed": "StrongConvexOn univ m f with exactly that correction.",
+          "relation": "equivalent",
+          "evidence": "Expanding the Mathlib definitions and replacing ‖x−y‖ by ‖y−x‖ yields the stated inequality. For m<0 it should be understood as the signed chord predicate, not ordinary positive strong convexity."
+        },
+        "scopes": {
+          "original": "The (1.5)→(1.3) direction within Proposition 1.6 part 1.",
+          "reconstructed": "The same direction proved by two segment FTC identities and integration.",
+          "relation": "same",
+          "evidence": "The lesson and code compare A and B. At t=1 the chord is equality. For t<1, the proof cancels s(1−t) on s∈(0,1), integrates via the null-endpoint lemma, and covers t=0 by multiplication by zero. It asserts no Hessian result."
+        },
+        "constant_dependencies": {
+          "original": "The same modulus in monotonicity and the half-modulus in the chord correction.",
+          "reconstructed": "m becomes m/2 through ∫₀¹s ds=1/2.",
+          "relation": "same",
+          "evidence": "hpoly preserves the exact factor 1/2; no dimension constants, losses, or sign-dependent constants enter."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "relation": "different",
+          "original": "Finite-dimensional Euclidean whole space",
+          "reconstructed": "Arbitrary complete real inner-product whole space",
+          "classification": "reusable-generalization",
+          "evidence": "Restriction to EuclideanSpace ℝ (Fin d) recovers the source domain. This is not an equivalence claim between the unrestricted source and Lean statements and requires no source repair.",
+          "severity": "informational",
+          "description": "The Lean leaf generalizes the selected finite-dimensional Euclidean source boundary to arbitrary complete real inner-product spaces. The publication lesson explicitly identifies this generalization; acceptance is restricted to the selected Euclidean source boundary, and the unrestricted semantic verdict remains domain-mismatch."
+        },
+        {
+          "slot": "assumptions",
+          "relation": "weaker-in-lean",
+          "original": "m≥0",
+          "reconstructed": "m∈ℝ without a sign restriction",
+          "classification": "reusable-generalization",
+          "evidence": "The proof retains the signed chord inequality. Source use must specialize m≥0; the source was not altered.",
+          "severity": "informational",
+          "description": "The Lean converse permits every real modulus, whereas the selected source theorem assumes a nonnegative modulus. This valid, explicitly disclosed reusable generalization is informational for the specialized source admission; no source assumption is changed and the source use retains m≥0."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "publication_binding_sha256": "dd5b119374daa44b49c6e723283609e129b9b8c5b5d5e66c71acda35d1bf4af3",
       "publication_context": {
@@ -9083,7 +9208,14 @@
         ]
       },
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c1_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently inspected the exact primary-source (1.5)→(1.3) two-integral argument at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared the candidate code and every authored proof step. Checked the actual Mathlib StrongConvexOn and intervalIntegral.integral_mono_on_of_le_Ioo definitions/contracts. The endpoint split and strict-positive cancellation are valid, including v=0 and t=0. Signed m introduces no invalid sign step. Acceptance is for the selected source implication after specialization to Euclidean space and m≥0. Hilbert spaces and signed m remain explicitly recorded generalizations, not corrected source assumptions.",
+        "review_run_sha256": "4e2b99ea8d85b8d2cd543c59fd95151ddf5f49eade6814c69272cd8d1a397303",
+        "reviewer_packet_sha256": "47e78083a97ec16d45c8861633a802415ba7f75cfa0a377f053bbaf7da7377f8",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c1/source-review-1.json"
       },
       "reconstruction": {
         "text": "Let E be any complete real inner-product space, f:E→ℝ a continuously Fréchet differentiable function, and m any real number. Suppose that for every x,y∈E, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Then f is m-strongly convex on all of E in the following precise sense: for every x,y∈E and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖². No nonnegativity assumption on m is imposed.",
@@ -9102,7 +9234,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-ConvexityC1",
-      "state": "blind-reconstructed",
+      "state": "source-reviewed",
       "graph_node": "ASTIS-OPT-convexity-c1",
       "source": {
         "source_id": "chewi-opt-v1-prop-1-6",
@@ -9125,9 +9257,52 @@
           "EuclideanSpace ℝ (Fin d) is the real d-dimensional inner-product space with the l2 norm, including d=0."
         ]
       },
-      "semantic_slots": {},
+      "semantic_slots": {
+        "objects": {
+          "original": "A C¹ real-valued function, its gradient, and three quantitative convexity conditions.",
+          "reconstructed": "The same function/gradient and the chord, lower-model, and gradient-monotonicity predicates.",
+          "relation": "equivalent",
+          "evidence": "The actual gradient is obtained from C¹. StrongConvexOn unfolds to the source chord formula including its m/2 normalization."
+        },
+        "domains": {
+          "original": "Whole real Euclidean d-space and a real nonnegative modulus.",
+          "reconstructed": "EuclideanSpace ℝ (Fin d), d∈ℕ, on univ; m∈ℝ with 0≤m.",
+          "relation": "explicit-elaboration",
+          "evidence": "PiL2 provides the Euclidean inner product and norm, not the supremum norm on plain functions. Zero dimension is permitted and gives the harmless singleton case; it does not alter any positive-dimensional source instance."
+        },
+        "quantifiers": {
+          "original": "All dimensions and admissible f,m; each condition is global in x,y and the chord in t∈[0,1].",
+          "reconstructed": "Implicit universal d,f,m, explicit 0≤m and C¹ premises, and both global equivalences.",
+          "relation": "equivalent",
+          "evidence": "Two iff results sharing the chord predicate express equivalence of all three conditions. Nonnegative weights summing to one are equivalent to the source t parameter."
+        },
+        "assumptions": {
+          "original": "f is C¹ on all of ℝᵈ, and m≥0.",
+          "reconstructed": "ContDiff ℝ 1 f and the explicit premise _hm:0≤m.",
+          "relation": "equivalent",
+          "evidence": "The sign premise is retained in the exported theorem despite being unused by the stronger supporting proof. Completeness and genuine gradients are consequences of the stated Euclidean C¹ setting, not extra assumptions."
+        },
+        "conclusion": {
+          "original": "The chord condition is equivalent to each of the lower-model and monotonicity conditions.",
+          "reconstructed": "(StrongConvexOn univ m f ↔ lower model) ∧ (StrongConvexOn univ m f ↔ gradient monotonicity).",
+          "relation": "equivalent",
+          "evidence": "The lower model has +m/2*‖y−x‖²; the gradient inequality has m*‖y−x‖² and the same orientation. No implication is missing."
+        },
+        "scopes": {
+          "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5).",
+          "reconstructed": "Only the C¹ three-condition equivalence.",
+          "relation": "same",
+          "evidence": "The authored lesson closes the three-arrow cycle. hforward calls the shared derivative-limit theorem; hsum adds endpoint models; the integral lemma closes the cycle. The candidate chapter also describes part 2 as a separate source obligation, but this declaration and binding do not certify it."
+        },
+        "constant_dependencies": {
+          "original": "Fixed m≥0 and exact m/2 lower/chord corrections.",
+          "reconstructed": "Identical parameter and coefficients, uniform in dimension.",
+          "relation": "same",
+          "evidence": "There is no smoothness constant, Hessian bound, hidden dimension dependence, or restriction m>0; m=0 is retained."
+        }
+      },
       "deltas": [],
-      "verdict": "pending",
+      "verdict": "equivalent-after-elaboration",
       "repairs": [],
       "publication_binding_sha256": "9e5aec078954d29d6a3120e33ffcc86252f5c4f2535f4cc22a823a7f5c29d22f",
       "publication_context": {
@@ -9268,7 +9443,14 @@
         ]
       },
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "c1_source_reviewer",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independently inspected Proposition 1.6 part 1 and Definition 1.5 at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared both exported iff statements, their actual Euclidean domain, C¹ and sign premises, authored lesson and the full proof cycle. Also read StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn: it supplies the chord derivative-limit step through a genuine HasGradientAt premise, which the candidate derives from C¹. Exact source boundary is supported. No assumption repair is proposed; no C²/Hessian completion is implied.",
+        "review_run_sha256": "ff4a61203ce3e10412923e1327aa608c5ee825e595f5a906fa0c46f5e5d7d31f",
+        "reviewer_packet_sha256": "f2bd7b3573635992bd9edf0d0afbcafc4e7e5761d2517be30ddc356b3de513a3",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convexity-c1/source-review-2.json"
       },
       "reconstruction": {
         "text": "For every natural number d (including zero), every f:ℝᵈ→ℝ on Euclidean space with its usual inner product and ℓ² norm, and every real m≥0, suppose f is continuously Fréchet differentiable on all of ℝᵈ. Then both equivalences hold: (1) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, f(x)+⟨∇f(x),y−x⟩+(m/2)‖y−x‖²≤f(y); (2) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Here m-strong convexity means that for all x,y and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖².",

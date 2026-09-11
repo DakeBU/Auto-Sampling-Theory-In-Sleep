@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 §1.2 Proposition 1.6 part 1, equations (1.3)-(1.5) and its two affine-segment FTC identities.",
   "target_statement": "For C1 f on a complete real inner-product space, f(x+v)-f(x) equals integral_0^1 <grad f(x+s v),v> ds.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "intervalIntegral.integral_eq_sub_of_hasDerivAt"
   ],
@@ -32,7 +32,7 @@
       "lake build Tests.Shared.ConvexityC1 PASS (2725 jobs), independently repeated by c1_proof_review. Reversed FTC orientation, signed quadratic normalization, stationary-point growth and d=0 tested.",
       "All three declarations depend only on propext, Classical.choice, Quot.sound."
     ],
-    "independent_verification": "",
+    "independent_verification": "c1_proof_review independently verified frozen commit7616533 hashes, focused2725 build, standard axioms and proof; c1_blind_decoder and c1_source_reviewer performed distinct bound source audits. Root records their explicit independent recommendations.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

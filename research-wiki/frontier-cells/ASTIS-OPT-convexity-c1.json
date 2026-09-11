@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 §1.2 Proposition 1.6 part 1, equations (1.3)-(1.5) and its two affine-segment FTC identities.",
   "target_statement": "For f in C1 on real finite-dimensional Euclidean space and nonnegative alpha, strong convexity is equivalent to the global quadratic lower model and to quantitative gradient monotonicity; implement the source FTC chord route.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-strong-convex-first-order",
     "ASTIS-SHARED-gradient-integral-convexity"
@@ -33,7 +33,7 @@
       "lake build Tests.Shared.ConvexityC1 PASS (2725 jobs), independently repeated by c1_proof_review. Reversed FTC orientation, signed quadratic normalization, stationary-point growth and d=0 tested.",
       "All three declarations depend only on propext, Classical.choice, Quot.sound."
     ],
-    "independent_verification": "",
+    "independent_verification": "c1_proof_review independently verified frozen commit7616533 hashes, focused2725 build, standard axioms and proof; c1_blind_decoder and c1_source_reviewer performed distinct bound source audits. Root records their explicit independent recommendations.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

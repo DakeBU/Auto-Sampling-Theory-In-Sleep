@@ -1,0 +1,63 @@
+{
+  "semantic_slots": {
+    "objects": {
+      "original": "A C¹ real-valued function, its gradient, and three quantitative convexity conditions.",
+      "reconstructed": "The same function/gradient and the chord, lower-model, and gradient-monotonicity predicates.",
+      "relation": "equivalent",
+      "evidence": "The actual gradient is obtained from C¹. StrongConvexOn unfolds to the source chord formula including its m/2 normalization."
+    },
+    "domains": {
+      "original": "Whole real Euclidean d-space and a real nonnegative modulus.",
+      "reconstructed": "EuclideanSpace ℝ (Fin d), d∈ℕ, on univ; m∈ℝ with 0≤m.",
+      "relation": "explicit-elaboration",
+      "evidence": "PiL2 provides the Euclidean inner product and norm, not the supremum norm on plain functions. Zero dimension is permitted and gives the harmless singleton case; it does not alter any positive-dimensional source instance."
+    },
+    "quantifiers": {
+      "original": "All dimensions and admissible f,m; each condition is global in x,y and the chord in t∈[0,1].",
+      "reconstructed": "Implicit universal d,f,m, explicit 0≤m and C¹ premises, and both global equivalences.",
+      "relation": "equivalent",
+      "evidence": "Two iff results sharing the chord predicate express equivalence of all three conditions. Nonnegative weights summing to one are equivalent to the source t parameter."
+    },
+    "assumptions": {
+      "original": "f is C¹ on all of ℝᵈ, and m≥0.",
+      "reconstructed": "ContDiff ℝ 1 f and the explicit premise _hm:0≤m.",
+      "relation": "equivalent",
+      "evidence": "The sign premise is retained in the exported theorem despite being unused by the stronger supporting proof. Completeness and genuine gradients are consequences of the stated Euclidean C¹ setting, not extra assumptions."
+    },
+    "conclusion": {
+      "original": "The chord condition is equivalent to each of the lower-model and monotonicity conditions.",
+      "reconstructed": "(StrongConvexOn univ m f ↔ lower model) ∧ (StrongConvexOn univ m f ↔ gradient monotonicity).",
+      "relation": "equivalent",
+      "evidence": "The lower model has +m/2*‖y−x‖²; the gradient inequality has m*‖y−x‖² and the same orientation. No implication is missing."
+    },
+    "scopes": {
+      "original": "Only Proposition 1.6 part 1, equations (1.3)–(1.5).",
+      "reconstructed": "Only the C¹ three-condition equivalence.",
+      "relation": "same",
+      "evidence": "The authored lesson closes the three-arrow cycle. hforward calls the shared derivative-limit theorem; hsum adds endpoint models; the integral lemma closes the cycle. The candidate chapter also describes part 2 as a separate source obligation, but this declaration and binding do not certify it."
+    },
+    "constant_dependencies": {
+      "original": "Fixed m≥0 and exact m/2 lower/chord corrections.",
+      "reconstructed": "Identical parameter and coefficients, uniform in dimension.",
+      "relation": "same",
+      "evidence": "There is no smoothness constant, Hessian bound, hidden dimension dependence, or restriction m>0; m=0 is retained."
+    }
+  },
+  "deltas": [],
+  "verdict": "equivalent-after-elaboration",
+  "repairs": [],
+  "reviewer": "c1_source_reviewer",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently inspected Proposition 1.6 part 1 and Definition 1.5 at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared both exported iff statements, their actual Euclidean domain, C¹ and sign premises, authored lesson and the full proof cycle. Also read StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn: it supplies the chord derivative-limit step through a genuine HasGradientAt premise, which the candidate derives from C¹. Exact source boundary is supported. No assumption repair is proposed; no C²/Hessian completion is implied.",
+  "review_run_sha256": "",
+  "reviewer_packet_sha256": "f2bd7b3573635992bd9edf0d0afbcafc4e7e5761d2517be30ddc356b3de513a3",
+  "source_review": {
+    "decision": "accepted",
+    "reviewer": "c1_source_reviewer",
+    "evidence": "Independently inspected Proposition 1.6 part 1 and Definition 1.5 at https://arxiv.org/html/2605.07006v1#S1.SS2. Compared both exported iff statements, their actual Euclidean domain, C¹ and sign premises, authored lesson and the full proof cycle. Also read StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn: it supplies the chord derivative-limit step through a genuine HasGradientAt premise, which the candidate derives from C¹. Exact source boundary is supported. No assumption repair is proposed; no C²/Hessian completion is implied.",
+    "reviewer_packet_sha256": "f2bd7b3573635992bd9edf0d0afbcafc4e7e5761d2517be30ddc356b3de513a3",
+    "accepted_boundary": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 1, (1.3)-(1.5) C1 equivalences",
+    "generalization_is_source_correction": false
+  }
+}

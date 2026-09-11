@@ -1,0 +1,74 @@
+{
+  "semantic_slots": {
+    "objects": {
+      "original": "A real-valued C¹ function and its Euclidean gradient, with an affine segment.",
+      "reconstructed": "A real-valued C¹ function and its Hilbert-space gradient, with the same affine segment.",
+      "relation": "explicit-elaboration",
+      "evidence": "The packet module obtains HasGradientAt from hf.differentiable_one; the gradient is the Riesz representative of the actual derivative."
+    },
+    "domains": {
+      "original": "All of finite-dimensional real Euclidean space.",
+      "reconstructed": "All of an arbitrary complete real inner-product space E.",
+      "relation": "different",
+      "evidence": "E has no finite-dimensionality constraint. The declaration specializes to EuclideanSpace ℝ (Fin d), but its unrestricted statement is broader."
+    },
+    "quantifiers": {
+      "original": "Every x and direction v in the Euclidean domain.",
+      "reconstructed": "Every x,v in E; every admissible E and C¹ f.",
+      "relation": "explicit-elaboration",
+      "evidence": "Changing y to x+v is bijective for fixed x. There is no restriction v≠0. The additional ambient-space generality is recorded in domains."
+    },
+    "assumptions": {
+      "original": "Continuous differentiability on the whole Euclidean domain.",
+      "reconstructed": "ContDiff ℝ 1 f on all E; completeness of E.",
+      "relation": "explicit-elaboration",
+      "evidence": "ContDiff is continuous Fréchet differentiability here. Euclidean completeness is automatic. hc derives scalar continuity and interval integrability; hd derives the segment derivative. Neither is an added source assumption."
+    },
+    "conclusion": {
+      "original": "f(x+v)−f(x)=∫₀¹⟨∇f(x+sv),v⟩ ds.",
+      "reconstructed": "The same equality, with the intervalIntegral over real Lebesgue measure.",
+      "relation": "equivalent",
+      "evidence": "FTC gives the difference of endpoint values. Endpoints have zero Lebesgue mass, so [0,1] and the interval-integral convention agree."
+    },
+    "scopes": {
+      "original": "The first FTC identity in the (1.5)→(1.3) proof of part 1.",
+      "reconstructed": "One standalone FTC leaf, with no convexity or Hessian conclusion.",
+      "relation": "same",
+      "evidence": "The publication binding supports monotonicity-to-chord. The lesson consistently describes only this identity and labels the complete inner-product domain."
+    },
+    "constant_dependencies": {
+      "original": "Unit integration interval and coefficient one; no modulus in the identity.",
+      "reconstructed": "The same interval and coefficients, independent of dimension or modulus.",
+      "relation": "same",
+      "evidence": "No auxiliary constants or parameter restrictions occur in this declaration."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "relation": "different",
+      "original": "Finite-dimensional Euclidean whole space",
+      "reconstructed": "Arbitrary complete real inner-product whole space",
+      "classification": "reusable-generalization",
+      "evidence": "Restriction to EuclideanSpace ℝ (Fin d) recovers the source domain. This is not an equivalence claim between the unrestricted source and Lean statements and requires no source repair.",
+      "severity": "informational",
+      "description": "The Lean leaf generalizes the selected finite-dimensional Euclidean source boundary to arbitrary complete real inner-product spaces. The publication lesson explicitly identifies this generalization; acceptance is restricted to the selected Euclidean source boundary, and the unrestricted semantic verdict remains domain-mismatch."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "reviewer": "c1_source_reviewer",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "review_evidence": "Independently opened the exact primary-source HTML at https://arxiv.org/html/2605.07006v1#S1.SS2; inspected Definition 1.5, Proposition 1.6 part 1 and its first FTC identity. Audited the supplied current_lean_module and declaration lesson. The chain rule and continuous derivative evaluation justify hd and hc; Mathlib integral_eq_sub_of_hasDerivAt requires precisely the derived derivative and interval integrability. The authored explanation is accurate. Acceptance is for the selected Euclidean FTC source boundary; the complete-inner-product-space extension is explicitly broader and is not a source correction.",
+  "review_run_sha256": "",
+  "reviewer_packet_sha256": "8edf5bfd30a24e313864da98afe3e665797e74d94558f56ed45f9baaa00744c3",
+  "source_review": {
+    "decision": "accepted",
+    "reviewer": "c1_source_reviewer",
+    "evidence": "Independently opened the exact primary-source HTML at https://arxiv.org/html/2605.07006v1#S1.SS2; inspected Definition 1.5, Proposition 1.6 part 1 and its first FTC identity. Audited the supplied current_lean_module and declaration lesson. The chain rule and continuous derivative evaluation justify hd and hc; Mathlib integral_eq_sub_of_hasDerivAt requires precisely the derived derivative and interval integrability. The authored explanation is accurate. Acceptance is for the selected Euclidean FTC source boundary; the complete-inner-product-space extension is explicitly broader and is not a source correction.",
+    "reviewer_packet_sha256": "8edf5bfd30a24e313864da98afe3e665797e74d94558f56ed45f9baaa00744c3",
+    "accepted_boundary": "https://arxiv.org/html/2605.07006v1#S1.SS2; Proposition 1.6 part 1, first segment FTC identity",
+    "generalization_is_source_correction": false
+  }
+}
