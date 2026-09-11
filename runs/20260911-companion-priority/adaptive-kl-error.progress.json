@@ -1,0 +1,124 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCAdaptiveKLError",
+    "result": "PASS3749",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveKLError.lean": "2df5aa222253d74b6aa2a21b6e3bf9f28cb794ea0326760b33e79d7cff27cd3c",
+      "Tests/SmoothedPicardHMCAdaptiveKLError.lean": "4de54297da77e12f77e5c12c4c9ed7d7c375746ac9d025bf246691cb510035bd"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/adaptive-kl-error.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCAdaptiveKLError"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/adaptive-kl-error.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.",
+  "remaining": [
+    "Preserve upstream changes, final candidate independent review/CI, actual merge and deployed evidence",
+    "Concrete Gibbs specialization and joint parameter/history obligations",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/adaptive-kl-error.verified-admission.json",
+  "aggregate": {
+    "commit": "1b6e4fc28958e01d3fa30f49162bd25c4dea3c4f",
+    "result": "PASS9126",
+    "command": "python website/scripts/lean_gate.py",
+    "source_digest": "d397bd5f132287eda646540689989920c2f0de51366dc9a98f91ada82bb280af",
+    "scope": "Root Lake build, Tests, fake-closure scan and ATLAS memory check.",
+    "reader_status": "Full renderer attempt failed on missing Samplinglib search label in newly planned cell. Label corrected and frontier validation passed. No reader or graph acceptance claimed."
+  },
+  "integration": {
+    "fixed_commit": "11e9540785f3ddbbfaff7341610c6c3eeec57dca",
+    "aggregate": "PASS9126; website/scripts/lean_gate.py; standard production axioms only",
+    "source_digest": "d397bd5f132287eda646540689989920c2f0de51366dc9a98f91ada82bb280af",
+    "site": "Full website/scripts/build_site.py and check_site.py PASS; 596 modules,3677 declarations,77 reviewed teaching declarations,403 compiled local leaves",
+    "reader": {
+      "entry": "sphmc-adaptive-kl-error",
+      "steps": 6,
+      "initially_closed_disclosures": 9,
+      "statement_characters": 1105,
+      "proof_characters": 4944,
+      "complete_proof": true,
+      "actual_clicks": [
+        "Lean statement",
+        "Lean proof",
+        "Source and reuse"
+      ],
+      "formula_errors": 0,
+      "visual": "Screenshot checked non-AC infinite branch and chain rule with actual P-weighted integral."
+    },
+    "graph": {
+      "check": "PASS",
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror-adapti-24b813bf07",
+      "actual_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Structural imports/ownership and labelled source/reference links, not elaborated theorem dependency certificates."
+    },
+    "limitations": "All local QA pinned to11e9540. Upstream smoothness changes cause PR conflict; preservation merge, final candidate checks and actual merge/deployment remain separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/269",
+    "state": "DRAFT",
+    "head": "11e9540785f3ddbbfaff7341610c6c3eeec57dca"
+  },
+  "upstream_integration": {
+    "commit": "3190a65e401970456e9db7182f5c1d4e49cdaca8",
+    "preservation": {
+      "ours": "1f51f8aa27b62784b80d3ddee5169c48bb7f7f05",
+      "theirs": "1b7d3a6cb9086331f04ed940bf6ecdc0570beb9d",
+      "base": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+      "ledger": {
+        "base": 276,
+        "ours": 283,
+        "theirs": 286,
+        "result": 293,
+        "exact_parent_multisets_preserved": true
+      },
+      "registry": {
+        "ours": 48,
+        "theirs": 49,
+        "result": 50,
+        "exact_three_way_objects_verified": true
+      }
+    },
+    "independent_review": "depth_commit_verifier independently checked exact ledger multisets, audit objects, all upstream files and both root imports; KL source bindings unchanged, reviewed=True passed; sole stabilization owner.",
+    "gate": {
+      "passed": true,
+      "commit": "3190a65e401970456e9db7182f5c1d4e49cdaca8",
+      "source_digest": "ff2f49d486e51b8950bf6131e25dfe6866020477e1d05357ef93d6cdddc1b582",
+      "generated_at": "2026-09-11T05:18:08.691287+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+    },
+    "result": "Canonical aggregate PASS after upstream smoothness integration.",
+    "final_validation_plan": "Independent reviewer accepts earlier fixed full local reader QA plus fresh aggregate and targeted final same-head CI artifact QA including KL and smoothness. No second complete local render required.",
+    "boundary": "Final same-head CI and artifact QA, merge decision and deployed provenance still pending."
+  }
+}

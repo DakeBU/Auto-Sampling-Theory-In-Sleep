@@ -12010,6 +12010,278 @@
           "evidence": "No approximate kernel, measurable proxy, error accumulation or cost conclusion."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCAdaptiveKLError",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-adaptive-kl-error",
+        "anchor": "Theorem 6.5 A1 actual recursive KL propagation",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "original_text": "Finite-dimensional real inner-product Borel space including dimension zero; arbitrary probability base mu; b>=0,a>0.\nT,H,B are constructed before every center law nu, input P and approximate Markov L; fiber formulas are everywhere.\nP is any actual probability joint input law. Its divergence from the ideal nu compProd H is explicitly charged.\nL is an actual measurable Markov kernel. It need not retain the center; relative conditional KL may then be infinite.\nNo AC, finite KL, LLR integrability or separately assumed fiber-KL measurability. General probability-base joint semantics explicitly extend the source setting.\nLet mu be a probability measure on a finite-dimensional real inner-product Borel space E,b>=0,a>0. Construct Markov kernels T,H:E to E and B:E times E to E times E. Every T(u) is mu tilted by -b*norm(x-u)^2/2, and H(u) is its actual Gaussian smoothing at standard-deviation sqrt(a). Every B(u,y) retains u and draws from T(u) tilted by -norm(x-y)^2/(2a), equivalently from mu tilted at precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability center law nu, B composed with nu compProd H equals nu compProd T. The same T,H,B satisfy for every probability center law nu, every probability input law P on E times E and every Markov kernel L on E times E: s to actual ENNReal KL(L(s),B(s)) is measurable, and actual KL(L composed with P,nu compProd T) is at most KL(P,nu compProd H) plus the nonnegative integral of KL(L(s),B(s)) against P. All KL terms and the integral may be infinite.",
+        "text_sha256": "b30c29480ce73745a79ff234489573b3cace502a4aa086814c98c667266ed6c1"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveKLError.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (b a : ℝ),\n  0 ≤ b →\n    0 < a →\n      ∃ T H B,\n        ProbabilityTheory.IsMarkovKernel T ∧\n          ProbabilityTheory.IsMarkovKernel H ∧\n            ProbabilityTheory.IsMarkovKernel B ∧\n              (∀ (u : E), T u = μ.tilted fun x => -(b / 2) * ‖x - u‖ ^ 2) ∧\n                (∀ (u : E),\n                    H u = AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (T u) √a) ∧\n                  (∀ (u y : E),\n                      B (u, y) = MeasureTheory.Measure.map (Prod.mk u) ((T u).tilted fun x => -‖x - y‖ ^ 2 / (2 * a))) ∧\n                    (∀ (u y : E),\n                        B (u, y) =\n                          MeasureTheory.Measure.map (Prod.mk u)\n                            (μ.tilted fun x => -((b + a⁻¹) / 2) * ‖x - (b + a⁻¹)⁻¹ • (b • u + a⁻¹ • y)‖ ^ 2)) ∧\n                      (∀ (ν : MeasureTheory.Measure E), MeasureTheory.IsProbabilityMeasure ν → ⇑B ∘ₘ ν ⊗ₘ H = ν ⊗ₘ T) ∧\n                        ∀ (ν : MeasureTheory.Measure E),\n                          MeasureTheory.IsProbabilityMeasure ν →\n                            ∀ (P : MeasureTheory.Measure (E × E)),\n                              MeasureTheory.IsProbabilityMeasure P →\n                                ∀ (L : ProbabilityTheory.Kernel (E × E) (E × E)),\n                                  ProbabilityTheory.IsMarkovKernel L →\n                                    (Measurable fun s => InformationTheory.klDiv (L s) (B s)) ∧\n                                      InformationTheory.klDiv (⇑L ∘ₘ P) (ν ⊗ₘ T) ≤\n                                        InformationTheory.klDiv P (ν ⊗ₘ H) +\n                                          ∫⁻ (s : E × E), InformationTheory.klDiv (L s) (B s) ∂P",
+        "statement_sha256": "c0cbbda27a4be1e85634535fba1071ef5bde33e5163120f6e328d52d44e0d40a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Root and independent production focused PASS3749, standard three axioms; formal source and fixed-commit admission separate.",
+        "decoder_context": [
+          "Measure E is a countably additive Borel measure. IsProbabilityMeasure means total mass one. Kernel X Y is a jointly parameter-measurable assignment x to a measure on Y; IsMarkovKernel means every fiber has total mass one.",
+          "mu.tilted(f) is the measure with density exp(f) divided by its integral against mu. The statement supplies no extra moment or density hypothesis.",
+          "GaussianSmoothing.gaussianSmoothing(P,s) is the actual law of X+sZ under P times the centered identity-covariance standard Gaussian on E. Its parameter is a standard-deviation scale.",
+          "Measure.map(f,P) is the pushforward of P under f. Prod.mk u is the map x to (u,x). Norms and scalar multiplication are those of the real inner-product space.",
+          "nu compProd H, written nu ⊗ₘ H, is the actual joint law with first-coordinate distribution nu and second-coordinate conditional kernel H: its value at measurable S is integral H(u)({y | (u,y) in S}) dnu(u). B composed with a measure M, written B ∘ₘ M, is its bind: value at measurable S is integral B(z)(S) dM(z). In the printed statement T and H have type Kernel E E, and B has type Kernel (E times E) (E times E).",
+          "InformationTheory.klDiv(P,Q) is the actual extended-nonnegative Kullback-Leibler divergence. For probability measures, it equals ofReal of the P integral of log((dP/dQ).toReal) when P is absolutely continuous relative to Q and that logarithm is P-integrable; otherwise it is infinity. All displayed additions, inequalities and nonnegative integrals use ENNReal, with infinity allowed.",
+          "The binder P ranges over probability measures on E times E, and L over actual Markov kernels from E times E to E times E. Measurable(s to klDiv(L(s),B(s))) is a conclusion. The integral in the conclusion is against P."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "4ccfb91f8c0b98b8c8b41eb54cb3481b8b7d106f8fca0f0e39a28514df0c6fc9",
+        "review_run_sha256": "18b265f17c30976b9aa1803ad4f3f9e8854d5f2cd3b895db73102226922becdb",
+        "run_artifact": "runs/20260911-companion-priority/adaptive-kl-error.source-review-result.json",
+        "evidence": "Independent Theorem6.5 A1 source review, six-step complete production comparison. Canonical packet, source, statement, reconstruction and module hashes independently recomputed and matched. Embedded production equals disk and inspected scratch proof. Expanded attributed paraphrase, not verbatim. All six lesson steps and embedded fields match except additional disk boundary. Publication fields match. Binding authenticated inside packet; external preimage not independently reconstructed. No independent compile or fixed-commit admission in this source review. No blockers/repairs. Concrete Gibbs/history identification, approximate recursive program accuracy, A2 measurable proxy, actual Wp sampler, finite error, termination and expected costs remain open."
+      },
+      "publication_binding_sha256": "17c273f992c63999af1d6de394b12c0fbcf7c92eec19ac1da26a283d97c0b798",
+      "publication_context": {
+        "file": "8c70b336498c8c13dda147e796d78300c9830262b079a60f304f7ff11d6650a8",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO\nimport Mathlib.InformationTheory.KullbackLeibler.ChainRule\nimport Mathlib.InformationTheory.KullbackLeibler.DataProcessing\nimport Mathlib.Probability.Kernel.RadonNikodym\nimport Mathlib.Probability.Kernel.CompProdEqIff\n\n/-!\n# Actual adaptive backward-kernel KL error\n\nExpanded probability semantics for SPHMC v1 Theorem 6.5 A1 recursive error\npropagation. Conditional KL measurability and its integral identity are proved,\nincluding non-absolutely-continuous and infinite-divergence branches.\nThe supplied approximate kernel is not asserted to implement the paper sampler\nor satisfy any accuracy or expected query cost guarantee.\n-/\n\nopen MeasureTheory ProbabilityTheory InformationTheory\nopen scoped ENNReal\n\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen AutoSamplingTheory.ExampleCases.SmoothedPicardHMC\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError\n\n/-- Construct the ideal center-dependent kernels and bound the actual composed\noutput KL by the input KL plus the conditional KL integrated under that actual\ninput law. No finite-divergence or separately assumed measurability premise. -/\ntheorem adaptive_center_kl_error {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (μ : Measure E) [IsProbabilityMeasure μ] (b a : ℝ) (hb : 0 ≤ b) (ha : 0 < a) :\n    ∃ (T H : Kernel E E) (B : Kernel (E × E) (E × E)),\n      IsMarkovKernel T ∧ IsMarkovKernel H ∧ IsMarkovKernel B ∧\n      (∀ u, T u = μ.tilted (fun x => -(b/2)*‖x-u‖^2)) ∧\n      (∀ u, H u = GaussianSmoothing.gaussianSmoothing (T u) (Real.sqrt a)) ∧\n      (∀ u y, B (u,y) = Measure.map (Prod.mk u)\n        ((T u).tilted (fun x => -‖x-y‖^2/(2*a)))) ∧\n      (∀ u y, B (u,y) = Measure.map (Prod.mk u)\n        (μ.tilted (fun x => -((b+a⁻¹)/2)*\n          ‖x-(b+a⁻¹)⁻¹ • (b • u+a⁻¹ • y)‖^2))) ∧\n      (∀ (ν : Measure E), IsProbabilityMeasure ν → B ∘ₘ (ν ⊗ₘ H) = ν ⊗ₘ T) ∧\n      ∀ (ν : Measure E), IsProbabilityMeasure ν →\n        ∀ (P : Measure (E × E)), IsProbabilityMeasure P →\n        ∀ (L : Kernel (E × E) (E × E)), IsMarkovKernel L →\n          Measurable (fun s => klDiv (L s) (B s)) ∧\n          klDiv (L ∘ₘ P) (ν ⊗ₘ T) ≤ klDiv P (ν ⊗ₘ H) + ∫⁻ s, klDiv (L s) (B s) ∂P := by\n  have measurable_fiber_kl (L K : Kernel (E × E) (E × E)) [IsMarkovKernel L] [IsMarkovKernel K] :\n      Measurable (fun x => klDiv (L x) (K x)) := by\n    classical\n    have hf : Measurable (fun p : (E × E) × (E × E) =>\n        ENNReal.ofReal (klFun ((Kernel.rnDeriv L K p.1 p.2).toReal))) := by\n      exact ENNReal.measurable_ofReal.comp\n        (continuous_klFun.measurable.comp (Kernel.measurable_rnDeriv L K).ennreal_toReal)\n    have heq (x : (E × E)) : klDiv (L x) (K x) =\n        if L x ≪ K x then ∫⁻ y, ENNReal.ofReal (klFun ((Kernel.rnDeriv L K x y).toReal)) ∂K x\n        else ∞ := by\n      rw [klDiv_eq_lintegral_klFun]\n      split_ifs\n      · apply lintegral_congr_ae\n        filter_upwards [Kernel.rnDeriv_eq_rnDeriv_measure (κ := L) (η := K) (a := x)] with y hy\n        rw [hy]\n      · rfl\n    simp_rw [heq]\n    exact Measurable.ite (Kernel.measurableSet_absolutelyContinuous L K)\n      hf.lintegral_kernel_prod_right' measurable_const\n\n\n  have conditional_kl_integral (μ : Measure (E × E)) [IsProbabilityMeasure μ]\n      (L K : Kernel (E × E) (E × E)) [IsMarkovKernel L] [IsMarkovKernel K] :\n      klDiv (μ ⊗ₘ L) (μ ⊗ₘ K) = ∫⁻ x, klDiv (L x) (K x) ∂μ := by\n    classical\n    by_cases hac : μ ⊗ₘ L ≪ μ ⊗ₘ K\n    · have hfiber := hac.kernel_of_compProd\n      have hwd : (μ ⊗ₘ K).withDensity (fun p => Kernel.rnDeriv L K p.1 p.2) = μ ⊗ₘ L := by\n        rw [← Measure.compProd_withDensity (Kernel.measurable_rnDeriv L K)]\n        apply Measure.compProd_congr\n        filter_upwards [hfiber] with x hx\n        exact Kernel.withDensity_rnDeriv_eq hx\n      have hrn : (μ ⊗ₘ L).rnDeriv (μ ⊗ₘ K) =ᵐ[μ ⊗ₘ K]\n          (fun p => Kernel.rnDeriv L K p.1 p.2) := by\n        rw [← hwd]\n        exact Measure.rnDeriv_withDensity _ (Kernel.measurable_rnDeriv L K)\n      rw [klDiv_eq_lintegral_klFun_of_ac hac]\n      calc\n        _ = ∫⁻ p, ENNReal.ofReal (klFun ((Kernel.rnDeriv L K p.1 p.2).toReal)) ∂(μ ⊗ₘ K) := by\n          apply lintegral_congr_ae\n          filter_upwards [hrn] with p hp\n          rw [hp]\n        _ = ∫⁻ x, ∫⁻ y, ENNReal.ofReal (klFun ((Kernel.rnDeriv L K x y).toReal)) ∂K x ∂μ := by\n          apply Measure.lintegral_compProd\n          exact ENNReal.measurable_ofReal.comp\n            (continuous_klFun.measurable.comp (Kernel.measurable_rnDeriv L K).ennreal_toReal)\n        _ = _ := by\n          apply lintegral_congr_ae\n          filter_upwards [hfiber] with x hx\n          rw [klDiv_eq_lintegral_klFun_of_ac hx]\n          apply lintegral_congr_ae\n          filter_upwards [Kernel.rnDeriv_eq_rnDeriv_measure (κ := L) (η := K) (a := x)] with y hy\n          rw [hy]\n    · rw [klDiv_of_not_ac hac]\n      symm\n      by_contra hfinite\n      have hf := ae_lt_top (measurable_fiber_kl L K) hfinite\n      apply hac\n      apply Measure.AbsolutelyContinuous.compProd_right\n      filter_upwards [hf] with x hx\n      exact (klDiv_ne_top_iff.mp hx.ne).1\n\n\n  have composed_kl_bound (P Q : Measure (E × E)) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n      (L K : Kernel (E × E) (E × E)) [IsMarkovKernel L] [IsMarkovKernel K] :\n      klDiv (L ∘ₘ P) (K ∘ₘ Q) ≤ klDiv P Q + ∫⁻ x, klDiv (L x) (K x) ∂P := by\n    calc\n      klDiv (L ∘ₘ P) (K ∘ₘ Q) = klDiv (P ⊗ₘ L).snd (Q ⊗ₘ K).snd := by\n        rw [Measure.snd_compProd, Measure.snd_compProd]\n      _ ≤ klDiv (P ⊗ₘ L) (Q ⊗ₘ K) := klDiv_map_le _ _ measurable_snd\n      _ = _ := by rw [klDiv_compProd_eq_add, conditional_kl_integral]\n\n\n  obtain ⟨T,H,B,hT,hH,hB,hTf,hHf,hBf,hUpd,hrec⟩ :=\n    AdaptiveCenterRGO.adaptive_center_recovery μ b a hb ha\n  let := hT\n  let := hH\n  let := hB\n  refine ⟨T,H,B,hT,hH,hB,hTf,hHf,hBf,hUpd,hrec,?_⟩\n  intro ν hν P hP L hL\n  let := hν\n  let := hP\n  let := hL\n  refine ⟨measurable_fiber_kl L B,?_⟩\n  have h := composed_kl_bound P (ν ⊗ₘ H) L B\n  rw [hrec ν hν] at h\n  exact h\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Theorem 6.5 A1 actual recursive KL propagation",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded joint-kernel semantics, no author endorsement implied."
+        },
+        "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space E,b>=0,a>0. Construct Markov kernels T,H:E to E and B:E times E to E times E. Every T(u) is mu tilted by -b*norm(x-u)^2/2, and H(u) is its actual Gaussian smoothing at standard-deviation sqrt(a). Every B(u,y) retains u and draws from T(u) tilted by -norm(x-y)^2/(2a), equivalently from mu tilted at precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability center law nu, B composed with nu compProd H equals nu compProd T. The same T,H,B satisfy for every probability center law nu, every probability input law P on E times E and every Markov kernel L on E times E: s to actual ENNReal KL(L(s),B(s)) is measurable, and actual KL(L composed with P,nu compProd T) is at most KL(P,nu compProd H) plus the nonnegative integral of KL(L(s),B(s)) against P. All KL terms and the integral may be infinite.",
+        "formulae": [
+          {
+            "label": "Actual input and conditional KL output bound",
+            "tex": "\\mathrm{KL}(L\\circ_m P\\|\\nu\\otimes_m T)\\le\\mathrm{KL}(P\\|\\nu\\otimes_m H)+\\int\\mathrm{KL}(L(s)\\|B(s))\\,P(ds)."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel space including dimension zero; arbitrary probability base mu; b>=0,a>0.",
+          "T,H,B are constructed before every center law nu, input P and approximate Markov L; fiber formulas are everywhere.",
+          "P is any actual probability joint input law. Its divergence from the ideal nu compProd H is explicitly charged.",
+          "L is an actual measurable Markov kernel. It need not retain the center; relative conditional KL may then be infinite.",
+          "No AC, finite KL, LLR integrability or separately assumed fiber-KL measurability. General probability-base joint semantics explicitly extend the source setting."
+        ],
+        "obligations": [
+          {
+            "id": "adaptive-conditional-kl-error",
+            "label": "Actual measurable conditional KL integral and adaptive output error"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+          "title": "Actual adaptive backward-kernel KL error propagation",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+              "label": "SPHMC v1 Theorem 6.5 A1 recursive error propagation",
+              "scope": "Expanded actual joint-kernel entropy calculus used by the backward induction; not a completed recursive sampler."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCAdaptiveKLError"
+          ],
+          "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space E,b>=0,a>0. Construct Markov kernels T,H:E to E and B:E times E to E times E. Every T(u) is mu tilted by -b*norm(x-u)^2/2, and H(u) is its actual Gaussian smoothing at standard-deviation sqrt(a). Every B(u,y) retains u and draws from T(u) tilted by -norm(x-y)^2/(2a), equivalently from mu tilted at precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability center law nu, B composed with nu compProd H equals nu compProd T. The same T,H,B satisfy for every probability center law nu, every probability input law P on E times E and every Markov kernel L on E times E: s to actual ENNReal KL(L(s),B(s)) is measurable, and actual KL(L composed with P,nu compProd T) is at most KL(P,nu compProd H) plus the nonnegative integral of KL(L(s),B(s)) against P. All KL terms and the integral may be infinite.",
+          "formula": "\\mathrm{KL}(L\\circ_m P\\|\\nu\\otimes_m T)\\le\\mathrm{KL}(P\\|\\nu\\otimes_m H)+\\int\\mathrm{KL}(L(s)\\|B(s))\\,P(ds).",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel space including dimension zero; arbitrary probability base mu; b>=0,a>0.",
+            "T,H,B are constructed before every center law nu, input P and approximate Markov L; fiber formulas are everywhere.",
+            "P is any actual probability joint input law. Its divergence from the ideal nu compProd H is explicitly charged.",
+            "L is an actual measurable Markov kernel. It need not retain the center; relative conditional KL may then be infinite.",
+            "No AC, finite KL, LLR integrability or separately assumed fiber-KL measurability. General probability-base joint semantics explicitly extend the source setting."
+          ],
+          "steps": [
+            {
+              "title": "Construct the same ideal joint target and backward kernel",
+              "text": "Use the proved measurable random-center recovery theorem. It supplies actual T,H,B, both normalized backward fibers and recovery for every center law. None of these conclusions is introduced as an extra assumption.",
+              "formula": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T.",
+              "lean": "AdaptiveCenterRGO.adaptive_center_recovery; retain all fibers and hrec."
+            },
+            {
+              "title": "Prove that actual conditional KL is measurable",
+              "text": "Kernel Radon-Nikodym derivatives are jointly measurable and agree fiberwise almost everywhere with measure RN derivatives. Express KL on the measurable AC set using the nonnegative klFun integral and set it to infinity on the complement. Kernel integration and measurable case distinction prove the desired measurable function.",
+              "formula": "\\mathrm{KL}(L_s\\|K_s)=\\begin{cases}\\int\\operatorname{klFun}(dL_s/dK_s)\\,dK_s,&L_s\\ll K_s,\\\\+\\infty,&\\text{otherwise}.\\end{cases}",
+              "lean": "Local measurable_fiber_kl; Kernel.measurable_rnDeriv; measurableSet_absolutelyContinuous; klDiv_eq_lintegral_klFun."
+            },
+            {
+              "title": "Identify the joint RN derivative and conditional entropy integral",
+              "text": "When the joint law is absolutely continuous, its fibers are almost everywhere absolutely continuous. The actual compProd-withDensity identity identifies its RN derivative with the kernel RN derivative. Tonelli for the nonnegative klFun gives the integral formula, even if that integral is infinite.",
+              "formula": "\\mathrm{KL}(P\\otimes_m L\\|P\\otimes_m K)=\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds).",
+              "lean": "Local conditional_kl_integral AC branch; kernel_of_compProd; compProd_withDensity; rnDeriv_withDensity; lintegral_compProd."
+            },
+            {
+              "title": "Prove the non-AC and infinite branches",
+              "text": "If the joint law is not absolutely continuous, its KL is infinite. If the fiber-KL integral were finite, fiber KL would be finite almost everywhere, hence fiber AC almost everywhere, implying joint AC and a contradiction. Thus the same exact formula holds without an AC or finite-integral premise.",
+              "formula": "P\\otimes_m L\\not\\ll P\\otimes_m K\\quad\\Longrightarrow\\quad\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds)=+\\infty.",
+              "lean": "Local conditional_kl_integral non-AC branch; ae_lt_top; klDiv_ne_top_iff; AbsolutelyContinuous.compProd_right."
+            },
+            {
+              "title": "Use the actual joint chain rule and output projection",
+              "text": "The chain rule separates input divergence from conditional joint divergence. The proved integral identity gives the latter under P. Projecting to the output can only decrease KL. The integration weight is the actual input P, not the ideal input Q.",
+              "formula": "\\mathrm{KL}(L P\\|K Q)\\le\\mathrm{KL}(P\\otimes_m L\\|Q\\otimes_m K)=\\mathrm{KL}(P\\|Q)+\\int\\mathrm{KL}(L_s\\|K_s)\\,P(ds).",
+              "lean": "Local composed_kl_bound; klDiv_compProd_eq_add; conditional_kl_integral; klDiv_map_le; snd_compProd."
+            },
+            {
+              "title": "Substitute actual ideal recovery",
+              "text": "Take Q=nu compProd H and K=B from the single earlier construction. Its actual recovery identifies BQ with nu compProd T. The general bound now gives the claimed error for the supplied actual input and approximate kernel; no algorithmic accuracy is inferred.",
+              "formula": "Q=\\nu\\otimes_m H,\\quad BQ=\\nu\\otimes_m T.",
+              "lean": "composed_kl_bound P (ν ⊗ₘ H) L B; rewrite hrec ν hν."
+            }
+          ],
+          "lean_statement": "Construct ideal random-center kernels and prove measurable actual conditional KL plus an extended-valued output error bound for every actual probability input and Markov approximation.",
+          "lean_proof": "Measurable kernel RN, nonnegative KL integrals, both AC branches, joint chain rule, output projection and actual ideal recovery.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
+          ],
+          "mathlib_dependencies": [
+            "ProbabilityTheory.Kernel.measurable_rnDeriv",
+            "ProbabilityTheory.Kernel.measurableSet_absolutelyContinuous",
+            "MeasureTheory.Measure.compProd_withDensity",
+            "InformationTheory.klDiv_eq_lintegral_klFun",
+            "InformationTheory.klDiv_compProd_eq_add",
+            "InformationTheory.klDiv_map_le"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+          "role": "prerequisite",
+          "supports": [
+            "adaptive-conditional-kl-error"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Theorem6.5 A1 propagates recursive sampler errors for concrete Euclidean Gibbs targets.",
+            "lean": "Arbitrary probability base on finite-dimensional inner-product Borel space, fixed b>=0,a>0."
+          },
+          {
+            "source": "The proof applies a chain rule and data processing to approximate backward kernels.",
+            "lean": "Actual ENNReal KL and measurable fiber KL, with conditional integral formula proved including non-AC and infinite cases."
+          },
+          {
+            "source": "Recursive error is averaged over the approximate forward input.",
+            "lean": "Bound charges KL(P,nu compProd H) plus integral KL(L(s),B(s)) against actual P."
+          },
+          {
+            "source": "Ideal RGO recovery supplies the comparison target.",
+            "lean": "Construct one T,H,B before all nu,P,L with everywhere fibers and full retained-center joint recovery."
+          },
+          {
+            "source": "The full recursive algorithm requires implementable kernels, quantitative bounds and query costs.",
+            "lean": "An error inequality for any supplied actual Markov approximation."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure, mu any probability measure, b>=0 and a>0. There exist Markov kernels T,H:E to E and B:E times E to E times E. For every u,T(u) is mu reweighted by exp(-(b/2)*norm(x-u)^2) and normalized by its mu integral. H(u) is the law of X+sqrt(a)*Z with X of law T(u) and independent centered identity-covariance Gaussian Z; sqrt(a) is the standard-deviation scale. For every u,y, B(u,y) is the pushforward by x to (u,x) of T(u) tilted by -norm(x-y)^2/(2a), equivalently of mu tilted by -(c/2)*norm(x-m(u,y))^2, with c=b+a^-1 and m(u,y)=c^-1*(b*u+a^-1*y). Both normalized fiber identities hold everywhere, and B retains the first coordinate u. For every probability nu, B composed with nu compProd H equals nu compProd T as full joint laws: sample u from nu and y from H(u), then apply B, to obtain the joint law of u and x with x drawn from T(u). Furthermore for every probability nu on E, probability P on E times E and Markov L:E times E to E times E, s to KL(L(s),B(s)) is measurable, and KL(L composed with P,nu compProd T)<=KL(P,nu compProd H)+the nonnegative integral of KL(L(s),B(s)) against P. T,H,B are chosen after E,mu,b,a and before nu,P,L; the same choice works simultaneously for all later inputs. No additional moment,density,AC,integrability or finite-KL hypotheses. Kernel measurability belongs to the kernel structure; fiber-KL measurability is an additional conclusion. B is the specified ideal kernel whereas L is arbitrary and need not preserve first coordinate; P need not have first marginal nu. The bound concerns full joint laws, with the integral against P. All KL values, addition, inequality and nonnegative integral are extended nonnegative real-valued with infinity permitted. Under the supplied definition probability KL is infinite if AC or required log-density integrability fails. No finiteness is asserted and infinite RHS is permitted. Only the anonymous packet was read; no compilation or source-fidelity judgment.",
+        "text_sha256": "71293b4fae36713b9f7dcc34744482d1b100c4715c8e785a15668456199a3139",
+        "decoder_packet_sha256": "64aed6412eaa9f16d30edbf1bd94965d7d961c15acc1ef5855cb008eb8a59e77",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "adaptive_kl_blind_decoder",
+        "notes": [
+          "Fresh source-blind reconstruction preserves full joint laws, actual P-weighted conditional KL, separate fiber-KL measurability conclusion, arbitrary L and infinite branches."
+        ],
+        "decoder_run_sha256": "91147ad0adc7b73fe2450d803d656f300dee1d7b393c2ab56ff12e37b0592544",
+        "lean_statement_sha256": "c0cbbda27a4be1e85634535fba1071ef5bde33e5163120f6e328d52d44e0d40a",
+        "run_artifact": "runs/20260911-companion-priority/adaptive-kl-error.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Ideal and approximate forward laws and backward kernels in A1.",
+          "reconstructed": "Constructed T,H,B, arbitrary actual probability joint input P and Markov L, actual ENNReal KL.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual recovery from proved parent; P,L genuine measure/kernel objects, not assumed scalar error contracts."
+        },
+        "domains": {
+          "original": "Concrete Euclidean Gibbs sampler targets.",
+          "reconstructed": "Arbitrary probability base on finite-dimensional real inner-product Borel E including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No potential, curvature, density or positive-dimension premise."
+        },
+        "quantifiers": {
+          "original": "Ideal stage fixes comparison kernel before approximate inputs.",
+          "reconstructed": "One T,H,B after mu,b,a and before every nu,P,L; all ideal fibers everywhere.",
+          "relation": "explicit-elaboration",
+          "evidence": "Existential witness precedes comparison inputs; no all-parameter/history joint selection."
+        },
+        "assumptions": {
+          "original": "Source uses algorithmic conditional laws.",
+          "reconstructed": "Any probability P and Markov L; no AC, finite KL, LLR integrability or separate KL measurability premise.",
+          "relation": "stronger-in-lean",
+          "evidence": "Both AC branches proved; L need not retain center and P need not have first marginal nu. Terms may be infinite."
+        },
+        "conclusion": {
+          "original": "Output KL bounded by input KL plus conditional error averaged under approximate input.",
+          "reconstructed": "Measurable fiber KL and actual KL(LP,nu compProd T)<=KL(P,nu compProd H)+integral KL(Ls,Bs)dP.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual P-weighted integral from proved conditional identity, chain rule and output projection."
+        },
+        "scopes": {
+          "original": "Full A1 includes numerical recursive accuracy and query costs.",
+          "reconstructed": "Exact extended-real inequality for supplied actual approximations against constructed ideal target.",
+          "relation": "different",
+          "evidence": "No numerical accuracy, concrete recursive kernel, termination or costs inferred."
+        },
+        "constant_dependencies": {
+          "original": "Additive input and conditional error with coefficient one.",
+          "reconstructed": "Coefficient one on both actual KL terms, no hidden finite constant.",
+          "relation": "same",
+          "evidence": "Exact chain rule before projection, infinity retained without subtraction or toReal conversion."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability base abstracts source Gibbs.",
+          "evidence": "No potential, curvature, density or positive-dimension premise."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Non-AC and infinite-KL cases without finite-error hypotheses.",
+          "evidence": "Both AC branches proved; L need not retain center and P need not have first marginal nu. Terms may be infinite."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Conditional error integrated against actual P; input mismatch separately charged.",
+          "evidence": "Actual P-weighted integral from proved conditional identity, chain rule and output projection."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "One ideal family precedes all nu,P,L and supplies full joint recovery.",
+          "evidence": "Existential witness precedes comparison inputs; no all-parameter/history joint selection."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Arbitrary Markov approximation is not a constructed accurate recursive sampler.",
+          "evidence": "No numerical accuracy, concrete recursive kernel, termination or costs inferred."
+        }
+      ]
     }
   ]
 }

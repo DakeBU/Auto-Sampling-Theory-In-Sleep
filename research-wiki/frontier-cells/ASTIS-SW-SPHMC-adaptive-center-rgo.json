@@ -39,10 +39,10 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-adaptive-center-rgo.md",
     "planning_review": "Independent log_depth_source_review recommends global measurable center kernels plus actual joint-law recovery; not a comap wrapper or output-marginal-only claim.",
-    "execution_boundary": "Root sole writer; AdaptiveCenter sole STABILIZING after actual TwoNoise PR265 merge.",
+    "execution_boundary": "AdaptiveCenter merged, stabilization lane released.",
     "ownership_note": "One actual source consumer; no invented second shared consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/adaptive-center-rgo.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED; aggregate PASS9124 and fixed-commit original reader/graph passed. Final candidate CI/review/merge/deployment separate.",
+    "admission_boundary": "Independently VERIFIED and actually merged PR266 after fixed local aggregate/reader/graph and same-head CI. Actual mergeCI/deployment separate.",
     "independent_verification": "runs/20260911-companion-priority/adaptive-center-rgo.verified-admission.json",
     "integration": {
       "commit": "e9dd5a8f0d17b15565214f82bdd94031a1749fde",
@@ -92,6 +92,19 @@
         "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
       },
       "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+    },
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/266",
+      "commit": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+      "candidate": "37d7698f47870a98b66524f30c188d0ce39fe5af",
+      "merged_at": "2026-09-11T04:40:36Z",
+      "independent_merge_review": "depth_commit_verifier accepted fixed production/source bindings, root imports, aggregate9124 and original reader/graph QA; final delta two evidenceJSON only. Root verified same-head Lean/site success and MERGEABLE then match-head merged.",
+      "candidate_ci": {
+        "lean": "34562369365 SUCCESS",
+        "site": "34562369369 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": "Actual merge CI/deployed provenance pending; earlier local evidence remains fixed to e9dd5a8.",
+      "truth_boundary": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem."
     }
   },
   "blocked": {

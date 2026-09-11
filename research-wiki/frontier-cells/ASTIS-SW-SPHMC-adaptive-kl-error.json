@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 recursive error propagation after equations(6.5)-(6.7)",
   "target_statement": "For fixed probability base mu on finite-dimensional real inner-product Borel E,b>=0,a>0, construct the actual AdaptiveCenter target, forward and retained-center backward Markov kernels T,H,B with their everywhere normalized fibers and ideal joint recovery. For every probability center law lambda, every probability input joint law P on E times E, and every actual Markov kernel L from E times E to E times E, prove measurability of s to actual ENNReal klDiv(L s,B s), and klDiv(L composed with P,lambda compProd T)<=klDiv(P,lambda compProd H)+integral klDiv(L s,B s) dP(s). Derive the conditional KL integral identity from jointly measurable kernel RN derivatives, including non-AC and infinite branches; do not assume KL measurability, chain-integral identity, desired sampler error or ideal recovery.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-adaptive-center-rgo",
     "ASTIS-SW-SPHMC-two-noise-rgo"
@@ -27,11 +27,23 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCAdaptiveKLError",
+        "result": "PASS3749, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveKLError.lean": "2df5aa222253d74b6aa2a21b6e3bf9f28cb794ea0326760b33e79d7cff27cd3c",
+          "Tests/SmoothedPicardHMCAdaptiveKLError.lean": "4de54297da77e12f77e5c12c4c9ed7d7c375746ac9d025bf246691cb510035bd"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-adaptive-kl-error.md",
     "planning_review": "Independent log_depth_source_review identifies actual conditional KL integral/measurability as substantive missing edge; root primary source rechecked.",
-    "execution_boundary": "Root sole writer; TwoNoise sole STABILIZING; AdaptiveCenter VERIFIED. This packet EXPLORING.",
-    "ownership_note": "One concrete paper consumer; no invented shared reuse."
+    "execution_boundary": "Root sole writer; AdaptiveKLError sole STABILIZING after actual parent PR266 merge.",
+    "ownership_note": "One concrete paper consumer; no invented shared reuse.",
+    "independent_proof_review": "runs/20260911-companion-priority/adaptive-kl-error.independent-proof-review.json",
+    "admission_boundary": "VERIFIED at aa2a2b809ce0d62737aa1c05fdcfd5993b28e688; root aggregate and reader/graph integration pending.",
+    "independent_verification": "runs/20260911-companion-priority/adaptive-kl-error.verified-admission.json"
   },
   "blocked": {
     "reason": "",

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-adaptive-kl-error",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual adaptive backward-kernel KL error propagation",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem 6.5 A1 actual recursive KL propagation",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded joint-kernel semantics, no author endorsement implied."
+      },
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space E,b>=0,a>0. Construct Markov kernels T,H:E to E and B:E times E to E times E. Every T(u) is mu tilted by -b*norm(x-u)^2/2, and H(u) is its actual Gaussian smoothing at standard-deviation sqrt(a). Every B(u,y) retains u and draws from T(u) tilted by -norm(x-y)^2/(2a), equivalently from mu tilted at precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability center law nu, B composed with nu compProd H equals nu compProd T. The same T,H,B satisfy for every probability center law nu, every probability input law P on E times E and every Markov kernel L on E times E: s to actual ENNReal KL(L(s),B(s)) is measurable, and actual KL(L composed with P,nu compProd T) is at most KL(P,nu compProd H) plus the nonnegative integral of KL(L(s),B(s)) against P. All KL terms and the integral may be infinite.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space including dimension zero; arbitrary probability base mu; b>=0,a>0.",
+        "T,H,B are constructed before every center law nu, input P and approximate Markov L; fiber formulas are everywhere.",
+        "P is any actual probability joint input law. Its divergence from the ideal nu compProd H is explicitly charged.",
+        "L is an actual measurable Markov kernel. It need not retain the center; relative conditional KL may then be infinite.",
+        "No AC, finite KL, LLR integrability or separately assumed fiber-KL measurability. General probability-base joint semantics explicitly extend the source setting."
+      ],
+      "formulae": [
+        {
+          "label": "Actual input and conditional KL output bound",
+          "tex": "\\mathrm{KL}(L\\circ_m P\\|\\nu\\otimes_m T)\\le\\mathrm{KL}(P\\|\\nu\\otimes_m H)+\\int\\mathrm{KL}(L(s)\\|B(s))\\,P(ds)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "adaptive-conditional-kl-error",
+          "label": "Actual measurable conditional KL integral and adaptive output error"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveKLError.adaptive_center_kl_error",
+          "cell": "ASTIS-SW-SPHMC-adaptive-kl-error",
+          "role": "prerequisite",
+          "supports": [
+            "adaptive-conditional-kl-error"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCAdaptiveKLError",
+          "boundary": "Fixed probability base, precision and variance. The supplied actual approximate Markov kernel need not retain the center or satisfy a finite error bound. Its conditional KL is charged under the actual input law. No concrete recursive program, uniform history accuracy, measurable proxy, Wp sampler guarantee, terminal implementation or expected query cost is proved.",
+          "assumption_deltas": [
+            {
+              "source": "Theorem6.5 A1 propagates recursive sampler errors for concrete Euclidean Gibbs targets.",
+              "lean": "Arbitrary probability base on finite-dimensional inner-product Borel space, fixed b>=0,a>0.",
+              "classification": "generalization",
+              "reason": "Expanded joint-kernel entropy calculus does not need density, curvature or moments."
+            },
+            {
+              "source": "The proof applies a chain rule and data processing to approximate backward kernels.",
+              "lean": "Actual ENNReal KL and measurable fiber KL, with conditional integral formula proved including non-AC and infinite cases.",
+              "classification": "source-implicit",
+              "reason": "No conditional entropy formula, AC, finite KL or LLR integrability is assumed."
+            },
+            {
+              "source": "Recursive error is averaged over the approximate forward input.",
+              "lean": "Bound charges KL(P,nu compProd H) plus integral KL(L(s),B(s)) against actual P.",
+              "classification": "same",
+              "reason": "The integration weight is P, not the ideal forward law; divergence direction is actual output relative to ideal target."
+            },
+            {
+              "source": "Ideal RGO recovery supplies the comparison target.",
+              "lean": "Construct one T,H,B before all nu,P,L with everywhere fibers and full retained-center joint recovery.",
+              "classification": "source-implicit",
+              "reason": "Existing proved construction supplies recovery; it is not an extra premise. Arbitrary L need not preserve center and may have infinite conditional KL."
+            },
+            {
+              "source": "The full recursive algorithm requires implementable kernels, quantitative bounds and query costs.",
+              "lean": "An error inequality for any supplied actual Markov approximation.",
+              "classification": "API-limitation",
+              "reason": "No concrete recursive L, history-uniform accuracy, A2 proxy selection, Wp sampler guarantee, terminal or cost result."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

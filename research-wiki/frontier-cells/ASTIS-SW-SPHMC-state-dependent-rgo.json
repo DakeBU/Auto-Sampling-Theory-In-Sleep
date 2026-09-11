@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-state-dependent-rgo",
+  "route": "samplewiki-route",
+  "title": "Joint posterior recovery with measurable state-dependent RGO parameters",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 parameter update and Theorem6.5 conditional recursive stages",
+  "target_statement": "For a measurable state space S, fixed probability base mu on finite real Hilbert Borel E, measurable b:S->R,u:S->E,a:S->R with b>=0 and a>0 everywhere, construct Markov kernels T,H:S->E and B:S times E->S times E. Prove every T(s) is the normalized quadratic mu tilt at precision b(s), center u(s); H(s) is its actual Gaussian smoothing with variance a(s); B(s,y) retains s and samples the actual backward tilt, equivalently the original mu tilt with precision b(s)+1/a(s) and center (b(s)u(s)+y/a(s))/(b(s)+1/a(s)). For every probability state law lambda prove B composed with lambda compProd H equals lambda compProd T. Derive jointly measurable positive finite normalization and variable noise kernels; do not assume measurable target selection or desired recovery.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-adaptive-center-rgo",
+    "ASTIS-SW-SPHMC-rgo-backward"
+  ],
+  "consumers": [
+    "Algorithm3.3 and Theorem6.5: actual state-dependent recursive RGO stage"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib AdaptiveCenterRGO: parameters fixed outside measurable kernel",
+      "GaussianConditionalKernel: direct jointly measurable normalized density at fixed variance",
+      "Mathlib Kernel.withDensity and measurable parameter integrals",
+      "RGOBackward actual recovery and RGOClosure quadratic tilt composition"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-state-dependent-rgo.md",
+    "planning_review": "log_depth_source_review independently rechecked source: reported eta cannot be presumed deterministic; full measurable state is needed.",
+    "execution_boundary": "Root sole writer. AdaptiveKLError sole STABILIZING. This packet EXPLORING.",
+    "ownership_note": "One actual paper consumer; no fabricated shared consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Algorithm3.3; Theorem6.5 stagewise update",
+    "detail_status": "omitted",
+    "gap": "Joint parameter measurability and exact retained-state recovery are expanded explicitly.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1",
+        "anchor": "Algorithm3.3 and Theorem6.5",
+        "hypothesis_adapter": "b=1/A, a=(eta+tau)/beta_A; state before fresh noise; no retrospective conditioning."
+      }
+    ],
+    "fidelity_boundary": "One actual state-dependent ideal RGO stage, not complete Algorithm3.3. The state is specified before the new Gaussian draw and may encode current history. The theorem does not condition retrospectively on a reported smoothing level while assuming an unchanged sample law. Actual joint sampler/report semantics, approximate guarantees, random stopping, FORS, recursive error budgets and expected query costs remain open. No deterministic variance schedule is imposed or inferred from the source."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Removal of fixed-parameter measurable-kernel restriction for an actual recursive source consumer."
+  }
+}
