@@ -1,0 +1,16 @@
+{
+  "decoder": "rgo_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful plain-text transcription of independent anonymous reconstruction; supplied identifiers not independently verified by decoder.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-rgo-b-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCRGOBackward.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "64322f88e0a92bf01297d680cbad9c004f9d4bb4961a0dfcdc5eeb05976ebcf0",
+  "lean_statement_sha256": "eaac4f20bc472381ce708a308480df4b33087651ee6859083899fffa9d495302",
+  "reconstructed_theorem_text": "Let E be any finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is permitted. Let mu be any probability measure. For every real b,a with b>=0 and a>0, and every u in E, define rho=tilted(mu,x maps to -(b/2)*norm(x-u)^2). Tilt is normalized exponential reweighting with the supplied totalized normalization convention. Then rho is a probability measure and there exists a measurable Markov kernel K:E to E such that: (1) For every y, equality of measures K(y)=tilted(rho,x maps to -norm(x-y)^2/(2*a)). (2) For every y the same kernel equals tilted(mu,x maps to -((b+a^-1)/2)*norm(x-(b+a^-1)^-1 scalar-multiplied by (b scalar-multiplied by u+a^-1 scalar-multiplied by y))^2). (3) Let G_sqrt(a)(P) be the law of X+sqrt(a)*Z under the actual product P times centered identity-covariance standard Gaussian. Exact recovery holds: K composed with G_sqrt(a)(rho)=rho. Kernel composition with eta assigns every measurable event B the integral of K(y,B) against eta. (4) For every probability nu and real r>=0, if the actual extended-nonnegative infimum over measures gamma on E times E with first marginal nu and second marginal rho of the extended-nonnegative integral of ofReal(norm(x-z)^2) is at most ofReal(r^2), then actual klDiv(K composed with G_sqrt(a)(nu),rho)<=ofReal(r^2/(2*a)). No optimizing coupling is assumed. The existential K is chosen after E,mu,b,a,u but before nu,r; the same K satisfies both pointwise fibers, recovery and all divergence bounds. Neither fiber equality is only almost everywhere. The divergence is extended nonnegative: infinity unless the first measure is absolutely continuous relative to the second and their log RN derivative is integrable under the first; otherwise ofReal of that log-density integral plus second total real mass minus first total real mass. The conclusion bounds the actual divergence in that direction, not its totalized real conversion. Absolute continuity and log-density integrability are not extra hypotheses. No density, moment, smoothness or nondegeneracy assumption on mu or nu is stated beyond probability and the displayed transport budget. The exact constant is 1/(2*a). Only the anonymous packet and approved definitions were used; no source-fidelity verdict or compilation claim.",
+  "source_fidelity_verdict": null
+}

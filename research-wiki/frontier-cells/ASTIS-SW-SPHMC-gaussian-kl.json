@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-kl.md",
     "planning_review": "Independent log_depth_source_review primary Lemma6.3(i)/Theorem6.5 audit: A1 Gaussian KL is a dependency-ready actual measure consumer; quadratic displacement suffices, exponential moments are unavailable.",
-    "execution_boundary": "Root sole writer and sole STABILIZING owner; Proxy PR262 merged.",
+    "execution_boundary": "Root sole writer; KL merged, stabilization lane released.",
     "ownership_note": "One source consumer; no invented second consumer.",
     "development_checks": [
       {
@@ -50,7 +50,7 @@
     ],
     "shorter_route_review": "Independent log_depth_source_review accepted direct joint withDensity proof from retained-parameter product-map laws and fixed-fiber GaussianLikelihood measure equality. No fiber a.e. assertion is promoted to a joint pointwise identity; L measurable. RN first B-a.e. then AC transfers to A-a.e. No displacement moments needed for this equality.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-kl.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED; root aggregate PASS9114 and fixed-commit original reader/graph verified. Final candidate CI/review/merge/deployment separate.",
+    "admission_boundary": "Independently VERIFIED and actually merged PR263 after preserved C1 integration and final CI artifact acceptance. Merge CI/deployment separate.",
     "independent_verification": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json",
     "integration": {
       "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
@@ -100,6 +100,19 @@
         "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
       },
       "boundary": "Local aggregate and actual browser checks bound to this fixed commit; final candidate CI, independent merge review and actual deployment separate."
+    },
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/263",
+      "commit": "79dc5520010de2234acfc5cc956c88e21dfeb0d8",
+      "candidate": "2f9923daec3fa721205921835ba54e67ede70895",
+      "merged_at": "2026-09-11T03:02:51Z",
+      "independent_merge_review": "depth_commit_verifier accepted preserved C1 integration, fresh aggregate, actual final CI artifact, verified same candidate/rendered tree and same-head Lean/site success; root rechecked MERGEABLE head then match-head merge succeeded.",
+      "candidate_ci": {
+        "lean": "34556099864 SUCCESS",
+        "site": "34556099933 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local/CI artifact records remain bound to their original commits.",
+      "truth_boundary": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate."
     }
   },
   "blocked": {

@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-two-noise-rgo",
+  "route": "samplewiki-route",
+  "title": "Actual two-noise RGO time composition and added-noise KL budget",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Theorem6.5 exact stage R_j=P_j K_j with eta_j/beta and added tau_j/beta smoothing; Lemma6.3(i)",
+  "target_statement": "For probability base mu on finite-dimensional real inner-product Borel E, b>=0,u,eta>=0,tau>0 and rho=mu.tilted(-b/2*norm(x-u)^2), prove actual GaussianSmoothing(H_eta rho,sqrt(tau))=H_(eta+tau)rho. Construct one Markov kernel K with every-y fiber rho.tilted(-norm(x-y)^2/(2*(eta+tau))) before all inputs nu,r, recover rho from K composed with H_tau(H_eta rho), and for every probability nu with actual quadratic transportCost(nu,H_eta rho)<=ofReal(r^2),r>=0 prove actual KL(K composed with H_tau nu,rho)<=ofReal(r^2/(2*tau)). Derive actual noise-sum law and heat semigroup; denominator is added time tau, not total eta+tau.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-rgo-backward",
+    "ASTIS-SW-SPHMC-gaussian-kl"
+  ],
+  "consumers": [
+    "Theorem6.5 actual smoothed proposal plus added-noise stage and backward sampling input KL guarantee; full recursion unfinished"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GaussianSmoothing/CommonNoiseContraction actual product-map definitions; no existing semigroup theorem found",
+      "Samplinglib RGOBackward.rgo_backward_recovery and GaussianKL actual input guarantee",
+      "Fixed Mathlib charFun_stdGaussian, charFun_map_smul, charFun_conv and Measure.ext_of_charFun"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-two-noise-rgo.md",
+    "planning_review": "Independent log_depth_source_review recommends actual two-noise law/semigroup plus stage consumer; denominator must be added tau, not total eta+tau.",
+    "execution_boundary": "Root sole writer; RGO backward sole STABILIZING. Two-noise RGO EXPLORING only.",
+    "ownership_note": "One actual paper consumer; no invented second consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Theorem6.5 two-noise stage and Lemma6.3(i)",
+    "detail_status": "omitted",
+    "gap": "Prove actual Gaussian sum law and heat semigroup via characteristic functions; use same total-variance backward kernel but added-variance KL bound.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "anchor": "Theorem6.5 and Lemma6.4",
+        "hypothesis_adapter": "General probability base and raw cost budget; exact backward step only."
+      }
+    ],
+    "fidelity_boundary": "Fixed target and fixed stage parameters, not history-dependent approximate recursion. General probability base and raw infimum-cost budget explicitly abstract source Gibbs/P2 setting. Eta0 and precision0 included; positive added time. Source normalized times eta_j/beta_A and tau_j/beta_A need separate concrete parameter substitution. Joint parameter kernels, measurable proxies, accumulated errors and actual expected costs remain open."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual Gaussian law semigroup and same-kernel two-stage output consumer, with added-time error denominator; no assumed noise-sum identity."
+  }
+}

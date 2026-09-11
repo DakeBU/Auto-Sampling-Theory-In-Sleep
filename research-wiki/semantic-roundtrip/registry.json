@@ -10015,6 +10015,279 @@
       }
     },
     {
+      "id": "ASTIS-RT-20260911-SPHMCRGOBackward",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-rgo-backward",
+        "anchor": "Section3.4, Lemma6.4 equation(6.1), Theorem6.5 exact RGO backward step",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product Borel space, including dimension zero; mu is a probability measure.\nb>=0, a>0 and arbitrary u. Precision b=0 retains the source A=infinity case.\nThe kernel is selected before all probability inputs nu and radii r>=0. The budget is transportCost(nu,rho), in that direction.\nGeneral probability base abstracts the source Gibbs presentation; no concrete potential identification is included.\nActual raw infimum cost is used, without inferring marginal P2 membership or claiming full W2 API correspondence.\nLet mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0, a>0 and u a point. Define rho as mu tilted by -b*norm(x-u)^2/2. Then rho is a probability measure and there exists one Markov kernel K, chosen before every input law and radius, with K(y)=rho.tilted(-norm(x-y)^2/(2a)) at every y, equivalently mu tilted with precision b+a^-1 and center (b+a^-1)^-1 times (b*u+a^-1*y). The actual composition K with GaussianSmoothing rho sqrt(a) equals rho. For all probability nu and r>=0 with actual infimum quadratic displacement cost from nu to rho at most ofReal(r^2), the actual KL of K composed with GaussianSmoothing nu sqrt(a) relative to rho is at most ofReal(r^2/(2a)).",
+        "text_sha256": "74564d075fb24d8ae030882b7444013590a9ef782b5aad4c5f086e4239e4bd83"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOBackward.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (b a : ℝ),\n  0 ≤ b →\n    0 < a →\n      ∀ (u : E),\n        have ρ := μ.tilted fun x => -(b / 2) * ‖x - u‖ ^ 2;\n        MeasureTheory.IsProbabilityMeasure ρ ∧\n          ∃ K,\n            ProbabilityTheory.IsMarkovKernel K ∧\n              (∀ (y : E), K y = ρ.tilted fun x => -‖x - y‖ ^ 2 / (2 * a)) ∧\n                (∀ (y : E), K y = μ.tilted fun x => -((b + a⁻¹) / 2) * ‖x - (b + a⁻¹)⁻¹ • (b • u + a⁻¹ • y)‖ ^ 2) ∧\n                  ⇑K ∘ₘ AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing ρ √a = ρ ∧\n                    ∀ (ν : MeasureTheory.Measure E),\n                      MeasureTheory.IsProbabilityMeasure ν →\n                        ∀ (r : ℝ),\n                          0 ≤ r →\n                            AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost\n                                  (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ 2)) ν ρ ≤\n                                ENNReal.ofReal (r ^ 2) →\n                              InformationTheory.klDiv\n                                  (⇑K ∘ₘ\n                                    AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing ν √a)\n                                  ρ ≤\n                                ENNReal.ofReal (r ^ 2 / (2 * a))",
+        "statement_sha256": "eaac4f20bc472381ce708a308480df4b33087651ee6859083899fffa9d495302",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Root production focused PASS3747, standard three axioms, no new lint. Independent replay/proof review and source/fixed-commit admission recorded separately.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed.",
+          "Transport.transportCost c P Q is sInf of the set of extended nonnegative numbers r for which there exists a measure gamma with gamma.fst=P and gamma.snd=Q and r=integral c dgamma. Thus it is the actual infimum over all couplings, not a supplied optimizer.",
+          "The actual stdGaussian E is the pushforward of the product of one-dimensional gaussianReal 0 1 laws through the canonical orthonormal-basis linear isometry into E. This is the centered Gaussian with identity covariance, including the zero-dimensional case. Measure.real B is the toReal of the measure of B.",
+          "InformationTheory.klDiv mu nu is an extended nonnegative quantity: if mu is absolutely continuous with respect to nu and llr(mu,nu) is integrable under mu, it is ofReal(integral llr(mu,nu) dmu + nu.real(univ)-mu.real(univ)); otherwise it is infinity. Here llr(mu,nu)(z)=Real.log((mu.rnDeriv nu z).toReal). The displayed probability hypotheses make both mass terms one, but no integrability premise may be inserted. The asserted finite upper bound is for this actual ENNReal divergence, not its totalized toReal.",
+          "Measure.tilted mu f is the normalized exponential reweighting of mu: density exp(f(x))/integral exp(f) dmu, with the API totalized through ENNReal normalization if normalization fails. IsProbabilityMeasure of the displayed tilted measure is a conclusion, not an extra premise. All exponential weights in the displayed statement are real.",
+          "ProbabilityTheory.Kernel E E is a measurable probability-transition candidate: for each measurable event B, y maps to K(y,B) measurably. IsMarkovKernel K asserts each K(y) is a probability measure. The kernel composition K composed with eta, written K ∘ₘ eta, is the actual measure B maps to integral K(y,B) deta(y); it is not function composition or an assumed sample output.",
+          "The let-bound rho abbreviates the initial displayed quadratic tilt. The existential kernel is chosen before the universal input law nu and radius r. Both every-point fiber equalities, the recovery measure equality, and all KL guarantees use that same kernel."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "683d9336d3290303a41352df80494b2876b7b519f10d51d0bd231708bdf8ac75",
+        "review_run_sha256": "c5edaf4124b1a81401852cc222ce77d1d55a8bfebc2d03a016975458145c00cd",
+        "run_artifact": "runs/20260911-companion-priority/rgo-backward.source-review-result.json",
+        "evidence": "Independent primary-source audit reused for Lemma6.4 equation(6.1)/Theorem6.5 and complete six-step production comparison. Canonical packet, source, statement, reconstruction and module hashes independently recomputed. Embedded module equals production and prior a4b2622 proof; all lesson fields/publication context agree. Source text is expanded attributed paraphrase, not verbatim. Binding authenticated in packet; external binding preimage not independently reconstructed. No source-review compilation or fixed-commit admission. No blocker or repair; concrete Gibbs, fullW2, jointly measurable parameter selection, approximate recursion/proxy kernels, time identification/errors/costs remain separate."
+      },
+      "publication_binding_sha256": "e786ea23d536640cfbfeaa852492fa2aee5e138416aab35a91fa578a866042f9",
+      "publication_context": {
+        "file": "88723b9313322d0e3111c5bb14751f277615e34cf107bc9f12f7f07def562b6d",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure\nimport AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel\nopen MeasureTheory ProbabilityTheory\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen AutoSamplingTheory.TechnicalLemmas.Probability\nopen scoped ENNReal\nopen AutoSamplingTheory.ExampleCases.SmoothedPicardHMC\n/-!\n# Actual RGO backward kernel\n\nThe exact backward step in arXiv:2609.06906v1 Section3.4 and Theorem6.5,\nwith the normalized precision update of Lemma6.4 equation(6.1).\nOne measurable Markov kernel is chosen before all input laws and budgets.\nIts every-point fibers have the source precision update, its composition\nwith the actual noisy target recovers the target, and its actual output KL\nobeys the Gaussian quadratic-budget bound.\n\nThe general probability base explicitly abstracts the source Gibbs law;\nno concrete potential identification is asserted here. Precision zero\nretains A=infinity. Raw transport cost does not imply marginal P2 moments.\nThe approximate recursive sampler, measurable proxy kernels, time-scale\nidentification, accumulated errors and expected costs remain separate.\n-/\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward\n\n/-- One actual backward kernel with every-point precision update, target recovery\nand all quadratic-budget KL guarantees for its actual smoothed-input outputs. -/\ntheorem rgo_backward_recovery {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (μ : Measure E) [IsProbabilityMeasure μ] (b a : ℝ) (hb : 0 ≤ b) (ha : 0 < a) (u : E) :\n    let ρ := μ.tilted (fun x => -(b/2)*‖x-u‖^2)\n    IsProbabilityMeasure ρ ∧ ∃ K : Kernel E E, IsMarkovKernel K ∧\n      (∀ y, K y = ρ.tilted (fun x => -‖x-y‖^2/(2*a))) ∧\n      (∀ y, K y = μ.tilted (fun x => -((b+a⁻¹)/2)*\n        ‖x-(b+a⁻¹)⁻¹ • (b • u+a⁻¹ • y)‖^2)) ∧\n      K ∘ₘ GaussianSmoothing.gaussianSmoothing ρ (Real.sqrt a) = ρ ∧\n      ∀ (ν : Measure E), IsProbabilityMeasure ν → ∀ r : ℝ, 0 ≤ r →\n        Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖^2)) ν ρ ≤\n          ENNReal.ofReal (r^2) →\n        InformationTheory.klDiv (K ∘ₘ GaussianSmoothing.gaussianSmoothing ν (Real.sqrt a)) ρ ≤\n          ENNReal.ofReal (r^2/(2*a)) := by\n  have backward_core (μ : Measure E) [IsProbabilityMeasure μ] (a : ℝ) (ha : 0 < a) :\n      ∃ K : Kernel E E, IsMarkovKernel K ∧\n        (∀ y, K y = μ.tilted (fun x => -‖x-y‖^2/(2*a))) ∧\n        K ∘ₘ GaussianSmoothing.gaussianSmoothing μ (Real.sqrt a) = μ := by\n    obtain ⟨K, hK, hfiber, hcond⟩ := GaussianConditionalKernel.exists_tilted_isCondKernel μ ha\n    let := hK\n    let J := Measure.map (fun p : E × E => (p.1, p.1 + Real.sqrt a • p.2))\n      (μ.prod (stdGaussian E))\n    have hfst : J.fst = μ := by\n      dsimp [J]\n      rw [Measure.fst_map_prodMk (by fun_prop)]\n      exact Measure.fst_prod\n    have hsnd : J.snd = GaussianSmoothing.gaussianSmoothing μ (Real.sqrt a) := by\n      dsimp [J]\n      rw [Measure.snd_map_prodMk measurable_fst]\n      unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n        GaussianSmoothing.scaledStdGaussian\n      have hp := Measure.map_prod_map μ (stdGaussian E) measurable_id\n        (show Measurable (fun z : E => Real.sqrt a • z) by fun_prop)\n      rw [Measure.map_id] at hp\n      rw [hp, Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    have : IsProbabilityMeasure J := Measure.isProbabilityMeasure_map (by fun_prop)\n    have hd : (J.map Prod.swap).fst ⊗ₘ K = J.map Prod.swap := hcond.disintegrate\n    have heq := congrArg Measure.snd hd\n    rw [Measure.snd_compProd, Measure.fst_map_swap, Measure.snd_map_swap, hfst, hsnd] at heq\n    exact ⟨K, hK, hfiber, heq⟩\n  dsimp only\n  let ρ := μ.tilted (fun x => -(b/2)*‖x-u‖^2)\n  have hi : Integrable (fun x => Real.exp (-(b/2)*‖x-u‖^2)) μ := by\n    refine (integrable_const (1 : ℝ)).mono' (by fun_prop) ?_\n    filter_upwards [] with x\n    rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n    apply Real.exp_le_one_iff.mpr\n    exact mul_nonpos_of_nonpos_of_nonneg (neg_nonpos.mpr (by positivity)) (sq_nonneg _)\n  have hρ : IsProbabilityMeasure ρ := isProbabilityMeasure_tilted hi\n  let := hρ\n  obtain ⟨K, hK, hfiber, hrecover⟩ := backward_core ρ a ha\n  let := hK\n  refine ⟨hρ, K, hK, hfiber, ?_, hrecover, ?_⟩\n  · intro y\n    rw [hfiber]\n    have halg : (fun x : E => -‖x-y‖^2/(2*a)) = (fun x => -(a⁻¹/2)*‖x-y‖^2) := by\n      funext x\n      field_simp\n    rw [halg]\n    exact RGOClosure.quadratic_tilt_tilt μ hb (inv_pos.mpr ha) u y\n  · intro ν hν r hr hcost\n    let := hν\n    have hkl := GaussianKL.gaussian_kl_reverse_transport ν ρ r a hr ha hcost\n    have hsmooth (η : Measure E) [IsProbabilityMeasure η] :\n        IsProbabilityMeasure (GaussianSmoothing.gaussianSmoothing η (Real.sqrt a)) := by\n      unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n      exact Measure.isProbabilityMeasure_map (by fun_prop)\n    let := hsmooth ν\n    let := hsmooth ρ\n    have hdata := InformationTheory.klDiv_comp_right_le\n      (GaussianSmoothing.gaussianSmoothing ν (Real.sqrt a))\n      (GaussianSmoothing.gaussianSmoothing ρ (Real.sqrt a)) K\n    rw [hrecover] at hdata\n    exact hdata.trans hkl\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Section3.4, Lemma6.4 equation(6.1), Theorem6.5 exact RGO backward step",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0, a>0 and u a point. Define rho as mu tilted by -b*norm(x-u)^2/2. Then rho is a probability measure and there exists one Markov kernel K, chosen before every input law and radius, with K(y)=rho.tilted(-norm(x-y)^2/(2a)) at every y, equivalently mu tilted with precision b+a^-1 and center (b+a^-1)^-1 times (b*u+a^-1*y). The actual composition K with GaussianSmoothing rho sqrt(a) equals rho. For all probability nu and r>=0 with actual infimum quadratic displacement cost from nu to rho at most ofReal(r^2), the actual KL of K composed with GaussianSmoothing nu sqrt(a) relative to rho is at most ofReal(r^2/(2a)).",
+        "formulae": [
+          {
+            "label": "Actual backward recovery and KL input guarantee",
+            "tex": "K_aH_a\\rho=\\rho,\\qquad \\inf_{\\gamma\\in\\Pi(\\nu,\\rho)}\\int\\|x-y\\|^2d\\gamma\\le r^2\\ \\Longrightarrow\\ \\operatorname{KL}(K_aH_a\\nu\\|\\rho)\\le\\frac{r^2}{2a}."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel space, including dimension zero; mu is a probability measure.",
+          "b>=0, a>0 and arbitrary u. Precision b=0 retains the source A=infinity case.",
+          "The kernel is selected before all probability inputs nu and radii r>=0. The budget is transportCost(nu,rho), in that direction.",
+          "General probability base abstracts the source Gibbs presentation; no concrete potential identification is included.",
+          "Actual raw infimum cost is used, without inferring marginal P2 membership or claiming full W2 API correspondence."
+        ],
+        "obligations": [
+          {
+            "id": "actual-backward",
+            "label": "Same actual backward kernel: every-point precision update, exact recovery and input KL guarantee"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery",
+          "title": "One actual RGO backward kernel: precision update, recovery and KL control",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.4 and Theorem6.5",
+              "scope": "Exact backward RGO semantics and its input KL guarantee; approximate recursive sampler remains separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCRGOBackward"
+          ],
+          "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0, a>0 and u a point. Define rho as mu tilted by -b*norm(x-u)^2/2. Then rho is a probability measure and there exists one Markov kernel K, chosen before every input law and radius, with K(y)=rho.tilted(-norm(x-y)^2/(2a)) at every y, equivalently mu tilted with precision b+a^-1 and center (b+a^-1)^-1 times (b*u+a^-1*y). The actual composition K with GaussianSmoothing rho sqrt(a) equals rho. For all probability nu and r>=0 with actual infimum quadratic displacement cost from nu to rho at most ofReal(r^2), the actual KL of K composed with GaussianSmoothing nu sqrt(a) relative to rho is at most ofReal(r^2/(2a)).",
+          "formula": "K_aH_a\\rho=\\rho,\\qquad \\inf_{\\gamma\\in\\Pi(\\nu,\\rho)}\\int\\|x-y\\|^2d\\gamma\\le r^2\\ \\Longrightarrow\\ \\operatorname{KL}(K_aH_a\\nu\\|\\rho)\\le\\frac{r^2}{2a}.",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel space, including dimension zero; mu is a probability measure.",
+            "b>=0, a>0 and arbitrary u. Precision b=0 retains the source A=infinity case.",
+            "The kernel is selected before all probability inputs nu and radii r>=0. The budget is transportCost(nu,rho), in that direction.",
+            "General probability base abstracts the source Gibbs presentation; no concrete potential identification is included.",
+            "Actual raw infimum cost is used, without inferring marginal P2 membership or claiming full W2 API correspondence."
+          ],
+          "steps": [
+            {
+              "title": "Normalize the initial quadratic tilt",
+              "text": "The exponential weight is positive and at most one. Its integrability under the probability base proves that the normalized tilted law rho is a probability, including zero precision.",
+              "formula": "0<e^{-b\\|x-u\\|^2/2}\\le1,\\qquad \\rho=\\frac{e^{-b\\|x-u\\|^2/2}\\mu}{\\int e^{-b\\|x-u\\|^2/2}d\\mu}.",
+              "lean": "hi and isProbabilityMeasure_tilted derive hρ; no normalizer premise."
+            },
+            {
+              "title": "Construct the same measurable backward kernel",
+              "text": "Apply the existing actual Gaussian conditional-kernel construction to rho. It supplies a Markov kernel with a normalized fiber at every y, and disintegrates the swapped joint law of (X,X+sqrt(a)Z).",
+              "formula": "J=\\mathcal L(X,X+\\sqrt a Z),\\quad K(y,dx)\\propto e^{-\\|x-y\\|^2/(2a)}\\rho(dx).",
+              "lean": "GaussianConditionalKernel.exists_tilted_isCondKernel provides hK, hfiber and hcond."
+            },
+            {
+              "title": "Identify actual forward and backward marginals",
+              "text": "The first marginal of J is rho. Product-map composition identifies its second marginal with the existing GaussianSmoothing operator. These are actual pushforward equalities, not assumed stochastic semantics.",
+              "formula": "J_1=\\rho,\\qquad J_2=H_a\\rho.",
+              "lean": "hfst uses fst_map_prodMk and fst_prod; hsnd uses snd_map_prodMk, map_prod_map and map_map."
+            },
+            {
+              "title": "Recover the target by disintegration",
+              "text": "Take the second marginal of the disintegration identity for the swapped joint law. That second marginal is the original target, while its first marginal is the noisy law. This proves exact recovery for the constructed kernel.",
+              "formula": "(H_a\\rho)\\otimes K=\\operatorname{swap}_\\#J\\quad\\Longrightarrow\\quad K H_a\\rho=\\rho.",
+              "lean": "congrArg Measure.snd hcond.disintegrate; snd_compProd, fst_map_swap and snd_map_swap."
+            },
+            {
+              "title": "Identify every normalized source precision update",
+              "text": "Write the backward precision as a^-1 and apply normalized quadratic tilt composition to the same kernel fiber. The summed precision is positive, so the updated center is valid even when b=0.",
+              "formula": "b^+=b+a^{-1},\\quad u^+(y)=(b+a^{-1})^{-1}(bu+a^{-1}y),\\quad K(y)=\\mu.\\mathrm{tilted}(-b^+\\|x-u^+(y)\\|^2/2).",
+              "lean": "hfiber, exact denominator algebra and RGOClosure.quadratic_tilt_tilt with inv_pos.mpr ha."
+            },
+            {
+              "title": "Propagate the actual input KL budget",
+              "text": "For any admissible input, derive probability of the smoothed measures, apply KL contraction through the same Markov kernel, substitute exact recovery, and invoke the already proved Gaussian KL reverse-transport bound.",
+              "formula": "\\operatorname{KL}(K H_a\\nu\\|\\rho)\\le\\operatorname{KL}(H_a\\nu\\|H_a\\rho)\\le r^2/(2a).",
+              "lean": "InformationTheory.klDiv_comp_right_le and GaussianKL.gaussian_kl_reverse_transport; no approximate kernel or unbounded-cost transfer."
+            }
+          ],
+          "lean_statement": "One actual Markov kernel has every-point normalized precision update, exact recovery, and all quadratic-budget KL guarantees.",
+          "lean_proof": "Actual Gaussian disintegration and marginal identities, normalized tilt composition, then same-kernel KL data processing.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.snd_compProd",
+            "MeasureTheory.Measure.IsCondKernel.disintegrate",
+            "InformationTheory.klDiv_comp_right_le",
+            "MeasureTheory.isProbabilityMeasure_tilted"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery",
+          "role": "prerequisite",
+          "supports": [
+            "actual-backward"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Source RGO is defined for Gibbs potentials with the stated regularity and curvature assumptions.",
+            "lean": "An arbitrary probability base, followed by a normalized nonnegative quadratic-precision tilt."
+          },
+          {
+            "source": "Equation(6.1) uses A inverse plus a inverse and its precision-weighted center, including A=infinity.",
+            "lean": "b>=0,a>0; updated precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y), every y for the same Markov kernel."
+          },
+          {
+            "source": "Theorem6.5 exact R_j=P_j K_j and Gaussian regularization are used within a recursive sampling proof.",
+            "lean": "Actual backward disintegration, noisy marginal identification, exact recovery and same-kernel KL guarantee for all admissible inputs."
+          },
+          {
+            "source": "Gaussian KL input control is presented with Euclidean marginal P2 membership and W2.",
+            "lean": "Finite-dimensional inner-product Borel spaces including zero dimension and an actual infimum quadratic transport-cost budget."
+          },
+          {
+            "source": "The full algorithm uses approximate recursive kernels, actual stage parameters, error accumulation and query costs.",
+            "lean": "Exact backward kernel consumer only, selected before all input laws and budgets."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product space with its Borel measurable structure; dimension zero is permitted. Let mu be any probability measure. For every real b,a with b>=0 and a>0, and every u in E, define rho=tilted(mu,x maps to -(b/2)*norm(x-u)^2). Tilt is normalized exponential reweighting with the supplied totalized normalization convention. Then rho is a probability measure and there exists a measurable Markov kernel K:E to E such that: (1) For every y, equality of measures K(y)=tilted(rho,x maps to -norm(x-y)^2/(2*a)). (2) For every y the same kernel equals tilted(mu,x maps to -((b+a^-1)/2)*norm(x-(b+a^-1)^-1 scalar-multiplied by (b scalar-multiplied by u+a^-1 scalar-multiplied by y))^2). (3) Let G_sqrt(a)(P) be the law of X+sqrt(a)*Z under the actual product P times centered identity-covariance standard Gaussian. Exact recovery holds: K composed with G_sqrt(a)(rho)=rho. Kernel composition with eta assigns every measurable event B the integral of K(y,B) against eta. (4) For every probability nu and real r>=0, if the actual extended-nonnegative infimum over measures gamma on E times E with first marginal nu and second marginal rho of the extended-nonnegative integral of ofReal(norm(x-z)^2) is at most ofReal(r^2), then actual klDiv(K composed with G_sqrt(a)(nu),rho)<=ofReal(r^2/(2*a)). No optimizing coupling is assumed. The existential K is chosen after E,mu,b,a,u but before nu,r; the same K satisfies both pointwise fibers, recovery and all divergence bounds. Neither fiber equality is only almost everywhere. The divergence is extended nonnegative: infinity unless the first measure is absolutely continuous relative to the second and their log RN derivative is integrable under the first; otherwise ofReal of that log-density integral plus second total real mass minus first total real mass. The conclusion bounds the actual divergence in that direction, not its totalized real conversion. Absolute continuity and log-density integrability are not extra hypotheses. No density, moment, smoothness or nondegeneracy assumption on mu or nu is stated beyond probability and the displayed transport budget. The exact constant is 1/(2*a). Only the anonymous packet and approved definitions were used; no source-fidelity verdict or compilation claim.",
+        "text_sha256": "93ea4aaf591f11b2d69850b6f5f0e60c1a3b88ab89499b6f738564a53f8dc490",
+        "decoder_packet_sha256": "64322f88e0a92bf01297d680cbad9c004f9d4bb4961a0dfcdc5eeb05976ebcf0",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "rgo_blind_decoder",
+        "notes": [
+          "Fresh source-blind decoder read only anonymous statement and approved definitions; retained quantifier order, every-point fibers, actual measure recovery and exact KL direction/constant."
+        ],
+        "decoder_run_sha256": "4f81f0babddae9ddd57c4e71342ff3c6bb4bb1a13496a3c856d3941308d6cc8b",
+        "lean_statement_sha256": "eaac4f20bc472381ce708a308480df4b33087651ee6859083899fffa9d495302",
+        "run_artifact": "runs/20260911-companion-priority/rgo-backward.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Regularized Gibbs target, exact backward RGO and noisy law.",
+          "reconstructed": "Actual tilted probability rho, measurable Markov K, GaussianSmoothing and measure composition.",
+          "relation": "explicit-elaboration",
+          "evidence": "Constructed Gaussian disintegration; recovery proved from marginals."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs potential setting.",
+          "reconstructed": "Arbitrary probability base on finite-dimensional real inner-product Borel space, including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No potential, density, curvature or positive-dimension premise; abstraction disclosed."
+        },
+        "quantifiers": {
+          "original": "Exact backward kernel fixed by target and stage, independent of approximate input.",
+          "reconstructed": "For each mu,b,a,u choose one K before all nu,r; both fibers every y.",
+          "relation": "explicit-elaboration",
+          "evidence": "Same K in both fibers, recovery and KL; no joint measurable selection across target parameters."
+        },
+        "assumptions": {
+          "original": "Source Gibbs regularity/curvature and P2/W2 input control.",
+          "reconstructed": "Probability base,b>=0,a>0,arbitraryu and actual quadratic transport budget.",
+          "relation": "stronger-in-lean",
+          "evidence": "Positive bounded weights prove normalization; proved kernel supplies measurability; no marginal moment inference."
+        },
+        "conclusion": {
+          "original": "Normalized precision update and exact R_j=P_jK_j with Gaussian regularization.",
+          "reconstructed": "Every-point fibers, K composed with H_a rho=rho, actual KL(K composed with H_a nu,rho)<=ofReal(r^2/(2a)).",
+          "relation": "explicit-elaboration",
+          "evidence": "RGOClosure, actual disintegration and GaussianKL plus same-kernel data processing."
+        },
+        "scopes": {
+          "original": "Identities inside approximate recursive algorithm with errors and costs.",
+          "reconstructed": "Exact backward kernel for general probability base.",
+          "relation": "different",
+          "evidence": "No concrete Gibbs identification, approximate recursion, parameter-joint selection or full algorithm guarantee."
+        },
+        "constant_dependencies": {
+          "original": "A^-1+a^-1, precision-weighted center, coefficient1/(2a).",
+          "reconstructed": "b+a^-1,center(b+a^-1)^-1*(b*u+a^-1*y),budgetr^2/(2a).",
+          "relation": "same",
+          "evidence": "b0 retains infiniteA;a>0 yields positiveupdatedprecision;no dimensionfactor."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability base abstracts concrete Gibbs potential.",
+          "evidence": "No potential, density, curvature or positive-dimension premise; abstraction disclosed."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Raw quadratic budget neither requires nor establishes marginal P2.",
+          "evidence": "Positive bounded weights prove normalization; proved kernel supplies measurability; no marginal moment inference."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "K measurable in y and fixed before nu,r; no jointly measurable parameter selection.",
+          "evidence": "Same K in both fibers, recovery and KL; no joint measurable selection across target parameters."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Exact backward kernel only, not approximate recursive sampler or costs.",
+          "evidence": "No concrete Gibbs identification, approximate recursion, parameter-joint selection or full algorithm guarantee."
+        }
+      ]
+    },
+    {
       "id": "ASTIS-RT-ANDI-OPT-HessianFTC",
       "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-gradient-hessian-ftc",
