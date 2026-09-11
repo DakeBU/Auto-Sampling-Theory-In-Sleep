@@ -116,6 +116,6 @@
       ],
       "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
     },
-    "merge_lean": "34580079177 last observed in_progress; terminal verification pending"
+    "merge_lean": "34580079177 SUCCESS; exact merge 0037f804b7658538f9e9a7c8a00058659980f44f freshly verified"
   }
 }

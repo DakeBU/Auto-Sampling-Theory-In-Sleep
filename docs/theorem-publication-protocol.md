@@ -5,6 +5,18 @@ including reusable shared foundations. An unchanged historical proof is not
 retroactively certified; its missing exposition or semantic audit remains debt.
 The current mathematical Goal and frontier are not changed by this protocol.
 
+Explicitly private implementation declarations may share the review of a public
+theorem in the same file. The diff gate inventories every such declaration,
+including anonymous private instances by file/line/column, and prints its public
+owner. Coverage requires an accepted independent source review, the exact current
+whole-module text, a fresh publication binding and successful publication
+validation. Private helpers gain no separate publication edge or proof credit.
+Changing a helper invalidates the enclosing module review; making it public
+requires its own publication. Unindexed public/Unicode syntax, uncovered private
+implementations and private axioms still fail closed. Always run the final
+`check --base BASE_COMMIT`; a single-target admission check does not exercise the
+changed-module inventory.
+
 ## One bounded packet
 
 ```bash

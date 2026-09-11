@@ -1,0 +1,18 @@
+{
+  "base": "bad36aac91c73361248dcf96de121879cd3d576b",
+  "upstream": "d2f8306dfe3ee6ccd8aa09f6f091f0467d5824f7",
+  "audits": [
+    60,
+    61,
+    62
+  ],
+  "ledger_records": [
+    352,
+    354,
+    361
+  ],
+  "resolution": "Three-way audit union with no concurrent record modifications. Preserve all upstream ledger lines then append missing owner lines, with exact JSON preservation.",
+  "stabilizing": [
+    "ASTIS-SA-20260911-SPHMCPoissonRejection"
+  ]
+}

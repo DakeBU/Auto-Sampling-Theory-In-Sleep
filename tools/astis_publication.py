@@ -41,6 +41,7 @@ LEGACY_NAMES = frozenset(
     for name in ('firstOrder_lower_bound_of_strongConvexOn',
                  'gradient_inner_lower_bound_of_strongConvexOn')
 )
+PRIVATE_IMPLEMENTATION_COVERAGE: list[dict] = []
 
 
 def digest(value) -> str:
@@ -232,6 +233,30 @@ def chapter_progress(library: str, chapter: str | None = None) -> dict:
             'source_complete': False}
 
 
+def private_implementation_owner(path: str, text: str, public_names: set[str], data: dict) -> str:
+    """A private implementation is covered only by a fresh whole-module review.
+
+    This creates no publication edge or mathematical credit for the helper.
+    The covering public theorem remains a strict release target.
+    """
+    for item in load():
+        for binding in item['bindings']:
+            name = binding['declaration']
+            decl = data['declarations'].get(name)
+            if (name not in public_names or not decl or decl.source_file != path
+                    or decl.kind not in {'theorem', 'lemma'}):
+                continue
+            audit = data['audits'].get(binding.get('audit_id'), {})
+            if (audit.get('state') not in {'accepted', 'source-reviewed'}
+                    or audit.get('source_review', {}).get('state') != 'accepted'
+                    or audit.get('publication_context', {}).get('current_lean_module') != text
+                    or audit.get('publication_binding_sha256') != binding_digest(item, binding, data)):
+                continue
+            if not validate([item], data, strict_names={name}):
+                return name
+    raise ValueError(f'{path}: private implementation has no fresh, accepted whole-module public theorem review')
+
+
 def changed_declarations(base: str) -> set[str]:
     """Conservative changed-module gate; catches scoped assumptions and imports.
 
@@ -243,19 +268,47 @@ aggregators and test examples do not count as new mathematical declarations.
     # Untracked candidate files matter locally too; CI sees them after commit.
     paths.update(git('ls-files', '--others', '--exclude-standard', '-z', 'AutoSamplingTheory', 'AutoSamplingTheory.lean').split('\0'))
     paths.discard('')
-    known = {(d.source_file, d.source_line, d.kind, d.short_name) for d in inputs()['declarations'].values()}
+    PRIVATE_IMPLEMENTATION_COVERAGE.clear()
+    data = inputs()
+    known = {(d.source_file, d.source_line, d.kind, d.short_name): d for d in data['declarations'].values()}
+    private_names, owners = set(), set()
     for path in paths:
         if not path.endswith('.lean') or not (ROOT / path).is_file():
             continue
-        clean = astis_site.sanitize_lean((ROOT / path).read_text(encoding='utf-8'))
+        text = (ROOT / path).read_text(encoding='utf-8')
+        clean = astis_site.sanitize_lean(text)
+        implementations = []
         # Inspect complete tokens anywhere, not only at the beginning of a line:
         # multiline attributes and Unicode suffixes must not hide declarations.
         for match in re.finditer(r'\b(theorem|lemma|def|abbrev|structure|class|inductive|opaque|axiom|instance)\b\s*([^\s(\[{:=]*)', clean):
             line = clean.count('\n', 0, match.start()) + 1
             kind, name = match.groups()
-            if (path, line, kind, name.rsplit('.', 1)[-1]) not in known:
+            prefix = clean[clean.rfind('\n', 0, match.start()) + 1:match.start()]
+            # Only an explicit command modifier counts. Unsupported multiline
+            # syntax fails closed, as do private tokens in earlier commands.
+            modifiers = re.fullmatch(r'\s*(?:@\[[^\]]*\]\s*)*((?:(?:noncomputable|private|protected|local|unsafe)\s+)*)', prefix)
+            private = bool(modifiers and 'private' in modifiers.group(1).split())
+            decl = known.get((path, line, kind, name.rsplit('.', 1)[-1]))
+            anonymous_private_instance = private and kind == 'instance' and not name
+            if not decl and not anonymous_private_instance:
                 raise ValueError(f'{path}:{line}: unindexed declaration syntax/name; extend the inventory before publishing (no silent Unicode/anonymous-instance bypass)')
-    return {d.full_name for d in inputs()['declarations'].values() if d.source_file in paths
+            if private:
+                if kind == 'axiom':
+                    raise ValueError(f'{path}:{line}: private axiom cannot be implementation coverage')
+                if decl:
+                    private_names.add(decl.full_name)
+                implementations.append({'file': path, 'line': line,
+                    'column': match.start() - clean.rfind('\n', 0, match.start()),
+                    'kind': kind, 'visibility': 'private', 'name': decl.full_name if decl else None,
+                    'anonymous': anonymous_private_instance})
+        if implementations:
+            public_names = {d.full_name for d in data['declarations'].values()
+                            if d.source_file == path and d.full_name not in private_names}
+            owner = private_implementation_owner(path, text, public_names, data)
+            owners.add(owner)
+            PRIVATE_IMPLEMENTATION_COVERAGE.extend(dict(row, owner=owner) for row in implementations)
+    return owners | {d.full_name for d in data['declarations'].values() if d.source_file in paths
+            and d.full_name not in private_names
             and not (d.source_file == 'AutoSamplingTheory/TechnicalLemmas/Registry.lean'
                      and ((d.kind == 'def' and d.short_name in REGISTRY_DATA_NAMES)
                           or (d.kind, d.full_name) in REGISTRY_METADATA_TYPES))}
@@ -381,6 +434,8 @@ def main(argv=None) -> int:
             if errors:
                 print('\n'.join(errors), file=sys.stderr)
                 return 1
+            for row in PRIVATE_IMPLEMENTATION_COVERAGE:
+                print('Private implementation coverage: ' + json.dumps(row, ensure_ascii=False))
             print(f'Publication PASS: {len(load())} source items; code, prose, assumptions and semantic-audit links checked. Legacy audit debt remains explicit.')
     except (ValueError, KeyError, StopIteration, subprocess.CalledProcessError) as exc:
         print(str(exc), file=sys.stderr)

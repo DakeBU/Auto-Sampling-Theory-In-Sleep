@@ -1,0 +1,62 @@
+{
+  "state": "STABILIZING",
+  "production_commit": "fb5876a94b15795d05adf2bcedf9d74710dae221",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCPoissonRejection",
+    "result": "PASS3638",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/PoissonRejection.lean": "4b28040efaf2c8817f99a8fee69b06ee6f1157c5e72f0dacf60a134e7e99676e",
+      "Tests/SmoothedPicardHMCPoissonRejection.lean": "078d3b40333fbe7a21cadf39aaaa9a4a3fe02adb5f3178bde10602e3174d4db0"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "development_review": {
+    "program_previous_sha": "3f1282802f044f52c811204664ce0578af0f952766f2c572451ed424d64eda9b",
+    "verifier": "depth_commit_verifier",
+    "result": "Independently compiled and accepted complete actual output, tail, positive acceptance and full-batch expected cost before the public conjunction expansion.",
+    "source_pre_review": "log_depth_source_review found no mathematics error but requested public conditional acceptance, accepted submeasure and exact mass to match blueprint. All three were added without weakening original conclusions; expanded scratch sha9152c482baacb754307d9b3b32700f1dc6a82f5a9959a9e8e8532cf5618ca566 compiled exit0. Production flattens reviewed helpers under private declarations."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "fb5876a94b15795d05adf2bcedf9d74710dae221",
+    "result": "Independent focused exit 0, PASS3638, public theorem standard three axioms. Exact production/test hashes confirmed. Every scratch declaration/proof preserved except namespace, private modifiers and whitespace. Added public conditional acceptance, accepted submeasure and exact p consume proved results.",
+    "boundary": "Development production check only; not PROVED_LOCAL or VERIFIED. Anonymous statement and proof review must expose exact private helper definitions."
+  },
+  "mathematical_status": "Actual independent proposal/Poisson/infinite-auxiliary/uniform attempt law; measurable total first-success output; common measurable Markov kernel equals true output and exponential tilt of mean W. Public conditional acceptance, accepted submeasure, exact mass and lower bound, never-hit zero, preceding-failure tail, full-batch expected auxiliary count 2B/p<=2B exp(2B). Fixed B>0 and fixed auxiliary probability law; jointly measurable everywhere bounded W.",
+  "remaining": [
+    "Finalize independent candidate integration review, PR CI, merge and deployment evidence.",
+    "Actual gradient estimator and clipping, target log-weight identification, Renyi error, initialization and gradient/full FORS cost remain separate mathematical obligations."
+  ],
+  "admission_boundary": "VERIFIED with accepted source audit; root imports and local aggregate/site/browser checks passed at the recorded candidate. Not yet merged or deployed; neither paper main result is complete.",
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-poisson-rejection.json",
+    "state": "Seven-step authored proof, accepted formal source review and local original companion browser verification passed."
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/poisson-rejection.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCPoissonRejection"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/poisson-rejection.source-review-result.json"
+    ]
+  },
+  "independent_admission": "runs/20260911-companion-priority/poisson-rejection.verified-admission.json",
+  "local_qa": {
+    "artifact": "runs/20260911-companion-priority/poisson-rejection.local-qa.json",
+    "candidate": "940f379fc993519f29120138f933356b34985d82"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-poisson-rejection",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual bounded Poisson rejection output and full-batch cost",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#A1.SS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Appendix A.1 Lemma A.2; bounded Poisson rejection mechanism and explicit actual retry costs",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded bounded mechanism with explicit parameterization, default output and full-batch cost proof. No author endorsement implied."
+      },
+      "statement": "Let Q be a Markov proposal kernel from a measurable parameter space S to a measurable space X, let nu be a fixed probability measure on auxiliary space A, and let W((s,x),z) be jointly measurable with |W|<=B for a fixed B>0. Fix a default x0. An attempt independently draws x from Q(s), N from Poisson(2B), an infinite iid nu sequence z, and U uniform on [0,1], and accepts when U is at most the product over i<N of (B+W((s,x),z_i))/(2B). Let Lambda_s be this actual product law, E_s its acceptance event, and p_s=Lambda_s(E_s). On an iid sequence of whole attempts, return the proposal at the first success, using x0 only on never-success, and charge N for every attempt whose predecessors all failed. There is a measurable Markov kernel R whose fiber is both the actual output law and Q(s) exponentially tilted by w(s,x)=integral W((s,x),z) nu(dz). Conditional acceptance is exp(w-B), the projected accepted submeasure is exp(w-B)Q(s), and p_s is its total mass with p_s>=exp(-2B). Never-success has measure zero; the first n attempts all fail with probability (1-p_s)^n. The expected total full-batch charge equals 2B/p_s and is at most 2B exp(2B).",
+      "assumptions": [
+        "S, X and A are arbitrary measurable spaces; Q:S->X is a Markov kernel.",
+        "nu is a fixed probability measure on A, and B is a fixed real number with B>0.",
+        "W:((S times X) times A)->Real is jointly measurable and satisfies |W((s,x),z)|<=B for every s,x,z.",
+        "A fixed x0 in X defines the output on the never-success event.",
+        "Each attempt draws independently from the displayed proposal/Poisson/infinite auxiliary/uniform product. Each retry is an independent whole attempt. Cost is the full N estimator calls for every attempt reached."
+      ],
+      "formulae": [
+        {
+          "label": "Actual bounded rejection output and full-batch cost",
+          "tex": "R(s)=Q(s)^{w(s,\\cdot)}=\\mathcal L(\\mathrm{out}_s),\\quad p_s=\\int e^{w(s,x)-B}Q(s)(dx)\\ge e^{-2B},\\quad\\mathbb E C_s=\\frac{2B}{p_s}\\le2B e^{2B}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "poisson-rejection",
+          "label": "Concrete bounded Poisson acceptance, actual retry output kernel and estimator-call expectation"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output",
+          "cell": "ASTIS-SW-SPHMC-poisson-rejection",
+          "role": "prerequisite",
+          "supports": [
+            "poisson-rejection"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCPoissonRejection",
+          "boundary": "Fixed B>0 and a fixed auxiliary probability law are explicit. W is jointly measurable and bounded everywhere by B. Cost counts full-batch auxiliary estimator calls, including the successful attempt; it is not automatically a gradient-query cost or the cost of an early-shortcircuit implementation. No clipping theorem, gradient-arc estimator, target log-weight identification, Renyi accuracy, initialization or complete FORS guarantee is established. The common output kernel is measurable in s and each output function is measurable in its attempt stream; joint measurability of the entire parameterized random-stream construction is not an additional public conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "The bounded mechanism is stated for a proposal distribution and auxiliary estimator.",
+              "lean": "A measurable Markov family Q(s) and jointly measurable W((s,x),z), on arbitrary measurable spaces with fixed auxiliary probability law.",
+              "classification": "generalization",
+              "reason": "A common parameterized output kernel is proved; parameterization is not attributed as an additional explicit statement of Lemma A.2."
+            },
+            {
+              "source": "B>0 bounds every estimator realization between -B and B.",
+              "lean": "Fixed B>0 and |W|<=B everywhere.",
+              "classification": "same",
+              "reason": "These hypotheses establish factor probabilities and uniform positive acceptance; no clipping step is silently substituted."
+            },
+            {
+              "source": "Poisson(2B) independent auxiliary samples and a product acceptance probability.",
+              "lean": "Actual independent proposal, Poisson count, infinite iid auxiliary law, and unit-interval uniform law; only the first N auxiliary coordinates are read.",
+              "classification": "same",
+              "reason": "Finite-prefix pushforward and uniform acceptance integration prove the correspondence, including N=0."
+            },
+            {
+              "source": "Repeat attempts until acceptance.",
+              "lean": "Actual iid whole-attempt stream and measurable total first-success output with default x0; never-success has measure zero and failure prefixes have probability (1-p)^n.",
+              "classification": "mathematically-necessary",
+              "reason": "Explicit default makes a total function; a proved null event removes its effect on the output distribution."
+            },
+            {
+              "source": "Output density is proportional to exp(mean W) relative to Q, with acceptance at least exp(-2B).",
+              "lean": "Conditional acceptance, accepted submeasure, exact p and lower bound are public, and the actual output law equals Q.tilted(mean W).",
+              "classification": "same",
+              "reason": "Exponential integrability and positive normalization are proved, including the common measurable Markov kernel."
+            },
+            {
+              "source": "The mechanism repeatedly draws a full Poisson batch of estimators.",
+              "lean": "Expected full-batch estimator-call count, including the successful batch, equals 2B/p and is at most 2B exp(2B).",
+              "classification": "source-implicit",
+              "reason": "The exact expectation is an expanded proof from the actual experiment, not a gradient-cost or shortcircuit-cost claim. Current N is not assumed independent of current acceptance."
+            },
+            {
+              "source": "Full FORS accuracy and the paper main results require concrete clipped gradient estimators and target/error/initialization conditions.",
+              "lean": "Those subsequent estimator, clipping, target-identification, Renyi, initialization and gradient-cost obligations are not claimed by this bounded mechanism.",
+              "classification": "API-limitation",
+              "reason": "The result is a concrete prerequisite for FORS, not completion of the terminal sampler or either paper main theorem."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

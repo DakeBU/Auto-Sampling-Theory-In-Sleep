@@ -342,5 +342,88 @@ class PublicationTest(unittest.TestCase):
         self.assertLess(len(json.dumps(report)), 5000)
 
 
+class PrivateImplementationCoverageTest(unittest.TestCase):
+    def scan(self, source, specs, owner='T'):
+        file = 'AutoSamplingTheory/Private.lean'
+        ds = {name: SimpleNamespace(source_file=file, source_line=line, kind=kind,
+              short_name=name, full_name=name) for line, kind, name in specs}
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path = root / file
+            path.parent.mkdir()
+            path.write_text(source, encoding='utf-8')
+            with patch.object(p, 'ROOT', root), \
+                 patch.object(p, 'git', side_effect=lambda *a: file+'\0' if a[0]=='diff' else ''), \
+                 patch.object(p, 'inputs', return_value={'declarations': ds}), \
+                 patch.object(p, 'private_implementation_owner', return_value=owner) as cover:
+                result = p.changed_declarations('HEAD')
+                return result, copy.deepcopy(p.PRIVATE_IMPLEMENTATION_COVERAGE), cover.call_args
+
+    def test_named_and_anonymous_private_implementations_have_explicit_owners(self):
+        result, rows, args = self.scan(
+            'private def h : Nat := 0\nprivate instance : Nonempty Nat := inferInstance\n'
+            'private instance {A : Type} [Nonempty A] : Nonempty A := inferInstance\n'
+            'theorem T : True := True.intro\n', [(1,'def','h'), (4,'theorem','T')])
+        self.assertEqual(result, {'T'})
+        self.assertEqual([r['line'] for r in rows], [1,2,3])
+        self.assertEqual([r['anonymous'] for r in rows], [False,True,True])
+        self.assertTrue(all(r['owner']=='T' for r in rows))
+        self.assertEqual(args.args[2], {'T'})
+
+    def test_public_declarations_cannot_inherit_coverage(self):
+        result, rows, _ = self.scan('private def h : Nat := 0\n'
+            'theorem T : True := True.intro\ntheorem U : True := True.intro\n',
+            [(1,'def','h'),(2,'theorem','T'),(3,'theorem','U')])
+        self.assertEqual(result, {'T','U'})
+        result, rows, args = self.scan('def h : Nat := 0\ntheorem T : True := True.intro\n',
+                                     [(1,'def','h'),(2,'theorem','T')])
+        self.assertEqual(result, {'h','T'})
+        self.assertEqual(rows, [])
+        self.assertIsNone(args)
+
+    def test_anonymous_public_unicode_and_private_axiom_fail_closed(self):
+        for source, specs in [
+            ('instance : Nonempty Nat := inferInstance\n', []),
+            ('private theorem fooα : True := True.intro\n', [(1,'theorem','foo')]),
+            ('private axiom h : True\n', [(1,'axiom','h')])]:
+            with self.subTest(source=source), self.assertRaises(ValueError):
+                self.scan(source, specs)
+
+    def test_comments_strings_and_prior_commands_are_not_modifiers(self):
+        for source, specs in [
+            ('-- private\ntheorem T : True := True.intro\n', [(2,'theorem','T')]),
+            ('/- private -/ theorem T : True := True.intro\n', [(1,'theorem','T')]),
+            ('def s := "private"\ntheorem T : True := True.intro\n', [(1,'def','s'),(2,'theorem','T')]),
+            ('private def h := 0\ntheorem T : True := True.intro\n', [(1,'def','h'),(2,'theorem','T')])]:
+            with self.subTest(source=source):
+                result, rows, _ = self.scan(source, specs)
+                self.assertIn('T', result)
+                self.assertFalse(any(r['name']=='T' for r in rows))
+
+    def test_owner_requires_exact_module_fresh_digest_review_and_validator(self):
+        file, text = 'AutoSamplingTheory/Private.lean', 'theorem T : True := True.intro\n'
+        item = {'bindings': [{'declaration':'T','audit_id':'a'}]}
+        baseline = {'declarations': {'T': SimpleNamespace(source_file=file, kind='theorem')},
+            'audits': {'a': {'state':'accepted','source_review':{'state':'accepted'},
+                'publication_context':{'current_lean_module':text},'publication_binding_sha256':'fresh'}}}
+        cases = ['valid','no-owner','other-file','old-module','old-digest','draft','unreviewed','validator']
+        for case in cases:
+            data=copy.deepcopy(baseline)
+            if case=='other-file': data['declarations']['T'].source_file='Elsewhere.lean'
+            if case=='old-module': data['audits']['a']['publication_context']['current_lean_module']='old'
+            if case=='old-digest': data['audits']['a']['publication_binding_sha256']='old'
+            if case=='draft': data['audits']['a']['state']='draft'
+            if case=='unreviewed': data['audits']['a']['source_review']['state']='pending'
+            with self.subTest(case=case), patch.object(p,'load',return_value=[item]), \
+                 patch.object(p,'binding_digest',return_value='fresh'), \
+                 patch.object(p,'validate',return_value=['invalid'] if case=='validator' else []) as check:
+                if case=='valid':
+                    self.assertEqual(p.private_implementation_owner(file,text,{'T'},data),'T')
+                    check.assert_called_once_with([item],data,strict_names={'T'})
+                else:
+                    with self.assertRaisesRegex(ValueError,'no fresh'):
+                        p.private_implementation_owner(file,text,set() if case=='no-owner' else {'T'},data)
+
+
 if __name__ == '__main__':
     unittest.main()

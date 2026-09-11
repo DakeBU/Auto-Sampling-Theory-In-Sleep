@@ -1,0 +1,8 @@
+{
+  "artifact": ".astis/PoissonQueryTail.lean",
+  "sha256": "1b9c32f87e256b2bf8e27319240c57db09a7b843b2aaa6a5dccfa7acd32939ed",
+  "reviewer": "depth_commit_verifier",
+  "independent_compile_exit": 0,
+  "result": "Accepted pathwise prefix comparison, tail union inclusion, actual Poisson exponential integrability/moment and actual iid finite-prefix product exponential moment; standard three axioms only.",
+  "boundary": "Development core only. Sum-exponential conversion, Chernoff tail, actual-attempt count law instantiation and complete tail theorem remain; no VERIFIED admission."
+}

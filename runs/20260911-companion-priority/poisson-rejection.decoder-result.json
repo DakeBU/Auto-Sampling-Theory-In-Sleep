@@ -1,0 +1,22 @@
+{
+  "decoder": "blind_reconstruction_f",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim reconstructed_theorem_text from the independent source-blind decoder; its supplied text digest independently checked.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-f.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCPoissonRejection.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "365bbf974b6fb4076b5350ca113a4fab6a2464dd83589203e6f7606f5f133236",
+  "lean_statement_sha256": "e3c94b5385ecc55a260eb606c05e17f6a1b3bc088e69c2f56c77d0009a724bf0",
+  "reconstructed_theorem_text": "Let S, X and A be arbitrary measurable spaces, Q a Markov probability kernel from S to X, and nu a probability measure on A. Let W:((S x X) x A)->R be jointly measurable. For every real B>0 satisfying |W((s,x),z)|<=B for all s,x,z, and every default x0 in X, define m_s(x)=integral W((s,x),z) dnu(z). At parameter s one attempt p=(x,k,z,u) has law Lambda_s=Q(s) x Poisson(2B) x nu^N x Uniform[0,1], with all displayed coordinates independent. Accept p precisely when u<=product_{i=0}^{k-1}(B+W((s,x),z_i))/(2B); the empty product is 1. Denote this event E_s and let a_s=Lambda_s(E_s). Let rho_s=Lambda_s^N be the law of an infinite independent sequence of attempts. Define out_s(omega) as the X coordinate of the least-index accepted attempt if one exists, and x0 otherwise. There exists a Markov kernel R from S to X such that, for every s, out_s is measurable and its rho_s pushforward is R(s), where R(s) is the exponential tilt of Q(s) by m_s, namely its density relative to Q(s) is exp(m_s(x))/integral exp(m_s(y)) dQ(s)(y). For every x the acceptance probability over the Poisson, auxiliary-sequence and uniform coordinates is exp(m_s(x)-B). The X marginal of Lambda_s restricted to E_s equals Q(s) with density exp(m_s(x)-B), and a_s=integral exp(m_s(x)-B) dQ(s)(x). The rho_s probability of no accepted attempt at any natural index is zero. For every natural n the probability that all attempts with index i<n fail is (1-a_s)^n. Moreover a_s>=exp(-2B). Define C_s(omega)=sum_{n=0}^infinity k_n times the indicator that every attempt i<n fails, where k_n is the Poisson coordinate of attempt n. This sum includes the first successful attempt; if no attempt succeeds, it sums every k_n. Its extended-nonnegative expectation is exactly a_s^(-1)*(2B) and is at most 2B*exp(2B). Probability, density and nonnegative-expectation equalities are interpreted in the extended nonnegative reals with ofReal embeddings as in the Lean statement. The output is a total function, including on the null event of endless rejection.",
+  "source_fidelity_verdict": null,
+  "decoder_notes": [
+    "R is quantified before s; only fiberwise out measurability and common Markov kernel are explicit.",
+    "Current cost may correlate with current acceptance; successful full batch is counted.",
+    "Pointwise boundedness, fixed B and nu, x0 default and N=0 were reconstructed.",
+    "No source identity inferred or unresolved mathematical ambiguity reported."
+  ]
+}

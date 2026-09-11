@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "5505e6f4ae2fd5bca28d1b20ae8c46a7b0a0b8e9",
+    "gate": {
+      "production": "Independent PASS3638 reused at unchanged production/test hashes; clean fixed commit checked. Fresh Meta delta expansion and isDefEq success, complete 3464-character statement matches registry.",
+      "publication": "Independent reviewed publication validator PASS; all canonical packet/run/component hashes and external binding preimage verified. Anonymous and canonical decoder raw bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCPoissonRejection",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_f",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "524049de2fdcec71c588b15f8e83f876bcbaba07ace833e9ba2f3451a65946ad",
+        "decoder_packet_sha256": "365bbf974b6fb4076b5350ca113a4fab6a2464dd83589203e6f7606f5f133236",
+        "decoder_run_sha256": "e0956bd09eb7c9d1cc3a58843869b87aee5477e1eddbeb7daf71f0ad463a0bfe",
+        "reviewer_packet_sha256": "42734b42cfdc0a24dc00c3a3265b80f596018870c145e84939b693ae76c487e7",
+        "review_run_sha256": "fef848c2b1372219fdb3afc64e43888b84d0be0c5eae0fd7c540d1b62b998f59",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and test: same actual attempts, first-success output, Markov and tilted law, termination, public acceptance identities, failure tail and full-batch cost including successful attempt."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output"
+    ],
+    "independent_checks": [
+      "Seven semantic slots, seven authored steps and seven informational deltas; no blockers or repairs.",
+      "All source/statement/reconstruction/decoder/review/module hashes independently rehashed.",
+      "Verified mechanism only, not root integration, website, merge, deployment, concrete FORS or either paper main result."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent /root/depth_commit_verifier fixed-commit VERIFIED-only authorization.",
+  "boundary": "Actual independent proposal/Poisson/infinite-auxiliary/uniform attempt law; measurable total first-success output; common measurable Markov kernel equals true output and exponential tilt of mean W. Public conditional acceptance, accepted submeasure, exact mass and lower bound, never-hit zero, preceding-failure tail, full-batch expected auxiliary count 2B/p<=2B exp(2B). Fixed B>0 and fixed auxiliary probability law; jointly measurable everywhere bounded W."
+}

@@ -40,10 +40,85 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-stopped-gaussian-rgo-error.md",
     "planning_review": "Independent source reviewer approved same-program witness alignment, terminal support integral, and conditional terminal-only accuracy bound followed by cap stability. Use state K(b), not baseline kappa, in GaussianBudget.",
-    "execution_boundary": "Root sole writer; StoppedGaussianRGOError sole STABILIZING; concrete Poisson rejection is the next mathematical edge.",
+    "execution_boundary": "StoppedGaussianRGOError actually merged PR275; stabilization lane released. PoissonRejection remains EXPLORING with independently checked acceptance-core scratch only.",
     "independent_proof_review": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.independent-proof-review.json",
     "admission_boundary": "VERIFIED at 213155a; no aggregate or reader integration admission yet.",
-    "independent_verification": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/275",
+      "commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+      "candidate": "1400ee82bcecc74523617df72c7ca3ebf2d53605",
+      "merged_at": "2026-09-11T09:03:11Z",
+      "candidate_ci": {
+        "lean": "34581076707 SUCCESS",
+        "site": "34581076699 SUCCESS; PR deploy skipped"
+      },
+      "fixed_local_qa": {
+        "commit": "1400ee82bcecc74523617df72c7ca3ebf2d53605",
+        "graph": {
+          "report": ".astis/stopped-gaussian-graph-check.json",
+          "boundary": "Reference edges are not elaborated dependency certificates.",
+          "status": "checked"
+        },
+        "browser": {
+          "clicked": [
+            "Lean statement",
+            "Lean proof",
+            "Source and reuse"
+          ],
+          "initially_closed_disclosures": 9,
+          "math_errors": 0,
+          "screenshot": "Actual module view inspected with current gate, imports and declaration context",
+          "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-stoppedgaussianrgoerror.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-stoppedgaussianrgoerro-d4c77ea573",
+          "statement_characters": 2069,
+          "proof_characters": 8009,
+          "displayed_commit": "1400ee82bcec",
+          "steps": 6,
+          "card_labels": [
+            "Compiled",
+            "Not mapped"
+          ],
+          "boundary": "Local fixed-source QA only; no deployment claim.",
+          "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-stopped-gaussian-rgo-error"
+        },
+        "site": {
+          "check_log": ".astis/stopped-gaussian-site-check.log",
+          "reviewed_teaching": 77,
+          "modules": 612,
+          "declarations": 3688,
+          "status": "passed"
+        },
+        "aggregate": {
+          "jobs": 9142,
+          "status": "passed",
+          "source_digest": "29d13aa0bf9aade4b75f8c4b95c8077be47a8cbb8681a7b2ac16cc9758d9e35a"
+        }
+      },
+      "independent_merge_review": "depth_commit_verifier authorized this exact candidate conditional on completed same-head Lean SUCCESS. Root checked the terminal success and MERGEABLE before match-head merge. Actual merged commit freshly verified with GitHub.",
+      "post_merge": "Exact merge Lean/Site CI, deployment and original reader provenance verified; see post_merge_delivery.",
+      "truth_boundary": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here."
+    },
+    "post_merge_delivery": {
+      "merge_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+      "site_run": "34582226664 SUCCESS",
+      "deployment_job": "103209194275 SUCCESS",
+      "live": {
+        "deployed_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+        "merge_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+        "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchor": "sphmc-stopped-gaussian-rgo-error",
+        "deployed_provenance": true,
+        "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-stoppedgaussianrgoerror.html",
+        "card_http_status": 200,
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+      },
+      "merge_lean": "34582226857 completed SUCCESS at exact bad36aac91c73361248dcf96de121879cd3d576b; freshly checked with gh run view"
+    }
   },
   "blocked": {
     "reason": "",
