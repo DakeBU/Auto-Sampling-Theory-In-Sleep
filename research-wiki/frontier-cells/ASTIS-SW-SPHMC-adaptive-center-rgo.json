@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-adaptive-center-rgo.md",
     "planning_review": "Independent log_depth_source_review recommends global measurable center kernels plus actual joint-law recovery; not a comap wrapper or output-marginal-only claim.",
-    "execution_boundary": "TwoNoise sole STABILIZING; AdaptiveCenter VERIFIED, no root imports yet.",
+    "execution_boundary": "Root sole writer; AdaptiveCenter sole STABILIZING after actual TwoNoise PR265 merge.",
     "ownership_note": "One actual source consumer; no invented second shared consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/adaptive-center-rgo.independent-proof-review.json",
     "admission_boundary": "VERIFIED at 8d98709496d94929131c8510ae11c72594a7fadf; root aggregate and reader/graph integration pending.",

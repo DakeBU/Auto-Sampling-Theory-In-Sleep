@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Verify actual merge CI and deployed reader provenance",
     "Concrete Gibbs specialization and marginal moment/source parameter obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -90,8 +90,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
-    "state": "DRAFT",
-    "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1"
+    "state": "MERGED",
+    "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+    "head": "1221af3ffad453d7b90cde8b18b7717f9669e0ea"
   },
   "reservation_resolution": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release.",
   "upstream_integration": {
@@ -110,5 +111,71 @@
     "preservation_review": "depth_commit_verifier accepted e7e724d exact event union and registry46; bad local intermediate merge repaired beforepush",
     "later_upstream": "ebb6923 C2 owner completion metadata preserved; no new Lean changes",
     "reservation_resolution": "C2 owner release preserved; TwoNoise resumed sole STABILIZING."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
+    "commit": "4e94f0ad27c5eb76ce76c3297a9d01912533692b",
+    "candidate": "1221af3ffad453d7b90cde8b18b7717f9669e0ea",
+    "merged_at": "2026-09-11T04:12:59Z",
+    "independent_merge_review": "depth_commit_verifier accepted complete C2/event preservation, fresh aggregate9122, actual same-tree final CI artifact with TwoNoise and C2 browser QA, conditional on same-head Lean/site success and no conflict. Root verified those conditions and match-head merge succeeded.",
+    "candidate_ci": {
+      "lean": "34560422975 SUCCESS",
+      "site": "34560422971 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local and CI artifact records remain separately pinned.",
+    "truth_boundary": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate."
+  },
+  "final_ci_artifact": {
+    "rendered_commit": "42da14fbf89111fe0fc81939ff69c16894497563",
+    "parents": [
+      "ebb6923f6ca129e2f82d4740d67366f7a77c4c11",
+      "1221af3ffad453d7b90cde8b18b7717f9669e0ea"
+    ],
+    "candidate": "1221af3ffad453d7b90cde8b18b7717f9669e0ea",
+    "tree": "38488f4ab59044923d520080c6e4b9892e7b80c2",
+    "same_tree": true,
+    "site_run": "34560422971 SUCCESS",
+    "extracted_files": 71,
+    "reader": {
+      "anchor": "sphmc-two-noise-rgo",
+      "proof_steps": 5,
+      "initially_closed_disclosures": 8,
+      "statement_chars": 1087,
+      "proof_chars": 4386,
+      "complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "screenshot": "Actual added-time KL denominator and two-noise recovery verified."
+    },
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo-two-noise--0eabe7795f",
+      "labels": [
+        "Partial",
+        "Not mapped"
+      ]
+    },
+    "collaborator": {
+      "module": "ConvexityC2",
+      "declarations": 3,
+      "placeholders": 0,
+      "imports": [
+        "ConvexityC1",
+        "Mathlib.Analysis.Calculus.ContDiff.Comp",
+        "Mathlib.Analysis.Calculus.Deriv.Slope"
+      ],
+      "consumers": [
+        "TechnicalLemmas.Analysis",
+        "Tests.Shared.ConvexityC2"
+      ],
+      "labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "banner": "Lean gate not recorded for this source state"
+    },
+    "boundary": "Actual final CI artifact tree equals candidate; labels as rendered. Local aggregate and earlier browser evidence remain separately pinned. Final Lean CI/merge/deployment separate."
   }
 }

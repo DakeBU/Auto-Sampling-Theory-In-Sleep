@@ -1,5 +1,5 @@
 {
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
   ],

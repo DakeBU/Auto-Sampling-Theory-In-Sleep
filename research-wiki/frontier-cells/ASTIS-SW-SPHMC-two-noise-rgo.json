@@ -39,11 +39,11 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-two-noise-rgo.md",
     "planning_review": "Independent log_depth_source_review recommends actual two-noise law/semigroup plus stage consumer; denominator must be added tau, not total eta+tau.",
-    "execution_boundary": "C2 owner MERGED event preserved; TwoNoise resumes sole STABILIZING; AdaptiveCenter EXPLORING.",
+    "execution_boundary": "Root sole writer; TwoNoise merged, stabilization lane released.",
     "ownership_note": "One actual paper consumer; no invented second consumer.",
     "scope_refinement": "Before production: replace raw-cost public budget by source-facing actual ENNReal W2<=ofReal(r), deriving the equivalent squared-cost bound via existing wassersteinDistance_sq and ofReal_pow. log_depth_source_review independently confirmed this reuse; old GaussianKL/RGOBackward contracts unchanged.",
     "independent_proof_review": "runs/20260911-companion-priority/two-noise-rgo.independent-proof-review.json",
-    "admission_boundary": "Independently VERIFIED; aggregate PASS9120 and fixed-commit original reader/graph passed. Final candidate CI/review/merge/deployment separate.",
+    "admission_boundary": "Independently VERIFIED and actually merged PR265 after C2 preservation, fresh aggregate and final CI artifact acceptance. Merge CI/deployment separate.",
     "independent_verification": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json",
     "integration": {
       "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
@@ -93,6 +93,19 @@
         "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
       },
       "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+    },
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
+      "commit": "4e94f0ad27c5eb76ce76c3297a9d01912533692b",
+      "candidate": "1221af3ffad453d7b90cde8b18b7717f9669e0ea",
+      "merged_at": "2026-09-11T04:12:59Z",
+      "independent_merge_review": "depth_commit_verifier accepted complete C2/event preservation, fresh aggregate9122, actual same-tree final CI artifact with TwoNoise and C2 browser QA, conditional on same-head Lean/site success and no conflict. Root verified those conditions and match-head merge succeeded.",
+      "candidate_ci": {
+        "lean": "34560422975 SUCCESS",
+        "site": "34560422971 SUCCESS; PR deploy skipped"
+      },
+      "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local and CI artifact records remain separately pinned.",
+      "truth_boundary": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate."
     }
   },
   "blocked": {
