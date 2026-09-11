@@ -1,0 +1,75 @@
+{
+  "commit": "2f8d34bdc4a6333dd02f8bd3b0e5b0e5eef50ebc",
+  "source_digest": "e66be3fbf2c44675a6ff3e270ab4f3f1648047012906ad6b17179d0f9e6dbb2a",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 19580,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed,Tests9184; exact candidate/digest in actual generated gate evidence.",
+    "log": ".astis/reference-carrying-kernel-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 69488,
+    "exit_code": 0,
+    "log": ".astis/reference-carrying-kernel-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 653,
+    "declarations": 3911
+  },
+  "reader_check": {
+    "session": 2280,
+    "exit_code": 0,
+    "log": ".astis/reference-carrying-kernel-reader-check.log",
+    "chapters": 12,
+    "modules": 653,
+    "declarations": 3911,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/reference-carrying-kernel-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=2f8d34b#sphmc-reference-carrying-kernel",
+    "section": "sphmc-reference-carrying-kernel",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "clicked": [
+      "Lean statement · reference_carrying_kernel",
+      "Lean proof · reference_carrying_kernel",
+      "Source and reuse",
+      "8. Project only the one-step marginal",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 2522,
+    "proof_code_characters": 6244,
+    "parents": "Two actual ASTIS parents: TerminalReferenceGradientDescent and Calculus.Gradient.continuous_gradient_of_contDiff_one.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "7 named declarations,Compiled exact2f8d34b gate,zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps7/8 readable: actual product-state kernel,self-loop absorption and one-step projected identity with no projected-chain Markovness,history or source depth conclusion."
+  },
+  "independent_precheck": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted-precheck-only",
+    "commit": "2f8d34bdc4a6333dd02f8bd3b0e5b0e5eef50ebc",
+    "evidence": "Exact digest/gate/rawTests9184,unchanged VERIFIED production/test/source registry,reviewed gate/root imports/upstream zero-tree merge and sole stabilization owner independently accepted. Final reader/graph/browser review then still pending."
+  },
+  "boundary": "Independent final local integration accepted. RemoteCI,merge/live,global reader features,cost/history and both full papers remain open.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "2f8d34bdc4a6333dd02f8bd3b0e5b0e5eef50ebc",
+    "source_digest": "e66be3fbf2c44675a6ff3e270ab4f3f1648047012906ad6b17179d0f9e6dbb2a",
+    "evidence": "Independent exact gate/digest,unchanged VERIFIED production/test/source registry and reviewed gate accepted. Actual final site logs12chap414leaves653modules3911decl77teaching; static11closedfolds,parents/currentcommit,statement2522,proof6243Unicodecodepoints=6244JSUTF16units due to mathematical k character; graph noomissions and source correspondence distinct. Browser clicks/screenshots/Compiledcard remain root provenance. No local integration blocker; faithful record authorized."
+  }
+}
