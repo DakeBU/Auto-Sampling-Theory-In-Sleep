@@ -1,11 +1,8 @@
 {
   "cell": "ASTIS-SHARED-gibbs-gradient-moment",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
-  "remaining": [
-    "Aggregate gate and original companion/graph QA",
-    "PR,merge and actual deployment"
-  ],
+  "remaining": [],
   "weighted_checkpoint": {
     "path": ".astis/GibbsGradientMomentWeighted.lean",
     "sha256": "7b51acdcd676ecbe046d805f31df65097575fb1adbd1404ee12e30ff10cc07c2",
@@ -78,5 +75,24 @@
   "integration_notes": {
     "upstream": "61c710cb2d73b333fbd684571910b12d28a699a0",
     "boundary": "Parent tree equals32f50f4; merge7661ed3 has zero tree delta. Parent PR checks/site/live passed; merge Lean pending separately. Root single stabilization owner."
-  }
+  },
+  "local_integration": "runs/20260911-companion-priority/gibbs-gradient-moment.local-qa.json: independently accepted fa3c103,Tests9175,site645/3882/77 and root browser QA",
+  "remote": {
+    "pr": 289,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/289",
+    "head": "72f5401a4dbd2ba23e35fed60acc02690f730638",
+    "lean_run": 34646676051,
+    "site_run": 34646675060,
+    "site_pr_result": "SUCCESS",
+    "lean_pr_result": "SUCCESS",
+    "state": "MERGED; all PR/merge CI and live provenance complete",
+    "merge_commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
+    "merged_at": "2026-09-11T21:10:08Z",
+    "merge_lean_run": 34648009062,
+    "merge_lean_result": "SUCCESS",
+    "merge_site_run": 34648009056,
+    "merge_site_result": "SUCCESS including deploy"
+  },
+  "post_merge_delivery": "runs/20260911-companion-priority/gibbs-gradient-moment.live-delivery.json",
+  "completion_boundary": "Selected ideal Gibbs gradient-moment packet delivery complete. Both full main results and global reader feature requirements remain open."
 }

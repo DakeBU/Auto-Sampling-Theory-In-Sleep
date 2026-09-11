@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+      "title": "Actual approximate initialization gradient moments",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Section6.3 reference-point initial gradient moments",
+          "scope": "Fixed-call moment component; supplied Wasserstein input, random histories and total cost remain separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCApproximateInitialGradientMoment"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume; d=finrank(E), including dimension zero. U:E->R is C2.",
+        "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian at every x obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every vector v. Thus this public theorem does not include beta=0.",
+        "eta>=0, tau>0 and r>=0. Define pi=volume.tilted(-U), rho_eta=gaussianSmoothing(pi,sqrt eta), and G=stdGaussian(E). Smoothing is the actual independent additive pushforward, not a supplied approximate law.",
+        "nu is an actual probability measure satisfying W2(nu,rho_eta)^2<=ENNReal.ofReal(r^2), where W2 is Samplinglib's actual infimum of quadratic coupling costs. This W2 guarantee is an input, not a conclusion about an implemented sampler.",
+        "Set M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For each fixed y,z define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)); differentiate in x and then evaluate at x=y. The same pair (y,z) defines both the starting point and its random center."
+      ],
+      "statement": "Seven conclusions: norm(grad U)^2 is integrable under nu; its nu expectation is at most M; for every y,z, grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z; the squared norm of this actual regularized gradient is integrable under nu.prod(G); its joint expectation equals the nu gradient-square expectation plus tau*d/(eta+tau)^2; hence it is at most M+tau*d/(eta+tau)^2; and if beta=1 and eta<=1/4 it is at most 5*(d+r^2+tau*d/(eta+tau)^2).",
+      "formula": "\\mathbb E_\\nu\\|\\nabla U\\|^2\\le M=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2,\\qquad \\mathbb E_{\\nu\\otimes G}\\|\\nabla F_{Y,Z}(Y)\\|^2=\\mathbb E_\\nu\\|\\nabla U\\|^2+\\frac{\\tau d}{(\\eta+\\tau)^2}.",
+      "boundary": "Fixed-call actual input moments only. The W2 hypothesis remains supplied; no smoothed sampler implementation or A2/A3-to-input adapter is proved. In the normalized source call one may substitute r^2=kappa_U*eps_j^2. General beta, coordinate-free finite dimension, dimension zero and eta=0 are explicit extensions. Public r>=0 and tau>0 remain; beta=0 is excluded by curvature. M and constant5 are derived sufficient constants, whereas the source writes a generic C. No state-second-moment, optimizer, target gradient-moment or cross-term-integrability premise is added. Public conclusions do not separately assert a joint parameter kernel or program measurability. Random-history conditioning, jointly measurable GD stopping/counting at the same random center, accumulated expected query cost and both main results remain separate.",
+      "steps": [
+        {
+          "title": "Establish the actual Gibbs and Gaussian moments",
+          "text": "Apply the previously proved Gibbs gradient-moment theorem to the genuine Hessian bounds. It proves probability normalization, gradient-square L1 and the beta*d bound for pi. Zero quadratic precision in QuadraticRegularization gives beta-Lipschitz continuity of the actual gradient. For the standard Gaussian, MemLp2 gives norm-square L1; its zero mean and covariance identity give unit directional second moments. Establish each directional L1 before summing over an orthonormal basis and applying Parseval, obtaining E norm(Z)^2=d even for the empty basis.",
+          "formula": "\\mathbb E_\\pi\\|\\nabla U\\|^2\\le\\beta d,\\qquad \\operatorname{Lip}(\\nabla U)\\le\\beta,\\qquad \\mathbb E_G\\|Z\\|^2=d.",
+          "lean": "gaussian_square; approximate_initial_gradient_moment: hG,hbase,hLip; GibbsGradientMoment.gibbs_gradient_moment; QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"
+        },
+        {
+          "title": "Integrate the true smoothing pushforward",
+          "text": "Expand gaussianSmoothing through addNoise and scaledStdGaussian. Product-map and map-composition equalities identify the measure as the law of X+sigma*Z for independent X~pi and Z~G. For any beta-Lipschitz vector function g, the quadratic triangle inequality gives the displayed domination. Its right side is integrable under the product law. Transfer this L1 statement through the actual pushforward, then integrate and put sigma=sqrt(eta). This is not simultaneous-smoothing contraction used as a displacement bound.",
+          "formula": "\\|g(x+\\sigma z)\\|^2\\le2\\|g(x)\\|^2+2\\beta^2\\sigma^2\\|z\\|^2,\\qquad \\mathbb E_{\\rho_\\eta}\\|\\nabla U\\|^2\\le2\\beta d+2\\beta^2\\eta d.",
+          "lean": "lipschitz_square_bound; smoothing_square; MeasureTheory.Measure.map_prod_map; MeasureTheory.Measure.map_map; MeasureTheory.integrable_map_measure"
+        },
+        {
+          "title": "Derive actual target integrability from a finite-cost coupling",
+          "text": "Let gamma couple the target first marginal nu to the known-moment second marginal rho_eta. A finite ENNReal quadratic cost yields actual real displacement-square integrability; it is not a marginal state-moment assumption. Pull the known gradient square back through the second projection. The displayed Lipschitz bound then supplies first-coordinate gradient-square L1, which descends through the first marginal map to nu. Only after these L1 facts are established are the real integrals compared.",
+          "formula": "\\|g(x)\\|^2\\le2\\|g(y)\\|^2+2\\beta^2\\|x-y\\|^2,\\quad \\int\\|x-y\\|^2\\,d\\gamma\\le s\\ \\Longrightarrow\\ \\mathbb E_\\nu\\|g\\|^2\\le2\\mathbb E_{\\rho_\\eta}\\|g\\|^2+2\\beta^2s.",
+          "lean": "coupling_square; CouplingQuadraticIntegrability.measurePreserving_fst_of_isCoupling; CouplingQuadraticIntegrability.measurePreserving_snd_of_isCoupling; MeasureTheory.integrable_toReal_of_lintegral_ne_top"
+        },
+        {
+          "title": "Eliminate strict near-optimal transport budgets",
+          "text": "The squared Wasserstein distance is the actual infimum of coupling costs. For each s>r^2 select a genuine coupling with cost below s. First take s=r^2+1 to establish target L1 once. For arbitrary epsilon>0 take s=r^2+epsilon/(2*beta^2+1); the preceding integral bound is at most the desired bound plus epsilon. Order closure removes epsilon. This works at r=0 without an optimizer and avoids division by beta. Combine with the actual smoothed moment to obtain M.",
+          "formula": "s=r^2+\\frac{\\varepsilon}{2\\beta^2+1}\\quad\\Longrightarrow\\quad \\mathbb E_\\nu\\|\\nabla U\\|^2\\le 4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2.",
+          "lean": "wasserstein_square; Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt; WassersteinSpace.wassersteinDistance_sq; approximate_initial_gradient_moment: hSm,hW,hbound"
+        },
+        {
+          "title": "Differentiate the actual random-center potential",
+          "text": "Since eta+tau>0, differentiate the quadratic penalty with y,z held fixed, and add the genuine derivative of U. At x=y the displacement from y+sqrt(tau)*z is -sqrt(tau)*z. This proves the actual gradient identity, rather than defining the desired gradient by a formula. The same Y occurs in the initial point and in the center.",
+          "formula": "\\nabla F_{y,z}(x)=\\nabla U(x)+\\frac{x-y-\\sqrt\\tau z}{\\eta+\\tau},\\qquad \\nabla F_{y,z}(y)=\\nabla U(y)-\\frac{\\sqrt\\tau}{\\eta+\\tau}z.",
+          "lean": "regularized_gradient; approximate_initial_gradient_moment: hA,hgrad; HasGradientAt.gradient; HasFDerivAt.norm_sq"
+        },
+        {
+          "title": "Prove cross-term integrability before using independence",
+          "text": "For a continuous g with its now-proved square L1 under nu, finite probability mass gives vector L1. The standard Gaussian is also vector L1. The inner-product norm bound and Integrable.op_fst_snd establish absolute integrability of the cross term under the actual product measure. Fubini and the Gaussian strong-dual mean-zero identity then show its integral is zero. Each squared term is integrable, so the square expansion both proves joint L1 and permits termwise integration.",
+          "formula": "\\langle g(Y),Z\\rangle\\in L^1(\\nu\\otimes G),\\quad \\mathbb E\\langle g(Y),Z\\rangle=0,\\quad \\mathbb E\\|g(Y)-cZ\\|^2=\\mathbb E_\\nu\\|g\\|^2+c^2d.",
+          "lean": "gaussian_perturbation_square; MeasureTheory.Integrable.op_fst_snd; MeasureTheory.integral_prod; ProbabilityTheory.integral_strongDual_stdGaussian"
+        },
+        {
+          "title": "Combine the exact expectation and derive the source-scale constant",
+          "text": "Substitute c=sqrt(tau)/(eta+tau) into the exact product expectation and use tau>0 to replace sqrt(tau)^2 by tau. Combining with M yields the joint bound. When beta=1 and eta<=1/4, M<=5d+2r^2; nonnegativity of dimension, r^2 and the noise term yields the displayed sufficient constant5. The paper uses a generic constant C. This fixed-call estimate does not yet integrate the random-center GD stopping cost or propagate moments through random histories.",
+          "formula": "\\mathbb E\\|\\nabla F_{Y,Z}(Y)\\|^2\\le M+\\frac{\\tau d}{(\\eta+\\tau)^2}\\le5\\left(d+r^2+\\frac{\\tau d}{(\\eta+\\tau)^2}\\right)\\quad(\\beta=1,\\ \\eta\\le1/4).",
+          "lean": "approximate_initial_gradient_moment: hnoise,hEq,hd,hn,hηd"
+        }
+      ],
+      "lean_statement": "Seven actual-law conclusions: nu gradient-square L1/bound, same-pair regularized gradient identity, joint L1/exact expectation/bound and derived constant5 specialization.",
+      "lean_proof": "Actual Gibbs and Gaussian moments, actual smoothing pushforward, finite-cost coupling L1 and strict-budget elimination, true quadratic differentiation, absolutely integrable Gaussian cancellation and explicit arithmetic.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_fst_of_isCoupling",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_snd_of_isCoupling"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.IsGaussian.memLp_two_id",
+        "ProbabilityTheory.covarianceBilin_stdGaussian",
+        "ProbabilityTheory.integral_id_stdGaussian",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.Measure.map_map",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.integrable_toReal_of_lintegral_ne_top",
+        "MeasureTheory.Integrable.op_fst_snd",
+        "MeasureTheory.integral_prod",
+        "ProbabilityTheory.integral_strongDual_stdGaussian"
+      ]
+    }
+  ]
+}

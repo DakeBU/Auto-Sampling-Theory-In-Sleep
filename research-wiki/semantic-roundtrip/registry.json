@@ -20396,6 +20396,318 @@
           "evidence": "Independent reviewer accepted: Only ideal-law input to larger initialization and cost argument."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260912-SPHMCApproximateInitialGradientMoment",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-approximate-initial-gradient-moment",
+        "anchor": "Section6.3 Reference point construction: approximate and regularized initial-gradient moments",
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "original_text": "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume; d=finrank(E), including dimension zero. U:E->R is C2.\nalpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian at every x obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every vector v. Thus this public theorem does not include beta=0.\neta>=0, tau>0 and r>=0. Define pi=volume.tilted(-U), rho_eta=gaussianSmoothing(pi,sqrt eta), and G=stdGaussian(E). Smoothing is the actual independent additive pushforward, not a supplied approximate law.\nnu is an actual probability measure satisfying W2(nu,rho_eta)^2<=ENNReal.ofReal(r^2), where W2 is Samplinglib's actual infimum of quadratic coupling costs. This W2 guarantee is an input, not a conclusion about an implemented sampler.\nSet M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For each fixed y,z define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)); differentiate in x and then evaluate at x=y. The same pair (y,z) defines both the starting point and its random center.\nSeven conclusions: norm(grad U)^2 is integrable under nu; its nu expectation is at most M; for every y,z, grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z; the squared norm of this actual regularized gradient is integrable under nu.prod(G); its joint expectation equals the nu gradient-square expectation plus tau*d/(eta+tau)^2; hence it is at most M+tau*d/(eta+tau)^2; and if beta=1 and eta<=1/4 it is at most 5*(d+r^2+tau*d/(eta+tau)^2).",
+        "text_sha256": "9d228053a7fc74c2ec371a1e771a7904217b0bc8ddf6cb23ef707d6bca764967"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ApproximateInitialGradientMoment.lean",
+        "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E]\n  [inst_3 : FiniteDimensional ℝ E] [inst_4 : MeasurableSpace E] [inst_5 : BorelSpace E] {U : E → ℝ} {α β : NNReal},\n  0 < α →\n    α ≤ β →\n      ContDiff ℝ 2 U →\n        (∀ (x v : E), ↑α * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ U) x) v) v ∧ ((fderiv ℝ (fderiv ℝ U) x) v) v ≤ ↑β * ‖v‖ ^ 2) →\n          ∀ {η τ r : ℝ},\n            0 ≤ η →\n              0 < τ →\n                0 ≤ r →\n                  ∀ (ν : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure ν],\n                    (InfSet.sInf\n                              {r |\n                                ∃\n                                  γ ∈\n                                    {γ |\n                                      γ.fst = ν ∧\n                                        γ.snd =\n                                          MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                            ((MeasureTheory.MeasureSpace.volume.tilted fun x => -U x).prod\n                                              (MeasureTheory.Measure.map (fun z => √η • z)\n                                                (ProbabilityTheory.stdGaussian E)))},\n                                  r = ∫⁻ (z : E × E), ENNReal.ofReal (‖z.1 - z.2‖ ^ 2) ∂γ} ^\n                            (1 / 2)) ^\n                          2 ≤\n                        ENNReal.ofReal (r ^ 2) →\n                      have d := ↑(Module.finrank ℝ E);\n                      have M := 4 * ↑β * d + 4 * ↑β ^ 2 * η * d + 2 * ↑β ^ 2 * r ^ 2;\n                      have F := fun y z x => U x + ‖x - (y + √τ • z)‖ ^ 2 / (2 * (η + τ));\n                      MeasureTheory.Integrable (fun y => ‖gradient U y‖ ^ 2) ν ∧\n                        ∫ (y : E), ‖gradient U y‖ ^ 2 ∂ν ≤ M ∧\n                          (∀ (y z : E), gradient (F y z) y = gradient U y - (√τ / (η + τ)) • z) ∧\n                            MeasureTheory.Integrable (fun p => ‖gradient (F p.1 p.2) p.1‖ ^ 2)\n                                (ν.prod (ProbabilityTheory.stdGaussian E)) ∧\n                              ∫ (p : E × E), ‖gradient (F p.1 p.2) p.1‖ ^ 2 ∂ν.prod (ProbabilityTheory.stdGaussian E) =\n                                  ∫ (y : E), ‖gradient U y‖ ^ 2 ∂ν + τ * d / (η + τ) ^ 2 ∧\n                                ∫ (p : E × E),\n                                      ‖gradient (F p.1 p.2) p.1‖ ^ 2 ∂ν.prod (ProbabilityTheory.stdGaussian E) ≤\n                                    M + τ * d / (η + τ) ^ 2 ∧\n                                  (β = 1 →\n                                    η ≤ 1 / 4 →\n                                      ∫ (p : E × E),\n                                          ‖gradient (F p.1 p.2) p.1‖ ^ 2 ∂ν.prod (ProbabilityTheory.stdGaussian E) ≤\n                                        5 * (d + r ^ 2 + τ * d / (η + τ) ^ 2))",
+        "statement_sha256": "3c250c7cfa2573a5b94183c5e2515caf3a3fc2514a77a54056d22cb127801313",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Fixed production5a527a748b5ca1cb03d950e08d278638883b09cf independently replayed PASS3720 with standard three axioms and unchanged reviewed mathematics. Root expanded all project definitions appearing in the compiled theorem type and checked Meta.isDefEq in session5843 exit0; independent expanded replay pending.",
+        "decoder_context": [
+          "NNReal denotes nonnegative reals, upward arrows are coercions. Module.finrank is real vector-space dimension. ContDiff R 2 is C2 regularity; fderiv is the genuine Frechet derivative and gradient the real inner-product gradient.",
+          "The infimum and its lintegral cost are in ENNReal, the extended nonnegative reals. The displayed exponent (1/2) on that infimum is real-exponent ENNReal rpow; its outer exponent 2 is natural-number power. ENNReal.ofReal maps real x to max(x,0) as an extended nonnegative real.",
+          "gamma.fst and gamma.snd are pushforward marginal measures. Measure.map denotes pushforward; Measure.prod denotes the actual product measure. ProbabilityTheory.stdGaussian E is the centered standard Gaussian probability on the finite-dimensional real inner-product space, with identity covariance.",
+          "The canonical volume is Lebesgue volume for the finite-dimensional inner-product space. For arbitrary base measure mu and real function f, Mathlib defines mu.tilted f as mu.withDensity(fun x => ENNReal.ofReal(exp(f(x))/(integral y,exp(f(y)) dmu))). Nonintegrable Bochner integrals are assigned zero; real division by zero is zero. This is generic definition context, not an added integrability or normalization hypothesis.",
+          "Integrable denotes actual Bochner integrability under the specified measure. The displayed real integrals are Bochner integrals, and the nonnegative integral is the extended Lebesgue integral. Real.sqrt denotes the nonnegative square root, with Mathlib real-domain conventions.",
+          "Displayed have bindings in the theorem type are local let bindings. The variables y,z are fixed parameters when taking gradient of F y z with respect to its final argument. BorelSpace identifies the measurable structure with the topology.",
+          "The compiled theorem type has been definitionally expanded; local project definition names are removed. This context supplies only mathematical and library definitions, no source identity or additional theorem conclusion."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "6d2d2a8c7bba054d418a5650ab072860445ca71a1e1ed7bfee502b4d30a327ce",
+        "review_run_sha256": "91b073b1668363591b1478227689e6d39f6a6cb91c043d7ea90a3ef23cd1f6a9",
+        "run_artifact": "runs/20260911-companion-priority/approximate-initial-gradient-moment.source-review-result.json",
+        "evidence": "Independent anti-anchored formal review accepted seven semantic slots,seven authored steps,six disclosed differences and seven private implementations. Read only new packet and primary Section6.3; packet contained no completed verdict/slots. Source is attributed ASTIS expanded proof component,not verbatim source theorem. Recomputed canonical packet/source/statement/reconstruction/whole-module text hashes,all match. Binding is packet-authenticated but external preimage not recomputed. No workspace byte check,independent compilation,Meta replay,decoder-run hash,test/toolchain/dependency verification in this source review. Tilted degeneracy discussion adds no assumption/public conclusion; no repair required. No VERIFIED; faithful transcription authorized."
+      },
+      "publication_binding_sha256": "3dc1bdab023a6b68f559ca7218b446e53dce0e7ede78214cadf4533d3f501b7c",
+      "publication_context": {
+        "file": "0166ada3c17cd213536a654061fbf237b8c79e6740fbb74a04ac25ba3c6d3288",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing\nimport AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability\nimport Mathlib.MeasureTheory.Function.L2Space\nimport Mathlib.MeasureTheory.Integral.Prod\nimport Mathlib.Tactic\n\n/-!\n# Actual approximate initialization gradient moments\n\nThe initial-gradient estimates in Section 6.3 of Chen, Chewi, Lu and Zhang,\narXiv:2609.06906v1, are derived for the actual approximate input law. Genuine\ncurvature supplies the normalized Gibbs moment, actual independent Gaussian\nsmoothing supplies its smoothed counterpart, and finite-cost near-optimal\ncouplings transfer integrability and the moment bound to the actual output.\n\nThe regularized potential uses the same pair (Y,Z) as its starting point and\nrandom center. Absolute integrability is established before eliminating its\nGaussian cross term. The final constant 5 is a sufficient constant derived\nhere, not a numerical constant quoted from the paper. General beta and a\ncoordinate-free finite-dimensional domain, including dimension zero, are\nexplicit extensions. The nonnegative r hypothesis is retained publicly.\n\nThis fixed-call moment theorem does not construct a jointly measurable stopped\ngradient-descent program for the random center, establish conditional history\ninvariants, or sum reference-query costs. Neither paper is completed here.\n-/\n\nnoncomputable section\nopen MeasureTheory ProbabilityTheory InnerProductSpace\nopen scoped NNReal ENNReal RealInnerProductSpace\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [CompleteSpace E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nprivate theorem gaussian_square :\n    Integrable (fun x : E => ‖x‖^2) (stdGaussian E) ∧\n      (∫ x : E, ‖x‖^2 ∂stdGaussian E) = Module.finrank ℝ E := by\n  classical\n  have hi : Integrable (fun x : E => ‖x‖^2) (stdGaussian E) :=\n    (memLp_two_iff_integrable_sq_norm (by fun_prop)).1 IsGaussian.memLp_two_id\n  let b := stdOrthonormalBasis ℝ E\n  have hdir (i) : (∫ x : E, (inner ℝ (b i) x)^2 ∂stdGaussian E) = 1 := by\n    have hh := covarianceBilin_apply (μ := stdGaussian E) IsGaussian.memLp_two_id (b i) (b i)\n    rw [covarianceBilin_stdGaussian] at hh\n    change inner ℝ (b i) (b i) = _ at hh\n    simpa [integral_id_stdGaussian, real_inner_self_eq_norm_sq,\n      b.orthonormal.norm_eq_one, pow_two] using hh.symm\n  have hL1 (i) : Integrable (fun x : E => (inner ℝ (b i) x)^2) (stdGaussian E) := by\n    apply hi.mono' (by fun_prop)\n    filter_upwards with x\n    rw [Real.norm_eq_abs, abs_of_nonneg (sq_nonneg _)]\n    have hb := norm_inner_le_norm (𝕜 := ℝ) (b i) x\n    rw [b.orthonormal.norm_eq_one, one_mul] at hb\n    have hsq := sq_le_sq₀ (norm_nonneg (inner ℝ (b i) x)) (norm_nonneg x) |>.2 hb\n    simpa [Real.norm_eq_abs, sq_abs] using hsq\n  refine ⟨hi, ?_⟩\n  calc\n    (∫ x : E, ‖x‖^2 ∂stdGaussian E) =\n        ∫ x : E, ∑ i, (inner ℝ (b i) x)^2 ∂stdGaussian E := by\n      apply integral_congr_ae\n      filter_upwards with x\n      simpa [Real.norm_eq_abs, sq_abs] using (b.sum_sq_norm_inner_right x).symm\n    _ = ∑ i, ∫ x : E, (inner ℝ (b i) x)^2 ∂stdGaussian E :=\n      integral_finsetSum _ (fun i _ => hL1 i)\n    _ = Module.finrank ℝ E := by simp [hdir]\n\nprivate theorem gaussian_perturbation_square {μ : Measure E} [IsProbabilityMeasure μ]\n    {g : E → E} (hg : Continuous g)\n    (hi : Integrable (fun x => ‖g x‖^2) μ) (c : ℝ) :\n    Integrable (fun p : E × E => ‖g p.1 - c • p.2‖^2) (μ.prod (stdGaussian E)) ∧\n      (∫ p : E × E, ‖g p.1 - c • p.2‖^2 ∂μ.prod (stdGaussian E)) =\n        (∫ x, ‖g x‖^2 ∂μ) + c^2 * Module.finrank ℝ E := by\n  have hg1 : Integrable g μ := MemLp.integrable (by norm_num : 1 ≤ (2 : ℝ≥0∞))\n    ((memLp_two_iff_integrable_sq_norm hg.aestronglyMeasurable).2 hi)\n  have hz1 : Integrable (fun z : E => z) (stdGaussian E) := IsGaussian.integrable_id\n  have hcross : Integrable (fun p : E × E => inner ℝ (g p.1) p.2)\n      (μ.prod (stdGaussian E)) :=\n    hg1.op_fst_snd (by fun_prop) ⟨1, by intro x y; simpa using norm_inner_le_norm (𝕜 := ℝ) x y⟩ hz1\n  have hcross0 : (∫ p : E × E, inner ℝ (g p.1) p.2 ∂μ.prod (stdGaussian E)) = 0 := by\n    rw [integral_prod _ hcross]\n    have hz (x : E) : (∫ z : E, inner ℝ (g x) z ∂stdGaussian E) = 0 :=\n      integral_strongDual_stdGaussian (innerSL ℝ (g x))\n    simp only [hz, integral_zero]\n  have hp := hi.comp_fst (stdGaussian E)\n  have hq := (gaussian_square (E := E)).1.comp_snd μ\n  have hqc : Integrable (fun p : E × E => c^2 * ‖p.2‖^2)\n      (μ.prod (stdGaussian E)) := hq.const_mul (c^2)\n  have hcc : Integrable (fun p : E × E => (2*c) * inner ℝ (g p.1) p.2)\n      (μ.prod (stdGaussian E)) := hcross.const_mul (2*c)\n  have hsum : Integrable (fun p : E × E => ‖g p.1‖^2 + c^2 * ‖p.2‖^2)\n      (μ.prod (stdGaussian E)) := hp.add hqc\n  have hexpand (p : E × E) : ‖g p.1 - c • p.2‖^2 =\n      ‖g p.1‖^2 + c^2 * ‖p.2‖^2 - (2*c) * inner ℝ (g p.1) p.2 := by\n    rw [norm_sub_sq_real, norm_smul, real_inner_smul_right]\n    simp only [Real.norm_eq_abs, mul_pow, sq_abs]\n    ring\n  have hwhole : Integrable (fun p : E × E => ‖g p.1 - c • p.2‖^2)\n      (μ.prod (stdGaussian E)) := by\n    have hd : Integrable (fun p : E × E =>\n        ‖g p.1‖^2 + c^2 * ‖p.2‖^2 - (2*c) * inner ℝ (g p.1) p.2)\n        (μ.prod (stdGaussian E)) := hsum.sub hcc\n    simpa only [hexpand] using hd\n  refine ⟨hwhole, ?_⟩\n  simp_rw [hexpand]\n  rw [integral_sub hsum hcc, integral_add hp hqc,\n    integral_const_mul, integral_const_mul, hcross0]\n  simp only [mul_zero, sub_zero]\n  rw [integral_prod _ hp, integral_prod _ hq]\n  simp [(gaussian_square (E := E)).2]\n\nomit [InnerProductSpace ℝ E] [CompleteSpace E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] in\nprivate theorem lipschitz_square_bound {g : E → E} {b : ℝ≥0}\n    (hg : LipschitzWith b g) (x y : E) :\n    ‖g x‖^2 ≤ 2 * ‖g y‖^2 + 2 * (b : ℝ)^2 * ‖x-y‖^2 := by\n  have hLip : ‖g x - g y‖ ≤ (b : ℝ) * ‖x-y‖ := by\n    simpa only [dist_eq_norm] using hg.dist_le_mul x y\n  have htri := norm_sub_norm_le (g x) (g y)\n  have hnorm : ‖g x‖ ≤ ‖g y‖ + (b : ℝ) * ‖x-y‖ := by linarith\n  have hnonneg : 0 ≤ (b : ℝ) * ‖x-y‖ := mul_nonneg b.coe_nonneg (norm_nonneg _)\n  nlinarith [norm_nonneg (g x), norm_nonneg (g y),\n    sq_nonneg (‖g y‖ - (b : ℝ) * ‖x-y‖)]\n\nprivate theorem smoothing_square {μ : Measure E} [IsProbabilityMeasure μ]\n    {g : E → E} {b : ℝ≥0} (hg : LipschitzWith b g)\n    (hi : Integrable (fun x => ‖g x‖^2) μ) (σ : ℝ) :\n    let ρ := TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ σ\n    Integrable (fun x => ‖g x‖^2) ρ ∧\n      (∫ x, ‖g x‖^2 ∂ρ) ≤ 2 * (∫ x, ‖g x‖^2 ∂μ) +\n        2 * (b : ℝ)^2 * σ^2 * Module.finrank ℝ E := by\n  let ρ := TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ σ\n  let A : E × E → E := fun p => p.1 + σ • p.2\n  have hA : Measurable A := by fun_prop\n  have hc : Continuous (fun x => ‖g x‖^2) := hg.continuous.norm.pow 2\n  have hprod : μ.prod (TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian (E := E) σ) =\n      (μ.prod (stdGaussian E)).map (Prod.map id (fun z : E => σ • z)) := by\n    simpa only [Measure.map_id, TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian] using\n      Measure.map_prod_map μ (stdGaussian E) measurable_id (by fun_prop : Measurable (fun z : E => σ • z))\n  have hρ : ρ = (μ.prod (stdGaussian E)).map A := by\n    dsimp [ρ, TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing,\n      TechnicalLemmas.Measure.CommonNoiseContraction.addNoise]\n    rw [hprod, Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  have hp := hi.comp_fst (stdGaussian E)\n  have hq := (gaussian_square (E := E)).1.comp_snd μ\n  have hdom : Integrable (fun p : E × E =>\n      2 * ‖g p.1‖^2 + (2 * (b : ℝ)^2 * σ^2) * ‖p.2‖^2)\n      (μ.prod (stdGaussian E)) := (hp.const_mul 2).add (hq.const_mul _)\n  have hbound (p : E × E) : ‖g (A p)‖^2 ≤\n      2 * ‖g p.1‖^2 + (2 * (b : ℝ)^2 * σ^2) * ‖p.2‖^2 := by\n    have hb := lipschitz_square_bound hg (A p) p.1\n    have hd : A p - p.1 = σ • p.2 := by dsimp [A]; abel\n    rw [hd, norm_smul] at hb\n    simpa only [Real.norm_eq_abs, mul_pow, sq_abs, mul_assoc] using hb\n  have hcomp : Integrable (fun p => ‖g (A p)‖^2) (μ.prod (stdGaussian E)) := by\n    apply hdom.mono' (hc.comp (by fun_prop : Continuous A)).aestronglyMeasurable\n    filter_upwards with p\n    change ‖(‖g (A p)‖^2 : ℝ)‖ ≤ _\n    rw [Real.norm_eq_abs, abs_of_nonneg (sq_nonneg ‖g (A p)‖)]\n    exact hbound p\n  have hρi : Integrable (fun x => ‖g x‖^2) ρ := by\n    rw [hρ]\n    exact (integrable_map_measure hc.aestronglyMeasurable hA.aemeasurable).2 hcomp\n  refine ⟨hρi, ?_⟩\n  change (∫ x, ‖g x‖^2 ∂ρ) ≤ _\n  rw [hρ, integral_map hA.aemeasurable hc.aestronglyMeasurable]\n  have hm := integral_mono hcomp hdom hbound\n  have hsum : (∫ p : E × E, 2 * ‖g p.1‖^2 + (2 * (b : ℝ)^2 * σ^2) * ‖p.2‖^2\n      ∂μ.prod (stdGaussian E)) =\n      2 * (∫ x, ‖g x‖^2 ∂μ) + 2 * (b : ℝ)^2 * σ^2 * Module.finrank ℝ E := by\n    rw [integral_add (hp.const_mul 2) (hq.const_mul _), integral_const_mul, integral_const_mul,\n      integral_prod _ hp, integral_prod _ hq]\n    simp [(gaussian_square (E := E)).2]\n  exact hm.trans_eq hsum\n\nomit [CompleteSpace E] in\nprivate theorem coupling_square {μ ν : Measure E} {γ : Measure (E × E)}\n    {g : E → E} {b : ℝ≥0} {s : ℝ} (hg : LipschitzWith b g)\n    (hi : Integrable (fun x => ‖g x‖^2) ν)\n    (hγ : TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν) (hs : 0 ≤ s)\n    (hcost : (∫⁻ p, TechnicalLemmas.Measure.WassersteinSpace.quadraticCost p ∂γ) ≤ ENNReal.ofReal s) :\n    Integrable (fun x => ‖g x‖^2) μ ∧\n      (∫ x, ‖g x‖^2 ∂μ) ≤ 2 * (∫ x, ‖g x‖^2 ∂ν) + 2 * (b : ℝ)^2 * s := by\n  have hc : Continuous (fun x => ‖g x‖^2) := hg.continuous.norm.pow 2\n  have hmp1 := TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_fst_of_isCoupling hγ\n  have hmp2 := TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_snd_of_isCoupling hγ\n  have hq : Integrable (fun p : E × E => ‖g p.2‖^2) γ :=\n    hmp2.integrable_comp_of_integrable hi\n  have hd : Integrable (fun p : E × E => ‖p.1-p.2‖^2) γ := by\n    have hm : AEMeasurable (fun p : E × E =>\n        TechnicalLemmas.Measure.WassersteinSpace.quadraticCost p) γ := by\n      unfold TechnicalLemmas.Measure.WassersteinSpace.quadraticCost\n      fun_prop\n    have ht := integrable_toReal_of_lintegral_ne_top hm\n      (lt_of_le_of_lt hcost ENNReal.ofReal_lt_top).ne\n    simpa [TechnicalLemmas.Measure.WassersteinSpace.quadraticCost] using ht\n  have hdint : (∫ p : E × E, ‖p.1-p.2‖^2 ∂γ) ≤ s := by\n    apply (ENNReal.ofReal_le_ofReal_iff hs).1\n    rw [ofReal_integral_eq_lintegral_ofReal hd (Filter.Eventually.of_forall (fun p => sq_nonneg _))]\n    exact hcost\n  have hdom : Integrable (fun p : E × E => 2 * ‖g p.2‖^2 + 2 * (b : ℝ)^2 * ‖p.1-p.2‖^2) γ :=\n    (hq.const_mul 2).add (hd.const_mul _)\n  have hp : Integrable (fun p : E × E => ‖g p.1‖^2) γ := by\n    apply hdom.mono' (hc.comp continuous_fst).aestronglyMeasurable\n    filter_upwards with p\n    change ‖(‖g p.1‖^2 : ℝ)‖ ≤ _\n    rw [Real.norm_eq_abs, abs_of_nonneg (sq_nonneg ‖g p.1‖)]\n    exact lipschitz_square_bound hg p.1 p.2\n  have hμ : Integrable (fun x => ‖g x‖^2) μ := by\n    rw [← hmp1.map_eq]\n    exact (integrable_map_measure hc.aestronglyMeasurable measurable_fst.aemeasurable).2 hp\n  have hpint : (∫ p : E × E, ‖g p.1‖^2 ∂γ) = ∫ x, ‖g x‖^2 ∂μ := by\n    rw [← hmp1.map_eq, integral_map measurable_fst.aemeasurable hc.aestronglyMeasurable]\n  have hqint : (∫ p : E × E, ‖g p.2‖^2 ∂γ) = ∫ x, ‖g x‖^2 ∂ν := by\n    rw [← hmp2.map_eq, integral_map measurable_snd.aemeasurable hc.aestronglyMeasurable]\n  have hm := integral_mono hp hdom (fun p => lipschitz_square_bound hg p.1 p.2)\n  rw [integral_add (hq.const_mul 2) (hd.const_mul _), integral_const_mul,\n    integral_const_mul, hpint, hqint] at hm\n  refine ⟨hμ, hm.trans ?_⟩\n  gcongr\n\nomit [CompleteSpace E] in\nprivate theorem wasserstein_square {μ ν : Measure E}\n    {g : E → E} {b : ℝ≥0} {r : ℝ} (hg : LipschitzWith b g)\n    (hi : Integrable (fun x => ‖g x‖^2) ν)\n    (hw : TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance μ ν ^ 2 ≤\n      ENNReal.ofReal (r^2)) :\n    Integrable (fun x => ‖g x‖^2) μ ∧\n      (∫ x, ‖g x‖^2 ∂μ) ≤ 2 * (∫ x, ‖g x‖^2 ∂ν) + 2 * (b : ℝ)^2 * r^2 := by\n  have hall (s : ℝ) (hs : r^2 < s) :\n      Integrable (fun x => ‖g x‖^2) μ ∧\n        (∫ x, ‖g x‖^2 ∂μ) ≤ 2 * (∫ x, ‖g x‖^2 ∂ν) + 2 * (b : ℝ)^2 * s := by\n    have hs0 : 0 < s := (sq_nonneg r).trans_lt hs\n    have hcost : TechnicalLemmas.Measure.Transport.transportCost\n        (TechnicalLemmas.Measure.WassersteinSpace.quadraticCost (E := E)) μ ν < ENNReal.ofReal s := by\n      rw [← TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq]\n      exact hw.trans_lt ((ENNReal.ofReal_lt_ofReal_iff hs0).2 hs)\n    obtain ⟨γ, hγ, hc⟩ :=\n      TechnicalLemmas.Measure.Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt\n        (TechnicalLemmas.Measure.WassersteinSpace.quadraticCost (E := E)) μ ν hcost\n    exact coupling_square hg hi hγ hs0.le hc.le\n  refine ⟨(hall (r^2+1) (by linarith)).1, ?_⟩\n  apply le_of_forall_pos_le_add\n  intro ε hε\n  have hden : 0 < 2 * (b : ℝ)^2 + 1 := by positivity\n  have hδ : 0 < ε / (2 * (b : ℝ)^2 + 1) := div_pos hε hden\n  have hbound := (hall (r^2 + ε/(2*(b : ℝ)^2+1)) (by linarith)).2\n  have heq := div_mul_cancel₀ ε hden.ne'\n  nlinarith\n\nomit [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] in\nprivate theorem regularized_gradient {U : E → ℝ} (hU : ContDiff ℝ 2 U)\n    {A : ℝ} (hA : 0 < A) (u x : E) :\n    gradient (fun t => U t + ‖t-u‖^2/(2*A)) x = gradient U x + A⁻¹ • (x-u) := by\n  have heq : (fun t => U t + ‖t-u‖^2/(2*A)) =\n      (fun t => U t + (A⁻¹/2)*‖t-u‖^2) := by\n    funext t\n    field_simp\n  rw [heq]\n  have hq : HasFDerivAt (fun t => (A⁻¹/2)*‖t-u‖^2)\n      (A⁻¹ • innerSL ℝ (x-u)) x := by\n    convert (((hasFDerivAt_id x).sub_const u).norm_sq).const_mul (A⁻¹/2)\n      using 1 <;> first | rfl | (ext v; simp; ring)\n  apply HasGradientAt.gradient\n  rw [hasGradientAt_iff_hasFDerivAt]\n  change HasFDerivAt (fun t => U t+(A⁻¹/2)*‖t-u‖^2)\n    ((toDual ℝ E) (gradient U x + A⁻¹ • (x-u))) x\n  convert! ((hU.differentiable (by norm_num)) x).hasGradientAt.hasFDerivAt.add hq using 1\n  simp only [map_add, map_smul]\n  rfl\n\ntheorem approximate_initial_gradient_moment {U : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (α : ℝ)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ U) x v v ∧\n      fderiv ℝ (fderiv ℝ U) x v v ≤ (β : ℝ)*‖v‖^2)\n    {η τ r : ℝ} (hη : 0 ≤ η) (hτ : 0 < τ) (_hr : 0 ≤ r)\n    (ν : Measure E) [IsProbabilityMeasure ν]\n    (hw : TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance ν\n      (TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n        ((volume : Measure E).tilted (fun x => -U x)) (Real.sqrt η)) ^ 2 ≤ ENNReal.ofReal (r^2)) :\n    let d : ℝ := Module.finrank ℝ E\n    let M := 4*(β : ℝ)*d + 4*(β : ℝ)^2*η*d + 2*(β : ℝ)^2*r^2\n    let F := fun y z x : E => U x + ‖x-(y+Real.sqrt τ • z)‖^2/(2*(η+τ))\n    Integrable (fun y => ‖gradient U y‖^2) ν ∧\n      (∫ y, ‖gradient U y‖^2 ∂ν) ≤ M ∧\n      (∀ y z, gradient (F y z) y = gradient U y - (Real.sqrt τ/(η+τ)) • z) ∧\n      Integrable (fun p : E × E => ‖gradient (F p.1 p.2) p.1‖^2) (ν.prod (stdGaussian E)) ∧\n      (∫ p : E × E, ‖gradient (F p.1 p.2) p.1‖^2 ∂ν.prod (stdGaussian E)) =\n        (∫ y, ‖gradient U y‖^2 ∂ν) + τ*d/(η+τ)^2 ∧\n      (∫ p : E × E, ‖gradient (F p.1 p.2) p.1‖^2 ∂ν.prod (stdGaussian E)) ≤ M + τ*d/(η+τ)^2 ∧\n      (β=1 → η≤1/4 → (∫ p : E × E, ‖gradient (F p.1 p.2) p.1‖^2 ∂ν.prod (stdGaussian E)) ≤\n        5*(d+r^2+τ*d/(η+τ)^2)) := by\n  let d : ℝ := Module.finrank ℝ E\n  let μ := (volume : Measure E).tilted (fun x => -U x)\n  let ρ := TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ (Real.sqrt η)\n  let M := 4*(β : ℝ)*d + 4*(β : ℝ)^2*η*d + 2*(β : ℝ)^2*r^2\n  let F := fun y z x : E => U x + ‖x-(y+Real.sqrt τ • z)‖^2/(2*(η+τ))\n  have hG := TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment hα hαβ hU hH\n  have : IsProbabilityMeasure μ := hG.1\n  have hbase := TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic\n    (r := 0) hU hH (0 : E)\n  have hLip : LipschitzWith β (gradient U) := by simpa using hbase.2\n  have hSm := smoothing_square hLip hG.2.1 (Real.sqrt η)\n  have hW := wasserstein_square hLip hSm.1 hw\n  have hbound : (∫ y, ‖gradient U y‖^2 ∂ν) ≤ M := by\n    have h1 := hG.2.2.2.2\n    have h2 := hSm.2\n    have h3 := hW.2\n    rw [Real.sq_sqrt hη] at h2\n    dsimp [M, d, μ, ρ] at *\n    linarith\n  have hA : 0 < η+τ := add_pos_of_nonneg_of_pos hη hτ\n  have hgrad (y z : E) : gradient (F y z) y =\n      gradient U y - (Real.sqrt τ/(η+τ)) • z := by\n    rw [regularized_gradient hU hA]\n    have he : y-(y+Real.sqrt τ • z) = -(Real.sqrt τ • z) := by abel\n    rw [he]\n    simp only [smul_neg, smul_smul, sub_eq_add_neg, div_eq_mul_inv, mul_comm]\n  have hP := gaussian_perturbation_square hLip.continuous hW.1 (Real.sqrt τ/(η+τ))\n  have hnoise : (Real.sqrt τ/(η+τ))^2 * d = τ*d/(η+τ)^2 := by\n    rw [div_pow, Real.sq_sqrt hτ.le]\n    ring\n  have hEq : (∫ p : E × E, ‖gradient (F p.1 p.2) p.1‖^2 ∂ν.prod (stdGaussian E)) =\n      (∫ y, ‖gradient U y‖^2 ∂ν) + τ*d/(η+τ)^2 := by\n    simp_rw [hgrad]\n    exact hP.2.trans (by rw [show (Module.finrank ℝ E : ℝ)=d from rfl, hnoise])\n  refine ⟨hW.1, hbound, hgrad, ?_, hEq, ?_, ?_⟩\n  · change Integrable (fun p : E × E => ‖gradient (F p.1 p.2) p.1‖^2) (ν.prod (stdGaussian E))\n    simpa only [hgrad] using hP.1\n  · rw [hEq]\n    change (∫ y, ‖gradient U y‖^2 ∂ν) + τ*d/(η+τ)^2 ≤ M + τ*d/(η+τ)^2\n    linarith\n  · intro hβ hηsmall\n    rw [hEq]\n    have hd : 0 ≤ d := Nat.cast_nonneg _\n    have hn : 0 ≤ τ*d/(η+τ)^2 := div_nonneg (mul_nonneg hτ.le hd) (sq_nonneg _)\n    have hηd : 4*η*d ≤ d := by nlinarith [mul_le_mul_of_nonneg_right hηsmall hd]\n    simp only [M, hβ, NNReal.coe_one, one_pow, mul_one] at hbound\n    nlinarith [sq_nonneg r]\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Section6.3 Reference point construction: approximate and regularized initial-gradient moments",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS expanded mathematical proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Explicit constants and integrability are derived here; source differences and remaining algorithmic consumers are disclosed."
+        },
+        "statement": "Seven conclusions: norm(grad U)^2 is integrable under nu; its nu expectation is at most M; for every y,z, grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z; the squared norm of this actual regularized gradient is integrable under nu.prod(G); its joint expectation equals the nu gradient-square expectation plus tau*d/(eta+tau)^2; hence it is at most M+tau*d/(eta+tau)^2; and if beta=1 and eta<=1/4 it is at most 5*(d+r^2+tau*d/(eta+tau)^2).",
+        "formulae": [
+          {
+            "label": "Actual input and same-pair regularized gradient moments",
+            "tex": "\\mathbb E_\\nu\\|\\nabla U\\|^2\\le M=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2,\\qquad \\mathbb E_{\\nu\\otimes G}\\|\\nabla F_{Y,Z}(Y)\\|^2=\\mathbb E_\\nu\\|\\nabla U\\|^2+\\frac{\\tau d}{(\\eta+\\tau)^2}."
+          }
+        ],
+        "assumptions": [
+          "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume; d=finrank(E), including dimension zero. U:E->R is C2.",
+          "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian at every x obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every vector v. Thus this public theorem does not include beta=0.",
+          "eta>=0, tau>0 and r>=0. Define pi=volume.tilted(-U), rho_eta=gaussianSmoothing(pi,sqrt eta), and G=stdGaussian(E). Smoothing is the actual independent additive pushforward, not a supplied approximate law.",
+          "nu is an actual probability measure satisfying W2(nu,rho_eta)^2<=ENNReal.ofReal(r^2), where W2 is Samplinglib's actual infimum of quadratic coupling costs. This W2 guarantee is an input, not a conclusion about an implemented sampler.",
+          "Set M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For each fixed y,z define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)); differentiate in x and then evaluate at x=y. The same pair (y,z) defines both the starting point and its random center."
+        ],
+        "obligations": [
+          {
+            "id": "actual-initial-gradient-moments",
+            "label": "Actual approximate and regularized initialization gradient moments"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+          "title": "Actual approximate initialization gradient moments",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+              "label": "SPHMC Section6.3 reference-point initial gradient moments",
+              "scope": "Fixed-call moment component; supplied Wasserstein input, random histories and total cost remain separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCApproximateInitialGradientMoment"
+          ],
+          "assumptions": [
+            "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume; d=finrank(E), including dimension zero. U:E->R is C2.",
+            "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian at every x obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every vector v. Thus this public theorem does not include beta=0.",
+            "eta>=0, tau>0 and r>=0. Define pi=volume.tilted(-U), rho_eta=gaussianSmoothing(pi,sqrt eta), and G=stdGaussian(E). Smoothing is the actual independent additive pushforward, not a supplied approximate law.",
+            "nu is an actual probability measure satisfying W2(nu,rho_eta)^2<=ENNReal.ofReal(r^2), where W2 is Samplinglib's actual infimum of quadratic coupling costs. This W2 guarantee is an input, not a conclusion about an implemented sampler.",
+            "Set M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For each fixed y,z define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)); differentiate in x and then evaluate at x=y. The same pair (y,z) defines both the starting point and its random center."
+          ],
+          "statement": "Seven conclusions: norm(grad U)^2 is integrable under nu; its nu expectation is at most M; for every y,z, grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z; the squared norm of this actual regularized gradient is integrable under nu.prod(G); its joint expectation equals the nu gradient-square expectation plus tau*d/(eta+tau)^2; hence it is at most M+tau*d/(eta+tau)^2; and if beta=1 and eta<=1/4 it is at most 5*(d+r^2+tau*d/(eta+tau)^2).",
+          "formula": "\\mathbb E_\\nu\\|\\nabla U\\|^2\\le M=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2,\\qquad \\mathbb E_{\\nu\\otimes G}\\|\\nabla F_{Y,Z}(Y)\\|^2=\\mathbb E_\\nu\\|\\nabla U\\|^2+\\frac{\\tau d}{(\\eta+\\tau)^2}.",
+          "steps": [
+            {
+              "title": "Establish the actual Gibbs and Gaussian moments",
+              "text": "Apply the previously proved Gibbs gradient-moment theorem to the genuine Hessian bounds. It proves probability normalization, gradient-square L1 and the beta*d bound for pi. Zero quadratic precision in QuadraticRegularization gives beta-Lipschitz continuity of the actual gradient. For the standard Gaussian, MemLp2 gives norm-square L1; its zero mean and covariance identity give unit directional second moments. Establish each directional L1 before summing over an orthonormal basis and applying Parseval, obtaining E norm(Z)^2=d even for the empty basis.",
+              "formula": "\\mathbb E_\\pi\\|\\nabla U\\|^2\\le\\beta d,\\qquad \\operatorname{Lip}(\\nabla U)\\le\\beta,\\qquad \\mathbb E_G\\|Z\\|^2=d.",
+              "lean": "gaussian_square; approximate_initial_gradient_moment: hG,hbase,hLip; GibbsGradientMoment.gibbs_gradient_moment; QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"
+            },
+            {
+              "title": "Integrate the true smoothing pushforward",
+              "text": "Expand gaussianSmoothing through addNoise and scaledStdGaussian. Product-map and map-composition equalities identify the measure as the law of X+sigma*Z for independent X~pi and Z~G. For any beta-Lipschitz vector function g, the quadratic triangle inequality gives the displayed domination. Its right side is integrable under the product law. Transfer this L1 statement through the actual pushforward, then integrate and put sigma=sqrt(eta). This is not simultaneous-smoothing contraction used as a displacement bound.",
+              "formula": "\\|g(x+\\sigma z)\\|^2\\le2\\|g(x)\\|^2+2\\beta^2\\sigma^2\\|z\\|^2,\\qquad \\mathbb E_{\\rho_\\eta}\\|\\nabla U\\|^2\\le2\\beta d+2\\beta^2\\eta d.",
+              "lean": "lipschitz_square_bound; smoothing_square; MeasureTheory.Measure.map_prod_map; MeasureTheory.Measure.map_map; MeasureTheory.integrable_map_measure"
+            },
+            {
+              "title": "Derive actual target integrability from a finite-cost coupling",
+              "text": "Let gamma couple the target first marginal nu to the known-moment second marginal rho_eta. A finite ENNReal quadratic cost yields actual real displacement-square integrability; it is not a marginal state-moment assumption. Pull the known gradient square back through the second projection. The displayed Lipschitz bound then supplies first-coordinate gradient-square L1, which descends through the first marginal map to nu. Only after these L1 facts are established are the real integrals compared.",
+              "formula": "\\|g(x)\\|^2\\le2\\|g(y)\\|^2+2\\beta^2\\|x-y\\|^2,\\quad \\int\\|x-y\\|^2\\,d\\gamma\\le s\\ \\Longrightarrow\\ \\mathbb E_\\nu\\|g\\|^2\\le2\\mathbb E_{\\rho_\\eta}\\|g\\|^2+2\\beta^2s.",
+              "lean": "coupling_square; CouplingQuadraticIntegrability.measurePreserving_fst_of_isCoupling; CouplingQuadraticIntegrability.measurePreserving_snd_of_isCoupling; MeasureTheory.integrable_toReal_of_lintegral_ne_top"
+            },
+            {
+              "title": "Eliminate strict near-optimal transport budgets",
+              "text": "The squared Wasserstein distance is the actual infimum of coupling costs. For each s>r^2 select a genuine coupling with cost below s. First take s=r^2+1 to establish target L1 once. For arbitrary epsilon>0 take s=r^2+epsilon/(2*beta^2+1); the preceding integral bound is at most the desired bound plus epsilon. Order closure removes epsilon. This works at r=0 without an optimizer and avoids division by beta. Combine with the actual smoothed moment to obtain M.",
+              "formula": "s=r^2+\\frac{\\varepsilon}{2\\beta^2+1}\\quad\\Longrightarrow\\quad \\mathbb E_\\nu\\|\\nabla U\\|^2\\le 4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2.",
+              "lean": "wasserstein_square; Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt; WassersteinSpace.wassersteinDistance_sq; approximate_initial_gradient_moment: hSm,hW,hbound"
+            },
+            {
+              "title": "Differentiate the actual random-center potential",
+              "text": "Since eta+tau>0, differentiate the quadratic penalty with y,z held fixed, and add the genuine derivative of U. At x=y the displacement from y+sqrt(tau)*z is -sqrt(tau)*z. This proves the actual gradient identity, rather than defining the desired gradient by a formula. The same Y occurs in the initial point and in the center.",
+              "formula": "\\nabla F_{y,z}(x)=\\nabla U(x)+\\frac{x-y-\\sqrt\\tau z}{\\eta+\\tau},\\qquad \\nabla F_{y,z}(y)=\\nabla U(y)-\\frac{\\sqrt\\tau}{\\eta+\\tau}z.",
+              "lean": "regularized_gradient; approximate_initial_gradient_moment: hA,hgrad; HasGradientAt.gradient; HasFDerivAt.norm_sq"
+            },
+            {
+              "title": "Prove cross-term integrability before using independence",
+              "text": "For a continuous g with its now-proved square L1 under nu, finite probability mass gives vector L1. The standard Gaussian is also vector L1. The inner-product norm bound and Integrable.op_fst_snd establish absolute integrability of the cross term under the actual product measure. Fubini and the Gaussian strong-dual mean-zero identity then show its integral is zero. Each squared term is integrable, so the square expansion both proves joint L1 and permits termwise integration.",
+              "formula": "\\langle g(Y),Z\\rangle\\in L^1(\\nu\\otimes G),\\quad \\mathbb E\\langle g(Y),Z\\rangle=0,\\quad \\mathbb E\\|g(Y)-cZ\\|^2=\\mathbb E_\\nu\\|g\\|^2+c^2d.",
+              "lean": "gaussian_perturbation_square; MeasureTheory.Integrable.op_fst_snd; MeasureTheory.integral_prod; ProbabilityTheory.integral_strongDual_stdGaussian"
+            },
+            {
+              "title": "Combine the exact expectation and derive the source-scale constant",
+              "text": "Substitute c=sqrt(tau)/(eta+tau) into the exact product expectation and use tau>0 to replace sqrt(tau)^2 by tau. Combining with M yields the joint bound. When beta=1 and eta<=1/4, M<=5d+2r^2; nonnegativity of dimension, r^2 and the noise term yields the displayed sufficient constant5. The paper uses a generic constant C. This fixed-call estimate does not yet integrate the random-center GD stopping cost or propagate moments through random histories.",
+              "formula": "\\mathbb E\\|\\nabla F_{Y,Z}(Y)\\|^2\\le M+\\frac{\\tau d}{(\\eta+\\tau)^2}\\le5\\left(d+r^2+\\frac{\\tau d}{(\\eta+\\tau)^2}\\right)\\quad(\\beta=1,\\ \\eta\\le1/4).",
+              "lean": "approximate_initial_gradient_moment: hnoise,hEq,hd,hn,hηd"
+            }
+          ],
+          "lean_statement": "Seven actual-law conclusions: nu gradient-square L1/bound, same-pair regularized gradient identity, joint L1/exact expectation/bound and derived constant5 specialization.",
+          "lean_proof": "Actual Gibbs and Gaussian moments, actual smoothing pushforward, finite-cost coupling L1 and strict-budget elimination, true quadratic differentiation, absolutely integrable Gaussian cancellation and explicit arithmetic.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.exists_isCoupling_lintegral_lt_of_transportCost_lt",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_fst_of_isCoupling",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.CouplingQuadraticIntegrability.measurePreserving_snd_of_isCoupling"
+          ],
+          "mathlib_dependencies": [
+            "ProbabilityTheory.IsGaussian.memLp_two_id",
+            "ProbabilityTheory.covarianceBilin_stdGaussian",
+            "ProbabilityTheory.integral_id_stdGaussian",
+            "MeasureTheory.Measure.map_prod_map",
+            "MeasureTheory.Measure.map_map",
+            "MeasureTheory.integrable_map_measure",
+            "MeasureTheory.integrable_toReal_of_lintegral_ne_top",
+            "MeasureTheory.Integrable.op_fst_snd",
+            "MeasureTheory.integral_prod",
+            "ProbabilityTheory.integral_strongDual_stdGaussian"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+          "role": "proof-edge",
+          "supports": [
+            "actual-initial-gradient-moments"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Normalized 1-smooth strongly convex potential in the reference construction.",
+            "lean": "General Hessian bounds 0<alpha<=beta, with beta=1 specialization."
+          },
+          {
+            "source": "Euclidean positive-dimensional recursive setting with positive smoothing time.",
+            "lean": "Coordinate-free finite-dimensional Borel space, including dimension zero and eta=0; tau>0 remains."
+          },
+          {
+            "source": "The two moment displays use a generic constant C.",
+            "lean": "Explicit M=4beta*d+4beta^2*eta*d+2beta^2*r^2 and sufficient constant5."
+          },
+          {
+            "source": "The approximate call provides a Wasserstein error, specialized using kappa_U and epsilon_j.",
+            "lean": "Actual coupling-defined W2(nu,rho_eta)^2<=ofReal(r^2) is supplied; r>=0 retained."
+          },
+          {
+            "source": "Integrability and independent Gaussian cross-term cancellation are implicit in the moment calculation.",
+            "lean": "Actual output and joint-gradient L1 proved before exact expectation identities."
+          },
+          {
+            "source": "Reference-center initialization is one component of the full reference-cost argument.",
+            "lean": "Fixed-parameter same-pair joint moment only; no joint-program or history conclusion."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "对任意有限维实内积空间 E，配备完备范数拓扑及其 Borel 可测结构；任意 U:E→ℝ 和非负实数 α、β，假设 0<α≤β，U 为 C²，且对所有 x,v∈E，其真实二阶 Fréchet 导数满足 α‖v‖²≤D²U(x)[v,v]≤β‖v‖²。再任取实参数 η≥0、τ>0、r≥0，以及 E 上的概率测度 ν。\n令 λ 为 E 上的典范 Lebesgue 体积，G 为 E 上均值为零、协方差为恒等算子的标准高斯概率测度。令 Z=∫_E exp(−U(x))dλ(x)，其中该积分采用 Bochner 积分约定；定义测度 π=λ.withDensity(x↦ENNReal.ofReal(exp(−U(x))/Z))，并定义 Gη=(z↦√η·z)#G、μη=((x,w)↦x+w)#(π⊗Gη)。这里 # 表示推前，⊗ 表示实际乘积测度。此定义没有单独添加 Z 有限、Z>0 或 π 为概率测度的假设。\n令 Γ(ν,μη) 为所有 E×E 上满足第一边缘为 ν、第二边缘为 μη 的测度 γ 的集合。在扩展非负实数中定义 C=inf{∫⁻ ENNReal.ofReal(‖x−w‖²)dγ(x,w):γ∈Γ(ν,μη)}。假设 (C^(1/2))²≤ENNReal.ofReal(r²)，其中 1/2 次幂为扩展非负实数的实指数幂，外层平方为自然数幂。\n定义 d=dim_ℝ(E)（视为实数），M=4βd+4β²ηd+2β²r²，并对固定 y,z∈E 定义 F_{y,z}(x)=U(x)+‖x−(y+√τ·z)‖²/[2(η+τ)]。则以下七项结论同时成立：\n(1) y↦‖∇U(y)‖² 对 ν 可积。\n(2) ∫_E‖∇U(y)‖²dν(y)≤M。\n(3) 对所有 y,z∈E，关于 F_{y,z} 的最后一个变量 x 求梯度并在 x=y 处取值，有 ∇F_{y,z}(y)=∇U(y)−[√τ/(η+τ)]·z。\n(4) (y,z)↦‖∇F_{y,z}(y)‖² 对 ν⊗G 可积。\n(5) ∫_{E×E}‖∇F_{y,z}(y)‖²d(ν⊗G)(y,z)=∫_E‖∇U(y)‖²dν(y)+τd/(η+τ)²。\n(6) ∫_{E×E}‖∇F_{y,z}(y)‖²d(ν⊗G)(y,z)≤M+τd/(η+τ)²。\n(7) 若进一步 β=1 且 η≤1/4，则 ∫_{E×E}‖∇F_{y,z}(y)‖²d(ν⊗G)(y,z)≤5[d+r²+τd/(η+τ)²]。\n所有实数形式的积分均为 Bochner 积分；结论 (1) 和 (4) 明确保证相关非负实值函数的真实可积性。产品测度表示 y 与标准高斯 z 独立。α 参与曲率假设，但不显式出现在 M 和结论中的误差常数内；β、η、r、d 决定 M，τ 还通过 τd/(η+τ)² 进入高斯扰动项。\n允许 η=0、r=0 和 d=0；没有正维数假设。由于 τ>0，总有 η+τ>0，F 和结论中的分母不会为零。η=0 时 Gη 是零点处的点质量；r=0 时运输代价假设要求 (C^(1/2))²=0。d=0 时仍按原公式解释，所有梯度与范数均在零维空间内取值。若 Γ 为空，则其代价集合的下确界为 +∞，不能满足给定的有限 r 假设。按允许的 tilted 定义，若 exp(−U) 的 Bochner 积分因不可积而取约定值零，或 Z=0，则密度中的实数除法给出零，π 为零测度；这会使 μη 为零测度，与 ν 的概率质量不匹配，因而也不能满足运输代价假设。声明没有另列这些情形为附加结论或独立假设。",
+        "text_sha256": "2eecc300d89e74af407a4adc15cbc2abfb2b36a50dddbd83e4ac66dd641cdd88",
+        "decoder_packet_sha256": "36747e60ac95b5cfe6df09da4f2bede0f33d78ddbc9f451ad95f08712b3deb5c",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_s",
+        "notes": [
+          "Fresh decoder read only the anonymous packet, no other files/source/registry or earlier verdict; no source-fidelity or compilation judgment.",
+          "Reconstruction preserves all seven conjuncts, actual product/pushforward measures and real-exponent ENNReal cost.",
+          "Generic tilted, zero-integral, empty-coupling and zero-parameter conventions reconstructed without additional theorem hypotheses.",
+          "No ambiguities reported. The packet hash was returned from the supplied packet, not claimed independently recomputed."
+        ],
+        "decoder_run_sha256": "b8884cbb2cddece567a2332292a0fea5b78904460350dd70be2a520ab9176544",
+        "lean_statement_sha256": "3c250c7cfa2573a5b94183c5e2515caf3a3fc2514a77a54056d22cb127801313",
+        "run_artifact": "runs/20260911-companion-priority/approximate-initial-gradient-moment.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual Gibbs, smoothed approximate output and random-center regularized potential.",
+          "reconstructed": "Expanded tilted,actual additive pushforward,coupling infimum and same F_yz.",
+          "relation": "explicit-elaboration",
+          "evidence": "Product law, same y,z and differentiation in final argument preserved."
+        },
+        "domains": {
+          "original": "Normalized Euclidean recursive setting.",
+          "reconstructed": "Complete finite-dimensional real inner-product Borel E,general beta,dimension zero and eta0.",
+          "relation": "different",
+          "evidence": "Disclosed extensions rather than literal source equivalence."
+        },
+        "quantifiers": {
+          "original": "Current-call input law and independent fresh Gaussian.",
+          "reconstructed": "Every admissible fixed parameter and probability nu; gradient identity for all y,z.",
+          "relation": "explicit-elaboration",
+          "evidence": "No shared coupling across histories,measurable optimal selection or random-parameter kernel quantified."
+        },
+        "assumptions": {
+          "original": "Strongly convex smooth target and supplied Wasserstein precision.",
+          "reconstructed": "Actual C2 Hessian,0<alpha<=beta,eta>=0,tau>0,r>=0 and actual W2 squared budget.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual Gibbs probability,moment and gradient Lipschitz follow from parents; no target moment or optimizer input; public beta0 excluded."
+        },
+        "conclusion": {
+          "original": "Two initial-gradient-moment upper bounds.",
+          "reconstructed": "Seven conjuncts: two square L1 statements,input bound,pointwise gradient formula,exact joint expectation,joint bound and constant5 specialization.",
+          "relation": "explicit-elaboration",
+          "evidence": "Absolute cross-term integrability precedes its cancellation; all seven public conjunctions match."
+        },
+        "scopes": {
+          "original": "Moment step within complete reference-point cost argument.",
+          "reconstructed": "Fixed-call actual input and same-pair joint moment only.",
+          "relation": "explicit-elaboration",
+          "evidence": "Module and reader exclude histories,joint GD,total cost and complete-paper claims."
+        },
+        "constant_dependencies": {
+          "original": "Generic source C; normalized precision involves kappa_U*epsilon_j^2.",
+          "reconstructed": "M=4beta*d+4beta^2*eta*d+2beta^2*r^2,noise=tau*d/(eta+tau)^2,derived constant5.",
+          "relation": "explicit-elaboration",
+          "evidence": "Constants locally derived; alpha enters admissibility,not explicitly the bound."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "General beta explicitly specializes to normalized beta1.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: General beta explicitly specializes to normalized beta1."
+        },
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Coordinate-free,dimension zero and eta0 extensions; tau>0 and alpha<=beta retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Coordinate-free,dimension zero and eta0 extensions; tau>0 and alpha<=beta retained."
+        },
+        {
+          "slot": "constant_dependencies",
+          "classification": "source-implicit",
+          "description": "Explicit M and5 are sufficient constants derived here,not source printed constants.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Explicit M and5 are sufficient constants derived here,not source printed constants."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Actual W2 squared budget is supplied,not a sampler guarantee;r>=0 retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Actual W2 squared budget is supplied,not a sampler guarantee;r>=0 retained."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Actual L1 and integrable Gaussian cross cancellation precede expectations.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Actual L1 and integrable Gaussian cross cancellation precede expectations."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Fixed-call moment component only; no history,joint GD or cost closure.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Fixed-call moment component only; no history,joint GD or cost closure."
+        }
+      ]
     }
   ]
 }

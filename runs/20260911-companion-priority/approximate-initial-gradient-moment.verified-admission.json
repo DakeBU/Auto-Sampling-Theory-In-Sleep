@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "7a6a7b3ad906055a5b4556f13387eab05016dac2",
+    "gate": {
+      "production": "Production/test unchanged from independent PASS3720; Lean4.33.0 and standard3. Independent2851-character Meta.deltaExpand/isDefEq replay accepted.",
+      "publication": "Independent check_advance(reviewed=True) and actual publication --base72f5401 exit0 PASS65 with all7private covered. Source,statement,reconstruction,wholemodule,decoder/reviewer packet/run hashes recomputed; anonymous and canonical packets byte-identical. External binding preimage independently matches3dc1bdab023a6b68f559ca7218b446e53dce0e7ede78214cadf4533d3f501b7c.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCApproximateInitialGradientMoment",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_s",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "3dc1bdab023a6b68f559ca7218b446e53dce0e7ede78214cadf4533d3f501b7c",
+        "decoder_packet_sha256": "36747e60ac95b5cfe6df09da4f2bede0f33d78ddbc9f451ad95f08712b3deb5c",
+        "decoder_run_sha256": "b8884cbb2cddece567a2332292a0fea5b78904460350dd70be2a520ab9176544",
+        "reviewer_packet_sha256": "6d2d2a8c7bba054d418a5650ab072860445ca71a1e1ed7bfee502b4d30a327ce",
+        "review_run_sha256": "91b073b1668363591b1478227689e6d39f6a6cb91c043d7ea90a3ef23cd1f6a9",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual Gibbs,smoothing,finite-cost near-optimal coupling and same-pair regularized gradient moments; no target moment or optimizer assumptions."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment"
+    ],
+    "independent_checks": [
+      "Fixed commit clean and PROVED_LOCAL; no STABILIZING owner.",
+      "Seven semantic slots,seven steps,six informational deltas,no blockers/repairs.",
+      "VERIFIED-only; actual joint GD/history/cost,aggregate integration,reader delivery,merge/live and both full papers remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant."
+}

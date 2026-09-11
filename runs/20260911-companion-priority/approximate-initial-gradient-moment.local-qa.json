@@ -1,0 +1,66 @@
+{
+  "commit": "a13eee313b4068b6b719694cd784f60a18c23614",
+  "source_digest": "9ecce35a121b32cb3e921706dcc88d954ea908fcce559f03661b03e0ead2a2d3",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 40271,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed; Tests9178",
+    "log": ".astis/approximate-initial-gradient-moment-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 22981,
+    "exit_code": 0,
+    "log": ".astis/approximate-initial-gradient-moment-reader-build.log"
+  },
+  "reader_check": {
+    "session": 2841,
+    "exit_code": 0,
+    "log": ".astis/approximate-initial-gradient-moment-reader-check.log",
+    "chapters": 12,
+    "modules": 647,
+    "declarations": 3890,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/approximate-initial-gradient-moment-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, scoped DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=a13eee3#sphmc-approximate-initial-gradient-moment",
+    "section": "sphmc-approximate-initial-gradient-moment",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement · approximate_initial_gradient_moment",
+      "Lean proof · approximate_initial_gradient_moment",
+      "Source and reuse",
+      "Third mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1345,
+    "proof_code_characters": 3765,
+    "katex_errors": 0,
+    "parents": "Six links: GibbsGradientMoment, QuadraticRegularization, Transport strict coupling selection, WassersteinSpace squared cost, both CouplingQuadraticIntegrability projections.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Actual module: 8 declarations, current a13eee3 Lean gate passed/Compiled, zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps2/3 actual smoothing and finite-cost coupling formulas readable; gradient-square L1 is established before comparing integrals."
+  },
+  "independent_precheck": "depth_commit_verifier accepted exact HEAD/digest/gate, unchanged admitted production/test/source binding, root imports and sole stabilization ownership. Final reader/graph review pending.",
+  "boundary": "Independent final local integration accepted. Remote CI,merge/live,global reader features,actual joint GD/history/cost and both main results remain open.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "a13eee313b4068b6b719694cd784f60a18c23614",
+    "source_digest": "9ecce35a121b32cb3e921706dcc88d954ea908fcce559f03661b03e0ead2a2d3",
+    "evidence": "Independent exact HEAD/digest/gate, unchanged admitted production/source binding and reviewed gate accepted. Final Tests9178, reader647/3890/77, static10closedfolds and1345/3765codechars/currentcommit verified. Graph coverage no omissions. Root browser provenance remains root. No local integration blocker; faithful transcription authorized."
+  }
+}
