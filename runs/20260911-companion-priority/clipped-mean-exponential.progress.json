@@ -2,8 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
   "state": "MERGED",
   "remaining": [
-    "Verify merge CI and exact live deployment",
-    "Whole-Goal copy/citation/full associated Lean download delivery"
+    "Whole-Goal copy/citation/full associated Lean download delivery; selected packet merge/CI/live complete"
   ],
   "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost.",
   "development_checkpoint": {
@@ -91,12 +90,12 @@
     "commit": "10b2e59e6a9390f16275cabff12473872fddb071",
     "merged_at": "2026-09-11T17:24:09Z",
     "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
-    "post_merge": "Merge CI and actual live provenance pending.",
+    "post_merge": "Merge Lean34627473988 and Site34627473906 SUCCESS; original companion/card HTTP200 exactmerge10b2e59 provenance verified",
     "ci": {
-      "lean_status": "IN_PROGRESS",
+      "lean_status": "SUCCESS",
       "site_run": "34627473906",
-      "site_status": "QUEUED",
-      "live": "not yet verified",
+      "site_status": "SUCCESS",
+      "live": "HTTP200 both originalreader andcard; exact10b2e59 full merge provenance andtarget verified",
       "lean_run": "34627473988"
     }
   }

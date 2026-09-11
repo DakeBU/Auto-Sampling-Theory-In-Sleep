@@ -1,11 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "remaining": [
-    "Focused production verification",
-    "Fresh anonymous reconstruction and formal source admission",
-    "Independent fixed-commit review and integration",
-    "Original reader and actual delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "boundary": "Actual fixed-call normalized bidirectional RN-power moment comparison. The order is the denominator-measure ell-power used by B12 proof and D1; printed B7/section1.3 definitions are inconsistent and must be disclosed. B12 intermediate step has a gap for1<ell<2; actualconsumerell>=2 avoids it, without modifying the source theorem. No logarithmic Renyi API,parameter selection,reference initialization,adaptive kernel,query cost or fullpaper completion. No TV transport of unbounded costs.",
   "scratch_checkpoint": {
@@ -48,5 +46,31 @@
     },
     "focused_command": "lake build Tests.SmoothedPicardHMCClippedRenyiComparison",
     "state": "Focused production PASS3738, exit0 session10220, public standard3 axioms/no lint. Production fixed-commit review and formal anonymous/source admission pending."
-  }
+  },
+  "expanded_statement": {
+    "file": ".astis/clipped-renyi-comparison-expanded.log",
+    "sha256": "bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8",
+    "characters": 3228,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independent replay exit0/Meta.isDefEq success;3228chars SHA bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8 exactregistry;no private/source namespace/ellipsis leak."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "f652cfe620aa183aa61cbad079abb58995abe265",
+    "result": "Hashes and normalized mathematical content matched accepted scratch; independent focusedPASS3738, standard3/no lint. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-clipped-renyi-comparison.json",
+    "state": "Seven authored steps and15private implementations accepted; publicationPASS61."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCClippedRenyiComparison"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

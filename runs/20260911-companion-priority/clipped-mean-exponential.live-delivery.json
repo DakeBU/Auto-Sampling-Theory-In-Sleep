@@ -1,0 +1,24 @@
+{
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "status": 200,
+      "target_present": true,
+      "exact_merge_provenance": true
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-clippedmeanexponential.html",
+      "status": 200,
+      "target_present": true,
+      "exact_merge_provenance": true
+    }
+  ],
+  "merge_site_run": "34627473906",
+  "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/284",
+  "merge_site_status": "SUCCESS",
+  "merge_lean_status": "SUCCESS",
+  "checked_at_utc": "2026-09-11T17:33:00.0813491Z",
+  "merge": "10b2e59e6a9390f16275cabff12473872fddb071",
+  "merge_lean_run": "34627473988",
+  "boundary": "Actual merged selected theorem reader/card deployed; merge Lean and Site CI both SUCCESS. Neither fullpaper nor wholeGoal delivery complete."
+}

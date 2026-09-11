@@ -38,7 +38,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-mean-exponential.md",
     "planning_review": "Independent log_depth_source_review checked primary D1Eq18/B12: required error exponential moment is under actual clipped output qhat. Uniform-time integration plus Jensen plus bounded actual tilted density is immediate packet.",
-    "execution_boundary": "Actual PR284 merged; stabilization lane released. MergeCI/live pending; broaderGoal delivery gaps remain.",
+    "execution_boundary": "Actual PR284 merged; samehead PR and merge Lean/Site CI SUCCESS; originalreader/card HTTP200 exact10b2e59 provenance verified. Stabilization lane released. Neitherpaper/fullGoal complete.",
     "admission_boundary": "VERIFIED at4cb3594. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/clipped-mean-exponential.verified-admission.json",
     "integration_merge": {
