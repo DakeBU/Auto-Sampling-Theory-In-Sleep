@@ -1,0 +1,28 @@
+{
+  "decoder": "blind_reconstruction_t",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim reconstructed_statement and faithful compact transcription of independent anonymous decoder ancillary notes.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-t.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "68f108d8856b66a582d2c6be544f6e394148975db021dad011cf4eb0c0c23eae",
+  "lean_statement_sha256": "59d3bcbce87a2153c4bdad9b9001f2318d6fde1663441fd6c7a6fceeace9e167",
+  "reconstructed_theorem_text": "设 \\(E\\) 是完备的有限维实内积空间，带有与其拓扑一致的 Borel 可测结构。记\n\\[\nd=\\dim_{\\mathbb R}E,\n\\]\n并假设 \\(d>0\\)。\n\n设 \\(U:E\\to\\mathbb R\\) 二次连续可微，非负实数 \\(\\alpha,\\beta\\) 满足 \\(0<\\alpha\\le\\beta\\)，且对所有 \\(x,v\\in E\\)，\n\\[\n\\alpha\\|v\\|^2\n\\le D^2U(x)[v,v]\n\\le\\beta\\|v\\|^2.\n\\]\n这里 \\(D^2U\\) 是实际的二阶 Fréchet 导数。\n\n任取实数 \\(\\eta,\\tau,r\\)，满足\n\\[\n\\eta\\ge0,\\qquad \\tau>0,\\qquad r\\ge0.\n\\]\n令 \\(G\\) 为 \\(E\\) 上均值为零、协方差为恒等算子的标准高斯概率测度，\\(\\lambda\\) 为该内积空间的 Lebesgue 体积测度。定义测度\n\\[\n\\mu=\\lambda.\\mathrm{tilted}(-U).\n\\]\n按照提供的定义，其相对于 \\(\\lambda\\) 的密度是\n\\[\nx\\longmapsto\n\\operatorname{ofReal}\\!\\left(\n\\frac{e^{-U(x)}}{\\int_E e^{-U(y)}\\,d\\lambda(y)}\n\\right).\n\\]\n这里分母是具有库中总定义约定的实 Bochner 积分：不可积时积分取零，实数除以零取零。因此，此处定义本身不额外附加分母正且有限或 \\(\\mu\\) 归一化的假设。\n\n令\n\\[\nG_\\eta=(z\\mapsto\\sqrt{\\eta}\\,z)_\\#G,\\qquad\n\\rho=(x,z\\mapsto x+z)_\\#(\\mu\\otimes G_\\eta).\n\\]\n任取 \\(E\\) 上概率测度 \\(\\nu\\)。令\n\\[\nI=\\inf\\left\\{\n\\int_{E\\times E}^{-}\n\\operatorname{ofReal}(\\|x-y\\|^2)\\,d\\gamma(x,y):\n\\gamma\\text{ 是 }E\\times E\\text{ 上测度， }\n\\gamma_1=\\nu,\\ \\gamma_2=\\rho\n\\right\\},\n\\]\n其中积分和下确界均在扩展非负实数中取值。假设\n\\[\n\\bigl(I^{1/2}\\bigr)^2\\le\\operatorname{ofReal}(r^2).\n\\]\n内层 \\(1/2\\) 次幂为扩展非负实数的实指数幂，外层平方为自然数幂。\n\n定义实数\n\\[\nA=\\eta+\\tau,\\qquad\na=\\alpha+A^{-1},\\qquad\nc=\\beta+A^{-1},\\qquad\nk=\\frac ca,\n\\]\n以及\n\\[\nM=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2.\n\\]\n\n对每一个参数对 \\(p=(y,z)\\in E\\times E\\)，定义\n\\[\nu_p=y+\\sqrt{\\tau}\\,z,\\qquad\nF_p(x)=U(x)+\\frac{1}{2A}\\|x-u_p\\|^2,\n\\]\n以及梯度迭代映射\n\\[\nT_p(x)=x-\\frac1c\\nabla F_p(x).\n\\]\n梯度始终针对状态变量 \\(x\\) 求取，参数 \\(p\\) 固定。令\n\\[\nx_{p,0}=y,\\qquad x_{p,n+1}=T_p(x_{p,n}).\n\\]\n\n若存在自然数 \\(n\\) 使\n\\[\n\\|\\nabla F_p(x_{p,n})\\|^2\\le ad,\n\\]\n则定义 \\(N(p)\\) 为满足该不等式的最小自然数；若不存在，则定义 \\(N(p)=0\\)。定义输出\n\\[\n\\operatorname{out}(p)=x_{p,N(p)}.\n\\]\n\n结论同时包括：\n\n1. \\(N:E\\times E\\to\\mathbb N\\) 和 \\(\\operatorname{out}:E\\times E\\to E\\) 都可测。\n\n2. 对所有 \\(p\\in E\\times E\\)，均有\n   \\[\n   \\|\\nabla F_p(\\operatorname{out}(p))\\|^2\\le ad,\n   \\]\n   \\[\n   \\|u_p-A\\nabla U(\\operatorname{out}(p))-\\operatorname{out}(p)\\|\n   =A\\|\\nabla F_p(\\operatorname{out}(p))\\|,\n   \\]\n   \\[\n   \\|u_p-A\\nabla U(\\operatorname{out}(p))-\\operatorname{out}(p)\\|\n   \\le A\\sqrt{ad}.\n   \\]\n   对每一个自然数 \\(j<N(p)\\)，还有严格不等式\n   \\[\n   ad<\\|\\nabla F_p(x_{p,j})\\|^2.\n   \\]\n   因而每个参数对都实际达到停止条件，定义中的“未命中则取零”分支不会造成未达标输出。\n\n3. 对所有 \\(p=(y,z)\\)，计数满足\n   \\[\n   N(p)+1\n   \\le k\\log\\!\\left(\n   1+\\frac{A\\|\\nabla F_p(y)\\|^2}{d}\n   \\right)+2.\n   \\]\n   此处 \\(N(p)\\) 是从初值出发执行的更新次数；结论直接控制的是 \\(N(p)+1\\)，包含初始状态的检查位置。若初值已满足停止条件，则 \\(N(p)=0\\)，该计数为 \\(1\\)。\n\n4. 实值函数 \\(p\\mapsto N(p)+1\\) 关于实际乘积概率测度 \\(\\nu\\otimes G\\) Bochner 可积，而且\n   \\[\n   \\int_{E\\times E}(N(p)+1)\\,d(\\nu\\otimes G)(p)\n   \\le\n   2+k\\log\\!\\left(\n   1+\\frac{A\\left(M+\\tau d/A^2\\right)}{d}\n   \\right).\n   \\]\n   因此随机输入可理解为相互独立的 \\(y\\sim\\nu\\) 与 \\(z\\sim G\\)。点态结论适用于所有参数对，积分结论则针对这一特定乘积测度。\n\n该陈述没有给出输出的分布等于某个目标测度、输出误差的分布距离界、精确最小化结论、运行时间的尾界，或额外随机抽样步骤。它也没有把梯度调用、函数调用、算术操作等具体实现成本定义为 \\(N+1\\)；所直接控制的是上述数学计数。没有单独列出 \\(\\operatorname{out}\\)、\\(U\\) 或梯度的可积性结论，也没有单独陈述 \\(\\mu\\) 的归一化定理。",
+  "source_fidelity_verdict": null,
+  "ambiguities": [
+    "Packet uses lean.statement rather than a field literally named expanded_statement; decoder used the expanded lean.statement.",
+    "No mathematical ambiguity requiring guessed content.",
+    "Interpreting N+1 as actual gradient evaluations needs an execution/caching convention; the theorem directly controls the mathematical count.",
+    "The measure-distance hypothesis is the explicit extended coupling cost; naming a probability-measure distance also requires its normalization conventions."
+  ],
+  "decoder_notes": [
+    "Fresh decoder read only anonymous packet; no source, other files or proof verification.",
+    "Reconstructed main statement recorded verbatim; ancillary ambiguity and definition notes faithfully summarized.",
+    "NNReal coercions, real logarithm,positive denominators,ofReal and nonnegative integrals preserved.",
+    "Packet hash returned from package, not independently recomputed."
+  ]
+}
