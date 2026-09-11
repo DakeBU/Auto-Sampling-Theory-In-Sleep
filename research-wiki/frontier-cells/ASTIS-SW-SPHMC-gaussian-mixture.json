@@ -17,9 +17,9 @@
   "shared_floor_audit": {
     "searched": [
       "Fixed Mathlib ENNReal.lintegral_mul_norm_pow_le and rpow/div algebra allow infinite intermediate moments",
-      "Existing GaussianPowerMoment proves actual Gaussian RN power moment, not mixtures",
-      "Existing GaussianSmoothing/CommonNoiseContraction define actual independent additive noise and coupling marginals",
-      "Existing Renyi module has no q>1 mixture/data-processing theorem"
+      "Samplinglib GaussianPowerMoment proves actual Gaussian RN power moment, not mixtures",
+      "Samplinglib GaussianSmoothing/CommonNoiseContraction define actual independent additive noise and coupling marginals",
+      "Samplinglib Renyi module has no q>1 mixture/data-processing theorem"
     ],
     "classification": "adapt",
     "decision": "new_route_local",

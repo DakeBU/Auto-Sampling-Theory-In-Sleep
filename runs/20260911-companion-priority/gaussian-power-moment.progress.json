@@ -62,7 +62,7 @@
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/260",
     "state": "draft",
-    "boundary": "Aggregate passed; fixed-commit local site retry, final-head CI and actual merge/deployment pending."
+    "boundary": "Aggregate, independent admission and local rendering/graph QA passed. Exact-commit local card remains Partial and initial site/CI metadata failures are explicit. Final-head CI, merge advice and actual merge/deployment pending."
   },
   "reader_checks": {
     "initial_build": {
@@ -77,6 +77,66 @@
       "error": "Source link not pinned to generated commit: discrete-sampling-protocol.md points to3fa6e01 while build began atabaa0b4.",
       "cause": "Root committed metadata while site generator was running.",
       "repair": "Freeze HEAD and metadata, rerun full site generation and validation. Reviewed Lean and passing aggregate unchanged."
+    },
+    "candidate": "8639f2b",
+    "retry_build": {
+      "exit_code": 0,
+      "log": ".astis/gaussian-power-moment-site-build-retry.log"
+    },
+    "retry_check": {
+      "exit_code": 0,
+      "log": ".astis/gaussian-power-moment-site-check-retry.log",
+      "modules": 575,
+      "declarations": 3662,
+      "reviewed_teaching_declarations": 77
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-SPHMC-gaussian-likelihood",
+        "exit_code": 0,
+        "log": ".astis/gaussian-likelihood-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-SPHMC-gaussian-power-moment",
+        "exit_code": 0,
+        "log": ".astis/gaussian-power-moment-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "entries": [
+        {
+          "id": "sphmc-gaussian-likelihood",
+          "proof_steps": 3,
+          "initially_closed_disclosures": 6,
+          "statement_characters": 510,
+          "proof_characters": 2750,
+          "katex_errors": 0,
+          "card": "modules/autosamplingtheory-technicallemmas-measure-gaussianlikelihood.html#decl-autosamplingtheory-technicallemmas-measure-gaussianlikelihood-translated-81d7b3b69c"
+        },
+        {
+          "id": "sphmc-gaussian-power-moment",
+          "proof_steps": 5,
+          "initially_closed_disclosures": 8,
+          "statement_characters": 783,
+          "proof_characters": 4393,
+          "katex_errors": 0,
+          "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianpowermoment.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussianpowermoment-ga-21f315adb9"
+        }
+      ],
+      "visual": "Opened full statement/proof/reuse disclosures; complete proof tails retain end namespaces. Screenshots checked actual normalized density multiplication and exact q(q-1)/(2tau) to q/(2tau) logarithm constants; zero formula errors.",
+      "graph": "Both focused graphs5nodes3edges2direct relations; actual node selection and evidence-card links tested. Solid ownership/import and dashed correspondence are not implication certificates.",
+      "card_status": "Both local cards honestly display Partial / Not mapped. Canonical aggregate PASS9105 is pinned toabaa0b4, while local render uses later metadata-only8639f2b. Source digest unchanged; strict exact-commit badge refuses to infer current compilation. Final-head CI and actual deployed badge are separate checks; no gate evidence was rewritten.",
+      "boundary": "Local rendering/link QA; no actual deployment claim."
     }
+  },
+  "ci_initial_failure": {
+    "head": "8639f2b",
+    "lean_run": "34546510463 FAILURE",
+    "site_run": "34546510348 FAILURE",
+    "cause": "Next EXPLORING cells described existing module reuse without the literal Samplinglib name required by schema2 validation.",
+    "repair": "Explicitly identified already-inspected Samplinglib GaussianPowerMoment, GaussianSmoothing/CommonNoiseContraction and Renyi reuse entries. No Lean changes.",
+    "local_check": "python -m unittest tools.tests.test_discrete_sampling:9testsPASS",
+    "log": ".astis/gaussian-frontier-metadata-test.log"
   }
 }
