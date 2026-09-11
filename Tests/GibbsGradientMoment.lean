@@ -1,0 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment
+
+#check AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment
+#print axioms AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment
