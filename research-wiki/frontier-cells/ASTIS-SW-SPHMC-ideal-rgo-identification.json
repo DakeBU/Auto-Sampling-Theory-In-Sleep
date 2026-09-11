@@ -6,7 +6,7 @@
   "title": "Actual ideal RGO normalization and gradient-arc identification",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.4(2), via arXiv:2602.01338v1 Appendix D.1 Eq18 ideal target identification and Claim2 step condition",
   "target_statement": "For finite-dimensional real inner-product Borel E, differentiable f with actual beta-Lipschitz gradient, beta>=0, eta>0 and beta*eta<1, fix x0,xp, g=gradient f xp,h=x0-eta*g. Let G0=N(x0,eta I),q=N(h,eta I),nu=Uniform time prod N(0,eta I), and m(x)=integral actual unclipped gradient-arc W under nu with common C from GradientArcMean. Prove exp(-f) integrable under G0 and exp(m) integrable under q, strictly positive real normalizers, and the actual identity q.tilted(m)=G0.tilted(-f). Also prove integrability and strictly positive normalization of exp(-(f(x)+norm(x-x0)^2/(2eta))) under canonical volume, and identify the same law with its normalized volume density. Prove the precise beta/2 lower Taylor bound and Gaussian envelope rather than assume ideal exponential integrability or extra convexity.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-gradient-arc-mean",
     "ASTIS-SW-SPHMC-gaussian-likelihood",
@@ -27,10 +27,20 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCIdealRGOIdentification",
+        "result": "PASS3659; standard three axioms; no lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/IdealRGOIdentification.lean": "74a4e485bbe75f56ce79dafa90e6563517fc2617d4a408dfa552dc56a5814996",
+          "Tests/SmoothedPicardHMCIdealRGOIdentification.lean": "5ca87e173d4fe74326257339b2dad8e55e0f59c240f5417352e4895568eda2c5"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-ideal-rgo-identification.md",
     "planning_review": "Independent depth_commit_verifier accepted direct ideal-target route with beta*eta<1 and exact Gaussian likelihood cancellation; source Claim2 implies beta*eta<=1/(8ell)<=1/16. No new compiled result yet.",
-    "execution_boundary": "Root sole writer; clipped program PR282 merged; no active stabilizer. Ideal RGO identification EXPLORING."
+    "execution_boundary": "Root sole writer; clipped program PR282 merged; no active stabilizer. Ideal RGO identification EXPLORING.",
+    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
   },
   "blocked": {
     "reason": "",

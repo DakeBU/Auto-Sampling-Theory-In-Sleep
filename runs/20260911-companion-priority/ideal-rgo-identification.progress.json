@@ -1,11 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "remaining": [
-    "Focused production verification",
-    "Fresh anonymous reconstruction and formal independent source admission",
-    "Independent fixed-commit verification and integration",
-    "Original reader and actual delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and actual deployment"
   ],
   "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
   "development_checkpoint": {
@@ -64,10 +62,19 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-ideal-rgo-identification.json",
-    "state": "Six authored mathematical steps; formal source review pending."
+    "state": "Six authored steps and10private implementations accepted; publicationPASS59."
   },
   "independent_expansion_review": {
     "reviewer": "depth_commit_verifier",
     "result": "Independent replay exit0 Meta.isDefEq; 2040characters SHA2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79; complete actual estimator/product mean and eightconclusions; no source names, opaque private proof leaks or ellipses. No VERIFIED."
-  }
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCIdealRGOIdentification"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }

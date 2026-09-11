@@ -18487,7 +18487,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCIdealRGOIdentification",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-ideal-rgo-identification",
         "anchor": "Appendix D.1 Eq18 ideal target identification; consumed by SPHMC Appendix A.4(2)",
@@ -18514,7 +18514,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "091abdb02f7dd3c88788ee253a0f672b2cef5f8d95472c52b060f481e7c20ac3",
+        "review_run_sha256": "471d691b5e74935a5261b97ab6bcadde8f787572d35cf75241b1d120a2675fab",
+        "run_artifact": "runs/20260911-companion-priority/ideal-rgo-identification.source-review-result.json",
+        "evidence": "Independent formal review accepted7slots,6authoredsteps,7informationaldeltas,10privateimplementations; rechecked D.1 ideal relation and SPHMCA.4(2). Attributed ASTIS paraphrase, not verbatim. Recomputed canonicalpacket excludingSHA,source,expandedtype,reconstruction,embeddedmodule and rawproduction; current lesson/publication/delta pairs matched. Binding authenticated as packetfield; external binding preimage,decoderpacket/run hashes,Meta replay,compile/axioms and fixedadmission remain verifier obligations. No prior verdict/slots/registry verdict consulted. Eightpublicconclusions; innerWL1/commonC/probability not separately returned. No clippedRenyi,adaptivekernel,initialization/cost or fullpaper completion. Root faithful transcription authorized; no VERIFIED."
       },
       "publication_binding_sha256": "b85e042e7bb5728226be2c67a2fcefa96e5446155850da26a0801c0a2592165b",
       "publication_context": {
@@ -18691,7 +18698,110 @@
         "decoder_run_sha256": "4ffb67c048b4fa3db015a54c49604c0ed79fe2203c1338bb5798e12400dc7e94",
         "lean_statement_sha256": "2ac3c266b5f967515a33591320b01c27e9cbdfe8dfb3fb516c6faf163d39af79",
         "run_artifact": "runs/20260911-companion-priority/ideal-rgo-identification.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Source-centered Gaussian proposal, actual unclipped arc mean and ideal RGO density.",
+          "reconstructed": "Actual Gaussian maps, independent uniform/Gaussian input, explicit W,V and normalized volume density.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expanded actual estimator is retained, not replaced with an assumed affine mean."
+        },
+        "domains": {
+          "original": "Euclidean smooth setting in positive dimension.",
+          "reconstructed": "Finite-dimensional real inner-product Borel space with canonical volume including dimension zero.",
+          "relation": "different",
+          "evidence": "Disclosed generalization supported without dividing by dimension."
+        },
+        "quantifiers": {
+          "original": "Reference point serves downstream residual control.",
+          "reconstructed": "Arbitrary fixed x0,xp with h=x0-eta grad f(xp).",
+          "relation": "stronger-in-lean",
+          "evidence": "Reference residual is unnecessary for the ideal identity; common C is fixed before x."
+        },
+        "assumptions": {
+          "original": "Source clipping uses stronger step and reference conditions.",
+          "reconstructed": "Actual beta-Lipschitz gradient, differentiable f,beta>=0,eta>0,betaeta<1; no convexity/C2.",
+          "relation": "different",
+          "evidence": "Sharp beta/2 lower estimate proves normalization in a sufficient range containing, not equivalent to, Claim2 accuracy hypotheses."
+        },
+        "conclusion": {
+          "original": "Ideal normalized exp(-V) target identified through unclipped log weight.",
+          "reconstructed": "Three exponential L1,three positive real integrals,two measure equalities.",
+          "relation": "explicit-elaboration",
+          "evidence": "Exactly eight public conjuncts; inner W L1/common C/probability status are not extra returned conjuncts."
+        },
+        "scopes": {
+          "original": "Ideal identity supplies terminal approximation.",
+          "reconstructed": "Fixed-parameter ideal normalization/identity only.",
+          "relation": "same",
+          "evidence": "No clipped accuracy,Renyi,adaptivekernel,initialization or cost conclusion."
+        },
+        "constant_dependencies": {
+          "original": "Gaussian precision and x-independent affine constant cancel.",
+          "reconstructed": "k=1/eta-beta>0,k/4 envelope,A=exp(C+inner(g,x0)-eta normg^2/2)>0.",
+          "relation": "explicit-elaboration",
+          "evidence": "Exact beta/2 retained; all normalizers proved positive before same A cancellation."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Coordinate-free canonical volume and zero dimension supported.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Coordinate-free canonical volume and zero dimension supported."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "description": "NNReal beta includes zero; no division by beta.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: NNReal beta includes zero; no division by beta."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "description": "betaeta<1 sufficient broader range; strictness matters for negative quadratic at equality in positive dimension.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: betaeta<1 sufficient broader range; strictness matters for negative quadratic at equality in positive dimension."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "generalization",
+          "description": "Arbitrary xp preserves source center; ideal likelihood identity needs no residual bound.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Arbitrary xp preserves source center; ideal likelihood identity needs no residual bound."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Ioc uniform differs by null endpoints; true independent product retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Ioc uniform differs by null endpoints; true independent product retained."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Exponential L1/positive integrals proved before measure identity, no zero-denominator fallback.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Exponential L1/positive integrals proved before measure identity, no zero-denominator fallback."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Selected ideal dependency only; terminal approximate implementation remains separate.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Selected ideal dependency only; terminal approximate implementation remains separate."
+        }
+      ]
     }
   ]
 }
