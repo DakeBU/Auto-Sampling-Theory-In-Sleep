@@ -1,8 +1,8 @@
 {
   "remaining": [
-    "Author publication lesson and binding with precise source deltas",
-    "Fresh anonymous decoder and formal independent source audit",
-    "Commit-bound production verification and admission",
+    "Formal independent source and authored-proof audit",
+    "Publication validation and PROVED_LOCAL admission",
+    "Fixed-commit VERIFIED admission",
     "Aggregate integration, reader/graph delivery, merge and deployment"
   ],
   "local_check": {
@@ -20,7 +20,7 @@
   "state": "EXPLORING",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
-  "boundary": "Production Lean and focused test compiled; complete scratch independently reviewed. EXPLORING only until authored publication validation and formal source admission. Neither paper main result is complete.",
+  "boundary": "Production and fixed-commit independent focused proof pass; fresh anonymous reconstruction complete. Formal source review pending; private implementation publication gate correctly remains closed. Neither paper main result is complete.",
   "independent_quadratic_core": {
     "result": "Independent compile and mathematical development review accepted; no integrability circularity; final finite moment retains t<1/2.",
     "reviewer": "depth_commit_verifier",
@@ -56,5 +56,23 @@
     "text_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
     "definitionally_equal": true,
     "private_arc_and_velocity_expanded": true
+  },
+  "fixed_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "77b9db175642a0df911204e116ac3739274b59b6",
+    "result": "Independent focused PASS3120 and source-to-production diff accepted. Exact mathematical body unchanged except final public renaming and namespace. Standard three axioms; no fake closure. No VERIFIED until formal source admission."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-smooth-gradient-arc-moment.json",
+    "state": "Six authored mathematical steps; formal review pending."
+  },
+  "source_fidelity": {
+    "state": "pending",
+    "audit": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
+    "decoder": "blind_reconstruction_i",
+    "decoder_result": "runs/20260911-companion-priority/smooth-gradient-arc-moment.decoder-result.json",
+    "reconstruction_sha256": "6950dea3be6c58746e2595dd54416a70c7b494e6822e21617bc7b1e4215519e2",
+    "decoder_result_boundary": "Independent source-blind reconstruction returned exact full contract, no ambiguities. This is not source acceptance.",
+    "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266"
   }
 }
