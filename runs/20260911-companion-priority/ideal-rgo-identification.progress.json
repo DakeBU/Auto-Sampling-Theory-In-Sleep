@@ -2,16 +2,15 @@
   "cell": "ASTIS-SW-SPHMC-ideal-rgo-identification",
   "state": "EXPLORING",
   "remaining": [
-    "Actual Gaussian-input exponential integrability and positive normalizers",
-    "Actual mean/likelihood cancellation and full tilted/volume density identity",
+    "Actual mean/likelihood cancellation, tilted-input integrability and full tilted/volume density identity",
     "Independent complete proof/source review and reader integration"
   ],
   "boundary": "Ideal untruncated target identification and actual positive finite normalization only. No clipping approximation/Renyi bound, adaptive kernel, initialization or cost transport. beta*eta<1 includes the source Claim2 permitted range; no C2 or convexity is silently added. Zero dimension and beta0 are valid disclosed extensions. Neither full companion paper complete.",
   "development_checkpoint": {
     "scratch": ".astis/IdealRGOIdentification.lean",
-    "sha256": "a66ad076d1a28ba3422bfc4dae7e341187803f0edef7e22b17fba703a38a0b5a",
+    "sha256": "81f2f9a1a71d9dd6cc813cfa86287c7d634d7b25bfb033ad991b2f5b18788125",
     "command": "lake env lean .astis/IdealRGOIdentification.lean",
-    "session": 54602,
+    "session": 32065,
     "exit_code": 0,
     "axioms": [
       "propext",
@@ -19,11 +18,11 @@
       "Quot.sound"
     ],
     "log": ".astis/ideal-rgo-identification-scratch.log",
-    "result": "Three complete scratch proofs: exact beta/2 lower Taylor via first-derivative monotone barrier, regularized k/4 quadratic envelope for full beta*eta<1, actual canonical-volume exp(-regularized potential) L1 and strictly positive integral. Intermediate only; full public target not yet proved."
+    "result": "Five complete scratch proofs: previous sharp lower Taylor, regularized envelope and volume integrability, plus translated actual Gaussian volume density and actual Gaussian exp(-f) integrability with strictly positive integral. Whole compile exit0 standard3, no lint. Intermediate only; full tilted identity remains."
   },
   "independent_development_review": {
     "reviewer": "depth_commit_verifier",
-    "sha256": "a66ad076d1a28ba3422bfc4dae7e341187803f0edef7e22b17fba703a38a0b5a",
-    "result": "Independent whole scratch compile0 standard3nolint. Sharp beta/2, full beta*eta<1 k/4 envelope, true volume exponential L1 and positive integral accepted; zero dimension/beta0 retained. Intermediate only, not VERIFIED or completed target."
+    "sha256": "81f2f9a1a71d9dd6cc813cfa86287c7d634d7b25bfb033ad991b2f5b18788125",
+    "result": "Independent whole scratch compile exit0 standard3/no lint. All five intermediate helpers accepted. Actual translated density uses scaled Gaussian and volume translation invariance; Gaussian exp(-f) L1 follows from established volume weight without circular assumptions. Actual map probability and integrability imply positive integral. Full beta*eta<1 retained without C2, convexity or extra center restrictions. Final likelihood/mean and normalized law remain; no VERIFIED granted."
   }
 }

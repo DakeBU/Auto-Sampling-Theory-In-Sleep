@@ -14,6 +14,6 @@
   "site_run": 34615645078,
   "site_status": "success",
   "merge_lean_run": 34615645105,
-  "merge_lean_status": "in_progress",
-  "boundary": "Fresh actual HTTP200 original reader/module have full merge provenance. Site workflow terminalsuccess; local compile/source/UI evidence separate. Merge Lean remains confirmedrunning; neither fullpaper complete."
+  "merge_lean_status": "success",
+  "boundary": "Actual HTTP200 original reader/module full merge provenance was verified at the preceding checkpoint. Site and merge Lean workflows are terminal success. Local compile/source/UI evidence remains separate. Neither full paper complete."
 }
