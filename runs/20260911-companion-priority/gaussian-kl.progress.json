@@ -33,10 +33,65 @@
   },
   "mathematical_status": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Final-head CI, independent merge review, actual merge and deployed reader verification",
     "Full W2 interface and marginal moment correspondence",
     "Actual recursive kernels, sampler error and query costs",
     "Both paper main results and agreed remaining reader/copy/download deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json",
+  "integration": {
+    "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+    "aggregate": {
+      "result": "PASS9114",
+      "gate": {
+        "passed": true,
+        "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+        "source_digest": "acedf614ac228b537c16c6fc349fdcf9f763b941b1d96b5e4a4b8f023db0bbf0",
+        "generated_at": "2026-09-11T02:37:15.431155+00:00",
+        "commands": [
+          "python3 tools/astis.py check"
+        ],
+        "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+      },
+      "log": ".astis/gaussian-kl-aggregate.log"
+    },
+    "site": {
+      "build": "PASS: 584 modules,3667 declarations",
+      "check": "PASS: 77 reviewed teaching declarations",
+      "build_log": ".astis/gaussian-kl-site-build.log",
+      "check_log": ".astis/gaussian-kl-site-check.log"
+    },
+    "reader": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "anchor": "sphmc-gaussian-kl",
+      "proof_steps": 7,
+      "initially_closed_disclosures": 10,
+      "statement_chars": 564,
+      "proof_chars": 10672,
+      "proof_complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "visual": "Actual screenshot checked Gaussian marginals and exact KL <= r^2/(2tau) formula; source and reuse also visually inspected."
+    },
+    "graph": {
+      "check": "PASS",
+      "artifact": ".astis/gaussian-kl-graph-check.json",
+      "focused_nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl-gaussian-kl-5d8f5e50b6",
+      "local_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+    },
+    "boundary": "Local aggregate and actual browser checks bound to this fixed commit; final candidate CI, independent merge review and actual deployment separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/263",
+    "state": "DRAFT",
+    "head": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+    "boundary": "Candidate CI and final independent merge review pending."
+  }
 }

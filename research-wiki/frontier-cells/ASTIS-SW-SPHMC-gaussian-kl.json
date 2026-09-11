@@ -50,8 +50,57 @@
     ],
     "shorter_route_review": "Independent log_depth_source_review accepted direct joint withDensity proof from retained-parameter product-map laws and fixed-fiber GaussianLikelihood measure equality. No fiber a.e. assertion is promoted to a joint pointwise identity; L measurable. RN first B-a.e. then AC transfers to A-a.e. No displacement moments needed for this equality.",
     "independent_proof_review": "runs/20260911-companion-priority/gaussian-kl.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at 5ac734cf9d3206add1609738315b53d6eb242826; aggregate and reader/graph pending.",
-    "independent_verification": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json"
+    "admission_boundary": "Independently VERIFIED; root aggregate PASS9114 and fixed-commit original reader/graph verified. Final candidate CI/review/merge/deployment separate.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json",
+    "integration": {
+      "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+      "aggregate": {
+        "result": "PASS9114",
+        "gate": {
+          "passed": true,
+          "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+          "source_digest": "acedf614ac228b537c16c6fc349fdcf9f763b941b1d96b5e4a4b8f023db0bbf0",
+          "generated_at": "2026-09-11T02:37:15.431155+00:00",
+          "commands": [
+            "python3 tools/astis.py check"
+          ],
+          "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+        },
+        "log": ".astis/gaussian-kl-aggregate.log"
+      },
+      "site": {
+        "build": "PASS: 584 modules,3667 declarations",
+        "check": "PASS: 77 reviewed teaching declarations",
+        "build_log": ".astis/gaussian-kl-site-build.log",
+        "check_log": ".astis/gaussian-kl-site-check.log"
+      },
+      "reader": {
+        "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "anchor": "sphmc-gaussian-kl",
+        "proof_steps": 7,
+        "initially_closed_disclosures": 10,
+        "statement_chars": 564,
+        "proof_chars": 10672,
+        "proof_complete_namespace_end": true,
+        "actual_statement_proof_reuse_clicks": true,
+        "formula_errors": 0,
+        "visual": "Actual screenshot checked Gaussian marginals and exact KL <= r^2/(2tau) formula; source and reuse also visually inspected."
+      },
+      "graph": {
+        "check": "PASS",
+        "artifact": ".astis/gaussian-kl-graph-check.json",
+        "focused_nodes": 5,
+        "edges": 3,
+        "direct_relations": 2,
+        "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl-gaussian-kl-5d8f5e50b6",
+        "local_card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+      },
+      "boundary": "Local aggregate and actual browser checks bound to this fixed commit; final candidate CI, independent merge review and actual deployment separate."
+    }
   },
   "blocked": {
     "reason": "",
