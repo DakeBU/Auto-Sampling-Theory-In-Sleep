@@ -121,4 +121,7 @@ separate from compiled evidence. Viewport restored. Source reviewer provided a
 same-packet self-contained delta explanation naming f(t)=t²/2 explicitly; its
 immutable earlier result and independently accepted repair-v2 are preserved.
 
-Fresh-main push and final MERGED event remain the final serialized action.
+Actual direct main push `bfd7aaf..0338c17e80bc1d87cc1059b7ec04110051344907` succeeded.
+`ANDI-OPT-gd-pl-001` is MERGED; two new cells are merged. The final metadata
+refresh preserves all four graph reports, so the inspected topology/reader
+layout and unchanged proof compilation remain reusable.
