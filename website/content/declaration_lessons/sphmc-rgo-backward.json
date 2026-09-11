@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery",
+      "title": "One actual RGO backward kernel: precision update, recovery and KL control",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.4 and Theorem6.5",
+          "scope": "Exact backward RGO semantics and its input KL guarantee; approximate recursive sampler remains separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCRGOBackward"
+      ],
+      "boundary": "General probability-base abstraction of the source regularized Gibbs target and actual raw quadratic transport budget. The same measurable exact kernel has every-point precision-update fibers and target recovery. No concrete Gibbs-potential identification, marginal moment inference, approximate recursive sampler, measurable proxy selection, convolution time identification or expected query cost is asserted.",
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0, a>0 and u a point. Define rho as mu tilted by -b*norm(x-u)^2/2. Then rho is a probability measure and there exists one Markov kernel K, chosen before every input law and radius, with K(y)=rho.tilted(-norm(x-y)^2/(2a)) at every y, equivalently mu tilted with precision b+a^-1 and center (b+a^-1)^-1 times (b*u+a^-1*y). The actual composition K with GaussianSmoothing rho sqrt(a) equals rho. For all probability nu and r>=0 with actual infimum quadratic displacement cost from nu to rho at most ofReal(r^2), the actual KL of K composed with GaussianSmoothing nu sqrt(a) relative to rho is at most ofReal(r^2/(2a)).",
+      "formula": "K_aH_a\\rho=\\rho,\\qquad \\inf_{\\gamma\\in\\Pi(\\nu,\\rho)}\\int\\|x-y\\|^2d\\gamma\\le r^2\\ \\Longrightarrow\\ \\operatorname{KL}(K_aH_a\\nu\\|\\rho)\\le\\frac{r^2}{2a}.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space, including dimension zero; mu is a probability measure.",
+        "b>=0, a>0 and arbitrary u. Precision b=0 retains the source A=infinity case.",
+        "The kernel is selected before all probability inputs nu and radii r>=0. The budget is transportCost(nu,rho), in that direction.",
+        "General probability base abstracts the source Gibbs presentation; no concrete potential identification is included.",
+        "Actual raw infimum cost is used, without inferring marginal P2 membership or claiming full W2 API correspondence."
+      ],
+      "steps": [
+        {
+          "title": "Normalize the initial quadratic tilt",
+          "text": "The exponential weight is positive and at most one. Its integrability under the probability base proves that the normalized tilted law rho is a probability, including zero precision.",
+          "formula": "0<e^{-b\\|x-u\\|^2/2}\\le1,\\qquad \\rho=\\frac{e^{-b\\|x-u\\|^2/2}\\mu}{\\int e^{-b\\|x-u\\|^2/2}d\\mu}.",
+          "lean": "hi and isProbabilityMeasure_tilted derive hρ; no normalizer premise."
+        },
+        {
+          "title": "Construct the same measurable backward kernel",
+          "text": "Apply the existing actual Gaussian conditional-kernel construction to rho. It supplies a Markov kernel with a normalized fiber at every y, and disintegrates the swapped joint law of (X,X+sqrt(a)Z).",
+          "formula": "J=\\mathcal L(X,X+\\sqrt a Z),\\quad K(y,dx)\\propto e^{-\\|x-y\\|^2/(2a)}\\rho(dx).",
+          "lean": "GaussianConditionalKernel.exists_tilted_isCondKernel provides hK, hfiber and hcond."
+        },
+        {
+          "title": "Identify actual forward and backward marginals",
+          "text": "The first marginal of J is rho. Product-map composition identifies its second marginal with the existing GaussianSmoothing operator. These are actual pushforward equalities, not assumed stochastic semantics.",
+          "formula": "J_1=\\rho,\\qquad J_2=H_a\\rho.",
+          "lean": "hfst uses fst_map_prodMk and fst_prod; hsnd uses snd_map_prodMk, map_prod_map and map_map."
+        },
+        {
+          "title": "Recover the target by disintegration",
+          "text": "Take the second marginal of the disintegration identity for the swapped joint law. That second marginal is the original target, while its first marginal is the noisy law. This proves exact recovery for the constructed kernel.",
+          "formula": "(H_a\\rho)\\otimes K=\\operatorname{swap}_\\#J\\quad\\Longrightarrow\\quad K H_a\\rho=\\rho.",
+          "lean": "congrArg Measure.snd hcond.disintegrate; snd_compProd, fst_map_swap and snd_map_swap."
+        },
+        {
+          "title": "Identify every normalized source precision update",
+          "text": "Write the backward precision as a^-1 and apply normalized quadratic tilt composition to the same kernel fiber. The summed precision is positive, so the updated center is valid even when b=0.",
+          "formula": "b^+=b+a^{-1},\\quad u^+(y)=(b+a^{-1})^{-1}(bu+a^{-1}y),\\quad K(y)=\\mu.\\mathrm{tilted}(-b^+\\|x-u^+(y)\\|^2/2).",
+          "lean": "hfiber, exact denominator algebra and RGOClosure.quadratic_tilt_tilt with inv_pos.mpr ha."
+        },
+        {
+          "title": "Propagate the actual input KL budget",
+          "text": "For any admissible input, derive probability of the smoothed measures, apply KL contraction through the same Markov kernel, substitute exact recovery, and invoke the already proved Gaussian KL reverse-transport bound.",
+          "formula": "\\operatorname{KL}(K H_a\\nu\\|\\rho)\\le\\operatorname{KL}(H_a\\nu\\|H_a\\rho)\\le r^2/(2a).",
+          "lean": "InformationTheory.klDiv_comp_right_le and GaussianKL.gaussian_kl_reverse_transport; no approximate kernel or unbounded-cost transfer."
+        }
+      ],
+      "lean_statement": "One actual Markov kernel has every-point normalized precision update, exact recovery, and all quadratic-budget KL guarantees.",
+      "lean_proof": "Actual Gaussian disintegration and marginal identities, normalized tilt composition, then same-kernel KL data processing.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.snd_compProd",
+        "MeasureTheory.Measure.IsCondKernel.disintegrate",
+        "InformationTheory.klDiv_comp_right_le",
+        "MeasureTheory.isProbabilityMeasure_tilted"
+      ]
+    }
+  ]
+}
