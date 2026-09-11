@@ -6,7 +6,7 @@
   "title": "Actual terminal sampler accuracy and cached gradient cost",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Theorem A.4(2), via smooth arXiv:2602.01338v1 D.1 and actual PoissonQueryTail",
   "target_statement": "For the actual differentiable beta-Lipschitz gradient potential, positive dimension/beta/eta, order ell>=2, 0<eps<=1/2, supplied xp satisfying the center residual, and eta^-1>=64 beta(sqrt(d*(ell+log(1/eps)))+ell+log(1/eps)), fix clipping B=1. Prove the actual iid first-success output law is the clipped tilt and has both actual RN ell-power moments <=1+eps^2 against the actual Gaussian-regularized target, with true L1 and positive integrals and both explicit logarithmic expressions divided by ell-1 <=eps^2. For the cached-reference-gradient calling convention prove actual gradient query count G=1+full-batch estimator count has expectation <=1+2exp2, and tail <=p at (K1+1/log2)*log(2/p), K1=2(exp1-1)(exp2+1/log2)+1, for0<p<=1/2. Reuse actual program and existing PoissonQueryTail by proving their law/event/count definitions agree.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-clipped-renyi-comparison",
     "ASTIS-SW-SPHMC-clipped-gradient-program"
@@ -39,7 +39,8 @@
     "proof_plan": "proof-blueprints/SPHMC-terminal-sampler-accuracy-cost.md",
     "planning_review": "Independent log_depth source/route audit accepted explicit64parameter route, corrected cached count to1+C, identified reusable actual PoissonQueryTail.",
     "execution_boundary": "Root sole writer; prior RN PR286 merged, no active stabilizer. This packet EXPLORING; full scratch compiled, independent wholeproof/source review pending.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json"
   },
   "blocked": {
     "reason": "",

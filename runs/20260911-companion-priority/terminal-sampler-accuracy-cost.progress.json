@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA, merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "scratch_checkpoint": {
     "path": ".astis/TerminalSamplerAccuracyCost.lean",
@@ -101,5 +101,6 @@
       "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
+  "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json"
 }
