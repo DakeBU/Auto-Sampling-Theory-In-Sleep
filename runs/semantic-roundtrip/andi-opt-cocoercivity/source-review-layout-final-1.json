@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_layout_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "4c8d62f33a4416e74d30227a133a55cafd5b27c01883bab61305d11b3703a04b",
+  "publication_binding_sha256": "bc1291bcf4adf128d724e6aeb7fc5f120a151459b2d5441376e3ff55b8e09eb2",
+  "semantic_slots": {
+    "objects": {
+      "original": "A real-valued function and its Euclidean gradient.",
+      "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
+      "relation": "explicit-elaboration",
+      "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
+    },
+    "domains": {
+      "original": "All of Euclidean d-space.",
+      "reconstructed": "All of any complete real inner-product space E.",
+      "relation": "stronger-in-lean",
+      "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
+    },
+    "quantifiers": {
+      "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+      "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+      "relation": "same",
+      "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
+    },
+    "assumptions": {
+      "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+      "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; nonnegative real beta.",
+      "relation": "explicit-elaboration",
+      "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Neither C2 nor a pre-assumed Lipschitz gradient is smuggled in. The declared real inequality permits beta=0."
+    },
+    "conclusion": {
+      "original": "Scaled cocoercivity (3.5).",
+      "reconstructed": "Squared gradient difference <= beta times the gradient-displacement pairing.",
+      "relation": "same",
+      "evidence": "Both signs reverse when endpoints exchange, leaving the pairing unchanged. The coefficient is beta, without a factor-two loss."
+    },
+    "scopes": {
+      "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+      "reconstructed": "The binding supports only scaled-cocoercivity.",
+      "relation": "explicit-elaboration",
+      "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Euclidean specialization includes beta=0. The epsilon-limit explanation is an ASTIS elaboration beyond the source hint, not a source correction."
+    },
+    "constant_dependencies": {
+      "original": "Coefficient beta, using smoothness coefficient beta/2.",
+      "reconstructed": "Coefficient beta after removing epsilon.",
+      "relation": "equivalent",
+      "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. Epsilon is arbitrary positive and disappears by continuity and closed order, including beta=0."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+      "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "source_review": {
+    "decision": "accepted",
+    "evidence": "The module relaxes the model from beta to beta+epsilon using nonnegative squared norm, applies the Bregman theorem to both ordered pairs, adds the inequalities and cancels the factor two. The sum of gaps is <gradient f(y)-gradient f(x),y-x>. Taking epsilon to zero requires only continuity of this affine scalar expression and closed order, so beta=0 forces a constant gradient. The revised lesson explicitly fixes x,y and defines d=gradient f(y)-gradient f(x) before its formulas. This resolves the previously diagnosed unbound abbreviation, and the synchronized prose describes all three proof steps correctly. The correction changes exposition only, not the source theorem or a repair overlay. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit."
+  },
+  "review_evidence": "Fresh anti-anchored review of this exact canonical packet, its full bound Lean module and authored lesson, plus primary source Definition 1.12, Lemma 3.1 and Exercise 3.1 at https://arxiv.org/html/2605.07006v1#S3. No pre-existing reviews or registry were read. The original canonical layout packets were inspected as assigned before the coordinator supplied final replacements; exact structural comparison found packets 0 and 2 unchanged, and only the local d definition, synchronized lesson prose and binding hashes changed in packet 1. The module relaxes the model from beta to beta+epsilon using nonnegative squared norm, applies the Bregman theorem to both ordered pairs, adds the inequalities and cancels the factor two. The sum of gaps is <gradient f(y)-gradient f(x),y-x>. Taking epsilon to zero requires only continuity of this affine scalar expression and closed order, so beta=0 forces a constant gradient. The revised lesson explicitly fixes x,y and defines d=gradient f(y)-gradient f(x) before its formulas. This resolves the previously diagnosed unbound abbreviation, and the synchronized prose describes all three proof steps correctly. The correction changes exposition only, not the source theorem or a repair overlay. This is semantic and reader-exposition review, not an independently rerun compiler/build certificate, dependency provenance audit or rendered-layout inspection. No source repair is proposed or accepted.",
+  "input_artifacts": [
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-final-1.json",
+    "/Users/andyjm3/Documents/Codex/samplinglib/runs/semantic-roundtrip/andi-opt-cocoercivity/reviewer-layout-1.json",
+    ".agents/skills/astis-semantic-roundtrip/SKILL.md",
+    "docs/theorem-publication-protocol.md",
+    "tools/astis_semantic_roundtrip.py severity/enum schema only",
+    "https://arxiv.org/html/2605.07006v1#S3"
+  ],
+  "review_run_sha256": "c8622e239035922e88f5ff33c89e54863c31b83db8d4d84ed6ba78f2a21235ba"
+}

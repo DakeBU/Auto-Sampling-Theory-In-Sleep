@@ -1,0 +1,87 @@
+{
+  "decoder": "/root/coco_blind",
+  "source_text_visible": false,
+  "entries": [
+    {
+      "input_artifact": "/private/tmp/astis-blind-9538/packet-0.json",
+      "packet_id": "ASTIS-BLIND-41a84902aee84efa",
+      "packet_sha256": "4c8968b53068c72cdde0db05e79080a25e8156b7cc2f3d508833494297e9aa29",
+      "statement_sha256": "41a84902aee84efafe01fbccfe8504d69414d1057d8d132aa0059eae65670c63",
+      "reconstructed_theorem": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be strictly positive real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ 2β(f(y)−f(x)−⟨∇f(x),y−x⟩).",
+      "reconstructed_theorem_text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be strictly positive real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ 2β(f(y)−f(x)−⟨∇f(x),y−x⟩).",
+      "reconstructed_text_sha256": "5a737b33446f6f7ac68a19b5c67c0fd1407926c41ae51fcbf3bbb657c2914b9b",
+      "objects": "E, a real inner product space with its compatible norm and additive group; f:E→ℝ; β; the gradient ∇f:E→E representing the Fréchet derivative; arbitrary points x,y.",
+      "domains": "E is complete, of any universe and with no finite-dimensional restriction; f is defined on all E; values and inner products are real; β∈ℝ with β>0.",
+      "quantifiers": "Universally for every such E, every f:E→ℝ and every admissible β, the stated assumptions imply the conclusion. The upper quadratic bound quantifies independently over all x,y∈E; the conclusion also holds for all x,y∈E.",
+      "assumptions": "E is a normed additive commutative group and real inner product space, and is complete. f is continuously Fréchet differentiable on E and convex on E. β>0. For all x,y∈E, f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖².",
+      "conclusion": "Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ 2β(f(y)−f(x)−⟨∇f(x),y−x⟩).",
+      "scopes": "Both assumptions on f and the two-point quadratic upper bound are global on E. The same f and same β occur throughout. Convexity is the chord inequality on the entire space. There is no restriction to a subset, probability space, or finite dimension.",
+      "constant_dependencies": "The coefficient is exactly 2β and depends only on the positive real β appearing in the assumed quadratic bound.",
+      "decoder": "/root/coco_blind, independent source-blind mathematical decoder",
+      "source_text_visible": false,
+      "run_evidence": {
+        "inputs_read": [
+          "/private/tmp/astis-blind-9538/packet-0.json"
+        ],
+        "accessible_inputs_used": "Only the three requested anonymous packets and their approved definition contexts; no repository or source inspection.",
+        "method": "Direct manual semantic reconstruction of the quantified Lean statement; Python only serializes the output and computes SHA-256 digests."
+      },
+      "decoding_uncertainty": [],
+      "decoder_run_sha256": "5db5ad38e38d9c0a19679ca8c4a6549a32413aac0bc4fdb132180d00f96b75a5"
+    },
+    {
+      "input_artifact": "/private/tmp/astis-blind-9538/packet-1.json",
+      "packet_id": "ASTIS-BLIND-4c9e2e0dca99bbb2",
+      "packet_sha256": "20d8a997b0d916f1f9e579d25c37bcfb8e5c890d78faa36097011982522ffaef",
+      "statement_sha256": "4c9e2e0dca99bbb272b8999af437d8974b4c669f9e4101ec8492a1c24e7e28e4",
+      "reconstructed_theorem": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ β⟨∇f(y)−∇f(x),y−x⟩.",
+      "reconstructed_theorem_text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ β⟨∇f(y)−∇f(x),y−x⟩.",
+      "reconstructed_text_sha256": "e9d80f8d532859ef57362ce5daab235dd0aa1b4a150b03f527834b842efe33bb",
+      "objects": "E, a real inner product space with its compatible norm and additive group; f:E→ℝ; β; the gradient ∇f:E→E representing the Fréchet derivative; arbitrary points x,y.",
+      "domains": "E is complete, of any universe and with no finite-dimensional restriction; f is defined on all E; values and inner products are real; β∈ℝ with β≥0.",
+      "quantifiers": "Universally for every such E, every f:E→ℝ and every admissible β, the stated assumptions imply the conclusion. The upper quadratic bound quantifies independently over all x,y∈E; the conclusion also holds for all x,y∈E.",
+      "assumptions": "E is a normed additive commutative group and real inner product space, and is complete. f is continuously Fréchet differentiable on E and convex on E. β≥0 (including zero). For all x,y∈E, f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖².",
+      "conclusion": "Then for every x,y∈E, ‖∇f(y)−∇f(x)‖² ≤ β⟨∇f(y)−∇f(x),y−x⟩.",
+      "scopes": "Both assumptions on f and the two-point quadratic upper bound are global on E. The same f and same β occur throughout. Convexity is the chord inequality on the entire space. There is no restriction to a subset, probability space, or finite dimension.",
+      "constant_dependencies": "The coefficient is exactly β, the same nonnegative constant as in the assumed quadratic bound; β=0 is allowed.",
+      "decoder": "/root/coco_blind, independent source-blind mathematical decoder",
+      "source_text_visible": false,
+      "run_evidence": {
+        "inputs_read": [
+          "/private/tmp/astis-blind-9538/packet-1.json"
+        ],
+        "accessible_inputs_used": "Only the three requested anonymous packets and their approved definition contexts; no repository or source inspection.",
+        "method": "Direct manual semantic reconstruction of the quantified Lean statement; Python only serializes the output and computes SHA-256 digests."
+      },
+      "decoding_uncertainty": [],
+      "decoder_run_sha256": "a987ccbc9b0320168f64bb86d037e6b0f38b47f7daddede20577aed0e95e2af1"
+    },
+    {
+      "input_artifact": "/private/tmp/astis-blind-9538/packet-2.json",
+      "packet_id": "ASTIS-BLIND-10a0dd248fc2466f",
+      "packet_sha256": "4697ab369680d53e0d8f379b47d971a880ed198119c901f36d0fbf79281836d7",
+      "statement_sha256": "10a0dd248fc2466fb2869b8048f5a94c16096dc1484370147a6c317182af1ce4",
+      "reconstructed_theorem": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then ∇f:E→E is globally β-Lipschitz: for every x,y∈E, ‖∇f(x)−∇f(y)‖ ≤ β‖x−y‖.",
+      "reconstructed_theorem_text": "Let E be any complete real inner product space and let f:E→ℝ be continuously Fréchet differentiable and convex on all of E. Let β be nonnegative real number β. Assume that for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖², where ∇f(x) is the Riesz vector representing the Fréchet derivative. Then ∇f:E→E is globally β-Lipschitz: for every x,y∈E, ‖∇f(x)−∇f(y)‖ ≤ β‖x−y‖.",
+      "reconstructed_text_sha256": "fc45bce1cf85d118a69dce36c6472990631691e22e27e54df99a57c9982e5434",
+      "objects": "E, a real inner product space with its compatible norm and additive group; f:E→ℝ; β; the gradient ∇f:E→E representing the Fréchet derivative; arbitrary points x,y.",
+      "domains": "E is complete, of any universe and with no finite-dimensional restriction; f is defined on all E; values and inner products are real; β has type NNReal and is coerced to ℝ in arithmetic.",
+      "quantifiers": "Universally for every such E, every f:E→ℝ and every admissible β, the stated assumptions imply the conclusion. The upper quadratic bound quantifies independently over all x,y∈E; the conclusion also holds for all x,y∈E.",
+      "assumptions": "E is a normed additive commutative group and real inner product space, and is complete. f is continuously Fréchet differentiable on E and convex on E. β≥0 (including zero). For all x,y∈E, f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖².",
+      "conclusion": "Then ∇f:E→E is globally β-Lipschitz: for every x,y∈E, ‖∇f(x)−∇f(y)‖ ≤ β‖x−y‖.",
+      "scopes": "Both assumptions on f and the two-point quadratic upper bound are global on E. The same f and same β occur throughout. Convexity is the chord inequality on the entire space. There is no restriction to a subset, probability space, or finite dimension.",
+      "constant_dependencies": "The coefficient is exactly β, the same nonnegative constant as in the assumed quadratic bound; β=0 is allowed.",
+      "decoder": "/root/coco_blind, independent source-blind mathematical decoder",
+      "source_text_visible": false,
+      "run_evidence": {
+        "inputs_read": [
+          "/private/tmp/astis-blind-9538/packet-2.json"
+        ],
+        "accessible_inputs_used": "Only the three requested anonymous packets and their approved definition contexts; no repository or source inspection.",
+        "method": "Direct manual semantic reconstruction of the quantified Lean statement; Python only serializes the output and computes SHA-256 digests."
+      },
+      "decoding_uncertainty": [],
+      "decoder_run_sha256": "2e52b3d13894b90d832efdd3b1517703b0cd4e7dd2576bd06e0d328111a06aae"
+    }
+  ]
+}

@@ -375,6 +375,149 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-SmoothnessC2"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-exercise-3-1",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Exercise3.1 · convex smooth gradients",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "§3 Exercise3.1 (3.4)-(3.5), using Lemma3.1 and Definition1.12 (1.7)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+      },
+      "statement": "For convex β-smooth f on Euclidean d-space, apply the descent estimate to f minus the tangent plane at x, which is minimized at x, to obtain (3.4). Exchange endpoints to deduce (3.5), then use Cauchy–Schwarz to conclude that the gradient is β-Lipschitz. The exercise explicitly says that second differentiability is unnecessary. Definition1.12 allows β≥0; the reciprocal formula and its suggested step have an unstated positive-denominator domain, recorded separately in the binding.",
+      "assumptions": [
+        "f:ℝᵈ→ℝ is convex, C¹ and β-smooth in the global quadratic upper-model sense of Definition1.12.",
+        "Definition1.12 has β≥0. Exercise3.1 does not explicitly state β>0 although (3.4) contains 1/(2β)."
+      ],
+      "formulae": [
+        {
+          "label": "(1.7) · quadratic upper model",
+          "tex": "f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2"
+        },
+        {
+          "label": "(3.4) · source reciprocal formula",
+          "tex": "f(y)\\ge f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac{1}{2\\beta}\\|\\nabla f(y)-\\nabla f(x)\\|^2"
+        },
+        {
+          "label": "(3.5) · cocoercivity",
+          "tex": "\\|\\nabla f(y)-\\nabla f(x)\\|^2\\le\\beta\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle"
+        },
+        {
+          "label": "Lipschitz conclusion",
+          "tex": "\\|\\nabla f(y)-\\nabla f(x)\\|\\le\\beta\\|y-x\\|"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "bregman-positive-domain",
+          "label": "(3.4), on the positive denominator domain"
+        },
+        {
+          "id": "scaled-cocoercivity",
+          "label": "(3.5), with the β=0 boundary justified"
+        },
+        {
+          "id": "gradient-lipschitz",
+          "label": "β-Lipschitz gradient, without a C² assumption"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_gap_sq_le_bregman",
+          "cell": "ASTIS-SHARED-convex-bregman-gradient",
+          "role": "proof-edge",
+          "supports": [
+            "bregman-positive-domain"
+          ],
+          "boundary": "The complete real inner-product space explicitly generalizes the source Euclidean space. A constrained set is not covered: the trial gradient step must remain in the domain. No Riemannian, stochastic, or companion-paper theorem is claimed. Definition1.12 permits β≥0, but the reciprocal in (3.4) and the suggested step 1/β require β>0; the source does not state that restriction explicitly. The first declaration covers this positive domain. The scaled (3.5) and Lipschitz conclusions are separately established at β=0.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean d-space, all x,y.",
+              "lean": "Complete real inner-product space E, all x,y:E.",
+              "classification": "generalization",
+              "reason": "The proof uses only the Riesz gradient, convex first-order support and real inner-product algebra; no dimension-dependent step occurs."
+            },
+            {
+              "source": "C¹ smoothness; the exercise explicitly removes the section-wide C² assumption.",
+              "lean": "ContDiff ℝ 1 f and ConvexOn ℝ Set.univ f, with the actual quadratic upper model.",
+              "classification": "same",
+              "reason": "All regularity needed for the genuine gradient and first-order support follows from C¹; no integrability, Hessian or supplied gradient premise is added."
+            },
+            {
+              "source": "Definition1.12 allows β≥0; (3.4) displays 1/(2β), with no explicit β>0 in the exercise.",
+              "lean": "β>0; shared scaled Bregman formula equivalent to (3.4) only in this domain.",
+              "classification": "source-implicit",
+              "reason": "The reciprocal source expression and the trial step need positive β. This does not follow from convex smoothness: affine functions have β=0. We retain the source wording and expose that boundary; zero is established only for the meaningful scaled and Lipschitz conclusions, not by Lean inv_zero."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-BregmanGradient"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_cocoercive",
+          "cell": "ASTIS-SHARED-convex-cocoercivity",
+          "role": "proof-edge",
+          "supports": [
+            "scaled-cocoercivity"
+          ],
+          "boundary": "The complete real inner-product space explicitly generalizes the source Euclidean space. A constrained set is not covered: the trial gradient step must remain in the domain. No Riemannian, stochastic, or companion-paper theorem is claimed. Definition1.12 permits β≥0, but the reciprocal in (3.4) and the suggested step 1/β require β>0; the source does not state that restriction explicitly. The first declaration covers this positive domain. The scaled (3.5) and Lipschitz conclusions are separately established at β=0.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean d-space, all x,y.",
+              "lean": "Complete real inner-product space E, all x,y:E.",
+              "classification": "generalization",
+              "reason": "The proof uses only the Riesz gradient, convex first-order support and real inner-product algebra; no dimension-dependent step occurs."
+            },
+            {
+              "source": "C¹ smoothness; the exercise explicitly removes the section-wide C² assumption.",
+              "lean": "ContDiff ℝ 1 f and ConvexOn ℝ Set.univ f, with the actual quadratic upper model.",
+              "classification": "same",
+              "reason": "All regularity needed for the genuine gradient and first-order support follows from C¹; no integrability, Hessian or supplied gradient premise is added."
+            },
+            {
+              "source": "Definition1.12 allows β≥0; (3.4) displays 1/(2β), with no explicit β>0 in the exercise.",
+              "lean": "β≥0; division-free (3.5), with zero handled by positive relaxation and a limit.",
+              "classification": "same",
+              "reason": "The reciprocal source expression and the trial step need positive β. This does not follow from convex smoothness: affine functions have β=0. We retain the source wording and expose that boundary; zero is established only for the meaningful scaled and Lipschitz conclusions, not by Lean inv_zero."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-Cocoercivity"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_lipschitz",
+          "cell": "ASTIS-SHARED-convex-smooth-lipschitz",
+          "role": "proof-edge",
+          "supports": [
+            "gradient-lipschitz"
+          ],
+          "boundary": "The complete real inner-product space explicitly generalizes the source Euclidean space. A constrained set is not covered: the trial gradient step must remain in the domain. No Riemannian, stochastic, or companion-paper theorem is claimed. Definition1.12 permits β≥0, but the reciprocal in (3.4) and the suggested step 1/β require β>0; the source does not state that restriction explicitly. The first declaration covers this positive domain. The scaled (3.5) and Lipschitz conclusions are separately established at β=0.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean d-space, all x,y.",
+              "lean": "Complete real inner-product space E, all x,y:E.",
+              "classification": "generalization",
+              "reason": "The proof uses only the Riesz gradient, convex first-order support and real inner-product algebra; no dimension-dependent step occurs."
+            },
+            {
+              "source": "C¹ smoothness; the exercise explicitly removes the section-wide C² assumption.",
+              "lean": "ContDiff ℝ 1 f and ConvexOn ℝ Set.univ f, with the actual quadratic upper model.",
+              "classification": "same",
+              "reason": "All regularity needed for the genuine gradient and first-order support follows from C¹; no integrability, Hessian or supplied gradient premise is added."
+            },
+            {
+              "source": "Definition1.12 allows β≥0; (3.4) displays 1/(2β), with no explicit β>0 in the exercise.",
+              "lean": "β:NNReal; Lipschitz bound includes β=0 and uses no reciprocal.",
+              "classification": "same",
+              "reason": "The reciprocal source expression and the trial step need positive β. This does not follow from convex smoothness: affine functions have β=0. We retain the source wording and expose that boundary; zero is established only for the meaningful scaled and Lipschitz conclusions, not by Lean inv_zero."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-ConvexSmoothLipschitz"
+        }
+      ]
     }
   ]
 }
