@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -89,5 +89,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json",
+  "integration_notes": {
+    "upstream": "e933038111f3605aff343865a13de05987167fff",
+    "boundary": "Upstream actual joint-reference merge integrated with zero tree delta and no conflicts. Root sole stabilization owner. Canonical gate and original reader/graph QA pending."
+  }
 }

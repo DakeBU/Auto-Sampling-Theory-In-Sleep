@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-normalized-reference-call.md",
     "planning_review": "Independent log_depth_source_review checked source normalization convention and accepted actual-law/reference/precision route; planning only.",
-    "execution_boundary": "Root sole writer; predecessor remains sole stabilization owner until actual merge.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Parent actual joint reference merged,all PR/merge CI and live delivery complete. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json"
   },
