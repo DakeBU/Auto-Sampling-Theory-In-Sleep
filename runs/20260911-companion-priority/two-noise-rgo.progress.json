@@ -33,7 +33,7 @@
   },
   "mathematical_status": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate.",
   "remaining": [
-    "Verify actual merge CI and deployed reader provenance",
+    "Online Lean-gate badge synchronization remains separate",
     "Concrete Gibbs specialization and marginal moment/source parameter obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -122,7 +122,7 @@
       "lean": "34560422975 SUCCESS",
       "site": "34560422971 SUCCESS; PR deploy skipped"
     },
-    "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local and CI artifact records remain separately pinned.",
+    "post_merge": "Actual merge Lean/site and deployment succeeded; HTTP and exact merge provenance verified. Actual cards Partial/Not mapped, no online gate badge inferred.",
     "truth_boundary": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate."
   },
   "final_ci_artifact": {
@@ -177,5 +177,22 @@
       "banner": "Lean gate not recorded for this source state"
     },
     "boundary": "Actual final CI artifact tree equals candidate; labels as rendered. Local aggregate and earlier browser evidence remain separately pinned. Final Lean CI/merge/deployment separate."
+  },
+  "actual_deployment": {
+    "merge_commit": "4e94f0ad27c5eb76ce76c3297a9d01912533692b",
+    "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200,
+    "anchor": "sphmc-two-noise-rgo",
+    "merge_provenance": true,
+    "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo.html",
+    "card_http_status": 200,
+    "card_labels": [
+      "Partial",
+      "Not mapped"
+    ],
+    "boundary": "Actual deployed HTTP/provenance/labels; earlier CI artifact and local visual checks remain separately pinned.",
+    "site_run": "34561366053 SUCCESS",
+    "deploy_job": "103145139898 SUCCESS",
+    "merge_lean": "34561366136 SUCCESS"
   }
 }
