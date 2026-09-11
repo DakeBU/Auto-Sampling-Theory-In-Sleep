@@ -94,3 +94,8 @@ check was superseded by the CI website/scripts build/check without code changes.
 Previously inspected C2 lesson bytes remain identical; the independently
 reviewed C1 boundary is present in the generated chapter and both lesson pages.
 Ready for authorized direct-main integration; no chapter completion claim.
+
+Authorized direct-main integration completed ata65cb79997ccafe5909547f5f494482319705410.
+Atomic push updated main and codex/opt-convexity-c2 together.
+Next dependency-ready candidate: source smoothness equivalence, subject to
+primary-source and existing-Lean retrieval before claiming a new SAU.
