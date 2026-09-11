@@ -1,0 +1,99 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent formal seven-slot review; prose compacted without changing relations, findings or limits.",
+  "reviewer_packet_sha256": "eefaf9010db5560a011cd155fd6ab757e446abc6dc2a92af43117b26d42e11b7",
+  "source_text_sha256": "0a39143030d65d2f360c3b82d5e860322ef44dad8bbf0d329873339faded8efe",
+  "lean_statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+  "reconstruction_text_sha256": "9a45728d3a8b9d4110e5acdc2d8807f22ad474bc1bba4a25c2ae546297392f1a",
+  "embedded_module_text_sha256": "5bb6bf1ae586b957744724c88c4380380c19c5d90610779c743d249d3fb2961e",
+  "publication_binding_sha256": "20dfdeb59bc5f0674a55983caa4a7443ffff322a9e8f0181a56fd0065bcba135",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Lemma6.2 optimal coupling for pth displacement cost.",
+      "reconstructed": "Minimizing probability coupling for arbitrary continuous finite nonnegative cost.",
+      "relation": "stronger-in-lean",
+      "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+    },
+    "domains": {
+      "original": "Euclidean source probabilities.",
+      "reconstructed": "Two complete second-countable metric Borel spaces.",
+      "relation": "stronger-in-lean",
+      "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+    },
+    "quantifiers": {
+      "original": "Choose optimizer for source pair and cost.",
+      "reconstructed": "Every admissible pair of spaces, probabilities and continuous cost admits optimizer.",
+      "relation": "stronger-in-lean",
+      "evidence": "Universal input data followed by existential actual coupling and optimality equality."
+    },
+    "assumptions": {
+      "original": "Source invocation has finite p-transport budget.",
+      "reconstructed": "No finite-cost or moment premise for optimizer existence.",
+      "relation": "stronger-in-lean",
+      "evidence": "Compact minimum applies to ENNReal even if every feasible cost is infinite."
+    },
+    "conclusion": {
+      "original": "Availability of optimal coupling.",
+      "reconstructed": "Probability, exact marginals and equality with original raw-coupling infimum.",
+      "relation": "explicit-elaboration",
+      "evidence": "Repackage every raw coupling for le_sInf; feasibility gives reverse inequality."
+    },
+    "scopes": {
+      "original": "Optimal-coupling choice within Lemma6.2.",
+      "reconstructed": "Separately proved generic prerequisite, not generic theorem printed in source.",
+      "relation": "explicit-elaboration",
+      "evidence": "Source contract and publication distinguish generic prerequisite."
+    },
+    "constant_dependencies": {
+      "original": "No numerical constant.",
+      "reconstructed": "No numerical constant; optimum may be infinite.",
+      "relation": "same",
+      "evidence": "Extended integral equality without quantitative loss."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Generic two-space metric setting extends Euclidean source.",
+      "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+    },
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Arbitrary continuous nonnegative costs and potentially infinite optimum extend finite p-distance application.",
+      "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Product measure gives a genuine feasible probability coupling."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Compactness and continuous-cost lower semicontinuity apply without bounded cost or finite moments."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Compact minimum gives actual coupling and minimality."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Raw/probability conversion identifies the original infimum."
+      }
+    ]
+  },
+  "review_evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+}

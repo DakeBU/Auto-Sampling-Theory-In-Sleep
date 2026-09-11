@@ -1,0 +1,16 @@
+{
+  "decoder": "mixture_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous English reconstruction; mathematical notation rendered as plain text preserving quantifiers and scope. Supplied hashes and compiled flags not independently checked by decoder; no source-fidelity judgment.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-mixture-a.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-PowerPerspective.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "278437de5f0228426ee8bc0489ca362589ee2a3a6ba6b04c55ab3dc53f8962fb",
+  "lean_statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+  "reconstructed_theorem_text": "For every measurable space X, every extended nonnegative measure mu on X, and every pair of functions a,b:X to [0,infinity], assume a and b are measurable up to a mu-null set, 0<b(x)<infinity for mu-almost every x, and 0<integral b dmu<infinity. Then for every real q>1, (integral a dmu)^q/(integral b dmu)^(q-1) is at most integral a(x)^q/b(x)^(q-1) dmu(x). Every displayed integral is the extended nonnegative Lebesgue integral, and powers and division use extended nonnegative real conventions. No finiteness assumption is imposed on a, its integral, or the right-hand integral; in particular integral a=infinity is included. No probability, finite-total-mass, or sigma-finiteness hypothesis is imposed on mu. There are no additional constants. No ambiguity in the quantified inequality using the supplied extended-real conventions.",
+  "source_fidelity_verdict": null
+}

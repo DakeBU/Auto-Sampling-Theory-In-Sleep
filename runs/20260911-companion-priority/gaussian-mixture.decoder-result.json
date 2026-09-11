@@ -1,0 +1,16 @@
+{
+  "decoder": "mixture_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent anonymous English reconstruction; mathematical notation rendered as plain text preserving quantifiers and scope. Supplied hashes and compiled flags not independently checked by decoder; no source-fidelity judgment.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-mixture-b.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianMixture.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "37af294e334057a2bbf26a666361c56a650ef663cb3ed38da8373a8a2f269c8d",
+  "lean_statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+  "reconstructed_theorem_text": "For every finite-dimensional real inner-product space E, including dimension zero, equipped with its Borel measurable structure, let P,Q be probability measures on E and gamma a measure on E times E whose first-coordinate pushforward is P and second-coordinate pushforward is Q. For every triple of real tau,q,t, assume tau>0,q>1,t>=0 and norm(x-y)<=t for gamma-almost every (x,y). Define kappa as the pushforward of the measure named stdGaussian under z to sqrt(tau)z. For each measure mu, define Hmu as the pushforward of mu product kappa under (x,z) to x+z, the actual Gaussian-smoothing law defined through product measure and addition pushforward. Write r(z)=d(HP)/d(HQ)(z) for the extended nonnegative RN derivative and r_R(z)=toReal(r(z)), using the totalized conversion at infinity. All five conclusions hold: HP is absolutely continuous with respect to HQ; the extended nonnegative Lebesgue integral of r^q under HQ is at most ofReal(exp(q(q-1)t^2/(2tau))); the real-valued r_R^q is integrable under HQ, meaning a.e. strong measurability and finite integral of norm; its real Bochner integral is at most exp(q(q-1)t^2/(2tau)); and the real logarithm of that same real integral divided by q-1 is at most q t^2/(2tau). Every integral uses HQ and the derivative direction is d(HP)/d(HQ). The conclusions apply to each supplied coupling satisfying the a.e. displacement bound. No density, moment or positive-dimension assumption is imposed. The bounds depend only on tau,q,t with exactly the displayed constants. The extended integral is bounded by a finite exponential and the real integral has an explicit integrability conclusion. Definition-context limitation: the supplied context identifies stdGaussian by name without expanding its construction or normalization; this reconstruction retains that exact named measure without adding a covariance or density formula.",
+  "source_fidelity_verdict": null
+}

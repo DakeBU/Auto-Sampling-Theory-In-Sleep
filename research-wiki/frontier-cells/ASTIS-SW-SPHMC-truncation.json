@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.2 and proof, section6.2.1; optimal-coupling existence is expanded with reusable ASTIS compactness and continuous-cost lower semicontinuity",
   "target_statement": "Construct an optimal actual coupling for continuous nonnegative cost using existing weak compactness and lower semicontinuity. For the true infimum cost of norm(x-y)^p, real p>=2, prove SPHMC Lemma6.2 in cost-input/bounded-coupling form: cost<=r^p, r>=0, 0<delta<1 yields an actual proxy probability Pdag with eventwise TV(P,Pdag)<=delta and an actual coupling of Pdag,Q concentrated on displacement<=r delta^(-1/p). Prove measurability, pushforward probabilities/marginals, Markov budget and zero-radius case; do not assume an optimal or good coupling.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-optimal-continuous-cost"
   ],
@@ -26,11 +26,54 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCTruncation",
+        "result": "PASS2621; independent replay, standard axioms only, full development proof review passed.",
+        "hashes": {
+          "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean": "b5e6a819209b051cc140e12e66ffcd0b0a71a3d23607cc4da924aa68abe1e1a0",
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean": "bc0c75a7f5a89d7963a7e722df26d279a22da8b4867f8204da739216f51e36ba",
+          "Tests/SmoothedPicardHMCTruncation.lean": "4c9d58b31e19393384977bc1eaa712956ffc1d5be583dbc14df4e1203ca10049"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-truncation.md",
     "planning_review": "Independent log_depth_source_review primary/source and exact-API route review. Root confirmed actual compactness, general continuous-cost LSC, lower-semicontinuous minimum and coupling definitions.",
-    "execution_boundary": "Root sole writer; resolvent PR258 remains sole STABILIZING. Truncation EXPLORING only.",
-    "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API."
+    "execution_boundary": "Root sole writer; packet actually merged and stabilization lane released.",
+    "ownership_note": "One actual SPHMC consumer route; no invented second consumer or general metric API.",
+    "independent_proof_review": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json",
+    "admission_boundary": "Independently VERIFIED, merged PR259, both merge CI SUCCESS and both actual reader entries verified.",
+    "independent_verification": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json",
+    "packaging_refresh": "Full local helper proof included in public theorem; focused PASS2621, independent complete-proof review and final hash-bound source audits accepted.",
+    "integration": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
+      "commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+      "candidate": "93c77d60ce83cb0b758d80fc359791efbc6c6632",
+      "merged_at": "2026-09-11T00:05:19Z",
+      "independent_merge_review": "depth_commit_verifier accepted final fixed head; root verified same-head Lean and site CI success, made ready and merged with match-head-commit. PR description discloses initial changed-module publication failure, root import correction and stale local site failure followed by fresh build/validation.",
+      "candidate_ci": {
+        "lean": "34544004895 SUCCESS",
+        "site": "34544004870 SUCCESS; PR deployment skipped"
+      },
+      "post_merge": {
+        "lean_run": 34544976974,
+        "site_run": 34544976964,
+        "deploy_job": 103096161567,
+        "state": "Both merge-commit runs SUCCESS; deploy job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+          "http_status": 200,
+          "anchors": [
+            "sphmc-optimal-continuous-cost",
+            "sphmc-truncation"
+          ],
+          "merge_commit": "7cc582e9439c618341c9ec34ccca73587c4140ff",
+          "merge_commit_present": true,
+          "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+        }
+      },
+      "truth_boundary": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion."
+    }
   },
   "blocked": {
     "reason": "",

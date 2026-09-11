@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture
+
+#print axioms AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport

@@ -1,0 +1,126 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent seven-slot source review; prose compacted without changing judgments or limits.",
+  "reviewer_packet_sha256": "5d040e943f063a20c55a368a57966f3bfb2a92619a57174967f18bf179e4122f",
+  "source_text_sha256": "849a79868392dbac254e53d29d6a85f125b03d4e7c797a5374036fe676d240c1",
+  "lean_statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+  "reconstruction_text_sha256": "6b59210304d24cfd9e92cbf04f8e0d1400721361531393efd2c3f2fe9d7027d7",
+  "embedded_module_text_sha256": "94c047725224c531d33946c4f164ec5abf68084c716af169cdbd9742a3dc721f",
+  "publication_binding_sha256": "c9d8d1d900d51b1bf0c4cb6006060894565521e7c23e4cc3ab4c4922a2070e3f",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Independent N(0,tau I) convolution, forward Renyi direction.",
+      "reconstructed": "Existing GaussianSmoothing, actual coupling and rnDeriv(HP,HQ) under HQ.",
+      "relation": "explicit-elaboration",
+      "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+    },
+    "domains": {
+      "original": "Euclidean probability laws.",
+      "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive dimension; normalization has natural-number dimensional power."
+    },
+    "quantifiers": {
+      "original": "Full lemma selects one proxy before all q; bounded estimate applies to each fixed pair.",
+      "reconstructed": "Every actual supplied coupling and tau>0,q>1,t>=0 with a.e. displacement bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "No proxy construction or replacement of its all-q quantifier asserted."
+    },
+    "assumptions": {
+      "original": "Full lemma assumes marginal Pp; selected estimate uses bounded displacement and positive heat time.",
+      "reconstructed": "Probabilities, actual coupling,tau>0,q>1,t>=0 and displacement<=t; no marginal moments.",
+      "relation": "stronger-in-lean",
+      "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+    },
+    "conclusion": {
+      "original": "Bounded-displacement normalized Renyi bound qt^2/(2tau).",
+      "reconstructed": "Actual AC, finite ENNReal power bound, real integrability/exponential bound and normalized log bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "All five conjuncts use same forward RN and HQ; finite conversion precedes log."
+    },
+    "scopes": {
+      "original": "Full Lemma6.3(ii) combines truncation and reverse transport in metric/divergence notation.",
+      "reconstructed": "Supplied-coupling Gaussian mixture with explicit moments/logarithms.",
+      "relation": "different",
+      "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+    },
+    "constant_dependencies": {
+      "original": "Covariance tau I and normalized q/(2tau).",
+      "reconstructed": "q(q-1)t^2/(2tau) moment exponent and qt^2/(2tau) logarithm.",
+      "relation": "same",
+      "evidence": "sqrt(tau), exact fixed-center moment, displacement comparison and q-1 cancellation; no dimension factor."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit generalization beyond Euclidean probability application.",
+      "evidence": "No positive dimension; normalization has natural-number dimensional power."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+      "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Marginal Pp membership unnecessary for bounded coupling ingredient; no marginal moments established.",
+      "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+    },
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Decoder normalization limitation independently resolved from actual stdGaussian construction and scaled density proof.",
+      "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual translated density, measure integral extensionality/Tonelli and existing smoothing API."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Positive finite averages from Gaussian uniform bound and probability, no marginal moments."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Actual withDensity(a/b), forward AC and RN integral; sigma-finite denominator supplied by probability in applications."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Existing GaussianPowerMoment at each fixed center pair, finite RN conversion; no joint pointwise assertion."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Actual marginals, shared perspective and nonnegative measurable Tonelli give averaged fiber moment."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "A.e. bounded displacement and derived coupling probability give finite ENNReal bound before real conversion."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Reverse AC gives forward RN positivity under HQ; positive finite integral justifies log and q-1 cancellation; no division by t or dimension."
+      }
+    ]
+  },
+  "review_evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+}

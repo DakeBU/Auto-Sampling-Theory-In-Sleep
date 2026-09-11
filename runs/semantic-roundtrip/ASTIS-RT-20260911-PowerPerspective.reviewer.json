@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-d9ffeb548cd3406a",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "mixture_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-power-perspective",
+    "anchor": "Lemma6.3(ii) expanded Holder perspective",
+    "original_text": "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.\na,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.\nThe integral of b is nonzero and finite, and real q>1.\nThe integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem.\nLet mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+    "text_sha256": "4b1132ef845764282e1d5ec31646b41d6103dbe3b6e757625e9cac81ef6ad40e"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean",
+    "statement": "∀ {X : Type u_1}\n  [inst : MeasurableSpace X] (μ : MeasureTheory.Measure X) (a b : X → ENNReal),\n  AEMeasurable a μ →\n    AEMeasurable b μ →\n      (∀ᵐ (x : X) ∂μ, b x ≠ 0 ∧ b x ≠ ⊤) →\n        ∫⁻ (x : X), b x ∂μ ≠ 0 →\n          ∫⁻ (x : X), b x ∂μ ≠ ⊤ →\n            ∀ (q : ℝ),\n              1 < q → (∫⁻ (x : X), a x ∂μ) ^ q / (∫⁻ (x : X), b x ∂μ) ^ (q - 1) ≤ ∫⁻ (x : X), a x ^ q / b x ^ (q - 1) ∂μ",
+    "statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every measurable space X, every extended nonnegative measure mu on X, and every pair of functions a,b:X to [0,infinity], assume a and b are measurable up to a mu-null set, 0<b(x)<infinity for mu-almost every x, and 0<integral b dmu<infinity. Then for every real q>1, (integral a dmu)^q/(integral b dmu)^(q-1) is at most integral a(x)^q/b(x)^(q-1) dmu(x). Every displayed integral is the extended nonnegative Lebesgue integral, and powers and division use extended nonnegative real conventions. No finiteness assumption is imposed on a, its integral, or the right-hand integral; in particular integral a=infinity is included. No probability, finite-total-mass, or sigma-finiteness hypothesis is imposed on mu. There are no additional constants. No ambiguity in the quantified inequality using the supplied extended-real conventions.",
+    "text_sha256": "f55e4d93e02a19009d8219a1438d073ef08c08e64e8001c5a318ee25b5a238d5",
+    "decoder": "mixture_blind_decoder",
+    "decoder_packet_sha256": "278437de5f0228426ee8bc0489ca362589ee2a3a6ba6b04c55ab3dc53f8962fb",
+    "decoder_run_sha256": "b1f39413218130917bbb1dd56a7cdf35f4db2d1774207fd06b10b01a466f3b00",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "c1da25b6ad6601607f7afacf4a4bcab1ff88889a2908165978f380e7462aa016",
+  "candidate_publication_context": {
+    "file": "3ae1f1b7bdb7e50f3d47e0e3e8c8198bb693b4b876b3b067028717866a6b7252",
+    "current_lean_module": "import Mathlib.MeasureTheory.Integral.MeanInequalities\n\n/-!\n# Power perspective for nonnegative integrals\n\nExpanded Holder ingredient for arXiv:2609.06906v1 Lemma6.3(ii), consumed by\nactual bounded-displacement Gaussian mixture reverse transport. Only the\ndenominator is required positive and finite; numerator and perspective\nintegrals may be infinite. This alone is not Gaussian reverse transport.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\nopen MeasureTheory\nopen scoped ENNReal\n\n/-- Holder gives the power-perspective inequality without assuming finite\nnumerator or right-hand integral. The denominator is positive and finite. -/\ntheorem lintegral_perspective_le {X : Type*} [MeasurableSpace X] (μ : Measure X)\n    (a b : X → ℝ≥0∞) (ha : AEMeasurable a μ) (hb : AEMeasurable b μ)\n    (hbpos : ∀ᵐ x ∂μ, b x ≠ 0 ∧ b x ≠ ⊤)\n    (hB0 : (∫⁻ x, b x ∂μ) ≠ 0) (hBtop : (∫⁻ x, b x ∂μ) ≠ ⊤)\n    (q : ℝ) (hq : 1 < q) :\n    (∫⁻ x, a x ∂μ)^q / (∫⁻ x, b x ∂μ)^(q-1) ≤\n      ∫⁻ x, a x^q / b x^(q-1) ∂μ := by\n  have hq0 : 0 < q := by linarith\n  have hi : 0 ≤ 1/q := by positivity\n  have hj : 0 ≤ 1-1/q := by rw [sub_nonneg,div_le_one hq0]; linarith\n  have he1 : q*(1/q) = 1 := by field_simp\n  have he2 : (q-1)*(1/q) = 1-1/q := by field_simp\n  have he3 : (1-1/q)*q = q-1 := by field_simp\n  have hrec : (fun x => (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q)) =ᵐ[μ] a := by\n    filter_upwards [hbpos] with x hx\n    rw [ENNReal.div_rpow_of_nonneg _ _ hi, ← ENNReal.rpow_mul,\n      ← ENNReal.rpow_mul,he1,he2,ENNReal.rpow_one]\n    exact ENNReal.div_mul_cancel\n      (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hx.1) hx.2))\n      (ENNReal.rpow_ne_top_of_nonneg hj hx.2)\n  have h := ENNReal.lintegral_mul_norm_pow_le\n    ((ha.pow_const q).div (hb.pow_const (q-1))) hb hi hj (by ring : 1/q+(1-1/q)=1)\n  change (∫⁻ x, (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q) ∂μ) ≤\n    (∫⁻ x, a x^q / b x^(q-1) ∂μ)^(1/q) * (∫⁻ x, b x ∂μ)^(1-1/q) at h\n  rw [lintegral_congr_ae hrec] at h\n  have hh := ENNReal.rpow_le_rpow h hq0.le\n  rw [ENNReal.mul_rpow_of_nonneg _ _ hq0.le, ← ENNReal.rpow_mul,\n    ← ENNReal.rpow_mul,he3,mul_comm (1/q) q,he1,ENNReal.rpow_one] at hh\n  exact (ENNReal.div_le_iff\n    (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hB0) hBtop))\n    (ENNReal.rpow_ne_top_of_nonneg (by linarith) hBtop)).mpr hh\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Lemma6.3(ii) expanded Holder perspective",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+    },
+    "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+    "formulae": [
+      {
+        "label": "Integral perspective",
+        "tex": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty."
+      }
+    ],
+    "assumptions": [
+      "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+      "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+      "The integral of b is nonzero and finite, and real q>1.",
+      "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+    ],
+    "obligations": [
+      {
+        "id": "perspective",
+        "label": "Extended nonnegative Holder perspective with potentially infinite numerator and right side"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+          "scope": "Expanded proof of the bounded-displacement Gaussian reverse-transport ingredient; original truncation composition separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianMixture"
+      ],
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+      "title": "Power perspective from Holder with infinite moments allowed",
+      "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+      "formula": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty.",
+      "assumptions": [
+        "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+        "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+        "The integral of b is nonzero and finite, and real q>1.",
+        "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+      ],
+      "steps": [
+        {
+          "title": "Reconstruct the numerator pointwise",
+          "text": "Set F=a^q/b^(q-1), alpha=1/q and beta=1-1/q. Positive finite b permits cancellation of b^beta, while a may be zero or infinite. Therefore F^alpha b^beta=a almost everywhere.",
+          "formula": "F^{1/q}b^{1-1/q}=\\frac{a}{b^{1-1/q}}b^{1-1/q}=a.",
+          "lean": "ENNReal.div_rpow_of_nonneg, rpow_mul and div_mul_cancel with explicit nonzero/finite denominator."
+        },
+        {
+          "title": "Apply nonnegative integral Holder",
+          "text": "The exponents alpha,beta are nonnegative and sum to one. Extended nonnegative Holder gives A<=C^(1/q) B^beta for A=integral a and C=integral F. This theorem does not require either A or C finite.",
+          "formula": "A\\le C^{1/q}B^{1-1/q}.",
+          "lean": "ENNReal.lintegral_mul_norm_pow_le and lintegral_congr_ae use the reconstruction, retaining infinite branches."
+        },
+        {
+          "title": "Raise the inequality to q",
+          "text": "Since q>0, raising both sides preserves order. Real-power multiplication identities hold in ENNReal for these nonnegative powers and give A^q<=C B^(q-1).",
+          "formula": "A^q\\le C B^{q-1}.",
+          "lean": "ENNReal.rpow_le_rpow, mul_rpow_of_nonneg and rpow_mul; exact scalar exponent identities."
+        },
+        {
+          "title": "Divide by the positive finite denominator integral",
+          "text": "B is positive and finite, so B^(q-1) is nonzero and finite. The extended-real division equivalence gives the claimed perspective inequality without converting an infinite quantity to a real number.",
+          "formula": "\\frac{A^q}{B^{q-1}}\\le C.",
+          "lean": "ENNReal.div_le_iff, rpow_pos and rpow_ne_top_of_nonneg."
+        }
+      ],
+      "lean_statement": "The extended nonnegative integral power-perspective inequality with only positive finite denominator conditions.",
+      "lean_proof": "Direct Holder, pointwise reconstruction and exact power/division algebra; no assumed perspective or moment inequality.",
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "ENNReal.lintegral_mul_norm_pow_le",
+        "ENNReal.div_le_iff",
+        "ENNReal.rpow_mul"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+      "role": "prerequisite",
+      "supports": [
+        "perspective"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+        "lean": "Arbitrary measurable space and measure for the scalar Holder perspective."
+      },
+      {
+        "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+        "lean": "Scalar integral perspective only."
+      },
+      {
+        "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+        "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds."
+      },
+      {
+        "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+        "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "a41bf2938886ebfa45137e0cc51a2a46f07252d754924128d0d8ab2b9355957d"
+}

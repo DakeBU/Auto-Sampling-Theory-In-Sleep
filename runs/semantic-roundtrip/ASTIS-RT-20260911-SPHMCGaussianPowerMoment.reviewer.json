@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-4187c90f5721441a",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "gaussian_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-gaussian-power-moment",
+    "anchor": "Lemma6.3(ii) exact Gaussian power-moment prerequisite",
+    "original_text": "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.\nReal q>1, not just natural q. No nonzero displacement or positive dimension is assumed.\nNo likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.\nThe raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate.\nThe same SPHMC Lemma6.3(ii) reverse-transport ingredient is expanded at Gaussian centers x,y: for tau>0 and real q>1, the actual RN derivative dG_x/dG_y has an integrable qth power, with integral exp(q(q-1)norm(x-y)^2/(2tau)). Its normalized log-moment equals q norm(x-y)^2/(2tau), giving the precise single-Gaussian coefficient needed before the independent mixture argument. This is not the full reverse-transport theorem or a claim that the expanded proof is printed in the source.",
+    "text_sha256": "229ab2adb4287fe6d531753080aba88d63127e840fb126291ea8fa19628bc9e6"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianPowerMoment.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (x y : E) (τ q : ℝ),\n  0 < τ →\n    1 < q →\n      have G := fun a => MeasureTheory.Measure.map (fun z => a + √τ • z) (ProbabilityTheory.stdGaussian E);\n      have L := fun z => Real.exp (Inner.inner ℝ (x - y) (z - y) / τ - ‖x - y‖ ^ 2 / (2 * τ));\n      Measurable L ∧\n        (G x = (G y).withDensity fun z => ENNReal.ofReal (L z)) ∧\n          (G x).AbsolutelyContinuous (G y) ∧\n            ((G x).rnDeriv (G y) =ᵐ[G y] fun z => ENNReal.ofReal (L z)) ∧\n              MeasureTheory.Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) ∧\n                ∫ (z : E), ((G x).rnDeriv (G y) z).toReal ^ q ∂G y = Real.exp (q * (q - 1) * ‖x - y‖ ^ 2 / (2 * τ)) ∧\n                  Real.log (∫ (z : E), ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q - 1) = q * ‖x - y‖ ^ 2 / (2 * τ)",
+    "statement_sha256": "f96a9ff590d3f46160bb8989ffe6398dd49e6a1774b587693c02fccc27e287ee",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E with its normed additive commutative group and Borel measurable structures, all x,y in E and real tau,q satisfying tau>0 and q>1, define G(a) as the pushforward of canonical centered standard Gaussian under z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(ofReal L); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L G(y)-almost everywhere. The real-valued function z to (ENNReal.toReal(dG(x)/dG(y)(z)))^q is integrable under G(y), meaning almost-everywhere strongly measurable with finite integral of its norm. Its real Bochner integral is exactly exp(q(q-1)norm(x-y)^2/(2tau)). Real.log of that same integral divided by q-1 equals q norm(x-y)^2/(2tau). Powers with q are real powers. ENNReal.toReal is the real conversion, including its totalized value at infinity; the integral and logarithm involve the actual RN derivative, not a separately postulated likelihood. The integration and a.e. reference measure are both G(y). Dimension zero is included. There is no restriction on x,y, no upper bound on q or additional parameter assumption. The G,L definitions scope over the full conjunction. Constants 2,q-1,q(q-1) are exactly those displayed, with no unspecified or existential constants.",
+    "text_sha256": "d1680f0983d4fee07abdcf9305497888604e2a7ef55a9ff851546e0263bdf422",
+    "decoder": "gaussian_blind_decoder",
+    "decoder_packet_sha256": "a5038b2f9111e5a471335fc51f8e63dbeeaedf2e076e1d827d8275543bdb171f",
+    "decoder_run_sha256": "b86fe86baab7888efc0cb67369adf6b0bf664a3a971e1e54198f51d75ffefc59",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "ca4b90453af2f04d881f1cce259962bfe6f6ada610476e941c1b4db12af22d2e",
+  "candidate_publication_context": {
+    "file": "3522e5428e51c7d676777f6896cc95f0a3ecd6718b6a94f0a6dab8cecb3b3223",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\nimport Mathlib.Analysis.SpecialFunctions.Pow.Continuity\n\n/-!\n# Exact Gaussian RN power moment for SPHMC\n\nExpanded equal-covariance Gaussian prerequisite to arXiv:2609.06906v1\nLemma6.3(ii). Actual translated/scaled standard Gaussian laws, the genuine RN\nderivative, its qth-power integrability and integral, and the exact normalized\nlog-moment are proved for tau>0 and real q>1. Finite-dimensional inner-product\nBorel spaces include zero dimension. No likelihood formula or integrability\nis assumed. The joint-mixture/data-processing inequality remains independent;\nthis result alone is not general reverse transport, proxy warmness or a sampler\ncost guarantee. The logarithmic expression is explicit, not a new divergence API.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- The actual Gaussian likelihood has finite qth moment with exact coefficient\nq(q-1)/(2 tau), and its normalized log-moment is q norm(x-y)^2/(2 tau). -/\ntheorem gaussian_power_moment {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n    let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    Measurable L ∧ G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) ∧\n      G x ≪ G y ∧ (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) ∧\n      Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) ∧\n      (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) =\n        Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) ∧\n      Real.log (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q-1) =\n        q*‖x-y‖^2/(2*τ) := by\n  have linear_exp\n      (h : E) (a : ℝ) :\n      Integrable (fun z : E => Real.exp (a * inner ℝ h z)) (stdGaussian E) ∧\n      (∫ z : E, Real.exp (a * inner ℝ h z) ∂stdGaussian E) =\n        Real.exp (a^2 * ‖h‖^2 / 2) := by\n    let l : StrongDual ℝ E := innerSL ℝ h\n    have hmap : (stdGaussian E).map l = gaussianReal 0 (‖h‖^2).toNNReal := by\n      rw [IsGaussian.map_eq_gaussianReal l,integral_strongDual_stdGaussian,\n        variance_dual_stdGaussian]\n      simp only [l,innerSL_apply_norm]\n    have hI := integrable_exp_mul_gaussianReal (μ := 0) (v := (‖h‖^2).toNNReal) a\n    rw [← hmap] at hI\n    have hI' := (integrable_map_measure (by fun_prop) (by fun_prop : AEMeasurable l (stdGaussian E))).mp hI\n    refine ⟨hI',?_⟩\n    have hm := mgf_gaussianReal hmap a\n    simpa [mgf,l,Real.toNNReal_of_nonneg (sq_nonneg ‖h‖),mul_comm] using hm\n  have power_moment\n      (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n      let G := (stdGaussian E).map (fun z => y + Real.sqrt τ • z)\n      let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n      Integrable (fun z => L z ^ q) G ∧\n        (∫ z, L z ^ q ∂G) = Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) := by\n    let G := (stdGaussian E).map (fun z => y + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    let s := Real.sqrt τ\n    have hs : 0 < s := Real.sqrt_pos.mpr hτ\n    have hs2 : s^2 = τ := Real.sq_sqrt hτ.le\n    let a := q / s\n    let b := -q * ‖x-y‖^2 / (2*τ)\n    have hq0 : 0 ≤ q := by linarith\n    have hfunc : (fun z : E => L (y + Real.sqrt τ • z)^q) =\n        (fun z => Real.exp b * Real.exp (a * inner ℝ (x-y) z)) := by\n      funext z\n      dsimp only [L]\n      rw [← Real.exp_mul,← Real.exp_add]\n      congr 1\n      simp only [add_sub_cancel_left,inner_smul_right]\n      change (s * inner ℝ (x-y) z / τ - ‖x-y‖^2/(2*τ))*q = b + a * inner ℝ (x-y) z\n      dsimp only [a,b]\n      rw [← hs2]\n      field_simp\n      ring\n    obtain ⟨hI,hm⟩ := linear_exp (x-y) a\n    have hpull : Integrable (fun z : E => L (y + Real.sqrt τ • z)^q) (stdGaussian E) := by\n      rw [hfunc]\n      exact hI.const_mul _\n    have hLG : Integrable (fun z : E => L z ^ q) G :=\n      (integrable_map_measure (by fun_prop) (by fun_prop)).mpr hpull\n    refine ⟨hLG,?_⟩\n    change (∫ z, L z ^ q ∂G) = _\n    dsimp only [G]\n    rw [integral_map (by fun_prop) (by fun_prop)]\n    change (∫ z : E, L (y + Real.sqrt τ • z)^q ∂stdGaussian E) = _\n    rw [hfunc,integral_const_mul,hm,← Real.exp_add]\n    congr 1\n    dsimp only [a,b]\n    rw [← hs2]\n    field_simp\n    ring\n  let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n  let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n  obtain ⟨hL,heq,hAC,hRN⟩ := GaussianLikelihood.translated_gaussian_likelihood x y τ hτ\n  change (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) at hRN\n  obtain ⟨hI,hm⟩ := power_moment x y τ q hτ hq\n  have hpow : (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) =ᵐ[G y] (fun z => L z ^ q) := by\n    filter_upwards [hRN] with z hz\n    rw [hz,ENNReal.toReal_ofReal (Real.exp_nonneg _)]\n  have hIRN : Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) := hI.congr hpow.symm\n  have hval : (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) =\n      Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) := (integral_congr_ae hpow).trans hm\n  refine ⟨hL,heq,hAC,hRN,hIRN,hval,?_⟩\n  change Real.log (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q-1) = _\n  rw [hval,Real.log_exp]\n  have hq1 : q-1 ≠ 0 := by linarith\n  field_simp\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Lemma6.3(ii) exact Gaussian power-moment prerequisite",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+    },
+    "statement": "The same SPHMC Lemma6.3(ii) reverse-transport ingredient is expanded at Gaussian centers x,y: for tau>0 and real q>1, the actual RN derivative dG_x/dG_y has an integrable qth power, with integral exp(q(q-1)norm(x-y)^2/(2tau)). Its normalized log-moment equals q norm(x-y)^2/(2tau), giving the precise single-Gaussian coefficient needed before the independent mixture argument. This is not the full reverse-transport theorem or a claim that the expanded proof is printed in the source.",
+    "formulae": [
+      {
+        "label": "Exact RN moment",
+        "tex": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}."
+      }
+    ],
+    "assumptions": [
+      "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+      "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+      "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+      "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+    ],
+    "obligations": [
+      {
+        "id": "integrable-power",
+        "label": "Actual RN qth-power integrability and exact moment"
+      },
+      {
+        "id": "exact-log",
+        "label": "Exact normalized log-moment q norm(x-y)^2/(2tau)"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+          "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+      ],
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+      "title": "Exact integrable Gaussian RN power moment and normalized logarithm",
+      "statement": "For the same actual G_x,G_y on a finite-dimensional real inner-product Borel space, tau>0 and real q>1, retain the measurable likelihood L, actual withDensity equality, absolute continuity and RN identity. The qth power of the real-valued RN derivative is integrable under G_y, its integral is exp(q(q-1)norm(x-y)^2/(2tau)), and the logarithm of this integral divided by q-1 equals q norm(x-y)^2/(2tau).",
+      "formula": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}.",
+      "assumptions": [
+        "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+        "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+        "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+        "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+      ],
+      "steps": [
+        {
+          "title": "Obtain a genuine one-dimensional projection law",
+          "text": "For h=x-y, the continuous linear functional ell(z)=inner(h,z) sends standard Gaussian to a real Gaussian of mean zero and variance norm(h)^2. The existing one-dimensional exponential integrability and MGF theorem yield both an integrability fact and the exact integral.",
+          "formula": "\\langle h,Z\\rangle\\sim\\mathsf N(0,\\|h\\|^2),\\qquad\\mathbb E e^{a\\langle h,Z\\rangle}=e^{a^2\\|h\\|^2/2}.",
+          "lean": "Local linear_exp uses IsGaussian.map_eq_gaussianReal, integral_strongDual_stdGaussian, variance_dual_stdGaussian, integrable_exp_mul_gaussianReal and mgf_gaussianReal."
+        },
+        {
+          "title": "Pull the actual likelihood power back to standard Gaussian",
+          "text": "Set s=sqrt(tau), a=q/s and b=-q norm(h)^2/(2tau). Under the actual map z=y+sZ, real exponentiation gives L(z)^q=exp(b) exp(a inner(h,Z)). The map is measurable and the projected exponential is integrable, so the actual pushed-forward power is integrable.",
+          "formula": "L(y+\\sqrt\\tau Z)^q=e^{-q\\|h\\|^2/(2\\tau)}e^{(q/\\sqrt\\tau)\\langle h,Z\\rangle}.",
+          "lean": "Real.exp_mul, inner_smul_right, s^2=tau and integrable_map_measure establish the exact pullback and integrability."
+        },
+        {
+          "title": "Compute the exact power moment",
+          "text": "Use integral_map, take out exp(b), and substitute the one-dimensional MGF. The exponent b+a^2 norm(h)^2/2 simplifies to q(q-1)norm(h)^2/(2tau). Strictly positive tau justifies all reciprocal square-root operations.",
+          "formula": "b+\\frac{a^2\\|h\\|^2}{2}=\\frac{q(q-1)\\|h\\|^2}{2\\tau}.",
+          "lean": "Local power_moment returns integrability and equality together, with no assumed moment budget."
+        },
+        {
+          "title": "Transfer the result to the genuine RN derivative",
+          "text": "Apply the shared likelihood theorem to the same x,y,tau. Its a.e. RN equality and finite exponential density identify the qth powers after toReal. Transfer integrability and the integral by a.e. congruence.",
+          "formula": "\\left((G_x).\\operatorname{rnDeriv}(G_y)\\right)_{\\mathbb R}^{q}=L^q\\quad G_y\\text{-a.e.}",
+          "lean": "ENNReal.toReal_ofReal, Integrable.congr and integral_congr_ae use the actual RN equality, avoiding any inference from totalized infinite values."
+        },
+        {
+          "title": "Take the normalized logarithm without changing constants",
+          "text": "The exact integral is a positive exponential. Its logarithm equals the computed exponent; q>1 makes q-1 nonzero, yielding the exact Gaussian reverse-transport coefficient. Zero displacement or dimension gives moment one and logarithm zero.",
+          "formula": "\\frac{q(q-1)\\|h\\|^2}{2\\tau(q-1)}=\\frac{q\\|h\\|^2}{2\\tau}.",
+          "lean": "Real.log_exp and positive-order cancellation. No marginal mixture or sampler assertion is returned."
+        }
+      ],
+      "lean_statement": "Actual RN power integrability, exact integral and normalized log-moment, together with the same genuine Gaussian likelihood certificate.",
+      "lean_proof": "The one-dimensional projection/MGF and actual power integration helpers are local; the shared public likelihood theorem provides the RN identification.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.IsGaussian.map_eq_gaussianReal",
+        "ProbabilityTheory.mgf_gaussianReal",
+        "ProbabilityTheory.integrable_exp_mul_gaussianReal"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+      "role": "prerequisite",
+      "supports": [
+        "integrable-power",
+        "exact-log"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Euclidean probabilities and Gaussian heat kernel.",
+        "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension."
+      },
+      {
+        "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+        "lean": "Actual Gaussian RN power integral and normalized log-moment"
+      },
+      {
+        "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+        "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer."
+      },
+      {
+        "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+        "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "972019eeecc5e69c7e4190fcf26bad7945c5b77e1ad910557e68950c3eafc319"
+}

@@ -1,0 +1,16 @@
+{
+  "decoder": "truncation_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent English anonymous reconstruction, math rendered in plain text without changing quantifiers or scope. Decoder reported supplied hashes, not independently recomputed values; it did not verify packet compiled flag.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-truncation-b.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCTruncation.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "e25e65a349a409096bcb02ad00a7c5bb78d585f5a46de1d11b28a1fe9687700d",
+  "lean_statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+  "reconstructed_theorem_text": "For every complete second-countable normed additive commutative group E with its Borel measurable structure, probabilities P,Q on E, and real p,r,delta with p>=2, r>=0 and 0<delta<1, suppose the infimum over raw measures eta on E times E with marginals P,Q of the extended nonnegative integral of ofReal(norm(x-y)^p) is at most ofReal(r^p). Here ofReal embeds the nonnegative part into extended nonnegative reals, and powers are real powers. Then there exists a measure gamma on E times E which is a probability with marginals P,Q and whose integral of this same cost equals that same infimum. For this same gamma, define t=r delta^(-1/p) and T(x,y)=x if norm(x-y)<=t, otherwise y. T is measurable; Pdag=T pushforward gamma is a probability; lambda=(fun (x,y)=>(T(x,y),y)) pushforward gamma is a probability with first marginal Pdag and second marginal Q; norm(u-v)<=t for lambda-almost every (u,v); and every measurable set B satisfies abs(P.real(B)-Pdag.real(B))<=delta. The same gamma satisfies all conclusions. The radius and maps are explicit definitions, not additional existential choices. E need not be a vector space. No separately stated moment or integrability premise occurs beyond the displayed infimum-cost bound. The parameter constants are exactly 2,0,1, the radius is exactly r delta^(-1/p), and the measurable-event error bound is exactly delta.",
+  "source_fidelity_verdict": null
+}

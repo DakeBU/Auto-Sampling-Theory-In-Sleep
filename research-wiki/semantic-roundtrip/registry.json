@@ -7053,6 +7053,1466 @@
       ]
     },
     {
+      "id": "ASTIS-RT-20260911-OptimalContinuousCost",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-optimal-continuous-cost",
+        "anchor": "Lemma6.2 optimal coupling prerequisite",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "E,F are complete second-countable metric spaces with their Borel sigma algebras.\nP,Q are probability measures and c:E times F to nonnegative reals is continuous.\nThis is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma.\nSPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+        "text_sha256": "0a39143030d65d2f360c3b82d5e860322ef44dad8bbf0d329873339faded8efe"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean",
+        "statement": "∀ {E : Type u_1}\n  {F : Type u_2} [inst : MetricSpace E] [CompleteSpace E] [SecondCountableTopology E] [inst_3 : MeasurableSpace E]\n  [BorelSpace E] [inst_5 : MetricSpace F] [CompleteSpace F] [SecondCountableTopology F] [inst_8 : MeasurableSpace F]\n  [BorelSpace F] (μ : MeasureTheory.Measure E) (ν : MeasureTheory.Measure F) [MeasureTheory.IsProbabilityMeasure μ]\n  [MeasureTheory.IsProbabilityMeasure ν] (c : E × F → NNReal),\n  Continuous c →\n    ∃ γ,\n      MeasureTheory.IsProbabilityMeasure γ ∧\n        AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ μ ν ∧\n          ∫⁻ (z : E × F), ↑(c z) ∂γ =\n            AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ↑(c z)) μ ν",
+        "statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS2621, independently replayed; standard propext/Classical.choice/Quot.sound only. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MetricSpace, CompleteSpace and SecondCountableTopology give complete second-countable metric spaces; BorelSpace identifies the measurable structure with the Borel sigma algebra. NormedAddCommGroup is an additive commutative group with a norm and its metric, not necessarily a vector space.",
+          "IsProbabilityMeasure means total mass one. Measure.map is the pushforward of a measure by the specified map. Measure.fst and Measure.snd are pushforwards by product projections. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q.",
+          "Transport.transportCost c P Q is the infimum in extended nonnegative reals of integrals of c over all raw measures with those two marginals. It does not assume an optimizer or bounded/finite cost.",
+          "NNReal are nonnegative finite reals; ENNReal are extended nonnegative reals. The displayed casts preserve nonnegative values. ENNReal.ofReal takes the nonnegative part of a real number. Lintegral is the extended nonnegative integral.",
+          "Measure.real B is the real-valued measure of B, i.e. the extended measure converted to real; here all relevant measures are probabilities. A.e. refers to almost everywhere under the specified measure.",
+          "Real powers are powers with real exponents. All p,r,delta quantifiers and restrictions are exactly those displayed. Norm is the norm of the actual group difference. Lets are abbreviations for the explicit maps and radius."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "eefaf9010db5560a011cd155fd6ab757e446abc6dc2a92af43117b26d42e11b7",
+        "review_run_sha256": "27dd769e77634d422fb266945ecc64737257229fcbf78cfce30debf518b8dc84",
+        "run_artifact": "runs/20260911-companion-priority/optimal-continuous-cost.source-review-result.json",
+        "evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "20dfdeb59bc5f0674a55983caa4a7443ffff322a9e8f0181a56fd0065bcba135",
+      "publication_context": {
+        "file": "5bb6bf1ae586b957744724c88c4380380c19c5d90610779c743d249d3fb2961e",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness\nimport AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity\n\nopen MeasureTheory\nopen scoped ENNReal NNReal\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen ProbabilityCouplingCompactness\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n\n/-- A continuous nonnegative cost attains its actual infimum over couplings of\nprobabilities on complete second-countable metric Borel spaces. The minimum\nmay be infinite; no finite moment or optimizer is assumed. -/\ntheorem exists_optimal_coupling {E F : Type*}\n    [MetricSpace E] [CompleteSpace E] [SecondCountableTopology E]\n    [MeasurableSpace E] [BorelSpace E]\n    [MetricSpace F] [CompleteSpace F] [SecondCountableTopology F]\n    [MeasurableSpace F] [BorelSpace F]\n    (μ : Measure E) (ν : Measure F) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]\n    (c : E × F → ℝ≥0) (hc : Continuous c) :\n    ∃ γ : Measure (E × F), IsProbabilityMeasure γ ∧ Transport.IsCoupling γ μ ν ∧\n      (∫⁻ z, (c z : ℝ≥0∞) ∂γ) = Transport.transportCost (fun z => (c z : ℝ≥0∞)) μ ν := by\n  let P : ProbabilityMeasure E := ⟨μ,inferInstance⟩\n  let Q : ProbabilityMeasure F := ⟨ν,inferInstance⟩\n  have hn : (probabilityCouplingSet P Q).Nonempty := by\n    refine ⟨⟨μ.prod ν,inferInstance⟩, ?_⟩\n    exact isProbabilityCoupling_iff_isCoupling_toMeasure.mpr (Transport.isCoupling_prod μ ν)\n  have hcompact := isCompact_probabilityCouplingSet P Q\n  have hlsc := ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal c hc\n  obtain ⟨γ,hγ,hmin⟩ := LowerSemicontinuousOn.exists_isMinOn hn hcompact (hlsc.lowerSemicontinuousOn _)\n  have hγ' : Transport.IsCoupling (γ : Measure (E × F)) μ ν :=\n    isProbabilityCoupling_iff_isCoupling_toMeasure.mp hγ\n  refine ⟨γ,inferInstance,hγ',le_antisymm ?_ ?_⟩\n  · rw [Transport.transportCost_eq_sInf]\n    apply le_sInf\n    rintro r ⟨ρ,hρ,rfl⟩\n    let : IsProbabilityMeasure ρ := Transport.isProbabilityMeasure_of_isCoupling_left hρ\n    let R : ProbabilityMeasure (E × F) := ⟨ρ,inferInstance⟩\n    have hR : IsProbabilityCoupling R P Q := isProbabilityCoupling_iff_isCoupling_toMeasure.mpr hρ\n    exact hmin hR\n  · exact Transport.transportCost_le_lintegral_of_isCoupling _ μ ν γ hγ'\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.2 optimal coupling prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "SPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+        "formulae": [
+          {
+            "label": "Optimal cost",
+            "tex": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho."
+          }
+        ],
+        "assumptions": [
+          "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+          "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+          "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+        ],
+        "obligations": [
+          {
+            "id": "optimal-coupling",
+            "label": "Actual optimal coupling with no optimizer premise"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+              "scope": "Optimal-coupling existence expanded and actual truncation construction."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCTruncation"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+          "title": "A continuous transport cost attains its infimum",
+          "statement": "For probability measures P,Q on complete second-countable metric Borel spaces E,F and any continuous nonnegative real cost c on E times F, there is an actual probability coupling gamma whose extended nonnegative integral of c equals the infimum over all couplings. The value may be infinite; neither a moment bound nor an optimizer is assumed.",
+          "formula": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho.",
+          "assumptions": [
+            "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+            "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+            "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+          ],
+          "steps": [
+            {
+              "title": "Use a genuine nonempty coupling space",
+              "text": "Package P and Q as probability measures. Their product is a coupling, so the space of probability couplings is nonempty.",
+              "formula": "P\\otimes Q\\in\\Pi(P,Q).",
+              "lean": "Transport.isCoupling_prod and isProbabilityCoupling_iff_isCoupling_toMeasure."
+            },
+            {
+              "title": "Apply existing weak compactness and lower semicontinuity",
+              "text": "The existing ASTIS compactness theorem makes the coupling space compact in the weak topology. Its continuous-cost lower semicontinuity theorem applies to the extended integral, without a bounded cost or finite moment restriction.",
+              "formula": "\\Pi(P,Q)\\text{ compact},\\qquad\\gamma\\mapsto\\int c\\,d\\gamma\\text{ lower semicontinuous}.",
+              "lean": "isCompact_probabilityCouplingSet and lowerSemicontinuous_lintegral_continuous_nnreal."
+            },
+            {
+              "title": "Take the compact minimum",
+              "text": "A lower-semicontinuous function into the ordered extended nonnegative reals attains a minimum on a nonempty compact set. Recover an actual raw measure gamma and its two marginals.",
+              "formula": "\\int c\\,d\\gamma\\le\\int c\\,d\\rho\\quad(\\rho\\in\\Pi(P,Q)).",
+              "lean": "LowerSemicontinuousOn.exists_isMinOn supplies gamma and hmin."
+            },
+            {
+              "title": "Identify the original infimum over raw couplings",
+              "text": "Every raw coupling is a probability because its first marginal is P. It therefore belongs to the compact probability-coupling set, so minimality gives the lower bound against every element in the transportCost infimum. Membership gives the reverse inequality.",
+              "formula": "\\int c\\,d\\gamma=\\operatorname{transportCost}(c,P,Q).",
+              "lean": "transportCost_eq_sInf, le_sInf and transportCost_le_lintegral_of_isCoupling."
+            }
+          ],
+          "lean_statement": "A genuine probability coupling attaining the extended integral infimum for a continuous NNReal cost.",
+          "lean_proof": "Compact minimum with explicit conversion between probability couplings and raw measure couplings.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.ProbabilityCouplingCompactness.isCompact_probabilityCouplingSet",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.ContinuousCostWeakLowerSemicontinuity.lowerSemicontinuous_lintegral_continuous_nnreal"
+          ],
+          "mathlib_dependencies": [
+            "LowerSemicontinuousOn.exists_isMinOn"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+          "role": "prerequisite",
+          "supports": [
+            "optimal-coupling"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Lemma6.2 invokes an optimal coupling for Euclidean p-distance cost.",
+            "lean": "Continuous nonnegative costs on complete second-countable metric Borel spaces, minimum possibly infinite."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every pair of complete second-countable metric spaces E,F equipped with their Borel measurable structures, every probability measure mu on E and nu on F, and every continuous function c:E times F to finite nonnegative reals, there exists a measure gamma on E times F which is a probability, has first marginal mu and second marginal nu, and satisfies the extended nonnegative integral equality integral(c,gamma)=inf{integral(c,eta): eta is a raw measure with first marginal mu and second marginal nu}. The cost is cast to extended nonnegative reals for integration. Both sides take values in [0,infinity], and the minimum is not asserted finite. No boundedness, finite integral or additional moment hypothesis is imposed. There are no numerical constants.",
+        "text_sha256": "9a45728d3a8b9d4110e5acdc2d8807f22ad474bc1bba4a25c2ae546297392f1a",
+        "decoder_packet_sha256": "335cddb1a364a04e51caf4e784a6feec84e4c4adf35b92bfd422ed25c9503c52",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "truncation_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only the two anonymous compiled statement/definition packets. No source-fidelity verdict or additional metric API inferred."
+        ],
+        "decoder_run_sha256": "25ec7d015e9a46c2da74da3d869214156bc9ca487896e682a4b65d247652f9ef",
+        "lean_statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+        "run_artifact": "runs/20260911-companion-priority/optimal-continuous-cost.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Lemma6.2 optimal coupling for pth displacement cost.",
+          "reconstructed": "Minimizing probability coupling for arbitrary continuous finite nonnegative cost.",
+          "relation": "stronger-in-lean",
+          "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+        },
+        "domains": {
+          "original": "Euclidean source probabilities.",
+          "reconstructed": "Two complete second-countable metric Borel spaces.",
+          "relation": "stronger-in-lean",
+          "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+        },
+        "quantifiers": {
+          "original": "Choose optimizer for source pair and cost.",
+          "reconstructed": "Every admissible pair of spaces, probabilities and continuous cost admits optimizer.",
+          "relation": "stronger-in-lean",
+          "evidence": "Universal input data followed by existential actual coupling and optimality equality."
+        },
+        "assumptions": {
+          "original": "Source invocation has finite p-transport budget.",
+          "reconstructed": "No finite-cost or moment premise for optimizer existence.",
+          "relation": "stronger-in-lean",
+          "evidence": "Compact minimum applies to ENNReal even if every feasible cost is infinite."
+        },
+        "conclusion": {
+          "original": "Availability of optimal coupling.",
+          "reconstructed": "Probability, exact marginals and equality with original raw-coupling infimum.",
+          "relation": "explicit-elaboration",
+          "evidence": "Repackage every raw coupling for le_sInf; feasibility gives reverse inequality."
+        },
+        "scopes": {
+          "original": "Optimal-coupling choice within Lemma6.2.",
+          "reconstructed": "Separately proved generic prerequisite, not generic theorem printed in source.",
+          "relation": "explicit-elaboration",
+          "evidence": "Source contract and publication distinguish generic prerequisite."
+        },
+        "constant_dependencies": {
+          "original": "No numerical constant.",
+          "reconstructed": "No numerical constant; optimum may be infinite.",
+          "relation": "same",
+          "evidence": "Extended integral equality without quantitative loss."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Generic two-space metric setting extends Euclidean source.",
+          "evidence": "No vector structure or finite dimension; explicit generic expanded prerequisite."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Arbitrary continuous nonnegative costs and potentially infinite optimum extend finite p-distance application.",
+          "evidence": "Arbitrary continuous NNReal cost; actual p-distance consumer is truncated_proxy."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCTruncation",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-truncation",
+        "anchor": "Lemma6.2 statement and proof",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.\nThe input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.\nComplete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.\nNo separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs.\nSPHMC v1 Lemma6.2: probabilities P,Q with Wp(P,Q)<=r, real p>=2 and 0<delta<1 admit a proxy Pdag with TV(P,Pdag)<=delta and Winfinity(Pdag,Q)<=r delta^(-1/p). Its proof chooses an optimal coupling and replaces its first coordinate by the second when distance exceeds the threshold. The selected Lean contract expands this as actual infimum p-cost<=r^p, r>=0, and proves a measurable explicit proxy plus a true bounded-displacement coupling and uniform measurable-event TV inequalities. This records the cost/coupling content without a complete Wp/Winfinity metric API. Complete second-countable normed Borel additive groups explicitly generalize the Euclidean source domain; the zero-radius case is included.",
+        "text_sha256": "d79b2760cc1a902083dc8d6bc6ad7f204ed016b46396601ecf67c0ee1198d8f5"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [CompleteSpace E] [SecondCountableTopology E] [inst_3 : MeasurableSpace E]\n  [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (p r δ : ℝ),\n  2 ≤ p →\n    0 ≤ r →\n      0 < δ →\n        δ < 1 →\n          AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ p))\n                P Q ≤\n              ENNReal.ofReal (r ^ p) →\n            ∃ γ,\n              MeasureTheory.IsProbabilityMeasure γ ∧\n                AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ P Q ∧\n                  ∫⁻ (z : E × E), ENNReal.ofReal (‖z.1 - z.2‖ ^ p) ∂γ =\n                      AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost\n                        (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ p)) P Q ∧\n                    have t := r * δ ^ (-1 / p);\n                    have T := fun z => if ‖z.1 - z.2‖ ≤ t then z.1 else z.2;\n                    Measurable T ∧\n                      MeasureTheory.IsProbabilityMeasure (MeasureTheory.Measure.map T γ) ∧\n                        MeasureTheory.IsProbabilityMeasure (MeasureTheory.Measure.map (fun z => (T z, z.2)) γ) ∧\n                          AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling\n                              (MeasureTheory.Measure.map (fun z => (T z, z.2)) γ) (MeasureTheory.Measure.map T γ) Q ∧\n                            (∀ᵐ (z : E × E) ∂MeasureTheory.Measure.map (fun z => (T z, z.2)) γ, ‖z.1 - z.2‖ ≤ t) ∧\n                              ∀ (B : Set E), MeasurableSet B → |P.real B - (MeasureTheory.Measure.map T γ).real B| ≤ δ",
+        "statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS2621, independently replayed; standard propext/Classical.choice/Quot.sound only. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MetricSpace, CompleteSpace and SecondCountableTopology give complete second-countable metric spaces; BorelSpace identifies the measurable structure with the Borel sigma algebra. NormedAddCommGroup is an additive commutative group with a norm and its metric, not necessarily a vector space.",
+          "IsProbabilityMeasure means total mass one. Measure.map is the pushforward of a measure by the specified map. Measure.fst and Measure.snd are pushforwards by product projections. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q.",
+          "Transport.transportCost c P Q is the infimum in extended nonnegative reals of integrals of c over all raw measures with those two marginals. It does not assume an optimizer or bounded/finite cost.",
+          "NNReal are nonnegative finite reals; ENNReal are extended nonnegative reals. The displayed casts preserve nonnegative values. ENNReal.ofReal takes the nonnegative part of a real number. Lintegral is the extended nonnegative integral.",
+          "Measure.real B is the real-valued measure of B, i.e. the extended measure converted to real; here all relevant measures are probabilities. A.e. refers to almost everywhere under the specified measure.",
+          "Real powers are powers with real exponents. All p,r,delta quantifiers and restrictions are exactly those displayed. Norm is the norm of the actual group difference. Lets are abbreviations for the explicit maps and radius."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "9344979846bcfcc5de416636a5cffa2b0829706098ab4fa0ba4f53e7639f9dff",
+        "review_run_sha256": "3edea95e9a2fd8ebfc0cd945e452cdcbbfed1a713bb7dd2252107ed32552354b",
+        "run_artifact": "runs/20260911-companion-priority/sphmc-truncation.source-review-result.json",
+        "evidence": "Independent review used immediately preceding primary Lemma6.2/6.3 reading and complete production plus4+6step inspection, then fresh anonymous reconstructions and canonical packets. Independently recomputed canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON; source/statement/reconstruction/module text hashes matched, embedded modules equal current production. Binding hashes authenticated packet fields, NOT independently reconstructed external preimages. No compilation, aggregate or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "5b4b7d21c5fa60f3c009d00c6a7edf7dbc6e4a3c1637403518f2df34f70d6e79",
+      "publication_context": {
+        "file": "98c078f2dbf09d941f67f9da5d4feb8240e53ca7b523401494acfa435fe55fed",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost\nimport Mathlib.MeasureTheory.Integral.Bochner.Basic\nimport Mathlib.MeasureTheory.Function.L1Space.Integrable\nimport Mathlib.Analysis.SpecialFunctions.Pow.Continuity\nimport Mathlib.MeasureTheory.Function.SpecialFunctions.Basic\n\n/-!\n# SPHMC truncation from the actual infimum p-cost\n\nExpanded proof of arXiv:2609.06906v1 Lemma 6.2. The input is the true infimum\nof the pth displacement moment over all couplings, bounded by r^p. We prove\noptimizer existence and finite integrability, then construct the measurable\nproxy and its bounded-displacement coupling, with the exact eventwise TV bound.\nThe zero-radius case is included. Complete second-countable normed Borel\nspaces generalize the source Euclidean setting explicitly. This certificate\nexpresses the Wp-cost and Winfinity-coupling content without a full Wp metric\nAPI. It does not prove reverse transport, Renyi warmness or sampler costs.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation\n\nopen MeasureTheory Set\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen scoped ENNReal NNReal\n\n/-- A finite infimum p-cost budget produces an actual optimal coupling and\nan explicit truncated proxy within delta in eventwise total variation, coupled\nto Q at displacement at most r * delta^(-1/p). -/\ntheorem truncated_proxy {E : Type*} [NormedAddCommGroup E] [CompleteSpace E]\n    [SecondCountableTopology E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (p r δ : ℝ) (hp : 2 ≤ p) (hr : 0 ≤ r) (hδ : 0 < δ) (hδ1 : δ < 1)\n    (hcost : Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) P Q ≤ ENNReal.ofReal (r ^ p)) :\n    ∃ γ : Measure (E × E), IsProbabilityMeasure γ ∧ Transport.IsCoupling γ P Q ∧\n      (∫⁻ z, ENNReal.ofReal (‖z.1-z.2‖ ^ p) ∂γ) =\n        Transport.transportCost (fun z => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) P Q ∧\n      let t := r * δ ^ (-1 / p)\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) Q ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |P.real B - (γ.map T).real B| ≤ δ := by\n  have truncation_coupling\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (t : ℝ) (ht : 0 ≤ t) :\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) γ.snd ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |γ.fst.real B - (γ.map T).real B| ≤ γ.real {z | t < ‖z.1-z.2‖} := by\n    classical\n    dsimp only\n    let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n    have hT : Measurable T :=\n      Measurable.ite (measurableSet_le (measurable_fst.sub measurable_snd).norm measurable_const)\n        measurable_fst measurable_snd\n    have hp : Measurable (fun z : E × E => (T z,z.2)) := hT.prodMk measurable_snd\n    have hbound (z : E × E) : ‖T z-z.2‖ ≤ t := by\n      dsimp only [T]\n      split_ifs with hz\n      · exact hz\n      · simpa using ht\n    refine ⟨hT,γ.isProbabilityMeasure_map hT.aemeasurable,\n      γ.isProbabilityMeasure_map hp.aemeasurable,?_,?_,?_⟩\n    · constructor\n      · rw [Measure.fst,Measure.map_map measurable_fst hp]\n        rfl\n      · rw [Measure.snd,Measure.map_map measurable_snd hp]\n        rfl\n    · exact (ae_map_iff hp.aemeasurable (measurableSet_le\n        (measurable_fst.sub measurable_snd).norm measurable_const)).2 (Filter.Eventually.of_forall hbound)\n    · intro B hB\n      have hm1 : γ.fst.real B = γ.real (Prod.fst ⁻¹' B) := by\n        rw [Measure.fst,measureReal_def,Measure.map_apply measurable_fst hB]\n        rfl\n      have hm2 : (γ.map T).real B = γ.real (T ⁻¹' B) := by\n        rw [measureReal_def,Measure.map_apply hT hB]\n        rfl\n      rw [hm1,hm2]\n      have hsub1 : Prod.fst ⁻¹' B ⊆ T ⁻¹' B ∪ {z | t < ‖z.1-z.2‖} := by\n        intro z hz\n        by_cases hg : ‖z.1-z.2‖ ≤ t\n        · exact Or.inl (by simpa [T,hg] using hz)\n        · exact Or.inr (lt_of_not_ge hg)\n      have hsub2 : T ⁻¹' B ⊆ Prod.fst ⁻¹' B ∪ {z | t < ‖z.1-z.2‖} := by\n        intro z hz\n        by_cases hg : ‖z.1-z.2‖ ≤ t\n        · exact Or.inl (by simpa [T,hg] using hz)\n        · exact Or.inr (lt_of_not_ge hg)\n      have h1 := (measureReal_mono (μ := γ) hsub1).trans (measureReal_union_le _ _)\n      have h2 := (measureReal_mono (μ := γ) hsub2).trans (measureReal_union_le _ _)\n      exact abs_le.mpr ⟨by linarith, by linarith⟩\n  \n  have moment_tail\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (p t : ℝ) (hp : 2 ≤ p) (ht : 0 < t)\n      (hI : Integrable (fun z : E × E => ‖z.1-z.2‖ ^ p) γ) :\n      γ.real {z | t < ‖z.1-z.2‖} ≤ (∫ z, ‖z.1-z.2‖ ^ p ∂γ) / t ^ p := by\n    have hnon : 0 ≤ᵐ[γ] (fun z : E × E => ‖z.1-z.2‖ ^ p) :=\n      Filter.Eventually.of_forall fun z => Real.rpow_nonneg (norm_nonneg _) _\n    have hm := mul_meas_ge_le_integral_of_nonneg hnon hI (t ^ p)\n    have hs : {z : E × E | t < ‖z.1-z.2‖} ⊆ {z | t ^ p ≤ ‖z.1-z.2‖ ^ p} := by\n      intro z hz\n      exact Real.rpow_le_rpow ht.le (le_of_lt hz) (by linarith)\n    have hmeasure := measureReal_mono (μ := γ) hs\n    have htpos : 0 < t ^ p := Real.rpow_pos_of_pos ht p\n    apply (le_div_iff₀ htpos).2\n    nlinarith\n  \n  have moment_proxy\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ] (p r δ : ℝ)\n      (hp : 2 ≤ p) (hr : 0 ≤ r) (hδ : 0 < δ) (hδ1 : δ < 1)\n      (hI : Integrable (fun z : E × E => ‖z.1-z.2‖ ^ p) γ)\n      (hbudget : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) ≤ r ^ p) :\n      let t := r * δ ^ (-1 / p)\n      let T := fun z : E × E => if ‖z.1-z.2‖ ≤ t then z.1 else z.2\n      Measurable T ∧ IsProbabilityMeasure (γ.map T) ∧\n        IsProbabilityMeasure (γ.map (fun z => (T z,z.2))) ∧\n        Transport.IsCoupling (γ.map (fun z => (T z,z.2))) (γ.map T) γ.snd ∧\n        (∀ᵐ z ∂(γ.map (fun z => (T z,z.2))), ‖z.1-z.2‖ ≤ t) ∧\n        ∀ B, MeasurableSet B → |γ.fst.real B - (γ.map T).real B| ≤ δ := by\n    let t := r * δ ^ (-1 / p)\n    have ht : 0 ≤ t := mul_nonneg hr (Real.rpow_nonneg hδ.le _)\n    obtain ⟨hT,hP,hΓ,hcouple,hbound,hTV⟩ := truncation_coupling γ t ht\n    refine ⟨hT,hP,hΓ,hcouple,hbound,?_⟩\n    have htail : γ.real {z | t < ‖z.1-z.2‖} ≤ δ := by\n      by_cases hr0 : r = 0\n      · have hp0 : p ≠ 0 := by linarith\n        have hz : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) = 0 := by\n          have hnon : 0 ≤ (∫ z : E × E, ‖z.1-z.2‖ ^ p ∂γ) :=\n            integral_nonneg (fun z => Real.rpow_nonneg (norm_nonneg (z.1-z.2)) p)\n          have hupper : (∫ z : E × E, ‖z.1-z.2‖ ^ p ∂γ) ≤ 0 := by\n            simpa [hr0,Real.zero_rpow hp0] using hbudget\n          exact le_antisymm hupper hnon\n        have hae := (integral_eq_zero_iff_of_nonneg_ae\n          (Filter.Eventually.of_forall (fun z : E × E => Real.rpow_nonneg (norm_nonneg (z.1-z.2)) p)) hI).mp hz\n        have hb : γ {z : E × E | 0 < ‖z.1-z.2‖} = 0 := by\n          apply measure_eq_zero_iff_ae_notMem.mpr\n          filter_upwards [hae] with z hz\n          have hn : ‖z.1-z.2‖ = 0 := (Real.rpow_eq_zero_iff_of_nonneg (norm_nonneg _)).mp hz |>.1\n          simp [hn]\n        have ht0 : t = 0 := by simp [t,hr0]\n        rw [ht0,measureReal_def,hb,ENNReal.toReal_zero]\n        exact hδ.le\n      · have hrpos : 0 < r := lt_of_le_of_ne hr (Ne.symm hr0)\n        have htpos : 0 < t := mul_pos hrpos (Real.rpow_pos_of_pos hδ _)\n        have hp0 : p ≠ 0 := by linarith\n        have htp : t ^ p = r ^ p / δ := by\n          dsimp only [t]\n          rw [Real.mul_rpow hr (Real.rpow_nonneg hδ.le _), ← Real.rpow_mul hδ.le]\n          have hpow : (-1 / p) * p = -1 := by field_simp\n          rw [hpow,Real.rpow_neg_one]\n          rfl\n        have hm := moment_tail γ p t hp htpos hI\n        have htpPos : 0 < t ^ p := Real.rpow_pos_of_pos htpos p\n        have hmul := (le_div_iff₀ htpPos).mp hm\n        have hcancel : δ * t ^ p = r ^ p := by rw [htp]; field_simp\n        have hle : γ.real {z | t < ‖z.1-z.2‖} * t ^ p ≤ δ * t ^ p := by nlinarith\n        exact (mul_le_mul_iff_left₀ htpPos).mp hle\n    intro B hB\n    exact (hTV B hB).trans htail\n  have hn (z : E × E) : 0 ≤ ‖z.1-z.2‖ ^ p := Real.rpow_nonneg (norm_nonneg _) _\n  let c : E × E → ℝ≥0 := fun z => ⟨‖z.1-z.2‖ ^ p, hn z⟩\n  have hf : Continuous (fun z : E × E => ‖z.1-z.2‖ ^ p) :=\n    (Real.continuous_rpow_const (by linarith : 0 ≤ p)).comp (continuous_fst.sub continuous_snd).norm\n  have hc : Continuous c := hf.subtype_mk _\n  obtain ⟨γ,hprob,hcouple,hopt⟩ := OptimalContinuousCost.exists_optimal_coupling P Q c hc\n  let : IsProbabilityMeasure γ := hprob\n  have heq : (fun z => (c z : ℝ≥0∞)) = (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖ ^ p)) := by\n    funext z\n    exact (ENNReal.ofReal_eq_coe_nnreal (hn z)).symm\n  rw [heq] at hopt\n  have hfinite : (∫⁻ z, ENNReal.ofReal (‖z.1-z.2‖ ^ p) ∂γ) ≠ ∞ :=\n    ne_of_lt (lt_of_le_of_lt (hopt.le.trans hcost) ENNReal.ofReal_lt_top)\n  have hnon : 0 ≤ᵐ[γ] (fun z : E × E => ‖z.1-z.2‖ ^ p) := Filter.Eventually.of_forall hn\n  have hI := (lintegral_ofReal_ne_top_iff_integrable hf.aestronglyMeasurable hnon).mp hfinite\n  have hbudget : (∫ z, ‖z.1-z.2‖ ^ p ∂γ) ≤ r ^ p := by\n    rw [integral_eq_lintegral_of_nonneg_ae hnon hf.aestronglyMeasurable]\n    have hh := ENNReal.toReal_mono ENNReal.ofReal_ne_top (hopt.le.trans hcost)\n    simpa [ENNReal.toReal_ofReal (Real.rpow_nonneg hr p)] using hh\n  refine ⟨γ,hprob,hcouple,hopt,?_⟩\n  have hproxy := moment_proxy γ p r δ hp hr hδ hδ1 hI hbudget\n  rw [hcouple.1,hcouple.2] at hproxy\n  exact hproxy\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.2 statement and proof",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "SPHMC v1 Lemma6.2: probabilities P,Q with Wp(P,Q)<=r, real p>=2 and 0<delta<1 admit a proxy Pdag with TV(P,Pdag)<=delta and Winfinity(Pdag,Q)<=r delta^(-1/p). Its proof chooses an optimal coupling and replaces its first coordinate by the second when distance exceeds the threshold. The selected Lean contract expands this as actual infimum p-cost<=r^p, r>=0, and proves a measurable explicit proxy plus a true bounded-displacement coupling and uniform measurable-event TV inequalities. This records the cost/coupling content without a complete Wp/Winfinity metric API. Complete second-countable normed Borel additive groups explicitly generalize the Euclidean source domain; the zero-radius case is included.",
+        "formulae": [
+          {
+            "label": "Truncated proxy",
+            "tex": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1."
+          }
+        ],
+        "assumptions": [
+          "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+          "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+          "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+          "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+        ],
+        "obligations": [
+          {
+            "id": "measurable-proxy",
+            "label": "Explicit measurable proxy probability and true coupling marginals"
+          },
+          {
+            "id": "tv-displacement",
+            "label": "Uniform eventwise TV and exact a.e. displacement bounds, including r=0"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma 6.2",
+              "scope": "Optimal-coupling existence expanded and actual truncation construction."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCTruncation"
+          ],
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+          "title": "The actual SPHMC truncation proxy from an infimum p-cost budget",
+          "statement": "Let P,Q be probabilities on a complete second-countable normed Borel additive group, p>=2, r>=0 and 0<delta<1. If the infimum over couplings of the integral of norm(x-y)^p is at most r^p, there exists an actual optimal probability coupling gamma. Set t=r delta^(-1/p) and T(x,y)=x when norm(x-y)<=t, otherwise y. Then T is measurable, Pdag=gamma.map(T) is a probability, and Gamma=gamma.map((T(x,y),y)) is a probability coupling of Pdag,Q concentrated on norm(a-b)<=t. Every measurable event B satisfies abs(P(B)-Pdag(B))<=delta.",
+          "formula": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1.",
+          "assumptions": [
+            "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+            "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+            "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+            "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+          ],
+          "steps": [
+            {
+              "title": "Produce an optimal coupling and derive integrability",
+              "text": "Apply the shared optimizer to the continuous nonnegative cost norm(x-y)^p. Its exact optimum is bounded by r^p, hence finite. Nonnegativity and measurability then yield actual Bochner integrability and the real moment budget.",
+              "formula": "\\int\\|x-y\\|^p\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int\\|x-y\\|^p\\,d\\rho\\le r^p.",
+              "lean": "exists_optimal_coupling, lintegral_ofReal_ne_top_iff_integrable, integral_eq_lintegral_of_nonneg_ae and ENNReal.toReal_mono."
+            },
+            {
+              "title": "Build the measurable truncation and its two actual marginals",
+              "text": "The good event norm(x-y)<=t is measurable, so the piecewise projection T is measurable. Push forward gamma by T and by (T,y). Composition of measurable maps gives the first marginal Pdag and second marginal Q.",
+              "formula": "P^\\dagger=T_\\#\\gamma,\\qquad\\Gamma=(T,\\operatorname{snd})_\\#\\gamma\\in\\Pi(P^\\dagger,Q).",
+              "lean": "Local truncation_coupling proves Measurable.ite, map probabilities and both map_map marginal identities."
+            },
+            {
+              "title": "Prove bounded displacement and eventwise total variation",
+              "text": "On the good event the new first coordinate is x and has distance at most t from y; on the bad event it equals y. For any event B, each of its x and T preimages lies in the other preimage union the bad event, giving both signed probability inequalities.",
+              "formula": "\\|T(x,y)-y\\|\\le t,\\qquad|P(B)-P^\\dagger(B)|\\le\\gamma\\{\\|x-y\\|>t\\}.",
+              "lean": "ae_map_iff transfers the pointwise bound; measureReal_mono and measureReal_union_le prove both sides of abs_le."
+            },
+            {
+              "title": "Handle zero radius without division",
+              "text": "If r=0, the nonnegative integrable p-cost has integral zero. It is zero almost everywhere, and p>=2 implies norm(x-y)=0 almost everywhere. Thus the bad event at threshold zero has probability zero.",
+              "formula": "r=0\\Longrightarrow\\|x-y\\|^p=0\\ \\gamma\\text{-a.e.}\\Longrightarrow\\gamma\\{\\|x-y\\|>0\\}=0.",
+              "lean": "integral_eq_zero_iff_of_nonneg_ae, Real.rpow_eq_zero_iff_of_nonneg and measure_eq_zero_iff_ae_notMem."
+            },
+            {
+              "title": "Apply Markov with the exact positive-radius power",
+              "text": "For r>0, t>0 and t^p=r^p/delta. Monotonicity of the real pth power embeds the bad event in the p-cost threshold event. Markov and the derived moment budget show bad probability<=delta.",
+              "formula": "\\gamma\\{\\|x-y\\|>t\\}\\le\\frac{\\int\\|x-y\\|^p\\,d\\gamma}{t^p}\\le\\delta,\\qquad t^p=r^p/\\delta.",
+              "lean": "mul_meas_ge_le_integral_of_nonneg, Real.rpow_le_rpow, Real.mul_rpow, Real.rpow_mul and positive cancellation."
+            },
+            {
+              "title": "Return the same coupling and proxy",
+              "text": "Retain the actual optimizer, its optimality equality, the explicit T, both probability witnesses, coupling marginals, almost-everywhere bound and the uniform event inequality. The source Lemma6.3(ii) reverse-transport argument remains a later consumer.",
+              "formula": "\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\|a-b\\|\\le r\\delta^{-1/p}\\quad\\Gamma\\text{-a.e.}",
+              "lean": "The final tuple combines hopt with the local moment_proxy certificate and rewrites the original gamma marginals to P,Q."
+            }
+          ],
+          "lean_statement": "An actual optimal coupling and an explicit pushforward proxy with eventwise TV and bounded-displacement coupling guarantees at the exact radius.",
+          "lean_proof": "All measurable truncation and moment-tail helpers are local in the substantive public theorem; optimizer is the shared public dependency.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling"
+          ],
+          "mathlib_dependencies": [
+            "mul_meas_ge_le_integral_of_nonneg",
+            "integral_eq_zero_iff_of_nonneg_ae"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+          "role": "prerequisite",
+          "supports": [
+            "measurable-proxy",
+            "tv-displacement"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean probabilities.",
+            "lean": "Complete second-countable normed Borel additive groups, including the zero space."
+          },
+          {
+            "source": "Wp(P,Q)<=r and Winfinity(Pdag,Q)<=r delta^(-1/p).",
+            "lean": "True infimum p-cost<=r^p and an actual coupling with a.e. bounded displacement."
+          },
+          {
+            "source": "Proof chooses an optimal coupling and applies Markov.",
+            "lean": "Optimizer and its finite moment are proved from the actual infimum budget; r=0 handled separately."
+          },
+          {
+            "source": "Real p>=2, 0<delta<1, nonnegative error budget r.",
+            "lean": "Same real restrictions and exact radius r delta^(-1/p)."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every complete second-countable normed additive commutative group E with its Borel measurable structure, probabilities P,Q on E, and real p,r,delta with p>=2, r>=0 and 0<delta<1, suppose the infimum over raw measures eta on E times E with marginals P,Q of the extended nonnegative integral of ofReal(norm(x-y)^p) is at most ofReal(r^p). Here ofReal embeds the nonnegative part into extended nonnegative reals, and powers are real powers. Then there exists a measure gamma on E times E which is a probability with marginals P,Q and whose integral of this same cost equals that same infimum. For this same gamma, define t=r delta^(-1/p) and T(x,y)=x if norm(x-y)<=t, otherwise y. T is measurable; Pdag=T pushforward gamma is a probability; lambda=(fun (x,y)=>(T(x,y),y)) pushforward gamma is a probability with first marginal Pdag and second marginal Q; norm(u-v)<=t for lambda-almost every (u,v); and every measurable set B satisfies abs(P.real(B)-Pdag.real(B))<=delta. The same gamma satisfies all conclusions. The radius and maps are explicit definitions, not additional existential choices. E need not be a vector space. No separately stated moment or integrability premise occurs beyond the displayed infimum-cost bound. The parameter constants are exactly 2,0,1, the radius is exactly r delta^(-1/p), and the measurable-event error bound is exactly delta.",
+        "text_sha256": "f40122910e699d5b07de81e1e6afe6d52995e8602cb6a244960c6bb8a1ebe63d",
+        "decoder_packet_sha256": "e25e65a349a409096bcb02ad00a7c5bb78d585f5a46de1d11b28a1fe9687700d",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "truncation_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only the two anonymous compiled statement/definition packets. No source-fidelity verdict or additional metric API inferred."
+        ],
+        "decoder_run_sha256": "8a48981dbd8c39fa97ed3c59be3bf3a4119052cfe1026c14dfbd1de0e54343dc",
+        "lean_statement_sha256": "a2cf39663b3c2de3c6f923a09b78e8cdf9f8f2430db89ce8bad278054a55d014",
+        "run_artifact": "runs/20260911-companion-priority/sphmc-truncation.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Source probabilities, optimal coupling and truncated proxy.",
+          "reconstructed": "Same piecewise-coordinate construction on actual attained infimum-cost coupling and both pushforward probabilities.",
+          "relation": "explicit-elaboration",
+          "evidence": "Final tuple retains one gamma, exact optimum, T, proxy and coupling to Q."
+        },
+        "domains": {
+          "original": "Euclidean probability laws.",
+          "reconstructed": "Complete second-countable normed Borel additive commutative groups, including zero space.",
+          "relation": "stronger-in-lean",
+          "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+        },
+        "quantifiers": {
+          "original": "Each admissible P,Q,p,r,delta has a proxy with both bounds.",
+          "reconstructed": "All inputs, one optimal gamma, explicit T and same pushforwards, uniform measurable events.",
+          "relation": "explicit-elaboration",
+          "evidence": "Gamma precedes all conclusions; events universal."
+        },
+        "assumptions": {
+          "original": "Wp(P,Q)<=r, real p>=2, 0<delta<1.",
+          "reconstructed": "Actual infimum p-cost<=ofReal(r^p), r>=0, same p/delta and no supplied optimizer or moment.",
+          "relation": "explicit-elaboration",
+          "evidence": "Finite budget and optimality derive integrability; cost semantics explicitly replace full metric API."
+        },
+        "conclusion": {
+          "original": "TV<=delta and Winfinity<=r delta^(-1/p).",
+          "reconstructed": "Uniform measurable-event TV bound and explicit probability coupling with exact a.e. displacement.",
+          "relation": "explicit-elaboration",
+          "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+        },
+        "scopes": {
+          "original": "Lemma6.2 proxy for later reverse transport.",
+          "reconstructed": "Actual infimum-cost and bounded-coupling certificate only.",
+          "relation": "explicit-elaboration",
+          "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+        },
+        "constant_dependencies": {
+          "original": "Exact radius r delta^(-1/p), error delta, p>=2.",
+          "reconstructed": "Same constants with r=0 and real powers.",
+          "relation": "same",
+          "evidence": "Positive t^p=r^p/delta; zero case vanishing nonnegative integral; no extra factor two."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Complete second-countable normed additive groups extend Euclidean source.",
+          "evidence": "No scalar or finite-dimensional structure used; disclosed domain extension."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Exact cost/coupling/event certificates, not full Wp/Winfinity APIs.",
+          "evidence": "Both marginals, a.e. bound and signed event inequalities proved; no full Winfinity declaration."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Finite displacement p-cost does not imply finite marginal p-moments; later Lemma6.3(ii) Pp premises must be established separately.",
+          "evidence": "Metric API, Gaussian reverse transport, Renyi warmness and sampler error/cost outside result."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-GaussianLikelihood",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-gaussian-likelihood",
+        "anchor": "Lemma6.3(ii) Gaussian likelihood prerequisite",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.\nTau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.\nBoth Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.\nThe source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem.\nSPHMC Lemma6.3(ii) uses the heat-flow bound R_q(Pdag*gamma_tau || Q*gamma_tau)<=q Winfinity(Pdag,Q)^2/(2tau). The selected expanded Gaussian prerequisite, not the full mixture inequality, is the actual likelihood between equal-covariance translates: for G_a=Law(a+sqrt(tau)Z), tau>0, L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)) satisfies G_x=G_y.withDensity(ofReal L), absolute continuity and a.e. RN identification under G_y. Measurability and the measure identity are proved rather than assumed.",
+        "text_sha256": "bd82a9700bc76fe494905f249a6c8dbe2d99dfd9d225e06900d17c618720aac8"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Measure/GaussianLikelihood.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (x y : E) (τ : ℝ),\n  0 < τ →\n    have G := fun a => MeasureTheory.Measure.map (fun z => a + √τ • z) (ProbabilityTheory.stdGaussian E);\n    have L := fun z => Real.exp (Inner.inner ℝ (x - y) (z - y) / τ - ‖x - y‖ ^ 2 / (2 * τ));\n    Measurable L ∧\n      (G x = (G y).withDensity fun z => ENNReal.ofReal (L z)) ∧\n        (G x).AbsolutelyContinuous (G y) ∧ (G x).rnDeriv (G y) =ᵐ[G y] fun z => ENNReal.ofReal (L z)",
+        "statement_sha256": "6b5054a2f8fbe4dadaeff23c9c1439bd39f3f13dd8bad3d065314ca3c727a332",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3120, independently replayed without new lint; only propext/Classical.choice/Quot.sound. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "NormedAddCommGroup and InnerProductSpace over real scalars with FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives its Borel measurable structure. Dimension zero is allowed.",
+          "stdGaussian E is the canonical centered standard Gaussian probability law on E. Measure.map is pushforward, so map(z to a+sqrt(tau) smul z) is an actual random-variable law.",
+          "Measure.withDensity f multiplies the base measure by the extended nonnegative measurable density f. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu, in that direction.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. Equality with the explicit density is asserted almost everywhere under the measure displayed.",
+          "ENNReal.ofReal embeds the nonnegative part of a real into extended nonnegative reals. ENNReal.toReal is the real conversion, totalized at infinity; use only the actual displayed hypotheses and conclusions when interpreting it.",
+          "Integrable means almost-everywhere strong measurability and finite integral of norm. The displayed integral is the real Bochner integral. Real.log is the real logarithm, and powers with real q are real powers.",
+          "The inner product and norm are actual inner-product-space structures, and smul is real scalar multiplication. Lets define actual laws and likelihoods; all quantifiers and parameter restrictions are as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "36f777ae9549cc0d0e570afe6ad17b9c0e1f11ca57cba476f859ba9640754664",
+        "review_run_sha256": "0747ac099d18e576bc9b34895c7a6c9ec7697a16cf3d9edd5291306e6749b75d",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-likelihood.source-review-result.json",
+        "evidence": "Independent review compared fresh anonymous reconstructions with complete production and all3+5steps, using primary Lemma6.3 reading from this sequence. Canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON, and source/statement/reconstruction/module text hashes independently recomputed; embedded modules match production. Binding hashes authenticated fields, external preimages NOT independently recomputed. No compilation, modification, deployment or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "0657bcd3db7d6ba13b3868f2472f78773bc98defc06bc0904728ce133e2e2c61",
+      "publication_context": {
+        "file": "b3e3324306035b24937085ed8bc53dc182da73b6163a0b5e6e931c797a2e290c",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity\n\n/-!\n# Actual translated Gaussian likelihood\n\nThe equal-covariance Gaussian ingredient of arXiv:2609.06906v1 Lemma6.3(ii).\nFor the actual law of x+sqrt(tau)Z, prove the withDensity equality relative to\nthe law centered at y, absolute continuity and an a.e. RN derivative identity.\nThe finite-dimensional real inner-product Borel domain includes dimension zero;\nstrictly positive tau excludes singular positive-dimensional zero-variance laws.\nThis is not yet the mixture reverse-transport or proxy-warmness theorem.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- Exact likelihood ratio for actual translated isotropic Gaussians.\nThe explicit likelihood is measurable and the RN identity is almost everywhere. -/\ntheorem translated_gaussian_likelihood {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (x y : E) (τ : ℝ) (hτ : 0 < τ) :\n    let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    Measurable L ∧ G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) ∧\n      G x ≪ G y ∧ (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) := by\n  have translated_density\n      (a : E) (τ : ℝ) (hτ : 0 < τ) :\n      (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        (volume : Measure E).withDensity (fun z => ENNReal.ofReal\n          (((Real.sqrt (2 * Real.pi * τ))⁻¹) ^ Module.finrank ℝ E *\n            Real.exp (-‖z-a‖ ^ 2 / (2 * τ)))) := by\n    have hmap : (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        ((stdGaussian E).map (fun z : E => Real.sqrt τ • z)).map (MeasurableEquiv.addLeft a) := by\n      rw [Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [hmap,IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity τ hτ,\n      RadonNikodym.measurableEquiv_map_withDensity (MeasurableEquiv.addLeft a) _ (by fun_prop)]\n    have hvol : (volume : Measure E).map (MeasurableEquiv.addLeft a) = volume :=\n      Measure.IsAddLeftInvariant.map_add_left_eq_self a\n    rw [hvol]\n    congr 1\n    funext z\n    simp [MeasurableEquiv.addLeft,sub_eq_add_neg,add_comm]\n  let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n  let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n  have hL : Measurable L := by fun_prop\n  have heq : G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) := by\n    dsimp only [G]\n    rw [translated_density x τ hτ,translated_density y τ hτ,\n      ← withDensity_mul _ (by fun_prop) (by fun_prop)]\n    congr 1\n    funext z\n    change ENNReal.ofReal (_ * Real.exp _) = ENNReal.ofReal (_ * Real.exp _) * ENNReal.ofReal (L z)\n    rw [← ENNReal.ofReal_mul (by positivity)]\n    congr 1\n    dsimp only [L]\n    simp only [mul_assoc]\n    rw [← Real.exp_add]\n    congr 2\n    have hnorm : ‖z-x‖ ^ 2 = ‖z-y‖ ^ 2 - 2 * inner ℝ (x-y) (z-y) + ‖x-y‖ ^ 2 := by\n      have hz : z-x = (z-y)-(x-y) := by abel\n      rw [hz,norm_sub_sq_real,real_inner_comm]\n    rw [hnorm]\n    field_simp\n    ring\n  let : IsProbabilityMeasure (G y) := Measure.isProbabilityMeasure_map (by fun_prop)\n  refine ⟨hL,heq,?_,?_⟩\n  · change G x ≪ G y\n    rw [heq]\n    exact withDensity_absolutelyContinuous _ _\n  · change (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z))\n    rw [heq]\n    exact Measure.rnDeriv_withDensity _ (by fun_prop)\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) Gaussian likelihood prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+        },
+        "statement": "SPHMC Lemma6.3(ii) uses the heat-flow bound R_q(Pdag*gamma_tau || Q*gamma_tau)<=q Winfinity(Pdag,Q)^2/(2tau). The selected expanded Gaussian prerequisite, not the full mixture inequality, is the actual likelihood between equal-covariance translates: for G_a=Law(a+sqrt(tau)Z), tau>0, L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)) satisfies G_x=G_y.withDensity(ofReal L), absolute continuity and a.e. RN identification under G_y. Measurability and the measure identity are proved rather than assumed.",
+        "formulae": [
+          {
+            "label": "Actual likelihood",
+            "tex": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}"
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+          "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+          "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+          "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+        ],
+        "obligations": [
+          {
+            "id": "actual-rn",
+            "label": "Actual Gaussian withDensity equality, absolute continuity and RN identification"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+          "title": "The actual translated Gaussian likelihood and RN derivative",
+          "statement": "Let E be a finite-dimensional real inner-product Borel space, x,y in E and tau>0. Define G_a as the pushforward of standard Gaussian by z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable, G_x=G_y.withDensity(ofReal L), G_x is absolutely continuous with respect to G_y, and its RN derivative equals ofReal L almost everywhere under G_y.",
+          "formula": "G_a=\\operatorname{Law}(a+\\sqrt\\tau Z),\\quad L(z)=\\exp\\!\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\quad \\frac{dG_x}{dG_y}=L\\quad G_y\\text{-a.e.}",
+          "assumptions": [
+            "Finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero.",
+            "Tau>0 and arbitrary centers x,y. The covariance is tau I, not sqrt(tau) I.",
+            "Both Gaussian laws are actual scaled/translated standard Gaussian pushforwards, not arbitrary laws assumed to have a density ratio.",
+            "The source states reverse transport on Euclidean probabilities. This coordinate-free Gaussian ingredient is an explicit expanded prerequisite, not the mixture theorem."
+          ],
+          "steps": [
+            {
+              "title": "Translate the existing actual Gaussian density",
+              "text": "Apply the existing canonical-volume density theorem for sqrt(tau)Z. Push that measure through the measurable equivalence z to a+z. Translation preserves Haar volume and the inverse map is z-a, giving the normalized density centered at a.",
+              "formula": "G_a(dz)=C_\\tau e^{-\\|z-a\\|^2/(2\\tau)}\\,dz,\\qquad C_\\tau=(\\sqrt{2\\pi\\tau})^{-\\dim E}.",
+              "lean": "Local translated_density uses map_map, IsotropicGaussianDensity, measurableEquiv_map_withDensity and map_add_left_eq_self."
+            },
+            {
+              "title": "Prove actual multiplication of densities",
+              "text": "The norm identity norm(z-x)^2=norm(z-y)^2-2 inner(x-y,z-y)+norm(x-y)^2 shows the x-density equals the y-density times L. Measurability permits withDensity multiplication, proving equality of the actual measures.",
+              "formula": "C_\\tau e^{-\\|z-x\\|^2/(2\\tau)}=C_\\tau e^{-\\|z-y\\|^2/(2\\tau)}L(z).",
+              "lean": "norm_sub_sq_real and real_inner_comm establish the exponent identity; withDensity_mul identifies actual measures, not merely exponent expressions."
+            },
+            {
+              "title": "Identify absolute continuity and the RN version",
+              "text": "The explicit density is measurable and finite everywhere. Actual withDensity equality gives absolute continuity. G_y is a probability, so the standard RN identification theorem applies and yields the equality almost everywhere in the correct direction.",
+              "formula": "G_x\\ll G_y,\\qquad (G_x).\\operatorname{rnDeriv}(G_y)=L\\quad G_y\\text{-a.e.}",
+              "lean": "withDensity_absolutelyContinuous and Measure.rnDeriv_withDensity after deriving the probability instance for G_y."
+            }
+          ],
+          "lean_statement": "Measurability, actual withDensity equality, absolute continuity and RN a.e. equality for the explicitly defined Gaussian laws.",
+          "lean_proof": "The actual translated density helper is local; the public proof derives the likelihood equality and genuine RN identity.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.RadonNikodym.measurableEquiv_map_withDensity"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.rnDeriv_withDensity",
+            "MeasureTheory.withDensity_mul"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood",
+          "role": "prerequisite",
+          "supports": [
+            "actual-rn"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean probabilities and Gaussian heat kernel.",
+            "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension."
+          },
+          {
+            "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+            "lean": "Actual equal-covariance Gaussian likelihood"
+          },
+          {
+            "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+            "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer."
+          },
+          {
+            "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+            "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E equipped with its normed additive commutative group structure and a Borel measurable structure, all x,y in E and real tau>0, define G(a) as the pushforward of canonical centered standard Gaussian on E by z to a+sqrt(tau)z. Define L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(z to ENNReal.ofReal(L(z))); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L for G(y)-almost every z. The base measure is G(y) and the resulting weighted measure G(x). Dimension zero is included. There is no restriction on x,y, no extra regularity, integrability or normalization assumption, and no unspecified constant. The local definitions scope over the whole conjunction.",
+        "text_sha256": "0b4e3f94e556ecc56d41131e687c9aaef4dc35755d2d508e5eda7537f9203863",
+        "decoder_packet_sha256": "4afdd6e1c1ada0e6add8189a21a14962a41e5ce5cdee181c75b0ecfb323b9f56",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "gaussian_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only two anonymous compiled statement/definition packets. All Gaussian laws, RN direction/reference measure, integrability and normalized logarithm retained. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "711d5eb6cd8c733550d5910068aa8d586e1689387c6939ce2b3e588a08678e74",
+        "lean_statement_sha256": "6b5054a2f8fbe4dadaeff23c9c1439bd39f3f13dd8bad3d065314ca3c727a332",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-likelihood.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Selected equal-covariance Gaussian ingredient of Lemma6.3(ii).",
+          "reconstructed": "Actual translated/scaled standard Gaussian laws and explicit likelihood.",
+          "relation": "explicit-elaboration",
+          "evidence": "translated_density derives actual pushforward volume densities and heq is a measure equality."
+        },
+        "domains": {
+          "original": "Euclidean source setting.",
+          "reconstructed": "Finite-dimensional real inner-product Borel spaces including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "Positive dimension omitted; extension explicitly disclosed."
+        },
+        "quantifiers": {
+          "original": "Arbitrary Gaussian centers and positive heat time.",
+          "reconstructed": "Every x,y,tau>0; same G,L throughout.",
+          "relation": "same",
+          "evidence": "No nonzero displacement or extra parameter restriction."
+        },
+        "assumptions": {
+          "original": "Actual Gaussian covariance tau I, tau>0.",
+          "reconstructed": "Same covariance, no assumed density, integrability or normalization.",
+          "relation": "equivalent",
+          "evidence": "Existing isotropic density and actual measurable pushforwards supply law and probability."
+        },
+        "conclusion": {
+          "original": "Selected Gaussian likelihood identity.",
+          "reconstructed": "Measurable L, actual withDensity, AC and RN G_y-a.e. in correct direction.",
+          "relation": "explicit-elaboration",
+          "evidence": "withDensity multiplication and RN theorem prove all actual measure conclusions."
+        },
+        "scopes": {
+          "original": "Gaussian prerequisite to mixed reverse transport.",
+          "reconstructed": "Single-pair Gaussian likelihood, no mixed laws or full divergence API.",
+          "relation": "explicit-elaboration",
+          "evidence": "Source contract and binding retain independent mixture/data-processing boundary."
+        },
+        "constant_dependencies": {
+          "original": "inner(x-y,z-y)/tau-norm(x-y)^2/(2tau).",
+          "reconstructed": "Exactly that exponent and covariance tau I.",
+          "relation": "same",
+          "evidence": "Norm-square expansion preserves signs, center and denominator."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Coordinate-free finite-dimensional and zero-dimensional extension.",
+          "evidence": "Positive dimension omitted; extension explicitly disclosed."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Expanded Gaussian prerequisite, not the full mixed reverse-transport assertion in Lemma6.3(ii).",
+          "evidence": "Source contract and binding retain independent mixture/data-processing boundary."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCGaussianPowerMoment",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-gaussian-power-moment",
+        "anchor": "Lemma6.3(ii) exact Gaussian power-moment prerequisite",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.\nReal q>1, not just natural q. No nonzero displacement or positive dimension is assumed.\nNo likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.\nThe raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate.\nThe same SPHMC Lemma6.3(ii) reverse-transport ingredient is expanded at Gaussian centers x,y: for tau>0 and real q>1, the actual RN derivative dG_x/dG_y has an integrable qth power, with integral exp(q(q-1)norm(x-y)^2/(2tau)). Its normalized log-moment equals q norm(x-y)^2/(2tau), giving the precise single-Gaussian coefficient needed before the independent mixture argument. This is not the full reverse-transport theorem or a claim that the expanded proof is printed in the source.",
+        "text_sha256": "229ab2adb4287fe6d531753080aba88d63127e840fb126291ea8fa19628bc9e6"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianPowerMoment.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (x y : E) (τ q : ℝ),\n  0 < τ →\n    1 < q →\n      have G := fun a => MeasureTheory.Measure.map (fun z => a + √τ • z) (ProbabilityTheory.stdGaussian E);\n      have L := fun z => Real.exp (Inner.inner ℝ (x - y) (z - y) / τ - ‖x - y‖ ^ 2 / (2 * τ));\n      Measurable L ∧\n        (G x = (G y).withDensity fun z => ENNReal.ofReal (L z)) ∧\n          (G x).AbsolutelyContinuous (G y) ∧\n            ((G x).rnDeriv (G y) =ᵐ[G y] fun z => ENNReal.ofReal (L z)) ∧\n              MeasureTheory.Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) ∧\n                ∫ (z : E), ((G x).rnDeriv (G y) z).toReal ^ q ∂G y = Real.exp (q * (q - 1) * ‖x - y‖ ^ 2 / (2 * τ)) ∧\n                  Real.log (∫ (z : E), ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q - 1) = q * ‖x - y‖ ^ 2 / (2 * τ)",
+        "statement_sha256": "f96a9ff590d3f46160bb8989ffe6398dd49e6a1774b587693c02fccc27e287ee",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3120, independently replayed without new lint; only propext/Classical.choice/Quot.sound. Full development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "NormedAddCommGroup and InnerProductSpace over real scalars with FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives its Borel measurable structure. Dimension zero is allowed.",
+          "stdGaussian E is the canonical centered standard Gaussian probability law on E. Measure.map is pushforward, so map(z to a+sqrt(tau) smul z) is an actual random-variable law.",
+          "Measure.withDensity f multiplies the base measure by the extended nonnegative measurable density f. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu, in that direction.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. Equality with the explicit density is asserted almost everywhere under the measure displayed.",
+          "ENNReal.ofReal embeds the nonnegative part of a real into extended nonnegative reals. ENNReal.toReal is the real conversion, totalized at infinity; use only the actual displayed hypotheses and conclusions when interpreting it.",
+          "Integrable means almost-everywhere strong measurability and finite integral of norm. The displayed integral is the real Bochner integral. Real.log is the real logarithm, and powers with real q are real powers.",
+          "The inner product and norm are actual inner-product-space structures, and smul is real scalar multiplication. Lets define actual laws and likelihoods; all quantifiers and parameter restrictions are as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "972019eeecc5e69c7e4190fcf26bad7945c5b77e1ad910557e68950c3eafc319",
+        "review_run_sha256": "f4ef720e6aaee080f52b4c20158fed62ccd2f22e60b52a50bceec4fc07b9d5ec",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-power-moment.source-review-result.json",
+        "evidence": "Independent review compared fresh anonymous reconstructions with complete production and all3+5steps, using primary Lemma6.3 reading from this sequence. Canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON, and source/statement/reconstruction/module text hashes independently recomputed; embedded modules match production. Binding hashes authenticated fields, external preimages NOT independently recomputed. No compilation, modification, deployment or fixed-commit VERIFIED admission."
+      },
+      "publication_binding_sha256": "ca4b90453af2f04d881f1cce259962bfe6f6ada610476e941c1b4db12af22d2e",
+      "publication_context": {
+        "file": "3522e5428e51c7d676777f6896cc95f0a3ecd6718b6a94f0a6dab8cecb3b3223",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood\nimport Mathlib.Analysis.SpecialFunctions.Pow.Continuity\n\n/-!\n# Exact Gaussian RN power moment for SPHMC\n\nExpanded equal-covariance Gaussian prerequisite to arXiv:2609.06906v1\nLemma6.3(ii). Actual translated/scaled standard Gaussian laws, the genuine RN\nderivative, its qth-power integrability and integral, and the exact normalized\nlog-moment are proved for tau>0 and real q>1. Finite-dimensional inner-product\nBorel spaces include zero dimension. No likelihood formula or integrability\nis assumed. The joint-mixture/data-processing inequality remains independent;\nthis result alone is not general reverse transport, proxy warmness or a sampler\ncost guarantee. The logarithmic expression is explicit, not a new divergence API.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- The actual Gaussian likelihood has finite qth moment with exact coefficient\nq(q-1)/(2 tau), and its normalized log-moment is q norm(x-y)^2/(2 tau). -/\ntheorem gaussian_power_moment {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n    let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    Measurable L ∧ G x = (G y).withDensity (fun z => ENNReal.ofReal (L z)) ∧\n      G x ≪ G y ∧ (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) ∧\n      Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) ∧\n      (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) =\n        Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) ∧\n      Real.log (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q-1) =\n        q*‖x-y‖^2/(2*τ) := by\n  have linear_exp\n      (h : E) (a : ℝ) :\n      Integrable (fun z : E => Real.exp (a * inner ℝ h z)) (stdGaussian E) ∧\n      (∫ z : E, Real.exp (a * inner ℝ h z) ∂stdGaussian E) =\n        Real.exp (a^2 * ‖h‖^2 / 2) := by\n    let l : StrongDual ℝ E := innerSL ℝ h\n    have hmap : (stdGaussian E).map l = gaussianReal 0 (‖h‖^2).toNNReal := by\n      rw [IsGaussian.map_eq_gaussianReal l,integral_strongDual_stdGaussian,\n        variance_dual_stdGaussian]\n      simp only [l,innerSL_apply_norm]\n    have hI := integrable_exp_mul_gaussianReal (μ := 0) (v := (‖h‖^2).toNNReal) a\n    rw [← hmap] at hI\n    have hI' := (integrable_map_measure (by fun_prop) (by fun_prop : AEMeasurable l (stdGaussian E))).mp hI\n    refine ⟨hI',?_⟩\n    have hm := mgf_gaussianReal hmap a\n    simpa [mgf,l,Real.toNNReal_of_nonneg (sq_nonneg ‖h‖),mul_comm] using hm\n  have power_moment\n      (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n      let G := (stdGaussian E).map (fun z => y + Real.sqrt τ • z)\n      let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n      Integrable (fun z => L z ^ q) G ∧\n        (∫ z, L z ^ q ∂G) = Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) := by\n    let G := (stdGaussian E).map (fun z => y + Real.sqrt τ • z)\n    let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n    let s := Real.sqrt τ\n    have hs : 0 < s := Real.sqrt_pos.mpr hτ\n    have hs2 : s^2 = τ := Real.sq_sqrt hτ.le\n    let a := q / s\n    let b := -q * ‖x-y‖^2 / (2*τ)\n    have hq0 : 0 ≤ q := by linarith\n    have hfunc : (fun z : E => L (y + Real.sqrt τ • z)^q) =\n        (fun z => Real.exp b * Real.exp (a * inner ℝ (x-y) z)) := by\n      funext z\n      dsimp only [L]\n      rw [← Real.exp_mul,← Real.exp_add]\n      congr 1\n      simp only [add_sub_cancel_left,inner_smul_right]\n      change (s * inner ℝ (x-y) z / τ - ‖x-y‖^2/(2*τ))*q = b + a * inner ℝ (x-y) z\n      dsimp only [a,b]\n      rw [← hs2]\n      field_simp\n      ring\n    obtain ⟨hI,hm⟩ := linear_exp (x-y) a\n    have hpull : Integrable (fun z : E => L (y + Real.sqrt τ • z)^q) (stdGaussian E) := by\n      rw [hfunc]\n      exact hI.const_mul _\n    have hLG : Integrable (fun z : E => L z ^ q) G :=\n      (integrable_map_measure (by fun_prop) (by fun_prop)).mpr hpull\n    refine ⟨hLG,?_⟩\n    change (∫ z, L z ^ q ∂G) = _\n    dsimp only [G]\n    rw [integral_map (by fun_prop) (by fun_prop)]\n    change (∫ z : E, L (y + Real.sqrt τ • z)^q ∂stdGaussian E) = _\n    rw [hfunc,integral_const_mul,hm,← Real.exp_add]\n    congr 1\n    dsimp only [a,b]\n    rw [← hs2]\n    field_simp\n    ring\n  let G := fun a : E => (stdGaussian E).map (fun z => a + Real.sqrt τ • z)\n  let L := fun z : E => Real.exp (inner ℝ (x-y) (z-y) / τ - ‖x-y‖ ^ 2 / (2*τ))\n  obtain ⟨hL,heq,hAC,hRN⟩ := GaussianLikelihood.translated_gaussian_likelihood x y τ hτ\n  change (G x).rnDeriv (G y) =ᵐ[G y] (fun z => ENNReal.ofReal (L z)) at hRN\n  obtain ⟨hI,hm⟩ := power_moment x y τ q hτ hq\n  have hpow : (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) =ᵐ[G y] (fun z => L z ^ q) := by\n    filter_upwards [hRN] with z hz\n    rw [hz,ENNReal.toReal_ofReal (Real.exp_nonneg _)]\n  have hIRN : Integrable (fun z => ((G x).rnDeriv (G y) z).toReal ^ q) (G y) := hI.congr hpow.symm\n  have hval : (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) =\n      Real.exp (q*(q-1)*‖x-y‖^2/(2*τ)) := (integral_congr_ae hpow).trans hm\n  refine ⟨hL,heq,hAC,hRN,hIRN,hval,?_⟩\n  change Real.log (∫ z, ((G x).rnDeriv (G y) z).toReal ^ q ∂G y) / (q-1) = _\n  rw [hval,Real.log_exp]\n  have hq1 : q-1 ≠ 0 := by linarith\n  field_simp\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) exact Gaussian power-moment prerequisite",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded prerequisite proof, no author endorsement implied."
+        },
+        "statement": "The same SPHMC Lemma6.3(ii) reverse-transport ingredient is expanded at Gaussian centers x,y: for tau>0 and real q>1, the actual RN derivative dG_x/dG_y has an integrable qth power, with integral exp(q(q-1)norm(x-y)^2/(2tau)). Its normalized log-moment equals q norm(x-y)^2/(2tau), giving the precise single-Gaussian coefficient needed before the independent mixture argument. This is not the full reverse-transport theorem or a claim that the expanded proof is printed in the source.",
+        "formulae": [
+          {
+            "label": "Exact RN moment",
+            "tex": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}."
+          }
+        ],
+        "assumptions": [
+          "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+          "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+          "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+          "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+        ],
+        "obligations": [
+          {
+            "id": "integrable-power",
+            "label": "Actual RN qth-power integrability and exact moment"
+          },
+          {
+            "id": "exact-log",
+            "label": "Exact normalized log-moment q norm(x-y)^2/(2tau)"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded actual Gaussian ingredient of the stated Winfinity reverse-transport inequality; mixture step separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianPowerMoment"
+          ],
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+          "title": "Exact integrable Gaussian RN power moment and normalized logarithm",
+          "statement": "For the same actual G_x,G_y on a finite-dimensional real inner-product Borel space, tau>0 and real q>1, retain the measurable likelihood L, actual withDensity equality, absolute continuity and RN identity. The qth power of the real-valued RN derivative is integrable under G_y, its integral is exp(q(q-1)norm(x-y)^2/(2tau)), and the logarithm of this integral divided by q-1 equals q norm(x-y)^2/(2tau).",
+          "formula": "\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\exp\\!\\left(\\frac{q(q-1)\\|x-y\\|^2}{2\\tau}\\right),\\qquad\\frac{1}{q-1}\\log\\int\\left(\\frac{dG_x}{dG_y}\\right)^q dG_y=\\frac{q\\|x-y\\|^2}{2\\tau}.",
+          "assumptions": [
+            "Same actual translated/scaled Gaussian laws, finite-dimensional real inner-product Borel E including dimension zero, tau>0 and arbitrary x,y.",
+            "Real q>1, not just natural q. No nonzero displacement or positive dimension is assumed.",
+            "No likelihood, Gaussian moment formula or integrability hypothesis is supplied. The RN toReal use is justified by equality to a finite explicit density a.e.",
+            "The raw normalized log-moment is the equal-covariance Gaussian quantity needed for the source argument; mixing over a coupling and data processing remain separate."
+          ],
+          "steps": [
+            {
+              "title": "Obtain a genuine one-dimensional projection law",
+              "text": "For h=x-y, the continuous linear functional ell(z)=inner(h,z) sends standard Gaussian to a real Gaussian of mean zero and variance norm(h)^2. The existing one-dimensional exponential integrability and MGF theorem yield both an integrability fact and the exact integral.",
+              "formula": "\\langle h,Z\\rangle\\sim\\mathsf N(0,\\|h\\|^2),\\qquad\\mathbb E e^{a\\langle h,Z\\rangle}=e^{a^2\\|h\\|^2/2}.",
+              "lean": "Local linear_exp uses IsGaussian.map_eq_gaussianReal, integral_strongDual_stdGaussian, variance_dual_stdGaussian, integrable_exp_mul_gaussianReal and mgf_gaussianReal."
+            },
+            {
+              "title": "Pull the actual likelihood power back to standard Gaussian",
+              "text": "Set s=sqrt(tau), a=q/s and b=-q norm(h)^2/(2tau). Under the actual map z=y+sZ, real exponentiation gives L(z)^q=exp(b) exp(a inner(h,Z)). The map is measurable and the projected exponential is integrable, so the actual pushed-forward power is integrable.",
+              "formula": "L(y+\\sqrt\\tau Z)^q=e^{-q\\|h\\|^2/(2\\tau)}e^{(q/\\sqrt\\tau)\\langle h,Z\\rangle}.",
+              "lean": "Real.exp_mul, inner_smul_right, s^2=tau and integrable_map_measure establish the exact pullback and integrability."
+            },
+            {
+              "title": "Compute the exact power moment",
+              "text": "Use integral_map, take out exp(b), and substitute the one-dimensional MGF. The exponent b+a^2 norm(h)^2/2 simplifies to q(q-1)norm(h)^2/(2tau). Strictly positive tau justifies all reciprocal square-root operations.",
+              "formula": "b+\\frac{a^2\\|h\\|^2}{2}=\\frac{q(q-1)\\|h\\|^2}{2\\tau}.",
+              "lean": "Local power_moment returns integrability and equality together, with no assumed moment budget."
+            },
+            {
+              "title": "Transfer the result to the genuine RN derivative",
+              "text": "Apply the shared likelihood theorem to the same x,y,tau. Its a.e. RN equality and finite exponential density identify the qth powers after toReal. Transfer integrability and the integral by a.e. congruence.",
+              "formula": "\\left((G_x).\\operatorname{rnDeriv}(G_y)\\right)_{\\mathbb R}^{q}=L^q\\quad G_y\\text{-a.e.}",
+              "lean": "ENNReal.toReal_ofReal, Integrable.congr and integral_congr_ae use the actual RN equality, avoiding any inference from totalized infinite values."
+            },
+            {
+              "title": "Take the normalized logarithm without changing constants",
+              "text": "The exact integral is a positive exponential. Its logarithm equals the computed exponent; q>1 makes q-1 nonzero, yielding the exact Gaussian reverse-transport coefficient. Zero displacement or dimension gives moment one and logarithm zero.",
+              "formula": "\\frac{q(q-1)\\|h\\|^2}{2\\tau(q-1)}=\\frac{q\\|h\\|^2}{2\\tau}.",
+              "lean": "Real.log_exp and positive-order cancellation. No marginal mixture or sampler assertion is returned."
+            }
+          ],
+          "lean_statement": "Actual RN power integrability, exact integral and normalized log-moment, together with the same genuine Gaussian likelihood certificate.",
+          "lean_proof": "The one-dimensional projection/MGF and actual power integration helpers are local; the shared public likelihood theorem provides the RN identification.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+          ],
+          "mathlib_dependencies": [
+            "ProbabilityTheory.IsGaussian.map_eq_gaussianReal",
+            "ProbabilityTheory.mgf_gaussianReal",
+            "ProbabilityTheory.integrable_exp_mul_gaussianReal"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+          "role": "prerequisite",
+          "supports": [
+            "integrable-power",
+            "exact-log"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean probabilities and Gaussian heat kernel.",
+            "lean": "Finite-dimensional real inner-product Borel spaces, including zero dimension."
+          },
+          {
+            "source": "Lemma6.3(ii) invokes reverse transport for mixed Gaussian laws.",
+            "lean": "Actual Gaussian RN power integral and normalized log-moment"
+          },
+          {
+            "source": "Gaussian heat covariance tau I with positive heat time; q>1 for Renyi.",
+            "lean": "Actual law of a+sqrt(tau)Z, tau>0; real q>1 in power consumer."
+          },
+          {
+            "source": "Gaussian likelihood and high-order integrability implicit in the standard Gaussian ingredient.",
+            "lean": "Actual volume-density multiplication, RN identity and integrability derived from existing Gaussian facts."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E with its normed additive commutative group and Borel measurable structures, all x,y in E and real tau,q satisfying tau>0 and q>1, define G(a) as the pushforward of canonical centered standard Gaussian under z to a+sqrt(tau)z, and L(z)=exp(inner(x-y,z-y)/tau-norm(x-y)^2/(2tau)). Then L is measurable; G(x)=G(y).withDensity(ofReal L); G(x) is absolutely continuous with respect to G(y); and the extended nonnegative RN derivative dG(x)/dG(y) equals ofReal L G(y)-almost everywhere. The real-valued function z to (ENNReal.toReal(dG(x)/dG(y)(z)))^q is integrable under G(y), meaning almost-everywhere strongly measurable with finite integral of its norm. Its real Bochner integral is exactly exp(q(q-1)norm(x-y)^2/(2tau)). Real.log of that same integral divided by q-1 equals q norm(x-y)^2/(2tau). Powers with q are real powers. ENNReal.toReal is the real conversion, including its totalized value at infinity; the integral and logarithm involve the actual RN derivative, not a separately postulated likelihood. The integration and a.e. reference measure are both G(y). Dimension zero is included. There is no restriction on x,y, no upper bound on q or additional parameter assumption. The G,L definitions scope over the full conjunction. Constants 2,q-1,q(q-1) are exactly those displayed, with no unspecified or existential constants.",
+        "text_sha256": "d1680f0983d4fee07abdcf9305497888604e2a7ef55a9ff851546e0263bdf422",
+        "decoder_packet_sha256": "a5038b2f9111e5a471335fc51f8e63dbeeaedf2e076e1d827d8275543bdb171f",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "gaussian_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent inspected only two anonymous compiled statement/definition packets. All Gaussian laws, RN direction/reference measure, integrability and normalized logarithm retained. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "b86fe86baab7888efc0cb67369adf6b0bf664a3a971e1e54198f51d75ffefc59",
+        "lean_statement_sha256": "f96a9ff590d3f46160bb8989ffe6398dd49e6a1774b587693c02fccc27e287ee",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-power-moment.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Selected Gaussian power-divergence ingredient before mixing.",
+          "reconstructed": "Actual RN derivative, real qth power under G_y and raw normalized log integral.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual withDensity/AC/RN clauses precede moment conclusions."
+        },
+        "domains": {
+          "original": "Euclidean source setting.",
+          "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive dimension; degenerate scalar Gaussian projection handled by existing APIs."
+        },
+        "quantifiers": {
+          "original": "Arbitrary centers,tau>0,real q>1.",
+          "reconstructed": "Same universal parameters; no upper bound or integer restriction on q.",
+          "relation": "same",
+          "evidence": "Real powers throughout actual moment and RN integral."
+        },
+        "assumptions": {
+          "original": "Actual positive common-covariance Gaussian laws,q>1.",
+          "reconstructed": "Same; likelihood and q-power integrability derived.",
+          "relation": "equivalent",
+          "evidence": "Actual projection law and exponential integrability, no supplied moment/nonzero displacement."
+        },
+        "conclusion": {
+          "original": "Selected exact Gaussian moment and coefficient.",
+          "reconstructed": "Integrable RN-toReal qth power; exp(q(q-1)norm^2/(2tau)) integral; normalized log q norm^2/(2tau).",
+          "relation": "explicit-elaboration",
+          "evidence": "Finite explicit RN density a.e. justifies toReal; integrability/integral transfer by a.e. congruence."
+        },
+        "scopes": {
+          "original": "Gaussian ingredient needed by Lemma6.3(ii).",
+          "reconstructed": "Exact single-Gaussian RN moment and raw normalized log only.",
+          "relation": "explicit-elaboration",
+          "evidence": "No mixture/data-processing or packaged divergence identification returned."
+        },
+        "constant_dependencies": {
+          "original": "q(q-1)/(2tau) moment and q/(2tau) log coefficients.",
+          "reconstructed": "Exactly these, no hidden dimension or norm factor.",
+          "relation": "same",
+          "evidence": "Projection variance norm(x-y)^2, sqrt(tau)^2=tau and q-1 nonzero."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Coordinate-free finite-dimensional and zero-dimensional extension.",
+          "evidence": "No positive dimension; degenerate scalar Gaussian projection handled by existing APIs."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Expanded Gaussian prerequisite, not the full mixed reverse-transport assertion in Lemma6.3(ii).",
+          "evidence": "No mixture/data-processing or packaged divergence identification returned."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Explicit normalized log integral, not a newly proved full divergence API.",
+          "evidence": "Finite explicit RN density a.e. justifies toReal; integrability/integral transfer by a.e. congruence."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-PowerPerspective",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-power-perspective",
+        "anchor": "Lemma6.3(ii) expanded Holder perspective",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.\na,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.\nThe integral of b is nonzero and finite, and real q>1.\nThe integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem.\nLet mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+        "text_sha256": "4b1132ef845764282e1d5ec31646b41d6103dbe3b6e757625e9cac81ef6ad40e"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Measure/PowerPerspective.lean",
+        "statement": "∀ {X : Type u_1}\n  [inst : MeasurableSpace X] (μ : MeasureTheory.Measure X) (a b : X → ENNReal),\n  AEMeasurable a μ →\n    AEMeasurable b μ →\n      (∀ᵐ (x : X) ∂μ, b x ≠ 0 ∧ b x ≠ ⊤) →\n        ∫⁻ (x : X), b x ∂μ ≠ 0 →\n          ∫⁻ (x : X), b x ∂μ ≠ ⊤ →\n            ∀ (q : ℝ),\n              1 < q → (∫⁻ (x : X), a x ∂μ) ^ q / (∫⁻ (x : X), b x ∂μ) ^ (q - 1) ≤ ∫⁻ (x : X), a x ^ q / b x ^ (q - 1) ∂μ",
+        "statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3702, independently replayed with only parent lint; only propext/Classical.choice/Quot.sound. Complete development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "a41bf2938886ebfa45137e0cc51a2a46f07252d754924128d0d8ab2b9355957d",
+        "review_run_sha256": "5b21e62b31fe4994e1d05938ddcbae42fe47f8c183398890dec78255397e3fcf",
+        "run_artifact": "runs/20260911-companion-priority/power-perspective.source-review-result.json",
+        "evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+      },
+      "publication_binding_sha256": "c1da25b6ad6601607f7afacf4a4bcab1ff88889a2908165978f380e7462aa016",
+      "publication_context": {
+        "file": "3ae1f1b7bdb7e50f3d47e0e3e8c8198bb693b4b876b3b067028717866a6b7252",
+        "current_lean_module": "import Mathlib.MeasureTheory.Integral.MeanInequalities\n\n/-!\n# Power perspective for nonnegative integrals\n\nExpanded Holder ingredient for arXiv:2609.06906v1 Lemma6.3(ii), consumed by\nactual bounded-displacement Gaussian mixture reverse transport. Only the\ndenominator is required positive and finite; numerator and perspective\nintegrals may be infinite. This alone is not Gaussian reverse transport.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\nopen MeasureTheory\nopen scoped ENNReal\n\n/-- Holder gives the power-perspective inequality without assuming finite\nnumerator or right-hand integral. The denominator is positive and finite. -/\ntheorem lintegral_perspective_le {X : Type*} [MeasurableSpace X] (μ : Measure X)\n    (a b : X → ℝ≥0∞) (ha : AEMeasurable a μ) (hb : AEMeasurable b μ)\n    (hbpos : ∀ᵐ x ∂μ, b x ≠ 0 ∧ b x ≠ ⊤)\n    (hB0 : (∫⁻ x, b x ∂μ) ≠ 0) (hBtop : (∫⁻ x, b x ∂μ) ≠ ⊤)\n    (q : ℝ) (hq : 1 < q) :\n    (∫⁻ x, a x ∂μ)^q / (∫⁻ x, b x ∂μ)^(q-1) ≤\n      ∫⁻ x, a x^q / b x^(q-1) ∂μ := by\n  have hq0 : 0 < q := by linarith\n  have hi : 0 ≤ 1/q := by positivity\n  have hj : 0 ≤ 1-1/q := by rw [sub_nonneg,div_le_one hq0]; linarith\n  have he1 : q*(1/q) = 1 := by field_simp\n  have he2 : (q-1)*(1/q) = 1-1/q := by field_simp\n  have he3 : (1-1/q)*q = q-1 := by field_simp\n  have hrec : (fun x => (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q)) =ᵐ[μ] a := by\n    filter_upwards [hbpos] with x hx\n    rw [ENNReal.div_rpow_of_nonneg _ _ hi, ← ENNReal.rpow_mul,\n      ← ENNReal.rpow_mul,he1,he2,ENNReal.rpow_one]\n    exact ENNReal.div_mul_cancel\n      (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hx.1) hx.2))\n      (ENNReal.rpow_ne_top_of_nonneg hj hx.2)\n  have h := ENNReal.lintegral_mul_norm_pow_le\n    ((ha.pow_const q).div (hb.pow_const (q-1))) hb hi hj (by ring : 1/q+(1-1/q)=1)\n  change (∫⁻ x, (a x^q / b x^(q-1))^(1/q) * b x^(1-1/q) ∂μ) ≤\n    (∫⁻ x, a x^q / b x^(q-1) ∂μ)^(1/q) * (∫⁻ x, b x ∂μ)^(1-1/q) at h\n  rw [lintegral_congr_ae hrec] at h\n  have hh := ENNReal.rpow_le_rpow h hq0.le\n  rw [ENNReal.mul_rpow_of_nonneg _ _ hq0.le, ← ENNReal.rpow_mul,\n    ← ENNReal.rpow_mul,he3,mul_comm (1/q) q,he1,ENNReal.rpow_one] at hh\n  exact (ENNReal.div_le_iff\n    (ne_of_gt (ENNReal.rpow_pos (pos_iff_ne_zero.mpr hB0) hBtop))\n    (ENNReal.rpow_ne_top_of_nonneg (by linarith) hBtop)).mpr hh\n\nend AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) expanded Holder perspective",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+        },
+        "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+        "formulae": [
+          {
+            "label": "Integral perspective",
+            "tex": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty."
+          }
+        ],
+        "assumptions": [
+          "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+          "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+          "The integral of b is nonzero and finite, and real q>1.",
+          "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+        ],
+        "obligations": [
+          {
+            "id": "perspective",
+            "label": "Extended nonnegative Holder perspective with potentially infinite numerator and right side"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded proof of the bounded-displacement Gaussian reverse-transport ingredient; original truncation composition separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianMixture"
+          ],
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+          "title": "Power perspective from Holder with infinite moments allowed",
+          "statement": "Let mu be any measure on a measurable space and a,b be almost-everywhere measurable extended nonnegative functions. Suppose b is positive and finite almost everywhere and its integral B is positive and finite. For real q>1, the qth power of integral a divided by B^(q-1) is at most the integral of a^q/b^(q-1). Neither the numerator integral nor the right-hand integral is assumed finite.",
+          "formula": "\\frac{(\\int a\\,d\\mu)^q}{(\\int b\\,d\\mu)^{q-1}}\\le\\int\\frac{a^q}{b^{q-1}}\\,d\\mu,\\qquad q>1,\\quad 0<\\int b\\,d\\mu<\\infty.",
+          "assumptions": [
+            "Any measurable space and measure mu; no probability or sigma-finiteness assumption is required for this scalar inequality.",
+            "a,b are ENNReal-valued and a.e. measurable. The denominator b is nonzero and finite mu-a.e.",
+            "The integral of b is nonzero and finite, and real q>1.",
+            "The integral of a and of a^q/b^(q-1) may be infinite. This general measure inequality is an expanded ingredient, not a printed paper theorem."
+          ],
+          "steps": [
+            {
+              "title": "Reconstruct the numerator pointwise",
+              "text": "Set F=a^q/b^(q-1), alpha=1/q and beta=1-1/q. Positive finite b permits cancellation of b^beta, while a may be zero or infinite. Therefore F^alpha b^beta=a almost everywhere.",
+              "formula": "F^{1/q}b^{1-1/q}=\\frac{a}{b^{1-1/q}}b^{1-1/q}=a.",
+              "lean": "ENNReal.div_rpow_of_nonneg, rpow_mul and div_mul_cancel with explicit nonzero/finite denominator."
+            },
+            {
+              "title": "Apply nonnegative integral Holder",
+              "text": "The exponents alpha,beta are nonnegative and sum to one. Extended nonnegative Holder gives A<=C^(1/q) B^beta for A=integral a and C=integral F. This theorem does not require either A or C finite.",
+              "formula": "A\\le C^{1/q}B^{1-1/q}.",
+              "lean": "ENNReal.lintegral_mul_norm_pow_le and lintegral_congr_ae use the reconstruction, retaining infinite branches."
+            },
+            {
+              "title": "Raise the inequality to q",
+              "text": "Since q>0, raising both sides preserves order. Real-power multiplication identities hold in ENNReal for these nonnegative powers and give A^q<=C B^(q-1).",
+              "formula": "A^q\\le C B^{q-1}.",
+              "lean": "ENNReal.rpow_le_rpow, mul_rpow_of_nonneg and rpow_mul; exact scalar exponent identities."
+            },
+            {
+              "title": "Divide by the positive finite denominator integral",
+              "text": "B is positive and finite, so B^(q-1) is nonzero and finite. The extended-real division equivalence gives the claimed perspective inequality without converting an infinite quantity to a real number.",
+              "formula": "\\frac{A^q}{B^{q-1}}\\le C.",
+              "lean": "ENNReal.div_le_iff, rpow_pos and rpow_ne_top_of_nonneg."
+            }
+          ],
+          "lean_statement": "The extended nonnegative integral power-perspective inequality with only positive finite denominator conditions.",
+          "lean_proof": "Direct Holder, pointwise reconstruction and exact power/division algebra; no assumed perspective or moment inequality.",
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "ENNReal.lintegral_mul_norm_pow_le",
+            "ENNReal.div_le_iff",
+            "ENNReal.rpow_mul"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+          "role": "prerequisite",
+          "supports": [
+            "perspective"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+            "lean": "Arbitrary measurable space and measure for the scalar Holder perspective."
+          },
+          {
+            "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+            "lean": "Scalar integral perspective only."
+          },
+          {
+            "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+            "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds."
+          },
+          {
+            "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+            "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every measurable space X, every extended nonnegative measure mu on X, and every pair of functions a,b:X to [0,infinity], assume a and b are measurable up to a mu-null set, 0<b(x)<infinity for mu-almost every x, and 0<integral b dmu<infinity. Then for every real q>1, (integral a dmu)^q/(integral b dmu)^(q-1) is at most integral a(x)^q/b(x)^(q-1) dmu(x). Every displayed integral is the extended nonnegative Lebesgue integral, and powers and division use extended nonnegative real conventions. No finiteness assumption is imposed on a, its integral, or the right-hand integral; in particular integral a=infinity is included. No probability, finite-total-mass, or sigma-finiteness hypothesis is imposed on mu. There are no additional constants. No ambiguity in the quantified inequality using the supplied extended-real conventions.",
+        "text_sha256": "f55e4d93e02a19009d8219a1438d073ef08c08e64e8001c5a318ee25b5a238d5",
+        "decoder_packet_sha256": "278437de5f0228426ee8bc0489ca362589ee2a3a6ba6b04c55ab3dc53f8962fb",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "mixture_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent read only two anonymous statement/definition packets. Preserved infinite numerator, actual smoothing definition, RN direction, integrability and logarithm. Decoder explicitly retained named stdGaussian without adding normalization absent from supplied definition context; source reviewer must verify the actual definition. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "b1f39413218130917bbb1dd56a7cdf35f4db2d1774207fd06b10b01a466f3b00",
+        "lean_statement_sha256": "55c1e994fe86fa9b7e2b9dfbbce0e0fc6b23d927bf4a1e1e59be4c425d4fa940",
+        "run_artifact": "runs/20260911-companion-priority/power-perspective.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Paper invokes Gaussian reverse transport; selected expanded ingredient is integral power perspective.",
+          "reconstructed": "ENNReal a,b, nonnegative integrals and a^q/b^(q-1).",
+          "relation": "explicit-elaboration",
+          "evidence": "Publication identifies expanded scalar ingredient, not a printed theorem."
+        },
+        "domains": {
+          "original": "Euclidean probability application.",
+          "reconstructed": "Arbitrary measurable space and measure; no probability or sigma-finiteness.",
+          "relation": "stronger-in-lean",
+          "evidence": "Only MeasurableSpace X and Measure X domain data."
+        },
+        "quantifiers": {
+          "original": "Each eligible measure, functions and real q>1.",
+          "reconstructed": "Universal measure/functions followed by every real q>1.",
+          "relation": "same",
+          "evidence": "Anonymous statement preserves all universals; no proxy existential claimed."
+        },
+        "assumptions": {
+          "original": "Expanded argument needs positive finite denominator values a.e. and positive finite denominator integral.",
+          "reconstructed": "AEMeasurable a,b; b nonzero finite a.e.; integral b nonzero finite; q>1.",
+          "relation": "explicit-elaboration",
+          "evidence": "hbpos,hB0,hBtop justify cancellation; no numerator or RHS finiteness premise."
+        },
+        "conclusion": {
+          "original": "Expanded Holder perspective with coefficient one.",
+          "reconstructed": "Exactly the ENNReal inequality including infinite numerator and RHS.",
+          "relation": "same",
+          "evidence": "ENNReal Holder, monotone powers and division; no toReal conversion."
+        },
+        "scopes": {
+          "original": "Full Lemma6.3(ii) also constructs truncation proxy and mixed TV/Renyi bounds.",
+          "reconstructed": "Scalar prerequisite only.",
+          "relation": "different",
+          "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+        },
+        "constant_dependencies": {
+          "original": "Scalar inequality coefficient one.",
+          "reconstructed": "Coefficient one; only q determines exponents.",
+          "relation": "same",
+          "evidence": "No dimension, mass or other multiplicative constant."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit generalization beyond Euclidean probability application.",
+          "evidence": "Only MeasurableSpace X and Measure X domain data."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+          "evidence": "Documentation and publication explicitly keep Gaussian application and truncation separate."
+        }
+      ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCGaussianMixture",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-gaussian-mixture",
+        "anchor": "Lemma6.3(ii) bounded-displacement Gaussian mixture ingredient",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.\ngamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.\ntau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.\nNo density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.\nThe source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate.\nLet P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+        "text_sha256": "849a79868392dbac254e53d29d6a85f125b03d4e7c797a5374036fe676d240c1"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianMixture.lean",
+        "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (γ : MeasureTheory.Measure (E × E)),\n  AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling γ P Q →\n    ∀ (τ q t : ℝ),\n      0 < τ →\n        1 < q →\n          0 ≤ t →\n            (∀ᵐ (c : E × E) ∂γ, ‖c.1 - c.2‖ ≤ t) →\n              have H := fun μ => AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ √τ;\n              (H P).AbsolutelyContinuous (H Q) ∧\n                ∫⁻ (z : E), (H P).rnDeriv (H Q) z ^ q ∂H Q ≤ ENNReal.ofReal (Real.exp (q * (q - 1) * t ^ 2 / (2 * τ))) ∧\n                  MeasureTheory.Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal ^ q) (H Q) ∧\n                    ∫ (z : E), ((H P).rnDeriv (H Q) z).toReal ^ q ∂H Q ≤ Real.exp (q * (q - 1) * t ^ 2 / (2 * τ)) ∧\n                      Real.log (∫ (z : E), ((H P).rnDeriv (H Q) z).toReal ^ q ∂H Q) / (q - 1) ≤ q * t ^ 2 / (2 * τ)",
+        "statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Focused production and axiom Tests PASS3702, independently replayed with only parent lint; only propext/Classical.choice/Quot.sound. Complete development proof review passed; source and fixed-commit admission separate.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "5d040e943f063a20c55a368a57966f3bfb2a92619a57174967f18bf179e4122f",
+        "review_run_sha256": "0a1b66ed33cb2882ffb943189f2a70baa779a37f9afd237d2573a7cc31a5caf6",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-mixture.source-review-result.json",
+        "evidence": "Independent primary Lemma6.3(ii) reread and complete 4+7step/production comparison. Canonical packet hashes (excluding hash field, sorted compact UTF8 JSON), source/statement/reconstruction/module hashes independently recomputed. Embedded modules match current UTF8 text; embedded lessons match disk, whose extra boundary field agrees. Source hashes bind explicitly expanded contracts, not verbatim paper text. Binding fields authenticated by packet hash; external binding preimages not independently reconstructed. stdGaussian normalization independently resolved as orthonormal-basis pushforward of product gaussianReal0,1 and actual IsotropicGaussianDensity. No compilation, modification, deployment or fixed-commit VERIFIED admission in this source review."
+      },
+      "publication_binding_sha256": "c9d8d1d900d51b1bf0c4cb6006060894565521e7c23e4cc3ab4c4922a2070e3f",
+      "publication_context": {
+        "file": "94c047725224c531d33946c4f164ec5abf68084c716af169cdbd9742a3dc721f",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing\n\n/-!\n# Actual Gaussian mixture reverse transport\n\nExpanded bounded-displacement ingredient of arXiv:2609.06906v1 Lemma6.3(ii).\nThe existing independent Gaussian smoothing law has an actual finite RN power\nmoment bounded by exp(q(q-1)t^2/(2 tau)). Prove all density identities,\nmeasurability, positivity, finite moments and logarithm conditions internally.\nFinite-dimensional real inner-product Borel spaces include zero dimension;\nno marginal moment assumption is needed for this bounded-coupling ingredient.\nThe coupling is supplied; truncation and the single proxy before forall q\nremain a separate composition. No full Wasserstein/Renyi API, proxy warmness,\nsampler or query-cost theorem is claimed.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal RealInnerProductSpace\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- An actual bounded-displacement coupling controls the actual Gaussian\nsmoothed RN power moment, its integrability and its normalized logarithm. -/\ntheorem bounded_displacement_reverse_transport {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (γ : Measure (E × E))\n    (hγ : Transport.IsCoupling γ P Q)\n    (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n    (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n    let H := fun μ : Measure E => GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ)\n    H P ≪ H Q ∧\n      (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤ ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∧\n      Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) ∧\n      (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤ Real.exp (q*(q-1)*t^2/(2*τ)) ∧\n      Real.log (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q)/(q-1) ≤ q*t^2/(2*τ) := by\n  let gd := fun (τ : ℝ) (a z : E) => ENNReal.ofReal\n    (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E * Real.exp (-‖z-a‖^2/(2*τ)))\n  have gd_law (a : E) (τ : ℝ) (hτ : 0 < τ) :\n      (stdGaussian E).map (fun z => a+Real.sqrt τ • z) =\n        (volume : Measure E).withDensity (gd τ a) := by\n    have hmap : (stdGaussian E).map (fun z => a + Real.sqrt τ • z) =\n        ((stdGaussian E).map (fun z : E => Real.sqrt τ • z)).map (MeasurableEquiv.addLeft a) := by\n      rw [Measure.map_map (by fun_prop) (by fun_prop)]\n      rfl\n    rw [hmap,IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity τ hτ,\n      RadonNikodym.measurableEquiv_map_withDensity (MeasurableEquiv.addLeft a) _ (by fun_prop)]\n    have hvol : (volume : Measure E).map (MeasurableEquiv.addLeft a) = volume :=\n      Measure.IsAddLeftInvariant.map_add_left_eq_self a\n    rw [hvol]\n    congr 1\n    funext z\n    simp [gd,MeasurableEquiv.addLeft,sub_eq_add_neg,add_comm]\n  have mix_density (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) (hτ : 0 < τ) :\n      (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2) =\n        (volume : Measure E).withDensity (fun z => ∫⁻ a, gd τ a z ∂μ) := by\n    have hg : Measurable (fun p : E × E => gd τ p.1 p.2) := by unfold gd; fun_prop\n    have hmix : Measurable (fun z => ∫⁻ a, gd τ a z ∂μ) := hg.lintegral_prod_left'\n    apply Measure.ext_of_lintegral\n    intro f hf\n    rw [lintegral_map hf (by fun_prop),lintegral_prod _ (by fun_prop),\n      lintegral_withDensity_eq_lintegral_mul _ hmix hf]\n    calc\n      (∫⁻ a, ∫⁻ z, f (a+Real.sqrt τ • z) ∂stdGaussian E ∂μ) =\n          ∫⁻ a, ∫⁻ z, gd τ a z * f z ∂volume ∂μ := by\n        apply lintegral_congr\n        intro a\n        rw [← lintegral_map hf (by fun_prop),gd_law a τ hτ,\n          lintegral_withDensity_eq_lintegral_mul _ (by unfold gd; fun_prop) hf]\n        rfl\n      _ = ∫⁻ z, ∫⁻ a, gd τ a z * f z ∂μ ∂volume :=\n        lintegral_lintegral_swap (hg.mul (hf.comp measurable_snd)).aemeasurable\n      _ = ∫⁻ z, (∫⁻ a, gd τ a z ∂μ) * f z ∂volume := by\n        apply lintegral_congr\n        intro z\n        exact lintegral_mul_const _ (by unfold gd; fun_prop)\n  have gd_bounds (τ : ℝ) (hτ : 0 < τ) (a z : E) :\n      0 < gd τ a z ∧ gd τ a z ≤ ENNReal.ofReal\n        (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E) := by\n    have hC : 0 < ((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E := by positivity\n    constructor\n    · unfold gd\n      exact ENNReal.ofReal_pos.mpr (mul_pos hC (Real.exp_pos _))\n    · unfold gd\n      apply ENNReal.ofReal_le_ofReal\n      have he : Real.exp (-‖z-a‖^2/(2*τ)) ≤ 1 := by\n        apply Real.exp_le_one_iff.mpr\n        exact div_nonpos_of_nonpos_of_nonneg (neg_nonpos.mpr (sq_nonneg _)) (by positivity)\n      simpa using mul_le_mul_of_nonneg_left he hC.le\n  have mix_bounds (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) (hτ : 0 < τ)\n      (z : E) : 0 < (∫⁻ a, gd τ a z ∂μ) ∧ (∫⁻ a, gd τ a z ∂μ) ≠ ⊤ := by\n    constructor\n    · apply pos_iff_ne_zero.mpr\n      intro h\n      have hz := (lintegral_eq_zero_iff (by unfold gd; fun_prop)).mp h\n      have hf : ∀ᵐ a ∂μ, False := by\n        filter_upwards [hz] with a ha\n        exact (ne_of_gt (gd_bounds τ hτ a z).1) ha\n      have hm : μ = 0 := by simpa using hf\n      exact IsProbabilityMeasure.ne_zero μ hm\n    · apply ne_top_of_le_ne_top (ENNReal.ofReal_ne_top (r :=\n        ((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E))\n      calc\n        (∫⁻ a, gd τ a z ∂μ) ≤ ∫⁻ _ : E, ENNReal.ofReal\n            (((Real.sqrt (2*Real.pi*τ))⁻¹)^Module.finrank ℝ E) ∂μ :=\n          lintegral_mono (fun a => (gd_bounds τ hτ a z).2)\n        _ = _ := by simp\n  have density_power (μ : Measure E)\n      (f g : E → ℝ≥0∞) (hf : Measurable f) (hg : Measurable g)\n      [SigmaFinite (μ.withDensity g)] (hgpos : ∀ x, g x ≠ 0 ∧ g x ≠ ⊤)\n      (q : ℝ) (hq : 1 < q) :\n      μ.withDensity f ≪ μ.withDensity g ∧\n        (∫⁻ x, ((μ.withDensity f).rnDeriv (μ.withDensity g) x)^q ∂μ.withDensity g) =\n          ∫⁻ x, f x^q / g x^(q-1) ∂μ := by\n    have heq : μ.withDensity f = (μ.withDensity g).withDensity (fun x => f x/g x) := by\n      rw [← withDensity_mul μ (g := fun x => f x/g x) hg (hf.div hg)]\n      congr 1\n      funext x\n      exact (mul_comm _ _).trans (ENNReal.div_mul_cancel (hgpos x).1 (hgpos x).2) |>.symm\n    constructor\n    · rw [heq]\n      exact withDensity_absolutelyContinuous _ _\n    · have hrn : (μ.withDensity f).rnDeriv (μ.withDensity g) =ᵐ[μ.withDensity g]\n          (fun x => f x/g x) := by\n        rw [heq]\n        exact Measure.rnDeriv_withDensity _ (hf.div hg)\n      have hpow : (fun x => ((μ.withDensity f).rnDeriv (μ.withDensity g) x)^q) =ᵐ[μ.withDensity g]\n          (fun x => (f x/g x)^q) := hrn.fun_comp (fun x : ℝ≥0∞ => x^q)\n      rw [lintegral_congr_ae hpow,\n        lintegral_withDensity_eq_lintegral_mul _ hg\n          (show Measurable (fun x => (f x/g x)^q) from (hf.div hg).pow_const q)]\n      apply lintegral_congr\n      intro x\n      change g x * (f x/g x)^q = f x^q / g x^(q-1)\n      rw [ENNReal.div_rpow_of_nonneg _ _ (by linarith),div_eq_mul_inv,mul_left_comm]\n      congr 1\n      calc\n        g x * (g x^q)⁻¹ = g x^(1 : ℝ) * g x^(-q) := by\n          rw [ENNReal.rpow_one,ENNReal.rpow_neg]\n        _ = g x^(1-q) := by\n          rw [← ENNReal.rpow_add _ _ (hgpos x).1 (hgpos x).2]\n          rfl\n        _ = (g x^(q-1))⁻¹ := by\n          rw [← ENNReal.rpow_neg]\n          congr 1\n          ring\n  have gd_power_moment (x y : E) (τ q : ℝ) (hτ : 0 < τ) (hq : 1 < q) :\n      (∫⁻ z, gd τ x z^q / gd τ y z^(q-1) ∂volume) =\n        ENNReal.ofReal (Real.exp (q*(q-1)*‖x-y‖^2/(2*τ))) := by\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity (gd τ y)) := by\n      rw [← gd_law y τ hτ]\n      exact Measure.isProbabilityMeasure_map (by fun_prop)\n    have hd := (density_power (volume : Measure E) (gd τ x) (gd τ y)\n      (by unfold gd; fun_prop) (by unfold gd; fun_prop)\n      (fun z => ⟨ne_of_gt (gd_bounds τ hτ y z).1,ENNReal.ofReal_ne_top⟩) q hq).2\n    rw [← gd_law x τ hτ,← gd_law y τ hτ] at hd\n    obtain ⟨_,_,_,hrn,hI,hm,_⟩ :=\n      AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment x y τ q hτ hq\n    have hi := ofReal_integral_eq_lintegral_ofReal hI\n      (Filter.Eventually.of_forall (fun z => Real.rpow_nonneg ENNReal.toReal_nonneg q))\n    rw [hm] at hi\n    rw [← hd]\n    refine (lintegral_congr_ae ?_).trans hi.symm\n    filter_upwards [hrn] with z hz\n    rw [← ENNReal.ofReal_rpow_of_nonneg ENNReal.toReal_nonneg (by linarith),\n      ENNReal.ofReal_toReal (by rw [hz]; exact ENNReal.ofReal_ne_top)]\n  have mixture_power_bound (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n      (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n      (∫⁻ z : E, (∫⁻ c, gd τ c.1 z ∂γ)^q /\n        (∫⁻ c, gd τ c.2 z ∂γ)^(q-1) ∂volume) ≤\n        ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) := by\n    have hb : ∀ z : E, 0 < (∫⁻ c, gd τ c.2 z ∂γ) ∧\n        (∫⁻ c, gd τ c.2 z ∂γ) ≠ ⊤ := by\n      intro z\n      let : IsProbabilityMeasure (γ.map Prod.snd) := Measure.isProbabilityMeasure_map (by fun_prop)\n      have h := mix_bounds (γ.map Prod.snd) τ hτ z\n      rw [lintegral_map (by unfold gd; fun_prop) measurable_snd] at h\n      exact h\n    calc\n      _ ≤ ∫⁻ z : E, ∫⁻ c, gd τ c.1 z^q / gd τ c.2 z^(q-1) ∂γ ∂volume := by\n        apply lintegral_mono\n        intro z\n        exact PowerPerspective.lintegral_perspective_le γ (fun c => gd τ c.1 z) (fun c => gd τ c.2 z)\n          (by unfold gd; fun_prop) (by unfold gd; fun_prop)\n          (Filter.Eventually.of_forall (fun c => ⟨ne_of_gt (gd_bounds τ hτ c.2 z).1,ENNReal.ofReal_ne_top⟩))\n          (ne_of_gt (hb z).1) (hb z).2 q hq\n      _ = ∫⁻ c, ∫⁻ z : E, gd τ c.1 z^q / gd τ c.2 z^(q-1) ∂volume ∂γ := by\n        apply lintegral_lintegral_swap\n        unfold gd\n        fun_prop\n      _ = ∫⁻ c, ENNReal.ofReal (Real.exp (q*(q-1)*‖c.1-c.2‖^2/(2*τ))) ∂γ := by\n        apply lintegral_congr\n        intro c\n        exact gd_power_moment c.1 c.2 τ q hτ hq\n      _ ≤ ∫⁻ _ : E × E, ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∂γ := by\n        apply lintegral_mono_ae\n        filter_upwards [hdisp] with c hc\n        apply ENNReal.ofReal_le_ofReal\n        apply Real.exp_le_exp.mpr\n        apply div_le_div_of_nonneg_right _ (by positivity)\n        apply mul_le_mul_of_nonneg_left _ (by positivity)\n        have hn := norm_nonneg (c.1-c.2)\n        nlinarith\n      _ = _ := by simp\n  have bounded_mix (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n      (γ : Measure (E × E)) [IsProbabilityMeasure γ]\n      (hγ : Transport.IsCoupling γ P Q)\n      (τ q t : ℝ) (hτ : 0 < τ) (hq : 1 < q) (ht : 0 ≤ t)\n      (hdisp : ∀ᵐ c ∂γ, ‖c.1-c.2‖ ≤ t) :\n      let H := fun μ : Measure E => (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2)\n      H P ≪ H Q ∧\n        (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤ ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) ∧\n        Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) ∧\n        (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤ Real.exp (q*(q-1)*t^2/(2*τ)) ∧\n        Real.log (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q)/(q-1) ≤ q*t^2/(2*τ) := by\n    let H := fun μ : Measure E => (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2)\n    let a := fun z => ∫⁻ x, gd τ x z ∂P\n    let b := fun z => ∫⁻ x, gd τ x z ∂Q\n    have ha : Measurable a := by\n      exact (show Measurable (fun p : E × E => gd τ p.1 p.2) by unfold gd; fun_prop).lintegral_prod_left'\n    have hb : Measurable b := by\n      exact (show Measurable (fun p : E × E => gd τ p.1 p.2) by unfold gd; fun_prop).lintegral_prod_left'\n    have hA : H P = (volume : Measure E).withDensity a := mix_density P τ hτ\n    have hB : H Q = (volume : Measure E).withDensity b := mix_density Q τ hτ\n    let : IsProbabilityMeasure (H P) := Measure.isProbabilityMeasure_map (by fun_prop)\n    let : IsProbabilityMeasure (H Q) := Measure.isProbabilityMeasure_map (by fun_prop)\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity a) := hA ▸ inferInstance\n    let : IsProbabilityMeasure ((volume : Measure E).withDensity b) := hB ▸ inferInstance\n    have hap : ∀ z, a z ≠ 0 ∧ a z ≠ ⊤ := fun z =>\n      ⟨ne_of_gt (mix_bounds P τ hτ z).1,(mix_bounds P τ hτ z).2⟩\n    have hbp : ∀ z, b z ≠ 0 ∧ b z ≠ ⊤ := fun z =>\n      ⟨ne_of_gt (mix_bounds Q τ hτ z).1,(mix_bounds Q τ hτ z).2⟩\n    obtain ⟨hac,hd⟩ := density_power (volume : Measure E) a b ha hb hbp q hq\n    have hback := (density_power (volume : Measure E) b a hb ha hap q hq).1\n    rw [← hA,← hB] at hac hd hback\n    have hbound : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≤\n        ENNReal.ofReal (Real.exp (q*(q-1)*t^2/(2*τ))) := by\n      rw [hd]\n      have hp : ∀ z, a z = ∫⁻ c, gd τ c.1 z ∂γ := by\n        intro z\n        dsimp only [a]\n        rw [← hγ.1]\n        exact lintegral_map (by unfold gd; fun_prop) measurable_fst\n      have hq' : ∀ z, b z = ∫⁻ c, gd τ c.2 z ∂γ := by\n        intro z\n        dsimp only [b]\n        rw [← hγ.2]\n        exact lintegral_map (by unfold gd; fun_prop) measurable_snd\n      simp_rw [hp,hq']\n      exact mixture_power_bound γ τ q t hτ hq ht hdisp\n    have hfin : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≠ ⊤ :=\n      ne_top_of_le_ne_top ENNReal.ofReal_ne_top hbound\n    have hm : Measurable (fun z => ((H P).rnDeriv (H Q) z)^q) :=\n      (Measure.measurable_rnDeriv _ _).pow_const q\n    have hI : Integrable (fun z => ((H P).rnDeriv (H Q) z).toReal^q) (H Q) := by\n      simpa only [ENNReal.toReal_rpow] using integrable_toReal_of_lintegral_ne_top hm.aemeasurable hfin\n    have hre : (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) =\n        (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q).toReal := by\n      simp_rw [ENNReal.toReal_rpow]\n      apply integral_toReal hm.aemeasurable\n      filter_upwards [Measure.rnDeriv_lt_top (H P) (H Q)] with z hz\n      exact ENNReal.rpow_lt_top_of_nonneg (by linarith) hz.ne\n    have hrb : (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) ≤\n        Real.exp (q*(q-1)*t^2/(2*τ)) := by\n      rw [hre]\n      simpa only [ENNReal.toReal_ofReal (Real.exp_pos _).le] using\n        ENNReal.toReal_mono ENNReal.ofReal_ne_top hbound\n    have hp0 : (∫⁻ z, ((H P).rnDeriv (H Q) z)^q ∂H Q) ≠ 0 := by\n      intro hz\n      have he := (lintegral_eq_zero_iff hm).mp hz\n      have hpos := Measure.rnDeriv_pos' hback\n      have hf : ∀ᵐ z ∂H Q, False := by\n        filter_upwards [he,hpos] with z he hp\n        exact (ne_of_gt (ENNReal.rpow_pos_of_nonneg hp (by linarith))) he\n      exact IsProbabilityMeasure.ne_zero (H Q) (by simpa using hf)\n    have hipos : 0 < (∫ z, ((H P).rnDeriv (H Q) z).toReal^q ∂H Q) := by\n      rw [hre]\n      exact ENNReal.toReal_pos hp0 hfin\n    refine ⟨hac,hbound,hI,hrb,?_⟩\n    have hl := Real.log_le_log hipos hrb\n    rw [Real.log_exp] at hl\n    have hh := div_le_div_of_nonneg_right hl (show 0 ≤ q-1 by linarith)\n    have he : (q*(q-1)*t^2/(2*τ))/(q-1) = q*t^2/(2*τ) := by\n      have hn : q-1 ≠ 0 := by linarith\n      field_simp\n    exact hh.trans_eq he\n  have smoothing_law (μ : Measure E) [IsProbabilityMeasure μ] (τ : ℝ) :\n      GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ) =\n        (μ.prod (stdGaussian E)).map (fun p => p.1+Real.sqrt τ • p.2) := by\n    unfold GaussianSmoothing.gaussianSmoothing CommonNoiseContraction.addNoise\n      GaussianSmoothing.scaledStdGaussian\n    have hp := Measure.map_prod_map μ (stdGaussian E) measurable_id\n      (by fun_prop : Measurable (fun z : E => Real.sqrt τ • z))\n    simp only [Measure.map_id] at hp\n    rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n    rfl\n  let : IsProbabilityMeasure γ := Transport.isProbabilityMeasure_of_isCoupling_left hγ\n  have h := bounded_mix P Q γ hγ τ q t hτ hq ht hdisp\n  dsimp only\n  simpa only [smoothing_law] using h\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemma6.3(ii) bounded-displacement Gaussian mixture ingredient",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded ingredient proof, no author endorsement implied."
+        },
+        "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+        "formulae": [
+          {
+            "label": "Actual Gaussian mixture RN bound",
+            "tex": "H_\\tau P\\ll H_\\tau Q,\\qquad\\int\\!\\left(\\frac{dH_\\tau P}{dH_\\tau Q}\\right)^q dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)},\\qquad\\frac{\\log\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qt^2}{2\\tau}."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.",
+          "gamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.",
+          "tau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.",
+          "No density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.",
+          "The source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate."
+        ],
+        "obligations": [
+          {
+            "id": "actual-mixture-rn",
+            "label": "Actual smoothed law absolute continuity and finite ENNReal RN power bound"
+          },
+          {
+            "id": "integrable-real-power",
+            "label": "Real RN power integrability and exponential integral bound"
+          },
+          {
+            "id": "normalized-log",
+            "label": "Positive actual moment and exact normalized logarithm upper bound"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(ii)",
+              "scope": "Expanded proof of the bounded-displacement Gaussian reverse-transport ingredient; original truncation composition separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCGaussianMixture"
+          ],
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+          "title": "Actual Gaussian mixture reverse transport from a bounded coupling",
+          "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E and gamma an actual coupling of P,Q. Suppose tau>0, real q>1, t>=0 and norm(x-y)<=t gamma-a.e. Set Hmu=GaussianSmoothing.gaussianSmoothing mu (sqrt tau), the existing law of independent additive Gaussian noise. Then HP is absolutely continuous with respect to HQ. Its actual ENNReal RN qth-power integral is bounded by ofReal exp(q(q-1)t^2/(2tau)); the real RN qth power is integrable, its integral has the same exponential upper bound, and its logarithm divided by q-1 is at most q t^2/(2tau).",
+          "formula": "H_\\tau P\\ll H_\\tau Q,\\qquad\\int\\!\\left(\\frac{dH_\\tau P}{dH_\\tau Q}\\right)^q dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)},\\qquad\\frac{\\log\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qt^2}{2\\tau}.",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q are probability measures.",
+            "gamma has the actual P,Q marginals. Its probability property is derived from the coupling and P, not separately assumed.",
+            "tau>0, real q>1, t>=0, and norm(x-y)<=t gamma-a.e.; t=0 is allowed.",
+            "No density identity, reverse-transport inequality, moment integrability or marginal p-moment assumption is supplied. Dropping source marginal Pp membership for this bounded ingredient is an explicit valid generalization.",
+            "The source uses this ingredient after choosing a truncation proxy. That choice, its all-q quantifier, full Wasserstein/Renyi API and warm-start recursion are separate."
+          ],
+          "steps": [
+            {
+              "title": "Identify actual Gaussian and mixture densities",
+              "text": "Translate the existing scaled standard-Gaussian volume density to each center. For an arbitrary probability mu, test both candidate measures against every measurable ENNReal function. The product-map integral and Tonelli show that independent Gaussian addition equals volume.withDensity of the actual mixture density.",
+              "formula": "g_\\tau(x,z)=C_\\tau e^{-\\|z-x\\|^2/(2\\tau)},\\qquad H_\\tau\\mu(dz)=\\left(\\int g_\\tau(x,z)\\,d\\mu(x)\\right)dz.",
+              "lean": "Local gd_law and mix_density use IsotropicGaussianDensity, translation invariance, Measure.ext_of_lintegral, lintegral_map and Tonelli. Local smoothing_law identifies the existing GaussianSmoothing API."
+            },
+            {
+              "title": "Prove the mixture densities positive and finite",
+              "text": "Every Gaussian density lies strictly between zero and the finite constant C_tau. Its average under a probability therefore is finite. If this average were zero, the density would vanish almost everywhere, contradicting its strict positivity and the nonzero probability measure.",
+              "formula": "0<g_\\tau(x,z)\\le C_\\tau,\\qquad 0<\\int g_\\tau(x,z)\\,d\\mu(x)\\le C_\\tau<\\infty.",
+              "lean": "Local gd_bounds and mix_bounds derive the conditions for division and RN identification; no marginal moments are used."
+            },
+            {
+              "title": "Identify the actual RN power integral",
+              "text": "For measurable densities a,b with b positive and finite, withDensity multiplication proves volume.withDensity a=(volume.withDensity b).withDensity(a/b). Thus the actual RN derivative is a/b almost everywhere under the denominator law. Exact nonnegative power algebra turns its qth-power integral into the volume integral of a^q/b^(q-1).",
+              "formula": "\\int\\left(\\frac{d(a\\,dz)}{d(b\\,dz)}\\right)^q b\\,dz=\\int\\frac{a^q}{b^{q-1}}\\,dz.",
+              "lean": "Local density_power derives absolute continuity and the integral identity from withDensity_mul and Measure.rnDeriv_withDensity. The direction and reference measure are preserved."
+            },
+            {
+              "title": "Reuse the exact single-Gaussian moment",
+              "text": "Apply the previous actual Gaussian RN power-moment theorem at each fixed pair of centers. Its proven integrability identifies the ENNReal integral after finite RN conversion. Combined with the density identity, this gives the exact fiber integral; no a.e. equality is promoted to a joint pointwise statement.",
+              "formula": "\\int\\frac{g_\\tau(x,z)^q}{g_\\tau(y,z)^{q-1}}\\,dz=e^{q(q-1)\\|x-y\\|^2/(2\\tau)}.",
+              "lean": "Local gd_power_moment calls GaussianPowerMoment.gaussian_power_moment, density_power and ofReal_integral_eq_lintegral_ofReal."
+            },
+            {
+              "title": "Apply Holder and Tonelli over the actual coupling",
+              "text": "For each z, the coupling marginals express the smoothed densities as averages of g_tau(x,z) and g_tau(y,z). Apply the shared perspective inequality, then exchange nonnegative integrals by Tonelli and substitute the fixed-center formula. Intermediate integrals may be infinite.",
+              "formula": "\\int\\frac{(\\int g_x\\,d\\gamma)^q}{(\\int g_y\\,d\\gamma)^{q-1}}\\,dz\\le\\int e^{q(q-1)\\|x-y\\|^2/(2\\tau)}\\,d\\gamma.",
+              "lean": "Local mixture_power_bound calls PowerPerspective.lintegral_perspective_le; joint measurability and probability/volume sigma-finiteness justify Tonelli."
+            },
+            {
+              "title": "Use bounded displacement to establish finite moments",
+              "text": "The nonnegative coefficient q(q-1)/(2tau) and a.e. displacement bound make the last integrand at most exp(q(q-1)t^2/(2tau)). Since gamma is a probability, this proves a finite ENNReal bound. Only now derive integrability of the real RN power and its real integral bound.",
+              "formula": "\\int e^{q(q-1)\\|x-y\\|^2/(2\\tau)}\\,d\\gamma\\le e^{q(q-1)t^2/(2\\tau)}<\\infty.",
+              "lean": "Local bounded_mix derives gamma marginal mixture identities, integrable_toReal_of_lintegral_ne_top and integral_toReal; rnDeriv_lt_top justifies finite conversion."
+            },
+            {
+              "title": "Prove positivity before taking the logarithm",
+              "text": "Both mixture densities are positive, so the smoothed laws are mutually absolutely continuous. Reverse absolute continuity gives positivity of the forward RN derivative under HQ; its qth-power integral is positive. Log monotonicity and division by q-1>0 give the exact normalized bound. Neither t nor the dimension is divided by.",
+              "formula": "0<\\int(dH_\\tau P/dH_\\tau Q)^q\\,dH_\\tau Q,\\qquad\\frac{q(q-1)t^2}{2\\tau(q-1)}=\\frac{qt^2}{2\\tau}.",
+              "lean": "Measure.rnDeriv_pos', lintegral_eq_zero_iff, ENNReal.toReal_pos, Real.log_le_log and exact cancellation. The final public statement uses GaussianSmoothing directly."
+            }
+          ],
+          "lean_statement": "Actual GaussianSmoothing absolute continuity, ENNReal power bound, real-power integrability and integral bound, and normalized logarithm bound.",
+          "lean_proof": "All Gaussian-density, mixture, RN, fiber, finite-moment and logarithm helpers are local; the shared perspective and previous GaussianPowerMoment are actual proof consumers.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Measure.PowerPerspective.lintegral_perspective_le",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment.gaussian_power_moment",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity.map_sqrt_smul_stdGaussian_eq_withDensity",
+            "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.rnDeriv_withDensity",
+            "MeasureTheory.lintegral_lintegral_swap",
+            "MeasureTheory.integrable_toReal_of_lintegral_ne_top",
+            "MeasureTheory.Measure.rnDeriv_pos'"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+          "role": "prerequisite",
+          "supports": [
+            "actual-mixture-rn",
+            "integrable-real-power",
+            "normalized-log"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "SPHMC Lemma6.3(ii) invokes Gaussian reverse transport on Euclidean probability measures with marginal Pp membership.",
+            "lean": "Finite-dimensional real inner-product Borel E, including zero dimension; probabilities and an actual bounded-displacement coupling, without marginal moment requirements."
+          },
+          {
+            "source": "The full lemma first chooses one truncation proxy, then applies the Winfinity Gaussian reverse-transport bound for all q>1.",
+            "lean": "Actual GaussianSmoothing RN moment and normalized logarithm under a supplied bounded coupling."
+          },
+          {
+            "source": "Positive heat time, q>1 and coefficient q/(2tau).",
+            "lean": "Real q>1; in the consumer tau>0,t>=0 and exact q(q-1)t^2/(2tau) moment and qt^2/(2tau) logarithm bounds."
+          },
+          {
+            "source": "Mixture density, Holder and finite-moment details omitted in the invoked standard reverse-transport step.",
+            "lean": "Positive finite denominator conditions explicit in shared leaf; all Gaussian mixture densities, actual laws, integrability and log positivity proved in consumer."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every finite-dimensional real inner-product space E, including dimension zero, equipped with its Borel measurable structure, let P,Q be probability measures on E and gamma a measure on E times E whose first-coordinate pushforward is P and second-coordinate pushforward is Q. For every triple of real tau,q,t, assume tau>0,q>1,t>=0 and norm(x-y)<=t for gamma-almost every (x,y). Define kappa as the pushforward of the measure named stdGaussian under z to sqrt(tau)z. For each measure mu, define Hmu as the pushforward of mu product kappa under (x,z) to x+z, the actual Gaussian-smoothing law defined through product measure and addition pushforward. Write r(z)=d(HP)/d(HQ)(z) for the extended nonnegative RN derivative and r_R(z)=toReal(r(z)), using the totalized conversion at infinity. All five conclusions hold: HP is absolutely continuous with respect to HQ; the extended nonnegative Lebesgue integral of r^q under HQ is at most ofReal(exp(q(q-1)t^2/(2tau))); the real-valued r_R^q is integrable under HQ, meaning a.e. strong measurability and finite integral of norm; its real Bochner integral is at most exp(q(q-1)t^2/(2tau)); and the real logarithm of that same real integral divided by q-1 is at most q t^2/(2tau). Every integral uses HQ and the derivative direction is d(HP)/d(HQ). The conclusions apply to each supplied coupling satisfying the a.e. displacement bound. No density, moment or positive-dimension assumption is imposed. The bounds depend only on tau,q,t with exactly the displayed constants. The extended integral is bounded by a finite exponential and the real integral has an explicit integrability conclusion. Definition-context limitation: the supplied context identifies stdGaussian by name without expanding its construction or normalization; this reconstruction retains that exact named measure without adding a covariance or density formula.",
+        "text_sha256": "6b59210304d24cfd9e92cbf04f8e0d1400721361531393efd2c3f2fe9d7027d7",
+        "decoder_packet_sha256": "37af294e334057a2bbf26a666361c56a650ef663cb3ed38da8373a8a2f269c8d",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "mixture_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent read only two anonymous statement/definition packets. Preserved infinite numerator, actual smoothing definition, RN direction, integrability and logarithm. Decoder explicitly retained named stdGaussian without adding normalization absent from supplied definition context; source reviewer must verify the actual definition. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "589b0bf16237986b2ce097c163eac970aebcc8aefe1c1478a5314890ce8d4bb3",
+        "lean_statement_sha256": "07cf0b782908c122d7623f663f426283fc2846323484123205397876e896a59a",
+        "run_artifact": "runs/20260911-companion-priority/gaussian-mixture.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Independent N(0,tau I) convolution, forward Renyi direction.",
+          "reconstructed": "Existing GaussianSmoothing, actual coupling and rnDeriv(HP,HQ) under HQ.",
+          "relation": "explicit-elaboration",
+          "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+        },
+        "domains": {
+          "original": "Euclidean probability laws.",
+          "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive dimension; normalization has natural-number dimensional power."
+        },
+        "quantifiers": {
+          "original": "Full lemma selects one proxy before all q; bounded estimate applies to each fixed pair.",
+          "reconstructed": "Every actual supplied coupling and tau>0,q>1,t>=0 with a.e. displacement bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "No proxy construction or replacement of its all-q quantifier asserted."
+        },
+        "assumptions": {
+          "original": "Full lemma assumes marginal Pp; selected estimate uses bounded displacement and positive heat time.",
+          "reconstructed": "Probabilities, actual coupling,tau>0,q>1,t>=0 and displacement<=t; no marginal moments.",
+          "relation": "stronger-in-lean",
+          "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+        },
+        "conclusion": {
+          "original": "Bounded-displacement normalized Renyi bound qt^2/(2tau).",
+          "reconstructed": "Actual AC, finite ENNReal power bound, real integrability/exponential bound and normalized log bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "All five conjuncts use same forward RN and HQ; finite conversion precedes log."
+        },
+        "scopes": {
+          "original": "Full Lemma6.3(ii) combines truncation and reverse transport in metric/divergence notation.",
+          "reconstructed": "Supplied-coupling Gaussian mixture with explicit moments/logarithms.",
+          "relation": "different",
+          "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+        },
+        "constant_dependencies": {
+          "original": "Covariance tau I and normalized q/(2tau).",
+          "reconstructed": "q(q-1)t^2/(2tau) moment exponent and qt^2/(2tau) logarithm.",
+          "relation": "same",
+          "evidence": "sqrt(tau), exact fixed-center moment, displacement comparison and q-1 cancellation; no dimension factor."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit generalization beyond Euclidean probability application.",
+          "evidence": "No positive dimension; normalization has natural-number dimensional power."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Selected expanded prerequisite, not equivalence with complete printed Lemma6.3(ii).",
+          "evidence": "Binding excludes truncation, full APIs, warmness recursion and sampler costs."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Marginal Pp membership unnecessary for bounded coupling ingredient; no marginal moments established.",
+          "evidence": "Coupling probability derived; density/integrability/log positivity proved internally."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Decoder normalization limitation independently resolved from actual stdGaussian construction and scaled density proof.",
+          "evidence": "smoothing_law binds product-map law; actual stdGaussian and IsotropicGaussianDensity resolve normalization beyond limited decoder context."
+        }
+      ]
+    },
+    {
       "id": "ASTIS-RT-ANDI-OPT-GradientConverse",
       "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-strong-convex-gradient-converse",

@@ -1,0 +1,110 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent seven-slot source review; prose compacted without changing judgments or limits.",
+  "reviewer_packet_sha256": "972019eeecc5e69c7e4190fcf26bad7945c5b77e1ad910557e68950c3eafc319",
+  "source_text_sha256": "229ab2adb4287fe6d531753080aba88d63127e840fb126291ea8fa19628bc9e6",
+  "lean_statement_sha256": "f96a9ff590d3f46160bb8989ffe6398dd49e6a1774b587693c02fccc27e287ee",
+  "reconstruction_text_sha256": "d1680f0983d4fee07abdcf9305497888604e2a7ef55a9ff851546e0263bdf422",
+  "embedded_module_text_sha256": "3522e5428e51c7d676777f6896cc95f0a3ecd6718b6a94f0a6dab8cecb3b3223",
+  "publication_binding_sha256": "ca4b90453af2f04d881f1cce259962bfe6f6ada610476e941c1b4db12af22d2e",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Selected Gaussian power-divergence ingredient before mixing.",
+      "reconstructed": "Actual RN derivative, real qth power under G_y and raw normalized log integral.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual withDensity/AC/RN clauses precede moment conclusions."
+    },
+    "domains": {
+      "original": "Euclidean source setting.",
+      "reconstructed": "Finite-dimensional real inner-product Borel including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive dimension; degenerate scalar Gaussian projection handled by existing APIs."
+    },
+    "quantifiers": {
+      "original": "Arbitrary centers,tau>0,real q>1.",
+      "reconstructed": "Same universal parameters; no upper bound or integer restriction on q.",
+      "relation": "same",
+      "evidence": "Real powers throughout actual moment and RN integral."
+    },
+    "assumptions": {
+      "original": "Actual positive common-covariance Gaussian laws,q>1.",
+      "reconstructed": "Same; likelihood and q-power integrability derived.",
+      "relation": "equivalent",
+      "evidence": "Actual projection law and exponential integrability, no supplied moment/nonzero displacement."
+    },
+    "conclusion": {
+      "original": "Selected exact Gaussian moment and coefficient.",
+      "reconstructed": "Integrable RN-toReal qth power; exp(q(q-1)norm^2/(2tau)) integral; normalized log q norm^2/(2tau).",
+      "relation": "explicit-elaboration",
+      "evidence": "Finite explicit RN density a.e. justifies toReal; integrability/integral transfer by a.e. congruence."
+    },
+    "scopes": {
+      "original": "Gaussian ingredient needed by Lemma6.3(ii).",
+      "reconstructed": "Exact single-Gaussian RN moment and raw normalized log only.",
+      "relation": "explicit-elaboration",
+      "evidence": "No mixture/data-processing or packaged divergence identification returned."
+    },
+    "constant_dependencies": {
+      "original": "q(q-1)/(2tau) moment and q/(2tau) log coefficients.",
+      "reconstructed": "Exactly these, no hidden dimension or norm factor.",
+      "relation": "same",
+      "evidence": "Projection variance norm(x-y)^2, sqrt(tau)^2=tau and q-1 nonzero."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Coordinate-free finite-dimensional and zero-dimensional extension.",
+      "evidence": "No positive dimension; degenerate scalar Gaussian projection handled by existing APIs."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Expanded Gaussian prerequisite, not the full mixed reverse-transport assertion in Lemma6.3(ii).",
+      "evidence": "No mixture/data-processing or packaged divergence identification returned."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Explicit normalized log integral, not a newly proved full divergence API.",
+      "evidence": "Finite explicit RN density a.e. justifies toReal; integrability/integral transfer by a.e. congruence."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual continuous-linear projection gives exponential integrability and MGF, including zero variance."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Pullback y+sqrt(tau)Z gives a=q/sqrt(tau) and transfers integrability."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "MGF yields exact q(q-1)norm^2/(2tau)."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Finite explicit RN density a.e. makes toReal/integral transfer sound."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Positive exponential and q>1 yield exact log cancellation; zero displacement/dimension gives moment1/log0."
+      }
+    ]
+  },
+  "review_evidence": "Independent review compared fresh anonymous reconstructions with complete production and all3+5steps, using primary Lemma6.3 reading from this sequence. Canonical JSON packet hashes excluding hash field, UTF8 sorted compact JSON, and source/statement/reconstruction/module text hashes independently recomputed; embedded modules match production. Binding hashes authenticated fields, external preimages NOT independently recomputed. No compilation, modification, deployment or fixed-commit VERIFIED admission."
+}
