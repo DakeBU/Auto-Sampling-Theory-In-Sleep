@@ -40,7 +40,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-reference-carrying-kernel.md",
     "planning_review": "Independent log_depth_source_review accepted original-coordinate M,pre-noise x start,terminal witness only,and one-step projection boundary; require genuine gradient/trajectory agreement with quadratic source update.",
-    "execution_boundary": "Root sole writer; NormalizedReferenceCall remains sole stabilization owner until actual merge.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Parent normalized reference merged,all PR/merge CI and live delivery complete. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED atb80d89a. Aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/reference-carrying-kernel.verified-admission.json"
   },

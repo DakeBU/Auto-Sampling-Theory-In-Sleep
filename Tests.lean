@@ -165,6 +165,7 @@ import Tests.SmoothedPicardHMCTerminalReferenceGradientDescent
 import Tests.SmoothedPicardHMCApproximateInitialGradientMoment
 import Tests.SmoothedPicardHMCJointReferenceGradientDescent
 import Tests.SmoothedPicardHMCNormalizedReferenceCall
+import Tests.SmoothedPicardHMCReferenceCarryingKernel
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!

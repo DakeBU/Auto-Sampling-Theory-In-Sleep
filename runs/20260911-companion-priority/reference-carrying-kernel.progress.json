@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-reference-carrying-kernel",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Original-coordinate current output M is a supplied actual Markov kernel,not a supplied accuracy guarantee. Pointwise stopping and reference construction need no W2 input. General beta,coordinate-free positive dimension and arbitrary reference/count/history states are explicit; no history validity invariant or cost claimed. Only one-step projection equality; dependence of M on reference forbids automatic projected-chain Markovness. No constructed accurate smoothed sampler,state-varying terminalFORS,conditional moment,stage cost or complete main result.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -64,5 +64,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atb80d89a. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/reference-carrying-kernel.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/reference-carrying-kernel.verified-admission.json",
+  "integration_notes": {
+    "upstream": "3ad156ae79d655334222c2cac4af41b8ade99750",
+    "boundary": "Upstream normalized-reference merge integrated with zero tree delta and no conflicts. Root sole stabilization owner. Canonical gate and original reader/graph QA pending."
+  }
 }
