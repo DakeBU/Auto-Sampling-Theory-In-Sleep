@@ -18,6 +18,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport
 
 /-!
 # ASTIS example cases

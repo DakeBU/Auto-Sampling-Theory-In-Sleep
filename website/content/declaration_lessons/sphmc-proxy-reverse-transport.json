@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport",
+      "title": "One truncation proxy for every Gaussian time and order",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemmas6.2 and6.3(ii)",
+          "scope": "Actual-budget composition of truncation and Gaussian reverse transport. The p>=2 condition comes from invoked Lemma6.2; Lemma6.3(ii) does not separately repeat it."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCProxyReverseTransport"
+      ],
+      "boundary": "Actual infimum p-cost budget and eventwise TV/RN-log certificate for the Lemma6.2 to6.3(ii) route. One proxy is fixed before all tau,q. Full Wp/Renyi API identification, marginal moment conclusions, recursive warmness and actual sampler/error/query-cost results remain separate.",
+      "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space. Let real p>=2,r>=0 and 0<delta<1. Suppose the actual infimum over couplings of the pth displacement integral is at most ofReal(r^p). There exist one probability proxy Pdag and one probability coupling Gamma of Pdag,Q such that every measurable event B satisfies |P.real B-Pdag.real B|<=delta and norm(x-y)<=r delta^(-1/p) Gamma-a.e. For this same Pdag and Gamma, every tau>0 and real q>1 satisfy: Htau Pdag is absolutely continuous with respect to Htau Q; its actual ENNReal RN qth-power integral is at most ofReal exp(q(q-1)r^2/(2tau delta^(2/p))); the real RN qth power is integrable under Htau Q, its integral has the same exponential bound, and its logarithm divided by q-1 is at most q r^2/(2tau delta^(2/p)). Htau is the existing actual GaussianSmoothing operator with scale sqrt(tau).",
+      "formula": "\\exists P^\\dagger,\\Gamma\\in\\Pi(P^\\dagger,Q):\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\forall\\tau>0,\\ q>1,\\quad\\frac{\\log\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qr^2}{2\\tau\\delta^{2/p}}.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+        "Real p>=2 inherited from the source Lemma6.2 proof route. Lemma6.3(ii) does not independently restate this range; the formal statement makes it explicit.",
+        "r>=0 and0<delta<1, including zero radius. The genuine infimum p-displacement transportCost(P,Q)<=ofReal(r^p) is the input, not a supplied optimal coupling or proxy.",
+        "Finite marginal p-moments are not assumed or concluded; this raw-budget theorem is an explicit generalization of the source Pp presentation. Its relation to a full Wp metric API remains separate.",
+        "The same proxy and coupling precede all tau>0,q>1. Their independence from tau is justified by the actual truncation construction, strengthening the source fixed-time presentation."
+      ],
+      "steps": [
+        {
+          "title": "Use the true transport budget to construct a truncation",
+          "text": "Call the existing truncation theorem once. It attains the actual infimum cost, constructs T(x,y)=x inside the radius r delta^(-1/p) and y outside, and supplies the actual probability, marginal, TV and displacement conclusions. No optimizer or finite coupling moment is added as a premise.",
+          "formula": "t=r\\delta^{-1/p},\\qquad T(x,y)=\\begin{cases}x,&\\|x-y\\|\\le t,\\\\y,&\\|x-y\\|>t.\\end{cases}",
+          "lean": "One call to Truncation.truncated_proxy with the actual hcost, p>=2 and delta/r conditions."
+        },
+        {
+          "title": "Fix both witnesses before choosing any heat time or order",
+          "text": "Set Pdag=gamma.map T and Gamma=gamma.map((x,y) to (T(x,y),y)). These are probability measures, Gamma has actual Pdag,Q marginals, and the eventwise TV and a.e. displacement bounds already hold. Introduce tau and q only after supplying these existential witnesses.",
+          "formula": "P^\\dagger=T_\\#\\gamma,\\quad\\Gamma=(T,\\operatorname{snd})_\\#\\gamma,\\quad\\exists P^\\dagger,\\Gamma\\ \\forall\\tau>0\\ \\forall q>1.",
+          "lean": "The refine witness tuple is completed before intro tau hTau q hq; hTV compares P with that same Pdag."
+        },
+        {
+          "title": "Apply actual Gaussian mixture reverse transport",
+          "text": "For arbitrary tau>0,q>1, the threshold t is nonnegative. Apply the admitted GaussianMixture theorem to the fixed Gamma and Pdag,Q. This provides actual absolute continuity, finite ENNReal RN power bound, real-power integrability, exponential moment bound and normalized logarithm.",
+          "formula": "\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)}.",
+          "lean": "GaussianMixture.bounded_displacement_reverse_transport consumes the actual fixed coupling, with its probability facts already available."
+        },
+        {
+          "title": "Normalize the exact truncation radius",
+          "text": "Since delta>0, real-power multiplication and negation give (delta^(-1/p))^2=(delta^(2/p))^(-1). Multiplying by r^2 gives t^2=r^2/delta^(2/p), valid also for r=0.",
+          "formula": "(r\\delta^{-1/p})^2=\\frac{r^2}{\\delta^{2/p}}.",
+          "lean": "Real.rpow_natCast, rpow_mul and rpow_neg, followed by exact multiplication/division algebra. No division by r."
+        },
+        {
+          "title": "Retain the full joint guarantee with exact constants",
+          "text": "Substitute the same radius identity into both the exponential and normalized logarithm bounds. Keep all five smoothing conclusions alongside the previously fixed probability, coupling and TV/displacement facts. No use of TV to transport an unbounded cost is involved.",
+          "formula": "\\frac{q(q-1)t^2}{2\\tau}=\\frac{q(q-1)r^2}{2\\tau\\delta^{2/p}},\\qquad\\frac{qt^2}{2\\tau}=\\frac{qr^2}{2\\tau\\delta^{2/p}}.",
+          "lean": "hc1 and hc2 rewrite the entire conjunction from the actual mixture theorem; no new divergence or sampler-cost assumption."
+        }
+      ],
+      "lean_statement": "There exist a single actual proxy and coupling with eventwise TV/displacement and all-time/all-order Gaussian RN moment/log bounds.",
+      "lean_proof": "One actual truncation witness followed by actual Gaussian mixture reverse transport and exact positive-base exponent normalization.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport"
+      ],
+      "mathlib_dependencies": [
+        "Real.rpow_mul",
+        "Real.rpow_neg",
+        "MeasureTheory.Measure.map"
+      ]
+    }
+  ]
+}

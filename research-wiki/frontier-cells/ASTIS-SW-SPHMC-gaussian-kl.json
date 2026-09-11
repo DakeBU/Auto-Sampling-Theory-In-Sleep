@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-gaussian-kl",
+  "route": "samplewiki-route",
+  "title": "Actual Gaussian KL reverse transport from a quadratic displacement budget",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Lemma6.3(i), A1 Gaussian smoothing reverse transport used in Theorem6.5",
+  "target_statement": "For probability P,Q on finite-dimensional real inner-product Borel E, r>=0 and tau>0, actual infimum squared-displacement transportCost(P,Q)<=ofReal(r^2) implies InformationTheory.klDiv(GaussianSmoothing P sqrt(tau),GaussianSmoothing Q sqrt(tau))<=ofReal(r^2/(2tau)). The actual ENNReal KL is used; derive all needed joint-law RN and LLR integrability from the displacement budget.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-optimal-continuous-cost",
+    "ASTIS-SW-SPHMC-gaussian-likelihood"
+  ],
+  "consumers": [
+    "SPHMC Lemma6.3(i), actual Gaussian smoothing inequality used by Theorem6.5 A1 stage; full recursion remains unfinished"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib OptimalContinuousCost.exists_optimal_coupling attains actual continuous NNReal displacement cost",
+      "Samplinglib GaussianLikelihood.translated_gaussian_likelihood supplies actual withDensity and RN identities",
+      "Fixed Mathlib InformationTheory.klDiv_map_le and klDiv_of_ac_of_integrable; compProd chain rule is not a fiberwise KL integral formula"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-gaussian-kl.md",
+    "planning_review": "Independent log_depth_source_review primary Lemma6.3(i)/Theorem6.5 audit: A1 Gaussian KL is a dependency-ready actual measure consumer; quadratic displacement suffices, exponential moments are unavailable.",
+    "execution_boundary": "Root sole writer; proxy reverse transport remains sole STABILIZING. Gaussian KL EXPLORING only.",
+    "ownership_note": "One source consumer; no invented second consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Lemma6.3(i), Theorem6.5 A1 branch",
+    "detail_status": "omitted",
+    "gap": "Build joint Gaussian-law likelihood and its absolute integrability under only a finite displacement second moment, then actual KL data processing.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "anchor": "Lemma6.3(i)",
+        "hypothesis_adapter": "Explicit raw quadratic-cost budget generalization; no marginal moment inference, positive heat time, actual ENNReal KL."
+      }
+    ],
+    "fidelity_boundary": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual joint law/LLR proof and data processing from true cost infimum; not an assumed final entropy inequality."
+  }
+}

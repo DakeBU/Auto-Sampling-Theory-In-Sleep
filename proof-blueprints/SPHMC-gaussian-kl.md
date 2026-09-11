@@ -1,0 +1,9 @@
+# Gaussian KL reverse transport
+
+For probability P,Q on finite-dimensional real inner-product Borel E, r>=0 and tau>0, actual infimum squared-displacement transportCost(P,Q)<=ofReal(r^2) implies InformationTheory.klDiv(GaussianSmoothing P sqrt(tau),GaussianSmoothing Q sqrt(tau))<=ofReal(r^2/(2tau)). The actual ENNReal KL is used; derive all needed joint-law RN and LLR integrability from the displacement budget.
+
+Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.
+
+Attain the actual cost. Form two joint Gaussian laws on ((x,y),z) with common coupling marginal and means x,y. Prove their actual withDensity/RN equality. Under the first law parameterized z=x+sqrt(tau)Z, the LLR is norm(x-y)^2/(2tau)+inner(x-y,Z)/sqrt(tau). Derive absolute integrability from quadratic displacement and Gaussian moments, prove cross mean zero, then project by the actual z map using KL data processing.
+
+Root sole writer. Emit bounded publication packet before any Lean development.

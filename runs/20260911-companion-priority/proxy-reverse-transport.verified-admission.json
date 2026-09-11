@@ -1,0 +1,48 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "d16398d01018b0990d10ff6ca7fbbff5b2144055",
+    "gate": {
+      "production": "Independent focused PASS3729 reused at unchanged raw hashes; freshly printed complete statement identical to registry and anonymous packet.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance reviewed=True PASS",
+      "tests_scope": "Axiom checks only; actual consumer eliminates supplied coupling via true infimum budget and one proxy."
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCProxyReverseTransport",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "proxy_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "c52c88841f71c7d02a4853d6858cf909ff912d218da3f4b10fd981196e8e4ffa",
+        "decoder_packet_sha256": "fcdf4111e5c3e02392f2cd2aa6a64ed678e4e2dd0e855cf94675147ea427dff2",
+        "decoder_run_sha256": "4eb658a0b78ecb88fbc556c8715bb056484d72e340f5cb24d9533d6fc8fe5f36",
+        "reviewer_packet_sha256": "dbfb46c6bfe9b960889fe53594bb2bb11588510be9acb47a5f1e879f2f1c3ebf",
+        "review_run_sha256": "b64ac1c706eb434cb487d2fd82fd14808de712eea55c7a726f6cd15595978ce0",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused Tests, standard axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport"
+    ],
+    "independent_checks": [
+      "Clean fixed HEAD and worktree/commit consistency verified.",
+      "All source, statement, reconstruction, packet and run hashes verified; external binding preimage independently recomputed.",
+      "Seven slots, five steps, five informational deltas; no blockers or repairs.",
+      "No current STABILIZING owner; previous merge Lean pending not counted successful."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED and sole STABILIZING authorization.",
+  "boundary": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii)."
+}

@@ -1,0 +1,28 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent read-only complete proof review and replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCProxyReverseTransport",
+  "result": "PASS3729, exit0; existing parent lint only.",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProxyReverseTransport.lean": "3e807035e4119972833a8ac8b9ad45d79eebd126bfbf054e5b475fa9e8f4d0fc",
+    "Tests/SmoothedPicardHMCProxyReverseTransport.lean": "7afcad01578292a5da49fc74f9a2cfca298015907341b35ad52eec245c4798b9"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "True transportCost budget invokes truncation once; same proxy and coupling precede all positive tau and q>1.",
+    "TV compares original P to that proxy; coupling marginals Pdag,Q.",
+    "RN direction HPdag/HQ and all integrals under HQ.",
+    "Exact exponential and normalized log delta constants; no division by r, zero radius and zero dimension retained.",
+    "No assumed optimizer/proxy/target integrability; actual integration consumer eliminates supplied coupling. Tests query axioms only.",
+    "Finite transport cost does not imply marginal moments; full Wp/Renyi API, recursive warmness and sampler/cost remain separate."
+  ],
+  "qualifications": [
+    "Formal source review and fixed-commit VERIFIED admission remain separate."
+  ]
+}

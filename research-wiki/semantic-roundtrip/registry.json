@@ -8513,6 +8513,274 @@
       ]
     },
     {
+      "id": "ASTIS-RT-20260911-SPHMCProxyReverseTransport",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-proxy-reverse-transport",
+        "anchor": "Lemmas6.2 and6.3(ii), actual-budget proxy composition",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "original_text": "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.\nReal p>=2 inherited from the source Lemma6.2 proof route. Lemma6.3(ii) does not independently restate this range; the formal statement makes it explicit.\nr>=0 and0<delta<1, including zero radius. The genuine infimum p-displacement transportCost(P,Q)<=ofReal(r^p) is the input, not a supplied optimal coupling or proxy.\nFinite marginal p-moments are not assumed or concluded; this raw-budget theorem is an explicit generalization of the source Pp presentation. Its relation to a full Wp metric API remains separate.\nThe same proxy and coupling precede all tau>0,q>1. Their independence from tau is justified by the actual truncation construction, strengthening the source fixed-time presentation.\nLet P,Q be probability measures on a finite-dimensional real inner-product Borel space. Let real p>=2,r>=0 and 0<delta<1. Suppose the actual infimum over couplings of the pth displacement integral is at most ofReal(r^p). There exist one probability proxy Pdag and one probability coupling Gamma of Pdag,Q such that every measurable event B satisfies |P.real B-Pdag.real B|<=delta and norm(x-y)<=r delta^(-1/p) Gamma-a.e. For this same Pdag and Gamma, every tau>0 and real q>1 satisfy: Htau Pdag is absolutely continuous with respect to Htau Q; its actual ENNReal RN qth-power integral is at most ofReal exp(q(q-1)r^2/(2tau delta^(2/p))); the real RN qth power is integrable under Htau Q, its integral has the same exponential bound, and its logarithm divided by q-1 is at most q r^2/(2tau delta^(2/p)). Htau is the existing actual GaussianSmoothing operator with scale sqrt(tau).",
+        "text_sha256": "c86f4ba67de50125b59d391c85a4e33eecffeec4fa4227991ab21cbeda7090f9"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProxyReverseTransport.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (P Q : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure P]\n  [MeasureTheory.IsProbabilityMeasure Q] (p r δ : ℝ),\n  2 ≤ p →\n    0 ≤ r →\n      0 < δ →\n        δ < 1 →\n          AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost (fun z => ENNReal.ofReal (‖z.1 - z.2‖ ^ p))\n                P Q ≤\n              ENNReal.ofReal (r ^ p) →\n            ∃ Pdag Γ,\n              MeasureTheory.IsProbabilityMeasure Pdag ∧\n                MeasureTheory.IsProbabilityMeasure Γ ∧\n                  AutoSamplingTheory.TechnicalLemmas.Measure.Transport.IsCoupling Γ Pdag Q ∧\n                    (∀ (B : Set E), MeasurableSet B → |P.real B - Pdag.real B| ≤ δ) ∧\n                      (∀ᵐ (z : E × E) ∂Γ, ‖z.1 - z.2‖ ≤ r * δ ^ (-1 / p)) ∧\n                        ∀ (τ : ℝ),\n                          0 < τ →\n                            ∀ (q : ℝ),\n                              1 < q →\n                                have H := fun μ =>\n                                  AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing μ √τ;\n                                (H Pdag).AbsolutelyContinuous (H Q) ∧\n                                  ∫⁻ (z : E), (H Pdag).rnDeriv (H Q) z ^ q ∂H Q ≤\n                                      ENNReal.ofReal (Real.exp (q * (q - 1) * r ^ 2 / (2 * τ * δ ^ (2 / p)))) ∧\n                                    MeasureTheory.Integrable (fun z => ((H Pdag).rnDeriv (H Q) z).toReal ^ q) (H Q) ∧\n                                      ∫ (z : E), ((H Pdag).rnDeriv (H Q) z).toReal ^ q ∂H Q ≤\n                                          Real.exp (q * (q - 1) * r ^ 2 / (2 * τ * δ ^ (2 / p))) ∧\n                                        Real.log (∫ (z : E), ((H Pdag).rnDeriv (H Q) z).toReal ^ q ∂H Q) / (q - 1) ≤\n                                          q * r ^ 2 / (2 * τ * δ ^ (2 / p))",
+        "statement_sha256": "baded6fc1de8201ec263074d84aa3c47a5cee94eec5a5db96a13d2ec239e30b9",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Root focused and independent replay PASS3729, standard three axioms, only existing parent lint. Independent complete production proof review accepted; formal source/fixed-commit admission separate.",
+        "decoder_context": [
+          "MeasurableSpace supplies a sigma-algebra. Measure is a countably additive extended nonnegative measure. AEMeasurable means measurability up to a measure-null set; forall-a.e. is relative to the displayed measure.",
+          "ENNReal is the extended nonnegative reals, including infinity; the displayed integrals with the nonnegative-integral symbol are Lebesgue nonnegative integrals. Real powers and division retain their extended-real conventions. Only displayed nonzero/finite assumptions may be used.",
+          "NormedAddCommGroup, InnerProductSpace over real scalars and FiniteDimensional form a finite-dimensional real inner-product space; BorelSpace gives the Borel measurable structure. Dimension zero is allowed.",
+          "IsProbabilityMeasure means total mass one. Transport.IsCoupling gamma P Q means gamma.fst=P and gamma.snd=Q, where fst/snd are the actual pushforwards by coordinate projections.",
+          "GaussianSmoothing.gaussianSmoothing mu sigma is CommonNoiseContraction.addNoise mu (scaledStdGaussian sigma); scaledStdGaussian sigma is stdGaussian.map(z to sigma smul z); addNoise mu kappa is (mu.prod kappa).map((x,z) to x+z). Thus its stated definition uses the actual product measure and pushforward, not a density or moment premise.",
+          "Measure.rnDeriv mu nu is the extended nonnegative Radon-Nikodym derivative dmu/dnu. AbsolutelyContinuous mu nu means mu is absolutely continuous with respect to nu in that direction.",
+          "ENNReal.ofReal embeds the nonnegative part of a real. ENNReal.toReal is totalized at infinity; use only the displayed assumptions and conclusions. Integrable means a.e. strong measurability and finite integral of norm; the real integral is the Bochner integral.",
+          "Real.log is the real logarithm. The norm and scalar multiplication are the actual space operations. Let expressions define laws; all quantifiers and parameter restrictions are exactly as printed.",
+          "Transport.transportCost c P Q is sInf of the set of extended nonnegative numbers r for which there exists a measure gamma with gamma.fst=P and gamma.snd=Q and r=integral c dgamma. Thus it is the actual infimum over all couplings, not a supplied optimizer.",
+          "The actual stdGaussian E is the pushforward of the product of one-dimensional gaussianReal 0 1 laws through the canonical orthonormal-basis linear isometry into E. This is the centered Gaussian with identity covariance, including the zero-dimensional case. Measure.real B is the toReal of the measure of B."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "dbfb46c6bfe9b960889fe53594bb2bb11588510be9acb47a5f1e879f2f1c3ebf",
+        "review_run_sha256": "b64ac1c706eb434cb487d2fd82fd14808de712eea55c7a726f6cd15595978ce0",
+        "run_artifact": "runs/20260911-companion-priority/proxy-reverse-transport.source-review-result.json",
+        "evidence": "Independent fresh primary v1 Lemmas6.2/6.3(ii), full production and five-step comparison. Canonical packet and source/statement/reconstruction/module hashes independently recomputed; embedded module matches current UTF8 text and lesson matches disk, including consistent extra boundary. Source hash binds expanded paraphrase, not verbatim paper. Publication context matches. Binding authenticated as packet field; external preimage not independently reconstructed. No compilation or fixed-commit admission in source review."
+      },
+      "publication_binding_sha256": "c52c88841f71c7d02a4853d6858cf909ff912d218da3f4b10fd981196e8e4ffa",
+      "publication_context": {
+        "file": "099ac1d4d61896f2456f3d1ecab1f2b5463347e47510b8b30842e41e16837444",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture\n\n/-!\n# One truncation proxy with uniform Gaussian reverse transport\n\nSubstantive composition of arXiv:2609.06906v1 Lemmas6.2 and6.3(ii): actual\ninfimum p-cost budget supplies one proxy and coupling before all tau>0,q>1.\nThe same proxy has eventwise TV control and actual GaussianSmoothing RN power\nand logarithm bounds with the exact delta^(-2/p) dependence.\n\nWe retain p>=2 from the invoked Lemma6.2 proof route; Lemma6.3(ii) does not\nseparately repeat it. The input is the genuine infimum cost bounded by r^p,\nnot an assumed optimizer or proxy. Finite-dimensional real inner-product\nBorel spaces and dropping marginal Pp membership explicitly generalize this\nbudget form. Finite displacement cost does not establish marginal p-moments.\nFull Wp/Renyi metric/divergence API identification, recursive warmness and\nactual sampler/error/query-cost conclusions remain separate.\n-/\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport\nopen MeasureTheory ProbabilityTheory\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen AutoSamplingTheory.ExampleCases.SmoothedPicardHMC\nopen scoped ENNReal\n\n/-- One actual proxy and coupling simultaneously satisfy eventwise TV,\nbounded displacement and all positive-time Gaussian RN moment/log bounds. -/\ntheorem proxy_reverse_transport {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n    (P Q : Measure E) [IsProbabilityMeasure P] [IsProbabilityMeasure Q]\n    (p r δ : ℝ) (hp : 2 ≤ p) (hr : 0 ≤ r) (hδ : 0 < δ) (hδ1 : δ < 1)\n    (hcost : Transport.transportCost (fun z : E × E => ENNReal.ofReal (‖z.1-z.2‖^p)) P Q ≤ ENNReal.ofReal (r^p)) :\n    ∃ Pdag : Measure E, ∃ Γ : Measure (E × E),\n      IsProbabilityMeasure Pdag ∧ IsProbabilityMeasure Γ ∧ Transport.IsCoupling Γ Pdag Q ∧\n      (∀ B, MeasurableSet B → |P.real B-Pdag.real B| ≤ δ) ∧\n      (∀ᵐ z ∂Γ, ‖z.1-z.2‖ ≤ r*δ^(-1/p)) ∧\n      ∀ τ : ℝ, 0 < τ → ∀ q : ℝ, 1 < q →\n        let H := fun μ : Measure E => GaussianSmoothing.gaussianSmoothing μ (Real.sqrt τ)\n        H Pdag ≪ H Q ∧\n          (∫⁻ z, ((H Pdag).rnDeriv (H Q) z)^q ∂H Q) ≤\n            ENNReal.ofReal (Real.exp (q*(q-1)*r^2/(2*τ*δ^(2/p)))) ∧\n          Integrable (fun z => ((H Pdag).rnDeriv (H Q) z).toReal^q) (H Q) ∧\n          (∫ z, ((H Pdag).rnDeriv (H Q) z).toReal^q ∂H Q) ≤\n            Real.exp (q*(q-1)*r^2/(2*τ*δ^(2/p))) ∧\n          Real.log (∫ z, ((H Pdag).rnDeriv (H Q) z).toReal^q ∂H Q)/(q-1) ≤\n            q*r^2/(2*τ*δ^(2/p)) := by\n  obtain ⟨γ,hγ,hcouple,hopt,hT,hPdag,hΓ,hΓcouple,hdisp,hTV⟩ :=\n    Truncation.truncated_proxy P Q p r δ hp hr hδ hδ1 hcost\n  let T := fun z : E × E => if ‖z.1-z.2‖ ≤ r*δ^(-1/p) then z.1 else z.2\n  refine ⟨γ.map T,γ.map (fun z => (T z,z.2)),hPdag,hΓ,hΓcouple,hTV,hdisp,?_⟩\n  intro τ hτ q hq\n  let : IsProbabilityMeasure (γ.map T) := hPdag\n  have ht : 0 ≤ r*δ^(-1/p) := mul_nonneg hr (Real.rpow_nonneg hδ.le _)\n  have h := GaussianMixture.bounded_displacement_reverse_transport\n    (γ.map T) Q (γ.map (fun z => (T z,z.2))) hΓcouple τ q (r*δ^(-1/p)) hτ hq ht hdisp\n  have he : (r*δ^(-1/p))^2 = r^2 / δ^(2/p) := by\n    rw [mul_pow]\n    have hd : (δ^(-1/p))^2 = (δ^(2/p))⁻¹ := by\n      rw [← Real.rpow_natCast,← Real.rpow_mul hδ.le]\n      change δ^((-1/p)*(2 : ℝ)) = (δ^(2/p))⁻¹\n      have hex : (-1/p)*(2 : ℝ) = -(2/p) := by ring\n      rw [hex,Real.rpow_neg hδ.le]\n    rw [hd]\n    exact (div_eq_mul_inv _ _).symm\n  have hc1 : q*(q-1)*(r*δ^(-1/p))^2/(2*τ) = q*(q-1)*r^2/(2*τ*δ^(2/p)) := by\n    rw [he]\n    ring\n  have hc2 : q*(r*δ^(-1/p))^2/(2*τ) = q*r^2/(2*τ*δ^(2/p)) := by\n    rw [he]\n    ring\n  dsimp only at h ⊢\n  simpa only [hc1,hc2] using h\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Lemmas6.2 and6.3(ii), actual-budget proxy composition",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+        },
+        "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space. Let real p>=2,r>=0 and 0<delta<1. Suppose the actual infimum over couplings of the pth displacement integral is at most ofReal(r^p). There exist one probability proxy Pdag and one probability coupling Gamma of Pdag,Q such that every measurable event B satisfies |P.real B-Pdag.real B|<=delta and norm(x-y)<=r delta^(-1/p) Gamma-a.e. For this same Pdag and Gamma, every tau>0 and real q>1 satisfy: Htau Pdag is absolutely continuous with respect to Htau Q; its actual ENNReal RN qth-power integral is at most ofReal exp(q(q-1)r^2/(2tau delta^(2/p))); the real RN qth power is integrable under Htau Q, its integral has the same exponential bound, and its logarithm divided by q-1 is at most q r^2/(2tau delta^(2/p)). Htau is the existing actual GaussianSmoothing operator with scale sqrt(tau).",
+        "formulae": [
+          {
+            "label": "Uniform actual proxy bound",
+            "tex": "\\exists P^\\dagger,\\Gamma\\in\\Pi(P^\\dagger,Q):\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\forall\\tau>0,\\ q>1,\\quad\\frac{\\log\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qr^2}{2\\tau\\delta^{2/p}}."
+          }
+        ],
+        "assumptions": [
+          "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+          "Real p>=2 inherited from the source Lemma6.2 proof route. Lemma6.3(ii) does not independently restate this range; the formal statement makes it explicit.",
+          "r>=0 and0<delta<1, including zero radius. The genuine infimum p-displacement transportCost(P,Q)<=ofReal(r^p) is the input, not a supplied optimal coupling or proxy.",
+          "Finite marginal p-moments are not assumed or concluded; this raw-budget theorem is an explicit generalization of the source Pp presentation. Its relation to a full Wp metric API remains separate.",
+          "The same proxy and coupling precede all tau>0,q>1. Their independence from tau is justified by the actual truncation construction, strengthening the source fixed-time presentation."
+        ],
+        "obligations": [
+          {
+            "id": "one-proxy",
+            "label": "One actual probability proxy and coupling with eventwise TV and bounded displacement"
+          },
+          {
+            "id": "uniform-rn",
+            "label": "Same proxy has actual RN power/integrability/log bounds for every positive time and order greater than one"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport",
+          "title": "One truncation proxy for every Gaussian time and order",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+              "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemmas6.2 and6.3(ii)",
+              "scope": "Actual-budget composition of truncation and Gaussian reverse transport. The p>=2 condition comes from invoked Lemma6.2; Lemma6.3(ii) does not separately repeat it."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCProxyReverseTransport"
+          ],
+          "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space. Let real p>=2,r>=0 and 0<delta<1. Suppose the actual infimum over couplings of the pth displacement integral is at most ofReal(r^p). There exist one probability proxy Pdag and one probability coupling Gamma of Pdag,Q such that every measurable event B satisfies |P.real B-Pdag.real B|<=delta and norm(x-y)<=r delta^(-1/p) Gamma-a.e. For this same Pdag and Gamma, every tau>0 and real q>1 satisfy: Htau Pdag is absolutely continuous with respect to Htau Q; its actual ENNReal RN qth-power integral is at most ofReal exp(q(q-1)r^2/(2tau delta^(2/p))); the real RN qth power is integrable under Htau Q, its integral has the same exponential bound, and its logarithm divided by q-1 is at most q r^2/(2tau delta^(2/p)). Htau is the existing actual GaussianSmoothing operator with scale sqrt(tau).",
+          "formula": "\\exists P^\\dagger,\\Gamma\\in\\Pi(P^\\dagger,Q):\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\qquad\\forall\\tau>0,\\ q>1,\\quad\\frac{\\log\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q}{q-1}\\le\\frac{qr^2}{2\\tau\\delta^{2/p}}.",
+          "assumptions": [
+            "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+            "Real p>=2 inherited from the source Lemma6.2 proof route. Lemma6.3(ii) does not independently restate this range; the formal statement makes it explicit.",
+            "r>=0 and0<delta<1, including zero radius. The genuine infimum p-displacement transportCost(P,Q)<=ofReal(r^p) is the input, not a supplied optimal coupling or proxy.",
+            "Finite marginal p-moments are not assumed or concluded; this raw-budget theorem is an explicit generalization of the source Pp presentation. Its relation to a full Wp metric API remains separate.",
+            "The same proxy and coupling precede all tau>0,q>1. Their independence from tau is justified by the actual truncation construction, strengthening the source fixed-time presentation."
+          ],
+          "steps": [
+            {
+              "title": "Use the true transport budget to construct a truncation",
+              "text": "Call the existing truncation theorem once. It attains the actual infimum cost, constructs T(x,y)=x inside the radius r delta^(-1/p) and y outside, and supplies the actual probability, marginal, TV and displacement conclusions. No optimizer or finite coupling moment is added as a premise.",
+              "formula": "t=r\\delta^{-1/p},\\qquad T(x,y)=\\begin{cases}x,&\\|x-y\\|\\le t,\\\\y,&\\|x-y\\|>t.\\end{cases}",
+              "lean": "One call to Truncation.truncated_proxy with the actual hcost, p>=2 and delta/r conditions."
+            },
+            {
+              "title": "Fix both witnesses before choosing any heat time or order",
+              "text": "Set Pdag=gamma.map T and Gamma=gamma.map((x,y) to (T(x,y),y)). These are probability measures, Gamma has actual Pdag,Q marginals, and the eventwise TV and a.e. displacement bounds already hold. Introduce tau and q only after supplying these existential witnesses.",
+              "formula": "P^\\dagger=T_\\#\\gamma,\\quad\\Gamma=(T,\\operatorname{snd})_\\#\\gamma,\\quad\\exists P^\\dagger,\\Gamma\\ \\forall\\tau>0\\ \\forall q>1.",
+              "lean": "The refine witness tuple is completed before intro tau hTau q hq; hTV compares P with that same Pdag."
+            },
+            {
+              "title": "Apply actual Gaussian mixture reverse transport",
+              "text": "For arbitrary tau>0,q>1, the threshold t is nonnegative. Apply the admitted GaussianMixture theorem to the fixed Gamma and Pdag,Q. This provides actual absolute continuity, finite ENNReal RN power bound, real-power integrability, exponential moment bound and normalized logarithm.",
+              "formula": "\\int(dH_\\tau P^\\dagger/dH_\\tau Q)^q\\,dH_\\tau Q\\le e^{q(q-1)t^2/(2\\tau)}.",
+              "lean": "GaussianMixture.bounded_displacement_reverse_transport consumes the actual fixed coupling, with its probability facts already available."
+            },
+            {
+              "title": "Normalize the exact truncation radius",
+              "text": "Since delta>0, real-power multiplication and negation give (delta^(-1/p))^2=(delta^(2/p))^(-1). Multiplying by r^2 gives t^2=r^2/delta^(2/p), valid also for r=0.",
+              "formula": "(r\\delta^{-1/p})^2=\\frac{r^2}{\\delta^{2/p}}.",
+              "lean": "Real.rpow_natCast, rpow_mul and rpow_neg, followed by exact multiplication/division algebra. No division by r."
+            },
+            {
+              "title": "Retain the full joint guarantee with exact constants",
+              "text": "Substitute the same radius identity into both the exponential and normalized logarithm bounds. Keep all five smoothing conclusions alongside the previously fixed probability, coupling and TV/displacement facts. No use of TV to transport an unbounded cost is involved.",
+              "formula": "\\frac{q(q-1)t^2}{2\\tau}=\\frac{q(q-1)r^2}{2\\tau\\delta^{2/p}},\\qquad\\frac{qt^2}{2\\tau}=\\frac{qr^2}{2\\tau\\delta^{2/p}}.",
+              "lean": "hc1 and hc2 rewrite the entire conjunction from the actual mixture theorem; no new divergence or sampler-cost assumption."
+            }
+          ],
+          "lean_statement": "There exist a single actual proxy and coupling with eventwise TV/displacement and all-time/all-order Gaussian RN moment/log bounds.",
+          "lean_proof": "One actual truncation witness followed by actual Gaussian mixture reverse transport and exact positive-base exponent normalization.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport"
+          ],
+          "mathlib_dependencies": [
+            "Real.rpow_mul",
+            "Real.rpow_neg",
+            "MeasureTheory.Measure.map"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport",
+          "role": "prerequisite",
+          "supports": [
+            "one-proxy",
+            "uniform-rn"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Lemma6.3(ii) uses P,Q in Pp and invokes Lemma6.2, which assumes p>=2; the former does not separately restate that range.",
+            "lean": "Explicit p>=2 and actual infimum displacement-cost budget, without marginal p-moment assumptions."
+          },
+          {
+            "source": "The source states the bound at fixed heat time and uniformly over q>1.",
+            "lean": "One actual proxy and coupling precede every tau>0 and q>1."
+          },
+          {
+            "source": "Euclidean probability measures, TV proxy, and Renyi reverse-transport bound.",
+            "lean": "Finite-dimensional real inner-product Borel spaces including zero dimension; eventwise TV and actual RN integral/log certificate."
+          },
+          {
+            "source": "Exact q r^2/(2 tau delta^(2/p)) normalized logarithm bound.",
+            "lean": "Same coefficient, RN direction, denominator law, plus proved real-power integrability and finite ENNReal bound."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product space with its Borel measurable structure, including dimension zero. Let P,Q be probability measures and real p,r,delta satisfy p>=2,r>=0,0<delta<1. Assume the actual extended-nonnegative infimum over measures gamma whose first/second marginals are P,Q of the nonnegative integral of ofReal(norm(x-y)^p) is at most ofReal(r^p). This hypothesis does not supply an attaining coupling. There exist measures Pdag on E and Gamma on E times E such that both are probability measures, Gamma has first marginal Pdag and second marginal Q, every Borel measurable event B satisfies abs(P(B).toReal-Pdag(B).toReal)<=delta, and norm(x-y)<=r delta^(-1/p) Gamma-almost everywhere. For every real tau>0 and q>1, let Htau(mu) be the actual law of X+sqrt(tau)Z using the product of mu and the centered identity-covariance standard Gaussian on E, and f_tau=dHtau(Pdag)/dHtau(Q) the extended nonnegative RN derivative. Then Htau(Pdag) is absolutely continuous with respect to Htau(Q); the extended nonnegative integral of f_tau^q under Htau(Q) is at most ofReal(exp(q(q-1)r^2/(2tau delta^(2/p)))); the real function (f_tau.toReal)^q is integrable under Htau(Q); its real Bochner integral is at most exp(q(q-1)r^2/(2tau delta^(2/p))); and the real logarithm of that same integral divided by q-1 is at most q r^2/(2tau delta^(2/p)). The witnesses Pdag,Gamma precede the universal quantifiers over tau,q and are the same for every smoothing conclusion; they may depend on E,P,Q,p,r,delta. The displayed constants have no explicit dimension dependence. The approved context supplies actual coupling, transport-infimum, Gaussian, product/pushforward, RN and integral definitions. No individual moment, density or regularity assumption on P,Q, or transport optimizer, is displayed. Integrability is explicit. Extended powers, ofReal, toReal and real log retain their specified totalized conventions; no pointwise finiteness premise is inserted. No source text was visible and no source-fidelity judgment is made.",
+        "text_sha256": "64d767228026597a3ff62d0899baceeb5503aa46e2e398b63a559a450e1d78c0",
+        "decoder_packet_sha256": "fcdf4111e5c3e02392f2cd2aa6a64ed678e4e2dd0e855cf94675147ea427dff2",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "proxy_blind_decoder",
+        "notes": [
+          "Fresh source-blind agent read only anonymous statement/approved-definition packet. Preserved actual infimum, witness order, Gaussian normalization, TV/RN directions, integrability and exact constants. No source verdict inferred."
+        ],
+        "decoder_run_sha256": "4eb658a0b78ecb88fbc556c8715bb056484d72e340f5cb24d9533d6fc8fe5f36",
+        "lean_statement_sha256": "baded6fc1de8201ec263074d84aa3c47a5cee94eec5a5db96a13d2ec239e30b9",
+        "run_artifact": "runs/20260911-companion-priority/proxy-reverse-transport.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Probability laws, truncation proxy, Gaussian convolution, TV and forward Renyi.",
+          "reconstructed": "Actual probability proxy/coupling, eventwise TV, GaussianSmoothing and forward RN integrals under Htau Q.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual gamma.map T and gamma.map(T,snd); same Pdag,Q in every conclusion."
+        },
+        "domains": {
+          "original": "Euclidean probabilities.",
+          "reconstructed": "Finite-dimensional real inner-product Borel, including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No positive-dimension requirement or division by dimension."
+        },
+        "quantifiers": {
+          "original": "At stated heat time, one proxy for all q>1 chosen via Lemma6.2.",
+          "reconstructed": "One Pdag,Gamma precedes all tau>0,q>1.",
+          "relation": "stronger-in-lean",
+          "evidence": "One truncation and existential tuple before intro tau,q; construction independent of both."
+        },
+        "assumptions": {
+          "original": "Marginal Pp membership; invoked Lemma6.2 has p>=2.",
+          "reconstructed": "Explicit p>=2,r>=0,0<delta<1, actual infimum cost budget; no marginal moments or optimizer.",
+          "relation": "stronger-in-lean",
+          "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+        },
+        "conclusion": {
+          "original": "TV<=delta and forward Renyi bound q Wp^2/(2tau delta^(2/p)).",
+          "reconstructed": "Eventwise TV, bounded coupling, AC, finite ENNReal RN bound, real integrability/moment and log bound using r^2.",
+          "relation": "explicit-elaboration",
+          "evidence": "Disclosed radius-budget version with exact radius identity; full APIs excluded."
+        },
+        "scopes": {
+          "original": "Truncation and Gaussian reverse transport composition.",
+          "reconstructed": "Actual infimum-budget uniform-proxy composition with eventwise/RN-log interfaces.",
+          "relation": "different",
+          "evidence": "Full metric/divergence APIs, recursive warmness and sampler/error/cost remain separate."
+        },
+        "constant_dependencies": {
+          "original": "q/(2tau delta^(2/p)) times squared transport radius.",
+          "reconstructed": "q(q-1)r^2/(2tau delta^(2/p)) exponent and q r^2/(2tau delta^(2/p)) log.",
+          "relation": "same",
+          "evidence": "he,hc1,hc2 exact; sqrt(tau) Gaussian has covariance tau I."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit finite-dimensional generalization including zero dimension.",
+          "evidence": "No positive-dimension requirement or division by dimension."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Raw displacement budget drops marginal Pp; finite cost does not imply marginal moments.",
+          "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "p>=2 inherited from Lemma6.2, not restated in Lemma6.3(ii).",
+          "evidence": "Disclosed budget generalization; truncation obtains optimizer; no marginal moments inferred."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Uniform positive heat times supported by same truncation.",
+          "evidence": "One truncation and existential tuple before intro tau,q; construction independent of both."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Budget/RN-log certificate does not establish full Wasserstein/Renyi APIs.",
+          "evidence": "Full metric/divergence APIs, recursive warmness and sampler/error/cost remain separate."
+        }
+      ]
+    },
+    {
       "id": "ASTIS-RT-ANDI-OPT-GradientConverse",
       "state": "source-reviewed",
       "graph_node": "ASTIS-SHARED-strong-convex-gradient-converse",

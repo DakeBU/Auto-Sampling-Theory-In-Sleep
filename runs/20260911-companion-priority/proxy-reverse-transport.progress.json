@@ -1,0 +1,117 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport.proxy_reverse_transport"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCProxyReverseTransport",
+    "result": "PASS3729",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProxyReverseTransport.lean": "3e807035e4119972833a8ac8b9ad45d79eebd126bfbf054e5b475fa9e8f4d0fc",
+      "Tests/SmoothedPicardHMCProxyReverseTransport.lean": "7afcad01578292a5da49fc74f9a2cfca298015907341b35ad52eec245c4798b9"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/proxy-reverse-transport.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCProxyReverseTransport"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/proxy-reverse-transport.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Substantive integration of actual optimizer/truncation and Gaussian mixture proof, eliminating a supplied-coupling requirement and fixing one proxy before all tau,q. Raw infimum-cost, eventwise TV and actual RN/log certificates explicitly generalize the marginal Pp presentation. No full Wp/Winfinity/Renyi API identity or marginal moment claim; sampler/warmness/error/query-cost results remain unfinished. The p>=2 condition is inherited from source Lemma6.2 though not repeated in Lemma6.3(ii).",
+  "remaining": [
+    "Final-head independent merge review, CI and actual merge/deployment",
+    "Full Wp/Renyi interfaces and required marginal moments",
+    "Proxy-warmness, actual sampler/error/cost and both main results",
+    "Agreed copy/download and live compiled-badge synchronization"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/proxy-reverse-transport.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "435106db5ed7f55b03ec5456b6ccdb6caa92aa23",
+    "source_digest": "5a8016804f93f052a8753702bf44e449341d6b1b5db2f6a64ee538abd01be197",
+    "generated_at": "2026-09-11T01:36:02.162742+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9110,
+    "exit_code": 0,
+    "log": ".astis\\proxy-reverse-transport-aggregate.log",
+    "log_sha256": "b6fb1f066cc74b50d1fe1df7f8bad5ce8981819b26c17b97c9d29bf9431d5cf8"
+  },
+  "reader_checks": {
+    "candidate": "435106db5ed7f55b03ec5456b6ccdb6caa92aa23",
+    "site_build": {
+      "exit_code": 0,
+      "log": ".astis/proxy-reverse-transport-site-build.log"
+    },
+    "site_check": {
+      "exit_code": 0,
+      "log": ".astis/proxy-reverse-transport-site-check.log",
+      "modules": 580,
+      "declarations": 3665,
+      "reviewed_teaching_declarations": 77
+    },
+    "graph_check": {
+      "cell": "ASTIS-SW-SPHMC-proxy-reverse-transport",
+      "exit_code": 0,
+      "log": ".astis/proxy-reverse-transport-graph-check.json"
+    },
+    "browser": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "entry": "sphmc-proxy-reverse-transport",
+      "proof_steps": 5,
+      "initially_closed_disclosures": 8,
+      "statement_characters": 1218,
+      "proof_characters": 2443,
+      "katex_errors": 0,
+      "visual": "Opened full Lean statement/proof/reuse. Full proof retains namespace ending. Screenshot inspected mixture exponential bound, exact radius normalization and joint conclusion.",
+      "graph": "Actual declaration click and evidence-card link tested; 5 nodes,3 edges,2 direct relations. Solid import/ownership and dashed correspondence not implication certificates.",
+      "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-proxyreversetransport.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-proxyreversetransport--2b28129115",
+      "status_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Exact local aggregate/render commit. Actual final-head CI, merge and deployed badges separate."
+    }
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/262",
+    "state": "OPEN ready",
+    "boundary": "Upstream merge resolved preserving collaborator changes; fresh aggregate and final-head CI/review required."
+  },
+  "upstream_integration": {
+    "previous_candidate": "74d877edafb303812f9793781d77f1d242eca3c2",
+    "previous_ci": {
+      "lean": "34552059241 SUCCESS",
+      "site": "34552059254 SUCCESS"
+    },
+    "merge_attempt": "GitHub refused merge due to conflicts after collaborator main advances; PR remains OPEN, now ready. No merge claimed.",
+    "upstream": "e2c32c5",
+    "merge_commit": "c6f73ebac6fc7ac3a80a54545ec6daaf9bab9b35",
+    "resolution": "Only semantic registry and append-only ledger conflicted. Three-way audit-by-id merge retained both new audits and unchanged/one-sided edits; ledger retained common213 records plus both7/8-record tails. Collaborator Lean, registry, tools and reader changes retained.",
+    "checks": [
+      "Semantic registry37audits valid",
+      "Frontier46cells valid",
+      "Publication34items PASS",
+      "44 tests for modified publication/site tools PASS30.458s",
+      "git diff --check PASS"
+    ],
+    "boundary": "Earlier local reader/browser QA remains bound to435106d; after upstream integration, fresh aggregate and final-head CI/review pending. No new local renderer or online badge claim."
+  }
+}
