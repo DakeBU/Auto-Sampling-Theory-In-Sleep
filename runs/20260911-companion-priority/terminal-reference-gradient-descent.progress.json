@@ -38,5 +38,24 @@
     "session": 56508,
     "exit_code": 0,
     "result": "Seven private declarations plus public terminal_reference_gradient_descent compiled standard3/no lint. Actual C2 regularized gradient/curvature/upper model, finite measurable firsthit/output, terminal center residual, ceil/count bound and actual conditional moment expected count/L1. No production or source admission."
+  },
+  "independent_full_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "641f1ac1e819b7e8d4754524bc69c7e8db8b383d4cbc894994c8859b5fa14da2",
+    "result": "Independent whole frozen source stdin compilation exit0 standard3/no lint; all7private/public actual construction and cost accepted. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "641f1ac1e819b7e8d4754524bc69c7e8db8b383d4cbc894994c8859b5fa14da2",
+    "result": "Entire364-line source read and hash checked; no mathematical blocker. Same source GD with stronger local rate; coordinate-free/nonnegative-base extension, positive finite A/d, true dimension binding, count model, explicit initial gradient moment and joint-program/cache/stage boundaries required. Tangent integral implementation, no claimed Jensen API call. Not formal source admission."
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalReferenceGradientDescent.lean",
+    "test": "Tests\\SmoothedPicardHMCTerminalReferenceGradientDescent.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalReferenceGradientDescent.lean": "1845f0463edd9df2cf2dabba2327928bf839da7ec4c1ce15a676b66e420f2821",
+      "Tests\\SmoothedPicardHMCTerminalReferenceGradientDescent.lean": "356e4c0fe2d5ff6d1cc285f2e77468a50d187a622695b595f3e200ebe8f55880"
+    },
+    "state": "Focused PASS3374, session6552 exit0, standard three axioms/no lint. Independent fixed-production review and formal source admission pending."
   }
 }

@@ -15,5 +15,15 @@
       "declaration_present": true
     }
   ],
-  "boundary": "Actual HTTP content/provenance only; merge Lean CI remains separate."
+  "boundary": "Actual live content/provenance and all selected-packet merge CI verified. Full papers and global copy/citation/download requirements remain separate.",
+  "merge_ci": {
+    "lean": {
+      "run": 34637874210,
+      "conclusion": "success"
+    },
+    "site": {
+      "run": 34637874347,
+      "conclusion": "success"
+    }
+  }
 }

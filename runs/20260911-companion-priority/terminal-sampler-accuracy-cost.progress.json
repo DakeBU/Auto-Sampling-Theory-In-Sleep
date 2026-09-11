@@ -3,8 +3,8 @@
   "state": "MERGED",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Verify merge Lean CI34637874210",
-    "Whole Goal copy/citation/associated Lean download requirements"
+    "Whole Goal copy/citation/associated Lean download requirements",
+    "Both full paper main results and actual reference/history/composition dependencies"
   ],
   "scratch_checkpoint": {
     "path": ".astis/TerminalSamplerAccuracyCost.lean",
@@ -101,7 +101,7 @@
       "ASTIS-RT-20260912-SPHMCTerminalSamplerAccuracyCost"
     ]
   },
-  "admission_boundary": "Actual PR287 merged; mergeCI/live pending; no fullpaper closure.",
+  "admission_boundary": "Selected terminal sampler packet locally compiled, independently reviewed, integrated, merged and deployed. Both complete paper main results and global delivery requirements remain open.",
   "independent_admission": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json",
   "integration_notes": {
     "upstream": "722f040352d86fbcfb60a0f8b14e80955412ed2e",
@@ -119,11 +119,11 @@
     "commit": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
     "merged_at": "2026-09-11T19:15:42Z",
     "candidate": "cc1f333938c54ad681aa2f8d6991932cd2c39061",
-    "post_merge": "Site CI succeeded and original companion/module HTTP200 with full merge provenance verified. Merge Lean CI34637874210 still in progress.",
+    "post_merge": "All PR and merge CI succeeded. Original companion and module live HTTP200/full merge provenance verified.",
     "ci_runs": {
       "lean": 34637874210,
       "site": 34637874347,
-      "observed_state": "in_progress"
+      "observed_state": "success"
     }
   },
   "live_delivery": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.live-delivery.json"
