@@ -15,8 +15,8 @@
     ],
     "command": "lake env lean .astis/SmoothGradientArcMoment.lean"
   },
-  "development_result": "Scalar and finite-dimensional exact Gaussian quadratic moments; explicit exp(2*d*t) bound for 0<=t<=1/4; actual variance-eta bound; absolute linear Gaussian moment factor2; complete product integrability/Fubini inequality from positional exponential integrability. All current helpers compile with standard three axioms.",
-  "scratch_sha256": "87b3d2e820ebaa074a7e4768ad9a409f8ed55dd8d8497aea65de76e70703fee8",
+  "development_result": "Compiled positional exponential integrability and bound exp(2*c*beta^2*norm(h-xp)^2 + 4*d*c*beta^2*eta), derived from actual norm control and Gaussian quadratic moment. Product integrability/Fubini and absolute Gaussian factor2 also compile. Full true-gradient/arc and source constant assembly remain pending.",
+  "scratch_sha256": "6c40632fc0b352fc9a4554b35368c9b37a93e8be500416dc58c7c183c58d77d9",
   "state": "EXPLORING",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
