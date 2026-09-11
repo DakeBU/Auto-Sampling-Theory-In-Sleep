@@ -9,3 +9,5 @@ Use actual characteristic-function uniqueness, convolution multiplication and sc
 Root sole writer. Bounded publication packet precedes Lean development.
 
 Before production, source-facing refinement: use the existing actual ENNReal W2 input instead of exposing raw cost. WassersteinSpace.wassersteinDistance_sq and ofReal_pow derive the internal budget; independent source reviewer confirmed the exact definition and no toReal fallback. This removes that specific API gap, not marginal P2 or full metric-space obligations.
+
+Independent fixed-commit VERIFIED at 4e1490a3b6ad2ec096f1d1b1a94f63b107e6c647. Root now sole STABILIZING owner; aggregate and original reader/graph delivery pending. Full paper Goal remains active.

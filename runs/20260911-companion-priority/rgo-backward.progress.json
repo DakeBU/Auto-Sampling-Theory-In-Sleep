@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Exact measurable backward kernel and normalized precision-update fiber, not the approximate recursive sampler. General probability base and raw transport budget explicitly generalize source Gibbs/P2 presentation. No marginal moment inference, measurable proxy selection, convolution time identification, recursive error or expected query cost completion. Precision zero retains the source infinite-A case.",
   "remaining": [
-    "Final-head CI, independent merge review, actual merge and deployment",
+    "Verify actual merge CI and deployed reader provenance",
     "Concrete Gibbs specialization and full W2 correspondence",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -90,8 +90,23 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/264",
-    "state": "DRAFT",
+    "state": "MERGED",
     "local_qa_commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
-    "head_note": "Use actual final PR candidate; local QA remains pinned to dec445c."
+    "head_note": "Use actual final PR candidate; local QA remains pinned to dec445c.",
+    "head": "e504fa9b933858caee0ff1613ff18b6e9f694a0e",
+    "boundary": "Actual merge verified; actual merge CI/deployment separate."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/264",
+    "commit": "2f54fc9e768879b6d0a3b78ac3745df90f067453",
+    "candidate": "e504fa9b933858caee0ff1613ff18b6e9f694a0e",
+    "merged_at": "2026-09-11T03:31:59Z",
+    "independent_merge_review": "depth_commit_verifier accepted unchanged production/source bindings, root imports and fixed-commit aggregate/reader/graph verification, conditional on final same-head CIs success and no conflict. Root verified both final CIs success, MERGEABLE matching head, then match-head merge succeeded.",
+    "candidate_ci": {
+      "lean": "34557907660 SUCCESS",
+      "site": "34557907659 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local/CI artifact records remain bound to their original commits.",
+    "truth_boundary": "Exact measurable backward kernel and normalized precision-update fiber, not the approximate recursive sampler. General probability base and raw transport budget explicitly generalize source Gibbs/P2 presentation. No marginal moment inference, measurable proxy selection, convolution time identification, recursive error or expected query cost completion. Precision zero retains the source infinite-A case."
   }
 }

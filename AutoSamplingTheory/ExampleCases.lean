@@ -21,6 +21,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO
 
 /-!
 # ASTIS example cases

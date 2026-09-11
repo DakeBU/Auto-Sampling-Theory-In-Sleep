@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
   ],
@@ -33,10 +33,10 @@
   },
   "mathematical_status": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate.",
   "remaining": [
-    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete Gibbs specialization and marginal moment/source parameter obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json"
 }

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 exact stage R_j=P_j K_j with eta_j/beta and added tau_j/beta smoothing; Lemma6.3(i)",
   "target_statement": "For probability base mu on finite-dimensional real inner-product Borel E, b>=0,u,eta>=0,tau>0 and rho=mu.tilted(-b/2*norm(x-u)^2), prove actual GaussianSmoothing(H_eta rho,sqrt(tau))=H_(eta+tau)rho. Construct one Markov kernel K with every-y fiber rho.tilted(-norm(x-y)^2/(2*(eta+tau))) before all inputs nu,r, recover rho from K composed with H_tau(H_eta rho), and for every probability nu with actual WassersteinSpace.wassersteinDistance(nu,H_eta rho)<=ofReal(r),r>=0 prove actual KL(K composed with H_tau nu,rho)<=ofReal(r^2/(2*tau)). Derive actual noise-sum law and heat semigroup; denominator is added time tau, not total eta+tau.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-rgo-backward",
     "ASTIS-SW-SPHMC-gaussian-kl"
@@ -39,11 +39,12 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-two-noise-rgo.md",
     "planning_review": "Independent log_depth_source_review recommends actual two-noise law/semigroup plus stage consumer; denominator must be added tau, not total eta+tau.",
-    "execution_boundary": "Root sole writer; RGO backward remains sole STABILIZING.",
+    "execution_boundary": "Root sole writer and sole STABILIZING owner; RGO PR264 actually merged; lane released.",
     "ownership_note": "One actual paper consumer; no invented second consumer.",
     "scope_refinement": "Before production: replace raw-cost public budget by source-facing actual ENNReal W2<=ofReal(r), deriving the equivalent squared-cost bound via existing wassersteinDistance_sq and ofReal_pow. log_depth_source_review independently confirmed this reuse; old GaussianKL/RGOBackward contracts unchanged.",
     "independent_proof_review": "runs/20260911-companion-priority/two-noise-rgo.independent-proof-review.json",
-    "admission_boundary": "PROVED_LOCAL with independent production replay; formal source/fixed-commit admission pending."
+    "admission_boundary": "VERIFIED at 4e1490a3b6ad2ec096f1d1b1a94f63b107e6c647; aggregate and reader/graph pending.",
+    "independent_verification": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json"
   },
   "blocked": {
     "reason": "",
