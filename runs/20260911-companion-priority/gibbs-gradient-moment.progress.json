@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SHARED-gibbs-gradient-moment",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA, merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "weighted_checkpoint": {
     "path": ".astis/GibbsGradientMomentWeighted.lean",
@@ -73,5 +73,6 @@
       "ASTIS-RT-20260912-GibbsGradientMoment"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
+  "admission_boundary": "VERIFIED at16acdc7. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json"
 }

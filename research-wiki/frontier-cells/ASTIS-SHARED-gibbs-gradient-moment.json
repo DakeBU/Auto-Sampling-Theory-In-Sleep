@@ -6,7 +6,7 @@
   "title": "Actual Gibbs gradient second moment",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section 6.3 reference-point construction: ideal Gibbs gradient second moment",
   "target_statement": "For an actual C2 potential U on finite-dimensional complete real inner-product Borel E with genuine Hessian bounds alpha I<=Hess U<=beta I, alpha>0 and beta nonnegative, define pi=volume.tilted(-U). Prove pi is probability, actual gradient-square and canonical orthonormal-basis Hessian-diagonal sum are L1(pi), their expectations agree, and expected gradient square<=beta*finrank(E). Derive every weighted integrability and normalization input from the curvature assumptions; no supplied minimizer or Gibbs score moment.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-quadratic-regularization",
     "ASTIS-SHARED-strong-convex-gibbs-integrability"
@@ -42,7 +42,8 @@
     "proof_plan": "proof-blueprints/gibbs-gradient-moment.md",
     "planning_review": "Independent readonly log_depth_source_review accepted the direct IBP route: all three products L1 must be proved, C2 suffices, no cutoff/Poincare/minimizer/C3 required. Existing compact results do not supply the target.",
     "execution_boundary": "Root sole writer. Current terminal-reference lane retains stabilization until delivery; this successor only EXPLORING.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED at16acdc7. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json"
   },
   "blocked": {
     "reason": "",
