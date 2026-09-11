@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost.",
   "development_checkpoint": {
@@ -72,5 +72,9 @@
     ]
   },
   "admission_boundary": "VERIFIED at4cb3594. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/clipped-mean-exponential.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/clipped-mean-exponential.verified-admission.json",
+  "integration_notes": {
+    "upstream": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior54f994e, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
 }

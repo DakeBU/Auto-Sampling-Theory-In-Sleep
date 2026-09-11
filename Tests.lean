@@ -157,6 +157,7 @@ import Tests.SmoothedPicardHMCSmoothGradientArcMoment
 import Tests.SmoothedPicardHMCSmoothGradientArcClipping
 import Tests.SmoothedPicardHMCGradientArcMean
 import Tests.SmoothedPicardHMCIdealRGOIdentification
+import Tests.SmoothedPicardHMCClippedMeanExponential
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!
