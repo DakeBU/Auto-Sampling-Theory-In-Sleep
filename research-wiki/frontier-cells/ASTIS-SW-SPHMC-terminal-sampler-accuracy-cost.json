@@ -38,9 +38,16 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-terminal-sampler-accuracy-cost.md",
     "planning_review": "Independent log_depth source/route audit accepted explicit64parameter route, corrected cached count to1+C, identified reusable actual PoissonQueryTail.",
-    "execution_boundary": "Root sole writer; TerminalSamplerAccuracyCost sole STABILIZING; accepted production/source unchanged.",
+    "execution_boundary": "PR287 actually merged; stabilization lane released. MergeCI/live pending.",
     "admission_boundary": "VERIFIED at73ce28e. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/terminal-sampler-accuracy-cost.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/287",
+      "commit": "dfc29763cbe482e1eebf5fa7b6c5072e3a551c31",
+      "merged_at": "2026-09-11T19:15:42Z",
+      "candidate": "cc1f333938c54ad681aa2f8d6991932cd2c39061",
+      "post_merge": "Merge CI and live provenance pending."
+    }
   },
   "blocked": {
     "reason": "",
