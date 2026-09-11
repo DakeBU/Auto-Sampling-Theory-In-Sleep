@@ -23,3 +23,39 @@ Focused module/tests pass 2725 jobs. Independent c1_proof_review repeated
 compilation, checked all three standard-axiom reports and found no mathematical
 issue. Blind reconstruction and anti-anchored source review are separate.
 Root Tests import, Registry, graph and full acceptance are integration work.
+
+## Independent admission and integration
+
+Frozen proof commit: 7616533a656e149a972c1d52af4bbbcdec148baa.
+Independent proof/commit reviewer: c1_proof_review. Source-blind decoder:
+c1_blind_decoder. Distinct source reviewer: c1_source_reviewer. Source packets
+and immutable run artifacts are in runs/semantic-roundtrip/andi-opt-convexity-c1.
+The shared FTC and integral-converse audits retain domain-mismatch verdicts
+with accepted explicit source specializations. The exact Euclidean C1
+equivalence is equivalent-after-elaboration. No source repair was needed.
+
+Root Analysis and Tests now import the new module/test. Registry has three
+new entries (397 to 400). The stationary-point test uses the two equivalences
+together to obtain quadratic growth. Historical publication tests now identify
+exactly two legacy declarations independently of the source item's total
+binding count; all five bindings still undergo validation. All44 focused Python
+tests pass. Independent integration review of d7cffce found no weakening of
+the gate, stale source hash or test-wiring problem.
+
+Full canonical gate passed before main sync (9112 jobs in Tests). Integration
+commit51e07c9 also preserves main99aa052 and its complete source audit objects;
+a fresh aggregate gate covers the new joint source tree. PR262's completed
+reservation is independently reconciled using c1_proof_review's preservation
+audit and attributed historical evidence. No other owner's merge is impersonated.
+
+Final synchronized gate on 51e07c9 passed, including root Tests (9114 jobs),
+fake-closure scan and pinned ATLAS validation. Publication (34 source items),
+semantic review (40 audits), frontier cells (49), generated graph checks for
+all three cells, and full site check passed. Site has 400 registered leaves,
+584 modules and 3669 declarations. Desktop and mobile source/graph inspection
+confirmed readable assumptions, proof steps, horizontally scrollable formulas,
+compiled status and distinct structural/reference edges.
+
+Next dependency-ready optimisation work: inspect existing Hessian APIs and
+source detail for Proposition 1.6 part 2 before choosing one C2 implication.
+Do not mark the complete proposition or Riemannian analogue finished.
