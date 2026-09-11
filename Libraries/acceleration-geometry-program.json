@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "id": "acceleration-geometry-shared-spine",
+  "title": "Acceleration × Geometry Shared Spine",
+  "purpose": "Lean-first shared route for acceleration proofs across Optimisation, Riemannian Optimisation, Statistical Optimal Transport, and Sampling. Formal theorem edges, compile-checked prototypes, source theorems, proof-pattern transfers, and research hypotheses remain explicitly separated.",
+  "public_route": "/research-routes/acceleration-geometry/",
+  "collaboration": {
+    "owner_branch": "codex/acceleration-geometry-shared-spine",
+    "integration_policy": "Route-local files first; shared aggregators, semantic-roundtrip registries, SAU ledgers, and global graph truth are changed only through the serialized stabilization lane.",
+    "handoff": "/docs/acceleration-geometry-handoff.md",
+    "avoid_parallel_edits": [
+      "research-wiki/semantic-roundtrip/registry.json",
+      "runs/substantive_advances.jsonl",
+      "active theorem files owned by other Frontier Cells"
+    ]
+  },
+  "truth_classes": [
+    {"id": "formal-lean", "meaning": "Compiled ASTIS declaration with focused tests and normal publication/semantic-review evidence."},
+    {"id": "lean-prototype", "meaning": "Compile-checked Lean in Tests/ only; not Samplinglib theorem truth."},
+    {"id": "source-theorem", "meaning": "Theorem established in a pinned source but not yet a local Lean dependency."},
+    {"id": "proof-pattern-transfer", "meaning": "Reviewed reusable proof architecture whose target-domain adapters remain obligations."},
+    {"id": "research-hypothesis", "meaning": "Speculative cross-domain route; never render as theorem implication."}
+  ],
+  "shared_lean_spine": [
+    {
+      "id": "shared:weighted-progress-coupling",
+      "prototype_file": "Tests/AccelerationGeometry.lean",
+      "target_module": "planned: AutoSamplingTheory.TechnicalLemmas.Optimization.Acceleration.Coupling",
+      "status": "lean-prototype-publication-pending",
+      "truth_class": "lean-prototype",
+      "role": "Geometry-independent algebra for combining independently certified primal and dual progress inequalities.",
+      "first_consumers": ["optimisation-ch5", "optimisation-ch10"],
+      "later_consumers": ["riemannian-acceleration", "optimal-transport-acceleration", "sampling-acceleration"]
+    },
+    {
+      "id": "shared:damping-dissipation",
+      "prototype_file": "Tests/AccelerationGeometry.lean",
+      "target_module": "planned: AutoSamplingTheory.TechnicalLemmas.Optimization.Acceleration.Damping",
+      "status": "lean-prototype-publication-pending",
+      "truth_class": "lean-prototype",
+      "role": "Scalar force cancellation and damping dissipation shared structurally by accelerated optimisation and kinetic sampling; not an ULD convergence theorem."
+    },
+    {
+      "id": "shared:primal-dual-geometry-interface",
+      "target_module": "planned: Geometry.DualityMap",
+      "status": "planned-after-source-audit",
+      "role": "Separate differentials/covectors, primal tangent directions, and geometry-specific duality maps."
+    },
+    {
+      "id": "shared:lyapunov-certificate-interface",
+      "target_module": "planned: Optimization.Acceleration.LyapunovCertificate",
+      "status": "planned-after-euclidean-route",
+      "role": "Abstract weighted potential, derivative certificate, and scalar rate extraction."
+    },
+    {
+      "id": "shared:inexact-progress-interface",
+      "target_module": "planned: Optimization.Acceleration.InexactProgress",
+      "status": "planned-after-katyusha-audit",
+      "role": "Expose oracle/score error separately from exact progress so stochastic optimisation and finite-particle sampling can share error bookkeeping without sharing estimators."
+    }
+  ],
+  "textbook_placement": [
+    {
+      "id": "optimisation-ch5",
+      "library": "Optimisation",
+      "source_anchor": "Chewi, Lectures on Optimization, Chapter 5: Acceleration",
+      "role": "Canonical first home of Nesterov acceleration and the deterministic acceleration certificate; attach Allen-Zhu--Orecchia Linear Coupling as a supplementary source route.",
+      "additions": ["Nesterov theorem route", "Linear Coupling proof architecture", "shared progress-coupling algebra", "damped/Hamiltonian conceptual mirror after theorem pinning"]
+    },
+    {
+      "id": "optimisation-ch10",
+      "library": "Optimisation",
+      "source_anchor": "Chewi, Lectures on Optimization, Chapter 10: Mirror methods",
+      "role": "Canonical home of Bregman divergence, mirror progress, dual norms, and duality-map ingredients consumed by Linear Coupling and geometry transports."
+    },
+    {
+      "id": "optimisation-ch12",
+      "library": "Optimisation",
+      "source_anchor": "Chewi, Lectures on Optimization, Chapter 12: Stochastic optimization",
+      "role": "Canonical home of stochastic/inexact progress, variance reduction, snapshot/anchor state, and Katyusha negative momentum."
+    },
+    {
+      "id": "riemannian-acceleration",
+      "library": "Riemannian Optimisation",
+      "source_anchor": "Boumal textbook geometry/first-order/geodesic-convexity chapters plus pinned acceleration supplements",
+      "role": "Reuse certificate algebra through tangent/cotangent, log/retraction, vector transport, geodesic convexity, and explicit curvature/retraction defects."
+    },
+    {
+      "id": "optimal-transport-acceleration",
+      "library": "Statistical Optimal Transport",
+      "source_anchor": "Wasserstein geometry, continuity equation, displacement convexity, and supplementary AIG literature",
+      "role": "Reuse the certificate/Lyapunov skeleton with Wasserstein velocities, OT displacement, and moving optimal-map correction lemmas."
+    },
+    {
+      "id": "sampling-acceleration",
+      "library": "Log-Concave Sampling",
+      "source_anchor": "Chewi sampling text plus primary underdamped-Langevin acceleration literature",
+      "role": "Keep structural Nesterov/kinetic mirrors, continuous-time hypocoercive acceleration, and discrete-time sampler complexity as distinct graph layers."
+    }
+  ],
+  "literature_lines": [
+    {
+      "id": "line:linear-coupling",
+      "domain": "optimisation",
+      "mainline": [
+        {"source_id": "allen-zhu-orecchia-2017", "title": "Linear Coupling: An Ultimate Unification of Gradient and Mirror Descent", "authors": "Zeyuan Allen-Zhu; Lorenzo Orecchia", "url": "https://arxiv.org/abs/1407.1537", "role": "Primal gradient progress plus dual mirror progress coupled into acceleration."},
+        {"source_id": "allen-zhu-katyusha-2017", "title": "Katyusha: The First Direct Acceleration of Stochastic Gradient Methods", "authors": "Zeyuan Allen-Zhu", "url": "https://arxiv.org/abs/1603.05953", "role": "Variance-reduced finite-sum acceleration with an anchor-oriented negative momentum."}
+      ]
+    },
+    {
+      "id": "line:differing-norm-acceleration",
+      "domain": "optimisation-geometry",
+      "mainline": [
+        {"source_id": "bai-bullins-2025", "title": "Faster Acceleration for Steepest Descent", "authors": "Cedar Site Bai; Brian Bullins", "url": "https://proceedings.mlr.press/v291/bai25a.html", "role": "Acceleration with primal and dual iterate sequences measured in differing norms and an implicit interpolation parameter."}
+      ],
+      "migration_rule": "Do not call a general p!=2 norm Riemannian. Extract norm/dual-norm algebra first; quadratic Hilbert instances may specialize to Riemannian geometry, while nonquadratic instances route through Banach/Finsler/Legendre geometry."
+    },
+    {
+      "id": "line:nesterov-underdamped",
+      "domain": "sampling",
+      "mainline": [
+        {"source_id": "ma-et-al-2019", "title": "Is There an Analog of Nesterov Acceleration for MCMC?", "authors": "Yi-An Ma; Niladri Chatterji; Xiang Cheng; Nicolas Flammarion; Peter Bartlett; Michael I. Jordan", "url": "https://arxiv.org/abs/1902.00996", "role": "Optimization-on-measures/Lyapunov bridge."},
+        {"source_id": "cao-lu-wang-2020", "title": "On explicit L2-convergence rate estimate for underdamped Langevin dynamics", "authors": "Yu Cao; Jianfeng Lu; Lihan Wang", "url": "https://arxiv.org/abs/1908.04746", "role": "Continuous-time hypocoercive square-root scale under optimized friction."},
+        {"source_id": "zhang-chewi-li-balasubramanian-erdogdu-2023", "title": "Improved Discretization Analysis for Underdamped Langevin Monte Carlo", "authors": "Shunshi Zhang; Sinho Chewi; Mufan Li; Krishna Balasubramanian; Murat A. Erdogdu", "url": "https://proceedings.mlr.press/v195/zhang23a.html", "role": "Discretization transfer and ULMC algorithmic guarantees."},
+        {"source_id": "altschuler-chewi-zhang-2025", "title": "Shifted Composition IV: Toward Ballistic Acceleration for Log-Concave Sampling", "authors": "Jason M. Altschuler; Sinho Chewi; Matthew S. Zhang", "url": "https://arxiv.org/abs/2506.23062", "role": "Coupling-based local error framework and discrete-time ballistic acceleration."},
+        {"source_id": "lu-2026", "title": "A sharp hypocoercive entropy decay estimate for underdamped Langevin dynamics", "authors": "Jianfeng Lu", "url": "https://arxiv.org/abs/2605.01933", "role": "Sharp square-root-order entropy decay with a Wasserstein/Brenier corrector."},
+        {"source_id": "borkowski-nusken-2026", "title": "The Fenchel Game of Underdamped Langevin Dynamics: Insights into Accelerated Convergence", "authors": "Alexandra Borkowski; Nikolas Nüsken", "url": "https://arxiv.org/abs/2609.07812", "role": "Fenchel-game route to accelerated positional-KL rates."}
+      ],
+      "separation_rule": "Never identify Nesterov AGD and ULD as the same dynamics. Record structural mirrors, continuous-time theorems, and discretized algorithmic theorems as distinct graph edges."
+    }
+  ],
+  "hypergraph_extension": [
+    {
+      "id": "transport:acceleration-certificate-coupling",
+      "family_id": "family:primal-dual-acceleration",
+      "tails": ["concept:optimization"],
+      "heads": ["concept:riemannian", "concept:transport", "concept:sampling"],
+      "truth_class": "proof-pattern-transfer",
+      "formula": "weighted primal progress + weighted dual progress <= weighted potential decrease",
+      "mechanism": "Formalize coupling algebra once; each geometry supplies its own primal and dual progress certificates.",
+      "failure_boundary": "The algebra alone does not prove mirror maps, vector transport, displacement convexity, or stochastic oracle bounds."
+    },
+    {
+      "id": "transport:nesterov-kinetic-langevin",
+      "family_id": "family:kinetic-acceleration",
+      "tails": ["concept:optimization"],
+      "heads": ["concept:sampling"],
+      "truth_class": "proof-pattern-transfer",
+      "formula": "position + momentum + damping + force",
+      "mechanism": "Accelerated optimisation and kinetic sampling share a momentum/damping skeleton, while ULD adds phase-space stochastic forcing and degenerate dissipation.",
+      "failure_boundary": "ODE/SDE resemblance is not theorem equivalence and does not imply discrete sampling acceleration."
+    },
+    {
+      "id": "transport:differing-norm-to-geometry",
+      "family_id": "family:cross-geometry-coupling",
+      "tails": ["concept:optimization"],
+      "heads": ["concept:riemannian", "concept:transport"],
+      "truth_class": "proof-pattern-transfer",
+      "formula": "primal progress in ||.||_P + dual progress in ||.||_D",
+      "mechanism": "Extract Bai--Bullins norm/dual-norm inequalities before quadratic Riemannian or nonquadratic Finsler/Banach specialization.",
+      "failure_boundary": "Do not insert arbitrary G1,G2 into a Hamiltonian and assume original cancellations survive."
+    },
+    {
+      "id": "transport:katyusha-anchor-to-inexact-sampling",
+      "family_id": "family:inexact-acceleration",
+      "tails": ["concept:optimization"],
+      "heads": ["concept:sampling"],
+      "truth_class": "research-hypothesis",
+      "formula": "accelerated state + stable snapshot/anchor + variance/score error correction",
+      "mechanism": "Use Katyusha as a design clue for acceleration under noisy/inexact gradients; investigate reference-distribution or snapshot-score stabilization.",
+      "failure_boundary": "Katyusha is a finite-sum optimisation theorem; no sampling-rate transfer is claimed."
+    },
+    {
+      "id": "transport:sharp-uld-ot-corrector",
+      "family_id": "family:hypocoercive-lyapunov",
+      "tails": ["concept:transport", "concept:sampling"],
+      "heads": ["concept:sampling"],
+      "truth_class": "source-theorem",
+      "formula": "modified entropy = entropy + optimal-transport/entropy-current corrector",
+      "mechanism": "Lu 2026 creates a direct bridge from OT geometry into sharp kinetic entropy decay.",
+      "failure_boundary": "Exact source assumptions and normalizations must be formalized before promotion to a Lean edge."
+    }
+  ],
+  "execution_order": [
+    "A0: public naming and textbook labels",
+    "A1: Euclidean deterministic acceleration source map (Optimisation Ch. 5)",
+    "A2: compile-check shared coupling/damping algebra in Tests; publish only after source/round-trip review",
+    "A3: mirror/Bregman and primal-dual geometry source map (Optimisation Ch. 10)",
+    "A4: Linear Coupling theorem reconstruction in Euclidean space",
+    "A5: stochastic/inexact progress and Katyusha source map (Optimisation Ch. 12)",
+    "B1: Riemannian adapter audit",
+    "B2: Wasserstein/OT adapter audit",
+    "B3: ULD continuous-time hypocoercive mainline",
+    "B4: discrete ballistic acceleration/error-composition mainline",
+    "C1: Bai--Bullins norm-separated proof decomposition",
+    "C2: quadratic Riemannian specialization and nonquadratic Banach/Finsler route",
+    "C3: only then test cross-geometry and inexact-sampling research hypotheses"
+  ]
+}

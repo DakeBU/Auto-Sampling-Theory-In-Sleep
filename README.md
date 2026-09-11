@@ -2,9 +2,9 @@
 
 # Auto-Sampling-Theory-In-Sleep
 
-### An Automated Theorem Proving System and Visualized Lean Library for Sampling Theory
+### An Automated Theorem Proving System and Visualized Lean Library for Sampling, Optimisation, and Geometry
 
-**Samplinglib:** a source-backed Lean graph for sampling and optimisation
+**Samplinglib:** Verified Sampling, Optimisation, Geometry Theory in Lean
 
 [![Samplinglib](https://img.shields.io/badge/Samplinglib-formal_knowledge_graph-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
@@ -18,7 +18,7 @@
 
 </div>
 
-ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies in one inspectable graph. Primary sources, official supplements, background textbooks, and formal upstream libraries have different roles and are recorded separately; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, verified, and reused.
+ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean declarations, and theorem dependencies for sampling, optimisation, and geometry in one inspectable graph. Primary sources, official supplements, background textbooks, and formal upstream libraries have different roles and are recorded separately; frontier papers are inserted into the same graph so that their actual mathematical contribution can be compared, verified, and reused.
 
 | Library | Primary source |
 |---|---|
@@ -32,14 +32,13 @@ ASTIS builds **Samplinglib**: natural-language mathematics, source anchors, Lean
 
 ## News
 
+- **2026-09-11:** Added the Lean-first [Acceleration × Geometry shared-spine program](docs/acceleration-geometry-handoff.md): Linear Coupling/Katyusha, differing-norm acceleration, and the underdamped-Langevin acceleration line are organized through one shared formal substrate before Riemannian, optimal-transport, and sampling adapters.
 - **2026-09-10:** Compiled and source-reviewed the first [SPHMC](conversion-windows/ASTIS-SW-SPHMC-2026.md) and [Proximal BPS](conversion-windows/ASTIS-SW-PBPS-2026.md) proof packets.
 - **2026-09-09:** Connected mathematics-first readers to [chapter progress and semantic review](docs/theorem-publication-protocol.md).
-
 - **2026-09-07:** Added Discrete Sampling and MCMC as peer libraries.
 - **2026-09-05:** Added Statistical Optimal Transport and the Functor Hypergraph.
 - **2026-08-30:** Unified cross-library progress and Frontier Cell collaboration.
 - **2026-08-29:** Added source-fidelity checks and theorem denoising.
-- **2026-07-27:** Added the Blueprint-style textbook and formalization website.
 - **2026-07-17:** Established Auto-Sampling-Theory-In-Sleep.
 
 ## Research aim
@@ -61,7 +60,7 @@ The [publication protocol](docs/theorem-publication-protocol.md) synchronizes so
 statements, formula proofs, folded Lean, assumption audits and chapter progress;
 `check --base BASE_COMMIT` rejects missing or stale publication evidence.
 
-The three formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
+The formalization routes use the same theorem-driven verification workflow. A **Frontier Cell** is one theorem-sized advance with an exact target, known parents, a truth boundary, and a focused test. Parallel work may discover shared foundations, but shared declarations are reused or coordinated before publication; independent review and a single stabilization lane decide what becomes Samplinglib truth.
 
 <p align="center">
   <img src="website/static/astis-harness-current.svg" alt="ASTIS Harness theorem-driven verification workflow" width="980">
@@ -78,7 +77,7 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 <details>
 <summary><strong>Collaborative route protocol</strong></summary>
 
-[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing **SampleWiki Route**, **Riemannian Optimization**, and **Optimisation**. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
+[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing the textbook, SampleWiki, and cross-library formalization routes. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
 
 Persistent cells live under [`research-wiki/frontier-cells/`](research-wiki/frontier-cells/). Their status is evidence-backed and CI-checked by:
 
@@ -90,7 +89,7 @@ Before creating a Lean declaration, a Worker must search Samplinglib, Mathlib, a
 
 If a missing lower-level theorem is needed by two or more routes, **do not create parallel route-local copies**. Open one `route: shared` Frontier Cell, stabilize one canonical declaration, and let route-specific theorems depend on it. Near-equivalent statements use a shared mathematical core plus explicit adapters; genuinely different theorems remain separate. Shared aggregators, root registries, API collision resolution, and graph/index updates are serialized through one stabilization lane.
 
-Full protocol: [docs/formalization-protocol.md](docs/formalization-protocol.md). Cross-route candidates and canonical shared declarations are recorded in [Libraries/shared-foundations.yml](Libraries/shared-foundations.yml).
+Full protocol: [docs/formalization-protocol.md](docs/formalization-protocol.md). Cross-route candidates and canonical shared declarations are recorded in [Libraries/shared-foundations.yml](Libraries/shared-foundations.yml). The acceleration/geometry collaboration packet is [docs/acceleration-geometry-handoff.md](docs/acceleration-geometry-handoff.md).
 
 </details>
 
@@ -148,7 +147,7 @@ SAU ledger, not from this historical run note.
 ```bibtex
 @misc{bu2026astis,
   title  = {Auto-Sampling-Theory-In-Sleep: An Automated Theorem Proving System
-            and Visualized Lean Library for Sampling Theory},
+            and Visualized Lean Library for Sampling, Optimisation, and Geometry},
   author = {Dake Bu and Ji Cheng and Huanjian Zhou and Andi Han and
             Zonghao Chen and Sinho Chewi and Matthew S. Zhang and Hau-San Wong and
             Qingfu Zhang and Atsushi Nitanda},
