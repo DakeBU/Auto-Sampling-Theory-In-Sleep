@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b",
+  "publication_binding_sha256": "5b0266281e1213e7c9a3af084c4de432e966f6ef982115e5fc39c6b3523fcd2b",
+  "semantic_slots": {
+    "objects": {
+      "original": "Classical Euclidean derivative gradient and actual update.",
+      "reconstructed": "Lean totalized derivative/Riesz gradient and actual update.",
+      "relation": "different",
+      "evidence": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. This is an algebraic model implication rather than an asserted derivative theorem for arbitrary functions.",
+      "source": "Classical Euclidean derivative gradient and actual update.",
+      "lean": "Lean totalized derivative/Riesz gradient and actual update.",
+      "status": "different",
+      "explanation": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. This is an algebraic model implication rather than an asserted derivative theorem for arbitrary functions."
+    },
+    "domains": {
+      "original": "C2 objective on Euclidean d-space; positive beta reciprocal domain.",
+      "reconstructed": "Arbitrary f on any complete real inner-product space; signed real beta under explicit global model inequalities.",
+      "relation": "different",
+      "evidence": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise.",
+      "source": "C2 objective on Euclidean d-space; positive beta reciprocal domain.",
+      "lean": "Arbitrary f on any complete real inner-product space; signed real beta under explicit global model inequalities.",
+      "status": "different",
+      "explanation": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise."
+    },
+    "quantifiers": {
+      "original": "For every point x and printed h<=1/beta.",
+      "reconstructed": "For every admitted f, space and point x, with h>=0 and beta h<=1.",
+      "relation": "different",
+      "evidence": "The global model and descent hold at all points for the same constants. Space/function class is extended; h domain restricted. The conclusion concerns the concrete gradient expression.",
+      "source": "For every point x and printed h<=1/beta.",
+      "lean": "For every admitted f, space and point x, with h>=0 and beta h<=1.",
+      "status": "different",
+      "explanation": "The global model and descent hold at all points for the same constants. Space/function class is extended; h domain restricted. The conclusion concerns the concrete gradient expression."
+    },
+    "assumptions": {
+      "original": "Source C2 and beta smooth; printed h<=1/beta.",
+      "reconstructed": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise.",
+      "relation": "different",
+      "evidence": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. Upper-model algebra alone suffices.",
+      "source": "Source C2 and beta smooth; printed h<=1/beta.",
+      "lean": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise.",
+      "status": "different",
+      "explanation": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. Upper-model algebra alone suffices."
+    },
+    "conclusion": {
+      "original": "f(Tx)-f(x)<=-(h/2)||grad f(x)||^2.",
+      "reconstructed": "The identical descent expression with the totalized gradient.",
+      "relation": "equivalent",
+      "evidence": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. The coefficient is exactly h/2.",
+      "source": "f(Tx)-f(x)<=-(h/2)||grad f(x)||^2.",
+      "lean": "The identical descent expression with the totalized gradient.",
+      "status": "equivalent",
+      "explanation": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. The coefficient is exactly h/2."
+    },
+    "scopes": {
+      "original": "Global deterministic pointwise decrease from smoothness, no convexity required.",
+      "reconstructed": "Global deterministic model consequence with no convexity.",
+      "relation": "explicit-elaboration",
+      "evidence": "The extended statement does not promise strict convergence outside positive alpha and positive h. At h=0 descent is equality.",
+      "source": "Global deterministic pointwise decrease from smoothness, no convexity required.",
+      "lean": "Global deterministic model consequence with no convexity.",
+      "status": "explicit-elaboration",
+      "explanation": "The extended statement does not promise strict convergence outside positive alpha and positive h. At h=0 descent is equality."
+    },
+    "constant_dependencies": {
+      "original": "beta restricts step and h/2 multiplies squared gradient.",
+      "reconstructed": "Exactly beta h<=1 and -h/2 coefficient.",
+      "relation": "same",
+      "evidence": "All factors and signs checked in the full proof. Multiplication uses h||g||^2>=0 and does not require beta itself nonnegative.",
+      "source": "beta restricts step and h/2 multiplies squared gradient.",
+      "lean": "Exactly beta h<=1 and -h/2 coefficient.",
+      "status": "same",
+      "explanation": "All factors and signs checked in the full proof. Multiplication uses h||g||^2>=0 and does not require beta itself nonnegative."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "objects",
+      "severity": "informational",
+      "description": "Totalized-gradient algebraic interface is broader than source classical derivative assumptions.",
+      "evidence": "The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity."
+    },
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Hilbert-space and signed-parameter domain extensions are explicitly disclosed.",
+      "evidence": "Fresh elaborated statement, blind reconstruction and all candidate lesson assumptions agree on absent C1/C2 and real parameters."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "The printed step condition omits the necessary nonnegative lower bound.",
+      "evidence": "f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0."
+    }
+  ],
+  "verdict": "possible-source-error",
+  "repairs": [
+    {
+      "id": "ASTIS-REPAIR-ANDI-PL-DESCENT-NONNEGATIVE-STEP",
+      "class": "assumption-addition",
+      "status": "proposed",
+      "necessity": "mathematically-necessary",
+      "proposed_change": "Add h>=0 to the printed h<=1/beta restriction in Lemma3.1. Retain the original pinned source separately and preserve the local algebraic generalization.",
+      "reconstructed_statement": "Let f:R^d->R be C2 and beta-smooth with beta>0. For every step 0<=h<=1/beta and every x, define T(x)=x-h grad f(x). Then f(T(x))-f(x)<=-(h/2)||grad f(x)||^2.",
+      "statement_sha256": "1c1f243a974a44bd02e19373aa69b3db5a9279fa87c5e5f041aface939939949",
+      "justification": "f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0.",
+      "minimality_evidence": "Only the lower bound h>=0 is added to the source step domain; h=0 remains valid. Source positive modulus/regularity premises are retained. No convexity or strong convexity assumption is added. Omitting the new lower bound admits the explicit quadratic counterexample.",
+      "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Lemma3.1. Exact counterexample: f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0.",
+      "review": {
+        "state": "pending"
+      },
+      "proposal_author": "coco_source"
+    }
+  ],
+  "review_evidence": "Accepted scoped source support for Lemma3.1 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current Basic module and bound lesson/provenance reviewed. Insert T(x)=x-hg into the upper model. Inner product and norm identities give -h||g||^2+(beta/2)h^2||g||^2. From beta h<=1 times h||g||^2>=0 obtain exactly -(h/2)||g||^2. This does not require beta>=0 or a differentiability premise once that global model is assumed. The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity. Run artifact: /private/tmp/andi-pl-source-review-run-01.json",
+  "review_run_sha256": "049a93680653772164f09f30800c3f2c90161688a0238ec76b84e77bc3137ea4",
+  "review_run_artifact": "/private/tmp/andi-pl-source-review-run-01.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b",
+    "review_run_sha256": "049a93680653772164f09f30800c3f2c90161688a0238ec76b84e77bc3137ea4",
+    "evidence": "Accepted scoped source support for Lemma3.1 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current Basic module and bound lesson/provenance reviewed. Insert T(x)=x-hg into the upper model. Inner product and norm identities give -h||g||^2+(beta/2)h^2||g||^2. From beta h<=1 times h||g||^2>=0 obtain exactly -(h/2)||g||^2. This does not require beta>=0 or a differentiability premise once that global model is assumed. The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity. Run artifact: /private/tmp/andi-pl-source-review-run-01.json"
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted scoped source support for Lemma3.1 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded.",
+    "whole_current_module_reviewed": true,
+    "dependency_provenance_checked": true,
+    "remaining_truth_boundary": "No separate differentiability/positive-modulus premises are inferred from total gradient notation. Source positive smooth regime is a specialization. Proposed h>=0 correction requires its own independent exact-proposal review and never overwrites the pinned source."
+  }
+}

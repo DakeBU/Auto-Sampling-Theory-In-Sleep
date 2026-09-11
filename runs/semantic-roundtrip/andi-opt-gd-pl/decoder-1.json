@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-cc9a15c34f67c9db",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {α β h : ℝ}\n  {z : E},\n  IsMinOn f Set.univ z →\n    0 ≤ h →\n      β * h ≤ 1 →\n        (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n          (∀ (x : E), 2 * α * (f x - f z) ≤ ‖gradient f x‖ ^ 2) →\n            ∀ (x₀ : E) (N : ℕ), f ((fun x => x - h • gradient f x)^[N] x₀) - f z ≤ (1 - α * h) ^ N * (f x₀ - f z)",
+    "statement_sha256": "cc9a15c34f67c9db2e1d2a6e59639595c9cb28216d5e0fe4c472c4221baafa01",
+    "compiled": true,
+    "approved_definition_context": [
+      "gradient f x is the Riesz vector of the totalized Frechet derivative; no differentiability is imposed by the notation alone.",
+      "IsMinOn f Set.univ z means f(z)<=f(x) for every x in the entire domain.",
+      "Function.iterate T N, written T^[N], is N-fold composition; T^[0] is the identity."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "443b0478e9e3ab137186e1f5c3566f8e6654c671594bce536fda4a96db2a61ab"
+}

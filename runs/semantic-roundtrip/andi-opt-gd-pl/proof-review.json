@@ -1,0 +1,104 @@
+{
+  "reviewer": "smoothness_review",
+  "checked_commit": "16dcffe45bae33705b9879305dc35c38604b1418",
+  "baseline_commit": "25e2670d736a381123408023181e3b70a9a945ce",
+  "review_scope": "Independent complete proof/source-boundary explanation and focused compiler review; frozen production plus explicitly hashed current authored reader draft; no independent source admission performed by this reviewer",
+  "decision": "Proof/tests PASS; conditional VERIFIED recommendation with independent publication/source/repair conditions",
+  "committed_files": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean": {
+      "sha256": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef",
+      "working_tree_matches_frozen": true
+    },
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentPL.lean": {
+      "sha256": "382c8a5ba9dae70074114a205eb03c44826cb03c9b20c0f64931ced25fd9bea2",
+      "working_tree_matches_frozen": true
+    },
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean": {
+      "sha256": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c",
+      "working_tree_matches_frozen": true
+    },
+    "Tests/Shared/GradientDescentPL.lean": {
+      "sha256": "74d891613203408086107bd08e41e8495ea761183d0ad5a342a91bd00f154ab7",
+      "working_tree_matches_frozen": true
+    },
+    "Tests/Shared/GradientDescentValue.lean": {
+      "sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+      "working_tree_matches_frozen": true
+    }
+  },
+  "authored_working_tree_files": {
+    "website/content/declaration_lessons/gradient-descent-pl.json": {
+      "sha256": "19a89bc40eccd6b5015f897adeeb640e57f50dd1b6a5f111174e8fcec2395ee6",
+      "bound_to_commit": false
+    },
+    "website/content/declaration_lessons/gradient-descent-value.json": {
+      "sha256": "760497d2c7699f8144cbb98d45e2cd953d5e12b9ba51f5dec414eb4a85be5845",
+      "bound_to_commit": false
+    },
+    "website/content/publications/optimisation.json": {
+      "sha256": "b0348f2bc592fb4bb4a9034287bb56b0a29a506b2798b2539c593cb6670d100e",
+      "bound_to_commit": false
+    }
+  },
+  "focused_gate": {
+    "command": "env PATH=/Users/andyjm3/.elan/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin LEAN_NUM_THREADS=2 lake build Tests.Shared.GradientDescentPL Tests.Shared.GradientDescentValue",
+    "result": "PASS2477, exit0; no warnings. PL Tests replay emits both new theorem axiom lists.",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "tool_session": 27607,
+    "coverage": "Concrete actual quadratic objective for all h∈[0,1],N including h0/q0; concrete constant objective q=-1 for all N; unchanged original three Value consumers rebuilt against extracted shared helper."
+  },
+  "fake_closure_scan": {
+    "scope": [
+      "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean",
+      "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentPL.lean",
+      "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean",
+      "Tests/Shared/GradientDescentPL.lean",
+      "Tests/Shared/GradientDescentValue.lean"
+    ],
+    "pattern": "word sorry/admit/axiom, Prop := True, := trivial",
+    "result": "PASS after inspecting match: sole token admit appears in ordinary comment \"Constant objectives admit q<0\". No closure, sorry, axiom declaration, or trivialized target. #print axioms confirms standard-only dependencies."
+  },
+  "extraction_audit": {
+    "helper_statement_and_proof_exact": "Compared baseline private step_descent against new public helper after only replacing visibility/name: byte-identical complete theorem body.",
+    "old_two_public_statements_exact": true,
+    "old_tests_byte_identical": true,
+    "old_module_diff": "Only canonical import, private implementation deletion, two call replacements and module documentation update; no changed strong-convex/upper-model assumptions or conclusions.",
+    "substantive_delta": "New PL-to-actual-iterate rate. Shared descent publication is justified canonical reuse of an existing proven calculation, not independently new mathematics."
+  },
+  "mathematical_findings": [
+    "Descent is a valid algebraic consequence of the explicitly supplied global quadratic upper model in Lean actual totalized gradient. It needs no separate differentiability hypothesis. This does not assert the totalized gradient is a genuine analytic derivative at nondifferentiable points or that arbitrary f satisfies the model.",
+    "PL consumer derives gap nonnegativity from supplied IsMinOn f univ z. Actual T=x-h•gradient f x and actual Function.iterate occur in conclusion; scalar recurrence is proved internally from descent and global PL model, not an input.",
+    "Multiplication of PL by h/2>=0 and combination with descent has correct normalization2alpha and recurrence coefficient1-alpha*h. Signed alpha and beta are valid algebraically; positive alpha and h are needed to interpret the ordinary nonnegative coefficient as decay.",
+    "q>=0 branch invokes exact Mathlib le_geom on actual iterates using iterate_succ_apply-prime. q<0 branch uses 0<=gap(Tx)<=q*gap(x), gap(x)>=0 to force gap(x)=0 for every x, then both final sides zero. No negative-order induction and no missing alpha*h<=1 hypothesis.",
+    "h0 and N0 are identities; q0 gives one-step optimum with supplied minimum. Constant-objective qnegative consumer correctly demonstrates why alpha<=beta is not universally derivable. No division or artificial inverse endpoints enter.",
+    "No convexity, free gradient field, optimizer-existence proof, separate Lipschitz gradient, or unproved smoothness equivalence is hidden."
+  ],
+  "reader_source_review": {
+    "source_anchors": [
+      "Chewi arXiv2605.07006v1 Lemma3.1",
+      "Definition2.5 and Section2 minimum convention",
+      "Theorem3.6"
+    ],
+    "result": "Current new lesson explains both proofs and complete actual-gradient/global-model assumptions. Old Value lesson updates private references to canonical helper and adds true dependency; source statements and old mathematical explanations otherwise unchanged.",
+    "boundary": "Actual attained minimum retained. Hilbert space, real moduli and no separate C1/C2 input are explicit algebraic generalizations. h>=0 is a necessary source-domain repair, separately accepted only after exact proposal review. PL-specific negative-step quadratic counterexample gives gap2 versus proposed upper1. No companion-paper progress or normalized old-test promotion claimed."
+  },
+  "findings": [],
+  "conditional_verified_authorization": {
+    "authorized_recorder": "root sole writer",
+    "verifier_attribution": "smoothness_review",
+    "authorization": "Root may record attributed VERIFIED once all conditions below hold; root is not the independent verifier.",
+    "conditions": [
+      "Fix any reported schema enum and bind exact final reader/publication hashes to fresh packets.",
+      "Fresh independent pl_blind source-blind decoder and coco_source anti-anchored review accept both new declarations and re-audit both refactored old Value declarations with changed module/dependency payload; no old whole-module verdict replay.",
+      "Distinct independent exact-proposal repair review accepts target-specific h>=0 source overlays without overwriting pinned source or claiming signed-modulus generalizations are repairs.",
+      "Real check_advance reviewed=True, semantic and diff publication gates pass for all affected declarations.",
+      "Frozen production/tests unchanged; if semantics change obtain new proof review."
+    ],
+    "limit": "No canonical full gate, root aggregate import/Registry, graph/site/UI, merge, deployment or full paper completion certified here."
+  },
+  "repo_mutations": "None by reviewer. Only requested /private/tmp report written."
+}

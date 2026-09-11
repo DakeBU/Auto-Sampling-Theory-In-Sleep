@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b",
+  "publication_binding_sha256": "f4e98af75921078c6a5a6c8a76150861320331d51f69a972f1b5a0565662b808",
+  "semantic_slots": {
+    "objects": {
+      "original": "A scalar objective, its Euclidean gradient, actual GD update and arbitrary comparator from (3.3).",
+      "reconstructed": "C1 function with genuine Riesz gradient, actual update and arbitrary comparator z.",
+      "relation": "explicit-elaboration",
+      "evidence": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. Both function values are evaluations of the actual objective.",
+      "source": "A scalar objective, its Euclidean gradient, actual GD update and arbitrary comparator from (3.3).",
+      "lean": "C1 function with genuine Riesz gradient, actual update and arbitrary comparator z.",
+      "status": "explicit-elaboration",
+      "explanation": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. Both function values are evaluations of the actual objective."
+    },
+    "domains": {
+      "original": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+      "reconstructed": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
+      "relation": "different",
+      "evidence": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence.",
+      "source": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+      "lean": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
+      "status": "different",
+      "explanation": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence."
+    },
+    "quantifiers": {
+      "original": "All x,z in the explicit source comparator remark.",
+      "reconstructed": "All x,z at one fixed admitted step.",
+      "relation": "same",
+      "evidence": "Global upper/chord models use one f,alpha,beta,h. No minimizer restriction has been inserted or dropped relative to (3.3).",
+      "source": "All x,z in the explicit source comparator remark.",
+      "lean": "All x,z at one fixed admitted step.",
+      "status": "same",
+      "explanation": "Global upper/chord models use one f,alpha,beta,h. No minimizer restriction has been inserted or dropped relative to (3.3)."
+    },
+    "assumptions": {
+      "original": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta.",
+      "reconstructed": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1.",
+      "relation": "different",
+      "evidence": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. No alpha h<=1 or sign of the comparator gap is needed.",
+      "source": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta.",
+      "lean": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1.",
+      "status": "different",
+      "explanation": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. No alpha h<=1 or sign of the comparator gap is needed."
+    },
+    "conclusion": {
+      "original": "The (3.3) squared-distance bound with -2h times next function gap.",
+      "reconstructed": "The same real inequality with 2h times next gap moved left.",
+      "relation": "equivalent",
+      "evidence": "Exactly the same coefficients on the common source domain. Real rearrangement preserves order regardless of gap sign.",
+      "source": "The (3.3) squared-distance bound with -2h times next function gap.",
+      "lean": "The same real inequality with 2h times next gap moved left.",
+      "status": "equivalent",
+      "explanation": "Exactly the same coefficients on the common source domain. Real rearrangement preserves order regardless of gap sign."
+    },
+    "scopes": {
+      "original": "Global deterministic source statement, arbitrary comparator.",
+      "reconstructed": "Global deterministic inequality on univ, arbitrary comparator.",
+      "relation": "same",
+      "evidence": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements.",
+      "source": "Global deterministic source statement, arbitrary comparator.",
+      "lean": "Global deterministic inequality on univ, arbitrary comparator.",
+      "status": "same",
+      "explanation": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements."
+    },
+    "constant_dependencies": {
+      "original": "Coefficient 1-alpha h and multiplier 2h.",
+      "reconstructed": "Exactly 1-alpha h and 2h.",
+      "relation": "equivalent",
+      "evidence": "No dimension factor or altered factor two. The quadratic normalizations alpha/2,beta/2 cancel correctly in the norm expansion.",
+      "source": "Coefficient 1-alpha h and multiplier 2h.",
+      "lean": "Exactly 1-alpha h and 2h.",
+      "status": "equivalent",
+      "explanation": "No dimension factor or altered factor two. The quadratic normalizations alpha/2,beta/2 cancel correctly in the norm expansion."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Disclosed C1 Hilbert and signed-parameter generalization of the source domain.",
+      "evidence": "Current packet lesson assumptions and elaborated statement."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "The nonnegative-step assumption is necessary and missing from the printed source restriction.",
+      "evidence": "For f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1, source (3.3) energy left side is 2 and right side is 3/2. For descent at x=1, f(2)-f(1)=3/2>1/2. Hence the h>=0 boundary cannot be erased."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Current full-module publication provenance now uses the canonical public descent interface.",
+      "evidence": "Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance."
+    }
+  ],
+  "verdict": "possible-source-error",
+  "repairs": [],
+  "review_evidence": "Accepted scoped support for source (3.3) comparator energy after explicit h>=0 restriction, with current shared-helper provenance and disclosed algebraic/domain extensions. Not exact source equivalence; no repair accepted. Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance. All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies. Evidence run: /private/tmp/andi-pl-source-review-run-23.json",
+  "review_run_sha256": "ece39de13abeb82a8343ada6425a9da7c52504e9e5361855b934a0281229960d",
+  "review_run_artifact": "/private/tmp/andi-pl-source-review-run-23.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b",
+    "review_run_sha256": "ece39de13abeb82a8343ada6425a9da7c52504e9e5361855b934a0281229960d",
+    "evidence": "Accepted scoped support for source (3.3) comparator energy after explicit h>=0 restriction, with current shared-helper provenance and disclosed algebraic/domain extensions. Not exact source equivalence; no repair accepted. Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance. All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies. Evidence run: /private/tmp/andi-pl-source-review-run-23.json"
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted scoped support for source (3.3) comparator energy after explicit h>=0 restriction, with current shared-helper provenance and disclosed algebraic/domain extensions. Not exact source equivalence; no repair accepted.",
+    "whole_current_module_reviewed": true,
+    "canonical_shared_helper_reviewed": true,
+    "helper_sha256": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef",
+    "remaining_truth_boundary": "No new repair proposal in this dependency-refactor review. Missing h>=0 remains explicit, and no historical review is treated as current acceptance. Inverse-power and convex-normalized publication obligations remain uncovered."
+  }
+}

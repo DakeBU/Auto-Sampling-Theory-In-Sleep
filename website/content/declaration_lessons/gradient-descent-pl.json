@@ -1,0 +1,128 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+      "kind": "theorem",
+      "title": "Shared descent for an actual gradient step",
+      "statement": "Every actual gradient update obeys the displayed decrease under the global quadratic upper model and nonnegative admissible step.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space; f:E→ℝ; α,β,h are real scalars, with h≥0 and βh≤1. The descent lemma does not use α.",
+        "The displayed quadratic upper model holds for every x,y∈E. ∇f is Lean’s actual gradient (the Riesz representative of the totalized Fréchet derivative), not a supplied vector field.",
+        "These are algebraic consequences of the model. No separate C¹ or C² premise is needed once the model is supplied; no claim that every arbitrary function satisfies it. The source C² Euclidean setting is a specialization.",
+        "For every x,y: f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖²."
+      ],
+      "steps": [
+        {
+          "title": "Insert the actual update into the upper model",
+          "text": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly.",
+          "formula": "f(Tx)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2.",
+          "lean": "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq; norm_neg; norm_smul; sq_abs."
+        },
+        {
+          "title": "Use the step restriction with its sign",
+          "text": "Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+          "formula": "\\begin{gathered}\\beta h^2\\|g\\|^2\\le h\\|g\\|^2,\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
+          "lean": "mul_nonneg; sq_nonneg; mul_le_mul_of_nonneg_right; nlinarith."
+        }
+      ],
+      "boundary": [
+        "This is shared optimization textbook work, not progress on the companion papers. No convexity, optimizer-existence proof or smoothness-to-upper-model theorem is claimed.",
+        "The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions."
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq",
+        "norm_neg; norm_smul; sq_abs; mul_le_mul_of_nonneg_right"
+      ],
+      "lean_statement": "Actual gradient update and the global upper-model decrease.",
+      "lean_proof": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly. Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Lemma3.1",
+          "scope": "ASTIS source restatement; explicit nonnegative-step repair and algebraic Hilbert generalizations."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex_lipschitz",
+          "scope": "Inspected adjacent descent result needs positive step and Lipschitz gradient; external reference, no code port."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentPL.lean",
+          "label": "Actual quadratic and negative-coefficient constant-objective tests",
+          "scope": "Compiled tests, no separate theorem credit."
+        }
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+      "kind": "theorem",
+      "title": "PL descent gives the final-value rate",
+      "statement": "For every initial point x₀ and N∈ℕ, actual gradient iterates obey the displayed PL value bound about a supplied global minimizer.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\quad q=1-\\alpha h,\\\\2\\alpha(f(x)-f(z))\\le\\|\\nabla f(x)\\|^2,\\\\f(T^Nx_0)-f(z)\\le q^N(f(x_0)-f(z)).\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space; f:E→ℝ; α,β,h are real scalars, with h≥0 and βh≤1. The descent lemma does not use α.",
+        "The displayed quadratic upper model holds for every x,y∈E. ∇f is Lean’s actual gradient (the Riesz representative of the totalized Fréchet derivative), not a supplied vector field.",
+        "These are algebraic consequences of the model. No separate C¹ or C² premise is needed once the model is supplied; no claim that every arbitrary function satisfies it. The source C² Euclidean setting is a specialization.",
+        "For every x,y: f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖².",
+        "z∈E is a global minimizer: f(z)≤f(x) for all x. The displayed PL model holds globally, in the normalization 2α(f(x)−f(z))≤‖∇f(x)‖².",
+        "x₀∈E and N∈ℕ are arbitrary; T⁰ is the identity. No convexity or nonnegative-coefficient premise is supplied."
+      ],
+      "steps": [
+        {
+          "title": "Build the recurrence from descent and PL",
+          "text": "Let z be the supplied global minimizer, G(x)=f(x)−f(z)≥0 and q=1−αh. Multiply 2αG(x)≤‖∇f(x)‖² by h/2≥0 and combine with the shared descent bound.",
+          "formula": "\\begin{gathered}G(Tx)\\le G(x)-\\tfrac h2\\|\\nabla f(x)\\|^2,\\\\G(Tx)\\le (1-\\alpha h)G(x)=qG(x).\\end{gathered}",
+          "lean": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound; mul_le_mul_of_nonneg_left; IsMinOn; nlinarith."
+        },
+        {
+          "title": "Iterate when the coefficient is nonnegative",
+          "text": "If q≥0, set u_n=G(Tⁿx₀). The actual iterate successor identity gives u_(n+1)≤q u_n. Apply the existing scalar geometric bound; no convexity enters.",
+          "formula": "G(T^Nx_0)\\le q^N G(x_0).",
+          "lean": "Function.iterate_succ_apply'; le_geom."
+        },
+        {
+          "title": "Close the negative-coefficient case without reversing an induction",
+          "text": "If q<0, nonnegative gaps and the one-step bound force G(x)=0 for every x. Both sides of the claimed rate are zero for every natural N, including odd N.",
+          "formula": "\\begin{gathered}0\\le G(Tx)\\le qG(x),\\quad G(x)\\ge0,\\ q<0,\\\\G(x)=0\\quad\\text{for every }x.\\end{gathered}",
+          "lean": "lt_of_not_ge; global minimum lower bound; nlinarith; mul_zero."
+        }
+      ],
+      "boundary": [
+        "This is shared optimization textbook work, not progress on the companion papers. No convexity, optimizer-existence proof or smoothness-to-upper-model theorem is claimed.",
+        "The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions.",
+        "The supplied z satisfies f(z)≤f(x) for every x. This preserves the source attainment convention; no minimizer is constructed.",
+        "The formula permits signed α. A positive PL modulus α>0 and positive h give q<1; in the ordinary branch 0≤q<1 this is geometric decay. The theorem adds no αh≤1 restriction; negative q is necessarily a zero-gap degeneracy. h=0 and N=0 yield equality.",
+        "Theorem3.6 has its own missing-step counterexample: f(t)=t²/2, α=β=1,h=−1,x₀=1,N=1 gives final gap 2 but proposed upper bound 1. Its source repair remains distinct from the actual compiled theorem."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound"
+      ],
+      "mathlib_dependencies": [
+        "le_geom",
+        "Function.iterate_succ_apply'",
+        "mul_le_mul_of_nonneg_left; lt_of_not_ge"
+      ],
+      "lean_statement": "Actual gradient iterates and supplied-minimizer PL final-value bound.",
+      "lean_proof": "Let z be the supplied global minimizer, G(x)=f(x)−f(z)≥0 and q=1−αh. Multiply 2αG(x)≤‖∇f(x)‖² by h/2≥0 and combine with the shared descent bound. If q≥0, set u_n=G(Tⁿx₀). The actual iterate successor identity gives u_(n+1)≤q u_n. Apply the existing scalar geometric bound; no convexity enters. If q<0, nonnegative gaps and the one-step bound force G(x)=0 for every x. Both sides of the claimed rate are zero for every natural N, including odd N.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Theorem3.6 and Definition2.5",
+          "scope": "ASTIS source restatement; explicit nonnegative-step repair and algebraic Hilbert generalizations."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex_lipschitz",
+          "scope": "Inspected adjacent descent result needs positive step and Lipschitz gradient; external reference, no code port."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentPL.lean",
+          "label": "Actual quadratic and negative-coefficient constant-objective tests",
+          "scope": "Compiled tests, no separate theorem credit."
+        }
+      ]
+    }
+  ]
+}

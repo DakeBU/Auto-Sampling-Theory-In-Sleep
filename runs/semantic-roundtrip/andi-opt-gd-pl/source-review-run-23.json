@@ -1,0 +1,44 @@
+{
+  "reviewer": "coco_source",
+  "role": "fresh independent anti-anchored source/publication review of GDValue after canonical public descent extraction",
+  "input_artifacts": [
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-pl/reviewer-2.json",
+      "packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b",
+      "publication_binding_sha256": "f4e98af75921078c6a5a6c8a76150861320331d51f69a972f1b5a0565662b808",
+      "module_sha256": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-pl/reviewer-3.json",
+      "packet_sha256": "84ac3263f4fd69a54910535d8a25147cd9c9c117bb1a8140ee13834b9a95207b",
+      "publication_binding_sha256": "0684d8751d1bc984f7ddd7a969def12030ef02a4ce71879dd79d505066826deb",
+      "module_sha256": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c"
+    }
+  ],
+  "additional_inputs": [
+    {
+      "path": "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean",
+      "sha256": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef"
+    },
+    "https://arxiv.org/html/2605.07006v1#S3: Lemma3.1, Theorem3.4 (3.1)-(3.3), Lemma3.5 and following weighted proof"
+  ],
+  "independence": {
+    "reviewer": "coco_source",
+    "formalizer": "andi-gdv-worker",
+    "blind_decoder": "value_blind",
+    "prior_verdict_files_read": false,
+    "registry_read": false,
+    "fresh_semantic_decision": true
+  },
+  "whole_module_review": "Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance.",
+  "mathematical_review": {
+    "shared_descent": "For g=gradient f(x), s=x-hg, upper model gives f(s)-f(x)<=(-h+beta h^2/2)||g||^2. Multiplying beta h<=1 by h||g||^2>=0 yields the -h/2 estimate. No beta sign or differentiability is needed for this model-based algebra. GDValue callers independently assume C1, so gradient is their genuine Frechet derivative representative.",
+    "energy": "First-order support gives f(z)>=f(x)-<g,x-z>+alpha||x-z||^2/2. Multiplying by 2h>=0, inserting descent and expanding ||x-z-hg||^2 cancels the h^2||g||^2 term. Alpha,beta need not be nonnegative and z need not minimize f.",
+    "weighted": "With Xn=T^[n]x0 and q=1-alpha h>=0, establish u_(n+1)<=q u_n-2h gap_(n+1), and descent gives antitone gaps. Product-form Gronwall accepts signed forcing. Because -2h<=0 and q^k>=0, earlier gaps may be replaced by the final gap in the upper bound; discard u_N>=0 and reflect the finite index to obtain exactly 2h sum(q^k)gap_N<=q^N u0.",
+    "endpoints": "No inverse is used: N=0 gives zero sum and 0<=u0; h=0 gives identity T and zero left coefficient; q=0 keeps q^0=1 and the last forcing term; q=1 gives sum=N; q>1 is permitted under signed negative alpha. No strict decay or normalization is implied in those cases.",
+    "source_boundaries": "Euclidean C2 and nonnegative source moduli specialize the current C1 Hilbert statements. h>=0 is necessary in the proof and omitted from the printed restriction. Source (3.3) permits arbitrary comparator; the weighted arbitrary-comparator version and q=0 finite-product recurrence extend the minimizer/positive-A source calculation.",
+    "counterexample": "For f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1, source (3.3) energy left side is 2 and right side is 3/2. For descent at x=1, f(2)-f(1)=3/2>1/2. Hence the h>=0 boundary cannot be erased."
+  },
+  "publication_review": "All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies.",
+  "limits": "No compiler rerun, registry read, old verdict read, test execution or independent external-library license verification. No source repair acceptance."
+}

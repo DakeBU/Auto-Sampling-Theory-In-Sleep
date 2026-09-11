@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-c0a032b0307275da",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ}\n  {β h : ℝ},\n  0 ≤ h →\n    β * h ≤ 1 →\n      (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n        ∀ (x : E), f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2",
+    "statement_sha256": "c0a032b0307275da258bc031b358af2ad77f546ac78193404eef2a27eae8226b",
+    "compiled": true,
+    "approved_definition_context": [
+      "gradient f x is the Riesz vector of the totalized Frechet derivative; no differentiability is imposed by the notation alone.",
+      "IsMinOn f Set.univ z means f(z)<=f(x) for every x in the entire domain.",
+      "Function.iterate T N, written T^[N], is N-fold composition; T^[0] is the identity."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "91acd3a9068fba0a39a5938e699db04f9c97c965c58ec28ad1ada6d84c3d86f6"
+}

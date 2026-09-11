@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-b92d92c89bcb917c",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "andi-gdv-worker",
+    "blind_decoder": "value_blind",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "chewi-opt-v1-theorem-3-4",
+    "anchor": "https://arxiv.org/html/2605.07006v1#S3; Theorem3.4 (3.3)",
+    "original_text": "Chewi arXiv:2605.07006v1 Section3 assumes C2 Euclidean functions. For an alpha-strongly convex beta-smooth function, the actual step is T(x)=x-h grad f(x), and the printed step restriction is h<=1/beta. Theorem3.4 (3.1) gives ||T(x)-xstar||² <= (1-alpha h)||x-xstar||²-2h(f(T(x))-f(xstar)). Remark (3.3) explicitly allows any comparator z in place of the minimizer. Lemma3.1 supplies f(T(x))-f(x)<=-h/2||grad f(x)||² from the quadratic upper model. The source does not explicitly state h>=0 in the step restriction.",
+    "text_sha256": "05ee27155891812a8f53b4b7eb3c2a5166775f3740addc44aad60da32a9cd3d9"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {α β h : ℝ},\n  ContDiff ℝ 1 f →\n    StrongConvexOn Set.univ α f →\n      0 ≤ h →\n        β * h ≤ 1 →\n          (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n            ∀ (x z : E),\n              ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤ (1 - α * h) * ‖x - z‖ ^ 2",
+    "statement_sha256": "a1905a90122e234e94e2e6824a623a4b45eeadd0612ee842dba0cf09dd37b6e4",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every real Hilbert space E (a complete real inner product space, with no finite-dimensional restriction), every function f:E→ℝ, and all real constants α, β, h, assume f is globally continuously Fréchet differentiable; for every x,y∈E and t∈[0,1], f((1−t)x+t y) ≤ (1−t)f(x)+t f(y)−(α/2)t(1−t)‖y−x‖²; h≥0; βh≤1; and for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖². Here ∇f(x) is the actual Riesz representative of the Fréchet derivative of f at x, and define T(x)=x−h∇f(x). Then for every x,z∈E, ‖T(x)−z‖²+2h(f(T(x))−f(z)) ≤ (1−αh)‖x−z‖².",
+    "text_sha256": "e43426619c45ee38de3c2396a0cec75e7f6ac8c0df43833b6e3d9ef84c2a511f",
+    "decoder": "value_blind",
+    "decoder_packet_sha256": "49062d2d1a6f0647e7ba9c78320443aeb8e8b7e164a0c9ae4cd4977f83953bd2",
+    "decoder_run_sha256": "b7396dc9656fc9e1cffb52a0653240289c590303bf715d7f8d7166f49c965842",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "f4e98af75921078c6a5a6c8a76150861320331d51f69a972f1b5a0565662b808",
+  "candidate_publication_context": {
+    "file": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c",
+    "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.ODE.DiscreteGronwall\nimport Mathlib.Algebra.Ring.GeomSum\n\n/-!\n# Gradient descent: comparator energy and weighted function values\n\nChewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum\nproof after Lemma 3.5. We use the actual gradient and actual iterates, with\narbitrary comparator as explicitly permitted by (3.3). The descent calculation\nuses the shared public implementation of Lemma 3.1. The signed-forcing recurrence is\nMathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.\n\nThe source's step condition needs `h ≥ 0`. The quadratic upper model and C¹\nHilbert setting generalize the section's C² Euclidean hypotheses. We expose\n`α * h ≤ 1` for nonnegative geometric weights. The division-free result includes\nzero step, zero iteration and coefficients zero/one; it does not interpret the\nsource's inverse-power formula at these singular endpoints. No minimizer\nexistence is claimed, and the comparator gap may be negative.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n\nopen Set Finset\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- One-step energy inequality for every comparator, with the necessary\nnonnegative step explicit. No sign restriction on the comparator gap. -/\ntheorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x z : E) :\n    ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤\n      (1 - α * h) * ‖x - z‖ ^ 2 := by\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x\n  have hn : z - x = -(x - z) := by abel\n  rw [hn, inner_neg_right, norm_neg] at hl\n  have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)\n  have hd' := mul_le_mul_of_nonneg_left hd (by positivity : 0 ≤ 2 * h)\n  rw [show x - h • gradient f x - z = (x - z) - h • gradient f x by abel,\n    norm_sub_sq_real, inner_smul_right, real_inner_comm (gradient f x),\n    norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]\n  nlinarith\n\n/-- Weighted final function gap for actual gradient-descent iterates. The\ncoefficient domain is explicit and includes both zero and one. -/\ntheorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1) (hcoeff : α * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x₀ z : E) (N : ℕ) :\n    2 * h * (∑ k ∈ range N, (1 - α * h) ^ k) *\n        (f ((fun x => x - h • gradient f x)^[N] x₀) - f z) ≤\n      (1 - α * h) ^ N * ‖x₀ - z‖ ^ 2 := by\n  let T : E → E := fun x => x - h • gradient f x\n  let X : ℕ → E := fun n => T^[n] x₀\n  let q : ℝ := 1 - α * h\n  have hq : 0 ≤ q := sub_nonneg.mpr hcoeff\n  have hX (n : ℕ) : X (n + 1) = T (X n) := Function.iterate_succ_apply' _ _ _\n  have hm : Antitone (fun n => f (X n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu (X n)\n    rw [hX]\n    dsimp [T]\n    have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity\n    linarith\n  have hr (n : ℕ) (_ : 0 ≤ n) :\n      ‖X (n + 1) - z‖ ^ 2 ≤ q * ‖X n - z‖ ^ 2 + (-2 * h * (f (X (n + 1)) - f z)) := by\n    have he := gradient_step_energy_bound hf hsc hh hstep hu (X n) z\n    rw [hX]\n    dsimp [T, q]\n    linarith\n  have hg := discrete_gronwall_prod_general (u := fun n => ‖X n - z‖ ^ 2)\n    (b := fun n => -2 * h * (f (X (n + 1)) - f z)) (c := fun _ => q) hr (fun _ _ => hq) (Nat.zero_le N)\n  simp only [Finset.prod_const, Nat.card_Ico, Nat.Ico_zero_eq_range, Finset.card_range] at hg\n  have hs : ∑ k ∈ range N, (-2 * h * (f (X (k + 1)) - f z)) * q ^ (N - (k + 1)) ≤\n      ∑ k ∈ range N, (-2 * h * (f (X N) - f z)) * q ^ (N - (k + 1)) := by\n    apply sum_le_sum\n    intro k hk\n    have hm' := hm (by have := mem_range.mp hk; omega : k + 1 ≤ N)\n    apply mul_le_mul_of_nonneg_right _ (pow_nonneg hq _)\n    have hh' : 0 ≤ 2 * h := by positivity\n    nlinarith\n  have hsum : (∑ k ∈ range N, q ^ (N - (k + 1))) = ∑ k ∈ range N, q ^ k := by\n    rw [← sum_range_reflect (fun k => q ^ k) N]\n    apply sum_congr rfl\n    intro k _\n    congr 1\n    omega\n  rw [← mul_sum, hsum] at hs\n  have hu0 : X 0 = x₀ := rfl\n  rw [hu0] at hg\n  have huN := sq_nonneg ‖X N - z‖\n  change 2 * h * (∑ k ∈ range N, q ^ k) * (f (X N) - f z) ≤ q ^ N * ‖x₀ - z‖ ^ 2\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2605.07006v1#S3",
+      "edition": "arXiv:2605.07006v1",
+      "anchor": "Theorem3.4 (3.1)-(3.3), Lemma3.1, weighted calculation after Lemma3.5",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+    },
+    "statement": "In the section C² Euclidean setting, strong convexity and smoothness give a distance-plus-function decrement for the gradient update. Remark (3.3) allows any comparator z. Applying the forced recurrence and monotonic function values gives the weighted final-gap estimate, then the printed inverse-power closed form and the convex limiting rate. The source prints only h≤1/β; the missing nonnegative-step condition and singular reciprocal endpoints remain visible in separate binding deltas.",
+    "formulae": [
+      {
+        "label": "General comparator energy (3.3)",
+        "tex": "\\begin{gathered}\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}"
+      },
+      {
+        "label": "Weighted final-gap proof",
+        "tex": "\\begin{gathered}x_n=T^n(x_0),\\quad q=1-\\alpha h\\ge0,\\\\S_N=\\sum_{k=0}^{N-1}q^k,\\quad R=\\|x_0-z\\|,\\\\2hS_N(f(x_N)-f(z))\\le q^N R^2.\\end{gathered}"
+      },
+      {
+        "label": "Printed inverse-power rate (positive denominator domain)",
+        "tex": "f(x_N)-f(x_\\star)\\le\\frac{\\alpha R^2}{2(q^{-N}-1)}"
+      },
+      {
+        "label": "Convex limiting rate",
+        "tex": "f(x_N)-f(x_\\star)\\le\\frac{R^2}{2Nh}"
+      }
+    ],
+    "assumptions": [
+      "f is C², α-strongly convex and β-smooth on Euclidean space, with nonnegative curvature moduli.",
+      "The printed step restriction is h≤1/β. The recurrence lemma uses a positive coefficient A; the closed-form calculation sets A=1−αh.",
+      "For the displayed optimization rate, x⋆ is a minimizer, R=‖x₀−x⋆‖, N is an iteration count. The α=0 formula is explicitly interpreted as a limit."
+    ],
+    "obligations": [
+      {
+        "id": "comparator-energy",
+        "label": "Actual-gradient one-step comparator energy (3.1),(3.3)"
+      },
+      {
+        "id": "weighted-final-gap",
+        "label": "Actual iterates, signed recurrence and finite weighted final gap"
+      },
+      {
+        "id": "inverse-power-rate",
+        "label": "Printed inverse-power rate and exact positive-domain equivalence"
+      },
+      {
+        "id": "convex-normalized-rate",
+        "label": "Convex 1/(2Nh) rate as a published source theorem"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+      "kind": "theorem",
+      "title": "One gradient step controls comparator energy",
+      "statement": "For every x,z, one actual gradient step obeys the displayed distance-plus-function energy bound.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\\\\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space and f:E→ℝ is C¹ globally. Its gradient is the actual Riesz representative of its Fréchet derivative.",
+        "α,β,h are real numbers; h≥0 and βh≤1. No separate nonnegative-modulus assumption is needed by these two inequalities.",
+        "f is globally α-strongly convex in the chord sense with subtraction (α/2)t(1−t)‖y−x‖². The β quadratic upper model displayed below holds for every x,y in E.",
+        "T(x)=x−h∇f(x). The comparator z is arbitrary, so f(x)−f(z) may be negative. No minimizer is assumed or constructed."
+      ],
+      "steps": [
+        {
+          "title": "Compute descent for the actual gradient step",
+          "text": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate using the canonical shared descent interface.",
+          "formula": "\\begin{gathered}f(s)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2,\\\\f(s)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
+          "lean": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound; inner_smul_right, real_inner_self_eq_norm_sq, norm_smul, mul_le_mul_of_nonneg_right."
+        },
+        {
+          "title": "Use strong first-order support at an arbitrary comparator",
+          "text": "The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters.",
+          "formula": "f(z)\\ge f(x)-\\langle g,v\\rangle+\\tfrac\\alpha2\\|v\\|^2.",
+          "lean": "StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn; ContDiff.differentiable_one; DifferentiableAt.hasGradientAt."
+        },
+        {
+          "title": "Expand and cancel the gradient square",
+          "text": "Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
+          "formula": "\\begin{gathered}\\|v-hg\\|^2=\\|v\\|^2-2h\\langle g,v\\rangle+h^2\\|g\\|^2,\\\\\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|v\\|^2.\\end{gathered}",
+          "lean": "norm_sub_sq_real; inner_smul_right; real_inner_comm; norm_smul; two nonnegative multiplications and nlinarith."
+        }
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
+        "norm_sub_sq_real; inner_smul_right; real_inner_self_eq_norm_sq; norm_smul"
+      ],
+      "lean_statement": "Actual-gradient one-step arbitrary-comparator energy bound.",
+      "lean_proof": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate using the canonical shared descent interface. The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters. Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Theorem3.4, Lemma3.1 and weighted proof following Lemma3.5",
+          "scope": "ASTIS restatement with explicit source domains and extensions."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex GD point/value estimates",
+          "scope": "Existing alpha=0 adjacent results; external reference, no copied implementation."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentValue.lean",
+          "label": "Convex rate, strong rate and exact one-step optimum consumers",
+          "scope": "Compiled specialization tests, not separate registered theorem credit."
+        }
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+      "role": "proof-edge",
+      "supports": [
+        "comparator-energy"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "C² Euclidean objective.",
+        "lean": "C¹ objective on a complete real inner-product space."
+      },
+      {
+        "source": "h≤1/β, with h≥0 omitted.",
+        "lean": "h≥0 and βh≤1."
+      },
+      {
+        "source": "Nonnegative strong convexity and smoothness moduli.",
+        "lean": "α and β are real; no additional sign assumptions."
+      },
+      {
+        "source": "Minimizer in (3.1), arbitrary z explicitly in (3.3).",
+        "lean": "Arbitrary comparator z; signed function gap."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b"
+}
