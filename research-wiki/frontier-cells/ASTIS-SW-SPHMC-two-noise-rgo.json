@@ -43,8 +43,57 @@
     "ownership_note": "One actual paper consumer; no invented second consumer.",
     "scope_refinement": "Before production: replace raw-cost public budget by source-facing actual ENNReal W2<=ofReal(r), deriving the equivalent squared-cost bound via existing wassersteinDistance_sq and ofReal_pow. log_depth_source_review independently confirmed this reuse; old GaussianKL/RGOBackward contracts unchanged.",
     "independent_proof_review": "runs/20260911-companion-priority/two-noise-rgo.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at 4e1490a3b6ad2ec096f1d1b1a94f63b107e6c647; aggregate and reader/graph pending.",
-    "independent_verification": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json"
+    "admission_boundary": "Independently VERIFIED; aggregate PASS9120 and fixed-commit original reader/graph passed. Final candidate CI/review/merge/deployment separate.",
+    "independent_verification": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json",
+    "integration": {
+      "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+      "aggregate": {
+        "result": "PASS9120",
+        "gate": {
+          "passed": true,
+          "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+          "source_digest": "11757f502b6d72c95a84e9f5f62bd130f268197ee81531e3cf494e27bf197351",
+          "generated_at": "2026-09-11T03:35:25.290851+00:00",
+          "commands": [
+            "python3 tools/astis.py check"
+          ],
+          "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+        },
+        "log": ".astis/two-noise-rgo-aggregate.log"
+      },
+      "site": {
+        "build": "PASS590 modules3672 declarations",
+        "check": "PASS77 reviewed teaching declarations",
+        "build_log": ".astis/two-noise-rgo-site-build.log",
+        "check_log": ".astis/two-noise-rgo-site-check.log"
+      },
+      "reader": {
+        "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "anchor": "sphmc-two-noise-rgo",
+        "proof_steps": 5,
+        "initially_closed_disclosures": 8,
+        "statement_chars": 1087,
+        "proof_chars": 4386,
+        "proof_complete_namespace_end": true,
+        "actual_statement_proof_reuse_clicks": true,
+        "formula_errors": 0,
+        "visual": "Actual screenshot checked exact two-noise recovery and added-time KL denominator tau, with actual W2 input explained."
+      },
+      "graph": {
+        "check": "PASS",
+        "artifact": ".astis/two-noise-rgo-graph-check.json",
+        "focused_nodes": 5,
+        "edges": 3,
+        "direct_relations": 2,
+        "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo-two-noise--0eabe7795f",
+        "local_card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+      },
+      "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+    }
   },
   "blocked": {
     "reason": "",

@@ -38,5 +38,59 @@
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json",
+  "integration": {
+    "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+    "aggregate": {
+      "result": "PASS9120",
+      "gate": {
+        "passed": true,
+        "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+        "source_digest": "11757f502b6d72c95a84e9f5f62bd130f268197ee81531e3cf494e27bf197351",
+        "generated_at": "2026-09-11T03:35:25.290851+00:00",
+        "commands": [
+          "python3 tools/astis.py check"
+        ],
+        "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+      },
+      "log": ".astis/two-noise-rgo-aggregate.log"
+    },
+    "site": {
+      "build": "PASS590 modules3672 declarations",
+      "check": "PASS77 reviewed teaching declarations",
+      "build_log": ".astis/two-noise-rgo-site-build.log",
+      "check_log": ".astis/two-noise-rgo-site-check.log"
+    },
+    "reader": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "anchor": "sphmc-two-noise-rgo",
+      "proof_steps": 5,
+      "initially_closed_disclosures": 8,
+      "statement_chars": 1087,
+      "proof_chars": 4386,
+      "proof_complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "visual": "Actual screenshot checked exact two-noise recovery and added-time KL denominator tau, with actual W2 input explained."
+    },
+    "graph": {
+      "check": "PASS",
+      "artifact": ".astis/two-noise-rgo-graph-check.json",
+      "focused_nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo-two-noise--0eabe7795f",
+      "local_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+    },
+    "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
+    "state": "DRAFT",
+    "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1"
+  }
 }
