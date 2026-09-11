@@ -12285,7 +12285,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCStateDependentRGO",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-state-dependent-rgo",
         "anchor": "Algorithm3.3 parameter update and Theorem6.5 ideal state-dependent stage",
@@ -12311,7 +12311,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "7a38dc9bb0f191a457068f1098fd89bc720a0bd6a1b84c7ae57bf9f4f4987fcc",
+        "review_run_sha256": "91bd0305c93624b1bcd7fa89a6c71d506e2624f34ee7ecaa301e7eba96712d88",
+        "run_artifact": "runs/20260911-companion-priority/state-dependent-rgo.source-review-result.json",
+        "evidence": "Independent source reviewer accepted all seven slots and five authored steps. Recomputed canonical packet, source, statement, reconstruction and embedded normalized module hashes; current module matches. Publication fields and lesson agree. Source text is expanded attributed paraphrase, not a primary quotation. Binding authenticated inside packet; external binding preimage, decoder/run and toolchain hashes not independently recomputed by this reviewer. Primary Sections6.1,6.3,7.1 and Lemma6.4 checked. No independent compilation in source audit. No blockers/repairs; not fixed-commit admission."
       },
       "publication_binding_sha256": "363aed671ad77ea222d9be87719be2cb3dea69b122c7fc6d08bf7cbe49ddefc5",
       "publication_context": {
@@ -12464,7 +12471,84 @@
         "decoder_run_sha256": "74eea2e7b3ae6c92864b5c653c4a622458782432747ea7cbc0b3a43a9a598e4b",
         "lean_statement_sha256": "ae058dcc7c38eadce546d9877be554162d5f3e63b79ad24ac23390f695be7150",
         "run_artifact": "runs/20260911-companion-priority/state-dependent-rgo.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Quadratic-regularized target, Gaussian observation and RGO posterior.",
+          "reconstructed": "Actual normalized T, Gaussian H and retained-state B with both posterior fibers.",
+          "relation": "explicit-elaboration",
+          "evidence": "universalTilt constructs withDensity; hHf actual smoothing; hKf/hBf actual posterior and retained state."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs targets and recursive parameters; packet explicitly broadens the setting.",
+          "reconstructed": "Finite real Hilbert Borel E including dimension zero, arbitrary probability base and arbitrary measurable S.",
+          "relation": "stronger-in-lean",
+          "evidence": "No Gibbs density, topology or standard Borel structure on S; integration uses event sections rather than state disintegration."
+        },
+        "quantifiers": {
+          "original": "Global kernels for current-state parameters before every state law, with pointwise fibers.",
+          "reconstructed": "Same existential T,H,B after mu,b,a,u and before every nu; every s,y fiber.",
+          "relation": "explicit-elaboration",
+          "evidence": "Fixed-state witness only identifies an already constructed global section."
+        },
+        "assumptions": {
+          "original": "Paper potential and algorithmic assumptions; expanded edge only needs probability base and measurable b>=0,a>0,u.",
+          "reconstructed": "Exactly probability, measurability and pointwise positivity; no normalization, moments, measurable selection or recovery assumed.",
+          "relation": "stronger-in-lean",
+          "evidence": "hI domination, hZpos positive normalizer, hZ/hd measurability and proved RGO section recovery."
+        },
+        "conclusion": {
+          "original": "Exact posterior recovers target from ideal Gaussian observation.",
+          "reconstructed": "Full B composed with nu compProd H equals nu compProd T with actual fibers.",
+          "relation": "explicit-elaboration",
+          "evidence": "Arbitrary measurable events and sections, bind and compProd integrals retain the state coordinate."
+        },
+        "scopes": {
+          "original": "Algorithm3.3/Theorem6.5 include actual approximate calls, stopping, FORS, accuracy and cost.",
+          "reconstructed": "Only measurable ideal-stage semantics for fixed base and current-state parameters.",
+          "relation": "different",
+          "evidence": "Binding is prerequisite; documentation excludes complete algorithm and numerical/cost guarantees."
+        },
+        "constant_dependencies": {
+          "original": "Inverse variance addition and precision-weighted center; source variance is rescaled sum of two noise times.",
+          "reconstructed": "q=b+a^-1,c=q^-1(bu+a^-1y), standard deviation sqrt(a), exponent denominator2.",
+          "relation": "same",
+          "evidence": "Exact tilt closure and actual noise scaling; no hidden constants, dimension factors or budgets."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability base and finite-dimensional Hilbert setting; no moments inferred.",
+          "evidence": "No Gibbs density, topology or standard Borel structure on S; integration uses event sections rather than state disintegration."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Measurable state maps abstract actual source parameters; their concrete instantiation remains.",
+          "evidence": "hI domination, hZpos positive normalizer, hZ/hd measurability and proved RGO section recovery."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "Everywhere normalized posterior includes b=0; a=0 excluded.",
+          "evidence": "Arbitrary measurable events and sections, bind and compProd integrals retain the state coordinate."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "description": "Complete retained-state recovery for every state law is an explicit ideal-stage elaboration.",
+          "evidence": "Fixed-state witness only identifies an already constructed global section."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Eta selected per fixed call input; random runtime report extension is not asserted to be a required paper gap. Full sampler remains open.",
+          "evidence": "Binding is prerequisite; documentation excludes complete algorithm and numerical/cost guarantees."
+        }
+      ]
     }
   ]
 }

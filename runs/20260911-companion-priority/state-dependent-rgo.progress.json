@@ -20,14 +20,20 @@
     "artifact": "runs/20260911-companion-priority/state-dependent-rgo.independent-proof-review.json"
   },
   "source_fidelity": {
-    "state": "draft",
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
     "audits": [
       "ASTIS-RT-20260911-SPHMCStateDependentRGO"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/state-dependent-rgo.source-review-result.json"
     ]
   },
   "mathematical_status": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs.",
   "remaining": [
-    "Formal source and fixed-commit admission",
+    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete Gibbs specialization and actual state/history process",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
