@@ -1,0 +1,25 @@
+{
+  "remaining": [
+    "Normalize scalar square-root formula",
+    "Finite-dimensional quadratic exponential moment with explicit range",
+    "Actual gradient estimator conditional Gaussian integral and Lipschitz/center bounds",
+    "Integrability and source-supported factor2/log2 contract",
+    "Independent full proof and semantic admission"
+  ],
+  "local_check": {
+    "log": ".astis/smooth-gradient-arc-scratch.log",
+    "exit_code": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "command": "lake env lean .astis/SmoothGradientArcMoment.lean"
+  },
+  "development_result": "One-dimensional exp(t*x^2) under actual standard Gaussian is integrable for t<1/2; actual weighted density integral evaluated through integral_gaussian. Private development helpers only.",
+  "scratch_sha256": "de2753b70efa2512f0284831f80a759678d7e8eb0dc4b50c866f2190f163be99",
+  "state": "EXPLORING",
+  "scratch": ".astis/SmoothGradientArcMoment.lean",
+  "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
+  "boundary": "No production estimator theorem or paper result proved yet."
+}
