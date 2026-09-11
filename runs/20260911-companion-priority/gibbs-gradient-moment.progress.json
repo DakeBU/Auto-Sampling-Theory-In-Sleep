@@ -2,9 +2,7 @@
   "cell": "ASTIS-SHARED-gibbs-gradient-moment",
   "state": "MERGED",
   "boundary": "Ideal actual normalized Gibbs gradient moment only, including dimension zero. Coordinate-free finite-dimensional formulation disclosed. No smoothed/approximate law moment transfer, Gaussian perturbation, random-history conditioning, summed GD cost or paper-completion claim. The initial-moment premise of TerminalReferenceGradientDescent still requires its actual starting law to be identified and controlled.",
-  "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
-  ],
+  "remaining": [],
   "weighted_checkpoint": {
     "path": ".astis/GibbsGradientMomentWeighted.lean",
     "sha256": "7b51acdcd676ecbe046d805f31df65097575fb1adbd1404ee12e30ff10cc07c2",
@@ -87,8 +85,14 @@
     "site_run": 34646675060,
     "site_pr_result": "SUCCESS",
     "lean_pr_result": "SUCCESS",
-    "state": "MERGED; post-merge CI/live pending",
+    "state": "MERGED; all PR/merge CI and live provenance complete",
     "merge_commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
-    "merged_at": "2026-09-11T21:10:08Z"
-  }
+    "merged_at": "2026-09-11T21:10:08Z",
+    "merge_lean_run": 34648009062,
+    "merge_lean_result": "SUCCESS",
+    "merge_site_run": 34648009056,
+    "merge_site_result": "SUCCESS including deploy"
+  },
+  "post_merge_delivery": "runs/20260911-companion-priority/gibbs-gradient-moment.live-delivery.json",
+  "completion_boundary": "Selected ideal Gibbs gradient-moment packet delivery complete. Both full main results and global reader feature requirements remain open."
 }

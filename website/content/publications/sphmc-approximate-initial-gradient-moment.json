@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-approximate-initial-gradient-moment",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual approximate initialization gradient moments",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section6.3 Reference point construction: approximate and regularized initial-gradient moments",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded mathematical proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Explicit constants and integrability are derived here; source differences and remaining algorithmic consumers are disclosed."
+      },
+      "statement": "Seven conclusions: norm(grad U)^2 is integrable under nu; its nu expectation is at most M; for every y,z, grad F_yz(y)=grad U(y)-sqrt(tau)/(eta+tau)*z; the squared norm of this actual regularized gradient is integrable under nu.prod(G); its joint expectation equals the nu gradient-square expectation plus tau*d/(eta+tau)^2; hence it is at most M+tau*d/(eta+tau)^2; and if beta=1 and eta<=1/4 it is at most 5*(d+r^2+tau*d/(eta+tau)^2).",
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra and canonical Lebesgue volume; d=finrank(E), including dimension zero. U:E->R is C2.",
+        "alpha,beta are nonnegative reals with 0<alpha<=beta. The genuine Hessian at every x obeys alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2 for every vector v. Thus this public theorem does not include beta=0.",
+        "eta>=0, tau>0 and r>=0. Define pi=volume.tilted(-U), rho_eta=gaussianSmoothing(pi,sqrt eta), and G=stdGaussian(E). Smoothing is the actual independent additive pushforward, not a supplied approximate law.",
+        "nu is an actual probability measure satisfying W2(nu,rho_eta)^2<=ENNReal.ofReal(r^2), where W2 is Samplinglib's actual infimum of quadratic coupling costs. This W2 guarantee is an input, not a conclusion about an implemented sampler.",
+        "Set M=4*beta*d+4*beta^2*eta*d+2*beta^2*r^2. For each fixed y,z define F_yz(x)=U(x)+norm(x-(y+sqrt(tau)*z))^2/(2*(eta+tau)); differentiate in x and then evaluate at x=y. The same pair (y,z) defines both the starting point and its random center."
+      ],
+      "formulae": [
+        {
+          "label": "Actual input and same-pair regularized gradient moments",
+          "tex": "\\mathbb E_\\nu\\|\\nabla U\\|^2\\le M=4\\beta d+4\\beta^2\\eta d+2\\beta^2r^2,\\qquad \\mathbb E_{\\nu\\otimes G}\\|\\nabla F_{Y,Z}(Y)\\|^2=\\mathbb E_\\nu\\|\\nabla U\\|^2+\\frac{\\tau d}{(\\eta+\\tau)^2}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-initial-gradient-moments",
+          "label": "Actual approximate and regularized initialization gradient moments"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+          "cell": "ASTIS-SW-SPHMC-approximate-initial-gradient-moment",
+          "role": "proof-edge",
+          "supports": [
+            "actual-initial-gradient-moments"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCApproximateInitialGradientMoment",
+          "boundary": "Fixed-call actual input moments only. The W2 hypothesis remains supplied; no smoothed sampler implementation or A2/A3-to-input adapter is proved. In the normalized source call one may substitute r^2=kappa_U*eps_j^2. General beta, coordinate-free finite dimension, dimension zero and eta=0 are explicit extensions. Public r>=0 and tau>0 remain; beta=0 is excluded by curvature. M and constant5 are derived sufficient constants, whereas the source writes a generic C. No state-second-moment, optimizer, target gradient-moment or cross-term-integrability premise is added. Public conclusions do not separately assert a joint parameter kernel or program measurability. Random-history conditioning, jointly measurable GD stopping/counting at the same random center, accumulated expected query cost and both main results remain separate.",
+          "assumption_deltas": [
+            {
+              "source": "Normalized 1-smooth strongly convex potential in the reference construction.",
+              "lean": "General Hessian bounds 0<alpha<=beta, with beta=1 specialization.",
+              "classification": "generalization",
+              "reason": "The proof derives explicit general-beta constants; beta=0 is not included publicly."
+            },
+            {
+              "source": "Euclidean positive-dimensional recursive setting with positive smoothing time.",
+              "lean": "Coordinate-free finite-dimensional Borel space, including dimension zero and eta=0; tau>0 remains.",
+              "classification": "generalization",
+              "reason": "Empty Gaussian basis and zero smoothing are handled explicitly; regularization denominator stays positive."
+            },
+            {
+              "source": "The two moment displays use a generic constant C.",
+              "lean": "Explicit M=4beta*d+4beta^2*eta*d+2beta^2*r^2 and sufficient constant5.",
+              "classification": "source-implicit",
+              "reason": "These constants are derived here, not attributed as printed source values."
+            },
+            {
+              "source": "The approximate call provides a Wasserstein error, specialized using kappa_U and epsilon_j.",
+              "lean": "Actual coupling-defined W2(nu,rho_eta)^2<=ofReal(r^2) is supplied; r>=0 retained.",
+              "classification": "same",
+              "reason": "Substitution r^2=kappa_U*epsilon_j^2 is available; the sampler guarantee and its adapter are not proved by this theorem."
+            },
+            {
+              "source": "Integrability and independent Gaussian cross-term cancellation are implicit in the moment calculation.",
+              "lean": "Actual output and joint-gradient L1 proved before exact expectation identities.",
+              "classification": "source-implicit",
+              "reason": "No optimizer, state-second-moment, target-gradient-moment or cross-integrability premise is added."
+            },
+            {
+              "source": "Reference-center initialization is one component of the full reference-cost argument.",
+              "lean": "Fixed-parameter same-pair joint moment only; no joint-program or history conclusion.",
+              "classification": "same",
+              "reason": "Joint GD stopping/counting, conditional histories, cumulative costs and both complete papers remain separate."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

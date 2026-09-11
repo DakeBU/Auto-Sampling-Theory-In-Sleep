@@ -42,7 +42,7 @@
     ],
     "proof_plan": "proof-blueprints/gibbs-gradient-moment.md",
     "planning_review": "Independent readonly log_depth_source_review accepted the direct IBP route: all three products L1 must be proved, C2 suffices, no cutoff/Poincare/minimizer/C3 required. Existing compact results do not supply the target.",
-    "execution_boundary": "Actual merge releases stabilization lane; post-merge CI/live remain tracked separately. No complete-paper claim.",
+    "execution_boundary": "Selected packet merged and delivered; stabilization lane released. Both main results remain incomplete.",
     "admission_boundary": "VERIFIED at16acdc7. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/gibbs-gradient-moment.verified-admission.json",
     "root_build": "runs/20260911-companion-priority/gibbs-gradient-moment.local-qa.json: independent exact fa3c103 canonical gate,Tests9175",
@@ -52,7 +52,7 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/289",
       "commit": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
       "merged_at": "2026-09-11T21:10:08Z",
-      "post_merge": "PR Lean/Site passed. Merge CI and actual live delivery pending."
+      "post_merge": "All PR/merge Lean/Site CI and live commit/declaration provenance complete; see runs/20260911-companion-priority/gibbs-gradient-moment.live-delivery.json"
     }
   },
   "blocked": {

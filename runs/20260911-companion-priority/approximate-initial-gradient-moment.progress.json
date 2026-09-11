@@ -58,5 +58,24 @@
     "reviewer": "log_depth_source_review",
     "sha256": "4edfcdc82dcb6026d7c95d1431a7747152313c02a573cbfcce2332883c964f39",
     "result": "Entire7private/public proof read; no mathematical blocker or required contract repair. Disclose general beta,coordinate-free/dim0/eta0 extensions,derived M/constant5 versus source generic C,actual W2 input still supplied,r>=0 retained,tau>0,beta0 excluded,and no joint-program/history/cost conclusions. Not independent compilation or formal roundtrip."
+  },
+  "expanded_statement": {
+    "file": ".astis/approximate-initial-gradient-moment-expanded.log",
+    "characters": 2851,
+    "sha256": "3c250c7cfa2573a5b94183c5e2515caf3a3fc2514a77a54056d22cb127801313",
+    "session": 5843,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "pending"
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "5a527a748b5ca1cb03d950e08d278638883b09cf",
+    "result": "Independent focused PASS3720 standard3,fake-closure scan passed; production differs from reviewed full scratch only in documentation and diagnostic prints. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-approximate-initial-gradient-moment.json",
+    "state": "Seven authored steps,six disclosed differences; independent formal source review pending."
   }
 }

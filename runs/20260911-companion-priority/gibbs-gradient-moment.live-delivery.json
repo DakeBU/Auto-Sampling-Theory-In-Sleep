@@ -20,5 +20,7 @@
       "sha256": "56dc9e1d441f6a64f9a0bdd77143a3c05f8a9155e8bc373467343096b9efb13b"
     }
   ],
-  "boundary": "Fresh HTTP commit/declaration provenance, not independent browser review. Local actual browser QA recorded separately. Merge Lean run34648009062 remains pending."
+  "boundary": "Fresh live HTTP commit/declaration provenance and all merge Lean/Site CI passed. Actual local browser QA is recorded separately; neither full paper is complete.",
+  "merge_lean_run": 34648009062,
+  "merge_lean_result": "SUCCESS"
 }
