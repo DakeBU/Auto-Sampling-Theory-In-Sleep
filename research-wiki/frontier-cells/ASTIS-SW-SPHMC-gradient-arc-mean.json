@@ -6,7 +6,7 @@
   "title": "Actual unclipped gradient-arc mean",
   "source_anchor": "SPHMC arXiv:2609.06906v1 A.4(2), via arXiv:2602.01338v1 D.1 actual unclipped mean before Eq18",
   "target_statement": "For finite-dimensional real inner-product Borel E, differentiable f with actual beta-Lipschitz gradient, beta>=0 and eta>0, arbitrary h,xp, use the actual arc and velocity with W(r,z,x)=<v_r,gradient f xp-gradient f arc_r>. For P=N(0,eta I) and U=volume restricted to Ioc(0,1), prove integrability of f(h+Z), joint measurability and integrability of W under U.prod P for every x, the fixed x,z time-integral identity <gradient f xp,x-(h+z)>-f(x)+f(h+z), and integral W=<gradient f xp,x>-f(x)+C with C=integral f(h+Z)-<gradient f xp,h> fixed before all x.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-gaussian-arc-law"
   ],
@@ -40,7 +40,8 @@
     "planning_review": "Independent depth_commit_verifier and log_depth_source_review accepted signs, actual input and joint integrability route; one C fixed before all x. Planning only.",
     "execution_boundary": "Root sole writer; clipping actual PR280 merged and no active stabilizer. Actual arc mean EXPLORING.",
     "development_boundary": "Complete production locally compiled; independent complete scratch proof and source preaudit accepted. Still EXPLORING until full publication/source admission.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED ataf4ebc6. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/gradient-arc-mean.verified-admission.json"
   },
   "blocked": {
     "reason": "",
