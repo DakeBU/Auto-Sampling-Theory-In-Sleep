@@ -11,8 +11,7 @@
   },
   "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "PR/merge CI and actual live deployment"
   ],
   "perturbation_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
@@ -90,6 +89,7 @@
   "independent_admission": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json",
   "integration_notes": {
     "upstream": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
-    "boundary": "Upstream tree verified identical to72f5401; ancestry merge has zero tree delta. Root sole stabilization owner. Full gate and original reader/graph QA pending."
-  }
+    "boundary": "Independent final local integration accepted at a13eee3; canonical gate,reader/graph checks and root browser QA passed. Remote publication remains separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json"
 }
