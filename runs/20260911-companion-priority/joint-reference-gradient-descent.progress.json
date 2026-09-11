@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
@@ -45,7 +45,7 @@
     "exit_code": 0,
     "definitionally_equal": true,
     "source_name_free": true,
-    "independent_review": "depth_commit_verifier independently replayed expanded3236characters and exacthash; actual first-hit definition and all project cost/smoothing definitions expanded,Meta.isDefEq passed."
+    "independent_review": "depth_commit_verifier independently replayed full3236-character Meta.deltaExpand/isDefEq,exacthash,real ENNReal rpow/coupling/Gaussian maps and no source-name leakage."
   },
   "independent_production_review": {
     "reviewer": "depth_commit_verifier",
@@ -64,5 +64,6 @@
       "ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED atebc8a31. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json"
 }
