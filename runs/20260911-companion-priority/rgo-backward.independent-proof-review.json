@@ -1,0 +1,25 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent production review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCRGOBackward",
+  "result": "PASS3747, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOBackward.lean": "7f624001066fd2254e2e6306e24a7ca110169786c0b0bfc7dc74463a1cc29eae",
+    "Tests/SmoothedPicardHMCRGOBackward.lean": "819560314f7aa4062235428ae1ed3dca71b20fd75b46b87f0964d21bb1ca073c"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Statement and proof match independently accepted scratch after documentation, heartbeat removal and separate axiom test.",
+    "Correct swapped-joint disintegration and actual GaussianSmoothing marginals.",
+    "One Markov kernel chosen before all nu,r; every-point precision updates, exact recovery and KL budget use the same K.",
+    "Positive bounded tilt weights prove probability, including zero precision.",
+    "Exact KL direction and r^2/(2a) coefficient; no assumed recovery, normalizer, marginal moments or cost transfer."
+  ],
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

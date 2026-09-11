@@ -100,6 +100,68 @@
     "reason": "PR263 conflicted after collaborator C1 main integration.",
     "preservation": "Retained all collaborator C1 Lean, root imports, tests, lessons and publication changes. Registry three-way by audit ID:37 base,38 ours,40 theirs ->41. Ledger exact228-line base plus7 ours and8 theirs, no rewritten rows.",
     "prior_review": "depth_commit_verifier accepted unchanged fixed-candidate mathematical diff, but withheld merge for CONFLICTING/no final-head CI.",
-    "verification": "New aggregate and final-head site CI required after upstream changes. Prior local browser/gate records belong exclusively to ed623824462ca7fc4878bdec8cf1ba8bf2f4faea."
+    "verification": "New aggregate PASS9116 and actual final site artifact smoke complete; final same-head Lean CI and actual merge/deployment pending.",
+    "final_ci_artifact_review": {
+      "candidate": "2f9923daec3fa721205921835ba54e67ede70895",
+      "site_run": "34556099933 SUCCESS",
+      "rendered_commit": "f8c537046e4904f34eedb7c151c2e464c61c7ffb",
+      "rendered_parents": [
+        "b199693d21fa13d80ebab6148b65ee9561d5ef1a",
+        "2f9923daec3fa721205921835ba54e67ede70895"
+      ],
+      "candidate_and_rendered_tree": "5c8932f77c3cdb82a5916a488cf0bebc94f80f0b",
+      "tree_check": "Both GitHub Git commit APIs independently read; identical trees, distinct candidate/rendered SHA retained.",
+      "artifact": ".astis/kl-upstream-ci-artifact/artifact.tar",
+      "targeted_extraction": {
+        "directory": ".astis/kl-upstream-ci-site",
+        "files": 72,
+        "boundary": "Checked resolved paths and regular file types; selected assets, Gaussian KL reader/module/graph and C1 module/theorem only."
+      },
+      "aggregate": {
+        "result": "PASS9116, terminalexit0",
+        "commit": "2f9923daec3fa721205921835ba54e67ede70895",
+        "source_digest": "479185ab9b0726d0ae4fa509af0a2c98322dbb1fc3b8772478a7659e30766e15",
+        "log": ".astis/kl-upstream-aggregate.log"
+      },
+      "tool_tests": "34 publication tests PASS20.957s",
+      "reader": {
+        "anchor": "sphmc-gaussian-kl",
+        "initial_closed": 10,
+        "steps": 7,
+        "statement_chars": 564,
+        "proof_chars": 10672,
+        "full_namespace_end": true,
+        "actual_statement_proof_reuse_clicks": true,
+        "formula_errors": 0,
+        "visual": "Final CI artifact actual screenshot verified actual marginal formulas and KL<=r^2/(2tau)."
+      },
+      "graph": {
+        "nodes": 5,
+        "edges": 3,
+        "relations": 2,
+        "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl-gaussian-kl-5d8f5e50b6",
+        "actual_labels": [
+          "Partial",
+          "Not mapped"
+        ]
+      },
+      "collaborator": {
+        "module": "modules/autosamplingtheory-technicallemmas-analysis-convexityc1.html",
+        "declarations": 3,
+        "placeholders": 0,
+        "labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "imports_and_imported_by": "StrongConvexFirstOrder, six external Mathlib imports; Analysis root and Tests.Shared.ConvexityC1 preserved.",
+        "graph_nodes": 13,
+        "graph_edges": 22,
+        "graph_relations": 5,
+        "actual_card_click": "theorems/autosamplingtheory-technicallemmas-analysis-convexityc1-convexity-equivalences.html",
+        "actual_status": "formalizedLocal; top banner Lean gate not recorded for this source state. Compiled gate field is the command lake build Tests, not a successful gate badge.",
+        "formula_errors": 0
+      },
+      "boundary": "Actual final site artifact QA and new aggregate complete. Final same-head Lean CI and actual merge/deployment remain separate."
+    }
   }
 }

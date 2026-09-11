@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Section3.4, Lemma6.4 equation(6.1), Theorem6.5 R_j=P_j K_j",
   "target_statement": "For probability base mu on finite-dimensional real inner-product Borel E, precision b>=0, center u and a>0, put rho=mu.tilted(-b/2*norm(x-u)^2). Construct one Markov kernel K, before all input laws nu and budgets r, whose every fiber equals rho.tilted(-norm(x-y)^2/(2*a)) and equals the base tilt with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). Prove K composed with actual GaussianSmoothing rho sqrt(a) equals rho. For every probability nu and r>=0 with actual quadratic transportCost(nu,rho)<=ofReal(r^2), prove actual klDiv(K composed with GaussianSmoothing nu sqrt(a),rho)<=ofReal(r^2/(2*a)).",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SHARED-gaussian-rgo-conditional-kernel",
     "ASTIS-SW-SPHMC-rgo-closure",
@@ -28,11 +28,22 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCRGOBackward",
+        "result": "PASS3747, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOBackward.lean": "7f624001066fd2254e2e6306e24a7ca110169786c0b0bfc7dc74463a1cc29eae",
+          "Tests/SmoothedPicardHMCRGOBackward.lean": "819560314f7aa4062235428ae1ed3dca71b20fd75b46b87f0964d21bb1ca073c"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-rgo-backward.md",
     "planning_review": "Independent log_depth_source_review source audit recommends actual target recovery and same-kernel precision-update consumer, not a renamed data-processing inequality.",
-    "execution_boundary": "Root sole writer; Gaussian KL sole STABILIZING. RGO backward EXPLORING only.",
-    "ownership_note": "One actual paper consumer; no invented second consumer."
+    "execution_boundary": "Root sole writer; Gaussian KL remains sole STABILIZING.",
+    "ownership_note": "One actual paper consumer; no invented second consumer.",
+    "independent_proof_review": "runs/20260911-companion-priority/rgo-backward.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent production replay; formal source/fixed-commit admission pending."
   },
   "blocked": {
     "reason": "",
