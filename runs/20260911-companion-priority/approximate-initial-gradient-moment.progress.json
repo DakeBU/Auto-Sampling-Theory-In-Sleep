@@ -91,5 +91,13 @@
     "upstream": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
     "boundary": "Independent final local integration accepted at a13eee3; canonical gate,reader/graph checks and root browser QA passed. Remote publication remains separate."
   },
-  "local_qa": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
+    "head": "a9145a969184d1900d277718b57da72b333e7563",
+    "state": "OPEN; site PR check passed,Lean PR check pending",
+    "lean_run": 34651132920,
+    "site_run": 34651132992,
+    "site_result": "SUCCESS; PR deployment skipped"
+  }
 }

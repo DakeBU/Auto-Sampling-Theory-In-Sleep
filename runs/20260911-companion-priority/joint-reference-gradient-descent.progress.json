@@ -1,0 +1,24 @@
+{
+  "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
+  "state": "EXPLORING",
+  "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
+  "remaining": [
+    "Independent complete proof/source preaudit",
+    "Production and focused test",
+    "Independent formal source admission and original reader delivery"
+  ],
+  "program_checkpoint": {
+    "path": ".astis/JointReferenceGradientDescentProgram.lean",
+    "sha256": "8de74b9ab7f578489b6a36b82a0187b1ed4c94972188792b3099a894fe3a1d81",
+    "session": 37649,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,standard3/no lint. Actual inner ad first-hit and joint measurability accepted, terminal d/A only witness/count upper bound; no private call/index equality. Development auxiliary tau may be any real; public Gaussian consumer retains tau>0."
+  },
+  "complete_scratch": {
+    "path": ".astis/JointReferenceGradientDescentComplete.lean",
+    "sha256": "e11ebcd1319adf2c3a75aeb92910fcacd4e4e440d227b6ee5511157644b9d812",
+    "session": 51588,
+    "exit_code": 0,
+    "result": "Complete public same-pair stopped GD consumer and actual input expected count compiled; standard3/no lint. Independent complete proof/source preaudit pending."
+  }
+}
