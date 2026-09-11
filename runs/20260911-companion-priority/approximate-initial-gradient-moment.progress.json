@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-approximate-initial-gradient-moment",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "gaussian_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentGaussian.lean",
     "sha256": "475adc0e2ea56fe4aeff92a5ff0226278b885e51fbfc42432f2e110668adc842",
@@ -11,8 +11,8 @@
   },
   "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
   "remaining": [
-    "Actual Gibbs and regularized-gradient public consumer",
-    "Independent complete proof/source admission and reader delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "perturbation_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
@@ -76,6 +76,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-approximate-initial-gradient-moment.json",
-    "state": "Seven authored steps,six disclosed differences; independent formal source review pending."
-  }
+    "state": "Seven authored steps,6deltas and7private accepted; publicationPASS65."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradientMoment.approximate_initial_gradient_moment",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCApproximateInitialGradientMoment"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }

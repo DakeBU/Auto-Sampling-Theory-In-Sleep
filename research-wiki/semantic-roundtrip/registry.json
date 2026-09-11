@@ -20399,7 +20399,7 @@
     },
     {
       "id": "ASTIS-RT-20260912-SPHMCApproximateInitialGradientMoment",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-approximate-initial-gradient-moment",
         "anchor": "Section6.3 Reference point construction: approximate and regularized initial-gradient moments",
@@ -20427,7 +20427,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "6d2d2a8c7bba054d418a5650ab072860445ca71a1e1ed7bfee502b4d30a327ce",
+        "review_run_sha256": "91b073b1668363591b1478227689e6d39f6a6cb91c043d7ea90a3ef23cd1f6a9",
+        "run_artifact": "runs/20260911-companion-priority/approximate-initial-gradient-moment.source-review-result.json",
+        "evidence": "Independent anti-anchored formal review accepted seven semantic slots,seven authored steps,six disclosed differences and seven private implementations. Read only new packet and primary Section6.3; packet contained no completed verdict/slots. Source is attributed ASTIS expanded proof component,not verbatim source theorem. Recomputed canonical packet/source/statement/reconstruction/whole-module text hashes,all match. Binding is packet-authenticated but external preimage not recomputed. No workspace byte check,independent compilation,Meta replay,decoder-run hash,test/toolchain/dependency verification in this source review. Tilted degeneracy discussion adds no assumption/public conclusion; no repair required. No VERIFIED; faithful transcription authorized."
       },
       "publication_binding_sha256": "3dc1bdab023a6b68f559ca7218b446e53dce0e7ede78214cadf4533d3f501b7c",
       "publication_context": {
@@ -20605,7 +20612,102 @@
         "decoder_run_sha256": "b8884cbb2cddece567a2332292a0fea5b78904460350dd70be2a520ab9176544",
         "lean_statement_sha256": "3c250c7cfa2573a5b94183c5e2515caf3a3fc2514a77a54056d22cb127801313",
         "run_artifact": "runs/20260911-companion-priority/approximate-initial-gradient-moment.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual Gibbs, smoothed approximate output and random-center regularized potential.",
+          "reconstructed": "Expanded tilted,actual additive pushforward,coupling infimum and same F_yz.",
+          "relation": "explicit-elaboration",
+          "evidence": "Product law, same y,z and differentiation in final argument preserved."
+        },
+        "domains": {
+          "original": "Normalized Euclidean recursive setting.",
+          "reconstructed": "Complete finite-dimensional real inner-product Borel E,general beta,dimension zero and eta0.",
+          "relation": "different",
+          "evidence": "Disclosed extensions rather than literal source equivalence."
+        },
+        "quantifiers": {
+          "original": "Current-call input law and independent fresh Gaussian.",
+          "reconstructed": "Every admissible fixed parameter and probability nu; gradient identity for all y,z.",
+          "relation": "explicit-elaboration",
+          "evidence": "No shared coupling across histories,measurable optimal selection or random-parameter kernel quantified."
+        },
+        "assumptions": {
+          "original": "Strongly convex smooth target and supplied Wasserstein precision.",
+          "reconstructed": "Actual C2 Hessian,0<alpha<=beta,eta>=0,tau>0,r>=0 and actual W2 squared budget.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual Gibbs probability,moment and gradient Lipschitz follow from parents; no target moment or optimizer input; public beta0 excluded."
+        },
+        "conclusion": {
+          "original": "Two initial-gradient-moment upper bounds.",
+          "reconstructed": "Seven conjuncts: two square L1 statements,input bound,pointwise gradient formula,exact joint expectation,joint bound and constant5 specialization.",
+          "relation": "explicit-elaboration",
+          "evidence": "Absolute cross-term integrability precedes its cancellation; all seven public conjunctions match."
+        },
+        "scopes": {
+          "original": "Moment step within complete reference-point cost argument.",
+          "reconstructed": "Fixed-call actual input and same-pair joint moment only.",
+          "relation": "explicit-elaboration",
+          "evidence": "Module and reader exclude histories,joint GD,total cost and complete-paper claims."
+        },
+        "constant_dependencies": {
+          "original": "Generic source C; normalized precision involves kappa_U*epsilon_j^2.",
+          "reconstructed": "M=4beta*d+4beta^2*eta*d+2beta^2*r^2,noise=tau*d/(eta+tau)^2,derived constant5.",
+          "relation": "explicit-elaboration",
+          "evidence": "Constants locally derived; alpha enters admissibility,not explicitly the bound."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "General beta explicitly specializes to normalized beta1.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: General beta explicitly specializes to normalized beta1."
+        },
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Coordinate-free,dimension zero and eta0 extensions; tau>0 and alpha<=beta retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Coordinate-free,dimension zero and eta0 extensions; tau>0 and alpha<=beta retained."
+        },
+        {
+          "slot": "constant_dependencies",
+          "classification": "source-implicit",
+          "description": "Explicit M and5 are sufficient constants derived here,not source printed constants.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Explicit M and5 are sufficient constants derived here,not source printed constants."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Actual W2 squared budget is supplied,not a sampler guarantee;r>=0 retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Actual W2 squared budget is supplied,not a sampler guarantee;r>=0 retained."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Actual L1 and integrable Gaussian cross cancellation precede expectations.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Actual L1 and integrable Gaussian cross cancellation precede expectations."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Fixed-call moment component only; no history,joint GD or cost closure.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Fixed-call moment component only; no history,joint GD or cost closure."
+        }
+      ]
     }
   ]
 }
