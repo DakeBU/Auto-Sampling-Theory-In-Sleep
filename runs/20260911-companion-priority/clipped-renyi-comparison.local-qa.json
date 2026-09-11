@@ -1,0 +1,65 @@
+{
+  "commit": "a129fa4f0fc608f64e76ba9d0bd6fc5cd8bb6fa2",
+  "source_digest": "e100c54171a36656fa13190f3ce03447a51417cf4b7320818da4de93e831db1f",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 14442,
+    "exit_code": 0,
+    "result": "Lake9005/Tests9169; canonical ASTIS check passed",
+    "log": ".astis/clipped-renyi-comparison-integration-gate.log"
+  },
+  "reader_build": {
+    "session": 46068,
+    "exit_code": 0,
+    "log": ".astis/clipped-renyi-comparison-reader-build.log"
+  },
+  "reader_check": {
+    "session": 69230,
+    "exit_code": 0,
+    "log": ".astis/clipped-renyi-comparison-reader-check.log",
+    "chapters": 12,
+    "modules": 639,
+    "declarations": 3854,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/clipped-renyi-comparison-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=a129fa4",
+    "section": "sphmc-clipped-renyi-comparison",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Sixth mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1466,
+    "proof_code_characters": 3650,
+    "katex_errors": 0,
+    "parents": "Actual ClippedMeanExponential,IdealRGOIdentification,ClippedGradientProgram and primary D1/B12/SPHMC A4(2) links present.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Actual module:16 declarations, Lean gate passed/Compiled, zero placeholders. Not mapped remains separate.",
+    "proof_screenshot": "Steps5/6 equations and prose readable with folded corresponding Lean steps."
+  },
+  "boundary": "Local selected-proof integration and reader/graph QA only. No PR/merge/live claim. Global copy/citation/download delivery requirements remain open. Next untracked blueprint is planning, not compiled theorem.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "a129fa4f0fc608f64e76ba9d0bd6fc5cd8bb6fa2",
+    "source_digest": "e100c54171a36656fa13190f3ce03447a51417cf4b7320818da4de93e831db1f",
+    "evidence": "Independent reviewed gate and unchanged production/source binding, aggregate imports, zero-tree parent merge, Tests9169, site639/3854/77 and graph no omissions checked. Static10folded sections/current provenance. Root clicks/screenshots explicitly root evidence. No remote CI/merge/live/fullpaper or global copy/citation/download acceptance. Faithful transcription authorized."
+  }
+}
