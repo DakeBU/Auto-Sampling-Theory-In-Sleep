@@ -1,0 +1,65 @@
+{
+  "commit": "a63c9bac18dc9d69bd09b9bdf11247856692b675",
+  "source_digest": "68bdfa69a53310ed5aa76b6af7467b760ae5094a23c2a363e408cb62663e995b",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 25066,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed; Tests9173",
+    "log": ".astis/terminal-reference-gradient-descent-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 69765,
+    "exit_code": 0,
+    "log": ".astis/terminal-reference-gradient-descent-reader-build.log"
+  },
+  "reader_check": {
+    "session": 14319,
+    "exit_code": 0,
+    "log": ".astis/terminal-reference-gradient-descent-reader-check.log",
+    "chapters": 12,
+    "modules": 643,
+    "declarations": 3877,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/terminal-reference-gradient-descent-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, scoped DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=a63c9ba",
+    "section": "sphmc-terminal-reference-gradient-descent",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement · terminal_reference_gradient_descent",
+      "Lean proof · terminal_reference_gradient_descent",
+      "Source and reuse",
+      "Sixth mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 1272,
+    "proof_code_characters": 3583,
+    "katex_errors": 0,
+    "parents": "GradientDescentContraction, QuadraticRegularization, HessianStrongConvexity, StrongConvexFirstOrder and Calculus.Gradient continuous-gradient links inspected.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Actual module: 8 declarations, current a63c9ba Lean gate passed/Compiled, zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps5/6 residual and expectation formulas readable. Genuine L1 precedes tangent integration and expected count."
+  },
+  "boundary": "Local selected-proof integration independently accepted; browser actions remain root provenance. PR/merge/live, global copy/citation/download and both main results remain open.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "a63c9bac18dc9d69bd09b9bdf11247856692b675",
+    "source_digest": "68bdfa69a53310ed5aa76b6af7467b760ae5094a23c2a363e408cb62663e995b",
+    "evidence": "Independent exact HEAD gate/digest and unchanged admitted production/source binding checked; reviewed gate passed. Parent tree equality and zero tree delta merge90a99ea verified. Tests9173,site643/3877/77,graph no omissions and static10folds/current commit verified. Root browser evidence explicitly root. Sole stabilizer and sole untracked QA file. No local blockers; faithful transcription authorized. No PR/merge/live/fullpaper or global copy/citation/download claim."
+  }
+}
