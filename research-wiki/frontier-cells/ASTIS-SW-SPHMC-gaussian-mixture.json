@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-gaussian-mixture",
+  "route": "samplewiki-route",
+  "title": "Actual bounded-displacement Gaussian mixture reverse transport",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Lemma6.3(ii), proof of Winfinity Gaussian reverse transport",
+  "target_statement": "Prove the ENNReal integral power-perspective inequality for real q>1, measurable a,b, finite positive b almost everywhere and finite positive integral b, without assuming finite perspective integral. Apply it to actual Gaussian smoothing of probability laws P,Q and an actual coupling with displacement at most t almost everywhere, tau>0,t>=0: prove absolute continuity, integrability of the actual qth RN power, moment at most exp(q(q-1)t^2/(2tau)), and normalized log moment at most q t^2/(2tau).",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-power-perspective",
+    "ASTIS-SW-SPHMC-gaussian-power-moment"
+  ],
+  "consumers": [
+    "SPHMC Lemma6.3(ii) truncation plus reverse transport; complete composition remains unfinished"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Fixed Mathlib ENNReal.lintegral_mul_norm_pow_le and rpow/div algebra allow infinite intermediate moments",
+      "Existing GaussianPowerMoment proves actual Gaussian RN power moment, not mixtures",
+      "Existing GaussianSmoothing/CommonNoiseContraction define actual independent additive noise and coupling marginals",
+      "Existing Renyi module has no q>1 mixture/data-processing theorem"
+    ],
+    "classification": "adapt",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture.bounded_displacement_reverse_transport",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-gaussian-mixture.md",
+    "execution_boundary": "Root sole writer; GaussianPowerMoment remains sole STABILIZING. This packet EXPLORING only.",
+    "ownership_note": "One actual paper consumer, no invented second shared consumer."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Lemma6.3(ii) Winfinity reverse-transport proof",
+    "detail_status": "omitted",
+    "gap": "Expand true mixture inequality and actual additive-noise law identities from single-Gaussian exact moments.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "anchor": "Lemma6.3(ii) and proof",
+        "hypothesis_adapter": "Finite-dimensional inner-product Borel domain explicitly generalizes Euclidean source. Coupling bound is an ingredient input, not an assumed reverse-transport conclusion. No marginal moments needed for this bounded ingredient; source Pp hypotheses remain separate in later original theorem."
+      }
+    ],
+    "fidelity_boundary": "Bounded-displacement Gaussian mixture reverse transport, expanded ingredient of SPHMC Lemma6.3(ii). No optimizer, truncation proxy, mixture inequality, likelihood identity or integrability is assumed in place of its proof. The coupling itself is an explicit input to this ingredient. No complete Wp/Winfinity/Renyi API, proxy-warmness, sampler or query-cost conclusion; the preceding truncation theorem will later provide a single proxy before forall q. Finite displacement bounds do not imply finite marginal p-moments."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual density-mixture/RN inequality with proved integrability; no restatement of a divergence premise."
+  }
+}

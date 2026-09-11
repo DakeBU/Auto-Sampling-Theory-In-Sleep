@@ -58,5 +58,25 @@
     "exit_code": 0,
     "log": ".astis\\gaussian-power-moment-aggregate.log",
     "log_sha256": "cf7f1f7b83d27e2a3eaa016cf52388b0e3d36344c6bd406110cb12ea2897f44a"
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/260",
+    "state": "draft",
+    "boundary": "Aggregate passed; fixed-commit local site retry, final-head CI and actual merge/deployment pending."
+  },
+  "reader_checks": {
+    "initial_build": {
+      "exit_code": 0,
+      "log": ".astis/gaussian-power-moment-site-build.log",
+      "modules": 575,
+      "declarations": 3662
+    },
+    "initial_check": {
+      "exit_code": 1,
+      "log": ".astis/gaussian-power-moment-site-check.log",
+      "error": "Source link not pinned to generated commit: discrete-sampling-protocol.md points to3fa6e01 while build began atabaa0b4.",
+      "cause": "Root committed metadata while site generator was running.",
+      "repair": "Freeze HEAD and metadata, rerun full site generation and validation. Reviewed Lean and passing aggregate unchanged."
+    }
   }
 }
