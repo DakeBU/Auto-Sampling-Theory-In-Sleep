@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Actual error propagation for given Markov kernels, not construction or accuracy of the concrete approximate recursive algorithm. General probability base, fixed parameters; no measurable proxy choice, Wp sampler implementation, terminal FORS, accumulated numerical budgets or expected query costs. Arbitrary approximate input is allowed because its actual KL to the ideal joint law is charged. The output L need not retain center; the ideal B does, and the full joint discrepancy is bounded.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Preserve upstream changes, final candidate independent review/CI, actual merge and deployed evidence",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
@@ -46,5 +46,44 @@
     "source_digest": "d397bd5f132287eda646540689989920c2f0de51366dc9a98f91ada82bb280af",
     "scope": "Root Lake build, Tests, fake-closure scan and ATLAS memory check.",
     "reader_status": "Full renderer attempt failed on missing Samplinglib search label in newly planned cell. Label corrected and frontier validation passed. No reader or graph acceptance claimed."
+  },
+  "integration": {
+    "fixed_commit": "11e9540785f3ddbbfaff7341610c6c3eeec57dca",
+    "aggregate": "PASS9126; website/scripts/lean_gate.py; standard production axioms only",
+    "source_digest": "d397bd5f132287eda646540689989920c2f0de51366dc9a98f91ada82bb280af",
+    "site": "Full website/scripts/build_site.py and check_site.py PASS; 596 modules,3677 declarations,77 reviewed teaching declarations,403 compiled local leaves",
+    "reader": {
+      "entry": "sphmc-adaptive-kl-error",
+      "steps": 6,
+      "initially_closed_disclosures": 9,
+      "statement_characters": 1105,
+      "proof_characters": 4944,
+      "complete_proof": true,
+      "actual_clicks": [
+        "Lean statement",
+        "Lean proof",
+        "Source and reuse"
+      ],
+      "formula_errors": 0,
+      "visual": "Screenshot checked non-AC infinite branch and chain rule with actual P-weighted integral."
+    },
+    "graph": {
+      "check": "PASS",
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-adaptiveklerror-adapti-24b813bf07",
+      "actual_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Structural imports/ownership and labelled source/reference links, not elaborated theorem dependency certificates."
+    },
+    "limitations": "All local QA pinned to11e9540. Upstream smoothness changes cause PR conflict; preservation merge, final candidate checks and actual merge/deployment remain separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/269",
+    "state": "DRAFT",
+    "head": "11e9540785f3ddbbfaff7341610c6c3eeec57dca"
   }
 }
