@@ -16,8 +16,8 @@
   ],
   "shared_floor_audit": {
     "searched": [
-      "ActualClippedRenyiComparison and ClippedGradientProgram",
-      "PoissonQueryTail actual attempt/count/tail",
+      "Samplinglib ClippedRenyiComparison and ClippedGradientProgram",
+      "Samplinglib PoissonQueryTail actual attempt/count/tail",
       "InformationTheory.Renyi only density algebra; Mathlib RN positivity/log APIs"
     ],
     "classification": "adapt",
