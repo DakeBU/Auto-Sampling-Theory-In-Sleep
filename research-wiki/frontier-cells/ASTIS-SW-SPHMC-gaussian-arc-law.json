@@ -58,5 +58,24 @@
       }
     ],
     "fidelity_boundary": "All real r is a disclosed extension of source r in [0,1]. Starting position is h+Z, not h. No gradient regularity is required for the Gaussian path law. The actual W inner-product consumer later needs Holder gradients and center-distance hypotheses. No MGF, clipping accuracy, terminal sampler or paper main result is claimed. Printed D.1 Claim 1 missing log 2 is a separately source-audited possible-source-error; no silent repair is admitted."
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Appendix A.1 and Theorem A.4(2)",
+    "detail_status": "cites_external",
+    "gap": "Actual independent Gaussian position/velocity law and elementary path calculus for the gradient-arc estimator used before moment and clipping analysis.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "Appendix D.1 gradient arc and joint Gaussian law preceding Claim 1",
+        "hypothesis_adapter": "Equal isotropic input variances eta>0; centered auxiliary; position mean h; velocity standard deviation (pi/2)sqrt eta. All-real time and zero-dimensional extensions are disclosed."
+      },
+      {
+        "source": "Mathlib/Probability/Distributions/Gaussian/Fernique.lean",
+        "anchor": "IsGaussian.map_rotation_eq_self_of_forall_strongDual_eq_zero",
+        "hypothesis_adapter": "Apply to the actual product of identical centered standard Gaussian laws; zero dual means supplied by integral_strongDual_stdGaussian, then compose actual affine maps."
+      }
+    ],
+    "fidelity_boundary": "All real r is a disclosed extension of source r in [0,1]. Starting position is h+Z, not h. No gradient regularity is required for the Gaussian path law. The actual W inner-product consumer later needs Holder gradients and center-distance hypotheses. No MGF, clipping accuracy, terminal sampler or paper main result is claimed. Printed D.1 Claim 1 missing log 2 is a separately source-audited possible-source-error; no silent repair is admitted."
   }
 }
