@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "SPHMC arXiv:2609.06906v1 A.4(2), via arXiv:2602.01338v1 D.1 Claim 1 proof and Claim 2, smooth s=1 case",
   "target_statement": "For finite-dimensional real Hilbert E with d=finrank(E)>0, eta>0, beta>0, differentiable f with actual beta-Lipschitz gradient, norm(h-x_plus)<=sqrt(d eta), lambda>=0 and 12 beta^2 eta^2 lambda^2<=1, prove exponential integrability and E exp(lambda |W_r|)<=2 exp(10 d eta^2 lambda^2 beta^2), with log bound log2+10 d eta^2 lambda^2 beta^2. W_r is the actual inner product of GaussianArcLaw velocity and grad f(x_plus)-grad f(gamma_r), under its actual independent input law; all-real r is disclosed extension of [0,1].",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-gaussian-arc-law"
   ],
@@ -44,7 +44,8 @@
       "source_reviewer": "log_depth_source_review",
       "source_result": "Full actual estimator consumer and source-proof factor2/log2 contract accepted in preaudit. Disclose beta=0, d=0, all-real r, arbitrary residual-controlled center. Printed no-log2 Claim1 not silently repaired. Formal anonymous roundtrip remains pending."
     },
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED at6618fd1. Aggregate integration, site, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/smooth-gradient-arc-moment.verified-admission.json"
   },
   "blocked": {
     "reason": "",

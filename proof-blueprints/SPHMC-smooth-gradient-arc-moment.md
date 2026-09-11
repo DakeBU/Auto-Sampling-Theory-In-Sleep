@@ -40,3 +40,27 @@ statement (with definitional equality checked) for a fresh anonymous decoder,
 then perform formal source review and fixed-commit production verification.
 The lane remains EXPLORING until publication validation; both main results
 remain incomplete.
+
+## Reviewed next consumer: actual clipping excess
+
+After admission of this moment edge, the next source consumer is D.1 Claim 2
+of arXiv:2602.01338v1, smooth s=1, with the same actual f, gradient, arc, input
+law and center condition. Independent depth_commit_verifier route review
+confirmed B,beta,eta,d>0, ell>=2 and
+1/eta^2 >= 64 beta^2 (ell*d/B+ell^2). Put A=beta^2*d*eta^2 and
+lambda=min(1/(4 beta eta),B/(20 A)). The step-size condition implies
+2ell<=lambda, while lambda<=1/(4 beta eta) implies the current MGF range.
+
+For tau_B(w)=max(abs(w)-B,0), prove pointwise
+0<=exp(2ell*tau_B(w))-1<=exp(-lambda*B)*exp(lambda*abs(w)).
+Use the already proved actual MGF as an integrable majorant before comparing
+integrals. The exponent satisfies 10A lambda^2-B lambda<=-B lambda/2 and
+B lambda/2=min(B^2/(40A),B/(8 beta eta)), giving the exact source tail bound.
+No Gaussian integration or Fubini needs to be repeated. A bounded ASTIS search
+found no existing clipping-excess exponential interface; the older stochastic
+truncation module is different. The planned public theorem should directly
+consume the actual estimator, with only the scalar domination as a private
+implementation. This is a reviewed route, not a new claimed/proved theorem.
+
+The next result still does not identify the target log-weight mean, prove
+normalized Renyi accuracy, construct the reference point or establish costs.

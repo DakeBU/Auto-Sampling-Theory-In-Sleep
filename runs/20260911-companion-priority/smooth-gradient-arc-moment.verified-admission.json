@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "6618fd17331f2e8775ec42b2676aeb930face5e8",
+    "gate": {
+      "production": "Unchanged production/test; independently reviewed PASS3120 and complete actual estimator proof; standard three axioms. Independent 1734-character type expansion and Meta.isDefEq replay passed.",
+      "publication": "Independent reviewed validator and real check --base origin/main PASS52; all20 private implementations covered. Binding preimage independently recomputed; whole module, lesson, source context, packets and run hashes matched. Anonymous/canonical decoder bytes identical.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_i",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266",
+        "decoder_packet_sha256": "1bd54baf0d7759825bde82832c7666cd960f834d23a292fcf0c7654e3c61d9a1",
+        "decoder_run_sha256": "4357ef157c597a6cd84664305e001d86f076b5bdefd5bd396eab38c7c3f9ef0f",
+        "reviewer_packet_sha256": "1c6f8e6cb63e0a60aa71b49074cd23097e4af48868c030d2cc5aafe2338fba8d",
+        "review_run_sha256": "f33338a942f1a78cb0a30d693ba0835b268ecaf69859c4138f7827be55a14145",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual Gaussian product input and true gradient arc estimator, integrability, MGF and log bound."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.SmoothGradientArcMoment.smooth_gradient_arc_moment"
+    ],
+    "independent_checks": [
+      "7 semantic slots, 6 authored steps, 6 informational deltas, no blockers/repairs.",
+      "Exact unchanged production and test, full module, external binding preimage and packet/run hashes independently verified.",
+      "Only blueprint next-route note dirty; no bound content changed.",
+      "VERIFIED-only: no aggregate, website, merge or paper completion claim."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent VERIFIED-only authorization.",
+  "boundary": "Production and fixed-commit independent focused proof pass; fresh anonymous reconstruction complete. Formal source review pending; private implementation publication gate correctly remains closed. Neither paper main result is complete."
+}
