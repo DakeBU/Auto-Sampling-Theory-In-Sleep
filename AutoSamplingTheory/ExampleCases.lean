@@ -19,6 +19,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianPowerMoment
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianMixture
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProxyReverseTransport
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL
 
 /-!
 # ASTIS example cases

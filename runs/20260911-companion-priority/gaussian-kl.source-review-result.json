@@ -1,0 +1,126 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent seven-slot/seven-step source review.",
+  "reviewer_packet_sha256": "3bc483e6efde6dd9bfe0ebff079fec6dc9ae140d2f8ce08058968ea0ff68293e",
+  "source_text_sha256": "55ab70e32993ccc307a2f75b7384325ff1b3f60a6221b8d3098dbef8a9656384",
+  "lean_statement_sha256": "0d496a423492f919bf8ab6b3f4af968737c022b5df9c9594fa108e4628f99b1a",
+  "reconstruction_text_sha256": "801bb0f91fb60eee7266f15e5d703b9a3486c7a225a85c124b352bcee9754aa2",
+  "embedded_module_text_sha256": "402f321751911eb35357928c6be08fce0a095795a1cfe77237aae59c24015ac1",
+  "publication_binding_sha256": "a5ba8bf373c190ec876febbce52c4d7cf9caa188f42355cd3394e60d2d20e064",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Gaussian convolutions and forward KL.",
+      "reconstructed": "Existing GaussianSmoothing P/Q sqrt(tau) and actual ENNReal klDiv.",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual output-map identities; covariance tau I; direction smoothed P relative to smoothed Q."
+    },
+    "domains": {
+      "original": "Euclidean probabilities.",
+      "reconstructed": "Finite-dimensional real inner-product Borel probabilities including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No positive dimension or division by dimension."
+    },
+    "quantifiers": {
+      "original": "Every eligible law pair and positive heat time.",
+      "reconstructed": "Universal E,P,Q,r,tau under budget/sign conditions.",
+      "relation": "explicit-elaboration",
+      "evidence": "Explicit radius budget; no supplied coupling or optimizer premise."
+    },
+    "assumptions": {
+      "original": "Marginal P2 membership and W2.",
+      "reconstructed": "Actual infimum quadratic-cost <=ofReal(r^2),r>=0,tau>0; no marginal moments.",
+      "relation": "stronger-in-lean",
+      "evidence": "Optimum and displacement integrability derived; marginal moments neither used nor concluded."
+    },
+    "conclusion": {
+      "original": "Gaussian KL <= W2(P,Q)^2/(2tau).",
+      "reconstructed": "Actual ENNReal KL <=ofReal(r^2/(2tau)).",
+      "relation": "explicit-elaboration",
+      "evidence": "Disclosed radius budget; actual divergence, not totalized toReal. Full W2 identity separate."
+    },
+    "scopes": {
+      "original": "Gaussian regularization used by Theorem6.5 A1.",
+      "reconstructed": "Actual measure Gaussian KL prerequisite via joint likelihood/projection.",
+      "relation": "different",
+      "evidence": "Recursive kernels, sampler errors and query costs excluded."
+    },
+    "constant_dependencies": {
+      "original": "Exact dimension-free coefficient1/(2tau).",
+      "reconstructed": "ofReal(r^2/(2tau)),tau>0,r0 allowed.",
+      "relation": "same",
+      "evidence": "A-parameterized positive quadratic LLR term; cross mean zero and probability corrections cancel."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Explicit finite-dimensional generalization includes zero dimension.",
+      "evidence": "No positive dimension or division by dimension."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Raw displacement-cost budget generalizes marginal P2; no marginal moment inference.",
+      "evidence": "Optimum and displacement integrability derived; marginal moments neither used nor concluded."
+    },
+    {
+      "slot": "conclusion",
+      "severity": "informational",
+      "description": "Radius r^2 budget, not a full W2 metric API identity.",
+      "evidence": "Disclosed radius budget; actual divergence, not totalized toReal. Full W2 identity separate."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Joint likelihood and KL projection elaborate the source short joint-convexity argument without Gaussian KL or exponential-moment premises.",
+      "evidence": "Recursive kernels, sampler errors and query costs excluded."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Continuous quadratic cost attained; finite optimum yields hI/hbudget before real integration."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Actual product-map joint laws and fixed-center measure equalities prove withDensity; no joint promotion of fiber a.e. assertions."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "B-a.e. RN transferred via AC to A-a.e. LLR; A parameterization gives positive quadratic term."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Displacement integrability and absolute product inner integrability precede Fubini/Gaussian zero mean."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "LLR integrability precedes actual klDiv formula; probability mass corrections cancel."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Actual map/product identities and true coupling marginals give GaussianSmoothing outputs."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Same output projection in KL data processing, exact joint identity and positive-denominator budget yield ENNReal conclusion."
+      }
+    ]
+  },
+  "review_evidence": "Independent fresh primary Lemma6.3(i)/Theorem6.5 A1 review and complete production/seven-step comparison. Canonical packet, source, statement, reconstruction and normalized module hashes independently recomputed. Embedded production equals disk; seven lesson steps/fields and publication context match, including consistent extra boundary. Source hash binds expanded paraphrase, not verbatim source. Binding authenticated in packet; external preimage not independently reconstructed. No independent compilation or fixed-commit admission in source review."
+}

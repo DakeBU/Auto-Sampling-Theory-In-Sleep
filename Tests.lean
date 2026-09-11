@@ -133,6 +133,7 @@ import Tests.SmoothedPicardHMCTruncation
 import Tests.SmoothedPicardHMCGaussianPowerMoment
 import Tests.SmoothedPicardHMCGaussianMixture
 import Tests.SmoothedPicardHMCProxyReverseTransport
+import Tests.SmoothedPicardHMCGaussianKL
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

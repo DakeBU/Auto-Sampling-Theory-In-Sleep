@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Lemma6.3(i), A1 Gaussian smoothing reverse transport used in Theorem6.5",
   "target_statement": "For probability P,Q on finite-dimensional real inner-product Borel E, r>=0 and tau>0, actual infimum squared-displacement transportCost(P,Q)<=ofReal(r^2) implies InformationTheory.klDiv(GaussianSmoothing P sqrt(tau),GaussianSmoothing Q sqrt(tau))<=ofReal(r^2/(2tau)). The actual ENNReal KL is used; derive all needed joint-law RN and LLR integrability from the displacement budget.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-optimal-continuous-cost",
     "ASTIS-SW-SPHMC-gaussian-likelihood"
@@ -26,11 +26,81 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCGaussianKL",
+        "result": "PASS3739,exit0; only old parent lint.",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianKL.lean": "809625e286b2daa61d7d2c41475ab28171d9e864f19000205c35a89c39706961",
+          "Tests/SmoothedPicardHMCGaussianKL.lean": "af73a7d8c759eb1bc8ac76350e35f619935d16966e8c8fc614244dccb4d317d7"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-gaussian-kl.md",
     "planning_review": "Independent log_depth_source_review primary Lemma6.3(i)/Theorem6.5 audit: A1 Gaussian KL is a dependency-ready actual measure consumer; quadratic displacement suffices, exponential moments are unavailable.",
-    "execution_boundary": "Root sole writer; proxy reverse transport remains sole STABILIZING. Gaussian KL EXPLORING only.",
-    "ownership_note": "One source consumer; no invented second consumer."
+    "execution_boundary": "Root sole writer and sole STABILIZING owner; Proxy PR262 merged.",
+    "ownership_note": "One source consumer; no invented second consumer.",
+    "development_checks": [
+      {
+        "command": "lake env lean .astis/GaussianKLScratch.lean",
+        "result": "exit0; mixed inner product absolute integrability and zero integral from quadratic displacement, plus actual joint Gaussian map/volume-density identity. No production declaration or independent admission.",
+        "file_sha256": "66e75357d9be5ab65b5f41250c19e4f2fb9ef422a38755a8d65c7ca2b55621f2",
+        "log": ".astis/gaussian-kl-scratch.log"
+      }
+    ],
+    "shorter_route_review": "Independent log_depth_source_review accepted direct joint withDensity proof from retained-parameter product-map laws and fixed-fiber GaussianLikelihood measure equality. No fiber a.e. assertion is promoted to a joint pointwise identity; L measurable. RN first B-a.e. then AC transfers to A-a.e. No displacement moments needed for this equality.",
+    "independent_proof_review": "runs/20260911-companion-priority/gaussian-kl.independent-proof-review.json",
+    "admission_boundary": "Independently VERIFIED; root aggregate PASS9114 and fixed-commit original reader/graph verified. Final candidate CI/review/merge/deployment separate.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-kl.verified-admission.json",
+    "integration": {
+      "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+      "aggregate": {
+        "result": "PASS9114",
+        "gate": {
+          "passed": true,
+          "commit": "ed623824462ca7fc4878bdec8cf1ba8bf2f4faea",
+          "source_digest": "acedf614ac228b537c16c6fc349fdcf9f763b941b1d96b5e4a4b8f023db0bbf0",
+          "generated_at": "2026-09-11T02:37:15.431155+00:00",
+          "commands": [
+            "python3 tools/astis.py check"
+          ],
+          "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+        },
+        "log": ".astis/gaussian-kl-aggregate.log"
+      },
+      "site": {
+        "build": "PASS: 584 modules,3667 declarations",
+        "check": "PASS: 77 reviewed teaching declarations",
+        "build_log": ".astis/gaussian-kl-site-build.log",
+        "check_log": ".astis/gaussian-kl-site-check.log"
+      },
+      "reader": {
+        "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "anchor": "sphmc-gaussian-kl",
+        "proof_steps": 7,
+        "initially_closed_disclosures": 10,
+        "statement_chars": 564,
+        "proof_chars": 10672,
+        "proof_complete_namespace_end": true,
+        "actual_statement_proof_reuse_clicks": true,
+        "formula_errors": 0,
+        "visual": "Actual screenshot checked Gaussian marginals and exact KL <= r^2/(2tau) formula; source and reuse also visually inspected."
+      },
+      "graph": {
+        "check": "PASS",
+        "artifact": ".astis/gaussian-kl-graph-check.json",
+        "focused_nodes": 5,
+        "edges": 3,
+        "direct_relations": 2,
+        "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-gaussiankl-gaussian-kl-5d8f5e50b6",
+        "local_card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+      },
+      "boundary": "Local aggregate and actual browser checks bound to this fixed commit; final candidate CI, independent merge review and actual deployment separate."
+    }
   },
   "blocked": {
     "reason": "",

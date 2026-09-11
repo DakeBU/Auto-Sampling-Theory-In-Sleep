@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport",
+      "title": "Gaussian KL reverse transport from the actual quadratic transport budget",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "Chen, Chewi, Lu and Zhang, SPHMC v1 Lemma6.3(i)",
+          "scope": "Expanded actual-budget Gaussian regularization inequality used by Theorem6.5 A1; not a proof of the full recursive algorithm."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGaussianKL"
+      ],
+      "boundary": "Actual ENNReal KL Gaussian reverse transport from a genuine quadratic transport-cost budget. Explicit generalization of Euclidean marginal-P2/W2 presentation; no marginal moments inferred. Full W2 API identification, recursive kernels, sampler errors and query costs remain separate.",
+      "statement": "Let P,Q be probability measures on a finite-dimensional real inner-product Borel space E, including dimension zero. Let r>=0 and tau>0. Suppose the actual infimum over couplings gamma of the extended nonnegative integral of ofReal(norm(x-y)^2) is at most ofReal(r^2). Then the actual extended-nonnegative InformationTheory.klDiv of GaussianSmoothing P sqrt(tau) relative to GaussianSmoothing Q sqrt(tau) is at most ofReal(r^2/(2tau)). GaussianSmoothing is the product-noise addition pushforward with centered identity-covariance standard Gaussian, scaled by sqrt(tau). No marginal second moments, optimizer, Gaussian KL formula or target LLR integrability are assumed.",
+      "formula": "\\inf_{\\gamma\\in\\Pi(P,Q)}\\int\\|x-y\\|^2\\,d\\gamma\\le r^2\\quad\\Longrightarrow\\quad\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\frac{r^2}{2\\tau}.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel E, including zero dimension; P,Q probability measures.",
+        "r>=0 and tau>0. Zero radius is included; nonnegative radius is retained for its geometric meaning although the algebra uses only r^2.",
+        "The actual extended nonnegative infimum quadratic displacement transportCost(P,Q)<=ofReal(r^2) is the input; no optimizer or supplied coupling premise.",
+        "Source Lemma6.3(i) uses Euclidean marginal P2 membership and W2. The proved raw-cost formulation and finite-dimensional inner-product domain are explicit generalizations; finite displacement cost does not imply marginal moments.",
+        "InformationTheory.klDiv is the actual ENNReal divergence, with absolute continuity and LLR integrability proved before using its real integral formula. No exponential displacement moment is required."
+      ],
+      "steps": [
+        {
+          "title": "Attain the genuine quadratic transport cost",
+          "text": "Apply the existing optimal-coupling theorem to the continuous nonnegative cost norm(x-y)^2. Its actual optimum equals the infimum in the hypothesis. The finite budget yields integrability of the squared displacement and the real expectation bound; no individual marginal moment is inferred.",
+          "formula": "\\exists\\gamma\\in\\Pi(P,Q):\\quad\\int\\|x-y\\|^2d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int\\|x-y\\|^2d\\rho\\le r^2.",
+          "lean": "OptimalContinuousCost.exists_optimal_coupling; hfinite, hI and hbudget convert only the finite nonnegative integral."
+        },
+        {
+          "title": "Identify the joint Gaussian likelihood as a measure equality",
+          "text": "On the actual product gamma times standard Gaussian, retain c=(x,y) and map the noise to x+sqrt(tau)Z or y+sqrt(tau)Z, defining joint probability laws A,B. Nonnegative integral extensionality and the known fixed-center Gaussian likelihood give A=B.withDensity L. The likelihood is jointly measurable; no fiber a.e. identity is promoted to a pointwise joint identity.",
+          "formula": "L(c,z)=\\exp\\left(\\frac{\\langle x-y,z-y\\rangle}{\\tau}-\\frac{\\|x-y\\|^2}{2\\tau}\\right),\\qquad A=L\\,B.",
+          "lean": "jointLikelihood expands the product integral and applies translated_gaussian_likelihood for each retained c."
+        },
+        {
+          "title": "Use the likelihood under the correct joint law",
+          "text": "The withDensity equality gives A absolutely continuous with respect to B and RN=L B-a.e. Transfer that equality to A-a.e. using absolute continuity. Under A, z=x+sqrt(tau)Z, so the log likelihood has a positive quadratic term and a centered inner-product term.",
+          "formula": "\\log L(c,x+\\sqrt\\tau Z)=\\frac{\\|x-y\\|^2}{2\\tau}+\\frac{\\langle x-y,Z\\rangle}{\\sqrt\\tau}.",
+          "lean": "hrn then hac.ae_eq yields hlog; llrAlgebra proves the exact A-parameterized identity."
+        },
+        {
+          "title": "Prove absolute integrability before taking expectations",
+          "text": "The bound norm(d)<=1+norm(d)^2 gives displacement integrability. Product integrability of the inner product follows from abs(inner(d,Z))<=norm(d)norm(Z) and the Gaussian first moment. Fubini and the continuous linear inner-product functional then give zero expectation, using the actual product measure and Gaussian zero mean.",
+          "formula": "\\mathbb E_{\\gamma\\otimes G}|\\langle x-y,Z\\rangle|<\\infty,\\qquad\\mathbb E_{\\gamma\\otimes G}\\langle x-y,Z\\rangle=0.",
+          "lean": "crossMoment uses Integrable.op_fst_snd, integral_prod, continuous-linear-map integral interchange and integral_id_stdGaussian."
+        },
+        {
+          "title": "Calculate the actual joint KL divergence",
+          "text": "Both terms of the pulled-back LLR are integrable. Transfer integrability through the measurable map and the A-a.e. LLR identity. Apply the actual klDiv formula; the probability mass corrections cancel, leaving the quadratic displacement expectation divided by 2tau.",
+          "formula": "\\operatorname{KL}(A\\|B)=\\frac1{2\\tau}\\int\\|x-y\\|^2d\\gamma.",
+          "lean": "jointKL proves Integrable(llr A B) A before klDiv_of_ac_of_integrable; all real integral manipulations are justified."
+        },
+        {
+          "title": "Identify both actual output marginals",
+          "text": "Project each retained-parameter joint law to its output coordinate. Composition of pushforwards and the product-map identity show that the marginals are the existing GaussianSmoothing operators applied to the actual coupling marginals P,Q.",
+          "formula": "(\\operatorname{snd})_\\#A=H_\\tau P,\\qquad(\\operatorname{snd})_\\#B=H_\\tau Q.",
+          "lean": "gaussianMarginal uses Measure.map_prod_map and Measure.map_map; hAP,hBQ use hcouple.1 and hcouple.2."
+        },
+        {
+          "title": "Apply KL data processing and the finite budget",
+          "text": "Apply the existing actual KL data-processing inequality to the same output projection for A and B. Substitute the exact joint KL and actual marginal identities, then divide the proved budget by positive 2tau and use ENNReal.ofReal monotonicity.",
+          "formula": "\\operatorname{KL}(H_\\tau P\\|H_\\tau Q)\\le\\operatorname{KL}(A\\|B)\\le\\frac{r^2}{2\\tau}.",
+          "lean": "InformationTheory.klDiv_map_le followed by hj, hAP, hBQ and hbudget. No totalized-toReal shortcut, Renyi limit, or TV-to-cost transfer."
+        }
+      ],
+      "lean_statement": "Actual ENNReal KL of Gaussian smoothing is bounded by r^2/(2tau) from the true quadratic transport budget.",
+      "lean_proof": "Actual optimal coupling, joint Gaussian likelihood and integrable LLR formula, followed by exact marginal identification and KL data processing.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianLikelihood.translated_gaussian_likelihood"
+      ],
+      "mathlib_dependencies": [
+        "InformationTheory.klDiv_map_le",
+        "InformationTheory.klDiv_of_ac_of_integrable",
+        "MeasureTheory.Integrable.op_fst_snd",
+        "ProbabilityTheory.integral_id_stdGaussian"
+      ]
+    }
+  ]
+}
