@@ -1,0 +1,97 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCRGOBackward",
+    "result": "PASS3747",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/RGOBackward.lean": "7f624001066fd2254e2e6306e24a7ca110169786c0b0bfc7dc74463a1cc29eae",
+      "Tests/SmoothedPicardHMCRGOBackward.lean": "819560314f7aa4062235428ae1ed3dca71b20fd75b46b87f0964d21bb1ca073c"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/rgo-backward.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCRGOBackward"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/rgo-backward.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Exact measurable backward kernel and normalized precision-update fiber, not the approximate recursive sampler. General probability base and raw transport budget explicitly generalize source Gibbs/P2 presentation. No marginal moment inference, measurable proxy selection, convolution time identification, recursive error or expected query cost completion. Precision zero retains the source infinite-A case.",
+  "remaining": [
+    "Final-head CI, independent merge review, actual merge and deployment",
+    "Concrete Gibbs specialization and full W2 correspondence",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/rgo-backward.verified-admission.json",
+  "integration": {
+    "commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
+    "aggregate": {
+      "result": "PASS9118",
+      "gate": {
+        "passed": true,
+        "commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
+        "source_digest": "1d9796d9acf5bb9a43d09bdd11faf1b8eb0ec04483c24615bd43e92cb34d10a4",
+        "generated_at": "2026-09-11T03:07:55.948915+00:00",
+        "commands": [
+          "python3 tools/astis.py check"
+        ],
+        "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+      },
+      "log": ".astis/rgo-backward-aggregate.log"
+    },
+    "site": {
+      "build": "PASS588 modules3671 declarations",
+      "check": "PASS77 reviewed teaching declarations",
+      "build_log": ".astis/rgo-backward-site-build.log",
+      "check_log": ".astis/rgo-backward-site-check.log"
+    },
+    "reader": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "anchor": "sphmc-rgo-backward",
+      "proof_steps": 6,
+      "initially_closed_disclosures": 9,
+      "statement_chars": 896,
+      "proof_chars": 3905,
+      "proof_complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "visual": "Actual screenshot checked disintegration recovery, exact precision and weighted-center formula including b=0, and KL input guarantee."
+    },
+    "graph": {
+      "check": "PASS",
+      "artifact": ".astis/rgo-backward-graph-check.json",
+      "focused_nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-rgobackward.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-rgobackward-rgo-backwa-1b1bae175d",
+      "local_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+    },
+    "boundary": "Local aggregate and browser QA pinned to this commit; final candidateCI/review/merge/deployment separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/264",
+    "state": "DRAFT",
+    "local_qa_commit": "dec445c3ce0f42a78c2ab3f02d83cd14d2ee460c",
+    "head_note": "Use actual final PR candidate; local QA remains pinned to dec445c."
+  }
+}

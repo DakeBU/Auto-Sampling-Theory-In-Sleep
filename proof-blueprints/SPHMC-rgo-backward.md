@@ -7,3 +7,5 @@ Exact measurable backward kernel and normalized precision-update fiber, not the 
 Derive probability of the initial quadratic tilt from bounded positive weights. Construct GaussianConditionalKernel for that actual target. Identify the joint noisy marginal with GaussianSmoothing and the other marginal with the target; take the second marginal of the disintegration identity. Identify every fiber via normalized RGOClosure with s=a^-1. Apply actual KL data processing and GaussianKL only after choosing that same kernel.
 
 Root sole writer. Bounded publication packet precedes Lean development.
+
+Independent fixed-commit VERIFIED at ebaa88025ba28ebc2013c959e9a0d6fca3ffc2b6. Root now sole STABILIZING owner; aggregate and original reader/graph delivery pending. Full paper Goal remains active.
