@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-finite-rgo-program",
+  "route": "samplewiki-route",
+  "title": "Finite RGO program with absorbing terminal states and actual trajectories",
+  "mode": "faithfulPaper",
+  "source_anchor": "arXiv:2609.06906v1 Algorithm3.3 terminal branch and recursive update; Theorem6.5 stagewise execution",
+  "target_statement": "On explicit states (b,u,k,h) with nonnegative precision b,center u,step count k and a sequence h storing the k most recent observations, take a measurable positive current-state variance a and a positive terminal precision threshold. Construct the actual precision-weighted update, increment k and prepend the observation. For arbitrary actual observation and terminal Markov kernels Q,L, construct a Markov state transition which is identity on terminal states and is the Q-pushforward under that explicit update elsewhere. Construct measurable probability output kernels R_n with R_0=L and R_(n+1)(s)=L(s) on terminal states, otherwise the integral of R_n(updated(s,y)) against Q(s). Construct the finite full trajectory law and prove its terminal-output marginal equals this recursive output. Use StateDependentRGO to construct actual target and ideal observation kernels; for Q=H and L=T prove every finite output R_n(s)=T(s), deriving posterior consistency from the actual update rather than assuming recovery. No deterministic schedule is imposed.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-state-dependent-rgo"
+  ],
+  "consumers": [
+    "Algorithm3.3 capped recursive execution and Theorem6.5 ideal comparison law"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib StateDependentRGO actual joint posterior recovery",
+      "Samplinglib recursive/log-depth source cells: scalar depth facts do not construct program laws",
+      "Mathlib Kernel.partialTraj, map_partialTraj_succ_self and partialTraj_comp_partialTraj",
+      "Mathlib Kernel.piecewise, composition and powers; measurable product and countable function-space coordinates"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-finite-rgo-program.md",
+    "planning_review": "Independent source review requires explicit actual state update and trajectory consumer, not only abstract recovery. Include terminal absorbing branch to avoid identifying forced recursion with source stopping.",
+    "execution_boundary": "Root sole writer; StateDependentRGO sole STABILIZING; this packet EXPLORING."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "Algorithm3.3 and Theorem6.5",
+    "detail_status": "omitted",
+    "gap": "Actual measurable capped recursive program, finite path law and ideal recovery under the changing target.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "anchor": "Recursive stages and terminal FORS call",
+        "hypothesis_adapter": "Terminal A<=Aunderline becomes precision b>=1/Aunderline. Current-state positive variance may depend on history; finite cap retains unresolved continuation."
+      }
+    ],
+    "fidelity_boundary": "Finite capped unfolding with explicit absorbing terminal branch. At the cap the remaining call is represented by supplied L. The theorem does not prove that the cap exceeds the source stopping depth, implement FORS or the approximate smoothed sampler, or prove accuracy or expected query cost. Ideal L=T is an oracle comparison only. State stores finite history via count and padded sequence; source reference-point and accuracy parameter validity, and a=(eta+tau)/beta_A, remain explicit later instantiations."
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual recursive program/trajectory semantics with source posterior consistency; no new conceptual transport claimed."
+  }
+}

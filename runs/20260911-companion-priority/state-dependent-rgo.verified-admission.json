@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "b60086b130905333aa365c761cb390fd856faa54",
+    "gate": {
+      "production": "Independent PASS3749 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCStateDependentRGO",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "state_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "363aed671ad77ea222d9be87719be2cb3dea69b122c7fc6d08bf7cbe49ddefc5",
+        "decoder_packet_sha256": "e59f859e4aa98cf752ca12e3f985327e3739f9e85b78aea776c73741e594a140",
+        "decoder_run_sha256": "74eea2e7b3ae6c92864b5c653c4a622458782432747ea7cbc0b3a43a9a598e4b",
+        "reviewer_packet_sha256": "7a38dc9bb0f191a457068f1098fd89bc720a0bd6a1b84c7ae57bf9f4f4987fcc",
+        "review_run_sha256": "91bd0305c93624b1bcd7fa89a6c71d506e2624f34ee7ecaa301e7eba96712d88",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual global parameter kernel, variable Gaussian and complete joint recovery."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, five authored steps, five informational deltas; no blockers or repairs.",
+      "AdaptiveKLError remains sole STABILIZING. This admission authorizes VERIFIED only; no root imports or state stabilization."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs."
+}
