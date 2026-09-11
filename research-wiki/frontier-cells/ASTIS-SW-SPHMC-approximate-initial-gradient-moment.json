@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-approximate-initial-gradient-moment.md",
     "planning_review": "Independent log_depth_source_review accepted near-optimal coupling route and exact independent-Gaussian expected square formula, including required cross-term absolute integrability and fixed-call/history boundary.",
-    "execution_boundary": "Actual merge releases stabilization lane. Post-merge CI/live tracked separately; neither full main result complete.",
+    "execution_boundary": "Selected packet merged/delivered; stabilization lane released. Both main results remain incomplete.",
     "admission_boundary": "VERIFIED at7a6a7b3. Aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json",
     "root_build": "runs/20260911-companion-priority/approximate-initial-gradient-moment.local-qa.json: independent exact a13eee3 canonical gate,Tests9178",
@@ -51,7 +51,7 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
       "commit": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
       "merged_at": "2026-09-11T22:03:24Z",
-      "post_merge": "All PR Lean/Site checks passed; merge CI and live pending."
+      "post_merge": "All PR/merge Lean/Site CI and live provenance complete; see runs/20260911-companion-priority/approximate-initial-gradient-moment.live-delivery.json"
     }
   },
   "blocked": {

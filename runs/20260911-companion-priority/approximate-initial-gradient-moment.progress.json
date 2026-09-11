@@ -10,9 +10,7 @@
     "independent_review": "depth_commit_verifier independently compiled the frozen source via stdin, exit0, standard3/no lint. Actual covariance/mean and pre-sum L1 inspected, dim0 included. Local development acceptance only; no production VERIFIED."
   },
   "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
-  "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
-  ],
+  "remaining": [],
   "perturbation_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
     "sha256": "94d0c66e5db199efbae4010d7041e9fbb31ce81eef72f1ea839bacc583443047",
@@ -95,12 +93,18 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/290",
     "head": "a9145a969184d1900d277718b57da72b333e7563",
-    "state": "MERGED; all PR checks passed; merge CI/live pending",
+    "state": "MERGED; all PR/merge CI and live provenance complete",
     "lean_run": 34651132920,
     "site_run": 34651132992,
     "site_result": "SUCCESS; PR deployment skipped",
     "merge_commit": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
     "merged_at": "2026-09-11T22:03:24Z",
-    "lean_pr_result": "SUCCESS"
-  }
+    "lean_pr_result": "SUCCESS",
+    "merge_lean_run": 34652268235,
+    "merge_lean_result": "SUCCESS",
+    "merge_site_run": 34652268218,
+    "merge_site_result": "SUCCESS including deploy"
+  },
+  "post_merge_delivery": "runs/20260911-companion-priority/approximate-initial-gradient-moment.live-delivery.json",
+  "completion_boundary": "Selected moment packet delivered. Both full main results and global reader feature requirements remain open."
 }

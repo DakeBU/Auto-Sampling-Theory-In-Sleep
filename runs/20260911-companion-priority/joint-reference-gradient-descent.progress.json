@@ -3,8 +3,7 @@
   "state": "STABILIZING",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "PR/merge CI and actual live deployment"
   ],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
@@ -68,6 +67,7 @@
   "independent_admission": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json",
   "integration_notes": {
     "upstream": "54a7378e9c5b4a3fdac9dbfdebdfdd750c41bffd",
-    "boundary": "Ancestry merge dd915b7 has zero tree delta. Root sole stabilization owner. Full canonical gate and original reader/graph QA pending."
-  }
+    "boundary": "Independent final local integration accepted at caaccad; canonical gate,reader/graph and root browser QA passed. Remote delivery separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json"
 }
