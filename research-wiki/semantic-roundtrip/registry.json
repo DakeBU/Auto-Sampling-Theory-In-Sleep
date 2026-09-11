@@ -12576,109 +12576,75 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "A C1 convex scalar function and its Euclidean gradient.",
-          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "original": "A real-valued function and its Euclidean gradient.",
+          "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
           "relation": "explicit-elaboration",
-          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
-          "source": "A C1 convex scalar function and its Euclidean gradient.",
-          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
-          "status": "explicit-elaboration",
-          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+          "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
         },
         "domains": {
-          "original": "All of real Euclidean d-space.",
+          "original": "All of Euclidean d-space.",
           "reconstructed": "All of any complete real inner-product space E.",
-          "relation": "different",
-          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
-          "source": "All of real Euclidean d-space.",
-          "lean": "All of any complete real inner-product space E.",
-          "status": "different",
-          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+          "relation": "stronger-in-lean",
+          "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
         },
         "quantifiers": {
-          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "relation": "different",
-          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
-          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "status": "different",
-          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+          "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+          "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+          "relation": "same",
+          "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
         },
         "assumptions": {
-          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
+          "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+          "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; strictly positive real beta.",
           "relation": "stronger-in-lean",
-          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence.",
-          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>0.",
-          "status": "stronger-in-lean",
-          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. The positive modulus restricts the stated nonnegative definition to the meaningful reciprocal domain, and is explicitly recorded; it is not full-beta source equivalence."
+          "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Beta>0 restricts this declaration to the reciprocal formula's positive-denominator domain; it does not settle a reciprocal expression at zero."
         },
         "conclusion": {
           "original": "Reciprocal Bregman lower bound (3.4).",
-          "reconstructed": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
+          "reconstructed": "Squared gradient difference <= 2 beta times the Bregman gap.",
           "relation": "equivalent",
-          "evidence": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2.",
-          "source": "Reciprocal Bregman lower bound (3.4).",
-          "lean": "Squared gradient norm <= 2 beta times ordered Bregman gap.",
-          "status": "equivalent",
-          "explanation": "On the common domain, multiplication or division by positive 2 beta proves equivalence, with exactly the factor 2."
+          "evidence": "Multiplication/division by 2 beta preserves order only for beta>0; exactly on that domain, the coefficients and endpoint orientation agree."
         },
         "scopes": {
-          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "reconstructed": "Global pointwise deterministic inequality on univ.",
-          "relation": "same",
-          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
-          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "lean": "Global pointwise deterministic inequality on univ.",
-          "status": "same",
-          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+          "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+          "reconstructed": "The binding supports only bregman-positive-domain.",
+          "relation": "explicit-elaboration",
+          "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Acceptance is restricted to Euclidean specialization with beta>0, plus explicitly identified Hilbert generalization; no zero-denominator theorem or whole-exercise identity is claimed."
         },
         "constant_dependencies": {
-          "original": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
-          "reconstructed": "The same sole modulus, coefficient 2 beta in the scaled form.",
+          "original": "Coefficient 1/(2 beta), using smoothness coefficient beta/2.",
+          "reconstructed": "Coefficient 2 beta after clearing the denominator.",
           "relation": "equivalent",
-          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison.",
-          "source": "The sole modulus beta from the quadratic model; coefficient 1/(2 beta).",
-          "lean": "The same sole modulus, coefficient 2 beta in the scaled form.",
-          "status": "equivalent",
-          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. Positive beta is required for the reciprocal comparison."
+          "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. The trial step is beta inverse; its positivity is explicitly assumed."
         }
       },
       "deltas": [
         {
           "slot": "domains",
           "severity": "informational",
-          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
-          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
-        },
-        {
-          "slot": "quantifiers",
-          "severity": "informational",
-          "description": "Universal ambient-space quantification extends the Euclidean source class.",
-          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+          "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+          "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
         },
         {
           "slot": "assumptions",
           "severity": "review",
-          "description": "Explicit beta>0 restricts the reciprocal assertion to its meaningful denominator domain.",
-          "evidence": "Definition 1.12 states beta>=0; Exercise 3.1 displays 1/(2 beta) without an explicit positive restriction. Candidate obligation bregman-positive-domain and the lesson make the scope explicit. Accepted solely as that scoped result; no source repair is proposed or accepted."
+          "description": "The Bregman declaration is restricted to beta>0.",
+          "evidence": "Definition 1.12 permits zero but (3.4) uses 1/(2 beta). The lesson and bregman-positive-domain binding correctly limit this proof edge. No separately reviewed repaired source statement is supplied or accepted."
         }
       ],
       "verdict": "implicit-assumption-exposed",
       "repairs": [],
       "source_review": {
         "state": "accepted",
-        "reviewer": "coco_source",
+        "reviewer": "coco_layout_source",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff0f17478d545c1f. Specialization to E=EuclideanSpace R (Fin d) and beta>0 yields source (3.4) after division by 2 beta. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization. No claim is made that the reciprocal source expression is defined at beta=0. Let d=grad f(y)-grad f(x) and z=y-d/beta. Supporting-plane lower bound at x and the upper model at y imply B_f(y,x)>=<d,d>/beta-||d||^2/(2 beta)=||d||^2/(2 beta). The lesson follows exactly this algebra and clears only positive denominators. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
-        "review_run_sha256": "6923be579032685e89c6ed5e48e279c7a421860038922c08e46b541510cf4396",
-        "reviewer_packet_sha256": "815d3f98b0ae7394a6ced5ca385c5d073641c75a0fa865b52e81f9a4ac6b6f4a",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-0.json"
+        "evidence": "The packet-bound module uses convex first-order support at x and z=y-beta^-1 d, then the upper model from y to z. Subtraction leaves B_f(y,x)-||d||^2/(2 beta)>=0. The lesson explains the same elimination of f(z), sign, trial point and positive denominator. It cites the actual supporting-plane ASTIS call and separates Mathlib calls from external provenance. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit.",
+        "review_run_sha256": "537c5e625c14b078cbf30c6f2abce21e0b0e16a5200b5998de0c41d687ded204",
+        "reviewer_packet_sha256": "65a3a471f32a1f072d9e53f4e89490d8a289c35b48d5ef65f9b6eb76fe1a5ba7",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-layout-final-0.json"
       },
-      "publication_binding_sha256": "3511b2d60eccba25df9181e9dea89bcdfd160236804393aab5f07543769d78ee",
+      "publication_binding_sha256": "c8152b82fe94a4c638d50575358c1c8cb468086f630f41c7c58845cc4dcb581a",
       "publication_context": {
         "file": "7218e97c12a200873455e396128487953b9e07c89862ad9c44925adb77f36cf1",
         "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.InnerProductSpace.PiL2\nimport Mathlib.Tactic.FieldSimp\nimport Mathlib.Tactic.Positivity\n\n/-!\n# Convex smooth functions: Bregman gap, cocoercivity and Lipschitz gradient\n\nSource: Chewi, Lectures on Optimization, arXiv:2605.07006v1, Exercise 3.1,\nequations (3.4)–(3.5). The argument subtracts the tangent plane, applies the\nquadratic upper model at a gradient step, exchanges endpoints, and uses\nCauchy–Schwarz. We express the tilted-function calculation directly through\nthe existing convex first-order lower bound.\n\nRelated external mathematics: Optlib commit\n5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3, Function/Lsmooth.lean,\n`convex_to_lower` and `lower_to_lipschitz` (Apache-2.0).\nNo external Lean module is imported. The complete real inner-product space\ngeneralizes the source's Euclidean space. The reciprocal step requires positive\nmodulus; a positive relaxation and limit retain zero modulus in the scaled\ncocoercivity and Lipschitz conclusions. No second derivative is assumed.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n\nopen Set Filter\nopen scoped RealInnerProductSpace Topology\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The positive-modulus Bregman gap controls the squared gradient difference.\nDividing by `2 * β > 0` recovers the source's reciprocal formula (3.4). -/\ntheorem gradient_gap_sq_le_bregman {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 < β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      2 * β * (f y - f x - inner ℝ (gradient f x) (y - x)) := by\n  let d := gradient f y - gradient f x\n  let z := y - β⁻¹ • d\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    (strongConvexOn_zero.mpr hc)\n    (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  simp only [zero_div, zero_mul, add_zero] at hl\n  have hh := hu y z\n  have hzx : z - x = (y - x) - β⁻¹ • d := by dsimp [z]; abel\n  rw [hzx, inner_sub_right, inner_smul_right] at hl\n  have hzy : z - y = -(β⁻¹ • d) := by dsimp [z]; abel\n  rw [hzy, inner_neg_right, inner_smul_right, norm_neg, norm_smul,\n    Real.norm_eq_abs, mul_pow, sq_abs] at hh\n  have hd : inner ℝ (gradient f y) d - inner ℝ (gradient f x) d = ‖d‖ ^ 2 := by\n    rw [← inner_sub_left]\n    exact real_inner_self_eq_norm_sq d\n  have h := le_trans hl hh\n  have hb : β ≠ 0 := ne_of_gt hβ\n  apply (mul_le_mul_iff_right₀ (inv_pos.mpr hβ)).mp\n  field_simp [hb] at h ⊢\n  nlinarith\n\n/-- Convex gradients are cocoercive in the division-free normalization.\nThe zero-modulus case follows by relaxing the upper model to `β + ε` and\nletting positive `ε` tend to zero, without assigning meaning to a zero denominator. -/\ntheorem gradient_cocoercive {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 ≤ β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      β * inner ℝ (gradient f y - gradient f x) (y - x) := by\n  have he (ε : ℝ) (hε : 0 < ε) :\n      ‖gradient f y - gradient f x‖ ^ 2 ≤\n        (β + ε) * inner ℝ (gradient f y - gradient f x) (y - x) := by\n    have hu' (a b : E) : f b ≤ f a + inner ℝ (gradient f a) (b - a) +\n        (β + ε) / 2 * ‖b - a‖ ^ 2 := by\n      have := hu a b\n      nlinarith [sq_nonneg ‖b - a‖]\n    have hxy := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' x y\n    have hyx := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' y x\n    rw [norm_sub_rev (gradient f x), show x - y = -(y - x) by abel, inner_neg_right] at hyx\n    rw [inner_sub_left]\n    nlinarith\n  have ht : Tendsto (fun ε : ℝ => (β + ε) *\n      inner ℝ (gradient f y - gradient f x) (y - x)) (𝓝[>] 0)\n      (𝓝 (β * inner ℝ (gradient f y - gradient f x) (y - x))) := by\n    simpa using (tendsto_const_nhds.add (tendsto_id.mono_left nhdsWithin_le_nhds :\n      Tendsto (fun ε : ℝ => ε) (𝓝[>] 0) (𝓝 0))).mul tendsto_const_nhds\n  apply ge_of_tendsto ht\n  filter_upwards [self_mem_nhdsWithin] with ε hε\n  exact he ε hε\n\n/-- A C¹ convex function with the global quadratic upper model has a\n`β`-Lipschitz gradient, including `β = 0`. -/\ntheorem gradient_lipschitz {f : E → ℝ} {β : NNReal}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + (β : ℝ) / 2 * ‖y - x‖ ^ 2) :\n    LipschitzWith β (gradient f) := by\n  rw [lipschitzWith_iff_norm_sub_le]\n  intro x y\n  have h := gradient_cocoercive hf hc β.coe_nonneg hu y x\n  have hs := mul_le_mul_of_nonneg_left\n    (real_inner_le_norm (gradient f x - gradient f y) (x - y)) β.coe_nonneg\n  by_cases hz : ‖gradient f x - gradient f y‖ = 0\n  · rw [hz]\n    positivity\n  · apply (mul_le_mul_iff_left₀ (lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz))).mp\n    nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n",
@@ -12733,7 +12699,7 @@
           "kind": "theorem",
           "title": "The Bregman gap controls the gradient difference",
           "statement": "For a positive real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the squared gradient difference bound by 2β times its Bregman gap.",
-          "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|^2\\le 2\\beta B_f(y,x).\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+          "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|^2\\le 2\\beta B_f(y,x)\\end{gathered}",
           "assumptions": [
             "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
             "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",
@@ -12850,103 +12816,69 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "A C1 convex scalar function and its Euclidean gradient.",
-          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "original": "A real-valued function and its Euclidean gradient.",
+          "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
           "relation": "explicit-elaboration",
-          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
-          "source": "A C1 convex scalar function and its Euclidean gradient.",
-          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
-          "status": "explicit-elaboration",
-          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+          "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
         },
         "domains": {
-          "original": "All of real Euclidean d-space.",
+          "original": "All of Euclidean d-space.",
           "reconstructed": "All of any complete real inner-product space E.",
-          "relation": "different",
-          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
-          "source": "All of real Euclidean d-space.",
-          "lean": "All of any complete real inner-product space E.",
-          "status": "different",
-          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+          "relation": "stronger-in-lean",
+          "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
         },
         "quantifiers": {
-          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "relation": "different",
-          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
-          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "status": "different",
-          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+          "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+          "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+          "relation": "same",
+          "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
         },
         "assumptions": {
-          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
+          "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+          "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; nonnegative real beta.",
           "relation": "explicit-elaboration",
-          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity.",
-          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0.",
-          "status": "explicit-elaboration",
-          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity."
+          "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Neither C2 nor a pre-assumed Lipschitz gradient is smuggled in. The declared real inequality permits beta=0."
         },
         "conclusion": {
-          "original": "Squared gradient norm <= beta times gradient-displacement pairing.",
-          "reconstructed": "The same division-free cocoercivity inequality.",
-          "relation": "equivalent",
-          "evidence": "On the common domain, both displayed norm-square and inner-product normalizations are identical.",
-          "source": "Squared gradient norm <= beta times gradient-displacement pairing.",
-          "lean": "The same division-free cocoercivity inequality.",
-          "status": "equivalent",
-          "explanation": "On the common domain, both displayed norm-square and inner-product normalizations are identical."
+          "original": "Scaled cocoercivity (3.5).",
+          "reconstructed": "Squared gradient difference <= beta times the gradient-displacement pairing.",
+          "relation": "same",
+          "evidence": "Both signs reverse when endpoints exchange, leaving the pairing unchanged. The coefficient is beta, without a factor-two loss."
         },
         "scopes": {
-          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "reconstructed": "Global pointwise deterministic inequality on univ.",
-          "relation": "same",
-          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
-          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "lean": "Global pointwise deterministic inequality on univ.",
-          "status": "same",
-          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+          "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+          "reconstructed": "The binding supports only scaled-cocoercivity.",
+          "relation": "explicit-elaboration",
+          "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Euclidean specialization includes beta=0. The epsilon-limit explanation is an ASTIS elaboration beyond the source hint, not a source correction."
         },
         "constant_dependencies": {
-          "original": "The sole modulus beta from the quadratic model; coefficient beta.",
-          "reconstructed": "The same sole modulus, coefficient beta.",
+          "original": "Coefficient beta, using smoothness coefficient beta/2.",
+          "reconstructed": "Coefficient beta after removing epsilon.",
           "relation": "equivalent",
-          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish.",
-          "source": "The sole modulus beta from the quadratic model; coefficient beta.",
-          "lean": "The same sole modulus, coefficient beta.",
-          "status": "equivalent",
-          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish."
+          "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. Epsilon is arbitrary positive and disappears by continuity and closed order, including beta=0."
         }
       },
       "deltas": [
         {
           "slot": "domains",
           "severity": "informational",
-          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
-          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
-        },
-        {
-          "slot": "quantifiers",
-          "severity": "informational",
-          "description": "Universal ambient-space quantification extends the Euclidean source class.",
-          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+          "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+          "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
         }
       ],
       "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
         "state": "accepted",
-        "reviewer": "coco_source",
+        "reviewer": "coco_layout_source",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Packet-bound independent review of ASTIS-REVIEW-ff861ff1f7ab123f. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. The beta upper model implies the beta+epsilon model for epsilon>0. Add the two ordered Bregman estimates: 2||d||^2<=2(beta+epsilon)<d,y-x>. Divide by 2 and take epsilon down to zero by continuity and closed order. This works regardless of the sign of the pairing and retains beta=0. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
-        "review_run_sha256": "99a7239fb3dff986c8e8981fbb3b5a98b204047fbf2a35902958f852a7d97bf7",
-        "reviewer_packet_sha256": "8c62e4e9ac7518a52da253b060e02a2e1e8f511308714c620145f0c997d0617a",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-1.json"
+        "evidence": "The module relaxes the model from beta to beta+epsilon using nonnegative squared norm, applies the Bregman theorem to both ordered pairs, adds the inequalities and cancels the factor two. The sum of gaps is <gradient f(y)-gradient f(x),y-x>. Taking epsilon to zero requires only continuity of this affine scalar expression and closed order, so beta=0 forces a constant gradient. The revised lesson explicitly fixes x,y and defines d=gradient f(y)-gradient f(x) before its formulas. This resolves the previously diagnosed unbound abbreviation, and the synchronized prose describes all three proof steps correctly. The correction changes exposition only, not the source theorem or a repair overlay. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit.",
+        "review_run_sha256": "0503546c1b625079d693d9e361ca5e510ce31be24dd4c6f0b5a9fcec3db21b1c",
+        "reviewer_packet_sha256": "4c8d62f33a4416e74d30227a133a55cafd5b27c01883bab61305d11b3703a04b",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-layout-final-1.json"
       },
-      "publication_binding_sha256": "65a5a0ac44c4e85b8b9e95b0faa3c92127dd2cd4ff2abc42898bbe4a6b3dfb56",
+      "publication_binding_sha256": "bc1291bcf4adf128d724e6aeb7fc5f120a151459b2d5441376e3ff55b8e09eb2",
       "publication_context": {
         "file": "7218e97c12a200873455e396128487953b9e07c89862ad9c44925adb77f36cf1",
         "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.InnerProductSpace.PiL2\nimport Mathlib.Tactic.FieldSimp\nimport Mathlib.Tactic.Positivity\n\n/-!\n# Convex smooth functions: Bregman gap, cocoercivity and Lipschitz gradient\n\nSource: Chewi, Lectures on Optimization, arXiv:2605.07006v1, Exercise 3.1,\nequations (3.4)–(3.5). The argument subtracts the tangent plane, applies the\nquadratic upper model at a gradient step, exchanges endpoints, and uses\nCauchy–Schwarz. We express the tilted-function calculation directly through\nthe existing convex first-order lower bound.\n\nRelated external mathematics: Optlib commit\n5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3, Function/Lsmooth.lean,\n`convex_to_lower` and `lower_to_lipschitz` (Apache-2.0).\nNo external Lean module is imported. The complete real inner-product space\ngeneralizes the source's Euclidean space. The reciprocal step requires positive\nmodulus; a positive relaxation and limit retain zero modulus in the scaled\ncocoercivity and Lipschitz conclusions. No second derivative is assumed.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n\nopen Set Filter\nopen scoped RealInnerProductSpace Topology\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The positive-modulus Bregman gap controls the squared gradient difference.\nDividing by `2 * β > 0` recovers the source's reciprocal formula (3.4). -/\ntheorem gradient_gap_sq_le_bregman {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 < β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      2 * β * (f y - f x - inner ℝ (gradient f x) (y - x)) := by\n  let d := gradient f y - gradient f x\n  let z := y - β⁻¹ • d\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    (strongConvexOn_zero.mpr hc)\n    (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  simp only [zero_div, zero_mul, add_zero] at hl\n  have hh := hu y z\n  have hzx : z - x = (y - x) - β⁻¹ • d := by dsimp [z]; abel\n  rw [hzx, inner_sub_right, inner_smul_right] at hl\n  have hzy : z - y = -(β⁻¹ • d) := by dsimp [z]; abel\n  rw [hzy, inner_neg_right, inner_smul_right, norm_neg, norm_smul,\n    Real.norm_eq_abs, mul_pow, sq_abs] at hh\n  have hd : inner ℝ (gradient f y) d - inner ℝ (gradient f x) d = ‖d‖ ^ 2 := by\n    rw [← inner_sub_left]\n    exact real_inner_self_eq_norm_sq d\n  have h := le_trans hl hh\n  have hb : β ≠ 0 := ne_of_gt hβ\n  apply (mul_le_mul_iff_right₀ (inv_pos.mpr hβ)).mp\n  field_simp [hb] at h ⊢\n  nlinarith\n\n/-- Convex gradients are cocoercive in the division-free normalization.\nThe zero-modulus case follows by relaxing the upper model to `β + ε` and\nletting positive `ε` tend to zero, without assigning meaning to a zero denominator. -/\ntheorem gradient_cocoercive {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 ≤ β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      β * inner ℝ (gradient f y - gradient f x) (y - x) := by\n  have he (ε : ℝ) (hε : 0 < ε) :\n      ‖gradient f y - gradient f x‖ ^ 2 ≤\n        (β + ε) * inner ℝ (gradient f y - gradient f x) (y - x) := by\n    have hu' (a b : E) : f b ≤ f a + inner ℝ (gradient f a) (b - a) +\n        (β + ε) / 2 * ‖b - a‖ ^ 2 := by\n      have := hu a b\n      nlinarith [sq_nonneg ‖b - a‖]\n    have hxy := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' x y\n    have hyx := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' y x\n    rw [norm_sub_rev (gradient f x), show x - y = -(y - x) by abel, inner_neg_right] at hyx\n    rw [inner_sub_left]\n    nlinarith\n  have ht : Tendsto (fun ε : ℝ => (β + ε) *\n      inner ℝ (gradient f y - gradient f x) (y - x)) (𝓝[>] 0)\n      (𝓝 (β * inner ℝ (gradient f y - gradient f x) (y - x))) := by\n    simpa using (tendsto_const_nhds.add (tendsto_id.mono_left nhdsWithin_le_nhds :\n      Tendsto (fun ε : ℝ => ε) (𝓝[>] 0) (𝓝 0))).mul tendsto_const_nhds\n  apply ge_of_tendsto ht\n  filter_upwards [self_mem_nhdsWithin] with ε hε\n  exact he ε hε\n\n/-- A C¹ convex function with the global quadratic upper model has a\n`β`-Lipschitz gradient, including `β = 0`. -/\ntheorem gradient_lipschitz {f : E → ℝ} {β : NNReal}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + (β : ℝ) / 2 * ‖y - x‖ ^ 2) :\n    LipschitzWith β (gradient f) := by\n  rw [lipschitzWith_iff_norm_sub_le]\n  intro x y\n  have h := gradient_cocoercive hf hc β.coe_nonneg hu y x\n  have hs := mul_le_mul_of_nonneg_left\n    (real_inner_le_norm (gradient f x - gradient f y) (x - y)) β.coe_nonneg\n  by_cases hz : ‖gradient f x - gradient f y‖ = 0\n  · rw [hz]\n    positivity\n  · apply (mul_le_mul_iff_left₀ (lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz))).mp\n    nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n",
@@ -13001,7 +12933,7 @@
           "kind": "theorem",
           "title": "Convex smooth gradients are cocoercive",
           "statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the division-free cocoercivity inequality.",
-          "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|^2\\le\\beta\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle.\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+          "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|^2\\le\\beta\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\end{gathered}",
           "assumptions": [
             "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
             "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",
@@ -13011,7 +12943,7 @@
           "steps": [
             {
               "title": "Use a strictly positive relaxed modulus",
-              "text": "For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0.",
+              "text": "Fix x,y and set d=∇f(y)−∇f(x). For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0.",
               "formula": "\\|d\\|^2\\le2(\\beta+\\varepsilon)B_f(y,x),\\qquad\\|d\\|^2\\le2(\\beta+\\varepsilon)B_f(x,y).",
               "lean": "hu' follows by real arithmetic from hu and sq_nonneg; two calls of gradient_gap_sq_le_bregman."
             },
@@ -13036,7 +12968,7 @@
             "Tendsto.add; Tendsto.mul; tendsto_id; nhdsWithin_le_nhds; ge_of_tendsto; self_mem_nhdsWithin"
           ],
           "lean_statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the division-free cocoercivity inequality.",
-          "lean_proof": "For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0. The values f(x),f(y) cancel. The two Bregman gaps sum to the gradient-displacement pairing, while reversing the gradient difference preserves its squared norm. Let ε decrease to zero. The right side is affine and continuous in ε, and order is closed in ℝ. This proves the scaled bound for all β≥0. At β=0 the norm square must be zero, so the gradient is constant; no inverse at zero is used.",
+          "lean_proof": "Fix x,y and set d=∇f(y)−∇f(x). For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0. The values f(x),f(y) cancel. The two Bregman gaps sum to the gradient-displacement pairing, while reversing the gradient difference preserves its squared norm. Let ε decrease to zero. The right side is affine and continuous in ε, and order is closed in ℝ. This proves the scaled bound for all β≥0. At β=0 the norm square must be zero, so the gradient is constant; no inverse at zero is used.",
           "sources": [
             {
               "url": "https://arxiv.org/html/2605.07006v1#S3",
@@ -13118,103 +13050,69 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "A C1 convex scalar function and its Euclidean gradient.",
-          "reconstructed": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
+          "original": "A real-valued function and its Euclidean gradient.",
+          "reconstructed": "A real-valued function and the Riesz gradient of its Frechet derivative.",
           "relation": "explicit-elaboration",
-          "evidence": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative.",
-          "source": "A C1 convex scalar function and its Euclidean gradient.",
-          "lean": "A C1 convex scalar function and the Riesz representative of its Frechet derivative.",
-          "status": "explicit-elaboration",
-          "explanation": "On Euclidean specialization these gradient definitions coincide. No unconstrained vector field substitutes for the actual derivative."
+          "evidence": "For E equal to Euclidean d-space the Riesz vector is precisely the ordinary gradient. ContDiff ensures this is an actual derivative, not an arbitrary vector field."
         },
         "domains": {
-          "original": "All of real Euclidean d-space.",
+          "original": "All of Euclidean d-space.",
           "reconstructed": "All of any complete real inner-product space E.",
-          "relation": "different",
-          "evidence": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization.",
-          "source": "All of real Euclidean d-space.",
-          "lean": "All of any complete real inner-product space E.",
-          "status": "different",
-          "explanation": "Complete real inner-product spaces include infinite-dimensional examples. The source theorem is a specialization of the Lean theorem; the candidate module and lesson disclose the generalization."
+          "relation": "stronger-in-lean",
+          "evidence": "The module-scoped CompleteSpace and InnerProductSpace instances permit infinite dimension. Euclidean specialization is supported, but the unrestricted statements are not identical. All-space convexity is retained; a constrained-domain version is not certified."
         },
         "quantifiers": {
-          "original": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "reconstructed": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "relation": "different",
-          "evidence": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem.",
-          "source": "For every function satisfying the hypotheses and all ordered pairs x,y in Euclidean d-space.",
-          "lean": "For every complete real inner-product space, qualifying function, and all x,y in E.",
-          "status": "different",
-          "explanation": "The point quantifier order and global upper-model quantifiers agree under Euclidean specialization. The added universal space quantifier extends the source theorem."
+          "original": "Each admissible f and modulus, with the model and conclusion holding for every ordered pair x,y.",
+          "reconstructed": "Each admissible E,f,modulus; the upper model and bound are global in x,y.",
+          "relation": "same",
+          "evidence": "No minimizer, exceptional set, bounded ball, or point-dependent constant appears. LipschitzWith packages exactly the universal pairwise norm estimate."
         },
         "assumptions": {
-          "original": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "reconstructed": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0 encoded as NNReal.",
+          "original": "Convex C1 function with the global quadratic upper model at a nonnegative modulus.",
+          "reconstructed": "ContDiff real 1, ConvexOn univ, the same quadratic upper model; beta in NNReal.",
           "relation": "explicit-elaboration",
-          "evidence": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity.",
-          "source": "C1, convexity, global beta quadratic upper model; Definition 1.12 allows beta>=0.",
-          "lean": "ContDiff R 1 f, ConvexOn R univ f, the same global upper model; beta>=0 encoded as NNReal.",
-          "status": "explicit-elaboration",
-          "explanation": "No C2 assumption or Lipschitz-gradient premise is added. C1 and convexity encode the supplied source hypotheses exactly on Euclidean space; NNReal, where used, carries precisely nonnegativity."
+          "evidence": "Definition 1.12 supplies C1 and beta>=0; Exercise 3.1 explicitly removes the section-wide C2 convention. Neither C2 nor a pre-assumed Lipschitz gradient is smuggled in. NNReal is an encoding of precisely beta>=0."
         },
         "conclusion": {
-          "original": "The gradient is globally beta-Lipschitz.",
+          "original": "Global beta-Lipschitz gradient.",
           "reconstructed": "LipschitzWith beta (gradient f).",
           "relation": "equivalent",
-          "evidence": "On the common domain, the metric definition unfolds to the same norm bound; simultaneous reversal of endpoints preserves both norms.",
-          "source": "The gradient is globally beta-Lipschitz.",
-          "lean": "LipschitzWith beta (gradient f).",
-          "status": "equivalent",
-          "explanation": "On the common domain, the metric definition unfolds to the same norm bound; simultaneous reversal of endpoints preserves both norms."
+          "evidence": "The norm-distance characterization of LipschitzWith gives the same estimate for all pairs; exchanging x,y changes neither norm."
         },
         "scopes": {
-          "original": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "reconstructed": "Global pointwise deterministic inequality on univ.",
-          "relation": "same",
-          "evidence": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported.",
-          "source": "Global pointwise deterministic inequality; no almost-everywhere or restricted-domain interpretation.",
-          "lean": "Global pointwise deterministic inequality on univ.",
-          "status": "same",
-          "explanation": "The trial point y-(gradient f y-gradient f x)/beta is in the entire ambient space. No boundary, integrability, minimizer-existence or representative obligation is imported."
+          "original": "Exercise 3.1, with its individual Bregman/cocoercivity/Lipschitz obligations.",
+          "reconstructed": "The binding supports only gradient-lipschitz.",
+          "relation": "explicit-elaboration",
+          "evidence": "The full module carries three declarations, but this binding claims only its named obligation. Euclidean specialization includes beta=0. The declaration is about the true gradient; it does not certify other section results or numerical convergence claims."
         },
         "constant_dependencies": {
-          "original": "The sole modulus beta from the quadratic model; coefficient beta.",
-          "reconstructed": "The same sole modulus, coefficient beta.",
+          "original": "Lipschitz constant beta, using smoothness coefficient beta/2.",
+          "reconstructed": "Exactly beta encoded as NNReal.",
           "relation": "equivalent",
-          "evidence": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish.",
-          "source": "The sole modulus beta from the quadratic model; coefficient beta.",
-          "lean": "The same sole modulus, coefficient beta.",
-          "status": "equivalent",
-          "explanation": "No dimension, function-dependent multiplicative loss, hidden smoothness constant, or second derivative occurs. The zero case is retained, and forces the gradient difference to vanish."
+          "evidence": "No dimension, norm-equivalence factor, f-dependent auxiliary constant, or regularity constant is introduced. The proof cancels only a strictly positive gradient-difference norm and never divides by beta."
         }
       },
       "deltas": [
         {
           "slot": "domains",
           "severity": "informational",
-          "description": "Disclosed mathematical generalization from Euclidean space to arbitrary complete real inner-product space.",
-          "evidence": "Source original_text versus blind_reconstruction; candidate module, lesson assumptions and candidate_assumptions all state the distinction. Source support is accepted by Euclidean specialization, not by equivalence of full propositions."
-        },
-        {
-          "slot": "quantifiers",
-          "severity": "informational",
-          "description": "Universal ambient-space quantification extends the Euclidean source class.",
-          "evidence": "The elaborated Lean statement quantifies E with Hilbert structure without a finite-dimensional constraint; source Exercise 3.1 quantifies f on real d-space."
+          "description": "The formal theorem generalizes Euclidean space to a real Hilbert space.",
+          "evidence": "Module-scoped E is complete and inner-product, with no finite-dimensional assumption. Publication assumptions disclose this; source support is by Euclidean specialization, not identity of unrestricted domains."
         }
       ],
       "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
         "state": "accepted",
-        "reviewer": "coco_source",
+        "reviewer": "coco_layout_source",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Packet-bound independent review of ASTIS-REVIEW-9dab2a8ad08c5faa. Specialization to finite-dimensional Euclidean space yields the full stated source conclusion for every beta>=0, including zero. The arbitrary-Hilbert-space result is a disclosed ASTIS generalization, not literal source equivalence. Cocoercivity and Cauchy-Schwarz yield ||d||^2<=beta||d||||y-x||. Separate ||d||=0; otherwise cancel its positive value. No cancellation of beta occurs, so beta=0 is covered. All seven slots, complete candidate module, lesson assumptions, displayed formulas, proof explanation, source attribution scope and declared constant dependencies checked. External Optlib provenance and compiler execution are not independently certified by this review. Run artifact: /private/tmp/andi-coco-source-review-run.json.",
-        "review_run_sha256": "5e9eb08169e80e8ef625fe0edf111cce86b50b64f478326b249754ec8609e0d9",
-        "reviewer_packet_sha256": "1d9a3002628d9a35e7538d158d6c57e7ddedccdc27e343477db38e5c283935c6",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-2.json"
+        "evidence": "The module combines cocoercivity with the Cauchy-Schwarz upper bound multiplied by nonnegative beta. It treats zero gradient difference separately before positive norm cancellation. This matches the two lesson steps and retains beta=0 without inverse beta; NNReal introduces no stricter positivity or changed constant. Accepted only for the stated binding and Euclidean specialization; generalization and positive-domain limitations above remain explicit.",
+        "review_run_sha256": "6814a36a155327b93f3f1eb7571f07e49853dccc29576ebf3138aa0f200582ec",
+        "reviewer_packet_sha256": "d3a5ebaadaa94bc723e3fb94384264474882fd381b798ca324172f6f0ebc3b4a",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-cocoercivity/source-review-layout-final-2.json"
       },
-      "publication_binding_sha256": "52d317258a30935ae6cdaf776bb2779722d8fe72f1ca8b6a2afd18b61bea128a",
+      "publication_binding_sha256": "a6b2e3e372b3e4f5412a23cb9156e3635662f331427e0a5fe1bffbe4c1049fc4",
       "publication_context": {
         "file": "7218e97c12a200873455e396128487953b9e07c89862ad9c44925adb77f36cf1",
         "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.InnerProductSpace.PiL2\nimport Mathlib.Tactic.FieldSimp\nimport Mathlib.Tactic.Positivity\n\n/-!\n# Convex smooth functions: Bregman gap, cocoercivity and Lipschitz gradient\n\nSource: Chewi, Lectures on Optimization, arXiv:2605.07006v1, Exercise 3.1,\nequations (3.4)–(3.5). The argument subtracts the tangent plane, applies the\nquadratic upper model at a gradient step, exchanges endpoints, and uses\nCauchy–Schwarz. We express the tilted-function calculation directly through\nthe existing convex first-order lower bound.\n\nRelated external mathematics: Optlib commit\n5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3, Function/Lsmooth.lean,\n`convex_to_lower` and `lower_to_lipschitz` (Apache-2.0).\nNo external Lean module is imported. The complete real inner-product space\ngeneralizes the source's Euclidean space. The reciprocal step requires positive\nmodulus; a positive relaxation and limit retain zero modulus in the scaled\ncocoercivity and Lipschitz conclusions. No second derivative is assumed.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n\nopen Set Filter\nopen scoped RealInnerProductSpace Topology\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- The positive-modulus Bregman gap controls the squared gradient difference.\nDividing by `2 * β > 0` recovers the source's reciprocal formula (3.4). -/\ntheorem gradient_gap_sq_le_bregman {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 < β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      2 * β * (f y - f x - inner ℝ (gradient f x) (y - x)) := by\n  let d := gradient f y - gradient f x\n  let z := y - β⁻¹ • d\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    (strongConvexOn_zero.mpr hc)\n    (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  simp only [zero_div, zero_mul, add_zero] at hl\n  have hh := hu y z\n  have hzx : z - x = (y - x) - β⁻¹ • d := by dsimp [z]; abel\n  rw [hzx, inner_sub_right, inner_smul_right] at hl\n  have hzy : z - y = -(β⁻¹ • d) := by dsimp [z]; abel\n  rw [hzy, inner_neg_right, inner_smul_right, norm_neg, norm_smul,\n    Real.norm_eq_abs, mul_pow, sq_abs] at hh\n  have hd : inner ℝ (gradient f y) d - inner ℝ (gradient f x) d = ‖d‖ ^ 2 := by\n    rw [← inner_sub_left]\n    exact real_inner_self_eq_norm_sq d\n  have h := le_trans hl hh\n  have hb : β ≠ 0 := ne_of_gt hβ\n  apply (mul_le_mul_iff_right₀ (inv_pos.mpr hβ)).mp\n  field_simp [hb] at h ⊢\n  nlinarith\n\n/-- Convex gradients are cocoercive in the division-free normalization.\nThe zero-modulus case follows by relaxing the upper model to `β + ε` and\nletting positive `ε` tend to zero, without assigning meaning to a zero denominator. -/\ntheorem gradient_cocoercive {f : E → ℝ} {β : ℝ}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f) (hβ : 0 ≤ β)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x y : E) :\n    ‖gradient f y - gradient f x‖ ^ 2 ≤\n      β * inner ℝ (gradient f y - gradient f x) (y - x) := by\n  have he (ε : ℝ) (hε : 0 < ε) :\n      ‖gradient f y - gradient f x‖ ^ 2 ≤\n        (β + ε) * inner ℝ (gradient f y - gradient f x) (y - x) := by\n    have hu' (a b : E) : f b ≤ f a + inner ℝ (gradient f a) (b - a) +\n        (β + ε) / 2 * ‖b - a‖ ^ 2 := by\n      have := hu a b\n      nlinarith [sq_nonneg ‖b - a‖]\n    have hxy := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' x y\n    have hyx := gradient_gap_sq_le_bregman hf hc (add_pos_of_nonneg_of_pos hβ hε) hu' y x\n    rw [norm_sub_rev (gradient f x), show x - y = -(y - x) by abel, inner_neg_right] at hyx\n    rw [inner_sub_left]\n    nlinarith\n  have ht : Tendsto (fun ε : ℝ => (β + ε) *\n      inner ℝ (gradient f y - gradient f x) (y - x)) (𝓝[>] 0)\n      (𝓝 (β * inner ℝ (gradient f y - gradient f x) (y - x))) := by\n    simpa using (tendsto_const_nhds.add (tendsto_id.mono_left nhdsWithin_le_nhds :\n      Tendsto (fun ε : ℝ => ε) (𝓝[>] 0) (𝓝 0))).mul tendsto_const_nhds\n  apply ge_of_tendsto ht\n  filter_upwards [self_mem_nhdsWithin] with ε hε\n  exact he ε hε\n\n/-- A C¹ convex function with the global quadratic upper model has a\n`β`-Lipschitz gradient, including `β = 0`. -/\ntheorem gradient_lipschitz {f : E → ℝ} {β : NNReal}\n    (hf : ContDiff ℝ 1 f) (hc : ConvexOn ℝ univ f)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + (β : ℝ) / 2 * ‖y - x‖ ^ 2) :\n    LipschitzWith β (gradient f) := by\n  rw [lipschitzWith_iff_norm_sub_le]\n  intro x y\n  have h := gradient_cocoercive hf hc β.coe_nonneg hu y x\n  have hs := mul_le_mul_of_nonneg_left\n    (real_inner_le_norm (gradient f x - gradient f y) (x - y)) β.coe_nonneg\n  by_cases hz : ‖gradient f x - gradient f y‖ = 0\n  · rw [hz]\n    positivity\n  · apply (mul_le_mul_iff_left₀ (lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz))).mp\n    nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient\n",
@@ -13269,7 +13167,7 @@
           "kind": "theorem",
           "title": "A convex smooth function has a Lipschitz gradient",
           "statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, its genuine gradient is β-Lipschitz everywhere.",
-          "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|\\le\\beta\\|y-x\\|.\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+          "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|\\le\\beta\\|y-x\\|\\end{gathered}",
           "assumptions": [
             "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
             "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",

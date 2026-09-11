@@ -5,7 +5,7 @@
       "kind": "theorem",
       "title": "The Bregman gap controls the gradient difference",
       "statement": "For a positive real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the squared gradient difference bound by 2β times its Bregman gap.",
-      "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|^2\\le 2\\beta B_f(y,x).\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+      "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|^2\\le 2\\beta B_f(y,x)\\end{gathered}",
       "assumptions": [
         "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
         "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",
@@ -68,7 +68,7 @@
       "kind": "theorem",
       "title": "Convex smooth gradients are cocoercive",
       "statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the division-free cocoercivity inequality.",
-      "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|^2\\le\\beta\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle.\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+      "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|^2\\le\\beta\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\end{gathered}",
       "assumptions": [
         "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
         "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",
@@ -78,7 +78,7 @@
       "steps": [
         {
           "title": "Use a strictly positive relaxed modulus",
-          "text": "For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0.",
+          "text": "Fix x,y and set d=∇f(y)−∇f(x). For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0.",
           "formula": "\\|d\\|^2\\le2(\\beta+\\varepsilon)B_f(y,x),\\qquad\\|d\\|^2\\le2(\\beta+\\varepsilon)B_f(x,y).",
           "lean": "hu' follows by real arithmetic from hu and sq_nonneg; two calls of gradient_gap_sq_le_bregman."
         },
@@ -107,7 +107,7 @@
         "Tendsto.add; Tendsto.mul; tendsto_id; nhdsWithin_le_nhds; ge_of_tendsto; self_mem_nhdsWithin"
       ],
       "lean_statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, every ordered pair x,y satisfies the division-free cocoercivity inequality.",
-      "lean_proof": "For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0. The values f(x),f(y) cancel. The two Bregman gaps sum to the gradient-displacement pairing, while reversing the gradient difference preserves its squared norm. Let ε decrease to zero. The right side is affine and continuous in ε, and order is closed in ℝ. This proves the scaled bound for all β≥0. At β=0 the norm square must be zero, so the gradient is constant; no inverse at zero is used.",
+      "lean_proof": "Fix x,y and set d=∇f(y)−∇f(x). For ε>0, the β upper model implies the (β+ε) model because squared norm is nonnegative. Thus the positive-modulus Bregman bound applies even when β=0. The values f(x),f(y) cancel. The two Bregman gaps sum to the gradient-displacement pairing, while reversing the gradient difference preserves its squared norm. Let ε decrease to zero. The right side is affine and continuous in ε, and order is closed in ℝ. This proves the scaled bound for all β≥0. At β=0 the norm square must be zero, so the gradient is constant; no inverse at zero is used.",
       "sources": [
         {
           "url": "https://arxiv.org/html/2605.07006v1#S3",
@@ -131,7 +131,7 @@
       "kind": "theorem",
       "title": "A convex smooth function has a Lipschitz gradient",
       "statement": "For a nonnegative real β and a C¹ convex real-valued function on a complete real inner-product space satisfying the global β quadratic upper model, its genuine gradient is β-Lipschitz everywhere.",
-      "formula": "B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle,\\qquad \\|\\nabla f(y)-\\nabla f(x)\\|\\le\\beta\\|y-x\\|.\\qquad\\text{Upper model: }f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2",
+      "formula": "\\begin{gathered}f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\\\[4pt]B_f(y,x):=f(y)-f(x)-\\langle\\nabla f(x),y-x\\rangle\\\\[4pt]\\|\\nabla f(y)-\\nabla f(x)\\|\\le\\beta\\|y-x\\|\\end{gathered}",
       "assumptions": [
         "E is a complete real inner-product space, f:E→ℝ, and all points range over the entire space E.",
         "f is C¹ (ContDiff ℝ 1 f) and convex on E (ConvexOn ℝ Set.univ f). No second derivative is assumed.",

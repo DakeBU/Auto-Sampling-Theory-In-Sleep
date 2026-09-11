@@ -58,9 +58,39 @@ Only the designated integration lane adds Analysis and Tests root imports,
 three Registry entries (405→408), and the count check. Every new test must be
 reachable from Tests.lean; a focused-only test is not CI coverage.
 Reader lessons are authored once in convex-smooth-gradient.json; Exercise3.1
-source binding is in optimisation.json. Global gate and rendered graph admission
-remain required before actual main integration.
+source binding is in optimisation.json.
+
+Canonical full gate PASS9132 on cdcd99aba67cd59f1e299661237d9eeda22d44e6.
+During checks remote main advanced to PR271/272/273. Synchronized merge
+10df43c1704b81d9caaf4bb5d1101ba6adf090e6 preserves both parents' theorem,
+test, lesson and publication bytes. Independent review recomputed the exact
+registry three-way union (51 baseline +3 local +3 remote =57 audits) and ledger
+base prefix plus exact unique local/upstream tails. Original timestamps and
+branch-local events remain intact. Upstream owner StateDependentRGO MERGED
+remains after the earlier reservation release. FiniteRGOKLError's stale
+reservation was released through an independent historical-artifact preservation
+audit plus fresh remote Git merge evidence, not a fabricated owner MERGED.
+
+Final synchronized canonical gate PASS9138 on 10df43c at
+2026-09-11T08:02:40.731398+00:00, including root Tests, fake-closure scan and
+ATLAS36469declarations/26books. Synchronized harness PASS250tests with6skips;
+publication45items, semantic57audits and66cells validate before the later
+layout-only rebind. Inherited upstream FiniteRGOProgram EOF whitespace is
+preserved to avoid invalidating its audit; the own diff against main is clean.
+
+Actual desktop inspection prompted a layout-only change: place the upper model,
+Bregman definition and conclusion on three rows. Independent smoothness_review
+confirmed unchanged mathematical content and unchanged proof/test/publication
+bytes; The later self-contained d definition gives final lesson hash
+4d5345d17647f9a52d75d67154bbb1a24195c6086b7ffe3575ae56861eed6bff.
+Unchanged anonymous decoding is reused; the new publication binding undergoes
+a fresh anti-anchored source review. This does not require another Lean build.
 
 Next bounded candidate: a source-pinned gradient-descent convergence edge using
 these interfaces, after a fresh reuse/ownership audit. Nonexpansive gradient-step
 algebra already exists in the focused test and must not be reproved blindly.
+
+Final fresh `coco_layout_source` reviews accepted exact revised packets; the
+local notation issue is retained in review evidence. Publication45items and
+semantic57audits PASS on the final binding. Canonical website build/check PASS12chapters,408compiled local leaves,608modules,3686declarations; all3cell graph checks PASS. Actual desktop source/proof/Lean disclosure inspected; final cocoercivity graph10nodes15edges5direct relations, Bregman parent and Lipschitz consumer, solid structural vs dashed scanned/source/audit edges, compiled target and partial chapter. Mobile390x844 statement formulas and inspector legible; documentwidth390,0matherrors. No Riemannian/companion credit. Viewport reset; temporary tab/server closed.
+Actual main integration is recorded only after the push succeeds.
