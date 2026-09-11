@@ -85,3 +85,5 @@ Normalized Renyi comparison still lacks the required joint exponential moments,
 Jensen and source Lemma B.12 adapter. Cost remains attached to the actual
 clipped program and cannot be transported through TV proximity. None of this
 planning is an additional proved theorem or SAU.
+
+Current integration update: exact3341e09 independently accepted after canonical PASS9161 and full original reader/graph QA; same-head PR Lean/Site CI passed. PR281 actually merged715630c8 on2026-09-11T14:42:49Z. Earlier EXPLORING/pending statements above describe historical checkpoints. Merge CI and exact live provenance remain pending. Actual clipped-program consumer now separately EXPLORING. Neither main paper complete.

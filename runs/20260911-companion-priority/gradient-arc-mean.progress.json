@@ -1,9 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Verify final merge Lean CI34611768597"
   ],
   "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
   "development_checkpoint": {
@@ -75,10 +74,19 @@
       "ASTIS-RT-20260911-SPHMCGradientArcMean"
     ]
   },
-  "admission_boundary": "VERIFIED ataf4ebc6. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "admission_boundary": "Actual PR281 merged after independent fixed-candidate integration and successful same-head PR CI. Merge CI and live provenance remain separate; neither paper complete.",
   "independent_admission": "runs/20260911-companion-priority/gradient-arc-mean.verified-admission.json",
   "integration_notes": {
-    "upstream": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
-    "boundary": "Parent clipping actual merge and all CI/live verification complete. No new upstream delta. Actual mean source/proof unchanged; aggregate pending."
-  }
+    "candidate": "3341e0931ab048662af20df11218a3c6665835c9",
+    "qa": "runs/20260911-companion-priority/gradient-arc-mean.local-qa.json",
+    "boundary": "Local exact-candidate aggregate, reader and graph complete; actual merge established."
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/281",
+    "commit": "715630c8eec0ea00bd32b9091fe1177ee07afa29",
+    "merged_at": "2026-09-11T14:42:49Z",
+    "candidate": "3341e0931ab048662af20df11218a3c6665835c9",
+    "post_merge": "Site and deploy successful; exact original live reader/module provenance verified. Merge Lean final observation pending."
+  },
+  "live_delivery": "runs/20260911-companion-priority/gradient-arc-mean.live-delivery.json"
 }

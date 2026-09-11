@@ -1,0 +1,21 @@
+{
+  "merge_commit": "715630c8eec0ea00bd32b9091fe1177ee07afa29",
+  "page": {
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+    "http_status": 200,
+    "full_merge_provenance": true
+  },
+  "card": {
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gradientarcmean.html",
+    "http_status": 200,
+    "full_merge_provenance": true
+  },
+  "anchor": "sphmc-gradient-arc-mean",
+  "site_run": 34611768656,
+  "site_status": "success",
+  "deploy_job": 103304935033,
+  "deploy_status": "success",
+  "merge_lean_run": 34611768597,
+  "merge_lean_status": "pending final observation",
+  "boundary": "Fresh actual HTTP200 original reader and module contain full merge SHA; source/local compile/UI evidence separate. Merge Lean CI not yet confirmed terminal; neither paper complete."
+}
