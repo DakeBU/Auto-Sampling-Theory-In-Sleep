@@ -2,7 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
   "state": "MERGED",
   "remaining": [
-    "Verify merge CI and exact live deployment"
+    "Verify final merge Lean CI34607231208"
   ],
   "boundary": "Actual PR280 merged after exact-candidate independent integration and successful CI. Merge CI/deployment remain separate; neither paper main result complete.",
   "scratch": ".astis/SmoothGradientArcClipping.lean",
@@ -88,6 +88,7 @@
     "commit": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
     "merged_at": "2026-09-11T13:56:48Z",
     "candidate": "570115e675dd3d5875a522460db0485df79e19be",
-    "post_merge": "Merge CI and exact deployed provenance pending."
-  }
+    "post_merge": "Site/deploy success and exact live provenance verified; merge Lean CI still in_progress."
+  },
+  "live_delivery": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.live-delivery.json"
 }

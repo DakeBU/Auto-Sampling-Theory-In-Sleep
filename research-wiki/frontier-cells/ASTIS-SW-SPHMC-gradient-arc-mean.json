@@ -26,10 +26,16 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCGradientArcMean",
+        "result": "PASS3648; standard three axioms; no lint"
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-gradient-arc-mean.md",
     "planning_review": "Independent depth_commit_verifier and log_depth_source_review accepted signs, actual input and joint integrability route; one C fixed before all x. Planning only.",
-    "execution_boundary": "Root sole writer; clipping actual PR280 merged and no active stabilizer. Actual arc mean EXPLORING."
+    "execution_boundary": "Root sole writer; clipping actual PR280 merged and no active stabilizer. Actual arc mean EXPLORING.",
+    "development_boundary": "Complete production locally compiled; independent complete scratch proof and source preaudit accepted. Still EXPLORING until full publication/source admission."
   },
   "blocked": {
     "reason": "",

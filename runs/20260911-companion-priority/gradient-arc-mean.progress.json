@@ -2,16 +2,16 @@
   "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
   "state": "EXPLORING",
   "remaining": [
-    "Potential quadratic growth and f(h+Z) integrability",
-    "Actual joint Gaussian/uniform W integrability and common-C mean identity",
-    "Complete production theorem and independent source/proof/publication admission"
+    "Author complete mathematical lesson and publication binding",
+    "Fresh anonymous reconstruction and independent formal source review",
+    "Fixed production verification, admission, integration and original reader delivery"
   ],
   "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
   "development_checkpoint": {
     "scratch": ".astis/GradientArcMean.lean",
-    "scratch_sha256": "b71c7066e4c83925e1a6e6c842ffa4ccc5f0cfd8a2620759cd12a7796522a137",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
     "command": "lake env lean .astis/GradientArcMean.lean",
-    "session": 45272,
+    "session": 32849,
     "exit_code": 0,
     "axioms": [
       "propext",
@@ -19,7 +19,44 @@
       "Quot.sound"
     ],
     "log": ".astis/gradient-arc-mean-scratch.log",
-    "result": "Private actual path FTC identity compiled via public GaussianArcLaw derivative/endpoints, true gradient chain rule and interval FTC. Source signs and h+z start preserved. No production or full mean theorem yet.",
-    "review": "Independent development review requested; no admission."
+    "result": "Complete actual path mean compiled: potential quadratic growth, true auxiliary Gaussian integrability, uniform-in-time quadratic estimator domination, joint integrability before Fubini, actual zero Gaussian mean, and same finite C before all x. No production admission yet."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GradientArcMean.lean",
+    "test": "Tests/SmoothedPicardHMCGradientArcMean.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GradientArcMean.lean": "56bfe22d8de14e786c2fdfbe9f63a4f8aea17a0f4667b5c787a6afe04e030f88",
+      "Tests/SmoothedPicardHMCGradientArcMean.lean": "bf3a2b6da2778fc9e742818eea12dc6a8b936c4ea3ecb24b3f300611812e04a0"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCGradientArcMean",
+    "focused_log": ".astis/gradient-arc-mean-focused.log",
+    "result": "PASS3648; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 9
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
+    "result": "Independent complete compile0, standard three axioms, no lint. Actual source path/gradient, joint integrability before Fubini, true auxiliary input, uniform probability and common-C quantifiers accepted. No formal VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "scratch_sha256": "14ad9fed53ef20114fafca8d97d940a8885a3d8645fd54e73f760a7ad2e14828",
+    "result": "Complete source preaudit accepted; no blocker or contract repair. No independent compilation or formal admission.",
+    "disclosures": [
+      "Coordinate-free finite-dimensional real inner-product domain; second countability is automatic here.",
+      "Zero dimension, beta0 and arbitrary h are valid disclosed extensions; no center residual, clipping step or convexity needed.",
+      "Uniform Ioc(0,1) restriction equals source uniform closed interval by zero endpoint mass; full FTC endpoint difference retained.",
+      "Public measurability and joint integrability concern time/auxiliary Gaussian at every fixed x; no parameter-kernel or random-x triple integral asserted.",
+      "Source center h=x0-eta gradient f xp must still be substituted before actual target comparison.",
+      "Potential L1 integrability does not prove positive finite exponential Gibbs normalization.",
+      "Clipped output law, normalized Renyi accuracy, initialization and actual query costs remain separate."
+    ]
+  },
+  "expanded_statement": {
+    "file": ".astis\\gradient-arc-mean-expanded-statement.txt",
+    "sha256": "5a1f72f6cafcd91f370654a19262139161cac6294af049640378fa5ae4003288",
+    "characters": 3028,
+    "definitionally_equal": true
   }
 }

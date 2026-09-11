@@ -1,0 +1,20 @@
+{
+  "merge_commit": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
+  "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+  "http_status": 200,
+  "anchor": "sphmc-smooth-gradient-arc-clipping",
+  "deployed_provenance": true,
+  "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-smoothgradientarcclipping.html",
+  "card_http_status": 200,
+  "card_labels": [
+    "Partial",
+    "Not mapped"
+  ],
+  "site_run": 34607231158,
+  "site_status": "success",
+  "deploy_job": 103289416393,
+  "deploy_status": "success",
+  "merge_lean_run": 34607231208,
+  "merge_lean_status": "in_progress",
+  "boundary": "Live original anchor and both full merge SHA provenance verified by fresh HTTP200 responses. PR/local compilation separate from website badges. Merge Lean CI still running."
+}
