@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-joint-reference-gradient-descent.md",
     "planning_review": "Independent log_depth_source_review accepted corrected actual a*d route and sufficient logarithmic bound; exact source algorithm preserved. Route review only.",
-    "execution_boundary": "Actual merge releases stabilization lane. Post-merge CI/live tracked separately; neither full main result complete.",
+    "execution_boundary": "MERGED,all CI and live delivery complete; normalized actual next-call consumer continues. Neither full main result complete.",
     "admission_boundary": "VERIFIED atebc8a31. Aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/joint-reference-gradient-descent.verified-admission.json",
     "root_build": "runs/20260911-companion-priority/joint-reference-gradient-descent.local-qa.json: independent exact caaccad canonical gate,Tests9180",
@@ -49,7 +49,7 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/291",
       "commit": "e933038111f3605aff343865a13de05987167fff",
       "merged_at": "2026-09-11T22:43:06Z",
-      "post_merge": "All PR Lean/Site checks passed; merge CI and live pending."
+      "post_merge": "All PR and merge Lean/Site CI passed; live provenance checked in joint-reference-gradient-descent.live-delivery.json."
     }
   },
   "blocked": {

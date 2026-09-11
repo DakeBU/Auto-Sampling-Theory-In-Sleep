@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
   "remaining": [
-    "Independent fixed-production review",
-    "Authored reader lesson,expanded statement and fresh decoder/formal source review",
-    "Independent admission,integration and original reader delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "gibbs_checkpoint": {
     "path": ".astis/NormalizedReferenceCallGibbs.lean",
@@ -79,6 +78,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-normalized-reference-call.json",
-    "state": "Eight authored proof steps,six differences; formal source review pending."
-  }
+    "state": "Eight authored steps,6deltas and7private accepted; publicationPASS67."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }

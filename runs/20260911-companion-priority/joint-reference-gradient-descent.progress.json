@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
   "state": "MERGED",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
-  "remaining": [
-    "Full merge Lean CI completion"
-  ],
+  "remaining": [],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
     "sha256": "8de74b9ab7f578489b6a36b82a0187b1ed4c94972188792b3099a894fe3a1d81",
@@ -73,7 +71,7 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/291",
     "head": "99c2c0bc672852a0c2737dcea57ac4157666960b",
-    "state": "MERGED; all PR checks passed; merge CI/live pending",
+    "state": "MERGED; PR and merge CI plus live delivery complete",
     "lean_run": 34653896294,
     "site_run": 34653896330,
     "site_result": "SUCCESS; PR deployment skipped",
@@ -82,8 +80,9 @@
     "lean_pr_result": "SUCCESS",
     "merge_lean_run": 34655208468,
     "merge_site_run": 34655208452,
-    "merge_checks": "in_progress; live pending",
+    "merge_checks": "All PR and merge checks passed; live delivery checked",
     "merge_site_result": "SUCCESS including deployment",
-    "live": "runs/20260911-companion-priority/joint-reference-gradient-descent.live-delivery.json: two fresh HTTP200 pages carry merge commit and declaration; merge Lean pending"
+    "live": "runs/20260911-companion-priority/joint-reference-gradient-descent.live-delivery.json: two fresh HTTP200 pages carry merge commit and declaration; merge Lean pending",
+    "merge_lean_result": "SUCCESS"
   }
 }

@@ -1,0 +1,172 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "8e0c550175847402f55979b20751360eba3e205b6b58fbb2eb38ba50c68c9e11",
+  "source_sha256": "92ab27b09fe688cd76b2718dcf8f86018d499e36c7bb2cccdc94447a64fda06f",
+  "statement_sha256": "0404ff0dd7ef9851841a30be35da5ea3b2aa73b9a680db9841630d085979ac86",
+  "reconstruction_sha256": "28be6c931e00b3165c3de61c49a6f631087868b7d078143b7fe1a95b6ad52858",
+  "module_text_sha256": "003c2718741c2aab6e252b2d2afb5b34e9f4519e426ac0021a5ee76d246b560b",
+  "module_raw_sha256": "de3ef695654cb35a4cf6aed3173fe691db6fea4d8900f691508deed59a7e1fb7",
+  "publication_binding_sha256": "aab4e3b1af39e9657bd5a74678d0935ded5d7f0f144ec353acdd51491731c840",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual reference,normalized potential and returned sampling law.",
+      "reconstructed": "Same ad first-hit,S,R,G_p,both Gibbs,actual Gaussian pushforward and transport budget.",
+      "relation": "explicit-elaboration",
+      "evidence": "Derivative in state variable; same pair fixes starting point and center."
+    },
+    "domains": {
+      "original": "Source normalized Euclidean recursive setting.",
+      "reconstructed": "General beta,coordinate-free finite dimension; eta,t,r,B may be zero.",
+      "relation": "different",
+      "evidence": "d>0,tau>0,0<alpha<=beta retained; dimension0/beta0 excluded."
+    },
+    "quantifiers": {
+      "original": "Current reference and next-call coordinate conversion.",
+      "reconstructed": "All pairs,then all nonnegative t,B and probability nubar with conditional precision.",
+      "relation": "explicit-elaboration",
+      "evidence": "No sampler selection/all-parameter kernel quantifier or specified random pair law."
+    },
+    "assumptions": {
+      "original": "Curvature,existing call precision and next sampler guarantee.",
+      "reconstructed": "Genuine Hessian,actual outer W2 input and separate next output budget.",
+      "relation": "explicit-elaboration",
+      "evidence": "Gibbs L1 and positive normalizers derived; no optimizer or marginal second-moment assumption."
+    },
+    "conclusion": {
+      "original": "Normalized reference and returned precision conversion.",
+      "reconstructed": "First-hit/measurability,d/k,curvature,both normalizations,Gibbs/smoothing identities and B/c.",
+      "relation": "explicit-elaboration",
+      "evidence": "All public conjuncts reconstructed; no new cost or sampler-correctness conclusion."
+    },
+    "scopes": {
+      "original": "Normalization within recursive call.",
+      "reconstructed": "Fixed-call,pairwise potential and law conversion.",
+      "relation": "explicit-elaboration",
+      "evidence": "No budget-achieving sampler,history propagation or stage sums."
+    },
+    "constant_dependencies": {
+      "original": "Smoothness and condition number control returned precision.",
+      "reconstructed": "c=beta+1/A,a=alpha+1/A,k=c/a; variance and squared budget divided by c.",
+      "relation": "explicit-elaboration",
+      "evidence": "B=k*epsilon^2 yields epsilon^2/a; a is explicitly curvature."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "ActualIndex equals parent actual ad first-hit,not supplied reference."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Genuine second derivative adds A^-1*norm(v)^2."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Gradient scales c^-1/2,Hessian c^-1,actual threshold d/k."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Both exponential weights L1,normalizers positive and probability proved."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Same nonzero Jacobian cancels; public normalization not evaded through degenerate total integrals."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Actual Gaussian product law maps to variance t/c,including t0."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Every coupling pushed and ENNReal infimum taken; infinite cost/empty set handled."
+      },
+      {
+        "step": 8,
+        "state": "accepted",
+        "reason": "Conditional budget gives B/c; no sampler constructed."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 7,
+    "declarations": [
+      "differential_scaling",
+      "scaled_gibbs",
+      "scaled_smoothing",
+      "scaled_wasserstein",
+      "regularized_hessian",
+      "normalized_laws",
+      "actualIndex"
+    ],
+    "evidence": "All six private lemmas and actualIndex fully read; first-hit and default branch recovered by fresh decoder. No extra hidden mathematical branch."
+  },
+  "deltas": [
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "Coordinate convention expanded into actual law calculations.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Coordinate convention expanded into actual law calculations."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "same",
+      "description": "Actual ad first-hit retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Actual ad first-hit retained."
+    },
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "General beta,coordinate-free and zero boundaries disclosed; supports domain-mismatch.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: General beta,coordinate-free and zero boundaries disclosed; supports domain-mismatch."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "same",
+      "description": "Two distinct supplied precision guarantees.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Two distinct supplied precision guarantees."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Positive normalization and change-of-variable details proved.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Positive normalization and change-of-variable details proved."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Fixed pair and recursive global boundary disclosed.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Fixed pair and recursive global boundary disclosed."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored formal source review accepted7semantic slots,8steps,6deltas and7private. Primary Section6.1 normalization convention agrees in potential,reference,Gaussian variance and returned precision directions. Source text is attributed ASTIS expanded component,not verbatim source theorem. Recomputed canonical packet/source/statement/reconstruction/full module text hashes; production matches embedded module,lesson matches packet,publication source/statement/formulae/assumptions/obligations match. Compared complete scratch: only documentation and diagnostic print removal. Binding only authenticated within packet,not external preimage. No independent compile,Meta replay,decoder process or fixedcommit tree verification; no registry/old verdict read. No blocker/repair; not VERIFIED; faithful transcription authorized."
+}

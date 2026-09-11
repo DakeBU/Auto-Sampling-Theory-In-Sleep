@@ -21019,7 +21019,7 @@
     },
     {
       "id": "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-normalized-reference-call",
         "anchor": "Sections6.1 and6.3: actual reference and next-call coordinate normalization",
@@ -21047,7 +21047,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "8e0c550175847402f55979b20751360eba3e205b6b58fbb2eb38ba50c68c9e11",
+        "review_run_sha256": "96cb81a47e9f43e803871a0d5b0b01c6f49c2a52560b6be2acf7763131291d32",
+        "run_artifact": "runs/20260911-companion-priority/normalized-reference-call.source-review-result.json",
+        "evidence": "Independent anti-anchored formal source review accepted7semantic slots,8steps,6deltas and7private. Primary Section6.1 normalization convention agrees in potential,reference,Gaussian variance and returned precision directions. Source text is attributed ASTIS expanded component,not verbatim source theorem. Recomputed canonical packet/source/statement/reconstruction/full module text hashes; production matches embedded module,lesson matches packet,publication source/statement/formulae/assumptions/obligations match. Compared complete scratch: only documentation and diagnostic print removal. Binding only authenticated within packet,not external preimage. No independent compile,Meta replay,decoder process or fixedcommit tree verification; no registry/old verdict read. No blocker/repair; not VERIFIED; faithful transcription authorized."
       },
       "publication_binding_sha256": "aab4e3b1af39e9657bd5a74678d0935ded5d7f0f144ec353acdd51491731c840",
       "publication_context": {
@@ -21224,7 +21231,102 @@
         "decoder_run_sha256": "57e6180eb9f243ba1edc27416993f745f119fe7bdbfff200efdc98e71d6cd468",
         "lean_statement_sha256": "0404ff0dd7ef9851841a30be35da5ea3b2aa73b9a680db9841630d085979ac86",
         "run_artifact": "runs/20260911-companion-priority/normalized-reference-call.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual reference,normalized potential and returned sampling law.",
+          "reconstructed": "Same ad first-hit,S,R,G_p,both Gibbs,actual Gaussian pushforward and transport budget.",
+          "relation": "explicit-elaboration",
+          "evidence": "Derivative in state variable; same pair fixes starting point and center."
+        },
+        "domains": {
+          "original": "Source normalized Euclidean recursive setting.",
+          "reconstructed": "General beta,coordinate-free finite dimension; eta,t,r,B may be zero.",
+          "relation": "different",
+          "evidence": "d>0,tau>0,0<alpha<=beta retained; dimension0/beta0 excluded."
+        },
+        "quantifiers": {
+          "original": "Current reference and next-call coordinate conversion.",
+          "reconstructed": "All pairs,then all nonnegative t,B and probability nubar with conditional precision.",
+          "relation": "explicit-elaboration",
+          "evidence": "No sampler selection/all-parameter kernel quantifier or specified random pair law."
+        },
+        "assumptions": {
+          "original": "Curvature,existing call precision and next sampler guarantee.",
+          "reconstructed": "Genuine Hessian,actual outer W2 input and separate next output budget.",
+          "relation": "explicit-elaboration",
+          "evidence": "Gibbs L1 and positive normalizers derived; no optimizer or marginal second-moment assumption."
+        },
+        "conclusion": {
+          "original": "Normalized reference and returned precision conversion.",
+          "reconstructed": "First-hit/measurability,d/k,curvature,both normalizations,Gibbs/smoothing identities and B/c.",
+          "relation": "explicit-elaboration",
+          "evidence": "All public conjuncts reconstructed; no new cost or sampler-correctness conclusion."
+        },
+        "scopes": {
+          "original": "Normalization within recursive call.",
+          "reconstructed": "Fixed-call,pairwise potential and law conversion.",
+          "relation": "explicit-elaboration",
+          "evidence": "No budget-achieving sampler,history propagation or stage sums."
+        },
+        "constant_dependencies": {
+          "original": "Smoothness and condition number control returned precision.",
+          "reconstructed": "c=beta+1/A,a=alpha+1/A,k=c/a; variance and squared budget divided by c.",
+          "relation": "explicit-elaboration",
+          "evidence": "B=k*epsilon^2 yields epsilon^2/a; a is explicitly curvature."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Coordinate convention expanded into actual law calculations.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Coordinate convention expanded into actual law calculations."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "same",
+          "description": "Actual ad first-hit retained.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Actual ad first-hit retained."
+        },
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "General beta,coordinate-free and zero boundaries disclosed; supports domain-mismatch.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: General beta,coordinate-free and zero boundaries disclosed; supports domain-mismatch."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Two distinct supplied precision guarantees.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Two distinct supplied precision guarantees."
+        },
+        {
+          "slot": "conclusion",
+          "classification": "source-implicit",
+          "description": "Positive normalization and change-of-variable details proved.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Positive normalization and change-of-variable details proved."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Fixed pair and recursive global boundary disclosed.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Fixed pair and recursive global boundary disclosed."
+        }
+      ]
     }
   ]
 }
