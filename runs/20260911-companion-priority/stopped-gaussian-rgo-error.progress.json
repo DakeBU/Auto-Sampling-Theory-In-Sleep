@@ -33,7 +33,6 @@
   },
   "mathematical_status": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here.",
   "remaining": [
-    "Verify actual merge CI and deployed reader provenance",
     "Concrete terminal sampler accuracy and initialized reference points",
     "Concrete FORS and proof that the actual Picard sampler satisfies A1",
     "Errors and actual-input expected query costs",
@@ -91,12 +90,33 @@
       }
     },
     "independent_merge_review": "depth_commit_verifier authorized this exact candidate conditional on completed same-head Lean SUCCESS. Root checked the terminal success and MERGEABLE before match-head merge. Actual merged commit freshly verified with GitHub.",
-    "post_merge": "Merge Lean 34582226857 in progress; merge Site 34582226664 success. Deployed provenance remains to be checked.",
+    "post_merge": "Exact merge Lean/Site CI, deployment and original reader provenance verified; see post_merge_delivery.",
     "truth_boundary": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here."
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/275",
     "state": "MERGED",
     "head": "1400ee82bcecc74523617df72c7ca3ebf2d53605"
+  },
+  "post_merge_delivery": {
+    "merge_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+    "site_run": "34582226664 SUCCESS",
+    "deployment_job": "103209194275 SUCCESS",
+    "live": {
+      "deployed_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+      "merge_commit": "bad36aac91c73361248dcf96de121879cd3d576b",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-stopped-gaussian-rgo-error",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-stoppedgaussianrgoerror.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+    },
+    "merge_lean": "34582226857 completed SUCCESS at exact bad36aac91c73361248dcf96de121879cd3d576b; freshly checked with gh run view"
   }
 }
