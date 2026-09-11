@@ -1,0 +1,48 @@
+{
+  "verifier_id": "smoothness_review",
+  "verified_commit": "5434944361508bbe8e41eba9135d071f17978532",
+  "file_hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/SmoothnessEquivalences.lean": "60c0b4a1afaa83b0e19d18a6c7923be8335f1e1eb53243d59372e45464d2fbbd",
+    "Tests/Shared/SmoothnessEquivalences.lean": "3d584def3f7f308d9cf9e3d6a51879cdac3c67c21c6c45b15ce0491c129f1380",
+    "website/content/declaration_lessons/smoothness-equivalences.json": "2818879913af467a2861b0f16e033633d5f01e9ef17e7b2d07929e707ff76dbc",
+    "website/content/publications/optimisation.json": "9d2d5d29cb239e2b383f148fcb70d6d420d274150673e1080689ae8f087ca9c7"
+  },
+  "findings": [],
+  "gate": "Independently repeated focused lake build Tests.Shared.SmoothnessEquivalences PASS2727, no warnings; standard axioms only.",
+  "source_audit": "Independent anonymous smoothness_blind reconstruction and anti-anchored smoothness_source accepted both packets with domain-mismatch verdict: explicitly generalized Hilbert/signed-beta scope; source Euclidean beta>=0 clauses covered, no repairs.",
+  "fake_closure_scan": "Independent production/test scoped scan0hits.",
+  "consumer_checks": "Signed sharp quadratic, C1 beta0 concave non-Lipschitz boundary, genuine C2 gradient-step descent and zero-dimensional beta0 constant instance.",
+  "integration_boundary": "Frozen commit is not root-reachable yet. Independent reviewer explicitly requires Analysis/Tests root imports and full gate before integration.",
+  "recording_provenance": "Root sole writer records explicit independent recommendation; VERIFIED only after separate sourceaccepted and publicationPASS.",
+  "queue_coordination": "Independent smoothness_review preservation audit of already merged PR265 released its stale reservation. Historical VERIFIED4e1490a and merged4e94f0a production/test/publication/audit bytes unchanged; gh merge confirmed2026-09-11T04:12:59Z. No fresh proof claim or impersonated owner MERGED.",
+  "integration_review": {
+    "reviewer": "smoothness_review",
+    "checked_commit": "e42cf9db4d4830cc31ea5e24a7477d26eef44155",
+    "findings": [],
+    "scope": "Proof/test/lesson/publication bytes unchanged; root imports reachable; exactly2 Registry entries403->405; all46upstream audit objects preserved; both source-result raw hashes and embedded module checked. Independent publication38 and semantic48 PASS."
+  },
+  "final_acceptance": {
+    "owner": "andi-smooth-integration",
+    "checked_commit": "bbcb641e7127a2f3730fa370b18216e7a9d819ab",
+    "gate": "PASS canonical full gate on bbcb641e7127a2f3730fa370b18216e7a9d819ab at 2026-09-11T04:51:46.329733+00:00:9126jobs including rootTests, fake-closure and ATLAS36469declarations/26books.",
+    "protocol_tests": "PASS250tests,6skips on synchronized tree; publication39items, semantic49audits,58cells valid.",
+    "reader_graph": "PASS canonical website build/check:12chapters,405compiled local leaves,596modules,3678declarations. Both cell graph checks PASS. Actual desktop source formulas and C2 sign-reversal proof inspected; focused branch14nodes25edges5direct relations, two actual named parents, solid structural/dashed reference signals, compiled target and partial chapter. Mobile390x844 statement and inspector legible; temporary viewport reset, tab and local server closed. Generalizations remain visible as domain-mismatch; no exact-source badge is forced. Rebuilt after PR266 sync; both affected graph reports are exactly identical to the visually inspected reports, and four reviewed smoothness file hashes remain unchanged."
+  },
+  "latest_sync": {
+    "merge_commit": "bbcb641e7127a2f3730fa370b18216e7a9d819ab",
+    "upstream": "24d166c0160e0a8c43dc08f356e3eed7d4e36c60",
+    "cause": "Ordinary atomic push safely rejected after PR266 merged. No force push.",
+    "preservation": "Four reviewed smoothness file hashes unchanged. Audit-id three-way merge, no overlapping id edits,49audits. Ledger exact base/local/upstream tail union; only exact duplicate events omitted. Original branch-local from-states/timestamps preserved; upstream original-owner TwoNoise MERGED wins append replay.",
+    "independent_review": {
+      "reviewer": "smoothness_review",
+      "checked_commit": "bbcb641e7127a2f3730fa370b18216e7a9d819ab",
+      "findings": [],
+      "scope": "Independently recomputed49audit object union and exact284line event union; TwoNoise original-owner MERGED retained. Four smoothness reviewed files unchanged. AdaptiveCenter historical VERIFIED8d987094 to24d166c tobbcb641 proof/publication/audit artifacts byte-identical; accepted audit unchanged. Attributed reservation release after confirmedmerge; no fresh compile or ownerMERGED impersonation."
+    }
+  },
+  "merge": {
+    "commit": "b8952166ded42202504f446f04c7e54b00320bc0",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/b8952166ded42202504f446f04c7e54b00320bc0",
+    "method": "Authorized atomic direct push to main and task branch; remote success confirmed."
+  }
+}

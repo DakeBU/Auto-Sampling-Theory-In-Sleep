@@ -1,0 +1,10 @@
+{
+  "decoder_id": "smoothness_blind",
+  "source_text_visible": false,
+  "input_artifacts": [
+    "/private/tmp/astis-blind-8417/packet-0.json"
+  ],
+  "decoder_packet_sha256": "83284e43823af0d5cc1166a0555b7687c2938e1ef3a05cf408182b9c93e12575",
+  "reconstructed_text": "Let E be any complete real inner-product space, with its induced norm and inner product, let f:E→ℝ be continuously Fréchet differentiable on all of E, and let β be any real number. Then the following two global assertions are equivalent: (1) For every x,y∈E, f(y) ≤ f(x) + ⟨∇f(x),y−x⟩ + (β/2)‖y−x‖². (2) For every x,y∈E, ⟨∇f(y)−∇f(x),y−x⟩ ≤ β‖y−x‖². Here ∇f(x) is the Riesz vector representing Df(x), so ⟨∇f(x),v⟩ = Df(x)[v] for every v∈E. The same β occurs in both assertions, with no positivity or nonnegativity assumption; β=0 and β<0 are included. All pairs of points are quantified on the entire space, with no restricted domain. The case x=y is included and yields equality on both sides of each corresponding inequality. No finite-dimensionality, convexity of f, or two-sided norm bound on gradient differences is assumed or concluded. The equivalence holds for every such E,f,β.",
+  "ambiguities": []
+}

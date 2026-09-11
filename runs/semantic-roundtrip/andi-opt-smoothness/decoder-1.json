@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-7e36f044025248e2",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {β : ℝ},\n  ContDiff ℝ 2 f →\n    ((∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) ↔\n      ∀ (x v : E), ((fderiv ℝ (fderiv ℝ f) x) v) v ≤ β * ‖v‖ ^ 2)",
+    "statement_sha256": "7e36f044025248e2c44286080cd85b6ef11486e7b05cc35e64358457c3b3605e",
+    "compiled": true,
+    "approved_definition_context": [
+      "ContDiff ℝ 1 f means f is continuously Frechet differentiable everywhere; ContDiff ℝ 2 f means f is twice continuously Frechet differentiable everywhere.",
+      "In a complete real inner-product space, gradient f x is the Riesz vector of fderiv ℝ f x: inner ℝ (gradient f x) v = fderiv ℝ f x v.",
+      "The expression (fderiv ℝ (fderiv ℝ f) x v) v evaluates the second Frechet derivative twice at v. Under the displayed C2 regularity it is a genuine second derivative."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "864a1df473dfa50bf8ceacbfbc19f889535b57d80e70f823e55d18392a1f1289"
+}

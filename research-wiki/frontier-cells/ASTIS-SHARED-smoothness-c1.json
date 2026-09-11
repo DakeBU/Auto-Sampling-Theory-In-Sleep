@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-smoothness-c1",
+  "route": "shared",
+  "title": "C1 quadratic upper model and one-sided gradient bound",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Definition1.12 equation(1.7), Proposition1.13 C1 clause",
+  "target_statement": "For C1 f on a complete real inner-product space and any real beta, the global quadratic upper model with beta/2 is equivalent to the one-sided gradient bound with beta.",
+  "status": "merged",
+  "parents": [
+    "ASTIS-SHARED-strong-convex-gradient-monotonicity",
+    "ASTIS-SHARED-gradient-integral-convexity"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Proposition-1.13",
+    "shared:convex-potential-smoothness"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS ConvexityC1, ConvexityC2, StrongConvexFirstOrder and QuadraticRegularization",
+      "Pinned Mathlib fderiv negation, Riesz gradient and StrongConvexOn",
+      "Pinned Optlib/CvxLean scope checked by independent retrieval reviewer"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+    "canonical_shared_cell": "ASTIS-SHARED-smoothness-c1",
+    "notes": "Apply signed lower-bound interfaces to -f with modulus -beta; preserve existing modules. No gradient-Lipschitz equivalence without convexity."
+  },
+  "evidence": {
+    "focused_checks": [
+      "lake build Tests.Shared.SmoothnessEquivalences PASS2727 independently repeated; no warnings; only propext, Classical.choice and Quot.sound."
+    ],
+    "independent_verification": "smoothness_review fixed5434944361508bbe8e41eba9135d071f17978532 proof/test review and build; independent smoothness_blind and smoothness_source accepted exact packet-bound source generalizations.",
+    "root_build": "PASS canonical full gate on bbcb641e7127a2f3730fa370b18216e7a9d819ab at 2026-09-11T04:51:46.329733+00:00:9126jobs including rootTests, fake-closure and ATLAS36469declarations/26books. PASS250tests,6skips on synchronized tree; publication39items, semantic49audits,58cells valid.",
+    "graph_regeneration": "PASS canonical website build/check:12chapters,405compiled local leaves,596modules,3678declarations. Both cell graph checks PASS. Actual desktop source formulas and C2 sign-reversal proof inspected; focused branch14nodes25edges5direct relations, two actual named parents, solid structural/dashed reference signals, compiled target and partial chapter. Mobile390x844 statement and inspector legible; temporary viewport reset, tab and local server closed. Generalizations remain visible as domain-mismatch; no exact-source badge is forced. Rebuilt after PR266 sync; both affected graph reports are exactly identical to the visually inspected reports, and four reviewed smoothness file hashes remain unchanged.",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/b8952166ded42202504f446f04c7e54b00320bc0"
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Definition1.12 (1.7), Proposition1.13",
+    "detail_status": "omitted",
+    "gap": "The source omits the proof by analogy to Proposition1.6; expose sign reversal and genuine derivative identities.",
+    "consulted": [
+      {
+        "source": "Chewi Proposition1.6 and compiled ASTIS signed lower-bound interfaces",
+        "anchor": "C1 affine-segment FTC and C2 derivative-limit/Hessian FTC",
+        "hypothesis_adapter": "Apply to -f with signed modulus -beta; C1/C2 is preserved by negation."
+      }
+    ],
+    "fidelity_boundary": "Complete real inner-product space and signed beta explicitly generalize source Euclidean space and beta>=0. No convexity assumption, gradient Lipschitz or Riemannian conclusion."
+  }
+}

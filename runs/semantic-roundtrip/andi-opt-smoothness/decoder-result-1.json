@@ -1,0 +1,10 @@
+{
+  "decoder_id": "smoothness_blind",
+  "source_text_visible": false,
+  "input_artifacts": [
+    "/private/tmp/astis-blind-8417/packet-1.json"
+  ],
+  "decoder_packet_sha256": "864a1df473dfa50bf8ceacbfbc19f889535b57d80e70f823e55d18392a1f1289",
+  "reconstructed_text": "Let E be any complete real inner-product space, with its induced norm and inner product, let f:E→ℝ be twice continuously Fréchet differentiable on all of E, and let β be any real number. Then the following two global assertions are equivalent: (1) For every x,y∈E, f(y) ≤ f(x) + ⟨∇f(x),y−x⟩ + (β/2)‖y−x‖². (2) For every x,v∈E, D²f(x)[v,v] ≤ β‖v‖². Here ∇f(x) is the Riesz vector representing Df(x), and D²f(x)[v,v] means the continuous linear map D(Df)(x) applied to v and then evaluated at v. The same β occurs in both assertions, with no positivity or nonnegativity assumption; β=0 and β<0 are included. Both assertions apply on the entire space; v is an arbitrary vector, not required to be nonzero or normalized. The case x=y in (1) and the case v=0 in (2) are included and yield equality. No finite-dimensionality, convexity of f, lower bound on the second derivative, or bound on its absolute value or operator norm is assumed or concluded. The equivalence holds for every such E,f,β.",
+  "ambiguities": []
+}

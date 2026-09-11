@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "reviewer_id": "smoothness_source",
+  "reviewer": "smoothness_source",
+  "reviewer_packet_sha256": "b2e5f26626027d335ae126edef35bc8ed3e850085a9ec6dc1c95e595f33a62a3",
+  "publication_binding_sha256": "a75968b328c7c8594d7b4218a3f4c6e6e7846df01add1c6834d80626c47c7da3",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "semantic_slots": {
+    "objects": {
+      "original": "Real-valued f, Euclidean gradient",
+      "reconstructed": "Real-valued f and actual Riesz gradient",
+      "relation": "explicit-elaboration",
+      "evidence": "Embedded Lean uses gradient f. Under the Euclidean specialization these are the ordinary derivatives; no free derivative field is substituted."
+    },
+    "domains": {
+      "original": "Whole ℝᵈ; β≥0.",
+      "reconstructed": "Whole complete real inner-product space E; β∈ℝ.",
+      "relation": "stronger-in-lean",
+      "evidence": "Embedded variable declarations require CompleteSpace E but not FiniteDimensional; β has no sign premise. Every finite-dimensional Euclidean source instance is covered, and additional Hilbert/signed instances are asserted. Module header, lesson assumptions and candidate_assumptions explicitly disclose both extensions."
+    },
+    "quantifiers": {
+      "original": "All x,y in ℝᵈ, at each admissible f,β.",
+      "reconstructed": "All x,y in E, universally in E,f and unrestricted β.",
+      "relation": "stronger-in-lean",
+      "evidence": "The inner point/direction quantifiers match after source specialization; ambient-space and parameter quantification are broader. There is no nonzero or unit-vector restriction."
+    },
+    "assumptions": {
+      "original": "C¹ globally; β≥0; no convexity.",
+      "reconstructed": "ContDiff ℝ 1 f globally; no sign or convexity premise.",
+      "relation": "weaker-in-lean",
+      "evidence": "On ℝᵈ, ContDiff is the stated classical regularity. Nonnegativity is removed, explicitly. CompleteSpace is automatic for the source domain. No extra symmetry, integrability, positivity or auxiliary derivative premise occurs in the target statement."
+    },
+    "conclusion": {
+      "original": "Quadratic upper model (β/2 coefficient) iff one-sided gradient inequality.",
+      "reconstructed": "The same model iff one-sided gradient inequality, using the same β.",
+      "relation": "equivalent",
+      "evidence": "Compare the embedded theorem signature and lesson formula with Definition 1.12 equation (1.7) and Proposition 1.13 first clause at https://arxiv.org/html/2605.07006v1#S1.SS2. Inequality orientations, squared norm, factor 1/2 and biconditional agree on the source domain."
+    },
+    "scopes": {
+      "original": "The equivalence clause; later convex Lipschitz-gradient consequence is separate.",
+      "reconstructed": "One-sided equivalence only, no Lipschitz or operator-norm conclusion.",
+      "relation": "same",
+      "evidence": "Primary-source lines 298–306 state the equivalences; lines 308–311 add convexity for the later Lipschitz consequence. Candidate binding supports only c1-upper-equivalence. Absence of convexity here is correct."
+    },
+    "constant_dependencies": {
+      "original": "β fixes both bounds, with quadratic coefficient β/2.",
+      "reconstructed": "Exactly the same β and β/2; no dimension-dependent or regularity-dependent degradation.",
+      "relation": "same",
+      "evidence": "The proof only transforms m=−β and g=−f; arithmetic preserves β. No extra constants are existentially introduced and no division by β occurs."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "kind": "explicit-generalization",
+      "severity": "informational",
+      "description": "The theorem covers complete real inner-product spaces, extending the source’s Euclidean domain. This is disclosed and preserves all source instances, but is not equality of full theorem scopes.",
+      "evidence": "Module variable declarations and header; lesson assumptions; primary source Proposition 1.13 at https://arxiv.org/html/2605.07006v1#S1.SS2"
+    },
+    {
+      "slot": "assumptions",
+      "kind": "explicit-generalization",
+      "severity": "informational",
+      "description": "The theorem permits signed β, extending the source β≥0 range. The proof transformations preserve the same coefficient and do not need β≥0. The extension is already disclosed.",
+      "evidence": "Theorem {β : ℝ} without a sign hypothesis; hf.neg with m=−β; primary source Definition 1.12 and Proposition 1.13."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "verdict_explanation": "This raw verdict records the full theorem’s explicitly broader ambient and parameter domains. It does not identify an invalid theorem, missing source instance, or deficient source-obligation proof. Restricting to E=ℝᵈ and β≥0 gives the cited equivalence after derivative-notation elaboration. The candidate already states the differences, so no repair overlay is required.",
+  "repairs": [],
+  "source_review": {
+    "decision": "accepted",
+    "evidence": "Accepted scope: the selected C1 equivalence obligation, recovered by specializing E to Euclidean d-space and β to a nonnegative real. No admission of the subsequent Lipschitz-gradient consequence or claim of literal full-domain equality. Independently opened the pinned primary source. Definition 1.12 and Proposition 1.13 support exactly the selected equivalence obligation after Euclidean/nonnegative specialization. The candidate distinguishes its broader scope and excludes the subsequent Lipschitz claim. The displayed C¹ proof obtains the forward direction by adding h x y and h y x, using displacement negation and expanding the inner product. The converse establishes gradient(−f)=−gradient f, invokes the signed gradient-to-chord interface for −f with m=−β, and applies the first-order lower-model interface before negating. Each authored lesson formula has the matching sign and coefficient in these calls. The source omits Proposition 1.13 proof by analogy with Proposition 1.6; the latter uses endpoint addition and segment FTC. The authored explanation correctly labels the expansion as ASTIS-authored and refers to signed local interfaces, not an illicit literal application of Proposition 1.6 at its excluded negative modulus."
+  },
+  "review_evidence": "The displayed C¹ proof obtains the forward direction by adding h x y and h y x, using displacement negation and expanding the inner product. The converse establishes gradient(−f)=−gradient f, invokes the signed gradient-to-chord interface for −f with m=−β, and applies the first-order lower-model interface before negating. Each authored lesson formula has the matching sign and coefficient in these calls. The source omits Proposition 1.13 proof by analogy with Proposition 1.6; the latter uses endpoint addition and segment FTC. The authored explanation correctly labels the expansion as ASTIS-authored and refers to signed local interfaces, not an illicit literal application of Proposition 1.6 at its excluded negative modulus.",
+  "source_evidence": [
+    {
+      "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+      "anchors": [
+        "Definition 1.12 equation (1.7)",
+        "Proposition 1.13 C¹ equivalence clause",
+        "Proposition 1.6 proof",
+        "Post-Proposition 1.13 convex Lipschitz consequence"
+      ],
+      "accessed": "2026-09-11"
+    }
+  ],
+  "review_scope": "Only the two assigned reviewer packets and the independently opened pinned primary source were read. Actual candidate module text, decoded statement, formulas, proof steps, assumptions and source binding were compared. No registry, prior review, or original formalizer conversation was consulted. Compilation is reported by the packet, not independently rerun or certified by this source review."
+}
