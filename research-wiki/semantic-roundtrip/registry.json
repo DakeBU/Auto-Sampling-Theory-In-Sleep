@@ -15521,7 +15521,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCPoissonQueryTail",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-poisson-query-tail",
         "anchor": "Appendix A.1 and Theorem A.4(2); independently derived bounded-program query-tail prerequisite",
@@ -15549,7 +15549,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "914d6ea8d5ce9af921251db55a72f1eb29802055273b00f80fd191e7c86c7093",
+        "review_run_sha256": "7f244592d1e90ec981c34a357c861fac09bc42379102eef33459b08a81b5ba3f",
+        "run_artifact": "runs/20260911-companion-priority/poisson-query-tail.source-review-result.json",
+        "evidence": "Independent formal source review accepted seven semantic slots, seven authored steps and six informational deltas with no blockers or repairs. Domain-mismatch: explicitly attributed supporting derivation, not external printed threshold or complete terminal gradient cost. Reviewer independently rehashed packet, source, expanded statement, reconstruction and embedded/current production, and matched reader/publication content. External binding preimage, compilation/Meta.isDefEq, test/dependency hashes and decoder execution were not independently rerun by this source reviewer; those remain separate verifier checks. No prior verdict or repair decision was found in the anti-anchored packet."
       },
       "publication_binding_sha256": "5c5e3a16baec06a20f80d4a9997a6c47da352738606205a04cf484717528acf2",
       "publication_context": {
@@ -15725,7 +15732,90 @@
         "decoder_run_sha256": "8a345c5b1c63426326ac0cc211f6b51d8e7e46ad203cc4cb0f469af996eb5418",
         "lean_statement_sha256": "4f459c5c4615a58900b0317c9a84e272c66b86a36f099b37bc64b03da356f21f",
         "run_artifact": "runs/20260911-companion-priority/poisson-query-tail.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Poisson batches and bounded-estimator rejection attempts.",
+          "reconstructed": "Actual four-coordinate law, product acceptance, iid retries and full-batch cost.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expanded type and actual production parent call."
+        },
+        "domains": {
+          "original": "Proposal and auxiliary laws for a concrete terminal source target.",
+          "reconstructed": "Arbitrary measurable S,X,A, Markov proposal family and fixed auxiliary probability law.",
+          "relation": "different",
+          "evidence": "Parameter generalization is disclosed; no gradient target inferred."
+        },
+        "quantifiers": {
+          "original": "Source calls and requested failure tolerances.",
+          "reconstructed": "Every fixed positive B, bounded W, x0,s and 0<delta<1; two simultaneous bounds.",
+          "relation": "explicit-elaboration",
+          "evidence": "B is uniform across parameters; x0 does not occur in cost."
+        },
+        "assumptions": {
+          "original": "Positive clipping bound and bounded rejection mechanism.",
+          "reconstructed": "B>0, everywhere bound, joint measurability and actual product laws; no assumed acceptance or B>=1.",
+          "relation": "explicit-elaboration",
+          "evidence": "Acceptance bound extracted from production and aligned by definitional equality."
+        },
+        "conclusion": {
+          "original": "Source-facing query tail; external printed threshold differs.",
+          "reconstructed": "Actual cost tail at explicit ceiling threshold and K(B)log(2/delta).",
+          "relation": "different",
+          "evidence": "Independent derivation, not assertion of the external 3B exp(2B) formula."
+        },
+        "scopes": {
+          "original": "Terminal gradient complexity requires estimator, target, accuracy and initialization.",
+          "reconstructed": "Full-batch estimator counts only.",
+          "relation": "different",
+          "evidence": "Gradient cost, clipping, Renyi, reference point and full FORS remain separate."
+        },
+        "constant_dependencies": {
+          "original": "Universal terminal single-log coefficient in the applicable regime.",
+          "reconstructed": "K(B)=2B(e-1)(exp(2B)+1/log2)+1; ceiling threshold retained.",
+          "relation": "different",
+          "evidence": "Uniform B and concrete gradient accounting still required; small B is covered."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Explicit measurable parameter-family generalization.",
+          "evidence": "Independent reviewer accepted publication delta 1."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Fixed B>0 and everywhere bounded W, including small B.",
+          "evidence": "Independent reviewer accepted publication delta 2."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Cost includes successful full batch and all never-success paths.",
+          "evidence": "Independent reviewer accepted publication delta 3."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "K(B) is not automatically a universal gradient-cost constant.",
+          "evidence": "Independent reviewer accepted publication delta 4."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "New thresholds do not silently repair the external possible-source-error.",
+          "evidence": "Independent reviewer accepted publication delta 5."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Clipping, target, Renyi, initialization and gradient accounting remain separate.",
+          "evidence": "Independent reviewer accepted publication delta 6."
+        }
+      ]
     }
   ]
 }
