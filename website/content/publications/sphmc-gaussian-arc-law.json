@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gaussian-arc-law",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Gaussian gradient-arc joint law and calculus",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "Appendix D.1 gradient arc and joint Gaussian law preceding Claim 1; consumed by SPHMC Appendix A.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement and proof exposition of the cited gradient-arc construction; used as a dependency of Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. No author endorsement is implied."
+      },
+      "statement": "The square of sqrt(eta) is eta. The map (h,r,x,z) to (gamma_r,v_r) is jointly measurable. For every real r its pushforward of the displayed input product law is N(h,eta I) product N(0,(pi/2)^2 eta I); in particular the position and velocity are independent. For every deterministic input pair, gamma has derivative v at every real r. Its positions at 0 and 1 are h+z and x; its velocities are (pi/2)(x-h) and -(pi/2)z.",
+      "assumptions": [
+        "E is a finite-dimensional real inner product space with its Borel measurable structure; second countability is explicitly available. Zero dimension is allowed.",
+        "eta>0 and h in E. The input is the actual independent product law of X=h+sqrt(eta)G1 and Z=sqrt(eta)G2, where G1,G2 are standard Gaussian.",
+        "For r in the real line set theta=pi*r/2, gamma_r=h+sin(theta)(X-h)+cos(theta)Z and v_r=(pi/2)(cos(theta)(X-h)-sin(theta)Z). Source consumption only requires r in [0,1]."
+      ],
+      "formulae": [
+        {
+          "label": "Actual joint Gaussian law and derivative",
+          "tex": "(\\gamma_r,v_r)_\\#\\bigl(N(h,\\eta I)\\otimes N(0,\\eta I)\\bigr)=N(h,\\eta I)\\otimes N(0,\\tfrac{\\pi^2}{4}\\eta I),\\qquad \\frac{d}{dr}\\gamma_r=v_r."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "gaussian-arc-law",
+          "label": "Actual independent position and velocity law required before gradient-estimator moment analysis"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law",
+          "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
+          "role": "prerequisite",
+          "supports": [
+            "gaussian-arc-law"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCGaussianArcLaw",
+          "boundary": "This is the actual Gaussian path prerequisite, not an exponential-moment or clipping theorem. The gradient-estimator consumer must separately substitute h=x0-eta grad f(x_plus), establish gradient and reference-point conditions, and prove moment, clipping and target-error bounds. No measurability of the eta-indexed measure family or full terminal sampler is asserted. The external printed Claim 1 log-moment discrepancy is a separate possible-source-error, not silently repaired by this result.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean position and Gaussian auxiliary with common variance eta, eta>0.",
+              "lean": "Finite-dimensional real inner product space with Borel structure and explicit second countability; eta>0, actual affine standard-Gaussian product.",
+              "classification": "generalization",
+              "reason": "Basis-independent presentation includes zero dimension; no new source geometric restriction."
+            },
+            {
+              "source": "The interpolation parameter belongs to [0,1].",
+              "lean": "Joint law and derivative hold for all real times; endpoints 0 and 1 are proved.",
+              "classification": "generalization",
+              "reason": "The trigonometric identities and rotation invariance apply for every real angle."
+            },
+            {
+              "source": "The estimator uses h=x0-eta grad f(x_plus).",
+              "lean": "Arbitrary fixed center h; joint deterministic map measurable also in h.",
+              "classification": "generalization",
+              "reason": "The joint Gaussian law does not need the subsequent gradient assumptions. Actual estimator substitution and moment analysis remain separate."
+            },
+            {
+              "source": "Joint Gaussian position and velocity are independent with respective covariance eta I and (pi/2)^2 eta I.",
+              "lean": "Actual full product pushforward equality at standard deviations sqrt eta and (pi/2)sqrt eta.",
+              "classification": "same",
+              "reason": "The whole product law, rather than just marginal Gaussian laws, supplies independence."
+            },
+            {
+              "source": "The gradient estimator is followed by exponential-moment and clipping analysis.",
+              "lean": "Only Gaussian arc law, derivative, endpoints and deterministic joint measurability are proved.",
+              "classification": "API-limitation",
+              "reason": "A prerequisite boundary is explicit; no Claim 1 moment bound, measure-family measurability or full terminal sampler completion is asserted."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
