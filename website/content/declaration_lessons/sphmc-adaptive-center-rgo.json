@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery",
+      "title": "A measurable random-center RGO with actual joint recovery",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "SPHMC v1 Lemma 6.4 (6.1) and Theorem 6.5 ideal recursion",
+          "scope": "Expanded probability semantics of the ideal center-dependent backward step, not a verbatim source theorem."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCAdaptiveCenterRGO"
+      ],
+      "boundary": "Fixed probability base, precision and variance. Actual ideal joint input only. No joint selection over base/precision/variance/history parameters, arbitrary correlated input, approximate recursion, measurable proxies, error or query cost guarantee.",
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0 and a>0. There exist Markov kernels T,H from E to E and B from E times E to E times E, chosen before every probability center law nu. For every u, T(u) is mu tilted by -b*norm(x-u)^2/2 and H(u) is its actual Gaussian smoothing at standard deviation sqrt(a). For every u,y, B(u,y) retains u and draws x from T(u) tilted by -norm(x-y)^2/(2a); equivalently it draws from mu with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability nu, B composed with the actual joint measure nu compProd H equals nu compProd T.",
+      "formula": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad B(u,y)=(x\\mapsto(u,x))_\\#\\left[T(u).\\mathrm{tilted}\\left(-\\frac{\\|x-y\\|^2}{2a}\\right)\\right].",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space, including dimension zero; arbitrary probability base mu.",
+        "Fixed b>=0 and a>0. No density, curvature, moments or extra normalizability premise.",
+        "All three kernels precede the universally quantified probability center law. Fiber formulas hold for every u,y.",
+        "The input conditional observation kernel is exactly H. Arbitrary center laws do not mean arbitrary center-observation joint laws.",
+        "This explicitly generalizes the source Gibbs/Euclidean setting and exposes its needed ideal joint semantics."
+      ],
+      "steps": [
+        {
+          "title": "Construct the measurable family of target laws",
+          "text": "For positive b, use the existing Gaussian conditional kernel at inverse precision. For b=0 use the constant probability kernel. Thus the normalized target family is a globally measurable Markov kernel.",
+          "formula": "T(u)=\\mu.\\mathrm{tilted}(-b\\|x-u\\|^2/2).",
+          "lean": "Local precisionKernel and targetKernel; GaussianConditionalKernel.exists_tilted_isCondKernel; Kernel.const."
+        },
+        {
+          "title": "Construct one global backward kernel",
+          "text": "The updated precision is positive. Compose its conditional kernel with the measurable weighted-center map. Quadratic tilt closure identifies its fiber with the backward tilt of T(u), for every center and observation.",
+          "formula": "q=b+a^{-1}>0,\\quad c(u,y)=q^{-1}(bu+a^{-1}y),\\quad K(u,y)=\\mu.\\mathrm{tilted}(-q\\|x-c(u,y)\\|^2/2).",
+          "lean": "Local globalKernels; Kernel.comap; RGOClosure.quadratic_tilt_tilt."
+        },
+        {
+          "title": "Add actual independent Gaussian noise and retain the center",
+          "text": "The forward kernel is a kernel product followed by addition. The backward joint kernel is the product of the deterministic center and K. These constructions prove measurability and probability, rather than assume a measurable pointwise selection.",
+          "formula": "H(u)=\\operatorname{Law}(X+\\sqrt a Z),\\quad B(u,y)=(x\\mapsto(u,x))_\\#K(u,y).",
+          "lean": "Kernel.prod; Kernel.map; Kernel.IsMarkovKernel.map; Measure.dirac_prod."
+        },
+        {
+          "title": "Identify recovery for each existing global section",
+          "text": "The pointwise RGO theorem identifies the already constructed K section and proves its recovery from H(u). Its existential kernel is used only within this equality proof.",
+          "formula": "K(u,\\cdot)\\circ_m H(u)=T(u).",
+          "lean": "Local hrec; RGOBackward.rgo_backward_recovery; kernel extensionality."
+        },
+        {
+          "title": "Integrate recovery without discarding the center",
+          "text": "For an arbitrary measurable joint event take its measurable section at u. The bind and compProd formulas turn joint output mass into an iterated integral. Section recovery replaces its inner integral by T(u), giving the original joint target measure.",
+          "formula": "\\int\\!\\int B(u,y)(S)\\,H(u)(dy)\\,\\nu(du)=\\int T(u)(S_u)\\,\\nu(du).",
+          "lean": "Measure.bind_apply; Measure.lintegral_compProd; Measure.compProd_apply; Measure.map_apply; lintegral_congr."
+        }
+      ],
+      "lean_statement": "Global measurable center-dependent target, Gaussian forward and center-retaining backward kernels with exact joint recovery.",
+      "lean_proof": "Construct global kernels by conditional kernels, measurable comap/product/map, then integrate existing section recovery over measurable joint-event sections.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.comap",
+        "ProbabilityTheory.Kernel.prod",
+        "ProbabilityTheory.Kernel.map",
+        "MeasureTheory.Measure.bind_apply",
+        "MeasureTheory.Measure.lintegral_compProd",
+        "MeasureTheory.Measure.compProd_apply"
+      ]
+    }
+  ]
+}

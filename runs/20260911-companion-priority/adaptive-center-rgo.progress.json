@@ -1,0 +1,36 @@
+{
+  "state": "PROVED_LOCAL",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCAdaptiveCenterRGO",
+    "result": "PASS3748",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveCenterRGO.lean": "254968e4855e99be51ff17abed6d3e9b5deb87c98bc3308005699fd56622a3b6",
+      "Tests/SmoothedPicardHMCAdaptiveCenterRGO.lean": "41c445f7801534f9b8cab524b998d44b19b8200034032fa0d9ddcbc0b786396c"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/adaptive-center-rgo.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "draft",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCAdaptiveCenterRGO"
+    ]
+  },
+  "mathematical_status": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem.",
+  "remaining": [
+    "Fresh anonymous reconstruction, formal source and fixed-commit admission",
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete Gibbs specialization and joint parameter/history obligations",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ]
+}

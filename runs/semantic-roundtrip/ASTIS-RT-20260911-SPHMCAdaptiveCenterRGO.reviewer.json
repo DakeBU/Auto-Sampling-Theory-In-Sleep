@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-90e3aeebf6f1b6b2",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "adaptive_center_blind_decoder",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-adaptive-center-rgo",
+    "anchor": "Lemma 6.4 (6.1) and Theorem 6.5 ideal random-center recursion",
+    "original_text": "Finite-dimensional real inner-product Borel space, including dimension zero; arbitrary probability base mu.\nFixed b>=0 and a>0. No density, curvature, moments or extra normalizability premise.\nAll three kernels precede the universally quantified probability center law. Fiber formulas hold for every u,y.\nThe input conditional observation kernel is exactly H. Arbitrary center laws do not mean arbitrary center-observation joint laws.\nThis explicitly generalizes the source Gibbs/Euclidean setting and exposes its needed ideal joint semantics.\nLet mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0 and a>0. There exist Markov kernels T,H from E to E and B from E times E to E times E, chosen before every probability center law nu. For every u, T(u) is mu tilted by -b*norm(x-u)^2/2 and H(u) is its actual Gaussian smoothing at standard deviation sqrt(a). For every u,y, B(u,y) retains u and draws x from T(u) tilted by -norm(x-y)^2/(2a); equivalently it draws from mu with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability nu, B composed with the actual joint measure nu compProd H equals nu compProd T.",
+    "text_sha256": "1b9091b75059e2f884928bceae33827fabfb090f12b26b24b8dd4616230ddd3d"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/AdaptiveCenterRGO.lean",
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (b a : ℝ),\n  0 ≤ b →\n    0 < a →\n      ∃ T H B,\n        ProbabilityTheory.IsMarkovKernel T ∧\n          ProbabilityTheory.IsMarkovKernel H ∧\n            ProbabilityTheory.IsMarkovKernel B ∧\n              (∀ (u : E), T u = μ.tilted fun x => -(b / 2) * ‖x - u‖ ^ 2) ∧\n                (∀ (u : E),\n                    H u = AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (T u) √a) ∧\n                  (∀ (u y : E),\n                      B (u, y) = MeasureTheory.Measure.map (Prod.mk u) ((T u).tilted fun x => -‖x - y‖ ^ 2 / (2 * a))) ∧\n                    (∀ (u y : E),\n                        B (u, y) =\n                          MeasureTheory.Measure.map (Prod.mk u)\n                            (μ.tilted fun x => -((b + a⁻¹) / 2) * ‖x - (b + a⁻¹)⁻¹ • (b • u + a⁻¹ • y)‖ ^ 2)) ∧\n                      ∀ (ν : MeasureTheory.Measure E), MeasureTheory.IsProbabilityMeasure ν → ⇑B ∘ₘ ν ⊗ₘ H = ν ⊗ₘ T",
+    "statement_sha256": "c850e86a9361203666d0048bd15d35ebef0a79b5234cb9e5d0932caad7a72790",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every finite-dimensional real inner-product space E equipped with its Borel measurable structure, every Borel probability measure mu on E, and real b,a satisfying b>=0,a>0, there exist Markov kernels T,H:E to E and B:E times E to E times E. For every u, T(u) is mu reweighted by exp(-(b/2)*norm(x-u)^2) and normalized by its integral against mu. For every u, H(u) is the law of X+sqrt(a)*Z, with X of law T(u) and independent centered identity-covariance Gaussian Z. Noise standard-deviation scale is sqrt(a), covariance aI. For every u,y, let Q(u,y) be T(u) reweighted by exp(-norm(x-y)^2/(2a)) and normalized by its integral against T(u). B(u,y) is the pushforward of Q(u,y) by x to (u,x), retaining u. The same B for every u,y also equals the pushforward by x to (u,x) of mu reweighted by exp(-(c/2)*norm(x-m(u,y))^2) and normalized by its mu integral, where c=b+a^-1 and m(u,y)=c^-1*(b*u+a^-1*y). Finally for every Borel probability nu on E, B composed with nu compProd H equals nu compProd T as actual measures on E times E. Explicitly sample U from nu, Y conditionally from H(U), then a pair from B(U,Y); its law equals sampling U from nu and X conditionally from T(U). This is equality of the full joint law of retained center and final sample, not merely sample marginal equality, and does not assert independence of center and sample. Quantifier order is all E,mu,b,a satisfying hypotheses, then exists T,H,B, then all probability nu. The same kernels precede and do not depend on nu. All fiber identities hold everywhere, not merely almost everywhere. Parameter measurability is included in the conclusion through kernel types, and probability of every fiber through Markov assertions. No separately supplied family measurability, density hypothesis on mu, moment, smoothness or convexity condition is assumed. The only numerical restrictions are b>=0 and a>0, with no unspecified constants. Reconstructed only from the anonymous statement and approved definitions; no source-fidelity or compilation verdict.",
+    "text_sha256": "a6d3d42a4fbf756a3cd73de20d4d6ee90b95e4799ef47f86b71c4953738b4da0",
+    "decoder": "adaptive_center_blind_decoder",
+    "decoder_packet_sha256": "bb3f99ced1b9b5d80a96711c1f3518a55481b275ced873b9775a34dfef2b189e",
+    "decoder_run_sha256": "01ea4d6be9626bfca67deff3ed72449fd4f843921b56b361fc13d914bf123354",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "7ac628fbee441a64b0462a4476d99ac87394e2c712e78f1300d107e7cac94614",
+  "candidate_publication_context": {
+    "file": "094ab13429e06a76e9a4ea5b7c9a9b7f335a0cd4878e66f200f0d517f35bc472",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward\nimport Mathlib.Probability.Kernel.Composition.Prod\n/-!\n# Measurable random-center RGO recovery\n\nExpanded ideal-kernel semantics needed by SPHMC v1 Lemma 6.4 (6.1) and\nTheorem 6.5. All parameters except the center law are fixed. The input joint law\nmust use the constructed Gaussian observation kernel; no arbitrary correlated\ninput, approximate recursion, error or expected query cost claim is made.\n-/\n\nopen MeasureTheory ProbabilityTheory\nopen AutoSamplingTheory.TechnicalLemmas.Measure\nopen AutoSamplingTheory.TechnicalLemmas.Probability\nopen AutoSamplingTheory.ExampleCases.SmoothedPicardHMC\nopen scoped ENNReal\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO\n\n/-- Construct globally measurable target, Gaussian forward and center-retaining\nbackward kernels before every probability center law, with exact joint recovery.\nThe general probability base explicitly abstracts the source Gibbs setting. -/\ntheorem adaptive_center_recovery (μ : Measure E) [IsProbabilityMeasure μ] (b a : ℝ)\n    (hb : 0 ≤ b) (ha : 0 < a) :\n    ∃ (T H : Kernel E E) (B : Kernel (E × E) (E × E)),\n      IsMarkovKernel T ∧ IsMarkovKernel H ∧ IsMarkovKernel B ∧\n      (∀ u, T u = μ.tilted (fun x => -(b/2)*‖x-u‖^2)) ∧\n      (∀ u, H u = GaussianSmoothing.gaussianSmoothing (T u) (Real.sqrt a)) ∧\n      (∀ u y, B (u,y) = Measure.map (Prod.mk u)\n        ((T u).tilted (fun x => -‖x-y‖^2/(2*a)))) ∧\n      (∀ u y, B (u,y) = Measure.map (Prod.mk u)\n        (μ.tilted (fun x => -((b+a⁻¹)/2)*\n          ‖x-(b+a⁻¹)⁻¹ • (b • u+a⁻¹ • y)‖^2))) ∧\n      ∀ (ν : Measure E), IsProbabilityMeasure ν → B ∘ₘ (ν ⊗ₘ H) = ν ⊗ₘ T := by\n  have precisionKernel (μ : Measure E) [IsProbabilityMeasure μ] (q : ℝ) (hq : 0 < q) :\n      ∃ T : Kernel E E, IsMarkovKernel T ∧\n        ∀ u, T u = μ.tilted (fun x => -(q/2)*‖x-u‖^2) := by\n    obtain ⟨T,hT,hfiber,_⟩ := GaussianConditionalKernel.exists_tilted_isCondKernel μ (inv_pos.mpr hq)\n    refine ⟨T,hT,?_⟩\n    intro u\n    rw [hfiber]\n    congr 1\n    funext x\n    field_simp\n  \n  have targetKernel (μ : Measure E) [IsProbabilityMeasure μ] (b : ℝ) (hb : 0 ≤ b) :\n      ∃ T : Kernel E E, IsMarkovKernel T ∧\n        ∀ u, T u = μ.tilted (fun x => -(b/2)*‖x-u‖^2) := by\n    by_cases hb0 : b = 0\n    · subst b\n      refine ⟨Kernel.const E μ,inferInstance,?_⟩\n      intro u\n      simp\n    · exact precisionKernel μ b (lt_of_le_of_ne hb (Ne.symm hb0))\n  \n  have globalKernels (μ : Measure E) [IsProbabilityMeasure μ] (b a : ℝ)\n      (hb : 0 ≤ b) (ha : 0 < a) :\n      ∃ (T H : Kernel E E) (K : Kernel (E × E) E) (B : Kernel (E × E) (E × E)),\n        IsMarkovKernel T ∧ IsMarkovKernel H ∧ IsMarkovKernel K ∧ IsMarkovKernel B ∧\n        (∀ u, T u = μ.tilted (fun x => -(b/2)*‖x-u‖^2)) ∧\n        (∀ u, H u = GaussianSmoothing.gaussianSmoothing (T u) (Real.sqrt a)) ∧\n        (∀ u y, K (u,y) = (T u).tilted (fun x => -‖x-y‖^2/(2*a))) ∧\n        (∀ u y, K (u,y) = μ.tilted (fun x => -((b+a⁻¹)/2)*\n          ‖x-(b+a⁻¹)⁻¹ • (b • u+a⁻¹ • y)‖^2)) ∧\n        ∀ u y, B (u,y) = Measure.map (Prod.mk u) (K (u,y)) := by\n    obtain ⟨T,hT,hTf⟩ := targetKernel μ b hb\n    let := hT\n    obtain ⟨R,hR,hRf⟩ := precisionKernel μ (b+a⁻¹) (add_pos_of_nonneg_of_pos hb (inv_pos.mpr ha))\n    let := hR\n    let c : E × E → E := fun p => (b+a⁻¹)⁻¹ • (b • p.1+a⁻¹ • p.2)\n    have hc : Measurable c := by fun_prop\n    let K := R.comap c hc\n    have hK : IsMarkovKernel K := inferInstance\n    let H := (T ×ₖ Kernel.const E (GaussianSmoothing.scaledStdGaussian (E := E) (Real.sqrt a))).map\n      (fun p : E × E => p.1+p.2)\n    have hH : IsMarkovKernel H := by\n      dsimp only [H]\n      exact Kernel.IsMarkovKernel.map _ (by fun_prop)\n    let B := (Kernel.deterministic (Prod.fst : E × E → E) measurable_fst) ×ₖ K\n    have hB : IsMarkovKernel B := inferInstance\n    have hKf (u y : E) : K (u,y) = μ.tilted (fun x => -((b+a⁻¹)/2)*\n        ‖x-(b+a⁻¹)⁻¹ • (b • u+a⁻¹ • y)‖^2) := hRf (c (u,y))\n    refine ⟨T,H,K,B,hT,hH,hK,hB,hTf,?_,?_,hKf,?_⟩\n    · intro u\n      dsimp only [H]\n      rw [Kernel.map_apply _ (by fun_prop), Kernel.prod_apply]\n      rfl\n    · intro u y\n      rw [hKf,hTf]\n      have heq : (fun x : E => -‖x-y‖^2/(2*a)) = (fun x => -(a⁻¹/2)*‖x-y‖^2) := by\n        funext x\n        field_simp\n      rw [heq]\n      exact (RGOClosure.quadratic_tilt_tilt μ hb (inv_pos.mpr ha) u y).symm\n    · intro u y\n      dsimp only [B]\n      rw [Kernel.prod_apply, Kernel.deterministic_apply, Measure.dirac_prod]\n  \n  obtain ⟨T,H,K,B,hT,hH,hK,hB,hTf,hHf,hKf,hKupdated,hBf⟩ := globalKernels μ b a hb ha\n  let := hT\n  let := hH\n  let := hK\n  let := hB\n  have hrec (u : E) : (K.comap (Prod.mk u) measurable_prodMk_left) ∘ₘ H u = T u := by\n    obtain ⟨_,R,hR,hRf,_,hrecover,_⟩ := RGOBackward.rgo_backward_recovery μ b a hb ha u\n    have heq : K.comap (Prod.mk u) measurable_prodMk_left = R := by\n      ext y : 1\n      change K (u,y) = R y\n      rw [hKf,hTf,hRf]\n    rw [heq,hHf,hTf]\n    exact hrecover\n  refine ⟨T,H,B,hT,hH,hB,hTf,hHf,?_,?_,?_⟩\n  · intro u y\n    rw [hBf,hKf]\n  · intro u y\n    rw [hBf,hKupdated]\n  · intro ν hν\n    let := hν\n    ext s hs\n    rw [Measure.bind_apply hs B.aemeasurable, Measure.lintegral_compProd (B.measurable_coe hs),\n      Measure.compProd_apply hs]\n    apply lintegral_congr\n    intro u\n    have hs' := hs.preimage (measurable_prodMk_left (x := u))\n    have heq := congrArg (fun m : Measure E => m ((Prod.mk u) ⁻¹' s)) (hrec u)\n    rw [Measure.bind_apply hs' (K.comap (Prod.mk u) measurable_prodMk_left).aemeasurable] at heq\n    rw [← heq]\n    apply lintegral_congr\n    intro y\n    rw [hBf,Measure.map_apply measurable_prodMk_left hs]\n    rfl\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Lemma 6.4 (6.1) and Theorem 6.5 ideal random-center recursion",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded joint-kernel semantics, no author endorsement implied."
+    },
+    "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0 and a>0. There exist Markov kernels T,H from E to E and B from E times E to E times E, chosen before every probability center law nu. For every u, T(u) is mu tilted by -b*norm(x-u)^2/2 and H(u) is its actual Gaussian smoothing at standard deviation sqrt(a). For every u,y, B(u,y) retains u and draws x from T(u) tilted by -norm(x-y)^2/(2a); equivalently it draws from mu with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability nu, B composed with the actual joint measure nu compProd H equals nu compProd T.",
+    "formulae": [
+      {
+        "label": "Actual retained-center joint recovery",
+        "tex": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad B(u,y)=(x\\mapsto(u,x))_\\#\\left[T(u).\\mathrm{tilted}\\left(-\\frac{\\|x-y\\|^2}{2a}\\right)\\right]."
+      }
+    ],
+    "assumptions": [
+      "Finite-dimensional real inner-product Borel space, including dimension zero; arbitrary probability base mu.",
+      "Fixed b>=0 and a>0. No density, curvature, moments or extra normalizability premise.",
+      "All three kernels precede the universally quantified probability center law. Fiber formulas hold for every u,y.",
+      "The input conditional observation kernel is exactly H. Arbitrary center laws do not mean arbitrary center-observation joint laws.",
+      "This explicitly generalizes the source Gibbs/Euclidean setting and exposes its needed ideal joint semantics."
+    ],
+    "obligations": [
+      {
+        "id": "adaptive-center-joint-recovery",
+        "label": "Globally measurable ideal center-dependent RGO and actual joint recovery"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery",
+      "title": "A measurable random-center RGO with actual joint recovery",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+          "label": "SPHMC v1 Lemma 6.4 (6.1) and Theorem 6.5 ideal recursion",
+          "scope": "Expanded probability semantics of the ideal center-dependent backward step, not a verbatim source theorem."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCAdaptiveCenterRGO"
+      ],
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0 and a>0. There exist Markov kernels T,H from E to E and B from E times E to E times E, chosen before every probability center law nu. For every u, T(u) is mu tilted by -b*norm(x-u)^2/2 and H(u) is its actual Gaussian smoothing at standard deviation sqrt(a). For every u,y, B(u,y) retains u and draws x from T(u) tilted by -norm(x-y)^2/(2a); equivalently it draws from mu with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability nu, B composed with the actual joint measure nu compProd H equals nu compProd T.",
+      "formula": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad B(u,y)=(x\\mapsto(u,x))_\\#\\left[T(u).\\mathrm{tilted}\\left(-\\frac{\\|x-y\\|^2}{2a}\\right)\\right].",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space, including dimension zero; arbitrary probability base mu.",
+        "Fixed b>=0 and a>0. No density, curvature, moments or extra normalizability premise.",
+        "All three kernels precede the universally quantified probability center law. Fiber formulas hold for every u,y.",
+        "The input conditional observation kernel is exactly H. Arbitrary center laws do not mean arbitrary center-observation joint laws.",
+        "This explicitly generalizes the source Gibbs/Euclidean setting and exposes its needed ideal joint semantics."
+      ],
+      "steps": [
+        {
+          "title": "Construct the measurable family of target laws",
+          "text": "For positive b, use the existing Gaussian conditional kernel at inverse precision. For b=0 use the constant probability kernel. Thus the normalized target family is a globally measurable Markov kernel.",
+          "formula": "T(u)=\\mu.\\mathrm{tilted}(-b\\|x-u\\|^2/2).",
+          "lean": "Local precisionKernel and targetKernel; GaussianConditionalKernel.exists_tilted_isCondKernel; Kernel.const."
+        },
+        {
+          "title": "Construct one global backward kernel",
+          "text": "The updated precision is positive. Compose its conditional kernel with the measurable weighted-center map. Quadratic tilt closure identifies its fiber with the backward tilt of T(u), for every center and observation.",
+          "formula": "q=b+a^{-1}>0,\\quad c(u,y)=q^{-1}(bu+a^{-1}y),\\quad K(u,y)=\\mu.\\mathrm{tilted}(-q\\|x-c(u,y)\\|^2/2).",
+          "lean": "Local globalKernels; Kernel.comap; RGOClosure.quadratic_tilt_tilt."
+        },
+        {
+          "title": "Add actual independent Gaussian noise and retain the center",
+          "text": "The forward kernel is a kernel product followed by addition. The backward joint kernel is the product of the deterministic center and K. These constructions prove measurability and probability, rather than assume a measurable pointwise selection.",
+          "formula": "H(u)=\\operatorname{Law}(X+\\sqrt a Z),\\quad B(u,y)=(x\\mapsto(u,x))_\\#K(u,y).",
+          "lean": "Kernel.prod; Kernel.map; Kernel.IsMarkovKernel.map; Measure.dirac_prod."
+        },
+        {
+          "title": "Identify recovery for each existing global section",
+          "text": "The pointwise RGO theorem identifies the already constructed K section and proves its recovery from H(u). Its existential kernel is used only within this equality proof.",
+          "formula": "K(u,\\cdot)\\circ_m H(u)=T(u).",
+          "lean": "Local hrec; RGOBackward.rgo_backward_recovery; kernel extensionality."
+        },
+        {
+          "title": "Integrate recovery without discarding the center",
+          "text": "For an arbitrary measurable joint event take its measurable section at u. The bind and compProd formulas turn joint output mass into an iterated integral. Section recovery replaces its inner integral by T(u), giving the original joint target measure.",
+          "formula": "\\int\\!\\int B(u,y)(S)\\,H(u)(dy)\\,\\nu(du)=\\int T(u)(S_u)\\,\\nu(du).",
+          "lean": "Measure.bind_apply; Measure.lintegral_compProd; Measure.compProd_apply; Measure.map_apply; lintegral_congr."
+        }
+      ],
+      "lean_statement": "Global measurable center-dependent target, Gaussian forward and center-retaining backward kernels with exact joint recovery.",
+      "lean_proof": "Construct global kernels by conditional kernels, measurable comap/product/map, then integrate existing section recovery over measurable joint-event sections.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Probability.GaussianConditionalKernel.exists_tilted_isCondKernel",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOClosure.quadratic_tilt_tilt",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.RGOBackward.rgo_backward_recovery"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.comap",
+        "ProbabilityTheory.Kernel.prod",
+        "ProbabilityTheory.Kernel.map",
+        "MeasureTheory.Measure.bind_apply",
+        "MeasureTheory.Measure.lintegral_compProd",
+        "MeasureTheory.Measure.compProd_apply"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery",
+      "role": "prerequisite",
+      "supports": [
+        "adaptive-center-joint-recovery"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Theorem 6.5 uses a concrete Gibbs target and a center depending on the current observation.",
+        "lean": "Arbitrary probability base on finite-dimensional real inner-product Borel E, including dimension zero."
+      },
+      {
+        "source": "Lemma 6.4 (6.1) gives the updated quadratic target.",
+        "lean": "Every (u,y) fiber uses precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y), with b>=0,a>0."
+      },
+      {
+        "source": "The ideal stage requires a center-dependent backward kernel.",
+        "lean": "Construct global measurable T,H,B before every probability center law; B retains the original center."
+      },
+      {
+        "source": "Ideal forward/backward recovery underlies the recursive construction.",
+        "lean": "Actual B composed with nu compProd H equals nu compProd T for all probability nu."
+      },
+      {
+        "source": "The full theorem analyzes approximate recursive samplers and expected query cost.",
+        "lean": "Fixed base,precision,variance exact ideal joint recovery only."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "ad7127ba08c528e73581cf3314930238c8726d0d6066b1d07e235d93e1ebc072"
+}
