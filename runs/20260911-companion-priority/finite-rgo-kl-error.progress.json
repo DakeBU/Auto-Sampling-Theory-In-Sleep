@@ -33,7 +33,7 @@
   },
   "mathematical_status": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation.",
   "remaining": [
-    "Verify actual merge CI and deployed reader provenance",
+    "Verify terminal merge Lean run34576101852; exact deployed reader provenance already verified",
     "Actual source two-noise observation kernel and stage Wasserstein accuracy",
     "Concrete FORS and actual approximate sampler",
     "Errors and actual-input expected query costs",
@@ -98,5 +98,26 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/273",
     "state": "MERGED",
     "head": "d733cf5f27ae784276c90486cd78bcfc25493595"
+  },
+  "post_merge_delivery": {
+    "merge_commit": "b275d38e2a5e2dd5b769febbe51aca218c798725",
+    "site_run": "34576101771 SUCCESS",
+    "deployment_job": "103189634752 SUCCESS",
+    "live": {
+      "deployed_commit": "b275d38e2a5e2dd5b769febbe51aca218c798725",
+      "merge_commit": "b275d38e2a5e2dd5b769febbe51aca218c798725",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-finite-rgo-kl-error",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-finitergoklerror.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+    },
+    "merge_lean": "34576101852 last observed in_progress; terminal verification pending"
   }
 }

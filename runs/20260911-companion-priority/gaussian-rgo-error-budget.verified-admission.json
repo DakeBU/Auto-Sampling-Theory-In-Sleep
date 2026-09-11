@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "6e73acf29abe4dc3957813f5eb7db21ef8d8d35b",
+    "gate": {
+      "production": "Independent PASS3755 reused at unchanged raw hashes; complete imported statement freshly reprinted and matched registry/anonymous packet.",
+      "publication": "Independent check_advance reviewed=True PASS; all packet/run/component hashes and external binding preimage verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCGaussianRGOErrorBudget",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "gaussian_budget_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "bac49f3202d5047ff1251e105c2a496ab4b302752726f5a1ae44134014f924fe",
+        "decoder_packet_sha256": "6e7a7d0be1f2b3db120b3c1a5ce9b99b83b6e4098547df0f3366241b46b862bb",
+        "decoder_run_sha256": "5cb65a553d56c7334fe6842aafec9e64a4925748f87d20e27bee2d07990934c4",
+        "reviewer_packet_sha256": "baa57af217edb18b97180889e36c6f261106df36f739c4df4ebf912706a42ce4",
+        "review_run_sha256": "ca976c528c121a0da6ac435794bda4394f50e472501b46af95000408dd7d2d9b",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused test; actual Gaussian observation, exact source accuracy cancellation and actual finite recursive consumer with terminal residual."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget"
+    ],
+    "independent_checks": [
+      "Clean fixed commit and worktree match.",
+      "Seven semantic slots, five authored steps, five informational deltas; no blockers or repairs.",
+      "FiniteRGOKLError actually merged PR273. This independent admission covers VERIFIED only; integration is a separate step."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED-only authorization.",
+  "boundary": "M is a supplied Markov kernel satisfying the displayed squared-W2 guarantee; its implementation and A1 correctness are not proved here. beta,kappa,tau are positive measurable algebraic functions, not yet identified with source curvature and heat choices. kappa measurability is an unused input condition, not a proved precision-selection implementation. eta may be zero, Delta is nonnegative, J may be zero, and n is unrestricted. J is a budget parameter: for n>J this bound does not establish total error below Delta^2. No stopping support, FORS accuracy, initialization validity, expected query cost or marginal P2 conclusion is asserted; the terminal residual remains."
+}

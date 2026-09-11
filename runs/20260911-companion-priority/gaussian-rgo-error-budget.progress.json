@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "STABILIZING",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget"
   ],
@@ -33,11 +33,11 @@
   },
   "mathematical_status": "M is a supplied Markov kernel satisfying the displayed squared-W2 guarantee; its implementation and A1 correctness are not proved here. beta,kappa,tau are positive measurable algebraic functions, not yet identified with source curvature and heat choices. kappa measurability is an unused input condition, not a proved precision-selection implementation. eta may be zero, Delta is nonnegative, J may be zero, and n is unrestricted. J is a budget parameter: for n>J this bound does not establish total error below Delta^2. No stopping support, FORS accuracy, initialization validity, expected query cost or marginal P2 conclusion is asserted; the terminal residual remains.",
   "remaining": [
-    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Same-program stopping support and terminal accuracy",
     "Concrete FORS and proof that the actual Picard sampler satisfies A1",
     "Errors and actual-input expected query costs",
     "Both paper main results and agreed deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/gaussian-rgo-error-budget.verified-admission.json"
 }
