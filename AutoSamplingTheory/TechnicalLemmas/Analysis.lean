@@ -1,3 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexAEDifferentiable
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient
@@ -24,6 +26,3 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue
 
 Parent import surface for reusable analysis lemmas.
 -/
-
-import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic
-import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL
