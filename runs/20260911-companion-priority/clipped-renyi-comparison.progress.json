@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
   ],
   "boundary": "Actual fixed-call normalized bidirectional RN-power moment comparison. The order is the denominator-measure ell-power used by B12 proof and D1; printed B7/section1.3 definitions are inconsistent and must be disclosed. B12 intermediate step has a gap for1<ell<2; actualconsumerell>=2 avoids it, without modifying the source theorem. No logarithmic Renyi API,parameter selection,reference initialization,adaptive kernel,query cost or fullpaper completion. No TV transport of unbounded costs.",
   "scratch_checkpoint": {
@@ -73,5 +73,9 @@
     ]
   },
   "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json",
+  "integration_notes": {
+    "upstream": "10b2e59e6a9390f16275cabff12473872fddb071",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior ead9e06, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
 }

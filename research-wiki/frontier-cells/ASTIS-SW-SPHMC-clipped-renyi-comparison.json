@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-renyi-comparison.md",
     "planning_review": "Independent log_depth_source_review source/route audit accepted actual denominator-measure ell-powers, explicit source order discrepancy and ell>=2 range.",
-    "execution_boundary": "Root sole writer; priorClippedMeanExponential PR284 merged; no active stabilizer. ClippedRenyiComparison EXPLORING; fullscratch compiled, independent reviews pending.",
+    "execution_boundary": "Root sole writer; ClippedRenyiComparison sole STABILIZING; accepted production/source unchanged.",
     "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
     "independent_verification": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json"
   },
