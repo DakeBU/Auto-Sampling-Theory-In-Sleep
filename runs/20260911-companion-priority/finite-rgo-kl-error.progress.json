@@ -20,14 +20,20 @@
     "artifact": "runs/20260911-companion-priority/finite-rgo-kl-error.independent-proof-review.json"
   },
   "source_fidelity": {
-    "state": "draft",
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
     "audits": [
       "ASTIS-RT-20260911-SPHMCFiniteRGOKLError"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/finite-rgo-kl-error.source-review-result.json"
     ]
   },
   "mathematical_status": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation.",
   "remaining": [
-    "Formal source and fixed-commit admission",
+    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Actual source two-noise observation kernel and stage Wasserstein accuracy",
     "Concrete FORS and actual approximate sampler",

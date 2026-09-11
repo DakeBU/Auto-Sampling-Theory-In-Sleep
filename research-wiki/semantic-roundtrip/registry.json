@@ -13103,7 +13103,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCFiniteRGOKLError",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-finite-rgo-kl-error",
         "anchor": "Theorem6.5 A1 finite recursive error transfer and equation(6.5)",
@@ -13129,7 +13129,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "c25d2cd904972cab400957db96cde138a5ec38ebd43435d19b1d03ba39ee7eb0",
+        "review_run_sha256": "b69f5792f1af14bf45250677a314ce95908cfffdc013c4785e7a92b6d7df2490",
+        "run_artifact": "runs/20260911-companion-priority/finite-rgo-kl-error.source-review-result.json",
+        "evidence": "Independent source reviewer accepted all seven semantic slots, six authored steps and five informational deltas with no blockers or repairs. Canonical packet, source, statement, reconstruction and normalized embedded module hashes independently recomputed; current production equals embedded text. Lesson and publication fields match. Primary Theorem6.5 A1 argument and eq6.5 reused; source is attributed expanded paraphrase. Binding authenticated inside packet only; external preimage, decoder packet/run and toolchain hashes not independently recomputed here. No independent compile in source review. Zero dimension, threshold, depth, initial stopping and singular/infinite KL permitted. Arbitrary history validity is not asserted. Formal source acceptance only, not VERIFIED."
       },
       "publication_binding_sha256": "29372ad50f2b369b9644f8379ec1dba1feefc8666572b0a7b0c35ad0a6c0e350",
       "publication_context": {
@@ -13284,7 +13291,84 @@
         "decoder_run_sha256": "2f96fedf347a71db10c81caaeb2d1b13dc0cc65674fadd186b3806fe8968b4c0",
         "lean_statement_sha256": "2ab533cdcc5ee29bf40abe60d1384c9ec9b453a4e3dcad2d5a818b8dd17a0a5b",
         "run_artifact": "runs/20260911-companion-priority/finite-rgo-kl-error.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual recursive output compared with ideal target through observation and remaining calls.",
+          "reconstructed": "Actual T,H,F,P,R and KL e,t.",
+          "relation": "explicit-elaboration",
+          "evidence": "Parent constructs actual program; hcons derives ideal consistency."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs targets.",
+          "reconstructed": "Any probability base on finite Hilbert Borel E including zero dimension.",
+          "relation": "stronger-in-lean",
+          "evidence": "No density or moment premise; required RN countable-generation instances available."
+        },
+        "quantifiers": {
+          "original": "Fixed ideal kernels before actual calls and all finite depths.",
+          "reconstructed": "Same T,H before every Q,L; one P,R for every n,s.",
+          "relation": "same",
+          "evidence": "Public binder order and parent instances agree with anonymous reconstruction."
+        },
+        "assumptions": {
+          "original": "Full source has sampler accuracy and terminal guarantees; selected propagation edge uses program conditions.",
+          "reconstructed": "Measurable a>0, fixed nonnegative threshold, Markov Q,L.",
+          "relation": "different",
+          "evidence": "No assumed KL recurrence, recovery, finite KL, AC or error measurability."
+        },
+        "conclusion": {
+          "original": "Accumulate actual observation errors and retain terminal residual.",
+          "reconstructed": "KL(R_n(s)||T(s)) bounded by sum of e under P^j plus t under P^n.",
+          "relation": "same",
+          "evidence": "Actual Q weighting transfers to P via lintegral_map; left reference remains initial T(s)."
+        },
+        "scopes": {
+          "original": "Full Theorem6.5 includes stage budget, stopping, terminal accuracy and cost.",
+          "reconstructed": "Finite error transfer with arbitrary kernels and unrestricted residual.",
+          "relation": "different",
+          "evidence": "Module, prerequisite role and lesson disclose all remaining boundaries."
+        },
+        "constant_dependencies": {
+          "original": "Source later inserts numerical allocation in additive inequality.",
+          "reconstructed": "Exact unit coefficients and explicit update/sqrt(a) noise.",
+          "relation": "explicit-elaboration",
+          "evidence": "No unspecified constants or substituted Delta,J budget."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Probability and Hilbert generalization.",
+          "evidence": "Ideal posterior derives from parent without density or moments."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Any positive measurable variance.",
+          "evidence": "Source two-noise choice remains a later instance; update retained."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Every finite cap retains residual.",
+          "evidence": "R_0=L and P^n terminal integral present; no threshold hitting."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Actual error integrals do not prove source numerical accuracy.",
+          "evidence": "Q,L arbitrary; A1 Wasserstein, eq6.5 and FORS guarantees remain."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Measurable semantics and singular extended-real cases explicit.",
+          "evidence": "Local fiber KL and conditional KL proofs and stopped split."
+        }
+      ]
     }
   ]
 }

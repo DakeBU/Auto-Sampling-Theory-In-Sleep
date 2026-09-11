@@ -1,0 +1,127 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription of independent complete source review.",
+  "reviewer_packet_sha256": "c25d2cd904972cab400957db96cde138a5ec38ebd43435d19b1d03ba39ee7eb0",
+  "source_text_sha256": "4f4cbe9d745df29d6e248648ab94e4fb76318b2b7a6f311993c8a0e676bfe539",
+  "lean_statement_sha256": "2ab533cdcc5ee29bf40abe60d1384c9ec9b453a4e3dcad2d5a818b8dd17a0a5b",
+  "reconstruction_text_sha256": "b86d48eb63661a0501820da07052db41d0d58d9c78f81b368063559ab89d4579",
+  "embedded_module_text_sha256": "2f9e7e97ba32931f277a903ea7c4dcfead92c144c89892c65621ffb78240fcba",
+  "publication_binding_sha256": "29372ad50f2b369b9644f8379ec1dba1feefc8666572b0a7b0c35ad0a6c0e350",
+  "verdict": "domain-mismatch",
+  "source_review_state": "accepted",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual recursive output compared with ideal target through observation and remaining calls.",
+      "reconstructed": "Actual T,H,F,P,R and KL e,t.",
+      "relation": "explicit-elaboration",
+      "evidence": "Parent constructs actual program; hcons derives ideal consistency."
+    },
+    "domains": {
+      "original": "Euclidean Gibbs targets.",
+      "reconstructed": "Any probability base on finite Hilbert Borel E including zero dimension.",
+      "relation": "stronger-in-lean",
+      "evidence": "No density or moment premise; required RN countable-generation instances available."
+    },
+    "quantifiers": {
+      "original": "Fixed ideal kernels before actual calls and all finite depths.",
+      "reconstructed": "Same T,H before every Q,L; one P,R for every n,s.",
+      "relation": "same",
+      "evidence": "Public binder order and parent instances agree with anonymous reconstruction."
+    },
+    "assumptions": {
+      "original": "Full source has sampler accuracy and terminal guarantees; selected propagation edge uses program conditions.",
+      "reconstructed": "Measurable a>0, fixed nonnegative threshold, Markov Q,L.",
+      "relation": "different",
+      "evidence": "No assumed KL recurrence, recovery, finite KL, AC or error measurability."
+    },
+    "conclusion": {
+      "original": "Accumulate actual observation errors and retain terminal residual.",
+      "reconstructed": "KL(R_n(s)||T(s)) bounded by sum of e under P^j plus t under P^n.",
+      "relation": "same",
+      "evidence": "Actual Q weighting transfers to P via lintegral_map; left reference remains initial T(s)."
+    },
+    "scopes": {
+      "original": "Full Theorem6.5 includes stage budget, stopping, terminal accuracy and cost.",
+      "reconstructed": "Finite error transfer with arbitrary kernels and unrestricted residual.",
+      "relation": "different",
+      "evidence": "Module, prerequisite role and lesson disclose all remaining boundaries."
+    },
+    "constant_dependencies": {
+      "original": "Source later inserts numerical allocation in additive inequality.",
+      "reconstructed": "Exact unit coefficients and explicit update/sqrt(a) noise.",
+      "relation": "explicit-elaboration",
+      "evidence": "No unspecified constants or substituted Delta,J budget."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "Probability and Hilbert generalization.",
+      "evidence": "Ideal posterior derives from parent without density or moments."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Any positive measurable variance.",
+      "evidence": "Source two-noise choice remains a later instance; update retained."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Every finite cap retains residual.",
+      "evidence": "R_0=L and P^n terminal integral present; no threshold hitting."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Actual error integrals do not prove source numerical accuracy.",
+      "evidence": "Q,L arbitrary; A1 Wasserstein, eq6.5 and FORS guarantees remain."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "Measurable semantics and singular extended-real cases explicit.",
+      "evidence": "Local fiber KL and conditional KL proofs and stopped split."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Jointly measurable RN and measurable AC set give fiber KL measurability including singular fibers."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "AC joint density plus nonnegative Fubini; finite integral in nonAC branch would imply jointAC, contradiction."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Output projection and exact chain rule give actual first-input weighting without subtraction."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Same parent ideal instance at depth one proves hcons before arbitrary Q,L."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Continuing comapped comparison and pushforward yield actual P weighting; stopped states preserve terminal KL with e=0."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Finite nonnegative integral sum and composition shift P powers; zero-cap dirac retains t and all infinity cases."
+      }
+    ]
+  },
+  "review_evidence": "Independent source reviewer accepted all seven semantic slots, six authored steps and five informational deltas with no blockers or repairs. Canonical packet, source, statement, reconstruction and normalized embedded module hashes independently recomputed; current production equals embedded text. Lesson and publication fields match. Primary Theorem6.5 A1 argument and eq6.5 reused; source is attributed expanded paraphrase. Binding authenticated inside packet only; external preimage, decoder packet/run and toolchain hashes not independently recomputed here. No independent compile in source review. Zero dimension, threshold, depth, initial stopping and singular/infinite KL permitted. Arbitrary history validity is not asserted. Formal source acceptance only, not VERIFIED."
+}
