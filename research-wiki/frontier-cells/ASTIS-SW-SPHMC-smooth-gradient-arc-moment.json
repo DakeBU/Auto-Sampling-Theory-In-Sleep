@@ -27,7 +27,7 @@
     "focused_checks": [],
     "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-moment.md",
     "planning_review": "Independent log_depth_source_review verified source smooth lambda range, factor2 and actual gradient consumer; exact quadratic Gaussian moment needed.",
-    "execution_boundary": "Root sole writer; GaussianArcLaw sole STABILIZING; this cell EXPLORING only."
+    "execution_boundary": "Root sole writer; SmoothGradientArcMoment EXPLORING after actual parent PR278 merge. No STABILIZING packet."
   },
   "blocked": {
     "reason": "",

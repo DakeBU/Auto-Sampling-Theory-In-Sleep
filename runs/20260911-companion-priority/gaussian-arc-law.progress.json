@@ -1,9 +1,9 @@
 {
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
+    "Verify merge CI and deployed reader provenance.",
     "Aggregate integration, original reader/graph QA, merge and deployment"
   ],
-  "state": "STABILIZING",
+  "state": "MERGED",
   "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
   "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
   "scratch": ".astis/GaussianArcLaw.lean",
@@ -63,6 +63,73 @@
     "path": "website/content/declaration_lessons/sphmc-gaussian-arc-law.json",
     "state": "Five authored steps accepted; publication PASS51."
   },
-  "admission_boundary": "VERIFIED atd26fc31. Aggregate integration, site, actual merge and deployment remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/gaussian-arc-law.verified-admission.json"
+  "admission_boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete.",
+  "independent_admission": "runs/20260911-companion-priority/gaussian-arc-law.verified-admission.json",
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/278",
+    "candidate": "47f995cf9fb2668265ab7140162b6312ce26e9e5",
+    "commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+    "merged_at": "2026-09-11T12:05:18Z",
+    "candidate_ci": {
+      "lean": "34596039267 SUCCESS",
+      "site": "34596039193 SUCCESS; PR deploy skipped"
+    },
+    "fixed_local_qa": {
+      "graph": {
+        "nodes": 5,
+        "direct_relations": 2,
+        "label": "PARTIAL; Source-present publication; compiled badge not inferred",
+        "edges": 3,
+        "report": ".astis/gaussian-arc-final-graph-check.json",
+        "boundary": "Source correspondence is not a Lean dependency certificate.",
+        "actual_browser_focus": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+      },
+      "aggregate": {
+        "jobs": 9150,
+        "log": ".astis/gaussian-arc-final-integration-gate.log",
+        "status": "passed",
+        "source_digest": "79127c60291c375eec87dba5489da405d6a5a7703656ae69a0a43b88d932d2b0"
+      },
+      "ci": {
+        "lean_run": 34596039267,
+        "lean_status": "success",
+        "site_run": 34596039193,
+        "site_status": "success",
+        "deploy": "skipped on PR"
+      },
+      "browser": {
+        "initially_closed_disclosures": 8,
+        "card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "statement_characters": 771,
+        "fresh_query": "qa=47f995c",
+        "steps": 5,
+        "math_errors": 0,
+        "clicked": [
+          "Lean statement",
+          "Lean proof",
+          "Source and reuse",
+          "Exact module and namespace context"
+        ],
+        "displayed_commit": "47f995cf9fb2",
+        "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-gaussian-arc-law",
+        "proof_characters": 1055
+      },
+      "commit": "47f995cf9fb2668265ab7140162b6312ce26e9e5",
+      "boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete.",
+      "site": {
+        "modules": 620,
+        "declarations": 3761,
+        "status": "passed",
+        "reviewed_teaching": 77
+      },
+      "independent_integration": {
+        "reviewer": "depth_commit_verifier",
+        "result": "Fixed47f995c accepted; unchanged VERIFIED proof/binding; preserved imports; source detail matches reviewed boundary; sole STABILIZING; independently recomputed digest and PASS9150/site evidence."
+      }
+    },
+    "post_merge": "Merge CI and deployed provenance pending."
+  }
 }
