@@ -1,0 +1,26 @@
+{
+  "cell": "ASTIS-SW-SPHMC-approximate-initial-gradient-moment",
+  "state": "EXPLORING",
+  "gaussian_checkpoint": {
+    "path": ".astis/ApproximateInitialGradientMomentGaussian.lean",
+    "sha256": "475adc0e2ea56fe4aeff92a5ff0226278b885e51fbfc42432f2e110668adc842",
+    "session": 59282,
+    "exit_code": 0,
+    "result": "One private Gaussian norm-square L1 and exact dimension moment helper; standard three axioms/no lint. No actual smoothed or approximate input moment yet.",
+    "independent_review": "depth_commit_verifier independently compiled the frozen source via stdin, exit0, standard3/no lint. Actual covariance/mean and pre-sum L1 inspected, dim0 included. Local development acceptance only; no production VERIFIED."
+  },
+  "boundary": "Fixed-call actual input moment only, including eta0/r0/dim0. Coordinate-free/general-beta formulation disclosed. No optimal coupling, marginal state-second-moment, gradient-moment or cross-term-integrability input is assumed. W2 is the actual extended-real coupling-cost definition. Gaussian independence is the explicit product law. Random-history conditional moment, jointly measurable GD stopping with the random center, summed reference cost and complete sampler remain separate. Source specialization beta1,r^2=kappa_U*eps_j^2,eta<=c0<1/4 permits derived sufficient constant5, not a printed source numerical constant.",
+  "remaining": [
+    "Actual Gaussian norm second moment and smoothed gradient moment",
+    "Finite-cost coupling L1 and strict-budget limit",
+    "Random-center actual gradient and integrable zero cross term",
+    "Independent proof/source admission and reader delivery"
+  ],
+  "perturbation_checkpoint": {
+    "path": ".astis/ApproximateInitialGradientMomentPerturbation.lean",
+    "sha256": "94d0c66e5db199efbae4010d7041e9fbb31ce81eef72f1ea839bacc583443047",
+    "session": 3031,
+    "exit_code": 0,
+    "result": "Two private helpers compile with standard3/no lint. Actual independent Gaussian perturbation square L1 and exact additive expectation proved after cross-term absolute integrability. Independent increment review pending; no actual smoothing/W2 consumer or production theorem yet."
+  }
+}
