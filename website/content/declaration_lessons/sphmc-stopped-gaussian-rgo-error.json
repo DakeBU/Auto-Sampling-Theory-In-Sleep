@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error",
+      "title": "Actual stopped Gaussian RGO output correctness under sampler interfaces",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC v1 Theorem 6.5 A1 and equations (6.2)-(6.5)",
+          "scope": "Same-program stopping and error budget under supplied A1 and terminal KL interfaces."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCStoppedGaussianRGOError"
+      ],
+      "boundary": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here.",
+      "statement": "Let E be a finite-dimensional real inner-product Borel space of positive real dimension d, and mu a probability measure. States s=(b,u,k,h) belong to NNReal times E times Nat times E^Nat. Let eta be measurable with 0<eta(s)<=c at every state. Assume kappa>=1, 0<c<1/4, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Fix s0. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b), ell=2+log(K(b0)*d*2/Delta), B=gamma/(sqrt(d*ell)+ell), J=ceil(C*log(e*K(b0)/B)), and D={s:1/B<=b}. There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing at standard deviation sqrt(a(s)). After T,H are fixed, take any Markov M,L such that at each s outside D, squared W2(M(s),GaussianSmoothing(T(s),sqrt(eta(s)/(1+b))))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)). There exist F,Q,P,R: F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), count to k+1 and prepends y to history; Q(s) is M(s) with independent Gaussian variance tau(b)/(1+b) added; P(s)=dirac s on D and otherwise the F(s,.) pushforward of Q(s). Q,P and all R_n are Markov and R_n=L composed with P^n. B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for all m. Without terminal accuracy assumptions, KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) holds for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.",
+      "formula": "(P^J(s_0))(D)=1,\\quad R_{J+m}(s_0)=R_J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le\\frac{J\\Delta^2}{J+1}+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx).",
+      "assumptions": [
+        "E has its Borel structure and actual dimension d=finrank_R(E)>0; mu is any probability measure.",
+        "kappa>=1,0<c<1/4,0<Delta<=1/2,0<gamma<=1,C>=8; eta is measurable and in (0,c] at every state.",
+        "q=2 is fixed. B and J are computed once from the fixed initial state s0 and used throughout execution.",
+        "M,L are Markov kernels. Only states outside D require the displayed source-scaled squared-W2 premise for M.",
+        "Terminal KL is unrestricted for the residual inequality. Only the final total-error implication assumes its bound on D; no condition is imposed outside D."
+      ],
+      "steps": [
+        {
+          "title": "Fix source parameters and the terminal threshold",
+          "text": "Compose the precision coordinate with the rational conditioning function K; positivity follows from kappa>=1 and nonnegative precision. Its branch tau is measurable and positive. Apply LogarithmicDepth with the auxiliary constant sequence c and q=2 to obtain B>0, so 1/B defines a nonnegative threshold. This preliminary call does not establish termination of the actual path.",
+          "formula": "\\beta(s)=1+b(s),\\quad\\kappa(s)=K(b(s)),\\quad B>0,\\quad D=\\{s:B^{-1}\\le b(s)\\}.",
+          "lean": "hKm,hKpos,htm,htpos; auxiliary LogarithmicDepth.terminal_depth and threshold theta."
+        },
+        {
+          "title": "Construct the actual source-accuracy program",
+          "text": "Instantiate GaussianRGOErrorBudget with beta(s)=1+b and kappa(s)=K(b), not the baseline kappa. Its T,H precede the actual M,L. From the continuing-state W2 premise, obtain the actual added-noise Q and the explicit update F, absorbed transition P and recursive outputs R. Retain its finite-depth error bound and terminal residual.",
+          "formula": "Q(s)=H_{\\tau(b)/(1+b)}M(s),\\qquad R_{n+1}(s)=L(s)\\ \\text{on }D,\\quad R_{n+1}(s)=\\int R_n(F(s,y))\\,Q(s)(dy)\\ \\text{off }D.",
+          "lean": "GaussianRGOErrorBudget.gaussian_rgo_error_budget and hprog M L."
+        },
+        {
+          "title": "Prove that the stopping theorem uses the same transition",
+          "text": "Call StoppedRGODepth with the actual Q and the same L and initial parameters. It returns another update and transition. Prove the two updates equal using the real precision coordinate and every remaining coordinate. Their transition fibers then agree because their Q and fixed threshold agree. This transfers the stopping theorem to the actual error program, rather than assuming existential witnesses coincide.",
+          "formula": "F=F^{\\prime},\\qquad P=P^{\\prime}.",
+          "lean": "StoppedRGODepth.stopped_rgo_depth; hFeq via Prod.ext and Subtype.ext; hPeq via kernel extensionality and threshold coercion."
+        },
+        {
+          "title": "Align output kernels and transfer cap stability",
+          "text": "Recover measurability of the actual F from its explicit coordinate formula. For the recursive outputs, prove R_(n+1)=R_n composed with P by splitting stopped and continuing states and using pushforward integration. Induction gives R_n=L composed with P^n. The stopping theorem gives the same formula for its outputs, hence the two output families agree, and stability beyond J transfers to the actual family.",
+          "formula": "R_n=L\\circ_kP^n=R_n^{\\prime},\\qquad R_{J+m}(s_0)=R_J(s_0).",
+          "lean": "hFexact,hFm; local recursive_output_powers; hRp,hReq and hstable'."
+        },
+        {
+          "title": "Restrict the residual to the actual terminal set",
+          "text": "The transferred stopping theorem states that the actual law P^J(s0) gives D mass one. Convert this to almost-everywhere terminal membership, hence restriction to D leaves that measure unchanged. Apply the Gaussian budget at exactly J and rewrite its residual as the integral over D. This step needs no terminal KL bound and includes infinite residual.",
+          "formula": "P^J(s_0)|_D=P^J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le Jc_*+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx),\\quad c_*=\\Delta^2/(J+1).",
+          "lean": "hmass; mem_ae_iff_prob_eq_one, restrict_eq_self_of_ae_mem and hbound J s0."
+        },
+        {
+          "title": "Use terminal-only accuracy and then output stability",
+          "text": "Assume the terminal KL interface only on D. The actual J-step law is almost surely in D, so nonnegative integral monotonicity bounds its residual by one allocation. Add the J observation allocations and use (J+1)*Delta^2/(J+1)=Delta^2. Finally transfer that J-depth bound to every J+m via the already proved equality of output laws. Applying the general linear budget at J+m would not establish this conclusion.",
+          "formula": "Jc_*+c_*=(J+1)c_*=\\Delta^2,\\qquad\\operatorname{KL}(R_{J+m}(s_0)\\Vert T(s_0))\\le\\Delta^2.",
+          "lean": "hterminal,lintegral_mono_ae,probability normalization,ENNReal.ofReal arithmetic and hstable'."
+        }
+      ],
+      "lean_statement": "Actual stopped Gaussian RGO output correctness under supplied A1 and terminal KL interfaces.",
+      "lean_proof": "Source schedule, actual Gaussian program, explicit witness equality, recursive powers, terminal support restriction and J-budget plus cap stability.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.bind_apply",
+        "MeasureTheory.lintegral_map",
+        "ProbabilityTheory.Kernel.comp_assoc",
+        "MeasureTheory.mem_ae_iff_prob_eq_one",
+        "MeasureTheory.Measure.restrict_eq_self_of_ae_mem",
+        "MeasureTheory.lintegral_mono_ae"
+      ]
+    }
+  ]
+}

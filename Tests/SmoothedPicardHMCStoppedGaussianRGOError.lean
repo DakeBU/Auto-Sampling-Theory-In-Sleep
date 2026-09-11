@@ -1,0 +1,3 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError
+
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error
