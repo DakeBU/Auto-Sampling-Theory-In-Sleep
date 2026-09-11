@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-4454cd5b7a2bb8ea",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {s : Set E}\n  {f : E → ℝ} {m : ℝ} {grad : E → E},\n  Convex ℝ s →\n    (∀ z ∈ s, HasGradientAt f (grad z) z) →\n      (∀ x ∈ s, ∀ y ∈ s, m * ‖y - x‖ ^ 2 ≤ inner ℝ (grad y - grad x) (y - x)) → StrongConvexOn s m f",
+    "statement_sha256": "4454cd5b7a2bb8ea759a3f29c6ae35aca03beb866779d12bbdd8d0e3ce03c3fb",
+    "compiled": true,
+    "approved_definition_context": [
+      "E is a real normed additive group with a real inner product inducing its norm. CompleteSpace means that every Cauchy filter converges.",
+      "Convex ℝ s means that s contains a • x + b • y whenever x,y∈s, a,b≥0 and a+b=1.",
+      "HasGradientAt f (g z) z means that f has an ambient Frechet derivative at z represented by v ↦ inner ℝ (g z) v. It does not mean only a derivative within s.",
+      "StrongConvexOn s m f means Convex ℝ s and, for all x,y∈s and all nonnegative real a,b with a+b=1, f(a • x+b • y) ≤ a*f(x)+b*f(y)−a*b*(m/2*norm(x−y)^2). The definition itself imposes no sign restriction on m."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "d3ad172348420ca0be50969e3ae5202ab220339a8411bdc8f8412428102d99ac"
+}

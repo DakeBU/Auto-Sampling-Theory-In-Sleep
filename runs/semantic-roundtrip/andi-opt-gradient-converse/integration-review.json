@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-09-09T23:08:54.781473+00:00",
+  "checked_head": "4fec6664ccbb0c338b81febe48c02e76486f0da4",
+  "branch": "andi/opt-gradient-converse",
+  "scope": "Independent read-only review of final Registry integration, exact metadata exemptions, fixture regressions, dependency import-closure/ambiguity filtering and source-index tests. No repository source edits, commits, VERIFIED transition or new semantic verdict.",
+  "file_sha256": {
+    "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Registry.lean": "ed00db08bbe51aea53b13f3e4a1bef03f4ded9de531c412d7c76a818e6719e50",
+    "/Users/andyjm3/Documents/Codex/samplinglib/Tests/Basic.lean": "6a395732bca1c8ea2acee819d48cc2551937b9b847043b50667b060a7c7129b0",
+    "/Users/andyjm3/Documents/Codex/samplinglib/tools/astis_publication.py": "63cf7e64a4a810e569c450ca78661a20d1c0f2c56076a011724246bbdaf5ebca",
+    "/Users/andyjm3/Documents/Codex/samplinglib/tools/tests/test_astis_publication.py": "8c8dd26eb5b669dadf62d213582ed7c8aa94dadfca4c3337f25aa1785a23f594",
+    "/Users/andyjm3/Documents/Codex/samplinglib/tools/astis_site.py": "aeae4cb2a48d134946e8236cf0b4248160083b3407e56c73461bcd4c5d676bc4",
+    "/Users/andyjm3/Documents/Codex/samplinglib/tools/tests/test_astis_site.py": "379cd36c7f6b7588f42edbbc5f1068635bf39b5db5bce8f8de54a6319bfa1f06",
+    "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexGradientConverse.lean": "3110476d62f569293ece3f78b556b1123ffd4c949b4de4bbc1edba23332e9e14",
+    "/Users/andyjm3/Documents/Codex/samplinglib/Tests/Shared/StrongConvexGradientConverse.lean": "ef3d0f282f0067ba535de2247e1b4fc770d9e223c6ad24ec28084363777ebb90",
+    "/Users/andyjm3/Documents/Codex/samplinglib/AutoSamplingTheory/TechnicalLemmas/Analysis.lean": "7371eb587d3e18218ea7545219de2fbfe3987303f8756a179fd3d6f4dbb92384",
+    "/Users/andyjm3/Documents/Codex/samplinglib/Tests.lean": "c6b929c0495e697ed7d626e3951f6079401cf45948097df00c5aac36a2f8b855"
+  },
+  "findings": [],
+  "resolved_prior_findings": [
+    {
+      "id": "registry-metadata-short-name-exemption",
+      "resolution": "The two new metadata exemptions now compare exact full_name and kind under exact Registry path. The namespace-shadow regression is included and the independently retained reproducer now returns the required OtherMathematics.LemmaMemoryEntry publication target.",
+      "log": "/private/tmp/andi-converse-integration-final-shadow.log"
+    }
+  ],
+  "checks": [
+    {
+      "command": "/opt/homebrew/bin/python3 -m unittest tools.tests.test_astis_publication tools.tests.test_astis_site -v",
+      "exit_code": 0,
+      "result": "34 tests passed in 13.019 seconds. Includes converse zero-local-dependency and retained forward-to-first-order edge.",
+      "log": "/private/tmp/andi-converse-integration-final-tests.log"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /private/tmp/andi-converse-integration-shadow.py",
+      "exit_code": 0,
+      "result": "Same-short-name declaration in another namespace remains a publication target; prior P2 resolved.",
+      "log": "/private/tmp/andi-converse-integration-final-shadow.log"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /private/tmp/andi-converse-integration-closure-check.py",
+      "exit_code": 0,
+      "result": "Synthetic two-hop import closure retains C.leaf; ignores unreachable D.leaf and D.unreachable; two visible leaf candidates are omitted conservatively.",
+      "log": "/private/tmp/andi-converse-integration-closure-check.log"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /private/tmp/andi-converse-integration-graph-audit.py",
+      "exit_code": 0,
+      "result": "Actual registry has 399 total entries and zero duplicate short-name candidate groups, so the ambiguity guard removes no current qualified references.",
+      "log": "/private/tmp/andi-converse-integration-graph-audit.log"
+    }
+  ],
+  "observations": [
+    "Registry and Basic count contents retain the previously audited hashes; no additional Lean build needed for the Python-only correction.",
+    "New declaration-kind/full-name metadata exclusions leave syntax-index fail-closed validation and source audit validation intact.",
+    "Fixture-specific chapter assertions retain all-item publication validation.",
+    "Visible module closure includes the consumer module and transitive project imports, has a visited set, and treats unscanned external modules as terminal nodes.",
+    "Dependency matching remains lexical and does not constitute compiler-extracted exact declaration references; this patch adds necessary visibility and ambiguity constraints without claiming to solve all lexical-resolution limitations.",
+    "No multi-module-per-line imports were found in current production Lean sources; current scan parser reads one import per line."
+  ],
+  "limitations": [
+    "No full ASTIS gate run in this final Python-only review; parent owns that gate.",
+    "The synthetic ambiguity test verifies conservative omission, not resolution of qualified references among ambiguous candidates."
+  ]
+}

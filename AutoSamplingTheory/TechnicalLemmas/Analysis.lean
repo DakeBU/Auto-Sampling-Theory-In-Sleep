@@ -11,6 +11,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.PairingCycleQuantitativeNeigh
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PermutedQuadraticCost
 import AutoSamplingTheory.TechnicalLemmas.Analysis.PrefixIntegral
 import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder
+import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGradientConverse
 
 /-!
 # Analysis technical lemma arsenal

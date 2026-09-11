@@ -1,0 +1,31 @@
+{
+  "branch": "andi/opt-gradient-converse",
+  "base_commit": "4fec6664ccbb0c338b81febe48c02e76486f0da4",
+  "boundary": "Local working-tree checks; no commit-bound VERIFIED transition or merge.",
+  "checks": [
+    {
+      "check": "full-lean-gate",
+      "result": "passed",
+      "log_sha256": "42368d0b07e21f64d71edfcc612aa3dddc119df711bc4c050125a2d6db678a8d",
+      "summary": "Build completed successfully (9054 jobs).\nATLAS memory check passed: 36469 named declarations, 26 books, index fb43cfe200da\n$ lake exe cache get\n$ lake build\n$ lake build Tests\n$ /opt/homebrew/opt/python@3.14/bin/python3.14 tools/atlas_memory.py check\nASTIS check passed"
+    },
+    {
+      "check": "protocol-regressions",
+      "result": "passed",
+      "log_sha256": "7763711352a5e719d23090b9af2cee4a1c57c9d6b77da44d24a5fe943ad7caf4",
+      "summary": "test_semantic_fidelity_and_denoising_are_graph_native (test_underlying_lean_graph.UnderlyingLeanGraphInteractionTests.test_semantic_fidelity_and_denoising_are_graph_native) ... ok\n\n----------------------------------------------------------------------\nRan 235 tests in 24.219s\n\nOK (skipped=6)\n$ /opt/homebrew/opt/python@3.14/bin/python3.14 -m unittest discover -s tools/tests -v"
+    },
+    {
+      "check": "site-build",
+      "result": "passed",
+      "log_sha256": "213c518ddfe2902e5945845dd5104e7b23b19cfc6390d1074dbdce168be38131",
+      "summary": "built /Users/andyjm3/Documents/Codex/samplinglib/_site: 12 chapters, 397 compiled local leaves, 524 modules, 3624 declarations"
+    },
+    {
+      "check": "site-check",
+      "result": "passed",
+      "log_sha256": "f21900eda5ee3764e09255b041730cd9bed34499c6d9ae62c54a07d74de5ea6c",
+      "summary": "ASTIS site check passed: 12 chapters, 524 modules, 3624 declarations, 77 reviewed teaching declarations"
+    }
+  ]
+}
