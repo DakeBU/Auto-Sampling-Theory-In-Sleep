@@ -1,5 +1,5 @@
 {
-  "commit": "940f379fc993519f29120138f933356b34985d82",
+  "commit": "980c4fc1ca7719061cf5a964777e948432d428e3",
   "independent_integration": {
     "reviewer": "depth_commit_verifier",
     "result": "Accepted fixed candidate: production/test hashes unchanged from VERIFIED5505e6f4, accepted binding/validator, append-only root imports, matching aggregate source digest, single STABILIZING lane.",
@@ -7,25 +7,26 @@
   },
   "aggregate": {
     "status": "passed",
-    "jobs": 9144,
-    "source_digest": "aee13bfb51cc14af56ed210abc7eb3058dbfcabd39add2f65554ce80b1ba67bd"
+    "jobs": 9146,
+    "source_digest": "5aa24af3f75cf360cf0424dd86b4a7e748e2d93bdf336e5c22b1cfe4978f96ae",
+    "log": ".astis/poisson-final-integration-gate.log"
   },
   "site": {
     "status": "passed",
-    "modules": 614,
-    "declarations": 3724,
+    "modules": 616,
+    "declarations": 3726,
     "reviewed_teaching": 77,
-    "check_log": ".astis/poisson-site-check.log"
+    "check_log": ".astis/poisson-final-site-check.log"
   },
   "graph": {
     "status": "checked",
-    "report": ".astis/poisson-graph-check.json",
+    "report": ".astis/poisson-final-graph-check.json",
     "boundary": "Reference edges are not elaborated dependency certificates."
   },
   "browser": {
     "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-poisson-rejection",
     "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-poissonrejection.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-poissonrejection-poiss-0ec003d725",
-    "displayed_commit": "940f379fc993",
+    "displayed_commit": "980c4fc1ca77",
     "steps": 7,
     "initially_closed_disclosures": 10,
     "math_errors": 0,
@@ -41,6 +42,22 @@
       "Compiled",
       "Not mapped"
     ],
-    "boundary": "Local DOM and actual click verification; no deployment claim."
+    "boundary": "Local DOM and actual click verification; no deployment claim.",
+    "cache_validation": "Fresh query navigation loaded final source build; gate passed at exact candidate, 10 initially closed disclosures, 7 steps, 0 math errors; statement/proof/source clicked, module card Compiled/Not mapped."
+  },
+  "ci": {
+    "lean": {
+      "run": 34589969036,
+      "state": "success"
+    },
+    "site": {
+      "run": 34589969043,
+      "state": "success"
+    },
+    "deploy": "skipped on PR"
+  },
+  "final_consistency_review": {
+    "reviewer": "log_depth_source_review",
+    "result": "Exact HEAD, clean tree, unchanged production/test/lesson/publication, matching reviewed tool hashes and exact-head CI independently confirmed. Source preservation reused prior independent audit. Local final site QA checked by root after review."
   }
 }

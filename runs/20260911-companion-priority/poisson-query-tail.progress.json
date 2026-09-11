@@ -1,0 +1,52 @@
+{
+  "state": "STABILIZING",
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCPoissonQueryTail",
+    "result": "PASS3639",
+    "production_sha256": "bf4b45d5937d93a31e0a8470ac7b1a7002f4222bc73546cd48588cf240cd4d58",
+    "test_sha256": "15b1817c59c7ea387c1874c74123087e7aa9f94761637abf779846338cd75f07",
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "mathematical_status": "Actual bounded Poisson rejection full-batch estimator count C, including the successful batch. For 0<delta<1 and L=log(2/delta), proves P(C>2B(e-1)ceil(exp(2B)L)+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance lower bound is obtained from the existing production PoissonRejection theorem, not assumed. Actual product count law, pathwise truncation, iid prefix Chernoff and failure bounds are proved.",
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "core_sha256": "c324313ce7b81fa161b18500f6d28b0d050ed5d9b69aa63b7d60347914031dd7",
+    "actual_consumer_sha256": "71ff6f70cf8fe3c1b072ddbddbbc9c858ad794fb5e4c3d3091762fd500ca02bf",
+    "production_sha256": "bf4b45d5937d93a31e0a8470ac7b1a7002f4222bc73546cd48588cf240cd4d58",
+    "result": "All three independently compiled and reviewed. Production reconstruction matches reviewed private helpers and actual consumer, preserves the public parent call, and has only one public theorem. Standard three axioms; no stopping-time/count independence assumption or fake closure.",
+    "boundary": "Development proof review only, not fixed-commit VERIFIED admission."
+  },
+  "source_pre_review": {
+    "reviewer": "log_depth_source_review",
+    "result": "No mathematical or source-boundary issue found. Correct actual full-batch tail with ceiling and explicit fixed-B single-log coefficient. For SPHMC A.4(2), a universal constant additionally requires a uniform B bound across terminal states and an account of gradient cost per estimator call.",
+    "printed_source_discrepancy": "Independent supporting derivation, not the unrestricted printed 3B exp(2B) log(2/delta) bound in external arXiv:2608.05022v1 Theorem 2.3. The previously audited small-B possible-source-error remains explicit; no silent source repair.",
+    "boundary": "Pre-review only; no formal encoder-denoiser admission."
+  },
+  "remaining": [
+    "Fixed-commit independent admission, aggregate imports, original reader/conversion delivery and integration.",
+    "Uniform B control, actual clipped gradient estimator, target/Renyi error, reference point and initialization, gradient query cost and other terminal implementation overhead remain separate."
+  ],
+  "admission_boundary": "VERIFIED at3124c1a. Aggregate integration, reader/site QA and actual merge/deployment remain separate; neither paper main result is complete.",
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-poisson-query-tail.json",
+    "state": "Seven-step proof, publication binding, source-blind reconstruction and formal source review accepted."
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCPoissonQueryTail"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/poisson-query-tail.source-review-result.json"
+    ]
+  },
+  "independent_admission": "runs/20260911-companion-priority/poisson-query-tail.verified-admission.json"
+}

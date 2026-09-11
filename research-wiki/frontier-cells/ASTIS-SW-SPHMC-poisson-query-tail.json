@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.4(2), via arXiv:2602.01338v1 Theorem D.1; actual FORS Algorithm1 in arXiv:2608.05022v1",
   "target_statement": "For the same actual bounded Poisson rejection attempt and retry law as PoissonRejection, every fixed B>0, input parameter s and 0<delta<1, set L=log(2/delta), m=ceil(exp(2B)*L). Prove that the actual full-batch accumulated estimator-call count C, including the successful attempt, satisfies P(C>2B*(exp(1)-1)*m+L)<=delta. Derive a single-logarithmic upper threshold at fixed bounded B with an explicit constant. Use the actual previous-failure events and fixed-prefix Poisson sums; do not assume stopping/count independence or transfer costs by TV proximity.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-poisson-rejection"
   ],
@@ -25,10 +25,21 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCPoissonQueryTail",
+        "result": "PASS3639, exit0; standard three axioms",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/PoissonQueryTail.lean": "bf4b45d5937d93a31e0a8470ac7b1a7002f4222bc73546cd48588cf240cd4d58",
+          "Tests/SmoothedPicardHMCPoissonQueryTail.lean": "15b1817c59c7ea387c1874c74123087e7aa9f94761637abf779846338cd75f07"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-poisson-query-tail.md",
     "planning_review": "Independent log_depth_source_review verified the small-B source counterexample and proposed the fixed-prefix failure plus Poisson Chernoff route with an additive logarithmic term.",
-    "execution_boundary": "Root sole writer. PoissonRejection sole STABILIZING; this cell is EXPLORING."
+    "execution_boundary": "Root sole writer; PoissonQueryTail is the sole STABILIZING packet. Source and implementation boundaries remain unchanged.",
+    "admission_boundary": "VERIFIED at3124c1a. Aggregate integration, reader/site QA and actual merge/deployment remain separate; neither paper main result is complete.",
+    "independent_verification": "runs/20260911-companion-priority/poisson-query-tail.verified-admission.json"
   },
   "blocked": {
     "reason": "",

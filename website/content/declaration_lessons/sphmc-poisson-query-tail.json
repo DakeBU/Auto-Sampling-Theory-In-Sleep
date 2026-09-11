@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+      "title": "Actual Poisson rejection query tails with explicit constants",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC v1 Appendix A.1 and Theorem A.4(2)",
+          "scope": "Bounded rejection mechanism and the terminal routine consumer requiring a single-log cost tail; the present supporting bound is an independent ASTIS derivation."
+        },
+        {
+          "url": "https://arxiv.org/html/2608.05022v1",
+          "label": "Poisson rejection Algorithm 1 and Theorem 2.3",
+          "scope": "Actual full Poisson batches. The unrestricted printed tail formula is not asserted here; its small-B discrepancy remains explicit."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCPoissonQueryTail"
+      ],
+      "assumptions": [
+        "S, X and A are arbitrary measurable spaces. Q:S->X is a Markov kernel and nu is a fixed probability law on A.",
+        "B>0 is fixed across parameters. W:((S times X) times A)->Real is jointly measurable and |W((s,x),z)|<=B for every s,x,z.",
+        "A default x0:X is supplied for the parent output construction; the cost bound does not depend on its value.",
+        "At each parameter s an attempt independently draws x~Q(s), N~Poisson(2B), an infinite iid auxiliary sequence z~nu^ℕ, of which only the first N entries are read, and U~Uniform[0,1]. It accepts when U<=product_{i<N}(B+W((s,x),z_i))/(2B). Whole attempts are iid.",
+        "C is the extended nonnegative sum of N_n over all attempts n whose preceding attempts failed, including the first successful batch. On never-success it is the sum over every batch.",
+        "For every parameter s and failure tolerance 0<delta<1, set L=log(2/delta) and m=ceil(exp(2B)L)."
+      ],
+      "statement": "Under the displayed measurable bounded-estimator experiment, the actual full-batch query count satisfies P(C>2B(e-1)m+L)<=delta and P(C>K(B)L)<=delta, where K(B)=2B(e-1)(exp(2B)+1/log(2))+1. Acceptance probability is derived from the actual parent program and is not an extra hypothesis. The first inequality retains the integer ceiling; the second is an explicit single-log bound for fixed B. Both hold for every B>0, including arbitrarily small B, and every 0<delta<1.",
+      "formula": "L=\\log(2/\\delta),\\quad m=\\lceil e^{2B}L\\rceil,\\quad K(B)=2B(e-1)(e^{2B}+1/\\log2)+1,\\qquad \\mathbb P(C>2B(e-1)m+L)\\le\\delta,\\quad\\mathbb P(C>K(B)L)\\le\\delta.",
+      "boundary": "Counts full-batch estimator evaluations, including the successful batch, not automatically gradient queries or wall-clock time. A universal terminal-state constant requires uniform control of B and a separate cost account for each estimator call and other work. Actual clipped gradient estimators, target log-weight identification, Renyi error, reference points and initialization remain separate. This independently derived supporting inequality does not assert or silently repair the unrestricted printed 3B exp(2B) log(2/delta) threshold in external Theorem 2.3.",
+      "steps": [
+        {
+          "title": "Use the same actual program and its proved acceptance probability",
+          "text": "The existing production theorem supplies p_s>=exp(-2B) for the actual acceptance event under the actual four-coordinate attempt law. Definitional equality aligns both definitions. Mapping the attempt to its N coordinate gives Poisson(2B); measurability follows from product coordinates and finite products on each discrete N stratum.",
+          "formula": "p_s=\\Lambda_s(E_s)\\ge e^{-2B},\\qquad (N)_\\#\\Lambda_s=\\operatorname{Poisson}(2B).",
+          "lean": "poisson_rejection_output; actual_attempt_count_law; measurable_accepted"
+        },
+        {
+          "title": "Compare the stopped cost to a deterministic prefix on each path",
+          "text": "If any attempt j<m succeeds, every charged term at index n>=m vanishes because the earlier-success predicate is false. Therefore C is at most S_m=sum_{n<m}N_n on this event. A large stopped cost thus requires either all m attempts to fail or a large fixed-prefix sum. This comparison uses no stopping-time/count independence.",
+          "formula": "\\{C>t\\}\\subseteq\\{\\text{all }i<m\\text{ fail}\\}\\cup\\{S_m>t\\},\\qquad S_m=\\sum_{i<m}N_i.",
+          "lean": "totalCost_le_prefix; cost_tail_subset"
+        },
+        {
+          "title": "Integrate the actual Poisson exponential moment",
+          "text": "First prove integrability of exp(N) using the convergent exponential series weighted by the Poisson mass. The true count law then gives E exp(N)=exp(2B(e-1)). The finite-coordinate pushforward of the iid stream is the finite product measure, so product integration gives E exp(S_m)=exp(2Bm(e-1)).",
+          "formula": "\\mathbb E e^N=e^{2B(e-1)},\\qquad\\mathbb E e^{S_m}=e^{2Bm(e-1)}.",
+          "lean": "poisson_exponential_integrable; poisson_exponential_moment; fixed_prefix_exponential_moment"
+        },
+        {
+          "title": "Apply exponential Markov to the fixed prefix",
+          "text": "Exponentiation sends S_m>2Bm(e-1)+L into an event where exp(S_m) exceeds the corresponding positive threshold. Markov and the exact exponential moment cancel the Poisson contribution, leaving exp(-L). All conversions to extended nonnegative integrals have integrability or positivity witnesses.",
+          "formula": "\\mathbb P(S_m>2Bm(e-1)+L)\\le e^{-L}.",
+          "lean": "fixed_prefix_chernoff; fixed_prefix_chernoff_shift"
+        },
+        {
+          "title": "Budget the probability of all preceding failures",
+          "text": "The actual iid cylinder law gives failure probability (1-p_s)^m. For a=exp(-2B), the inequality 1-p_s<=exp(-a) follows from p_s>=a and 1-a<=exp(-a). The ceiling choice ensures a*m>=L. The failure term is therefore at most exp(-L). Probability finiteness is established before taking real parts.",
+          "formula": "(1-p_s)^m\\le e^{-e^{-2B}m}\\le e^{-L},\\qquad e^{-2B}\\lceil e^{2B}L\\rceil\\ge L.",
+          "lean": "failure_power_exponential_bound; poisson_tail_budget"
+        },
+        {
+          "title": "Combine both events at the requested failure tolerance",
+          "text": "The union bound gives at most 2exp(-L). With L=log(2/delta), this equals delta. The nonnegative total cost is left as its full infinite sum, so the bound covers all paths, including any never-success path; it is not a theorem only about attempt counts.",
+          "formula": "\\mathbb P(C>2B(e-1)m+L)\\le 2e^{-L}=\\delta.",
+          "lean": "full_batch_cost_tail; full_batch_cost_tail_of_budget; delta_log_budget; full_batch_cost_delta_tail"
+        },
+        {
+          "title": "Expose the single-log coefficient and its dependence on B",
+          "text": "Because 0<delta<1, L>=log(2)>0. Thus m<=exp(2B)L+1<=(exp(2B)+1/log(2))L. The resulting larger threshold K(B)L has a smaller exceedance event. K depends on B: converting this to a universal terminal gradient-cost statement still needs a uniform B bound and the concrete per-estimator gradient cost.",
+          "formula": "m\\le(e^{2B}+1/\\log2)L,\\qquad2B(e-1)m+L\\le K(B)L.",
+          "lean": "ceil_threshold_le_single_log; measure_mono"
+        }
+      ],
+      "lean_statement": "Two explicit high-probability bounds for the same actual full-batch Poisson rejection cost.",
+      "lean_proof": "Actual parent acceptance bound, coordinate law, pathwise prefix truncation, Poisson exponential series, iid product moment, exponential Markov, failure budget and ceiling comparison.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.infinitePi",
+        "ProbabilityTheory.poissonMeasure",
+        "MeasureTheory.meas_ge_le_lintegral_div",
+        "MeasureTheory.integral_fintype_prod_eq_pow",
+        "Nat.le_ceil",
+        "Nat.ceil_lt_add_one"
+      ]
+    }
+  ]
+}

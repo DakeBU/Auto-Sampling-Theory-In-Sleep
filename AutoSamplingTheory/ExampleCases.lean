@@ -31,6 +31,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail
 
 /-!
 # ASTIS example cases
