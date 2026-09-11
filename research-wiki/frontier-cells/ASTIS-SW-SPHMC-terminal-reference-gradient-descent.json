@@ -30,7 +30,7 @@
     "focused_checks": [],
     "proof_plan": "proof-blueprints/SPHMC-terminal-reference-gradient-descent.md",
     "planning_review": "Independent source/dependency review log_depth_source_review and mathematical contract review depth_commit_verifier accepted actual GD, adjacent-iterate route, Nat.ceil certificate, measurability/L1 obligations and counting convention.",
-    "execution_boundary": "Root sole writer. TerminalSamplerAccuracyCost retains stabilization lane until delivery; this successor EXPLORING only."
+    "execution_boundary": "Root sole writer; prior terminal sampler PR287 merged, all CI/live complete, no active stabilizer. Current reference packet EXPLORING; complete production/focused and independent development/expanded reviews accepted, formal anonymous/source admission pending."
   },
   "blocked": {
     "reason": "",

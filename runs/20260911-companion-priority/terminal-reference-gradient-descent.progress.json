@@ -3,10 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.",
   "remaining": [
-    "Independent full proof and source preaudit",
-    "Production/focused test",
-    "Fresh anonymous reconstruction/formal source admission",
-    "Integration and reader delivery"
+    "Author mathematical reader lesson and source publication binding",
+    "Fresh anonymous reconstruction and formal source admission",
+    "Independent fixed-commit VERIFIED, integration and actual original reader delivery"
   ],
   "scratch_checkpoint": {
     "path": ".astis\\TerminalReferenceGradientDescent.lean",
@@ -57,5 +56,22 @@
       "Tests\\SmoothedPicardHMCTerminalReferenceGradientDescent.lean": "356e4c0fe2d5ff6d1cc285f2e77468a50d187a622695b595f3e200ebe8f55880"
     },
     "state": "Focused PASS3374, session6552 exit0, standard three axioms/no lint. Independent fixed-production review and formal source admission pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/terminal-reference-gradient-descent-expanded.log",
+    "characters": 2281,
+    "sha256": "3eb914a674746149f984ac3ec853ffd112108e16c2a3f42a3a864adb4c7fbc0a",
+    "session": 12157,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed Meta.deltaExpand/isDefEq at62ad62c; exact text hash and no private/source/ellipsis/PANIC verified."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "62ad62cc93f669449accfc561671bd2f51fcde80",
+    "production_sha256": "1845f0463edd9df2cf2dabba2327928bf839da7ec4c1ce15a676b66e420f2821",
+    "test_sha256": "356e4c0fe2d5ff6d1cc285f2e77468a50d187a622695b595f3e200ebe8f55880",
+    "result": "Unchanged reviewed mathematics, independent focused PASS3374 standard3 and2281-character expanded Meta.isDefEq replay accepted; no VERIFIED."
   }
 }
