@@ -1,0 +1,164 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "d3d131b30e71436121ff4252e08379ca8f2bdae1acd096b873f7963264618b18",
+  "source_sha256": "854a8b951fd5e6a4c6aab608f719b4e9998aa581d7e51a76c29d15b7e0c87e28",
+  "statement_sha256": "59d3bcbce87a2153c4bdad9b9001f2318d6fde1663441fd6c7a6fceeace9e167",
+  "reconstruction_sha256": "9ae776715582b59d6713c33ffe90f1022fa398846733e6e7d4354583ca70756a",
+  "module_text_sha256": "ce4177fc912e33da7df6f6ed43db9ae64cfd7f499f34590dbc469c779b5c6db5",
+  "publication_binding_sha256": "c4079a024682d3e27c514a2a70d4d748ebd900a07c49700e0842b0c66d36a8df",
+  "semantic_slots": {
+    "objects": {
+      "original": "Random-center regularized potential,actual GD and reference point.",
+      "reconstructed": "Same pair defines initial state,center,true gradient iteration,first index and output.",
+      "relation": "explicit-elaboration",
+      "evidence": "u(y,z)=y+sqrt(tau)*z,initial y; derivative in state variable."
+    },
+    "domains": {
+      "original": "Normalized positive-dimensional Euclidean source setting.",
+      "reconstructed": "General beta,coordinate-free finite dimension,eta0 allowed,d>0 required.",
+      "relation": "different",
+      "evidence": "Disclosed extensions;alpha>0 and alpha<=beta exclude beta0."
+    },
+    "quantifiers": {
+      "original": "Current call and independent fresh Gaussian.",
+      "reconstructed": "All pair stopping properties at fixed parameters; expectation under actual nu.prod(G).",
+      "relation": "explicit-elaboration",
+      "evidence": "No history-conditional law or joint all-parameter kernel conclusion."
+    },
+    "assumptions": {
+      "original": "Curvature and upstream Wasserstein accuracy.",
+      "reconstructed": "Actual C2 Hessian,positive parameters and actual coupling-defined W2 squared budget.",
+      "relation": "explicit-elaboration",
+      "evidence": "Initial joint moment derived by parent rather than additionally assumed; W2 remains supplied."
+    },
+    "conclusion": {
+      "original": "Actual inner reference and per-call cost use.",
+      "reconstructed": "Joint measurability,actual ad first-hit,residual,pointwise count,count L1 and expected bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "Strict d/A only provides witness; correct residual A*sqrt(ad)."
+    },
+    "scopes": {
+      "original": "One-call step in complete reference-cost argument.",
+      "reconstructed": "Fixed-call actual stopping program and mathematical count.",
+      "relation": "explicit-elaboration",
+      "evidence": "No history propagation,stage sum,runtime tail or full sampler claim."
+    },
+    "constant_dependencies": {
+      "original": "Asymptotic source per-call bound.",
+      "reconstructed": "Explicit sufficient2+k*log(1+A*(M+tau*d/A^2)/d).",
+      "relation": "explicit-elaboration",
+      "evidence": "Looser bound follows strict stopping witness; not source exact count formula."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual gradient identity supplied by parent and A,a,c positivity justified."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Continuity is proved by induction on entire pair,not inferred from fixed center."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "d/A<=ad and minimality transfer witness/count without identifying outputs."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Actual ad event measurable; pairwise finite witness eliminates default branch."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Residual identity and A*sqrt(ad) correct; no smaller terminal bound asserted."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Function equality identifies same potential and actual pair-law moment; no fixed-center expectation branch."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Log L1 established by nonnegative linear domination before tangent integration; count L1 and expected bound follow."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 5,
+    "declarations": [
+      "joint_iterates",
+      "jointIndex",
+      "joint_stop",
+      "actual_joint_program",
+      "expected_count"
+    ],
+    "evidence": "Four private theorems and actual first-index definition fully read; first-index existence/Nat.find/default branch expanded in anonymous statement."
+  },
+  "deltas": [
+    {
+      "slot": "conclusion",
+      "classification": "proof-route elaboration",
+      "description": "Actual ad algorithm retained; auxiliary d/A witness only.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Actual ad algorithm retained; auxiliary d/A witness only."
+    },
+    {
+      "slot": "constant_dependencies",
+      "classification": "sufficient-bound refinement",
+      "description": "Explicit looser logarithmic bound is derived,not source exact count.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Explicit looser logarithmic bound is derived,not source exact count."
+    },
+    {
+      "slot": "domains",
+      "classification": "disclosed generalization",
+      "description": "General beta,coordinate-free and eta0 extensions justify domain-mismatch;d>0 retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: General beta,coordinate-free and eta0 extensions justify domain-mismatch;d>0 retained."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "source-input abstraction",
+      "description": "Actual W2 input supplied,not an upstream sampler guarantee.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Actual W2 input supplied,not an upstream sampler guarantee."
+    },
+    {
+      "slot": "scopes",
+      "classification": "execution convention",
+      "description": "N+1 is visited-point mathematical count; gradient-query interpretation needs one base gradient per point reused between check/update,no evaluator trace.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: N+1 is visited-point mathematical count; gradient-query interpretation needs one base gradient per point reused between check/update,no evaluator trace."
+    },
+    {
+      "slot": "scopes",
+      "classification": "disclosed component boundary",
+      "description": "Fixed-call joint program only; recursive history and global cost remain open.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Fixed-call joint program only; recursive history and global cost remain open."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored formal source review accepted7semantic slots,7authored steps,6deltas and5private declarations. Primary Section6.3 actual1/c step and gradient-square ad threshold match. ASTIS source text is attributed expanded component,not verbatim paper theorem. Recomputed canonical packet,source,statement,reconstruction and complete module text hashes; all match. Production differs from frozen full scratch only in docs/removal of diagnostic prints. Binding field authenticated within packet but external preimage not recomputed. No registry/old verdict reading,independent compilation,Meta replay or decoder-run hash verification. Decoder cost-convention limitation agrees with disclosed no-trace boundary. No blocking issue/repair; not VERIFIED; faithful transcription authorized."
+}

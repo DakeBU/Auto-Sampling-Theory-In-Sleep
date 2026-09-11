@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Actual inner threshold a*d is preserved. Terminal d/A stopping is used only as an existence witness and larger count, not substituted for the inner algorithm or equated with its index. The resulting logarithmic bound is a disclosed sufficient upper bound. Count N+1 includes initial/final gradient checks. No evaluator caching, source upstream Wasserstein guarantee, conditional random history, stage sum or full sampler/main-result closure. Positive dimension matches the source and terminal parent. General beta and explicit moment constants are disclosed adaptations.",
   "remaining": [
-    "Focused production compile and independent production review",
-    "Authored proof lesson, fresh decoder and formal source review",
-    "Independent admission and original reader integration/delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "program_checkpoint": {
     "path": ".astis/JointReferenceGradientDescentProgram.lean",
@@ -55,6 +54,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-joint-reference-gradient-descent.json",
-    "state": "Seven authored steps,six disclosed differences; independent formal source review pending."
-  }
+    "state": "Seven authored steps,6deltas and5private accepted; publicationPASS66."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCJointReferenceGradientDescent"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }
