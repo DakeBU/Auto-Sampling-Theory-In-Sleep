@@ -12549,6 +12549,189 @@
           "evidence": "Binding is prerequisite; documentation excludes complete algorithm and numerical/cost guarantees."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCFiniteRGOProgram",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-finite-rgo-program",
+        "anchor": "Algorithm3.3 capped recursive execution and Theorem6.5 ideal comparison",
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "original_text": "E has its Borel measurable structure and is finite-dimensional over the reals; mu is any probability measure, with no density or moment assumption.\nS is the product of nonnegative real precision, E, natural count and the countable product E^N. The update is explicit; no history validity is inferred for arbitrary starting count/sequence.\na is measurable and strictly positive at every state, including stopped states. Source maps such as a=(eta+tau)/beta_A remain to be instantiated.\nB is nonnegative. The paper uses the positive inverse terminal variance; B=0 is a valid immediate-stop generalization.\nQ and L are arbitrary Markov kernels. The same globally constructed T,H precede them, and the constructed P is used for every finite depth.\nAt a finite cap the remaining call is represented by L even if the threshold was not reached. Exact ideal recovery uses both Q=H and L=T; no approximation or runtime bound follows.\nLet E be a finite-dimensional real inner-product Borel space, mu a probability measure, and S the state space of tuples (b,u,k,h) with nonnegative precision b, center u, natural count k and padded E-valued sequence h. Fix measurable a:S to R, positive at every state, and a nonnegative threshold B. Define F(s,y) by b_new=b+1/a(s), u_new=(b*u+y/a(s))/b_new, k_new=k+1 and h_new=(y,h(0),h(1),...). There exist Markov target and observation kernels T,H, before every choice of Markov Q,L, with T(s) the mu tilt by -b*norm(x-u)^2/2 and H(s) its actual Gaussian smoothing at standard deviation sqrt(a(s)). For each Q,L there are a Markov transition P and Markov output kernels R_n. P(s) is the point mass at s if B<=b and the F(s,.) pushforward of Q(s) otherwise. R_0=L; R_(n+1)(s) is L(s) if B<=b and the Q(s) integral of R_n(F(s,y)) otherwise. At stopped states every R_n(s)=L(s). The actual finite path kernel started at s, advanced by P for n transitions, projected to its final state and followed by L equals R_n. If Q=H and L=T, every R_n=T.",
+        "text_sha256": "00dd42ea0e53ed356350bc1e3769fa7daf73255a13f704dae57cce86285688a2"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOProgram.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (a : ℝ≥0 × E × ℕ × (ℕ → E) → ℝ),\n  Measurable a →\n    ∀ (ha0 : ∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)), 0 < a s) (threshold : ℝ≥0),\n      have F := fun p =>\n        (⟨↑p.1.1 + (a p.1)⁻¹, add_nonneg (NNReal.coe_nonneg p.1.1) (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n          (↑p.1.1 + (a p.1)⁻¹)⁻¹ • (↑p.1.1 • p.1.2.1 + (a p.1)⁻¹ • p.2), p.1.2.2.1 + 1, fun n =>\n          Nat.casesOn n p.2 p.1.2.2.2);\n      ∃ T H,\n        ProbabilityTheory.IsMarkovKernel T ∧\n          ProbabilityTheory.IsMarkovKernel H ∧\n            (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)), T s = μ.tilted fun x => -(↑s.1 / 2) * ‖x - s.2.1‖ ^ 2) ∧\n              (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)),\n                  H s = AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing (T s) √(a s)) ∧\n                ∀ (Q L : ProbabilityTheory.Kernel (ℝ≥0 × E × ℕ × (ℕ → E)) E),\n                  ProbabilityTheory.IsMarkovKernel Q →\n                    ProbabilityTheory.IsMarkovKernel L →\n                      ∃ P R,\n                        ProbabilityTheory.IsMarkovKernel P ∧\n                          (∀ (n : ℕ), ProbabilityTheory.IsMarkovKernel (R n)) ∧\n                            (∀ (s : ℝ≥0 × E × ℕ × (ℕ → E)),\n                                P s =\n                                  if threshold ≤ s.1 then MeasureTheory.Measure.dirac s\n                                  else MeasureTheory.Measure.map (fun y => F (s, y)) (Q s)) ∧\n                              R 0 = L ∧\n                                (∀ (n : ℕ) (s : ℝ≥0 × E × ℕ × (ℕ → E)),\n                                    (R (n + 1)) s =\n                                      if threshold ≤ s.1 then L s else (fun y => (R n) (F (s, y))) ∘ₘ Q s) ∧\n                                  (∀ (n : ℕ) (s : ℝ≥0 × E × ℕ × (ℕ → E)), threshold ≤ s.1 → (R n) s = L s) ∧\n                                    (∀ (n : ℕ),\n                                        have κ := fun k =>\n                                          P.comap (fun h => h ⟨k, Finset.mem_Iic.mpr le_rfl⟩)\n                                            (measurable_pi_apply ⟨k, Finset.mem_Iic.mpr le_rfl⟩);\n                                        L ∘ₖ\n                                            ((ProbabilityTheory.Kernel.partialTraj κ 0 n).map fun h =>\n                                                  h ⟨n, Finset.mem_Iic.mpr le_rfl⟩).comap\n                                              (fun s x => s)\n                                              (measurable_pi_lambda (fun s x => s) fun a => measurable_id') =\n                                          R n) ∧\n                                      (Q = H → L = T → ∀ (n : ℕ), R n = T)",
+        "statement_sha256": "1ee10f9d9dad5b69734cc4533b46f7ee1514f6a2033468e4a33e598fb50a8502",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Production focused PASS3752 standard axioms; independent scratch review accepted. Production independent replay and fixed-commit admission recorded separately.",
+        "decoder_context": [
+          "Measure E is a countably additive measure; IsProbabilityMeasure means mass one. Kernel X Y is a measurable family of measures on Y indexed by X. IsMarkovKernel means every fiber has mass one.",
+          "The right-associated product NNReal times E times Nat times (Nat to E) has its product measurable structure. For a state s, s.1 is a nonnegative real, s.2.1 an E element, s.2.2.1 a natural and s.2.2.2 an E-valued sequence. Nat.casesOn n y h equals y at zero and h(m) at n=m+1.",
+          "mu.tilted(f) normalizes exp(f) against mu. GaussianSmoothing.gaussianSmoothing(P,r) is the actual law of X+rZ under P times the centered identity-covariance Gaussian; r is a standard-deviation scale.",
+          "Measure.map is pushforward. Measure.bind applies a measure-valued function and integrates its event masses. Kernel composition L circle_k P first uses P and then L; P^0 is the identity kernel and P^(n+1) is n+1 successive uses.",
+          "Finset.Iic k indexes natural numbers from zero to k. A product over Iic k is a finite path. Kernel.comap precomposes the input map; Kernel.map pushes forward the output. Kernel.partialTraj kappa 0 n is the iterated finite trajectory kernel that takes a path through time zero and appends coordinates through time n using kappa at each stage. The displayed last-coordinate projection and constant singleton input map are part of the statement."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "pending"
+      },
+      "publication_binding_sha256": "0c7940bdf5baa0e174687454804e54d6aa8bfd76201d6c6c6cf292f504e9fa49",
+      "publication_context": {
+        "file": "685c1c576bfc9cd46028599a354e0fe78f145551a2a99159716c44da34baa876",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO\nimport Mathlib.Probability.Kernel.IonescuTulcea.PartialTraj\n\n/-!\n# Finite capped RGO execution and ideal recovery\n\nSource: SPHMC arXiv:2609.06906v1, Algorithm 3.3 and the ideal comparison\nunderlying Theorem 6.5. The state contains nonnegative precision, center,\ncount and padded observation history. Each continuing transition uses the\nactual precision-weighted update; terminal states are absorbing.\n\nFor arbitrary observation and terminal Markov kernels this constructs the\nfinite path law and proves its terminal-output marginal equals the recursive\noutput. StateDependentRGO supplies actual ideal kernels, whose finite capped\noutput recovers the target at every depth. Recovery is derived, not assumed.\n\nA cap reached before the threshold still uses the supplied terminal kernel.\nThis does not prove that the cap reaches the source stopping depth, construct\nFORS or the approximate smoothed sampler, or establish error/query-cost bounds.\nThe source uses a positive precision threshold; zero is a valid immediate-stop\ngeneralization. Arbitrary count/history initialization carries no validity\ninvariant, and the path is a state trajectory, not a query execution record.\n-/\n\nopen MeasureTheory ProbabilityTheory Finset\nopen scoped NNReal ENNReal\nopen AutoSamplingTheory.ExampleCases.SmoothedPicardHMC\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram\n\n-- Precision, center, observation count, and padded most-recent-first history.\nlocal notation \"ProgramState\" E:arg => ℝ≥0 × E × ℕ × (ℕ → E)\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\n/-- Construct finite threshold-absorbed RGO execution, identify its terminal-output\nmarginal with recursive evaluation, and derive ideal recovery for every finite cap. -/\ntheorem finite_rgo_program (μ : Measure E) [IsProbabilityMeasure μ]\n    (a : ProgramState E → ℝ) (ha : Measurable a) (ha0 : ∀ s, 0 < a s)\n    (threshold : ℝ≥0) :\n    let F : ProgramState E × E → ProgramState E := fun p =>\n      (⟨(p.1.1 : ℝ)+(a p.1)⁻¹, add_nonneg p.1.1.coe_nonneg (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n       ((p.1.1 : ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1 : ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n       p.1.2.2.1+1, fun n => Nat.casesOn n p.2 p.1.2.2.2)\n    ∃ (T H : Kernel (ProgramState E) E), IsMarkovKernel T ∧ IsMarkovKernel H ∧\n      (∀ s, T s = μ.tilted (fun x => -((s.1 : ℝ)/2)*‖x-s.2.1‖^2)) ∧\n      (∀ s, H s = GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (a s))) ∧\n      ∀ (Q L : Kernel (ProgramState E) E), IsMarkovKernel Q → IsMarkovKernel L →\n      ∃ (P : Kernel (ProgramState E) (ProgramState E)) (R : ℕ → Kernel (ProgramState E) E),\n        IsMarkovKernel P ∧ (∀ n, IsMarkovKernel (R n)) ∧\n        (∀ s, P s = if threshold ≤ s.1 then Measure.dirac s else (Q s).map (fun y => F (s,y))) ∧\n        R 0 = L ∧\n        (∀ n s, R (n+1) s = if threshold ≤ s.1 then L s else\n          (Q s).bind (fun y => R n (F (s,y)))) ∧\n        (∀ n s, threshold ≤ s.1 → R n s = L s) ∧\n        (∀ n : ℕ,\n          let κ : (k : ℕ) → Kernel (Π _ : Iic k, ProgramState E) (ProgramState E) := fun k =>\n            P.comap (fun h => h ⟨k, mem_Iic.mpr le_rfl⟩) (by fun_prop)\n          L ∘ₖ (((Kernel.partialTraj (X := fun _ => ProgramState E) κ 0 n).map\n            (fun h => h ⟨n, mem_Iic.mpr le_rfl⟩)).comap\n            (fun (s : ProgramState E) (_ : Iic 0) => s) (by fun_prop)) = R n) ∧\n        (Q = H → L = T → ∀ n, R n = T) := by\n  classical\n  have endpoint_path (C : Kernel (ProgramState E) (ProgramState E)) [IsMarkovKernel C] (n : ℕ) :\n      let κ : (k : ℕ) → Kernel (Π _ : Iic k, (ProgramState E)) (ProgramState E) := fun k =>\n        C.comap (fun h => h ⟨k, mem_Iic.mpr le_rfl⟩) (by fun_prop)\n      ((Kernel.partialTraj (X := fun _ => (ProgramState E)) κ 0 n).map (fun h => h ⟨n, mem_Iic.mpr le_rfl⟩)).comap\n        (fun (s : (ProgramState E)) (_ : Iic 0) => s) (by fun_prop) = C ^ n := by\n    intro κ\n    have hκ : ∀ k, IsMarkovKernel (κ k) := fun k => by dsimp [κ]; infer_instance\n    let := hκ\n    have hm (n : ℕ) : (Kernel.partialTraj (X := fun _ => (ProgramState E)) κ 0 n).map (fun h => h ⟨n, mem_Iic.mpr le_rfl⟩) =\n        (C ^ n) ∘ₖ Kernel.deterministic (fun h : Π _ : Iic 0, (ProgramState E) => h ⟨0, mem_Iic.mpr le_rfl⟩)\n          (by fun_prop) := by\n      induction n with\n      | zero =>\n        rw [Kernel.partialTraj_self, Kernel.id_map (by fun_prop), pow_zero]\n        exact (Kernel.id_comp _).symm\n      | succ n ih =>\n        rw [Kernel.partialTraj_succ_eq_comp (Nat.zero_le n), Kernel.map_comp,\n          Kernel.map_partialTraj_succ_self]\n        change (C.comap _ _) ∘ₖ Kernel.partialTraj (X := fun _ => (ProgramState E)) κ 0 n = _\n        rw [← Kernel.comp_map, ih, ← Kernel.comp_assoc, _root_.pow_succ']\n        rfl\n    rw [hm, ← Kernel.comp_deterministic_eq_comap, Kernel.comp_assoc,\n      Kernel.deterministic_comp_deterministic]\n    change (C ^ n) ∘ₖ Kernel.id = C ^ n\n    exact Kernel.comp_id _\n  have measurable_program_update (a : ProgramState E → ℝ) (ha : Measurable a)\n      (ha0 : ∀ s, 0 < a s) :\n      let F : ProgramState E × E → ProgramState E := fun p =>\n        (⟨(p.1.1 : ℝ)+(a p.1)⁻¹, add_nonneg p.1.1.coe_nonneg (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n         ((p.1.1 : ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1 : ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n         p.1.2.2.1+1, fun n => Nat.casesOn n p.2 p.1.2.2.2)\n      Measurable F := by\n    intro F\n    apply Measurable.prodMk\n    · exact Measurable.subtype_mk (by fun_prop)\n    · apply Measurable.prodMk\n      · fun_prop\n      · apply Measurable.prodMk\n        · fun_prop\n        · apply measurable_pi_lambda\n          intro n\n          cases n <;> fun_prop\n  have absorbing_program (D : Set (ProgramState E)) [DecidablePred (· ∈ D)] (hD : MeasurableSet D)\n      (C : Kernel (ProgramState E) (ProgramState E)) [IsMarkovKernel C] (L : Kernel (ProgramState E) E) [IsMarkovKernel L] :\n      let P : Kernel (ProgramState E) (ProgramState E) := Kernel.piecewise hD Kernel.id C\n      let R : ℕ → Kernel (ProgramState E) E := fun n => L ∘ₖ (P ^ n)\n      (∀ n, IsMarkovKernel (R n)) ∧ R 0 = L ∧\n        (∀ n s, s ∈ D → R n s = L s) ∧\n        (∀ n s, R (n+1) s = if s ∈ D then L s else (C s).bind (R n)) := by\n    classical\n    intro P R\n    have hP : IsMarkovKernel P := by dsimp [P]; infer_instance\n    let := hP\n    have hp (n : ℕ) : IsMarkovKernel (P ^ n) := by\n      induction n with\n      | zero => change IsMarkovKernel Kernel.id; infer_instance\n      | succ n ih =>\n        let := ih\n        rw [pow_succ]\n        change IsMarkovKernel ((P ^ n) ∘ₖ P)\n        infer_instance\n    have hR (n : ℕ) : IsMarkovKernel (R n) := by\n      let := hp n\n      dsimp [R]\n      infer_instance\n    have hz : R 0 = L := by\n      change L ∘ₖ Kernel.id = L\n      exact Kernel.comp_id L\n    have hstep (n : ℕ) : R (n+1) = (R n) ∘ₖ P := by\n      dsimp only [R]\n      rw [pow_succ]\n      exact (Kernel.comp_assoc L (P ^ n) P).symm\n    have hstop (n : ℕ) (s : (ProgramState E)) (hs : s ∈ D) : R n s = L s := by\n      induction n with\n      | zero => rw [hz]\n      | succ n ih =>\n        rw [hstep, Kernel.comp_apply]\n        have hPs : P s = Measure.dirac s := by\n          dsimp only [P]\n          rw [Kernel.piecewise_apply, if_pos hs, Kernel.id_apply]\n        rw [hPs, Measure.dirac_bind (R n).measurable]\n        exact ih\n    refine ⟨hR,hz,hstop,?_⟩\n    intro n s\n    by_cases hs : s ∈ D\n    · rw [if_pos hs]\n      exact hstop (n+1) s hs\n    · rw [if_neg hs, hstep, Kernel.comp_apply]\n      have hPs : P s = C s := by\n        dsimp only [P]\n        rw [Kernel.piecewise_apply, if_neg hs]\n      rw [hPs]\n  have ideal_state_transition (μ : Measure E) [IsProbabilityMeasure μ]\n      (a : ProgramState E → ℝ) (ha : Measurable a) (ha0 : ∀ s, 0 < a s) :\n      let F : ProgramState E × E → ProgramState E := fun p =>\n        (⟨(p.1.1 : ℝ)+(a p.1)⁻¹, add_nonneg p.1.1.coe_nonneg (le_of_lt (inv_pos.mpr (ha0 p.1)))⟩,\n         ((p.1.1 : ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1 : ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n         p.1.2.2.1+1, fun n => Nat.casesOn n p.2 p.1.2.2.2)\n      ∃ (T H : Kernel (ProgramState E) E) (C : Kernel (ProgramState E) (ProgramState E)),\n        IsMarkovKernel T ∧ IsMarkovKernel H ∧ IsMarkovKernel C ∧\n        (∀ s, T s = μ.tilted (fun x => -((s.1 : ℝ)/2)*‖x-s.2.1‖^2)) ∧\n        (∀ s, H s = GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (a s))) ∧\n        (∀ s, C s = (H s).map (fun y => F (s,y))) ∧ T ∘ₖ C = T := by\n    intro F\n    have hF : Measurable F := measurable_program_update a ha ha0\n    obtain ⟨T,H,B,hT,hH,hB,hTf,hHf,hBpost,hBupd,hrec⟩ :=\n      StateDependentRGO.state_dependent_recovery μ (fun s : ProgramState E => (s.1 : ℝ)) a\n        (fun s => s.2.1) (by fun_prop) ha (by fun_prop) (fun s => s.1.coe_nonneg) ha0\n    let := hT\n    let := hH\n    let := hB\n    let C := (Kernel.id ×ₖ H).map F\n    have hC : IsMarkovKernel C := Kernel.IsMarkovKernel.map _ hF\n    let := hC\n    have hCf (s : ProgramState E) : C s = (H s).map (fun y => F (s,y)) := by\n      dsimp only [C]\n      rw [Kernel.map_apply _ hF, Kernel.prod_apply, Kernel.id_apply, Measure.dirac_prod,\n        Measure.map_map hF (by fun_prop)]\n      rfl\n    have hBf (s : ProgramState E) (y : E) : B (s,y) =\n        (T (F (s,y))).map (Prod.mk s) := by\n      rw [hBupd,hTf]\n      rfl\n    refine ⟨T,H,C,hT,hH,hC,hTf,hHf,hCf,?_⟩\n    ext s t ht\n    have hst : MeasurableSet (Prod.snd ⁻¹' t : Set (ProgramState E × E)) := ht.preimage measurable_snd\n    have heq := congrArg (fun m : Measure (ProgramState E × E) => m (Prod.snd ⁻¹' t))\n      (hrec (Measure.dirac s) inferInstance)\n    rw [Measure.bind_apply hst B.aemeasurable, Measure.lintegral_compProd (B.measurable_coe hst),\n      Measure.compProd_apply hst] at heq\n    simp only [lintegral_dirac] at heq\n    rw [Kernel.comp_apply' _ _ _ ht, hCf, lintegral_map (T.measurable_coe ht)\n      (show Measurable (fun y : E => F (s,y)) from hF.comp measurable_prodMk_left)]\n    convert heq using 1\n    · apply lintegral_congr\n      intro y\n      rw [hBf,Measure.map_apply (by fun_prop) hst]\n      rfl\n    · rfl\n  have absorbing_invariant (D : Set (ProgramState E)) [DecidablePred (· ∈ D)]\n      (hD : MeasurableSet D) (C : Kernel (ProgramState E) (ProgramState E)) [IsMarkovKernel C]\n      (T : Kernel (ProgramState E) E) [IsMarkovKernel T] (hTC : T ∘ₖ C = T) :\n      let P : Kernel (ProgramState E) (ProgramState E) := Kernel.piecewise hD Kernel.id C\n      ∀ n : ℕ, T ∘ₖ (P ^ n) = T := by\n    intro P\n    have hP : IsMarkovKernel P := by dsimp [P]; infer_instance\n    let := hP\n    have hTP : T ∘ₖ P = T := by\n      ext s t ht\n      rw [Kernel.comp_apply]\n      by_cases hs : s ∈ D\n      · have hPs : P s = Measure.dirac s := by\n          dsimp only [P]\n          rw [Kernel.piecewise_apply, if_pos hs, Kernel.id_apply]\n        rw [hPs, Measure.dirac_bind T.measurable]\n      · have hPs : P s = C s := by\n          dsimp only [P]\n          rw [Kernel.piecewise_apply, if_neg hs]\n        rw [hPs]\n        exact congrArg (fun K : Kernel (ProgramState E) E => K s t) hTC\n    intro n\n    induction n with\n    | zero => exact Kernel.comp_id T\n    | succ n ih =>\n      rw [pow_succ]\n      change T ∘ₖ ((P ^ n) ∘ₖ P) = T\n      rw [← Kernel.comp_assoc, ih, hTP]\n  intro F\n  have hF : Measurable F := measurable_program_update a ha ha0\n  obtain ⟨T,H,C,hT,hH,hC,hTf,hHf,hCf,hTC⟩ := ideal_state_transition μ a ha ha0\n  let := hT\n  let := hH\n  let := hC\n  refine ⟨T,H,hT,hH,hTf,hHf,?_⟩\n  intro Q L hQ hL\n  let := hQ\n  let := hL\n  let D : Set (ProgramState E) := {s | threshold ≤ s.1}\n  have hD : MeasurableSet D := measurableSet_le measurable_const measurable_fst\n  let CQ := (Kernel.id ×ₖ Q).map F\n  have hCQ : IsMarkovKernel CQ := Kernel.IsMarkovKernel.map _ hF\n  let := hCQ\n  have hCQf (s : ProgramState E) : CQ s = (Q s).map (fun y => F (s,y)) := by\n    dsimp only [CQ]\n    rw [Kernel.map_apply _ hF, Kernel.prod_apply, Kernel.id_apply, Measure.dirac_prod,\n      Measure.map_map hF (by fun_prop)]\n    rfl\n  let P := Kernel.piecewise hD Kernel.id CQ\n  let R : ℕ → Kernel (ProgramState E) E := fun n => L ∘ₖ (P ^ n)\n  have hP : IsMarkovKernel P := by dsimp [P]; infer_instance\n  let := hP\n  obtain ⟨hR,hzero,hstop,hstep⟩ := absorbing_program D hD CQ L\n  refine ⟨P,R,hP,hR,?_,hzero,?_,hstop,?_,?_⟩\n  · intro s\n    dsimp only [P]\n    rw [Kernel.piecewise_apply, Kernel.id_apply, hCQf]\n    rfl\n  · intro n s\n    change (L ∘ₖ (P ^ (n+1))) s = _\n    rw [hstep]\n    by_cases hs : threshold ≤ s.1\n    · rw [if_pos (show s ∈ D from hs), if_pos hs]\n    · rw [if_neg (show s ∉ D from hs), if_neg hs, hCQf]\n      apply Measure.ext\n      intro t ht\n      rw [Measure.bind_apply ht (R n).aemeasurable,\n        Measure.bind_apply ht (show AEMeasurable (fun y : E => R n (F (s,y))) (Q s) from ((R n).measurable.comp (hF.comp measurable_prodMk_left)).aemeasurable)]\n      exact lintegral_map ((R n).measurable_coe ht)\n        (show Measurable (fun y : E => F (s,y)) from hF.comp measurable_prodMk_left)\n  · intro n κ\n    rw [endpoint_path P n]\n  · intro hQeq hLeq n\n    have hCQeq : CQ = C := by\n      ext s t ht\n      rw [hCQf, hQeq, hCf]\n    change L ∘ₖ (P ^ n) = T\n    rw [hLeq]\n    exact absorbing_invariant D hD CQ T (by rw [hCQeq]; exact hTC) n\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram\n\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Algorithm3.3 capped recursive execution and Theorem6.5 ideal comparison",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded finite execution semantics, no author endorsement implied."
+        },
+        "statement": "Let E be a finite-dimensional real inner-product Borel space, mu a probability measure, and S the state space of tuples (b,u,k,h) with nonnegative precision b, center u, natural count k and padded E-valued sequence h. Fix measurable a:S to R, positive at every state, and a nonnegative threshold B. Define F(s,y) by b_new=b+1/a(s), u_new=(b*u+y/a(s))/b_new, k_new=k+1 and h_new=(y,h(0),h(1),...). There exist Markov target and observation kernels T,H, before every choice of Markov Q,L, with T(s) the mu tilt by -b*norm(x-u)^2/2 and H(s) its actual Gaussian smoothing at standard deviation sqrt(a(s)). For each Q,L there are a Markov transition P and Markov output kernels R_n. P(s) is the point mass at s if B<=b and the F(s,.) pushforward of Q(s) otherwise. R_0=L; R_(n+1)(s) is L(s) if B<=b and the Q(s) integral of R_n(F(s,y)) otherwise. At stopped states every R_n(s)=L(s). The actual finite path kernel started at s, advanced by P for n transitions, projected to its final state and followed by L equals R_n. If Q=H and L=T, every R_n=T.",
+        "formulae": [
+          {
+            "label": "Actual recursion and ideal finite-depth recovery",
+            "tex": "R_{n+1}(s)=\\begin{cases}L(s),&B\\le b(s),\\\\\\int R_n(F(s,y))\\,Q(s)(dy),&b(s)<B,\\end{cases}\\qquad Q=H,\\ L=T\\ \\Longrightarrow\\ R_n=T."
+          }
+        ],
+        "assumptions": [
+          "E has its Borel measurable structure and is finite-dimensional over the reals; mu is any probability measure, with no density or moment assumption.",
+          "S is the product of nonnegative real precision, E, natural count and the countable product E^N. The update is explicit; no history validity is inferred for arbitrary starting count/sequence.",
+          "a is measurable and strictly positive at every state, including stopped states. Source maps such as a=(eta+tau)/beta_A remain to be instantiated.",
+          "B is nonnegative. The paper uses the positive inverse terminal variance; B=0 is a valid immediate-stop generalization.",
+          "Q and L are arbitrary Markov kernels. The same globally constructed T,H precede them, and the constructed P is used for every finite depth.",
+          "At a finite cap the remaining call is represented by L even if the threshold was not reached. Exact ideal recovery uses both Q=H and L=T; no approximation or runtime bound follows."
+        ],
+        "obligations": [
+          {
+            "id": "finite-rgo-execution",
+            "label": "Finite threshold-absorbed execution, actual path endpoint and ideal recovery"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+          "title": "Finite threshold-absorbed RGO execution, terminal marginal and ideal recovery",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC v1 Algorithm 3.3 and Theorem 6.5",
+              "scope": "Finite capped execution and ideal comparison, before concrete sampler, stopping-depth, accuracy and cost identification."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCFiniteRGOProgram"
+          ],
+          "statement": "Let E be a finite-dimensional real inner-product Borel space, mu a probability measure, and S the state space of tuples (b,u,k,h) with nonnegative precision b, center u, natural count k and padded E-valued sequence h. Fix measurable a:S to R, positive at every state, and a nonnegative threshold B. Define F(s,y) by b_new=b+1/a(s), u_new=(b*u+y/a(s))/b_new, k_new=k+1 and h_new=(y,h(0),h(1),...). There exist Markov target and observation kernels T,H, before every choice of Markov Q,L, with T(s) the mu tilt by -b*norm(x-u)^2/2 and H(s) its actual Gaussian smoothing at standard deviation sqrt(a(s)). For each Q,L there are a Markov transition P and Markov output kernels R_n. P(s) is the point mass at s if B<=b and the F(s,.) pushforward of Q(s) otherwise. R_0=L; R_(n+1)(s) is L(s) if B<=b and the Q(s) integral of R_n(F(s,y)) otherwise. At stopped states every R_n(s)=L(s). The actual finite path kernel started at s, advanced by P for n transitions, projected to its final state and followed by L equals R_n. If Q=H and L=T, every R_n=T.",
+          "formula": "R_{n+1}(s)=\\begin{cases}L(s),&B\\le b(s),\\\\\\int R_n(F(s,y))\\,Q(s)(dy),&b(s)<B,\\end{cases}\\qquad Q=H,\\ L=T\\ \\Longrightarrow\\ R_n=T.",
+          "assumptions": [
+            "E has its Borel measurable structure and is finite-dimensional over the reals; mu is any probability measure, with no density or moment assumption.",
+            "S is the product of nonnegative real precision, E, natural count and the countable product E^N. The update is explicit; no history validity is inferred for arbitrary starting count/sequence.",
+            "a is measurable and strictly positive at every state, including stopped states. Source maps such as a=(eta+tau)/beta_A remain to be instantiated.",
+            "B is nonnegative. The paper uses the positive inverse terminal variance; B=0 is a valid immediate-stop generalization.",
+            "Q and L are arbitrary Markov kernels. The same globally constructed T,H precede them, and the constructed P is used for every finite depth.",
+            "At a finite cap the remaining call is represented by L even if the threshold was not reached. Exact ideal recovery uses both Q=H and L=T; no approximation or runtime bound follows."
+          ],
+          "steps": [
+            {
+              "title": "Make the parameter and history update measurable",
+              "text": "The nonnegative new precision is b+1/a(s), positive because a(s)>0. Inversion, scalar multiplication and addition make the weighted center measurable. Incrementing the count is measurable. Each coordinate of the prepended sequence is either the new observation or a coordinate of the old sequence, so the entire countable-product update F is measurable.",
+              "formula": "F((b,u,k,h),y)=\\left(b+a(s)^{-1},\\frac{bu+a(s)^{-1}y}{b+a(s)^{-1}},k+1,(y,h_0,h_1,\\ldots)\\right).",
+              "lean": "Local measurable_program_update; Measurable.prodMk, Measurable.subtype_mk, measurable_pi_lambda and coordinate cases."
+            },
+            {
+              "title": "Derive ideal posterior consistency from the actual updated target",
+              "text": "Apply StateDependentRGO to the current precision and center maps. Its globally measurable T,H and retained-state posterior use exactly the updated quadratic parameters. Consequently the posterior at (s,y), after discarding its retained s coordinate, equals T(F(s,y)). Evaluate the proved joint recovery at the point mass state law and integrate event sections. This yields T composed with the ideal state transition C_H equals T; this identity is proved rather than assumed.",
+              "formula": "C_H(s)=F(s,\\cdot)_\\#H(s),\\qquad \\int T(F(s,y))\\,H(s)(dy)=T(s).",
+              "lean": "Local ideal_state_transition; StateDependentRGO.state_dependent_recovery, Measure.bind_apply, Measure.lintegral_compProd and lintegral_map."
+            },
+            {
+              "title": "Construct the actual stopped transition and recursive outputs",
+              "text": "The terminal set D={s:B<=b(s)} is measurable. Push Q(s) through F(s,.) to obtain the continuing transition C_Q. Use the identity kernel on D and C_Q outside D. Both branches are Markov. Define R_n=L composed with P^n. Kernel composition preserves the Markov property. The identity branch gives R_n(s)=L(s) at stopped states by induction. On the continuing branch, the pushforward integral gives exactly the recursive call under Q(s).",
+              "formula": "P(s)=\\begin{cases}\\delta_s,&s\\in D,\\\\F(s,\\cdot)_\\#Q(s),&s\\notin D,\\end{cases}\\qquad R_n=L\\circ_k P^n.",
+              "lean": "Local absorbing_program and main hCQf; Kernel.piecewise, Kernel.map, Kernel.comp_assoc, Measure.dirac_bind, Measure.bind_apply, lintegral_map."
+            },
+            {
+              "title": "Identify the endpoint of the actual finite state path",
+              "text": "For a path through time k, the next-state kernel is P evaluated at its last coordinate. Mathlib partialTraj constructs the finite trajectory kernel from these measurable Markov kernels. Induction using the successor decomposition shows that its final-coordinate marginal is P^n after reading the initial coordinate. Composing with the singleton initial path at s removes that coordinate adapter. Following the final state by L therefore gives the same R_n as recursive evaluation.",
+              "formula": "\\kappa_k(h)=P(h_k),\\qquad (\\operatorname{last}_n)_\\#\\operatorname{Path}_{0:n}(s)=P^n(s),\\qquad L\\circ_k\\operatorname{EndPath}_n=R_n.",
+              "lean": "Local endpoint_path; Kernel.partialTraj, partialTraj_succ_eq_comp, map_partialTraj_succ_self, comp_deterministic_eq_comap and deterministic_comp_deterministic."
+            },
+            {
+              "title": "Preserve ideal recovery through absorption and every finite cap",
+              "text": "In the ideal case C_Q=C_H. The continuing branch preserves T by the already proved posterior consistency, and the stopped identity branch preserves T trivially. Thus T composed with the same absorbed transition P equals T. Induction on kernel powers gives T composed with P^n equals T for every n, including zero. Substituting the ideal terminal kernel L=T in the previously constructed R_n proves the claimed recovery.",
+              "formula": "T\\circ_k P=T\\quad\\Longrightarrow\\quad T\\circ_k P^n=T\\quad\\Longrightarrow\\quad R_n=T\\ \\ (Q=H,\\ L=T).",
+              "lean": "Local absorbing_invariant; actual hTC from ideal_state_transition, kernel extensionality, pow_succ and Kernel.comp_assoc."
+            }
+          ],
+          "lean_statement": "Actual finite threshold-absorbed recursive kernel and finite path endpoint, with ideal recovery derived from the explicit quadratic update.",
+          "lean_proof": "Prove update measurability, derive posterior consistency, construct absorbed transition powers, identify finite trajectory endpoint and induct on ideal invariance.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery"
+          ],
+          "mathlib_dependencies": [
+            "ProbabilityTheory.Kernel.partialTraj",
+            "ProbabilityTheory.Kernel.partialTraj_succ_eq_comp",
+            "ProbabilityTheory.Kernel.map_partialTraj_succ_self",
+            "ProbabilityTheory.Kernel.piecewise",
+            "ProbabilityTheory.Kernel.comp_assoc",
+            "MeasureTheory.Measure.bind_apply",
+            "MeasureTheory.lintegral_map"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program",
+          "role": "prerequisite",
+          "supports": [
+            "finite-rgo-execution"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Algorithm3.3 uses a Euclidean Gibbs target.",
+            "lean": "Any probability base on a finite-dimensional real inner-product Borel space."
+          },
+          {
+            "source": "The recursion updates precision and center, with call-dependent smoothing parameters.",
+            "lean": "Explicit precision, center, count and padded-history update with measurable a(s)>0 everywhere."
+          },
+          {
+            "source": "Termination uses the positive inverse terminal variance.",
+            "lean": "Nonnegative threshold, with identity state transition on terminal states."
+          },
+          {
+            "source": "Algorithm3.3 uses a smoothed sampler, recurses and terminates with FORS.",
+            "lean": "Arbitrary Markov observation and terminal kernels Q,L; a finite cap with L used at the cap."
+          },
+          {
+            "source": "Ideal posterior consistency supports the stagewise correctness argument.",
+            "lean": "Construct actual ideal T,H before Q,L and derive R_n=T for Q=H,L=T at every finite depth."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product Borel space, mu any probability measure on E, and S=NNReal times E times Nat times E^Nat. For any measurable a:S to R positive at every state, and any nonnegative threshold B, define F((b,u,k,h),y)=(b+1/a(s),(b*u+y/a(s))/(b+1/a(s)),k+1,h_y), where h_y(0)=y and h_y(m+1)=h(m). Vector division means reciprocal scalar multiplication. There exist Markov kernels T,H:S to E. For every state s=(b,u,k,h), T(s) is mu normalized by the density exp(-b*norm(x-u)^2/2), and H(s) is the actual law of X+sqrt(a(s))*Z under T(s) times an independent centered identity-covariance Gaussian. The square root is the standard-deviation scale.\nFor these same T,H and every pair of Markov kernels Q,L:S to E, there exist a Markov P:S to S and a sequence of Markov kernels R_n:S to E. At every state, P(s)=dirac s if B<=b, and otherwise P(s) is the F(s,.) pushforward of Q(s). R_0=L. For all n,s, R_(n+1)(s)=L(s) if B<=b, and otherwise it is the bind of Q(s) under y to R_n(F(s,y)). On every measurable event A this bind integrates R_n(F(s,y))(A). For every n and stopped state B<=b, R_n(s)=L(s).\nFor every finite n, define the history kernel kappa_k(path)=P(path(k)) on paths indexed by 0 through k. Start with the singleton path at s, append states through time n using partialTraj(kappa,0,n), and project to coordinate n. Composing this endpoint kernel with L equals R_n. This explicitly includes precomposition with the singleton initial path and pushforward by the final-coordinate map. If Q=H and L=T, then R_n=T as kernels for every n.\nThe quantifier order is all E,mu,a with their structures and assumptions, then all nonnegative thresholds, then existence of T,H, then all Markov Q,L, then existence of P and a single sequence R satisfying all identities for every n. The same T,H precede Q,L; P,R can depend on Q,L. The variance a can depend on every state coordinate. Equality with the threshold is a stopped state. No threshold-hitting claim, infinite-horizon limit, positive threshold lower bound, positive dimension or moment assumption on mu is asserted. There are no unspecified numerical constants; update coefficients are explicit in b,a(s),u,y.",
+        "text_sha256": "830ce2f8c29eb36d819e687f6fa1a60b0a2c3bb3c45a6e119110ae6b49b8dca3",
+        "decoder_packet_sha256": "b4d8bb465624f120d24919a360ff3cd0b8376564acdc4b1ad1d6a0481f274eb8",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "finite_blind_decoder",
+        "notes": [
+          "Fresh decoder preserved concrete state update, full quantifier order, actual finite trajectory endpoint and ideal conditional recovery; no stopping or cost conclusion inferred."
+        ],
+        "decoder_run_sha256": "a06c96fdde833734a6e38d4bc076e43bfe57d54ac959ff98b643c15558d5d4bc",
+        "lean_statement_sha256": "1ee10f9d9dad5b69734cc4533b46f7ee1514f6a2033468e4a33e598fb50a8502",
+        "run_artifact": "runs/20260911-companion-priority/finite-rgo-program.decoder-result.json"
+      }
     }
   ]
 }
