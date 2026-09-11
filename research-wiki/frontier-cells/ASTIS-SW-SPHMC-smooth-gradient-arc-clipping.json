@@ -50,7 +50,7 @@
       "commit": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
       "merged_at": "2026-09-11T13:56:48Z",
       "candidate": "570115e675dd3d5875a522460db0485df79e19be",
-      "post_merge": "Merge CI and exact deployed provenance pending."
+      "post_merge": "Merge Lean34607231208 SUCCESS; site34607231158 and deploy103289416393 SUCCESS; exact live merge provenance verified."
     }
   },
   "blocked": {

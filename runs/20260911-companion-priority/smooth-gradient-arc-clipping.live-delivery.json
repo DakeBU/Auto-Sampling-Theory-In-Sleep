@@ -15,6 +15,6 @@
   "deploy_job": 103289416393,
   "deploy_status": "success",
   "merge_lean_run": 34607231208,
-  "merge_lean_status": "in_progress",
-  "boundary": "Live original anchor and both full merge SHA provenance verified by fresh HTTP200 responses. PR/local compilation separate from website badges. Merge Lean CI still running."
+  "merge_lean_status": "success",
+  "boundary": "Both merge CI terminal SUCCESS; actual deployment and original reader/module full merge provenance verified. Local source/compile/UI evidence remains separately pinned; neither full paper complete."
 }

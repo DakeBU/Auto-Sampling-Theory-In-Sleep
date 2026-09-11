@@ -63,3 +63,25 @@ replay matched all 3028 characters. Six authored reader steps and explicit
 source-domain differences are now bound for a fresh anonymous reconstruction.
 Formal source admission, aggregate integration and reader delivery remain
 separate; the SAU stays EXPLORING.
+
+Independent next-consumer review (depth_commit_verifier, planning only): use
+the actual clipped estimator W_hat=min B (max (-B) W), true auxiliary U.prod P,
+and proposal q=N(h,eta I) in PoissonRejection.poisson_rejection_output. A useful
+next packet should identify the actual iid retry output as q.tilted mB, where
+mB(x)=E W_hat, prove abs(mB)<=B and exp(-B)<=ZB<=exp(B), and bound the actual
+mean error by E max(abs(W)-B,0) after proving excess integrability. This gives
+normalization from clipping itself, not an unproved ideal Gibbs assumption.
+Use the exact source h=x0-eta gradient f xp; joint estimator measurability for
+the fixed-center program still needs proof. No adaptive-center kernel claim.
+
+The subsequent ideal identification q.tilted(EW)=N(x0,eta I).tilted(-f)
+needs positive finite normalization and density adapters. GaussianLikelihood's
+public translated_gaussian_likelihood and the shared isotropic Gaussian density
+are reuse candidates; private translated-density helpers are not public APIs.
+RGOClosure's nonpositive quadratic-weight theorem does not establish arbitrary
+exp(-f) integrability. For nonconvex smooth f, source small-step conditions
+must control beta*eta (the negative quadratic example exposes this need).
+Normalized Renyi comparison still lacks the required joint exponential moments,
+Jensen and source Lemma B.12 adapter. Cost remains attached to the actual
+clipped program and cannot be transported through TV proximity. None of this
+planning is an additional proved theorem or SAU.

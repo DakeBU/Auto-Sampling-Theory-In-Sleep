@@ -1,10 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "remaining": [
-    "Author complete mathematical lesson and publication binding",
-    "Fresh anonymous reconstruction and independent formal source review",
-    "Fixed production verification, admission, integration and original reader delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA, merge and deployment"
   ],
   "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
   "development_checkpoint": {
@@ -66,6 +65,15 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-gradient-arc-mean.json",
-    "state": "Six authored steps; fresh anonymous decoder running, formal review pending."
-  }
+    "state": "Six authored steps accepted; publication PASS57."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GradientArcMean.gradient_arc_mean",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCGradientArcMean"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL; formal source review accepted. Fixed-commit VERIFIED, aggregate integration and reader delivery remain separate."
 }
