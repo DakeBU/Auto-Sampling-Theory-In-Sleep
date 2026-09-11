@@ -270,6 +270,111 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-ConvexityC2"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-prop-1-13",
+      "library": "optimisation",
+      "chapter": "01",
+      "chapter_path": "libraries/optimisation/chapter-01.html",
+      "title": "Proposition 1.13 · one-sided smoothness equivalences",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "§1.2, Definition1.12 equation(1.7) and Proposition1.13, both equivalence clauses",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS restatement, not quoted prose; no endorsement implied."
+      },
+      "statement": "For a continuously differentiable real-valued function on all Euclidean d-space and β≥0, the quadratic upper model is equivalent to the one-sided gradient bound below. With twice continuous differentiability, both are equivalent to the Hessian upper bound. The proof is omitted in the source by analogy with Proposition1.6.",
+      "assumptions": [
+        "All x,y,v range over ℝᵈ; β≥0.",
+        "C¹ suffices for the first equivalence; C² is required for the Hessian clause. Convexity is not assumed."
+      ],
+      "formulae": [
+        {
+          "label": "(1.7) · upper model",
+          "tex": "f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2"
+        },
+        {
+          "label": "gradient upper bound",
+          "tex": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\le\\beta\\|y-x\\|^2"
+        },
+        {
+          "label": "Hessian upper bound",
+          "tex": "D^2f(x)[v,v]\\le\\beta\\|v\\|^2"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "c1-upper-equivalence",
+          "label": "Quadratic upper model ↔ one-sided gradient upper bound"
+        },
+        {
+          "id": "c2-hessian-equivalence",
+          "label": "Under C², quadratic upper model ↔ genuine Hessian diagonal upper bound"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+          "cell": "ASTIS-SHARED-smoothness-c1",
+          "role": "proof-edge",
+          "supports": [
+            "c1-upper-equivalence"
+          ],
+          "boundary": "These are one-sided upper bounds. They do not imply a β-Lipschitz gradient without an additional condition such as convexity; no such implication is asserted here. The source instance is E=ℝᵈ and β≥0.",
+          "assumption_deltas": [
+            {
+              "source": "Whole Euclidean d-space and β≥0.",
+              "lean": "Complete real inner-product space and arbitrary real β.",
+              "classification": "generalization",
+              "reason": "The sign-reversal route uses the already available signed modulus -β. Completeness gives the genuine Riesz gradient; Euclidean spaces satisfy it, including dimension zero."
+            },
+            {
+              "source": "C¹ for the first equivalence and C² for the Hessian equivalence; proof omitted by analogy with Proposition1.6.",
+              "lean": "ContDiff ℝ 1 f; actual gradient and iterated fderiv. No separately assumed symmetry, segment integrability or derivative field.",
+              "classification": "source-implicit",
+              "reason": "Negation preserves the stated regularity. Existing signed convexity/FTC parents derive all needed interval regularity; the Hessian is represented by its bilinear evaluation."
+            },
+            {
+              "source": "One-sided upper bounds; convexity only appears in a subsequent separate Lipschitz-gradient consequence.",
+              "lean": "No convexity premise or Lipschitz conclusion.",
+              "classification": "same",
+              "reason": "The concave quadratic at β=0 is a focused boundary counterexample to conflating these conditions."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-SmoothnessC1"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_fderiv2_upper",
+          "cell": "ASTIS-SHARED-smoothness-c2",
+          "role": "proof-edge",
+          "supports": [
+            "c2-hessian-equivalence"
+          ],
+          "boundary": "These are one-sided upper bounds. They do not imply a β-Lipschitz gradient without an additional condition such as convexity; no such implication is asserted here. The source instance is E=ℝᵈ and β≥0.",
+          "assumption_deltas": [
+            {
+              "source": "Whole Euclidean d-space and β≥0.",
+              "lean": "Complete real inner-product space and arbitrary real β.",
+              "classification": "generalization",
+              "reason": "The sign-reversal route uses the already available signed modulus -β. Completeness gives the genuine Riesz gradient; Euclidean spaces satisfy it, including dimension zero."
+            },
+            {
+              "source": "C¹ for the first equivalence and C² for the Hessian equivalence; proof omitted by analogy with Proposition1.6.",
+              "lean": "ContDiff ℝ 2 f; actual gradient and iterated fderiv. No separately assumed symmetry, segment integrability or derivative field.",
+              "classification": "source-implicit",
+              "reason": "Negation preserves the stated regularity. Existing signed convexity/FTC parents derive all needed interval regularity; the Hessian is represented by its bilinear evaluation."
+            },
+            {
+              "source": "One-sided upper bounds; convexity only appears in a subsequent separate Lipschitz-gradient consequence.",
+              "lean": "No convexity premise or Lipschitz conclusion.",
+              "classification": "same",
+              "reason": "The concave quadratic at β=0 is a focused boundary counterexample to conflating these conditions."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-SmoothnessC2"
+        }
+      ]
     }
   ]
 }

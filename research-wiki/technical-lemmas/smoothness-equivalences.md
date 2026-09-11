@@ -1,0 +1,53 @@
+# One-sided smoothness equivalences
+
+SAU: ANDI-OPT-smoothness-001. Source: Chewi, arXiv:2605.07006v1,
+Definition1.12 equation(1.7) and Proposition1.13, both equivalence clauses.
+User explicitly continued this optimisation lane. Companion scheduling and
+latest handoff were checked for reuse; their live sampler tasks remain separate.
+Baseline4e94f0a includes PR265 without modifying its proof or audit artifacts.
+
+Target: quadratic upper model iff one-sided gradient upper bound (C1), and
+iff the genuine Hessian diagonal upper bound (C2). The shared declarations
+allow complete real inner-product spaces and any real beta, explicitly
+extending the source Euclidean/nonnegative-beta domain. No convexity premise
+and no Lipschitz-gradient conclusion. The latter needs extra structure.
+
+Reuse audit: Samplinglib ConvexityC1 signed gradient-to-chord integral,
+StrongConvexFirstOrder first-order lower bound, and ConvexityC2 signed
+Hessian equivalence are the actual parents. Apply them to -f with modulus
+-beta. Their source specializations requiring nonnegative modulus cannot be
+used this way. Existing QuadraticRegularization remains intact; its sandwich
+assumptions are stronger than this task. Mathlib negation rules operate on
+actual fderiv and the Riesz gradient, not arbitrary supplied derivative fields.
+
+Independent read-only retrieval reviewer smoothness_review checked pinned
+Mathlib db584cd6d46c92f209a44c0f1c829460d327499d, Optlib5da27c5 and
+CvxLean c62c2f. Optlib Function/Lsmooth.lean upper bounds assume a genuinely
+Lipschitz gradient; related equivalences require convexity and positive
+constant. No matching CvxLean interface found in the inspected scope. No
+upstream dependency or port was introduced; classification adapt_existing.
+
+Source omits the proof by reference to Proposition1.6. Expansion: sum the two
+upper models for the forward C1 implication; negate the gradient condition,
+apply signed gradient-to-chord FTC, derive the first-order lower model, negate.
+For C2 compose with the prior signed gradient/Hessian equivalence of -f.
+Its positive-direction limit and Hessian FTC justify both implications.
+C1/C2 supplies all segment regularity. No division by beta or direction norm.
+
+Focused tests cover signed sharp quadratics, a beta=0 concave quadratic whose
+gradient is not 0-Lipschitz, a genuine gradient-step descent estimate from the
+Hessian upper bound, and the zero-dimensional constant-function instance.
+Initial compile feedback concerned outer-function extensionality for the
+second derivative of -f and simplification of a real quadratic derivative;
+neither required a mathematical assumption or route change.
+
+Conceptual-mirror audit: none-found. Negation is an elementary reuse adapter
+inside the existing curvature/upper-lower calculus context, not a newly
+certified cross-domain transport or a new mathematical mechanism. No conceptual
+edge is promoted to a formal dependency. Current boundary: focused tests,
+independent commit/source review, root test wiring, Registry and reader/graph
+admission must all pass before integration.
+
+Both production declarations and focused tests compiled (2727 jobs); standard
+axioms only. Draft audit schema passes, while the real publication gate
+correctly withholds admission until independent source review is completed.

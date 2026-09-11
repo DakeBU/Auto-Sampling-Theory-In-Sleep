@@ -1,0 +1,123 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+      "kind": "theorem",
+      "title": "A quadratic upper model is equivalent to a one-sided gradient bound",
+      "statement": "For every C¹ real-valued function f on a complete real inner-product space and every real β, the global quadratic upper model with coefficient β/2 holds if and only if the gradient difference has inner product with the displacement at most β times squared displacement.",
+      "formula": "\\bigl[\\forall x,y,\\ f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\bigr]\\quad\\Longleftrightarrow\\quad\\bigl[\\forall x,y,\\ \\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\le\\beta\\|y-x\\|^2\\bigr].",
+      "assumptions": [
+        "E is a complete real inner-product space; all points and directions range over E. The domain is the whole space.",
+        "β is any real number, including zero and negative values. This explicitly generalizes the source parameter range β≥0 and Euclidean domain.",
+        "The gradient is the actual Mathlib Riesz gradient of the Fréchet derivative. No convexity assumption is imposed.",
+        "f is continuously Fréchet differentiable everywhere (ContDiff ℝ 1 f)."
+      ],
+      "steps": [
+        {
+          "title": "Add the two endpoint models",
+          "text": "Write the upper model from x to y and from y to x. The values cancel on addition; the linear terms combine with opposite displacements. Each quadratic correction is β‖y−x‖²/2.",
+          "formula": "0\\le-\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle+\\beta\\|y-x\\|^2.",
+          "lean": "hxy and hyx, inner_neg_right and norm_neg; linarith derives the bound."
+        },
+        {
+          "title": "Turn the upper bound into a signed lower bound",
+          "text": "For the converse set g=−f and m=−β. Linearity of the derivative and Riesz map gives ∇g=−∇f. The assumed one-sided upper bound becomes quantitative gradient monotonicity of g with signed modulus m.",
+          "formula": "\\langle\\nabla g(y)-\\nabla g(x),y-x\\rangle\\ge(-\\beta)\\|y-x\\|^2.",
+          "lean": "hg proves actual gradient negation; ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral applies with m=-β."
+        },
+        {
+          "title": "Recover the endpoint model through the existing integral route",
+          "text": "The signed gradient-to-chord theorem integrates along affine segments; C¹ supplies derivative continuity and interval integrability. Its chord conclusion and the genuine gradient yield the existing first-order lower model for g. Negating this inequality gives exactly the upper model for f, with coefficient β/2.",
+          "formula": "-f(y)\\ge-f(x)-\\langle\\nabla f(x),y-x\\rangle-\\frac\\beta2\\|y-x\\|^2.",
+          "lean": "StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn uses hf.neg.differentiable_one.hasGradientAt; hg and linarith finish."
+        }
+      ],
+      "boundary": [
+        "These are one-sided upper bounds. They do not imply a β-Lipschitz gradient without an additional condition such as convexity; no such implication is asserted here. The source instance is E=ℝᵈ and β≥0.",
+        "The source omits the proof by reference to Proposition 1.6. The explicit sign reversal reuses its already compiled signed integral and derivative-limit ingredients."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.neg; ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
+        "gradient; fderiv_fun_neg; map_neg; inner_sub_left; inner_neg_left; inner_neg_right; norm_neg"
+      ],
+      "lean_statement": "For every C¹ real-valued function f on a complete real inner-product space and every real β, the global quadratic upper model with coefficient β/2 holds if and only if the gradient difference has inner product with the displacement at most β times squared displacement.",
+      "lean_proof": "Write the upper model from x to y and from y to x. The values cancel on addition; the linear terms combine with opposite displacements. Each quadratic correction is β‖y−x‖²/2. For the converse set g=−f and m=−β. Linearity of the derivative and Riesz map gives ∇g=−∇f. The assumed one-sided upper bound becomes quantitative gradient monotonicity of g with signed modulus m. The signed gradient-to-chord theorem integrates along affine segments; C¹ supplies derivative continuity and interval integrability. Its chord conclusion and the genuine gradient yield the existing first-order lower model for g. Negating this inequality gives exactly the upper model for f, with coefficient β/2.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Definition 1.12 and Proposition 1.13",
+          "scope": "ASTIS-authored explanation, expanding the omitted proof using Proposition 1.6."
+        },
+        {
+          "path": "Tests/Shared/SmoothnessEquivalences.lean",
+          "label": "Sharp quadratics, nonconvex boundary and descent consumer",
+          "scope": "Tests actual declarations; no theorem status inferred from examples."
+        }
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_fderiv2_upper",
+      "kind": "theorem",
+      "title": "A quadratic upper model is equivalent to a Hessian upper bound",
+      "statement": "For every C² real-valued function f on a complete real inner-product space and every real β, the global quadratic upper model with coefficient β/2 holds if and only if the genuine Hessian quadratic form at each point is at most β times squared norm in every direction.",
+      "formula": "\\bigl[\\forall x,y,\\ f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2\\bigr]\\quad\\Longleftrightarrow\\quad\\bigl[\\forall x,v,\\ D^2f(x)[v,v]\\le\\beta\\|v\\|^2\\bigr].",
+      "assumptions": [
+        "E is a complete real inner-product space; all points and directions range over E. The domain is the whole space.",
+        "β is any real number, including zero and negative values. This explicitly generalizes the source parameter range β≥0 and Euclidean domain.",
+        "The gradient is the actual Mathlib Riesz gradient of the Fréchet derivative. No convexity assumption is imposed.",
+        "f is twice continuously Fréchet differentiable everywhere (ContDiff ℝ 2 f).",
+        "D²f(x)[v,v] means (fderiv ℝ (fderiv ℝ f) x v) v. C² supplies its existence and continuity; no separate Hessian, symmetry or integrability premise is supplied."
+      ],
+      "steps": [
+        {
+          "title": "Use the C¹ equivalence",
+          "text": "C² implies C¹, so the preceding theorem replaces the upper model by its one-sided gradient inequality.",
+          "formula": "\\langle\\nabla f(y)-\\nabla f(x),y-x\\rangle\\le\\beta\\|y-x\\|^2",
+          "lean": "upper_model_iff_gradient_upper with ContDiff.of_le."
+        },
+        {
+          "title": "Apply the signed Hessian equivalence to the negative function",
+          "text": "Set g=−f and m=−β again. Genuine first and second Fréchet derivatives commute with negation. The compiled equivalence for g uses a positive-direction derivative limit in one direction and the Hessian segment FTC in the other.",
+          "formula": "\\nabla g=-\\nabla f,\\qquad D^2g=-D^2f,\\qquad\\langle\\nabla g(y)-\\nabla g(x),y-x\\rangle\\ge m\\|y-x\\|^2\\ \\Longleftrightarrow\\ D^2g(x)[v,v]\\ge m\\|v\\|^2.",
+          "lean": "hg and hH prove both sign identities; ConvexityC2.gradient_mono_iff_fderiv2_lower applies to hf.neg at m=-β."
+        },
+        {
+          "title": "Reverse both signs",
+          "text": "Multiplying the two lower inequalities by −1 gives the upper gradient and Hessian bounds. Neither β nor the norm of the direction is divided by, so zero and negative β and v=0 remain valid.",
+          "formula": "D^2f(x)[v,v]\\le\\beta\\|v\\|^2",
+          "lean": "The two directions use Iff.mp and Iff.mpr with linear real arithmetic; no source-specific matrix field replaces fderiv."
+        }
+      ],
+      "boundary": [
+        "These are one-sided upper bounds. They do not imply a β-Lipschitz gradient without an additional condition such as convexity; no such implication is asserted here. The source instance is E=ℝᵈ and β≥0.",
+        "This closes the C² equivalence of Proposition 1.13 when specialized to the source domain. It does not close the later convexity-to-Lipschitz consequence or an entire chapter."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2.gradient_mono_iff_fderiv2_lower"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.neg; ContDiff.of_le",
+        "fderiv_fun_neg; fderiv_neg; gradient; map_neg; inner_sub_left; inner_neg_left"
+      ],
+      "lean_statement": "For every C² real-valued function f on a complete real inner-product space and every real β, the global quadratic upper model with coefficient β/2 holds if and only if the genuine Hessian quadratic form at each point is at most β times squared norm in every direction.",
+      "lean_proof": "C² implies C¹, so the preceding theorem replaces the upper model by its one-sided gradient inequality. Set g=−f and m=−β again. Genuine first and second Fréchet derivatives commute with negation. The compiled equivalence for g uses a positive-direction derivative limit in one direction and the Hessian segment FTC in the other. Multiplying the two lower inequalities by −1 gives the upper gradient and Hessian bounds. Neither β nor the norm of the direction is divided by, so zero and negative β and v=0 remain valid.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S1.SS2",
+          "label": "Sinho Chewi, Definition 1.12 and Proposition 1.13",
+          "scope": "ASTIS-authored explanation, expanding the omitted proof using Proposition 1.6."
+        },
+        {
+          "path": "Tests/Shared/SmoothnessEquivalences.lean",
+          "label": "Sharp quadratics, nonconvex boundary and descent consumer",
+          "scope": "Tests actual declarations; no theorem status inferred from examples."
+        }
+      ]
+    }
+  ]
+}

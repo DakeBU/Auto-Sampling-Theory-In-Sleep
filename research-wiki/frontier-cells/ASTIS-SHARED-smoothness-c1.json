@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-smoothness-c1",
+  "route": "shared",
+  "title": "C1 quadratic upper model and one-sided gradient bound",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Definition1.12 equation(1.7), Proposition1.13 C1 clause",
+  "target_statement": "For C1 f on a complete real inner-product space and any real beta, the global quadratic upper model with beta/2 is equivalent to the one-sided gradient bound with beta.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-strong-convex-gradient-monotonicity",
+    "ASTIS-SHARED-gradient-integral-convexity"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Proposition-1.13",
+    "shared:convex-potential-smoothness"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib/ASTIS ConvexityC1, ConvexityC2, StrongConvexFirstOrder and QuadraticRegularization",
+      "Pinned Mathlib fderiv negation, Riesz gradient and StrongConvexOn",
+      "Pinned Optlib/CvxLean scope checked by independent retrieval reviewer"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences.upper_model_iff_gradient_upper",
+    "canonical_shared_cell": "ASTIS-SHARED-smoothness-c1",
+    "notes": "Apply signed lower-bound interfaces to -f with modulus -beta; preserve existing modules. No gradient-Lipschitz equivalence without convexity."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Definition1.12 (1.7), Proposition1.13",
+    "detail_status": "omitted",
+    "gap": "The source omits the proof by analogy to Proposition1.6; expose sign reversal and genuine derivative identities.",
+    "consulted": [
+      {
+        "source": "Chewi Proposition1.6 and compiled ASTIS signed lower-bound interfaces",
+        "anchor": "C1 affine-segment FTC and C2 derivative-limit/Hessian FTC",
+        "hypothesis_adapter": "Apply to -f with signed modulus -beta; C1/C2 is preserved by negation."
+      }
+    ],
+    "fidelity_boundary": "Complete real inner-product space and signed beta explicitly generalize source Euclidean space and beta>=0. No convexity assumption, gradient Lipschitz or Riemannian conclusion."
+  }
+}
