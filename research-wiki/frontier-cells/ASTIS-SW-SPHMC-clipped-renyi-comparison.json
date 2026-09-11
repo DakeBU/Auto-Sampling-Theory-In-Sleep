@@ -39,9 +39,16 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-clipped-renyi-comparison.md",
     "planning_review": "Independent log_depth_source_review source/route audit accepted actual denominator-measure ell-powers, explicit source order discrepancy and ell>=2 range.",
-    "execution_boundary": "Root sole writer; ClippedRenyiComparison sole STABILIZING; accepted production/source unchanged.",
+    "execution_boundary": "PR286 actually merged; stabilization lane released. MergeCI/live pending.",
     "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/286",
+      "commit": "722f040352d86fbcfb60a0f8b14e80955412ed2e",
+      "merged_at": "2026-09-11T18:13:44Z",
+      "candidate": "a129fa4f0fc608f64e76ba9d0bd6fc5cd8bb6fa2",
+      "post_merge": "Merge CI and live provenance pending."
+    }
   },
   "blocked": {
     "reason": "",

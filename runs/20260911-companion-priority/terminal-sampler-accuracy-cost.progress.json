@@ -3,10 +3,10 @@
   "state": "EXPLORING",
   "boundary": "Actual fixed-call supplied-reference terminal sampler with explicit accuracy and cached gradient expected/tail cost. Smooth positive beta and positive-dimensional regime only; no zero-dimensional/beta-zero branch yet. Coordinate-free extension disclosed. Explicit log RN moment expression, not an assumed divergence API. No construction of supplied reference, joint parameter kernel or outer recursive/SPHMC/PBPS/composition completion. Source notation/intermediate B12 and Appendix C tail derivation discrepancies remain disclosed. No TV transport of unbounded costs.",
   "remaining": [
-    "Actual clipped gradient stream/output identity and cached count convention",
-    "Instantiate existing PoissonQueryTail on exactly the same law/event/cost",
-    "Assemble actual output RN moment/log accuracy and cost public consumer",
-    "Independent complete proof/source admission and integration"
+    "Independent full proof and source preaudit",
+    "Production and focused verification",
+    "Fresh anonymous reconstruction/formal source admission",
+    "Integration and actual original reader delivery"
   ],
   "scratch_checkpoint": {
     "path": ".astis/TerminalSamplerAccuracyCost.lean",
@@ -20,5 +20,12 @@
     "sha256": "4e719427b94c1ce46bae469e71a72baefea011821d1a93d51695ce9039554550",
     "scope": "First five private foundations only, before cost helpers.",
     "result": "Independent normalized frozen-source stdin compilation exit0 standard3/no lint; parameter algebra, denominator RN positivity and finite-toReal/L1 before log accepted. No VERIFIED."
+  },
+  "complete_scratch": {
+    "path": ".astis/TerminalSamplerAccuracyCost.lean",
+    "sha256": "a8e1884698917cd091e2ce89b7132dfdc0d5793da375fdbe5779144db098ea41",
+    "session": 59342,
+    "exit_code": 0,
+    "result": "Actual_program and18-conjunct public terminal_sampler_accuracy_cost compiled standard3/no lint. Actual iid law/output/never-hit, both RN moments and log accuracy, cached gradient expected and tail costs. Fourteen private declarations. No production/admission; independent full reviews pending."
   }
 }

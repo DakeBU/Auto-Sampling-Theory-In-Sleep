@@ -29,7 +29,7 @@
     "focused_checks": [],
     "proof_plan": "proof-blueprints/SPHMC-terminal-sampler-accuracy-cost.md",
     "planning_review": "Independent log_depth source/route audit accepted explicit64parameter route, corrected cached count to1+C, identified reusable actual PoissonQueryTail.",
-    "execution_boundary": "Root sole writer; RN predecessor sole STABILIZING with PR286 CI, this packet EXPLORING only."
+    "execution_boundary": "Root sole writer; prior RN PR286 merged, no active stabilizer. This packet EXPLORING; full scratch compiled, independent wholeproof/source review pending."
   },
   "blocked": {
     "reason": "",
