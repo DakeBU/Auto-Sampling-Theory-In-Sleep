@@ -1,0 +1,25 @@
+{
+  "cell": "ASTIS-SW-SPHMC-gradient-arc-mean",
+  "state": "EXPLORING",
+  "remaining": [
+    "Potential quadratic growth and f(h+Z) integrability",
+    "Actual joint Gaussian/uniform W integrability and common-C mean identity",
+    "Complete production theorem and independent source/proof/publication admission"
+  ],
+  "boundary": "Actual unclipped path mean and true auxiliary-input integrability only. No center residual, clipping step, convexity or assumed mean/integrability premise. Source center h=x0-eta gradient f xp, positive finite target normalization, clipped output law, Renyi comparison, initialization and costs remain separate. Neither paper main result complete.",
+  "development_checkpoint": {
+    "scratch": ".astis/GradientArcMean.lean",
+    "scratch_sha256": "b71c7066e4c83925e1a6e6c842ffa4ccc5f0cfd8a2620759cd12a7796522a137",
+    "command": "lake env lean .astis/GradientArcMean.lean",
+    "session": 45272,
+    "exit_code": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "log": ".astis/gradient-arc-mean-scratch.log",
+    "result": "Private actual path FTC identity compiled via public GaussianArcLaw derivative/endpoints, true gradient chain rule and interval FTC. Source signs and h+z start preserved. No production or full mean theorem yet.",
+    "review": "Independent development review requested; no admission."
+  }
+}

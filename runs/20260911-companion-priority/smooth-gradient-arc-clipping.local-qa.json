@@ -1,0 +1,68 @@
+{
+  "candidate": "570115e675dd3d5875a522460db0485df79e19be",
+  "source_digest": "85db2974f0f503939069ffe148cfdd04c14d1b4747f91a46c3221d59c52da84a",
+  "root_gate": {
+    "session": 47693,
+    "exit_code": 0,
+    "result": "PASS9159",
+    "log": ".astis/clipping-integration-gate.log"
+  },
+  "site_build": {
+    "command": "python website/scripts/build_site.py",
+    "session": 62155,
+    "exit_code": 0,
+    "log": ".astis/clipping-reader-build.log",
+    "modules": 629,
+    "declarations": 3793
+  },
+  "site_check": {
+    "command": "python website/scripts/check_site.py",
+    "session": 8059,
+    "exit_code": 0,
+    "log": ".astis/clipping-reader-check.log",
+    "reviewed_teaching": 77
+  },
+  "reader": {
+    "path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-smooth-gradient-arc-clipping",
+    "proof_steps": 5,
+    "initial_disclosures": 8,
+    "initial_open": 0,
+    "math_errors": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph evidence module link"
+    ],
+    "statement_code_characters": 894,
+    "proof_code_characters": 2656,
+    "source_review": "accepted/domain-mismatch",
+    "module_badges": [
+      "Compiled",
+      "Not mapped"
+    ],
+    "visual_inspection": "Root inspected actual screenshot at section heading; legible, no layout or formula error observed."
+  },
+  "graph": {
+    "report": ".astis/clipping-graph-check.json",
+    "nodes": 5,
+    "edges": 3,
+    "direct_relations": 2,
+    "structural": "module declares declaration",
+    "source_correspondence": "Dashed, explicitly not a Lean dependency",
+    "node_status": "Source-present publication; compiled badge not inferred",
+    "visual_inspection": "Root clicked Fit and inspected actual screenshot, followed evidence link to correct module."
+  },
+  "merge_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "c5c99a639a702d7a23028b8879d4ed48ce5c848c",
+    "result": "Accepted exact three-way70-audit merge and Counter max403-event union; other42 incoming files byte-identical; clipping proof and binding unchanged."
+  },
+  "boundary": "Local integration and reader QA only. PR CI, actual merge and deployment remain separate. Neither paper main result complete.",
+  "excluded_attempt": "tools/astis_site.py build produced only base site; graph/page absent. Its check was interrupted and no delivery acceptance inferred. Correct full scripts build/check subsequently succeeded.",
+  "independent_integration_review": {
+    "reviewer": "depth_commit_verifier",
+    "candidate": "570115e675dd3d5875a522460db0485df79e19be",
+    "result": "Accepted exact digest/gate, unchanged production/source binding, sole stabilization, root imports and generated graph/reader. Root browser evidence authenticated as root provenance, not independent clicks."
+  }
+}

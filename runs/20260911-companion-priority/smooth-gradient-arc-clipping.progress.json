@@ -2,8 +2,8 @@
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
   "state": "STABILIZING",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Final same-head PR CI",
+    "Actual merge and deployment"
   ],
   "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete.",
   "scratch": ".astis/SmoothGradientArcClipping.lean",
@@ -74,5 +74,14 @@
     "upstream": "41dc7d283960a8892df37e4b73942928c3fc38f3",
     "merge": "c5c99a639a702d7a23028b8879d4ed48ce5c848c",
     "boundary": "Three-way registry union70 audits; Counter max event union403 preserves both branches. Publication56/frontier78 pass. Independent merge review and aggregate gate separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/smooth-gradient-arc-clipping.local-qa.json",
+  "pr": {
+    "number": 280,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/280",
+    "head": "570115e675dd3d5875a522460db0485df79e19be",
+    "lean_run": 34605784303,
+    "site_run": 34605784332,
+    "observed_state": "Website CI SUCCESS at2026-09-11T13:45:19Z; Lean CI IN_PROGRESS; PR deploy skipped as expected"
   }
 }
