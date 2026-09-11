@@ -1,0 +1,81 @@
+{
+  "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
+  "state": "STABILIZING",
+  "remaining": [
+    "Aggregate integration and exact-candidate reader/graph QA",
+    "PR CI, actual merge and deployment"
+  ],
+  "boundary": "Actual fixed-call normalized bidirectional RN-power moment comparison. The order is the denominator-measure ell-power used by B12 proof and D1; printed B7/section1.3 definitions are inconsistent and must be disclosed. B12 intermediate step has a gap for1<ell<2; actualconsumerell>=2 avoids it, without modifying the source theorem. No logarithmic Renyi API,parameter selection,reference initialization,adaptive kernel,query cost or fullpaper completion. No TV transport of unbounded costs.",
+  "scratch_checkpoint": {
+    "path": ".astis/ClippedRenyiComparison.lean",
+    "result": "Five private foundations compiled; standard three axioms/no lint. Exponential domination,power Jensen,true error L1,exponential Jensen,inverse normalizer power via two exponential Jensen applications. No actual public RN comparison or production theorem yet.",
+    "sha256": "a039ab3d8d88cff60723adc700fdd77489fc1622e8d5d2c3bc3ed77f06f8701e",
+    "session": 50226,
+    "exit_code": 0
+  },
+  "complete_scratch": {
+    "path": ".astis/ClippedRenyiComparison.lean",
+    "sha256": "d991ddfe83c8b1cd6753efb5d6cc2ccfe069576f9a6eecda79a8a4474e7e2083",
+    "session": 91649,
+    "exit_code": 0,
+    "result": "Complete actualpublic RN comparison compiled,standard3/no lint.15private and1public. Two real RN L1/momentbounds,two ENNRealbounds,bothprobabilities/mutualAC. Derivedidealstep,actualsourceparentmoments/idealidentification,weightedL1beforeRNalgebra. Independentcompleteproof/sourcepreaudit pending;no production."
+  },
+  "independent_development_review": {
+    "reviewer": "depth_commit_verifier",
+    "sha256": "d991ddfe83c8b1cd6753efb5d6cc2ccfe069576f9a6eecda79a8a4474e7e2083",
+    "result": "Independent entire frozen-source compile via lean --stdin exit0;13prints standard3/no lint. Actual bidirectional RN measures,weightedL1 before normalization,derivedidealstep and exactparent consumer accepted. No production VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "d991ddfe83c8b1cd6753efb5d6cc2ccfe069576f9a6eecda79a8a4474e7e2083",
+    "result": "Complete15private/public source preaudit accepted; no blocker or assumption repair. No independent compile or formal decoder admission.",
+    "disclosures": [
+      "Actual denominator-measure ell-powers followB12/D1;B7/section1.3 printed definitions inconsistent.",
+      "B12 intermediate gap for1<ell<2 not repaired;actualconsumerell>=2.",
+      "Ten public conclusions;internalZpositive,Dintegrability and RNformulas not additional publicconjuncts.",
+      "No programmap repeat,logRenyiAPI,initialization,parameterizedkernel,cost or fullpaper."
+    ],
+    "convexity_clarification": "Independent reviewer corrected prior wording: Assumption3.2/D1 requires Holder gradient, not convexity; smooth s=1/no convexity is faithful to this dependency, not removal of a source assumption. SPHMC convexity belongs to downstream application. Coordinate-free domain remains a separate generalization."
+  },
+  "production": {
+    "module": "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedRenyiComparison.lean",
+    "test": "Tests\\SmoothedPicardHMCClippedRenyiComparison.lean",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\ClippedRenyiComparison.lean": "dfc9984c6ebc1f645b3f535e7f8bb382aaab39a22434eaafb48e116322041d9e",
+      "Tests\\SmoothedPicardHMCClippedRenyiComparison.lean": "8a6555f4c61379d0b557497424943712fe1604693c0fcb714eec0bd06bde62b8"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCClippedRenyiComparison",
+    "state": "Focused production PASS3738, exit0 session10220, public standard3 axioms/no lint. Production fixed-commit review and formal anonymous/source admission pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/clipped-renyi-comparison-expanded.log",
+    "sha256": "bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8",
+    "characters": 3228,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independent replay exit0/Meta.isDefEq success;3228chars SHA bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8 exactregistry;no private/source namespace/ellipsis leak."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "f652cfe620aa183aa61cbad079abb58995abe265",
+    "result": "Hashes and normalized mathematical content matched accepted scratch; independent focusedPASS3738, standard3/no lint. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-clipped-renyi-comparison.json",
+    "state": "Seven authored steps and15private implementations accepted; publicationPASS61."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCClippedRenyiComparison"
+    ]
+  },
+  "admission_boundary": "VERIFIED atbebb883. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/clipped-renyi-comparison.verified-admission.json",
+  "integration_notes": {
+    "upstream": "10b2e59e6a9390f16275cabff12473872fddb071",
+    "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior ead9e06, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  }
+}

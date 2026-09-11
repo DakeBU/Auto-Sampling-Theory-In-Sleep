@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-clipped-renyi-comparison",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual clipped and ideal RGO bidirectional RN moments",
+      "source": {
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "edition": "arXiv:2602.01338v1",
+        "anchor": "D.1 Eq18 smooth s=1 and B.12 Eq17, consumed by SPHMC A.4(2); printed B.7/section1.3 order discrepancy disclosed",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical restatement of the D.1/B.12 normalized comparison in Fan Chen, Sinho Chewi, Constantinos Daskalakis and Alexander Rakhlin, High-accuracy sampling for diffusion models and log-concave distributions, used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+      },
+      "statement": "pi and qhat are probability measures and are mutually absolutely continuous. The real functions ((d pi/d qhat).toReal)^ell and ((d qhat/d pi).toReal)^ell are integrable under qhat and pi respectively. Each of their real integrals minus one is at most 2*exp(2*B-K). Each corresponding ENNReal RN ell-power lintegral is at most ofReal(1+2*exp(2*B-K)).",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2. No convexity assumption is used for this selected smooth s=1 dependency.",
+        "For x0,x_plus in E, set h=x0-eta grad f(x_plus). Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. In particular beta*eta<1 will be proved, not added as an input.",
+        "Let P=(z->sqrt(eta) z)_*stdGaussian(E), nu=(Lebesgue restricted to (0,1]) product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For theta=pi*r/2 define W(x,r,z)=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(x_plus)-grad f(h+sin(theta)(x-h)+cos(theta)z) >. Let mB(x)=integral min(B,max(-B,W(x,r,z))) dnu(r,z). The estimator, independent input and clipping inside the expectation are actual definitions.",
+        "Define qhat=q.tilted(mB). First set G=(z->x0+sqrt(eta) z)_*stdGaussian(E), then pi=G.tilted(-f). Define K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). An exponential tilt uses its actual exponential integral as normalizer. Each RN power below is integrated under its denominator measure."
+      ],
+      "formulae": [
+        {
+          "label": "Actual bidirectional RN moments",
+          "tex": "\\int\\!\\left(\\frac{d\\pi}{d\\widehat\\pi}\\right)^\\ell d\\widehat\\pi\\le 1+2e^{2B-K},\\qquad \\int\\!\\left(\\frac{d\\widehat\\pi}{d\\pi}\\right)^\\ell d\\pi\\le 1+2e^{2B-K},\\qquad \\widehat\\pi=\\widehat q."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-clipped-renyi-comparison",
+          "label": "Actual clipped and ideal normalized bidirectional RN moments"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+          "cell": "ASTIS-SW-SPHMC-clipped-renyi-comparison",
+          "role": "proof-edge",
+          "supports": [
+            "actual-clipped-renyi-comparison"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCClippedRenyiComparison",
+          "boundary": "The ten public conclusions are two probability statements, two absolute-continuity statements, two real RN-power L1 statements, two real-integral-minus-one bounds and two ENNReal bounds. Positive normalizers, error L1 and explicit RN formulas are proved internally, not additional returned conjuncts. ClippedGradientProgram already identifies qhat with the actual program output; its map equality is not repeated. This follows the explicit denominator-measure ell-powers in B.12/D.1. B.7 and section1.3 have inconsistent printed definitions; this is disclosed rather than silently called a literal implementation of those lines. The intermediate B.12 proof gap for 1<ell<2 is outside this ell>=2 consumer and is not repaired here. No logarithmic Renyi API, accuracy parameter selection, initialization, parameterized kernel, query-cost result or complete companion paper is asserted.",
+          "assumption_deltas": [
+            {
+              "source": "The source uses positive-dimensional Euclidean space.",
+              "lean": "Finite-dimensional real inner-product Borel space with positive finrank.",
+              "classification": "generalization",
+              "reason": "Coordinate-free Gaussian and gradient interfaces preserve the dimension restriction."
+            },
+            {
+              "source": "D.1 uses Assumption3.2 with Holder gradient; the selected smooth case has s=1.",
+              "lean": "Actual beta-Lipschitz gradient, differentiability,positive beta,eta,B,d,ell>=2 and the displayed residual/64-step restriction.",
+              "classification": "same",
+              "reason": "This selects the smooth s=1 consumer, not the entire Holder theorem. D.1 itself does not assume convexity; downstream SPHMC convexity is not a missing hypothesis here."
+            },
+            {
+              "source": "B.12/D.1 proof uses denominator-measure ell-powers, whereas B.7 and section1.3 contain inconsistent measure subscripts or powers.",
+              "lean": "Both actual denominator-measure ell-power integrals are written explicitly.",
+              "classification": "source-implicit",
+              "reason": "The contract follows B.12 proof and D.1 actual use. Internal evidence suggests local printed definition errors; this is not an author-confirmed erratum or a claim of literal B.7 implementation."
+            },
+            {
+              "source": "B.12 is printed for ell>1, while D.1 uses ell>=2.",
+              "lean": "The selected actual consumer retains ell>=2.",
+              "classification": "same",
+              "reason": "The printed intermediate positive-power Jensen step can fail for1<ell<2. This is a proof-step gap, not a counterexample to its final theorem. The present packet neither claims that full range nor repairs it."
+            },
+            {
+              "source": "Auxiliary uniform time is sampled on [0,1].",
+              "lean": "Restricted Lebesgue volume on (0,1] is independently multiplied with the actual Gaussian.",
+              "classification": "source-implicit",
+              "reason": "Endpoint differences are null; the actual estimator and independent input are retained."
+            },
+            {
+              "source": "Normalized comparison uses the actual ideal and implemented clipped laws.",
+              "lean": "beta*eta<1,positive normalizers,both probabilities,mutual absolute continuity,weighted L1 and both RN a.e. formulas are proved before use.",
+              "classification": "source-implicit",
+              "reason": "No extra ideal normalization or target equality is assumed. RN a.e. finiteness justifies the real/ENNReal conversion."
+            },
+            {
+              "source": "D.1 Eq18 feeds the terminal approximate RGO in SPHMC A.4(2).",
+              "lean": "Two real moment-minus-one bounds and two ENNReal moment bounds with factor2,constants40/8 and actual distributions.",
+              "classification": "same",
+              "reason": "This completes the selected normalized moment comparison, not logarithmic Renyi API,parameter selection,initialization,adaptivekernel,cost or fullpaper."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

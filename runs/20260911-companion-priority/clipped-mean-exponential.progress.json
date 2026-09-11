@@ -1,9 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-clipped-mean-exponential",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "remaining": [
-    "Aggregate integration and exact-candidate reader/graph QA",
-    "PR CI, actual merge and deployment"
+    "Whole-Goal copy/citation/full associated Lean download delivery; selected packet merge/CI/live complete"
   ],
   "boundary": "Actual clipped-output exponential mean-error input to normalized Renyi comparison only. q-a.e. auxiliary exponential L1 must not be upgraded to everyx. Preserve factor2 and resulting log2 if logarithms are later taken. No bidirectional RN-power/divergence result, joint adaptive kernel,initialization,cost or fullpaper completion is asserted. No TV transport of unbounded cost.",
   "development_checkpoint": {
@@ -71,10 +70,33 @@
       "ASTIS-RT-20260912-SPHMCClippedMeanExponential"
     ]
   },
-  "admission_boundary": "VERIFIED at4cb3594. Aggregate integration, original reader/graph QA, actual merge and deployment remain separate.",
+  "admission_boundary": "Actual PR284 merged after independent exactcandidate integration and successful sameheadPRCI. MergeCI/live and wholeGoal delivery remain; neitherpaper complete.",
   "independent_admission": "runs/20260911-companion-priority/clipped-mean-exponential.verified-admission.json",
   "integration_notes": {
     "upstream": "ce8273bdbca57d9527bbfdd5c5c34925b9e2d749",
     "boundary": "Parent actual merge/allCI/live complete. Main tree identical to prior54f994e, ancestry merged without conflicts or source changes. Accepted program/source unchanged; aggregate pending."
+  },
+  "integration_pr": {
+    "lean_run": "34625895155",
+    "state": "MERGED; both PR CI SUCCESS",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/284",
+    "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
+    "site_run": "34625895277",
+    "number": 284
+  },
+  "local_qa": "runs/20260911-companion-priority/clipped-mean-exponential.local-qa.json",
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/284",
+    "commit": "10b2e59e6a9390f16275cabff12473872fddb071",
+    "merged_at": "2026-09-11T17:24:09Z",
+    "candidate": "ead9e06b5addad7c6e18434439f37be85af2f9ce",
+    "post_merge": "Merge Lean34627473988 and Site34627473906 SUCCESS; original companion/card HTTP200 exactmerge10b2e59 provenance verified",
+    "ci": {
+      "lean_status": "SUCCESS",
+      "site_run": "34627473906",
+      "site_status": "SUCCESS",
+      "live": "HTTP200 both originalreader andcard; exact10b2e59 full merge provenance andtarget verified",
+      "lean_run": "34627473988"
+    }
   }
 }

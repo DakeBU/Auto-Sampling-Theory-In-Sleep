@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison

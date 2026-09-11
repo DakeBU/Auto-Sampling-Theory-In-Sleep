@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+      "title": "Actual clipped and ideal RGO bidirectional RN moments",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "label": "D.1 Eq18 and B.12 Eq17",
+          "scope": "Smooth actual normalized RN-power comparison; printed definition and proof-range differences disclosed."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "label": "SPHMC Appendix A.4(2)",
+          "scope": "Terminal sampler consumer; remaining algorithmic obligations separate."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCClippedRenyiComparison"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2. No convexity assumption is used for this selected smooth s=1 dependency.",
+        "For x0,x_plus in E, set h=x0-eta grad f(x_plus). Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. In particular beta*eta<1 will be proved, not added as an input.",
+        "Let P=(z->sqrt(eta) z)_*stdGaussian(E), nu=(Lebesgue restricted to (0,1]) product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For theta=pi*r/2 define W(x,r,z)=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(x_plus)-grad f(h+sin(theta)(x-h)+cos(theta)z) >. Let mB(x)=integral min(B,max(-B,W(x,r,z))) dnu(r,z). The estimator, independent input and clipping inside the expectation are actual definitions.",
+        "Define qhat=q.tilted(mB). First set G=(z->x0+sqrt(eta) z)_*stdGaussian(E), then pi=G.tilted(-f). Define K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). An exponential tilt uses its actual exponential integral as normalizer. Each RN power below is integrated under its denominator measure."
+      ],
+      "statement": "pi and qhat are probability measures and are mutually absolutely continuous. The real functions ((d pi/d qhat).toReal)^ell and ((d qhat/d pi).toReal)^ell are integrable under qhat and pi respectively. Each of their real integrals minus one is at most 2*exp(2*B-K). Each corresponding ENNReal RN ell-power lintegral is at most ofReal(1+2*exp(2*B-K)).",
+      "formula": "\\int\\!\\left(\\frac{d\\pi}{d\\widehat\\pi}\\right)^\\ell d\\widehat\\pi\\le 1+2e^{2B-K},\\qquad \\int\\!\\left(\\frac{d\\widehat\\pi}{d\\pi}\\right)^\\ell d\\pi\\le 1+2e^{2B-K},\\qquad \\widehat\\pi=\\widehat q.",
+      "boundary": "The ten public conclusions are two probability statements, two absolute-continuity statements, two real RN-power L1 statements, two real-integral-minus-one bounds and two ENNReal bounds. Positive normalizers, error L1 and explicit RN formulas are proved internally, not additional returned conjuncts. ClippedGradientProgram already identifies qhat with the actual program output; its map equality is not repeated. This follows the explicit denominator-measure ell-powers in B.12/D.1. B.7 and section1.3 have inconsistent printed definitions; this is disclosed rather than silently called a literal implementation of those lines. The intermediate B.12 proof gap for 1<ell<2 is outside this ell>=2 consumer and is not repaired here. No logarithmic Renyi API, accuracy parameter selection, initialization, parameterized kernel, query-cost result or complete companion paper is asserted.",
+      "steps": [
+        {
+          "title": "Identify the actual ideal law from the existing source parameters",
+          "text": "The positive source step condition bounds 64 beta^2 ell^2 eta^2 by one; ell>=2 therefore implies beta eta<1. Invoke IdealRGOIdentification with this derived fact. Set m to the actual untruncated auxiliary mean, D=m-mB, and mu=qhat. The actual clipped exponential weight is integrable and normalizes to a probability by ClippedGradientProgram. The tilt-composition identity and mB+D=m give the actual ideal law, not an assumed target equality.",
+          "formula": "\\mu=\\widehat\\pi=q.\\mathrm{tilted}(m_B),\\quad D=m-m_B,\\quad \\mu.\\mathrm{tilted}(D)=q.\\mathrm{tilted}(m)=\\pi.",
+          "lean": "step_implies_ideal; estimator; clipped_renyi_comparison; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program; MeasureTheory.tilted_tilted"
+        },
+        {
+          "title": "Obtain genuine integrability for every exponential used later",
+          "text": "The actual ClippedMeanExponential theorem supplies the mu-integrable exponential-minus-one error. Add the integrable constant one to obtain the full envelope. For every coefficient a with abs(a)<=2ell, pointwise domination gives integrability of exp(aD). The same envelope controls exp(c abs(D)) for 0<=c<=2ell. Since abs(D)<=abs(D)+1<=exp(abs(D)), it also proves D itself integrable. No later Jensen application or density calculation relies on a totalized integral of an unproved integrable function.",
+          "formula": "H=\\mathbb E_\\mu e^{2\\ell|D|},\\qquad H-1\\le\\varepsilon:=2e^{2B-K},\\qquad e^{aD}\\le e^{2\\ell|D|}\\quad(|a|\\le2\\ell).",
+          "lean": "exponential_domination; integrable_of_exponential_abs; integral_exp_le_abs; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential"
+        },
+        {
+          "title": "Identify both actual derivatives on their correct measures",
+          "text": "Let Z be the actual integral of exp(D) under the probability mu. Established L1 and strict pointwise positivity give Z>0. The tilted law is a probability and is mutually absolutely continuous with mu. Use the actual tilted RN formulas. The reverse formula is initially obtained mu-almost everywhere; transfer it to the tilted law using absolute continuity before integrating there.",
+          "formula": "Z=\\mathbb E_\\mu e^D>0,\\qquad \\frac{d\\pi}{d\\mu}=\\frac{e^D}{Z}\\ (\\mu\\text{-a.e.}),\\qquad \\frac{d\\mu}{d\\pi}=Ze^{-D}\\ (\\pi\\text{-a.e.}).",
+          "lean": "tilt_density_pair; MeasureTheory.toReal_rnDeriv_tilted_left; MeasureTheory.toReal_rnDeriv_tilted_right; MeasureTheory.tilted_absolutelyContinuous; MeasureTheory.absolutelyContinuous_tilted; MeasureTheory.isProbabilityMeasure_tilted"
+        },
+        {
+          "title": "Establish weighted L1 before the normalized power identities",
+          "text": "Raise the positive density formulas to ell. The forward power under mu is an integrable scalar multiple of exp(ell D). For the reverse power under pi, use the tilted integrability equivalence: its exponential factor has weighted integrand exp(D) exp(-ell D)=exp(-(ell-1)D), already known integrable under mu. Only then compute the integral and combine the powers of the positive Z.",
+          "formula": "I_{\\pi\\|\\mu}=Z^{-\\ell}\\mathbb E_\\mu e^{\\ell D},\\qquad I_{\\mu\\|\\pi}=Z^{\\ell-1}\\mathbb E_\\mu e^{-(\\ell-1)D}.",
+          "lean": "forward_density_power; reverse_density_power; MeasureTheory.integrable_tilted_iff; MeasureTheory.integral_exp_tilted; Real.div_rpow; Real.mul_rpow"
+        },
+        {
+          "title": "Control the positive normalizer power",
+          "text": "Put a=ell-1>=1. Convexity of the a-th power and the two supplied integrability conditions give Z^a<=E exp(aD). Bound both this expectation and E exp(-aD) by E exp(a abs(D)). A second Jensen application, now for the square, bounds the product by E exp(2a abs(D)), which is at most H. The a>=1 step is why this proof uses the actual ell>=2 consumer rather than claiming the entire printed ell>1 range.",
+          "formula": "I_{\\mu\\|\\pi}\\le\\left(\\mathbb E_\\mu e^{(\\ell-1)|D|}\\right)^2\\le\\mathbb E_\\mu e^{2(\\ell-1)|D|}\\le H.",
+          "lean": "power_mean_exponential; exponential_mean_square; normalized_moments; convexOn_rpow; ConvexOn.map_integral_le"
+        },
+        {
+          "title": "Control the inverse normalizer by two exponential Jensen inequalities",
+          "text": "Because D and exp(D) are integrable, exponential Jensen gives exp(E D)<=Z. The negative ell-th power reverses this inequality. Apply exponential Jensen again to -ell D, whose integrability and exponential integrability were already proved. This yields Z^(-ell)<=E exp(-ell D). Dominate both signed exponential moments by E exp(ell abs(D)); square Jensen gives the same H bound. This is a complete alternative to the Cauchy-Schwarz step, preserving the source constant.",
+          "formula": "Z^{-\\ell}\\le e^{-\\ell\\mathbb E_\\mu D}\\le\\mathbb E_\\mu e^{-\\ell D},\\qquad I_{\\pi\\|\\mu}\\le\\left(\\mathbb E_\\mu e^{\\ell|D|}\\right)^2\\le H.",
+          "lean": "exponential_mean; inverse_normalizer_power; normalized_moments; Real.rpow_le_rpow_of_nonpos; convexOn_exp"
+        },
+        {
+          "title": "Transfer real powers to ENNReal and instantiate the actual consumer",
+          "text": "Both real RN-power integrals are now finite and at most H. Subtract one and consume the parent bound H-1<=epsilon. To obtain the ENNReal lintegrals, use RN derivatives being finite almost everywhere under their denominator measures; then ofReal commutes with the nonnegative power. This excludes a false conversion through toReal(infinity). The actual ideal-law equality from the first step instantiates all generic statements with pi and qhat and returns the ten asserted conclusions.",
+          "formula": "\\operatorname{ofReal}\\!\\left(\\int (\\operatorname{toReal}r)^\\ell\\,d\\nu\\right)=\\int r^\\ell\\,d\\nu,\\qquad I_{\\pi\\|\\widehat\\pi}-1,\\ I_{\\widehat\\pi\\|\\pi}-1\\le2e^{2B-K}.",
+          "lean": "rn_power_lintegral; tilt_power_bounds; clipped_renyi_comparison; MeasureTheory.Measure.rnDeriv_ne_top; MeasureTheory.ofReal_integral_eq_lintegral_ofReal; ENNReal.ofReal_rpow_of_nonneg"
+        }
+      ],
+      "lean_statement": "Two actual probabilities,two absolute continuities,two real RN-power L1,two real-integral-minus-one bounds and two ENNReal bounds.",
+      "lean_proof": "Actual ideal identification,derived normalization,exponential domination,Jensen,weighted RN algebra,a.e. measure transfer and finite RN conversion.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.tilted_tilted",
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.toReal_rnDeriv_tilted_right",
+        "ConvexOn.map_integral_le",
+        "MeasureTheory.Measure.rnDeriv_ne_top"
+      ]
+    }
+  ]
+}

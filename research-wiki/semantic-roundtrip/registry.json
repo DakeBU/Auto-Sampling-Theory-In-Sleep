@@ -19103,6 +19103,328 @@
           "evidence": "Independent formal reviewer accepted: Actual clipped-output moment prerequisite only,not ideal/fullalgorithm."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260912-SPHMCClippedRenyiComparison",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-clipped-renyi-comparison",
+        "anchor": "D.1 Eq18 smooth s=1 and B.12 Eq17, consumed by SPHMC A.4(2); printed B.7/section1.3 order discrepancy disclosed",
+        "url": "https://arxiv.org/html/2602.01338v1",
+        "original_text": "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2. No convexity assumption is used for this selected smooth s=1 dependency.\nFor x0,x_plus in E, set h=x0-eta grad f(x_plus). Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. In particular beta*eta<1 will be proved, not added as an input.\nLet P=(z->sqrt(eta) z)_*stdGaussian(E), nu=(Lebesgue restricted to (0,1]) product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For theta=pi*r/2 define W(x,r,z)=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(x_plus)-grad f(h+sin(theta)(x-h)+cos(theta)z) >. Let mB(x)=integral min(B,max(-B,W(x,r,z))) dnu(r,z). The estimator, independent input and clipping inside the expectation are actual definitions.\nDefine qhat=q.tilted(mB). First set G=(z->x0+sqrt(eta) z)_*stdGaussian(E), then pi=G.tilted(-f). Define K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). An exponential tilt uses its actual exponential integral as normalizer. Each RN power below is integrated under its denominator measure.\npi and qhat are probability measures and are mutually absolutely continuous. The real functions ((d pi/d qhat).toReal)^ell and ((d qhat/d pi).toReal)^ell are integrable under qhat and pi respectively. Each of their real integrals minus one is at most 2*exp(2*B-K). Each corresponding ENNReal RN ell-power lintegral is at most ofReal(1+2*exp(2*B-K)).",
+        "text_sha256": "0ad9f2043d3f20410063afad2e0529dca5c5bc278125c7d361a4478c5b23fa08"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ClippedRenyiComparison.lean",
+        "statement": "∀ {E : Type u_2} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] (f : E → ℝ),\n  Differentiable ℝ f →\n    ∀ (eta beta B ell : ℝ),\n      0 < eta →\n        ∀ (hbeta : 0 < beta),\n          0 < B →\n            2 ≤ ell →\n              0 < ↑(Module.finrank ℝ E) →\n                LipschitzWith ⟨beta, LT.lt.le hbeta⟩ (gradient f) →\n                  ∀ (x0 xp : E),\n                    ‖x0 - eta • gradient f xp - xp‖ ≤ √(↑(Module.finrank ℝ E) * eta) →\n                      64 * beta ^ 2 * (ell * ↑(Module.finrank ℝ E) / B + ell ^ 2) ≤ 1 / eta ^ 2 →\n                        have h := x0 - eta • gradient f xp;\n                        have q := MeasureTheory.Measure.map (fun z => h + √eta • z) (ProbabilityTheory.stdGaussian E);\n                        have P := MeasureTheory.Measure.map (fun z => √eta • z) (ProbabilityTheory.stdGaussian E);\n                        have nu := (MeasureTheory.MeasureSpace.volume.restrict (Set.Ioc 0 1)).prod P;\n                        have mB := fun x =>\n                          ∫ (a : ℝ × E),\n                            Min.min B\n                              (Max.max (-B)\n                                (Inner.inner ℝ\n                                  ((Real.pi / 2) •\n                                    (Real.cos (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) -\n                                      Real.sin (Real.pi / 2 * (x, a).2.1) • (x, a).2.2))\n                                  (gradient f xp -\n                                    gradient f\n                                      (h + Real.sin (Real.pi / 2 * (x, a).2.1) • ((x, a).1 - h) +\n                                        Real.cos (Real.pi / 2 * (x, a).2.1) • (x, a).2.2)))) ∂nu;\n                        have qhat := q.tilted mB;\n                        have pi :=\n                          (MeasureTheory.Measure.map (fun z => x0 + √eta • z) (ProbabilityTheory.stdGaussian E)).tilted\n                            fun x => -f x;\n                        have K :=\n                          Min.min (B ^ 2 / (40 * beta ^ 2 * ↑(Module.finrank ℝ E) * eta ^ 2)) (B / (8 * beta * eta));\n                        MeasureTheory.IsProbabilityMeasure pi ∧\n                          MeasureTheory.IsProbabilityMeasure qhat ∧\n                            pi.AbsolutelyContinuous qhat ∧\n                              qhat.AbsolutelyContinuous pi ∧\n                                MeasureTheory.Integrable (fun x => (pi.rnDeriv qhat x).toReal ^ ell) qhat ∧\n                                  MeasureTheory.Integrable (fun x => (qhat.rnDeriv pi x).toReal ^ ell) pi ∧\n                                    ∫ (x : E), (pi.rnDeriv qhat x).toReal ^ ell ∂qhat - 1 ≤ 2 * Real.exp (2 * B - K) ∧\n                                      ∫ (x : E), (qhat.rnDeriv pi x).toReal ^ ell ∂pi - 1 ≤ 2 * Real.exp (2 * B - K) ∧\n                                        ∫⁻ (x : E), pi.rnDeriv qhat x ^ ell ∂qhat ≤\n                                            ENNReal.ofReal (1 + 2 * Real.exp (2 * B - K)) ∧\n                                          ∫⁻ (x : E), qhat.rnDeriv pi x ^ ell ∂pi ≤\n                                            ENNReal.ofReal (1 + 2 * Real.exp (2 * B - K))",
+        "statement_sha256": "bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Fixed productionf652cfe620aa183aa61cbad079abb58995abe265 independently focusedPASS3738 by depth_commit_verifier; standard3/no lint; mathematical content identical to independently compiled scratchd991ddfe. Root Meta.deltaExpand/isDefEq session38875 exit0, source-name-free full estimator expansion. Independent expansion replay pending.",
+        "decoder_context": [
+          "stdGaussian E is the centered identity-covariance Gaussian probability measure. Measure.map denotes pushforward and Measure.prod independent product.",
+          "volume is canonical Lebesgue measure on the finite-dimensional real inner-product space; restricted real volume on Ioc(0,1) is the uniform probability law. Endpoints have zero mass.",
+          "gradient f is the actual real inner-product gradient. Differentiable means differentiability everywhere. LipschitzWith beta is the global distance bound, and NNReal denotes nonnegative real numbers.",
+          "Integrable asserts Bochner integrability. The displayed real integrals are the typed signed Bochner integrals. ENNReal.ofReal maps a real number to its nonnegative part in the extended nonnegative reals.",
+          "Measure.withDensity mu d multiplies mu by the extended-nonnegative density d. Measure.tilted mu m is the exponential tilt with density ofReal(exp(m)/integral exp(m) dmu).",
+          "The local scalar estimator definition has been expanded from the compiled theorem type and checked with Lean Meta.isDefEq. All let-bound quantities retain their displayed scopes."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "25fe3e8eeeea8be542c29fb47c59cbb6ac4399e4c0932a44ee8e61f4cd92d213",
+        "review_run_sha256": "2c7ad11ff2b1320c768075c2a51ce7331849a63ea71df9e2c812738659c769c0",
+        "run_artifact": "runs/20260911-companion-priority/clipped-renyi-comparison.source-review-result.json",
+        "evidence": "Independent anti-anchored formal review accepted7slots,7steps,7deltas,15private declarations; primary D1/B12 and SPHMC A4(2). Recomputed canonical packet/source/statement/reconstruction/wholemodule/raw production; current lesson/publication match. Binding authenticated as packetfield, external preimage not recomputed. No registry/prior verdict read. Compile, Meta replay, decoder run hashes, test and fixedcommit admission not independently replayed by source reviewer. Attributed paraphrase, selected ell>=2, coordinate-free extension, printed notation and intermediate proof gap disclosed. No logarithmic API, parameter selection, initialization, kernel, cost or fullpaper. Explicit faithful transcription authorized; no VERIFIED."
+      },
+      "publication_binding_sha256": "8a3c90dd09fe4fa9947afc8e738ab56fed660afd8a75aa4b765b8c1f8f0afaea",
+      "publication_context": {
+        "file": "c336a2784b08d9c649147d64314155328682b02e40dc830bc2f12aa75c2b972f",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification\nimport Mathlib.Analysis.Convex.Integral\nimport Mathlib.Analysis.Convex.SpecificFunctions.Basic\nimport Mathlib.MeasureTheory.Measure.Tilted\nimport Mathlib.Tactic\n\n/-! Actual clipped-output versus ideal RGO normalized RN-power comparison.\nSource: SPHMC arXiv:2609.06906v1 A.4(2), through arXiv:2602.01338v1\nD.1 Eq18 and B.12 Eq17. The actual denominator-measure ell-powers follow\nB.12/D.1; printed B.7 and section1.3 definitions have inconsistent measure\nsubscripts/powers. This is an explicit source distinction, not a silent repair.\n\nThe actual consumer ell>=2 avoids the printed B.12 intermediate proof gap for\n1<ell<2. Actual exponent integrability precedes Jensen and weighted density\nalgebra. The source step condition implies beta*eta<1 for ideal normalization.\nActual clipped and ideal laws are probability measures and mutually absolutely\ncontinuous. Both real RN-power functions are integrable; both real integrals\nminus one are <=2exp(2B-K), and ENNReal moments <=ofReal(1+2exp(2B-K)).\n\nThe ten public conclusions do not separately return internal RN formulas,\npositive normalizers or error L1, or repeat the parent's program pushforward.\nNo logarithmic Renyi API, initialization, parameterized kernel, query cost or\nfull companion-paper completion is claimed. -/\n\nopen MeasureTheory ProbabilityTheory\nopen scoped ENNReal NNReal\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison\n\nvariable {X : Type*} [MeasurableSpace X]\n\nprivate theorem exponential_domination (mu : Measure X) (D : X → ℝ)\n    (hD : Measurable D) (c : ℝ)\n    (hI : Integrable (fun x => Real.exp (c * |D x|)) mu)\n    (a : ℝ) (ha : |a| ≤ c) :\n    Integrable (fun x => Real.exp (a * D x)) mu := by\n  refine hI.mono' (by fun_prop) (Filter.Eventually.of_forall fun x => ?_)\n  rw [Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]\n  apply Real.exp_le_exp.mpr\n  calc\n    a * D x ≤ |a * D x| := le_abs_self _\n    _ = |a| * |D x| := abs_mul _ _\n    _ ≤ c * |D x| := mul_le_mul_of_nonneg_right ha (abs_nonneg _)\n\nprivate theorem power_mean_exponential (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (s : ℝ) (hs : 1 ≤ s)\n    (hI : Integrable (fun x => Real.exp (D x)) mu)\n    (hIs : Integrable (fun x => Real.exp (s * D x)) mu) :\n    (∫ x, Real.exp (D x) ∂mu) ^ s ≤ ∫ x, Real.exp (s * D x) ∂mu := by\n  have hPow : Integrable ((fun y : ℝ => y ^ s) ∘ (fun x => Real.exp (D x))) mu := by\n    simpa only [Function.comp_def, ← Real.exp_mul, mul_comm] using hIs\n  have hj := (convexOn_rpow hs).map_integral_le\n    (Real.continuous_rpow_const (by linarith : 0 ≤ s)).continuousOn\n    isClosed_Ici (Filter.Eventually.of_forall fun x => (Real.exp_pos (D x)).le) hI hPow\n  simpa only [← Real.exp_mul, mul_comm] using hj\n\nprivate theorem integrable_of_exponential_abs (mu : Measure X) (D : X → ℝ)\n    (hD : Measurable D) (c : ℝ) (hc : 1 ≤ c)\n    (hI : Integrable (fun x => Real.exp (c * |D x|)) mu) : Integrable D mu := by\n  refine hI.mono' hD.aestronglyMeasurable (Filter.Eventually.of_forall fun x => ?_)\n  rw [Real.norm_eq_abs]\n  calc\n    |D x| ≤ |D x| + 1 := le_add_of_nonneg_right zero_le_one\n    _ ≤ Real.exp |D x| := Real.add_one_le_exp _\n    _ ≤ Real.exp (c * |D x|) := Real.exp_le_exp.mpr (by nlinarith [abs_nonneg (D x)])\n\nprivate theorem exponential_mean (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Integrable D mu)\n    (hI : Integrable (fun x => Real.exp (D x)) mu) :\n    Real.exp (∫ x, D x ∂mu) ≤ ∫ x, Real.exp (D x) ∂mu := by\n  exact convexOn_exp.map_integral_le Real.continuous_exp.continuousOn\n    isClosed_univ (Filter.Eventually.of_forall fun _ => Set.mem_univ _) hD hI\n\nprivate theorem inverse_normalizer_power (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Integrable D mu)\n    (hI : Integrable (fun x => Real.exp (D x)) mu)\n    (s : ℝ) (hs : 0 ≤ s)\n    (hIs : Integrable (fun x => Real.exp (-s * D x)) mu) :\n    (∫ x, Real.exp (D x) ∂mu) ^ (-s) ≤ ∫ x, Real.exp (-s * D x) ∂mu := by\n  have hj := exponential_mean mu D hD hI\n  have hr := Real.rpow_le_rpow_of_nonpos (Real.exp_pos _) hj (neg_nonpos.mpr hs)\n  have hn := exponential_mean mu (fun x => -s * D x) (hD.const_mul (-s)) hIs\n  rw [integral_const_mul] at hn\n  calc\n    (∫ x, Real.exp (D x) ∂mu) ^ (-s) ≤ (Real.exp (∫ x, D x ∂mu)) ^ (-s) := hr\n    _ = Real.exp (-s * ∫ x, D x ∂mu) := by rw [← Real.exp_mul, mul_comm]\n    _ ≤ ∫ x, Real.exp (-s * D x) ∂mu := hn\n\nprivate theorem integral_exp_le_abs (mu : Measure X) (D : X → ℝ) (a c : ℝ)\n    (ha : |a| ≤ c) (hI : Integrable (fun x => Real.exp (a * D x)) mu)\n    (hJ : Integrable (fun x => Real.exp (c * |D x|)) mu) :\n    ∫ x, Real.exp (a * D x) ∂mu ≤ ∫ x, Real.exp (c * |D x|) ∂mu := by\n  apply integral_mono hI hJ\n  intro x\n  apply Real.exp_le_exp.mpr\n  calc\n    a * D x ≤ |a * D x| := le_abs_self _\n    _ = |a| * |D x| := abs_mul _ _\n    _ ≤ c * |D x| := mul_le_mul_of_nonneg_right ha (abs_nonneg _)\n\nprivate theorem exponential_mean_square (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hI : Integrable (fun x => Real.exp (D x)) mu)\n    (hJ : Integrable (fun x => Real.exp (2 * D x)) mu) :\n    (∫ x, Real.exp (D x) ∂mu) ^ 2 ≤ ∫ x, Real.exp (2 * D x) ∂mu := by\n  simpa only [Real.rpow_two] using power_mean_exponential mu D 2 (by norm_num) hI hJ\n\nprivate theorem normalized_moments (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Measurable D) (ell : ℝ) (hell : 2 ≤ ell)\n    (hH : Integrable (fun x => Real.exp (2 * ell * |D x|)) mu) :\n    (∫ x, Real.exp (D x) ∂mu) ^ (ell - 1) *\n      (∫ x, Real.exp (-(ell - 1) * D x) ∂mu) ≤\n        ∫ x, Real.exp (2 * ell * |D x|) ∂mu ∧\n    (∫ x, Real.exp (D x) ∂mu) ^ (-ell) *\n      (∫ x, Real.exp (ell * D x) ∂mu) ≤\n        ∫ x, Real.exp (2 * ell * |D x|) ∂mu := by\n  have hi (a : ℝ) (ha : |a| ≤ 2 * ell) :\n      Integrable (fun x => Real.exp (a * D x)) mu :=\n    exponential_domination mu D hD (2 * ell) hH a ha\n  have hj (a : ℝ) (ha0 : 0 ≤ a) (ha : a ≤ 2 * ell) :\n      Integrable (fun x => Real.exp (a * |D x|)) mu := by\n    apply exponential_domination mu (fun x => |D x|) hD.abs (2 * ell)\n      (by simpa only [abs_abs] using hH) a\n    simpa only [abs_of_nonneg ha0] using ha\n  have hI : Integrable (fun x => Real.exp (D x)) mu := by\n    simpa using hi 1 (by norm_num; linarith)\n  have hDi := integrable_of_exponential_abs mu D hD (2 * ell) (by linarith) hH\n  have hsq (a : ℝ) (ha0 : 0 ≤ a) (ha : a ≤ ell) :\n      (∫ x, Real.exp (a * |D x|) ∂mu) ^ 2 ≤\n        ∫ x, Real.exp (2 * ell * |D x|) ∂mu := by\n    have hJa := hj a ha0 (by linarith)\n    have hJ2a := hj (2 * a) (by linarith) (by linarith)\n    have hb := exponential_mean_square mu (fun x => a * |D x|) hJa\n      (by simpa only [mul_assoc] using hJ2a)\n    refine hb.trans (integral_mono (by simpa only [mul_assoc] using hJ2a) hH ?_)\n    intro x\n    apply Real.exp_le_exp.mpr\n    nlinarith [abs_nonneg (D x)]\n  have hpos (a : ℝ) : 0 ≤ ∫ x, Real.exp (a * D x) ∂mu := integral_nonneg fun _ => (Real.exp_pos _).le\n  have hpabs (a : ℝ) : 0 ≤ ∫ x, Real.exp (a * |D x|) ∂mu := integral_nonneg fun _ => (Real.exp_pos _).le\n  constructor\n  · have ha : 1 ≤ ell - 1 := by linarith\n    have hIa := hi (ell - 1) (by rw [abs_of_nonneg (by linarith : 0 ≤ ell - 1)]; linarith)\n    have hIna := hi (-(ell - 1)) (by rw [abs_neg, abs_of_nonneg (by linarith : 0 ≤ ell - 1)]; linarith)\n    have hJa := hj (ell - 1) (by linarith) (by linarith)\n    have hz := (power_mean_exponential mu D (ell - 1) ha hI hIa).trans\n      (integral_exp_le_abs mu D (ell - 1) (ell - 1) (by rw [abs_of_nonneg (by linarith)]) hIa hJa)\n    have hn := integral_exp_le_abs mu D (-(ell - 1)) (ell - 1)\n      (by rw [abs_neg, abs_of_nonneg (by linarith)]) hIna hJa\n    calc\n      _ ≤ (∫ x, Real.exp ((ell - 1) * |D x|) ∂mu) *\n          (∫ x, Real.exp ((ell - 1) * |D x|) ∂mu) := mul_le_mul hz hn (hpos _) (hpabs _)\n      _ = (∫ x, Real.exp ((ell - 1) * |D x|) ∂mu) ^ 2 := by ring\n      _ ≤ _ := hsq (ell - 1) (by linarith) (by linarith)\n  · have hIe := hi ell (by rw [abs_of_nonneg (by linarith : 0 ≤ ell)]; linarith)\n    have hIne := hi (-ell) (by rw [abs_neg, abs_of_nonneg (by linarith : 0 ≤ ell)]; linarith)\n    have hJe := hj ell (by linarith) (by linarith)\n    have hz := (inverse_normalizer_power mu D hDi hI ell (by linarith) hIne).trans\n      (integral_exp_le_abs mu D (-ell) ell (by rw [abs_neg, abs_of_nonneg (by linarith)]) hIne hJe)\n    have hn := integral_exp_le_abs mu D ell ell (by rw [abs_of_nonneg (by linarith)]) hIe hJe\n    calc\n      _ ≤ (∫ x, Real.exp (ell * |D x|) ∂mu) *\n          (∫ x, Real.exp (ell * |D x|) ∂mu) := mul_le_mul hz hn (hpos _) (hpabs _)\n      _ = (∫ x, Real.exp (ell * |D x|) ∂mu) ^ 2 := by ring\n      _ ≤ _ := hsq ell (by linarith) le_rfl\n\nprivate theorem tilt_density_pair (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Measurable D)\n    (hI : Integrable (fun x => Real.exp (D x)) mu) :\n    ((fun x => ((mu.tilted D).rnDeriv mu x).toReal) =ᵐ[mu]\n      fun x => Real.exp (D x) / ∫ y, Real.exp (D y) ∂mu) ∧\n    ((fun x => (mu.rnDeriv (mu.tilted D) x).toReal) =ᵐ[mu.tilted D]\n      fun x => Real.exp (-D x) * ∫ y, Real.exp (D y) ∂mu) := by\n  constructor\n  · filter_upwards [toReal_rnDeriv_tilted_left mu hD.aemeasurable,\n      Measure.rnDeriv_self mu] with x hx hself\n    simpa only [hself, ENNReal.toReal_one, mul_one] using hx\n  · apply (tilted_absolutelyContinuous mu D).ae_eq\n    filter_upwards [toReal_rnDeriv_tilted_right mu mu hI,\n      Measure.rnDeriv_self mu] with x hx hself\n    simpa only [hself, ENNReal.toReal_one, mul_one] using hx\n\nprivate theorem forward_density_power (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Measurable D)\n    (hI : Integrable (fun x => Real.exp (D x)) mu)\n    (s : ℝ) (hIs : Integrable (fun x => Real.exp (s * D x)) mu) :\n    Integrable (fun x => ((mu.tilted D).rnDeriv mu x).toReal ^ s) mu ∧\n    (∫ x, ((mu.tilted D).rnDeriv mu x).toReal ^ s ∂mu) =\n      (∫ x, Real.exp (D x) ∂mu) ^ (-s) * ∫ x, Real.exp (s * D x) ∂mu := by\n  have hZ := integral_exp_pos hI\n  have heq : (fun x => ((mu.tilted D).rnDeriv mu x).toReal ^ s) =ᵐ[mu]\n      fun x => Real.exp (s * D x) * (∫ y, Real.exp (D y) ∂mu) ^ (-s) := by\n    filter_upwards [(tilt_density_pair mu D hD hI).1] with x hx\n    rw [hx, Real.div_rpow (Real.exp_pos _).le hZ.le, ← Real.exp_mul,\n      mul_comm (D x) s, div_eq_mul_inv, ← Real.rpow_neg hZ.le s]\n  refine ⟨(hIs.mul_const _).congr heq.symm, ?_⟩\n  rw [integral_congr_ae heq, integral_mul_const, mul_comm]\n\nprivate theorem reverse_density_power (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Measurable D)\n    (hI : Integrable (fun x => Real.exp (D x)) mu)\n    (s : ℝ) (hIs : Integrable (fun x => Real.exp (-(s - 1) * D x)) mu) :\n    Integrable (fun x => (mu.rnDeriv (mu.tilted D) x).toReal ^ s) (mu.tilted D) ∧\n    (∫ x, (mu.rnDeriv (mu.tilted D) x).toReal ^ s ∂(mu.tilted D)) =\n      (∫ x, Real.exp (D x) ∂mu) ^ (s - 1) *\n        ∫ x, Real.exp (-(s - 1) * D x) ∂mu := by\n  have hZ := integral_exp_pos hI\n  have hexp (x : X) : Real.exp (D x) * Real.exp (-s * D x) =\n      Real.exp (-(s - 1) * D x) := by\n    rw [← Real.exp_add]\n    congr 1\n    ring\n  have hJ : Integrable (fun x => Real.exp (-s * D x)) (mu.tilted D) := by\n    apply (integrable_tilted_iff hI _).mpr\n    simpa only [smul_eq_mul, hexp] using hIs\n  have heq : (fun x => (mu.rnDeriv (mu.tilted D) x).toReal ^ s) =ᵐ[mu.tilted D]\n      fun x => Real.exp (-s * D x) * (∫ y, Real.exp (D y) ∂mu) ^ s := by\n    filter_upwards [(tilt_density_pair mu D hD hI).2] with x hx\n    rw [hx, Real.mul_rpow (Real.exp_pos _).le hZ.le, ← Real.exp_mul]\n    congr 2\n    ring\n  have hmean : (∫ x, Real.exp (-s * D x) ∂(mu.tilted D)) =\n      (∫ x, Real.exp (-(s - 1) * D x) ∂mu) / ∫ x, Real.exp (D x) ∂mu := by\n    rw [integral_exp_tilted]\n    congr 1\n    apply integral_congr_ae\n    apply Filter.Eventually.of_forall\n    intro x\n    dsimp\n    congr 1\n    ring\n  refine ⟨(hJ.mul_const _).congr heq.symm, ?_⟩\n  rw [integral_congr_ae heq, integral_mul_const, hmean, Real.rpow_sub hZ,\n    Real.rpow_one]\n  ring\n\nprivate theorem rn_power_lintegral (mu nu : Measure X) [SigmaFinite mu]\n    (s : ℝ) (hs : 0 ≤ s)\n    (hI : Integrable (fun x => (mu.rnDeriv nu x).toReal ^ s) nu) :\n    ENNReal.ofReal (∫ x, (mu.rnDeriv nu x).toReal ^ s ∂nu) =\n      ∫⁻ x, (mu.rnDeriv nu x) ^ s ∂nu := by\n  rw [ofReal_integral_eq_lintegral_ofReal hI\n    (Filter.Eventually.of_forall fun _ => Real.rpow_nonneg ENNReal.toReal_nonneg _)]\n  apply lintegral_congr_ae\n  filter_upwards [Measure.rnDeriv_ne_top mu nu] with x hx\n  rw [← ENNReal.ofReal_rpow_of_nonneg ENNReal.toReal_nonneg hs, ENNReal.ofReal_toReal hx]\n\nprivate theorem tilt_power_bounds (mu : Measure X) [IsProbabilityMeasure mu]\n    (D : X → ℝ) (hD : Measurable D) (ell : ℝ) (hell : 2 ≤ ell)\n    (hJ : Integrable (fun x => Real.exp (2 * ell * |D x|) - 1) mu) :\n    IsProbabilityMeasure (mu.tilted D) ∧ mu.tilted D ≪ mu ∧ mu ≪ mu.tilted D ∧\n    Integrable (fun x => ((mu.tilted D).rnDeriv mu x).toReal ^ ell) mu ∧\n    Integrable (fun x => (mu.rnDeriv (mu.tilted D) x).toReal ^ ell) (mu.tilted D) ∧\n    (∫ x, ((mu.tilted D).rnDeriv mu x).toReal ^ ell ∂mu) - 1 ≤\n      ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu ∧\n    (∫ x, (mu.rnDeriv (mu.tilted D) x).toReal ^ ell ∂(mu.tilted D)) - 1 ≤\n      ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu ∧\n    (∫⁻ x, ((mu.tilted D).rnDeriv mu x) ^ ell ∂mu) ≤\n      ENNReal.ofReal (1 + ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu) ∧\n    (∫⁻ x, (mu.rnDeriv (mu.tilted D) x) ^ ell ∂(mu.tilted D)) ≤\n      ENNReal.ofReal (1 + ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu) := by\n  have hH : Integrable (fun x => Real.exp (2 * ell * |D x|)) mu := by\n    convert! hJ.add (integrable_const 1) using 1\n    funext x\n    simp only [Pi.add_apply]\n    ring\n  have hi (a : ℝ) (ha : |a| ≤ 2 * ell) :\n      Integrable (fun x => Real.exp (a * D x)) mu :=\n    exponential_domination mu D hD (2 * ell) hH a ha\n  have hI : Integrable (fun x => Real.exp (D x)) mu := by\n    simpa using hi 1 (by norm_num; linarith)\n  have hIe := hi ell (by rw [abs_of_nonneg (by linarith : 0 ≤ ell)]; linarith)\n  have hIna := hi (-(ell - 1)) (by rw [abs_neg, abs_of_nonneg (by linarith : 0 ≤ ell - 1)]; linarith)\n  have hf := forward_density_power mu D hD hI ell hIe\n  have hr := reverse_density_power mu D hD hI ell hIna\n  have hm := normalized_moments mu D hD ell hell hH\n  have hsub : (∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu) =\n      (∫ x, Real.exp (2 * ell * |D x|) ∂mu) - 1 := by\n    rw [integral_sub hH (integrable_const 1)]\n    simp\n  have hfb : (∫ x, ((mu.tilted D).rnDeriv mu x).toReal ^ ell ∂mu) - 1 ≤\n      ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu := by\n    rw [hf.2, hsub]\n    exact sub_le_sub_right hm.2 1\n  have hrb : (∫ x, (mu.rnDeriv (mu.tilted D) x).toReal ^ ell ∂(mu.tilted D)) - 1 ≤\n      ∫ x, Real.exp (2 * ell * |D x|) - 1 ∂mu := by\n    rw [hr.2, hsub]\n    exact sub_le_sub_right hm.1 1\n  have := isProbabilityMeasure_tilted hI\n  refine ⟨inferInstance, tilted_absolutelyContinuous mu D, absolutelyContinuous_tilted hI,\n    hf.1, hr.1, hfb, hrb, ?_, ?_⟩\n  · rw [← rn_power_lintegral (mu.tilted D) mu ell (by linarith) hf.1]\n    apply ENNReal.ofReal_le_ofReal\n    linarith\n  · rw [← rn_power_lintegral mu (mu.tilted D) ell (by linarith) hr.1]\n    apply ENNReal.ofReal_le_ofReal\n    linarith\n\nprivate theorem step_implies_ideal (eta beta B ell d : ℝ)\n    (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B) (hell : 2 ≤ ell) (hd : 0 < d)\n    (hstep : 64 * beta^2 * (ell*d/B + ell^2) ≤ 1/eta^2) : beta * eta < 1 := by\n  have hterm : 0 ≤ ell*d/B := by positivity\n  have hbase : 64 * beta^2 * ell^2 ≤ 1/eta^2 := by\n    calc\n      _ ≤ 64 * beta^2 * (ell*d/B + ell^2) :=\n        mul_le_mul_of_nonneg_left (by linarith) (by positivity)\n      _ ≤ _ := hstep\n  have hs := (le_div_iff₀ (sq_pos_of_pos heta)).mp hbase\n  by_contra hn\n  have hb : 1 ≤ beta * eta := le_of_not_gt hn\n  have hb2 : 1 ≤ beta^2 * eta^2 := by nlinarith [sq_nonneg (beta*eta-1)]\n  have he2 : (4 : ℝ) ≤ ell^2 := by nlinarith\n  have hm := mul_le_mul hb2 he2 (by norm_num : (0 : ℝ) ≤ 4)\n    (by positivity : 0 ≤ beta^2 * eta^2)\n  nlinarith\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]\n\nprivate def estimator (f : E → ℝ) (h xp : E) (p : E × (ℝ × E)) : ℝ :=\n  inner ℝ ((Real.pi / 2) • (Real.cos (Real.pi / 2 * p.2.1) • (p.1-h) -\n    Real.sin (Real.pi / 2 * p.2.1) • p.2.2))\n    (gradient f xp - gradient f (h + Real.sin (Real.pi / 2 * p.2.1) • (p.1-h) +\n      Real.cos (Real.pi / 2 * p.2.1) • p.2.2))\n\n/-- Actual clipped and ideal laws have bounded bidirectional normalized RN powers. -/\ntheorem clipped_renyi_comparison (f : E → ℝ) (hf : Differentiable ℝ f)\n    (eta beta B ell : ℝ) (heta : 0 < eta) (hbeta : 0 < beta) (hB : 0 < B)\n    (hell : 2 ≤ ell) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (hlip : LipschitzWith ⟨beta,hbeta.le⟩ (gradient f)) (x0 xp : E)\n    (hcenter : ‖(x0-eta • gradient f xp)-xp‖ ≤ Real.sqrt ((Module.finrank ℝ E : ℝ)*eta))\n    (hstep : 64*beta^2*(ell*(Module.finrank ℝ E : ℝ)/B+ell^2) ≤ 1/eta^2) :\n    let h := x0-eta • gradient f xp\n    let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n    let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n    let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n    let mB := fun x => ∫ a, min B (max (-B) (estimator f h xp (x,a))) ∂nu\n    let qhat := q.tilted mB\n    let pi := ((stdGaussian E).map (fun z => x0+Real.sqrt eta • z)).tilted (fun x => -f x)\n    let K := min (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))\n    IsProbabilityMeasure pi ∧ IsProbabilityMeasure qhat ∧ pi ≪ qhat ∧ qhat ≪ pi ∧\n    Integrable (fun x => (pi.rnDeriv qhat x).toReal ^ ell) qhat ∧\n    Integrable (fun x => (qhat.rnDeriv pi x).toReal ^ ell) pi ∧\n    (∫ x, (pi.rnDeriv qhat x).toReal ^ ell ∂qhat) - 1 ≤ 2 * Real.exp (2*B-K) ∧\n    (∫ x, (qhat.rnDeriv pi x).toReal ^ ell ∂pi) - 1 ≤ 2 * Real.exp (2*B-K) ∧\n    (∫⁻ x, (pi.rnDeriv qhat x) ^ ell ∂qhat) ≤ ENNReal.ofReal (1+2*Real.exp (2*B-K)) ∧\n    (∫⁻ x, (qhat.rnDeriv pi x) ^ ell ∂pi) ≤ ENNReal.ofReal (1+2*Real.exp (2*B-K)) := by\n  let h := x0-eta • gradient f xp\n  let q := (stdGaussian E).map (fun z => h+Real.sqrt eta • z)\n  let P := (stdGaussian E).map (fun z => Real.sqrt eta • z)\n  let nu := (volume.restrict (Set.Ioc (0 : ℝ) 1)).prod P\n  let m := fun x => ∫ a, estimator f h xp (x,a) ∂nu\n  let mB := fun x => ∫ a, min B (max (-B) (estimator f h xp (x,a))) ∂nu\n  let qhat := q.tilted mB\n  let pi := ((stdGaussian E).map (fun z => x0+Real.sqrt eta • z)).tilted (fun x => -f x)\n  let D := fun x => m x-mB x\n  let K := min (B^2/(40*beta^2*(Module.finrank ℝ E : ℝ)*eta^2)) (B/(8*beta*eta))\n  have hc := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential\n    f hf eta beta B ell heta hbeta hB hell hd hlip x0 xp hcenter hstep\n  have hp := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program\n    f hf eta beta B heta hbeta.le hB hlip x0 xp\n  have hi := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification\n    f hf ⟨beta,hbeta.le⟩ hlip eta heta\n    (step_implies_ideal eta beta B ell (Module.finrank ℝ E : ℝ) heta hbeta hB hell hd hstep) x0 xp\n  have hmq : IsProbabilityMeasure q := hp.2.1\n  have hmb : Integrable (fun x => Real.exp (mB x)) q := hp.2.2.2.2.2.2.1\n  have hmqhat : IsProbabilityMeasure qhat := isProbabilityMeasure_tilted hmb\n  have hD : Measurable D := hc.1.sub hc.2.1\n  have hJ : Integrable (fun x => Real.exp (2*ell*|D x|)-1) qhat := hc.2.2.2.2.2.2.2.2.1\n  have hb : (∫ x, Real.exp (2*ell*|D x|)-1 ∂qhat) ≤ 2*Real.exp (2*B-K) :=\n    hc.2.2.2.2.2.2.2.2.2\n  have heq : qhat.tilted D = pi := by\n    change (q.tilted mB).tilted D = pi\n    rw [tilted_tilted hmb]\n    have hsum : mB+D=m := by funext x; dsimp [D]; ring\n    rw [hsum]\n    exact hi.2.2.2.2.2.2.1\n  have ht := tilt_power_bounds qhat D hD ell hell hJ\n  rw [heq] at ht\n  rcases ht with ⟨hpi,hpq,hqp,hfi,hri,hfb,hrb,hfen,hren⟩\n  refine ⟨hpi,hmqhat,hpq,hqp,hfi,hri,hfb.trans hb,hrb.trans hb,?_,?_⟩\n  · exact hfen.trans (ENNReal.ofReal_le_ofReal (by linarith))\n  · exact hren.trans (ENNReal.ofReal_le_ofReal (by linarith))\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2602.01338v1",
+          "edition": "arXiv:2602.01338v1",
+          "anchor": "D.1 Eq18 smooth s=1 and B.12 Eq17, consumed by SPHMC A.4(2); printed B.7/section1.3 order discrepancy disclosed",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS mathematical restatement of the D.1/B.12 normalized comparison in Fan Chen, Sinho Chewi, Constantinos Daskalakis and Alexander Rakhlin, High-accuracy sampling for diffusion models and log-concave distributions, used by Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo."
+        },
+        "statement": "pi and qhat are probability measures and are mutually absolutely continuous. The real functions ((d pi/d qhat).toReal)^ell and ((d qhat/d pi).toReal)^ell are integrable under qhat and pi respectively. Each of their real integrals minus one is at most 2*exp(2*B-K). Each corresponding ENNReal RN ell-power lintegral is at most ofReal(1+2*exp(2*B-K)).",
+        "formulae": [
+          {
+            "label": "Actual bidirectional RN moments",
+            "tex": "\\int\\!\\left(\\frac{d\\pi}{d\\widehat\\pi}\\right)^\\ell d\\widehat\\pi\\le 1+2e^{2B-K},\\qquad \\int\\!\\left(\\frac{d\\widehat\\pi}{d\\pi}\\right)^\\ell d\\pi\\le 1+2e^{2B-K},\\qquad \\widehat\\pi=\\widehat q."
+          }
+        ],
+        "assumptions": [
+          "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2. No convexity assumption is used for this selected smooth s=1 dependency.",
+          "For x0,x_plus in E, set h=x0-eta grad f(x_plus). Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. In particular beta*eta<1 will be proved, not added as an input.",
+          "Let P=(z->sqrt(eta) z)_*stdGaussian(E), nu=(Lebesgue restricted to (0,1]) product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For theta=pi*r/2 define W(x,r,z)=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(x_plus)-grad f(h+sin(theta)(x-h)+cos(theta)z) >. Let mB(x)=integral min(B,max(-B,W(x,r,z))) dnu(r,z). The estimator, independent input and clipping inside the expectation are actual definitions.",
+          "Define qhat=q.tilted(mB). First set G=(z->x0+sqrt(eta) z)_*stdGaussian(E), then pi=G.tilted(-f). Define K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). An exponential tilt uses its actual exponential integral as normalizer. Each RN power below is integrated under its denominator measure."
+        ],
+        "obligations": [
+          {
+            "id": "actual-clipped-renyi-comparison",
+            "label": "Actual clipped and ideal normalized bidirectional RN moments"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+          "title": "Actual clipped and ideal RGO bidirectional RN moments",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2602.01338v1",
+              "label": "D.1 Eq18 and B.12 Eq17",
+              "scope": "Smooth actual normalized RN-power comparison; printed definition and proof-range differences disclosed."
+            },
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC Appendix A.4(2)",
+              "scope": "Terminal sampler consumer; remaining algorithmic obligations separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCClippedRenyiComparison"
+          ],
+          "assumptions": [
+            "E is a finite-dimensional real inner-product Borel space with d=finrank(E)>0. f:E->R is differentiable everywhere and its actual gradient is globally beta-Lipschitz. eta,beta,B>0 and ell>=2. No convexity assumption is used for this selected smooth s=1 dependency.",
+            "For x0,x_plus in E, set h=x0-eta grad f(x_plus). Assume norm(h-x_plus)<=sqrt(d*eta) and 64*beta^2*(ell*d/B+ell^2)<=1/eta^2. In particular beta*eta<1 will be proved, not added as an input.",
+            "Let P=(z->sqrt(eta) z)_*stdGaussian(E), nu=(Lebesgue restricted to (0,1]) product P, and q=(z->h+sqrt(eta) z)_*stdGaussian(E). For theta=pi*r/2 define W(x,r,z)=< (pi/2)(cos(theta)(x-h)-sin(theta)z), grad f(x_plus)-grad f(h+sin(theta)(x-h)+cos(theta)z) >. Let mB(x)=integral min(B,max(-B,W(x,r,z))) dnu(r,z). The estimator, independent input and clipping inside the expectation are actual definitions.",
+            "Define qhat=q.tilted(mB). First set G=(z->x0+sqrt(eta) z)_*stdGaussian(E), then pi=G.tilted(-f). Define K=min(B^2/(40*beta^2*d*eta^2),B/(8*beta*eta)). An exponential tilt uses its actual exponential integral as normalizer. Each RN power below is integrated under its denominator measure."
+          ],
+          "statement": "pi and qhat are probability measures and are mutually absolutely continuous. The real functions ((d pi/d qhat).toReal)^ell and ((d qhat/d pi).toReal)^ell are integrable under qhat and pi respectively. Each of their real integrals minus one is at most 2*exp(2*B-K). Each corresponding ENNReal RN ell-power lintegral is at most ofReal(1+2*exp(2*B-K)).",
+          "formula": "\\int\\!\\left(\\frac{d\\pi}{d\\widehat\\pi}\\right)^\\ell d\\widehat\\pi\\le 1+2e^{2B-K},\\qquad \\int\\!\\left(\\frac{d\\widehat\\pi}{d\\pi}\\right)^\\ell d\\pi\\le 1+2e^{2B-K},\\qquad \\widehat\\pi=\\widehat q.",
+          "steps": [
+            {
+              "title": "Identify the actual ideal law from the existing source parameters",
+              "text": "The positive source step condition bounds 64 beta^2 ell^2 eta^2 by one; ell>=2 therefore implies beta eta<1. Invoke IdealRGOIdentification with this derived fact. Set m to the actual untruncated auxiliary mean, D=m-mB, and mu=qhat. The actual clipped exponential weight is integrable and normalizes to a probability by ClippedGradientProgram. The tilt-composition identity and mB+D=m give the actual ideal law, not an assumed target equality.",
+              "formula": "\\mu=\\widehat\\pi=q.\\mathrm{tilted}(m_B),\\quad D=m-m_B,\\quad \\mu.\\mathrm{tilted}(D)=q.\\mathrm{tilted}(m)=\\pi.",
+              "lean": "step_implies_ideal; estimator; clipped_renyi_comparison; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program; MeasureTheory.tilted_tilted"
+            },
+            {
+              "title": "Obtain genuine integrability for every exponential used later",
+              "text": "The actual ClippedMeanExponential theorem supplies the mu-integrable exponential-minus-one error. Add the integrable constant one to obtain the full envelope. For every coefficient a with abs(a)<=2ell, pointwise domination gives integrability of exp(aD). The same envelope controls exp(c abs(D)) for 0<=c<=2ell. Since abs(D)<=abs(D)+1<=exp(abs(D)), it also proves D itself integrable. No later Jensen application or density calculation relies on a totalized integral of an unproved integrable function.",
+              "formula": "H=\\mathbb E_\\mu e^{2\\ell|D|},\\qquad H-1\\le\\varepsilon:=2e^{2B-K},\\qquad e^{aD}\\le e^{2\\ell|D|}\\quad(|a|\\le2\\ell).",
+              "lean": "exponential_domination; integrable_of_exponential_abs; integral_exp_le_abs; AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential"
+            },
+            {
+              "title": "Identify both actual derivatives on their correct measures",
+              "text": "Let Z be the actual integral of exp(D) under the probability mu. Established L1 and strict pointwise positivity give Z>0. The tilted law is a probability and is mutually absolutely continuous with mu. Use the actual tilted RN formulas. The reverse formula is initially obtained mu-almost everywhere; transfer it to the tilted law using absolute continuity before integrating there.",
+              "formula": "Z=\\mathbb E_\\mu e^D>0,\\qquad \\frac{d\\pi}{d\\mu}=\\frac{e^D}{Z}\\ (\\mu\\text{-a.e.}),\\qquad \\frac{d\\mu}{d\\pi}=Ze^{-D}\\ (\\pi\\text{-a.e.}).",
+              "lean": "tilt_density_pair; MeasureTheory.toReal_rnDeriv_tilted_left; MeasureTheory.toReal_rnDeriv_tilted_right; MeasureTheory.tilted_absolutelyContinuous; MeasureTheory.absolutelyContinuous_tilted; MeasureTheory.isProbabilityMeasure_tilted"
+            },
+            {
+              "title": "Establish weighted L1 before the normalized power identities",
+              "text": "Raise the positive density formulas to ell. The forward power under mu is an integrable scalar multiple of exp(ell D). For the reverse power under pi, use the tilted integrability equivalence: its exponential factor has weighted integrand exp(D) exp(-ell D)=exp(-(ell-1)D), already known integrable under mu. Only then compute the integral and combine the powers of the positive Z.",
+              "formula": "I_{\\pi\\|\\mu}=Z^{-\\ell}\\mathbb E_\\mu e^{\\ell D},\\qquad I_{\\mu\\|\\pi}=Z^{\\ell-1}\\mathbb E_\\mu e^{-(\\ell-1)D}.",
+              "lean": "forward_density_power; reverse_density_power; MeasureTheory.integrable_tilted_iff; MeasureTheory.integral_exp_tilted; Real.div_rpow; Real.mul_rpow"
+            },
+            {
+              "title": "Control the positive normalizer power",
+              "text": "Put a=ell-1>=1. Convexity of the a-th power and the two supplied integrability conditions give Z^a<=E exp(aD). Bound both this expectation and E exp(-aD) by E exp(a abs(D)). A second Jensen application, now for the square, bounds the product by E exp(2a abs(D)), which is at most H. The a>=1 step is why this proof uses the actual ell>=2 consumer rather than claiming the entire printed ell>1 range.",
+              "formula": "I_{\\mu\\|\\pi}\\le\\left(\\mathbb E_\\mu e^{(\\ell-1)|D|}\\right)^2\\le\\mathbb E_\\mu e^{2(\\ell-1)|D|}\\le H.",
+              "lean": "power_mean_exponential; exponential_mean_square; normalized_moments; convexOn_rpow; ConvexOn.map_integral_le"
+            },
+            {
+              "title": "Control the inverse normalizer by two exponential Jensen inequalities",
+              "text": "Because D and exp(D) are integrable, exponential Jensen gives exp(E D)<=Z. The negative ell-th power reverses this inequality. Apply exponential Jensen again to -ell D, whose integrability and exponential integrability were already proved. This yields Z^(-ell)<=E exp(-ell D). Dominate both signed exponential moments by E exp(ell abs(D)); square Jensen gives the same H bound. This is a complete alternative to the Cauchy-Schwarz step, preserving the source constant.",
+              "formula": "Z^{-\\ell}\\le e^{-\\ell\\mathbb E_\\mu D}\\le\\mathbb E_\\mu e^{-\\ell D},\\qquad I_{\\pi\\|\\mu}\\le\\left(\\mathbb E_\\mu e^{\\ell|D|}\\right)^2\\le H.",
+              "lean": "exponential_mean; inverse_normalizer_power; normalized_moments; Real.rpow_le_rpow_of_nonpos; convexOn_exp"
+            },
+            {
+              "title": "Transfer real powers to ENNReal and instantiate the actual consumer",
+              "text": "Both real RN-power integrals are now finite and at most H. Subtract one and consume the parent bound H-1<=epsilon. To obtain the ENNReal lintegrals, use RN derivatives being finite almost everywhere under their denominator measures; then ofReal commutes with the nonnegative power. This excludes a false conversion through toReal(infinity). The actual ideal-law equality from the first step instantiates all generic statements with pi and qhat and returns the ten asserted conclusions.",
+              "formula": "\\operatorname{ofReal}\\!\\left(\\int (\\operatorname{toReal}r)^\\ell\\,d\\nu\\right)=\\int r^\\ell\\,d\\nu,\\qquad I_{\\pi\\|\\widehat\\pi}-1,\\ I_{\\widehat\\pi\\|\\pi}-1\\le2e^{2B-K}.",
+              "lean": "rn_power_lintegral; tilt_power_bounds; clipped_renyi_comparison; MeasureTheory.Measure.rnDeriv_ne_top; MeasureTheory.ofReal_integral_eq_lintegral_ofReal; ENNReal.ofReal_rpow_of_nonneg"
+            }
+          ],
+          "lean_statement": "Two actual probabilities,two absolute continuities,two real RN-power L1,two real-integral-minus-one bounds and two ENNReal bounds.",
+          "lean_proof": "Actual ideal identification,derived normalization,exponential domination,Jensen,weighted RN algebra,a.e. measure transfer and finite RN conversion.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedMeanExponential.clipped_mean_exponential",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.IdealRGOIdentification.ideal_rgo_identification",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram.clipped_gradient_program"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.tilted_tilted",
+            "MeasureTheory.integrable_tilted_iff",
+            "MeasureTheory.toReal_rnDeriv_tilted_right",
+            "ConvexOn.map_integral_le",
+            "MeasureTheory.Measure.rnDeriv_ne_top"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedRenyiComparison.clipped_renyi_comparison",
+          "role": "proof-edge",
+          "supports": [
+            "actual-clipped-renyi-comparison"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "The source uses positive-dimensional Euclidean space.",
+            "lean": "Finite-dimensional real inner-product Borel space with positive finrank."
+          },
+          {
+            "source": "D.1 uses Assumption3.2 with Holder gradient; the selected smooth case has s=1.",
+            "lean": "Actual beta-Lipschitz gradient, differentiability,positive beta,eta,B,d,ell>=2 and the displayed residual/64-step restriction."
+          },
+          {
+            "source": "B.12/D.1 proof uses denominator-measure ell-powers, whereas B.7 and section1.3 contain inconsistent measure subscripts or powers.",
+            "lean": "Both actual denominator-measure ell-power integrals are written explicitly."
+          },
+          {
+            "source": "B.12 is printed for ell>1, while D.1 uses ell>=2.",
+            "lean": "The selected actual consumer retains ell>=2."
+          },
+          {
+            "source": "Auxiliary uniform time is sampled on [0,1].",
+            "lean": "Restricted Lebesgue volume on (0,1] is independently multiplied with the actual Gaussian."
+          },
+          {
+            "source": "Normalized comparison uses the actual ideal and implemented clipped laws.",
+            "lean": "beta*eta<1,positive normalizers,both probabilities,mutual absolute continuity,weighted L1 and both RN a.e. formulas are proved before use."
+          },
+          {
+            "source": "D.1 Eq18 feeds the terminal approximate RGO in SPHMC A.4(2).",
+            "lean": "Two real moment-minus-one bounds and two ENNReal moment bounds with factor2,constants40/8 and actual distributions."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be any finite-dimensional real inner-product Borel space with d=dim_R E>0 and f:E->R differentiable everywhere. For every eta,beta,B,ell in R and x0,xp in E assume eta,beta,B>0,ell>=2, actual grad f globally beta-Lipschitz, norm(x0-eta grad f(xp)-xp)<=sqrt(d eta), and64 beta^2(ell d/B+ell^2)<=1/eta^2. Define h=x0-eta grad f(xp), q=(z->h+sqrt(eta)z)_*stdGaussian(E), P=(z->sqrt(eta)z)_*stdGaussian(E), nu=Lebesgue restricted to(0,1] product P. For theta=pi t/2 set S=< (pi/2)(cos(theta)(x-h)-sin(theta)z),grad f(xp)-grad f(h+sin(theta)(x-h)+cos(theta)z) >, and mB(x)=integral min(B,max(-B,S)) dnu(t,z). Set qhat=q.tilted(mB). First define G=(z->x0+sqrt(eta)z)_*stdGaussian(E); then pi=G.tilted(-f), so the tilt follows the pushforward. Set K=min(B^2/(40 beta^2 d eta^2),B/(8 beta eta)) and C=2exp(2B-K). Then pi,qhat are probabilities and pi<<qhat and qhat<<pi. For actual ENNReal RN derivatives R=dpi/dqhat and S=dqhat/dpi, the real functions (R.toReal)^ell and(S.toReal)^ell are Bochner integrable under qhat and pi respectively. Each corresponding real integral minus1 is <=C. The ENNReal lintegrals of R^ell under qhat and S^ell under pi are each <=ofReal(1+C).",
+        "text_sha256": "4fea53ca38add3039aec870452b50518069eac03a0fbed0985a61c9c3ad6eb65",
+        "decoder_packet_sha256": "979657172f272bdeca65ddc138df5cac8fdaf521ebd138a2b9e4b7c97b9de16b",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_o",
+        "notes": [
+          "Source-blind decoder read only the anonymous packet. Follow-up clarified parentheses using only that same packet: pushforward first, then tilt with base G=N(x0,etaI).",
+          "All parameters and points universally quantified; ell real,not necessarily integer.",
+          "Both RN powers are integrated under their denominator measure; actual qhat,not untilted q, is paired with pi.",
+          "Clipping is inside the auxiliary integral; its mean is then exponentiated by the tilt,not a mixture of normalized tilts.",
+          "Bounds depend explicitly on B,beta,d,eta;ell also constrains admissibility.",
+          "No convexity,additional abstractestimator,trajectory,high-probability event or algorithmic approximation quantified.",
+          "Positive finite normalizers,pointwise estimator bounds,measurability and Gaussian calculations are not separately returned conjuncts. RN derivatives are measure-theoretic versions,not specified pointwise Lebesgue ratios.",
+          "compiled true is supplied packet information; no independent compilation by decoder."
+        ],
+        "decoder_run_sha256": "a79a2ca82196baafb5b83ea55d77d163dbeae44e79e43116377f964eb513c21a",
+        "lean_statement_sha256": "bc8db5ed5494c327147fbb794c4b6898d59e275e0461c233dc403f1764468ce8",
+        "run_artifact": "runs/20260911-companion-priority/clipped-renyi-comparison.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Actual clipped auxiliary-mean tilt and Gaussian-regularized target.",
+          "reconstructed": "Actual W, clipping inside expectation, qhat=q.tilted(mB), pi=G.tilted(-f) after Gaussian pushforward.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual parents identify qhat.tilted(m-mB)=pi."
+        },
+        "domains": {
+          "original": "Primary Euclidean space; attributed restatement discloses extension.",
+          "reconstructed": "Positive-dimensional finite real inner-product Borel space.",
+          "relation": "different",
+          "evidence": "Coordinate-free extension disclosed; beta and dimension strictly positive."
+        },
+        "quantifiers": {
+          "original": "Every admissible fixed call and supplied reference.",
+          "reconstructed": "Universal admissible parameters followed by actual laws and ten conclusions.",
+          "relation": "same",
+          "evidence": "No measurable selection or random-reference conditioning asserted."
+        },
+        "assumptions": {
+          "original": "Selected smooth s=1, residual and sufficient step restriction; no D1 convexity.",
+          "reconstructed": "Differentiability, actual Lipschitz gradient, positive eta/beta/B/d, ell>=2, residual and64 inequality.",
+          "relation": "explicit-elaboration",
+          "evidence": "Ideal beta*eta<1 derived; no normalization or L1 assumed."
+        },
+        "conclusion": {
+          "original": "Both denominator-measure ell-power moments controlled.",
+          "reconstructed": "Two probabilities, two AC, two real L1, two real bounds, two ENNReal bounds.",
+          "relation": "explicit-elaboration",
+          "evidence": "Exactly ten conjuncts with error2exp(2B-K), denominator measures correct."
+        },
+        "scopes": {
+          "original": "D1/B12 dependency supplying SPHMC terminal application.",
+          "reconstructed": "Fixed-parameter actual law comparison.",
+          "relation": "same",
+          "evidence": "No logarithmic divergence, initialization, adaptive kernel or cost."
+        },
+        "constant_dependencies": {
+          "original": "Explicit constants2,64,40,8.",
+          "reconstructed": "K=min(B^2/(40 beta^2 d eta^2),B/(8 beta eta)); error2exp(2B-K).",
+          "relation": "same",
+          "evidence": "No extra factor or uniform-in-B cost inferred."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Positive-dimensional coordinate-free extension disclosed.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Positive-dimensional coordinate-free extension disclosed."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "Selected smooth s=1 regime; D1 requires no convexity.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Selected smooth s=1 regime; D1 requires no convexity."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Denominator-measure powers follow B12 identities; inconsistent B7 definition disclosed, not author-confirmed erratum.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Denominator-measure powers follow B12 identities; inconsistent B7 definition disclosed, not author-confirmed erratum."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "same",
+          "description": "ell>=2 selected consumer; B12 intermediate gap below2 disclosed, not final-theorem counterexample or repair.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: ell>=2 selected consumer; B12 intermediate gap below2 disclosed, not final-theorem counterexample or repair."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "Ioc/Icc uniform endpoints differ by null set; actual independent product.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Ioc/Icc uniform endpoints differ by null set; actual independent product."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "source-implicit",
+          "description": "Normalization, AC and weighted L1 proved internally before use, not extra public conjuncts.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Normalization, AC and weighted L1 proved internally before use, not extra public conjuncts."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Explicit moment comparison dependency, not complete parameterized terminal routine.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent formal reviewer accepted: Explicit moment comparison dependency, not complete parameterized terminal routine."
+        }
+      ]
     }
   ]
 }
