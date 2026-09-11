@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.1/A.4(2), via arXiv:2602.01338v1 Appendix D.1 Claim 1 gradient-arc estimator",
   "target_statement": "On a finite-dimensional real inner product space, eta>0 and fixed center h, for actual independent X~N(h,eta I), Z~N(0,eta I), gamma_r=h+sin(pi*r/2)(X-h)+cos(pi*r/2)Z and v_r=(pi/2)(cos(pi*r/2)(X-h)-sin(pi*r/2)Z), prove the actual joint pushforward N(h,eta I) product N(0,(pi/2)^2 eta I), path derivative, endpoints and necessary joint measurability. Prove independence through the product law, not separate Gaussian marginals.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [],
   "consumers": [
     "Actual gradient-arc estimator W in D.1 Claim 1, consumed by SPHMC Appendix A.4(2)"
@@ -35,7 +35,8 @@
     "proof_plan": "proof-blueprints/SPHMC-gaussian-arc-law.md",
     "planning_review": "Independent log_depth_source_review confirmed exact joint law, derivative, endpoint signs, real consumer and separate source discrepancy.",
     "execution_boundary": "Root sole writer; GaussianArcLaw EXPLORING after actual parent PR277 merge. No STABILIZING packet.",
-    "admission_boundary": "PROVED_LOCAL; independent fixed-commit VERIFIED pending."
+    "admission_boundary": "VERIFIED atd26fc31. Aggregate integration, site, actual merge and deployment remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/gaussian-arc-law.verified-admission.json"
   },
   "blocked": {
     "reason": "",
