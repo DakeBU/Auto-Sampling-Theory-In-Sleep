@@ -31,7 +31,8 @@
     "proof_plan": "proof-blueprints/SPHMC-state-dependent-rgo.md",
     "planning_review": "log_depth_source_review independently rechecked source: reported eta cannot be presumed deterministic; full measurable state is needed.",
     "execution_boundary": "Root sole writer. AdaptiveKLError sole STABILIZING. This packet EXPLORING.",
-    "ownership_note": "One actual paper consumer; no fabricated shared consumer."
+    "ownership_note": "One actual paper consumer; no fabricated shared consumer.",
+    "source_interface_clarification": "Independent log_depth_source_review rechecked Section6.1 A1-A3 and7.1: faithful interface is deterministic eta(s) per fixed call input plus output Markov kernel. Random runtime report/output semantics are an optional extension, not a required paper gap. Complete current-state sampler semantics remain needed."
   },
   "blocked": {
     "reason": "",
@@ -46,10 +47,10 @@
       {
         "source": "https://arxiv.org/html/2609.06906v1",
         "anchor": "Algorithm3.3 and Theorem6.5",
-        "hypothesis_adapter": "b=1/A, a=(eta+tau)/beta_A; state before fresh noise; no retrospective conditioning."
+        "hypothesis_adapter": "b=1/A, a=(eta+tau)/beta_A; eta is selected for fixed current call input, with measurable state dependence."
       }
     ],
-    "fidelity_boundary": "One actual state-dependent ideal RGO stage, not complete Algorithm3.3. The state is specified before the new Gaussian draw and may encode current history. The theorem does not condition retrospectively on a reported smoothing level while assuming an unchanged sample law. Actual joint sampler/report semantics, approximate guarantees, random stopping, FORS, recursive error budgets and expected query costs remain open. No deterministic variance schedule is imposed or inferred from the source."
+    "fidelity_boundary": "Fixed probability base, arbitrary measurable state space and measurable current-state parameters. Exact ideal joint observation law only. The source interface selects a smoothing level for each fixed call input; this theorem does not construct its actual output sampler, recursive stopping, FORS, numerical accuracy or expected query costs."
   },
   "conceptual_mirror_audit": {
     "status": "none-found",
