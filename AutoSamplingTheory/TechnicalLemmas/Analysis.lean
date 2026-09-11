@@ -17,6 +17,7 @@ import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC2
 import AutoSamplingTheory.TechnicalLemmas.Analysis.SmoothnessEquivalences
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient
 import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue
 
 /-!
 # Analysis technical lemma arsenal

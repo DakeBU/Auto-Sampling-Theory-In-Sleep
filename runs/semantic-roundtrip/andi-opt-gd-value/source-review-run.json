@@ -1,0 +1,58 @@
+{
+  "reviewer": "coco_source",
+  "role": "independent anti-anchored source reviewer",
+  "input_artifacts": [
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-value/reviewer-0.json",
+      "packet_sha256": "d38cee8b8f8625926cc77a85e437147eecd1ec0108538e8ae687b76339df31fc",
+      "publication_binding_sha256": "d390a83d8d454416500e543cea244f15c7efbe843d3a86e3126b7e076f59da4e"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-value/reviewer-1.json",
+      "packet_sha256": "fc213234bd5d909e60d921a1840220e8882e39b0bc55de68ebfc5e1ca16e19fb",
+      "publication_binding_sha256": "1a3e0eeb19041bcf75e80e49b51039637813dd94ea5eb81ad9c613a66deea764"
+    }
+  ],
+  "additional_inputs": [
+    "https://arxiv.org/html/2605.07006v1#S3: section introduction, Lemma3.1, Theorem3.4 (3.1)-(3.3), Lemma3.5 and weighted calculation immediately following it"
+  ],
+  "independence": {
+    "formalizer": "andi-gdv-worker",
+    "decoder": "value_blind",
+    "reviewer": "coco_source",
+    "prior_target_verdicts_used": false,
+    "registry_read": false
+  },
+  "whole_module_review": {
+    "status": "completed",
+    "module_sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+    "declarations": [
+      "private step_descent",
+      "gradient_step_energy_bound",
+      "gradient_descent_weighted_value_bound"
+    ],
+    "private_helper_analysis": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem."
+  },
+  "independent_math_checks": {
+    "energy": "The signed alpha chord inequality and C1 imply f(z)>=f(x)-<g,x-z>+(alpha/2)||x-z||^2. Multiply by 2h>=0, combine private descent and the exact norm expansion; h^2||g||^2 cancels. No alpha>=0, beta>=0, comparator optimality, or gap sign is used.",
+    "recurrence": "With actual iterates X(n+1)=T(Xn), u_n=||Xn-z||^2 and g_n=f(Xn)-f(z), get u_(n+1)<=q u_n-2h g_(n+1) and g_(n+1)<=g_n. The forced recurrence permits signed -2h g_(n+1) and requires nonnegative coefficient q.",
+    "weights": "For k<N, g_N<=g_(k+1); multiplication by -2h<=0 reverses this inequality. Multiplication by q^(N-(k+1))>=0 then preserves it. Summing, reversing k and discarding u_N>=0 gives precisely 2h S_N g_N<=q^N u0. No bound q<=1 is needed.",
+    "endpoints": "N=0 has S0=0, q^0=1 and yields 0<=||x0-z||^2. h=0 gives T=id, q=1 and a zero left coefficient. q=0 gives S_N=1 and q^N=0 for N>=1 without reciprocal evaluation. q=1 gives S_N=N. q>1, possible with negative alpha, is valid though not a decaying optimization rate.",
+    "source_comparison": "Setting E to Euclidean space, retaining the source C2/nonnegative-modulus hypotheses, choosing h in [0,1/beta] on beta>0 and choosing z=xstar recovers the selected source statements. Arbitrary z is explicitly permitted by source (3.3). The finite weighted bound extends Lemma3.5 positive-A inverse proof to q=0 through a product-form recurrence.",
+    "normalized_rate_boundary": "For h>0, N>=1 and 0<q<1, divide the weighted bound and use S_N=(1-q^N)/(1-q), 1-q=alpha h to obtain alpha R^2/[2(q^(-N)-1)]. For alpha=0, h>0, N>=1, S_N=N yields R^2/(2Nh). These algebraic consequences are not separately published/registered by either binding, and singular h=0, N=0, q=0 or q=1 are not interpreted through the source inverse formula."
+  },
+  "counterexamples": {
+    "descent_missing_nonnegative_step": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2.",
+    "general_comparator_energy_missing_nonnegative_step": "Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails.",
+    "general_comparator_weighted_missing_nonnegative_step": "Same f,alpha,beta,h, take x0=0,z=1,N=2. q=3/2, g_N=-1/2, S2=5/2. Left side is 5/2 while right side is 9/4. This concerns the general-comparator extension, not a claim that the minimizer weighted inequality itself fails for negative h."
+  },
+  "publication_review": [
+    "Every local symbol T,s,g,v,x_n,u_n,g_n,q,S_N,R,N is defined in its relevant lesson. g in the first lesson denotes the gradient vector; g_n in the second denotes scalar comparator gaps, with scopes explicitly distinct.",
+    "Source nonnegative-modulus setting versus signed alpha,beta Lean extension is disclosed in candidate assumptions and lesson. Calling the hypothesis chord strong convexity is interpreted by its displayed formula, not by silently imposing alpha>0.",
+    "Both bindings claim only comparator-energy and weighted-final-gap respectively. Source inverse-power-rate and convex-normalized-rate remain uncovered publication obligations.",
+    "Test path and description say compiled specialization consumers only; these are not independently checked by this source review and do not provide separate theorem admission.",
+    "Whole module including private step_descent and both public declarations has been reviewed; compiler success is not substituted for source fidelity."
+  ],
+  "limits": "Only the two fresh reviewer packets supplied candidate/decoder evidence. No production files outside packet payload, tests, registry, old verdicts or other reviews were inspected; no independent compilation or Optlib provenance audit was performed. Proposed repair remains unaccepted.",
+  "final_packet_recheck": "Re-read final current packets after the coordinator reported layout-only joining of adjacent gathered blocks. Verified the final formula text for both lessons, unchanged source/Lean statement hashes and full-module SHA256, and exact agreement between final packet hashes and both review artifacts. No mathematical delta was introduced."
+}

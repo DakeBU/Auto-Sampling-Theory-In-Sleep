@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "fc213234bd5d909e60d921a1840220e8882e39b0bc55de68ebfc5e1ca16e19fb",
+  "publication_binding_sha256": "1a3e0eeb19041bcf75e80e49b51039637813dd94ea5eb81ad9c613a66deea764",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual Euclidean derivative gradient and gradient update. Sequence of actual updates, squared distance and function-value gaps to a minimizer in the weighted proof.",
+      "reconstructed": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Actual Function.iterate T N with arbitrary z and signed gap.",
+      "relation": "explicit-elaboration",
+      "evidence": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The recurrence is derived from the actual dynamics before applying discrete Gronwall.",
+      "source": "Actual Euclidean derivative gradient and gradient update. Sequence of actual updates, squared distance and function-value gaps to a minimizer in the weighted proof.",
+      "lean": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Actual Function.iterate T N with arbitrary z and signed gap.",
+      "status": "explicit-elaboration",
+      "explanation": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The recurrence is derived from the actual dynamics before applying discrete Gronwall."
+    },
+    "domains": {
+      "original": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
+      "reconstructed": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+      "relation": "different",
+      "evidence": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required.",
+      "source": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
+      "lean": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+      "status": "different",
+      "explanation": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required."
+    },
+    "quantifiers": {
+      "original": "Actual iterates for each N relative to xstar in the weighted proof, with arbitrary-comparator one-step extension in (3.3).",
+      "reconstructed": "Every initial x0, every comparator z, all natural N including zero, and each fixed admitted h.",
+      "relation": "different",
+      "evidence": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. The arbitrary-comparator weighted extension follows the explicit (3.3) permission and does not assume gap nonnegativity.",
+      "source": "Actual iterates for each N relative to xstar in the weighted proof, with arbitrary-comparator one-step extension in (3.3).",
+      "lean": "Every initial x0, every comparator z, all natural N including zero, and each fixed admitted h.",
+      "status": "different",
+      "explanation": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. The arbitrary-comparator weighted extension follows the explicit (3.3) permission and does not assume gap nonnegativity."
+    },
+    "assumptions": {
+      "original": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta. Lemma3.5 assumes A>0 and the proof uses A=q.",
+      "reconstructed": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1. Also alpha h<=1, equivalent to q>=0.",
+      "relation": "different",
+      "evidence": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. Nonnegative weights are essential for the recurrence comparison; q=0 is a disclosed extension of source A>0, and q<=1 is unnecessary.",
+      "source": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta. Lemma3.5 assumes A>0 and the proof uses A=q.",
+      "lean": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1. Also alpha h<=1, equivalent to q>=0.",
+      "status": "different",
+      "explanation": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. Nonnegative weights are essential for the recurrence comparison; q=0 is a disclosed extension of source A>0, and q<=1 is unnecessary."
+    },
+    "conclusion": {
+      "original": "The finite weighted estimate before division in the proof after Lemma3.5.",
+      "reconstructed": "2h sum(k=0..N-1)q^k times final comparator gap <=q^N times initial squared distance.",
+      "relation": "equivalent",
+      "evidence": "On the common scoped source domain the algebra and constants agree. Reverse the finite summation index to identify powers q^(N-1-k) with the displayed geometric sum. This equivalence is to the finite weighted inequality, not an inverse formula at endpoints.",
+      "source": "The finite weighted estimate before division in the proof after Lemma3.5.",
+      "lean": "2h sum(k=0..N-1)q^k times final comparator gap <=q^N times initial squared distance.",
+      "status": "equivalent",
+      "explanation": "On the common scoped source domain the algebra and constants agree. Reverse the finite summation index to identify powers q^(N-1-k) with the displayed geometric sum. This equivalence is to the finite weighted inequality, not an inverse formula at endpoints."
+    },
+    "scopes": {
+      "original": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
+      "reconstructed": "Global deterministic statements on univ, arbitrary comparator and signed gaps. Natural iteration, no claim of minimizer existence or separately published normalized rate.",
+      "relation": "different",
+      "evidence": "Source support is scoped to the precise binding. A minimizer is not required by the generalized weighted inequality. Inverse-power and convex-normalized obligations are unbound, and tests are only specialization consumers.",
+      "source": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
+      "lean": "Global deterministic statements on univ, arbitrary comparator and signed gaps. Natural iteration, no claim of minimizer existence or separately published normalized rate.",
+      "status": "different",
+      "explanation": "Source support is scoped to the precise binding. A minimizer is not required by the generalized weighted inequality. Inverse-power and convex-normalized obligations are unbound, and tests are only specialization consumers."
+    },
+    "constant_dependencies": {
+      "original": "q=1-alpha h, geometric weights, 2h and initial distance R; source inverse expression uses additional nonzero denominators.",
+      "reconstructed": "Exactly q,2h,S_N and R^2; no inverse of q or of 2h S_N.",
+      "relation": "equivalent",
+      "evidence": "No dimension constant or multiplicative loss. N=0,h=0,q=0 and q=1 use finite sums and natural powers; q>1 is allowed, with no implied decaying rate. Positive-domain normalization would additionally need h>0,N>=1 and 0<q<1.",
+      "source": "q=1-alpha h, geometric weights, 2h and initial distance R; source inverse expression uses additional nonzero denominators.",
+      "lean": "Exactly q,2h,S_N and R^2; no inverse of q or of 2h S_N.",
+      "status": "equivalent",
+      "explanation": "No dimension constant or multiplicative loss. N=0,h=0,q=0 and q=1 use finite sums and natural powers; q>1 is allowed, with no implied decaying rate. Positive-domain normalization would additionally need h>0,N>=1 and 0<q<1."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "C2 Euclidean nonnegative-modulus source generalized to C1 Hilbert functions with signed real alpha,beta.",
+      "evidence": "Packet lesson and candidate assumptions explicitly retain both signed global model inequalities and disclose all extensions."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "h>=0 is an exposed necessary restriction for the descent route and arbitrary-comparator energy claim.",
+      "evidence": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2. Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Whole production module, including private step_descent, was reviewed and source coverage is explicit.",
+      "evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "informational",
+      "description": "q>=0 is explicit; q=0 extends source positive-coefficient recurrence through division-free products.",
+      "evidence": "For k<N, g_N<=g_(k+1); multiplication by -2h<=0 reverses this inequality. Multiplication by q^(N-(k+1))>=0 then preserves it. Summing, reversing k and discarding u_N>=0 gives precisely 2h S_N g_N<=q^N u0. No bound q<=1 is needed. N=0 has S0=0, q^0=1 and yields 0<=||x0-z||^2. h=0 gives T=id, q=1 and a zero left coefficient. q=0 gives S_N=1 and q^N=0 for N>=1 without reciprocal evaluation. q=1 gives S_N=N. q>1, possible with negative alpha, is valid though not a decaying optimization rate."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Arbitrary comparator permits signed gaps; printed normalized rates are not admitted as separate published theorems.",
+      "evidence": "Binding supports only weighted-final-gap. Lesson test-source scope says compiled specialization tests, not separate registered theorem credit. Neither inverse-power-rate nor convex-normalized-rate is bound to these declarations."
+    }
+  ],
+  "verdict": "domain-mismatch",
+  "repairs": [],
+  "review_evidence": "Independent fresh review of ASTIS-REVIEW-91db7a408ec7c67f. Accepted as a disclosed signed-curvature C1 Hilbert-space and arbitrary-comparator extension of the source finite weighted proof, with q>=0 explicit. Source normalized inverse-power and convex-rate publication obligations remain uncovered; no singular reciprocal endpoint is accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json.",
+  "review_run_sha256": "c61dd4e74292c5a2674a2a9a3d85dc07a9f3b5f38bec06826e640580e19f2cd5",
+  "review_run_artifact": "/private/tmp/andi-gdv-source-review-run.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "fc213234bd5d909e60d921a1840220e8882e39b0bc55de68ebfc5e1ca16e19fb",
+    "review_run_sha256": "c61dd4e74292c5a2674a2a9a3d85dc07a9f3b5f38bec06826e640580e19f2cd5",
+    "evidence": "Independent fresh review of ASTIS-REVIEW-91db7a408ec7c67f. Accepted as a disclosed signed-curvature C1 Hilbert-space and arbitrary-comparator extension of the source finite weighted proof, with q>=0 explicit. Source normalized inverse-power and convex-rate publication obligations remain uncovered; no singular reciprocal endpoint is accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json."
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted as a disclosed signed-curvature C1 Hilbert-space and arbitrary-comparator extension of the source finite weighted proof, with q>=0 explicit. Source normalized inverse-power and convex-rate publication obligations remain uncovered; no singular reciprocal endpoint is accepted.",
+    "whole_module_including_private_helper_reviewed": true,
+    "module_sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+    "private_helper_evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem.",
+    "remaining_truth_boundary": "Accepted scoped/generalized mathematics only. Proposed source repair needs separate exact-proposal review; no pinned source rewrite. Inverse-power and convex-normalized rates remain uncovered publication obligations."
+  }
+}

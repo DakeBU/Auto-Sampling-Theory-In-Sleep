@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "task": "blind-theorem-reconstruction",
+  "packet_id": "ASTIS-BLIND-a1905a90122e234e",
+  "non_disclosure": {
+    "source_text_included": false,
+    "source_anchor_included": false,
+    "source_identity_included": false,
+    "audit_identity_included": false,
+    "lean_declaration_identity_included": false,
+    "forbidden_inputs": [
+      "original theorem text",
+      "source title, theorem number, or anchor",
+      "audit id or source-facing Lean declaration name",
+      "source semantic audit or fidelity verdict",
+      "repair proposal"
+    ]
+  },
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "lean": {
+    "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {α β h : ℝ},\n  ContDiff ℝ 1 f →\n    StrongConvexOn Set.univ α f →\n      0 ≤ h →\n        β * h ≤ 1 →\n          (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n            ∀ (x z : E),\n              ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤ (1 - α * h) * ‖x - z‖ ^ 2",
+    "statement_sha256": "a1905a90122e234e94e2e6824a623a4b45eeadd0612ee842dba0cf09dd37b6e4",
+    "compiled": true,
+    "approved_definition_context": [
+      "ContDiff ℝ 1 f means global continuous Frechet differentiability.",
+      "StrongConvexOn univ a f means the chord inequality f((1-t)x+t y) <= (1-t)f(x)+t f(y)-(a/2)t(1-t)||y-x||² for all x,y and 0<=t<=1; a is a real number and this notation alone does not impose a>=0.",
+      "gradient f x is the Riesz vector of the Frechet derivative.",
+      "Function.iterate T N, written T^[N], is N-fold composition; T^[0] is the identity.",
+      "Finset.range N contains 0,...,N-1; a sum over range0 is zero and q^0 is1 including q=0."
+    ]
+  },
+  "output_contract": {
+    "reconstructed_theorem_text": "",
+    "reconstructed_text_sha256": "",
+    "objects": "",
+    "domains": "",
+    "quantifiers": "",
+    "assumptions": "",
+    "conclusion": "",
+    "scopes": "",
+    "constant_dependencies": "",
+    "decoder": "",
+    "decoder_run_sha256": "",
+    "source_text_visible": false
+  },
+  "packet_sha256": "49062d2d1a6f0647e7ba9c78320443aeb8e8b7e164a0c9ae4cd4977f83953bd2"
+}

@@ -1,0 +1,134 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+      "kind": "theorem",
+      "title": "One gradient step controls comparator energy",
+      "statement": "For every x,z, one actual gradient step obeys the displayed distance-plus-function energy bound.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\\\\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space and f:E→ℝ is C¹ globally. Its gradient is the actual Riesz representative of its Fréchet derivative.",
+        "α,β,h are real numbers; h≥0 and βh≤1. No separate nonnegative-modulus assumption is needed by these two inequalities.",
+        "f is globally α-strongly convex in the chord sense with subtraction (α/2)t(1−t)‖y−x‖². The β quadratic upper model displayed below holds for every x,y in E.",
+        "T(x)=x−h∇f(x). The comparator z is arbitrary, so f(x)−f(z) may be negative. No minimizer is assumed or constructed."
+      ],
+      "steps": [
+        {
+          "title": "Compute descent for the actual gradient step",
+          "text": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate as a private implementation step.",
+          "formula": "\\begin{gathered}f(s)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2,\\\\f(s)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
+          "lean": "private step_descent; inner_smul_right, real_inner_self_eq_norm_sq, norm_smul, mul_le_mul_of_nonneg_right."
+        },
+        {
+          "title": "Use strong first-order support at an arbitrary comparator",
+          "text": "The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters.",
+          "formula": "f(z)\\ge f(x)-\\langle g,v\\rangle+\\tfrac\\alpha2\\|v\\|^2.",
+          "lean": "StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn; ContDiff.differentiable_one; DifferentiableAt.hasGradientAt."
+        },
+        {
+          "title": "Expand and cancel the gradient square",
+          "text": "Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
+          "formula": "\\begin{gathered}\\|v-hg\\|^2=\\|v\\|^2-2h\\langle g,v\\rangle+h^2\\|g\\|^2,\\\\\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|v\\|^2.\\end{gathered}",
+          "lean": "norm_sub_sq_real; inner_smul_right; real_inner_comm; norm_smul; two nonnegative multiplications and nlinarith."
+        }
+      ],
+      "boundary": [
+        "This is shared optimization textbook mathematics, not companion-paper progress. C¹ on a complete real Hilbert space generalizes the section’s C² Euclidean setting. Signed α and β are explicit extensions of the nonnegative source moduli; no reciprocal of either is used. The actual comparator formulation is justified by source (3.3).",
+        "The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
+        "norm_sub_sq_real; inner_smul_right; real_inner_self_eq_norm_sq; norm_smul"
+      ],
+      "lean_statement": "Actual-gradient one-step arbitrary-comparator energy bound.",
+      "lean_proof": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate as a private implementation step. The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters. Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Theorem3.4, Lemma3.1 and weighted proof following Lemma3.5",
+          "scope": "ASTIS restatement with explicit source domains and extensions."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex GD point/value estimates",
+          "scope": "Existing alpha=0 adjacent results; external reference, no copied implementation."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentValue.lean",
+          "label": "Convex rate, strong rate and exact one-step optimum consumers",
+          "scope": "Compiled specialization tests, not separate registered theorem credit."
+        }
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_descent_weighted_value_bound",
+      "kind": "theorem",
+      "title": "A weighted bound on the final function value",
+      "statement": "For every initial point x₀, comparator z and natural N, actual iterates obey the displayed finite-geometric-sum bound under q≥0.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\\\x_n=T^n(x_0),\\quad q=1-\\alpha h\\ge0,\\\\S_N=\\sum_{k=0}^{N-1}q^k,\\quad R=\\|x_0-z\\|,\\\\2hS_N(f(x_N)-f(z))\\le q^N R^2.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space and f:E→ℝ is C¹ globally. Its gradient is the actual Riesz representative of its Fréchet derivative.",
+        "α,β,h are real numbers; h≥0 and βh≤1. No separate nonnegative-modulus assumption is needed by these two inequalities.",
+        "f is globally α-strongly convex in the chord sense with subtraction (α/2)t(1−t)‖y−x‖². The β quadratic upper model displayed below holds for every x,y in E.",
+        "T(x)=x−h∇f(x). The comparator z is arbitrary, so f(x)−f(z) may be negative. No minimizer is assumed or constructed.",
+        "N∈ℕ, T⁰ is the identity, q=1−αh≥0 and S_N=Σ_(k=0)^(N−1)q^k; in particular S₀=0. No upper bound q≤1 is required by the weighted inequality."
+      ],
+      "steps": [
+        {
+          "title": "Obtain a signed forced recurrence and monotonicity",
+          "text": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and private descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative.",
+          "formula": "\\begin{gathered}u_{n+1}\\le q u_n-2h g_{n+1},\\\\g_{n+1}\\le g_n.\\end{gathered}",
+          "lean": "gradient_step_energy_bound; private step_descent; Function.iterate_succ_apply'; antitone_nat_of_succ_le."
+        },
+        {
+          "title": "Reuse product-form discrete Grönwall",
+          "text": "Apply Mathlib’s recurrence theorem with constant coefficient q and forcing −2h g_(n+1). This theorem permits signed forcing. Constant products become powers; no inverse of q is introduced, so q=0 is admitted.",
+          "formula": "u_N\\le q^N u_0-2h\\sum_{k=0}^{N-1}q^{N-1-k}g_{k+1}.",
+          "lean": "discrete_gronwall_prod_general; Finset.prod_const; Nat.card_Ico; Nat.Ico_zero_eq_range; Finset.card_range."
+        },
+        {
+          "title": "Replace earlier gaps by the final gap",
+          "text": "For k<N, monotonicity gives g_N≤g_(k+1). Multiply by the nonpositive coefficient −2h and then the nonnegative weight q^(N−1−k). Sum, discard u_N≥0, and reverse the finite index. Write S_N=Σ_(k=0)^(N−1)q^k and R=‖x₀−z‖. This proves the final bound also for N=0.",
+          "formula": "\\begin{gathered}2h\\sum_{k=0}^{N-1}q^{N-1-k}g_N\\le q^N u_0,\\\\2hS_Ng_N\\le q^N R^2.\\end{gathered}",
+          "lean": "Finset.sum_le_sum; pow_nonneg; Finset.sum_range_reflect; Finset.mul_sum; sq_nonneg."
+        }
+      ],
+      "boundary": [
+        "This is shared optimization textbook mathematics, not companion-paper progress. C¹ on a complete real Hilbert space generalizes the section’s C² Euclidean setting. Signed α and β are explicit extensions of the nonnegative source moduli; no reciprocal of either is used. The actual comparator formulation is justified by source (3.3).",
+        "The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0.",
+        "The weighted adapter explicitly assumes αh≤1, the nonnegative coefficient domain used in the source recurrence proof. It allows q=0 as a product-form endpoint extension. N=0 and h=0 are valid division-free cases; they give no normalized rate.",
+        "For h>0,N>0, the α=0 O(1/N) rate and the positive-α expression αq^N R²/[2(1−q^N)] are compiled test consumers. The latter includes q=0; equivalence to the printed inverse-power expression is only meaningful for q>0 and is not a public declaration here. No complete Theorem3.4 closure is claimed."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound"
+      ],
+      "mathlib_dependencies": [
+        "discrete_gronwall_prod_general",
+        "Function.iterate_succ_apply'; antitone_nat_of_succ_le",
+        "Finset.sum_le_sum; Finset.sum_range_reflect; Nat.card_Ico; pow_nonneg"
+      ],
+      "lean_statement": "Actual-iterate finite weighted final comparator gap.",
+      "lean_proof": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and private descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative. Apply Mathlib’s recurrence theorem with constant coefficient q and forcing −2h g_(n+1). This theorem permits signed forcing. Constant products become powers; no inverse of q is introduced, so q=0 is admitted. For k<N, monotonicity gives g_N≤g_(k+1). Multiply by the nonpositive coefficient −2h and then the nonnegative weight q^(N−1−k). Sum, discard u_N≥0, and reverse the finite index. Write S_N=Σ_(k=0)^(N−1)q^k and R=‖x₀−z‖. This proves the final bound also for N=0.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Theorem3.4, Lemma3.1 and weighted proof following Lemma3.5",
+          "scope": "ASTIS restatement with explicit source domains and extensions."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex GD point/value estimates",
+          "scope": "Existing alpha=0 adjacent results; external reference, no copied implementation."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentValue.lean",
+          "label": "Convex rate, strong rate and exact one-step optimum consumers",
+          "scope": "Compiled specialization tests, not separate registered theorem credit."
+        }
+      ]
+    }
+  ]
+}

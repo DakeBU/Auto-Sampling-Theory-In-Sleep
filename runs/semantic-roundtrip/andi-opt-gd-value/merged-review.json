@@ -1,0 +1,83 @@
+{
+  "reviewer": "smoothness_review",
+  "checked_commit": "21dfd69e6b27640c6859c16e617ee0a03ce99800",
+  "review_kind": "Bounded both-parent merged integration preservation addendum; no new proof/source review or build",
+  "decision": "Conditional ACCEPT; no blockers",
+  "findings": [],
+  "preservation": {
+    "incoming_parent": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+    "local_prior_reviewed_commit": "fccbf94e9310f9dd7ec5de65d5594a0edd71f58a",
+    "audits_total": 66,
+    "all_64_upstream_audit_objects_exact": true,
+    "all_65_local_audit_objects_exact": true,
+    "frozen_files": {
+      "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean": {
+        "sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+        "matches_reviewed_local": true
+      },
+      "Tests/Shared/GradientDescentValue.lean": {
+        "sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+        "matches_reviewed_local": true
+      },
+      "website/content/declaration_lessons/gradient-descent-value.json": {
+        "sha256": "6e02740e618b253446de9547136f927707fb60ec8d4d14465eaaf0009fda8a3b",
+        "matches_reviewed_local": true
+      },
+      "website/content/publications/optimisation.json": {
+        "sha256": "32df005b27ed3097b299b45c8ce2d0f64e113f5faf5ff744a4c611e57f46ce79",
+        "matches_reviewed_local": true
+      }
+    },
+    "baseline_collaborator_artifacts": "Git modified-existing-file inventory versus incoming contains only authorized local aggregation files. Incoming proof/test/reader/source/decoder/reviewer artifacts remain unchanged. Existing local packet/run artifacts likewise remain unchanged; local cells/memory receive only integration evidence."
+  },
+  "ledger": {
+    "exact_base_plus_local8_plus_incoming10_prefix": true,
+    "additional_rows": 1,
+    "authorized_release": {
+      "advance_id": "ASTIS-SA-20260911-SPHMCGaussianArcLaw",
+      "created_at": "2026-09-11T12:17:26+00:00",
+      "event": "transition",
+      "evidence": {
+        "fake_closure_scan": "Historical independently checked production byte-preserved and identical to embedded whole-module review.",
+        "gate": "Independent historical preservation review from VERIFIEDd26fc31 to actual PR278 merge41f04c0; no fresh compile claim.",
+        "publication_declarations": [
+          "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law"
+        ],
+        "recording_provenance": "Root sole writer appends explicit smoothness_review authorization to release already-merged reservation, not original-owner MERGED. SmoothGradientArcMoment EXPLORING remains untouched.",
+        "source_audit": "Exact proof/test/lesson/publication/accepted audit/decoder/source-review artifacts preserved; incoming owner PoissonQueryTail MERGED retained. See runs/semantic-roundtrip/andi-opt-gd-value/upstream-review.json.",
+        "verified_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+        "verifier_id": "smoothness_review"
+      },
+      "from_state": "STABILIZING",
+      "modes": [],
+      "schema_version": 4,
+      "to_state": "VERIFIED",
+      "worker_id": "smoothness_review"
+    },
+    "rows_rewritten": false,
+    "state_replay": {
+      "ASTIS-SA-20260911-SPHMCPoissonQueryTail": "MERGED",
+      "ASTIS-SA-20260911-SPHMCGaussianArcLaw": "VERIFIED",
+      "ASTIS-SA-20260911-SPHMCSmoothGradientArcMoment": "EXPLORING",
+      "ANDI-OPT-gd-value-001": "STABILIZING"
+    },
+    "sole_stabilizing": "ANDI-OPT-gd-value-001",
+    "interpretation": "Exact incoming original-owner PoissonQueryTail MERGED supersedes the preserved local historical release; Gaussian release records my explicit historical-preservation authorization without forging owner MERGED."
+  },
+  "root_coverage": {
+    "tests_imports": [
+      "Tests.Shared.GradientDescentValue",
+      "Tests.SmoothedPicardHMCGaussianArcLaw"
+    ],
+    "both_present_once": true,
+    "production_aggregators": "Existing reviewed Analysis import and incoming ExampleCases import both preserved",
+    "registry_count": 412
+  },
+  "metadata_changes": "Local frontier cells append prior exact fccbf94 PASS9150 evidence only. Technical memory adds prior gate/site/UI and concurrent integration notes, explicitly states they apply to fccbf94 only and merged candidate needs fresh gate/site regeneration. These are reviewed documentation additions, not frozen-proof changes.",
+  "conditions": [
+    "Root confirms canonical full gate PASS for merged candidate; no duplicate build run by reviewer.",
+    "Root regenerates affected graphs/site, runs corresponding validations and confirms final UI as applicable.",
+    "Fresh fetch allows safe integration; any further concurrent changes need bounded preservation reconciliation."
+  ],
+  "repo_mutations": "None; only this requested /private/tmp report written."
+}

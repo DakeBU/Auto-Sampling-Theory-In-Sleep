@@ -1,0 +1,137 @@
+{
+  "reviewer": "smoothness_review",
+  "review_scope": "Independent bounded historical-preservation and concurrent-ledger reconciliation review; no proof rerun, no repository writes",
+  "checked_incoming_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+  "baseline_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+  "local_reviewed_integration_commit": "fccbf94e9310f9dd7ec5de65d5594a0edd71f58a",
+  "historical_verified_commit": "d26fc31e6cead8040bd6939c11d5fefe23a08188",
+  "decision": "Historical reservation release authorized; mechanical union integration recommended subject to merged preservation review and final gates",
+  "git_evidence": {
+    "merge_pr": 278,
+    "parents": [
+      "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+      "47f995cf9fb2668265ab7140162b6312ce26e9e5"
+    ],
+    "commit_time": "2026-09-11T20:05:18+08:00",
+    "title": "Merge pull request #278 from DakeBU/codex/sphmc-gaussian-arc-law",
+    "verified_commit_ancestor": true,
+    "fresh_fetch": "Root reports fresh successful canonical fetch before push; reviewer independently read actual two-parent merge object. No GitHub API claim."
+  },
+  "incoming_state": {
+    "GaussianArcLaw": "STABILIZING",
+    "PoissonQueryTail": "MERGED",
+    "SmoothGradientArcMoment": "EXPLORING",
+    "active_other_work": "SmoothGradientArcMoment has genuine EXPLORING scratch result for scalar Gaussian quadratic exponential moment, residual multidimensional moment/integrability/estimator consumer work. Preserve its owner, proposal, EXPLORING state, blueprint and progress; no release/claim authorized."
+  },
+  "preservation": {
+    "artifacts": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GaussianArcLaw.lean": {
+        "historical_verified_sha256": "78d8f2827489259fc4a754d1a2a1755f4ab57c2e11af71900171983f1096ba0d",
+        "merged_sha256": "78d8f2827489259fc4a754d1a2a1755f4ab57c2e11af71900171983f1096ba0d",
+        "exactly_preserved": true
+      },
+      "Tests/SmoothedPicardHMCGaussianArcLaw.lean": {
+        "historical_verified_sha256": "1a04a949a87acb3d08619f782d7385ab1869b73f6d1514b0a5448457eca146f8",
+        "merged_sha256": "1a04a949a87acb3d08619f782d7385ab1869b73f6d1514b0a5448457eca146f8",
+        "exactly_preserved": true
+      },
+      "proof-blueprints/SPHMC-gaussian-arc-law.md": {
+        "historical_verified_sha256": "dea43a684d56714f07b8ef777bb2dd952de3b18f01c7c2dd24bf203a880762d8",
+        "merged_sha256": "dea43a684d56714f07b8ef777bb2dd952de3b18f01c7c2dd24bf203a880762d8",
+        "exactly_preserved": true
+      },
+      "research-wiki/frontier-cells/ASTIS-SW-SPHMC-gaussian-arc-law.json": {
+        "historical_verified_sha256": "193cb171f280b20b82aa7e5306281e7b56fb1ed51e0566482eb11c80aadbd6ea",
+        "merged_sha256": "6ec07253ca0aca278153829f49e3dc0cfaed13b25db011febfa07e7e8a58f906",
+        "exactly_preserved": false
+      },
+      "runs/20260911-companion-priority/gaussian-arc-law.decoder-result.json": {
+        "historical_verified_sha256": "7795d75f5ba889379d6467fbe610458d6f87cf8402ed2fbc42eeed44520b9811",
+        "merged_sha256": "7795d75f5ba889379d6467fbe610458d6f87cf8402ed2fbc42eeed44520b9811",
+        "exactly_preserved": true
+      },
+      "runs/20260911-companion-priority/gaussian-arc-law.progress.json": {
+        "historical_verified_sha256": "a4ac9c10c09806e7d9b6472070dcb4b2eb3fe06f1799376c80b52cdf86f38367",
+        "merged_sha256": "523fe2c3d071225213d1e358ca281a9e3d8591bacb0f1f3e744a16750201ef0c",
+        "exactly_preserved": false
+      },
+      "runs/20260911-companion-priority/gaussian-arc-law.source-review-result.json": {
+        "historical_verified_sha256": "597acb2dcd99881b2a02061bcd220587e63a624f91adf02e03e869f34e8c6184",
+        "merged_sha256": "597acb2dcd99881b2a02061bcd220587e63a624f91adf02e03e869f34e8c6184",
+        "exactly_preserved": true
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianArcLaw.decoder.json": {
+        "historical_verified_sha256": "24173682c7623612fb1bd3ae6c05e4116547d2e335abd7bf5d1b249f3a5b763b",
+        "merged_sha256": "24173682c7623612fb1bd3ae6c05e4116547d2e335abd7bf5d1b249f3a5b763b",
+        "exactly_preserved": true
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCGaussianArcLaw.review.json": {
+        "historical_verified_sha256": "675e04d8eabe350bb6d69067b5bac1bc9b3809df74be2e78749b84f55d2c8b9b",
+        "merged_sha256": "675e04d8eabe350bb6d69067b5bac1bc9b3809df74be2e78749b84f55d2c8b9b",
+        "exactly_preserved": true
+      },
+      "website/content/declaration_lessons/sphmc-gaussian-arc-law.json": {
+        "historical_verified_sha256": "5484daf9994f27cf9d6fd4b4e0c7184be0d82070a19143a990c7779a60759501",
+        "merged_sha256": "5484daf9994f27cf9d6fd4b4e0c7184be0d82070a19143a990c7779a60759501",
+        "exactly_preserved": true
+      },
+      "website/content/publications/sphmc-gaussian-arc-law.json": {
+        "historical_verified_sha256": "1f5b3a1a2a61e6cc938623c5e8b6a86f4923b99761b77d30747ef0b019973980",
+        "merged_sha256": "1f5b3a1a2a61e6cc938623c5e8b6a86f4923b99761b77d30747ef0b019973980",
+        "exactly_preserved": true
+      }
+    },
+    "accepted_audit_exactly_preserved": true,
+    "accepted_audit_id": "ASTIS-RT-20260911-SPHMCGaussianArcLaw",
+    "source_text_sha256": "b561c15717b34aba543a6d53380710e5d60f9306af6d2d4c965214adbfda871b",
+    "source_hash_matches": true,
+    "publication_binding_sha256": "873b91fd0320d4bee1551e8242ba7d831d0d45d5a8a92fe9e33d5e383bf738f7",
+    "embedded_module_matches": true,
+    "historical_verifier": "depth_commit_verifier",
+    "historical_evidence": "Independent production/test PASS3117 evidence, expanded2112-character type Meta.isDefEq, standard axioms, seven private implementations covered, accepted blind_reconstruction_h and log_depth_source_review. No fresh Lean build performed by this reviewer.",
+    "metadata_differences": "Cell proved_locally -> independently_verified; progress PROVED_LOCAL -> STABILIZING; references to VERIFIED admission added. Cell additionally supplies source_detail_audit with same source/reuse/fidelity boundary already stated. No theorem, production, source payload or accepted review artifact changed.",
+    "stale_metadata_note": "verified-admission.json evidence clearly records VERIFIED d26fc31 and independent acceptance, but its final boundary sentence still says reconstruction pending/no VERIFIED. This is stale descriptive metadata contradicted by exact ledger/evidence and is not used as current state. Preserve collaborator bytes; no unauthorized correction."
+  },
+  "audit_union": {
+    "baseline_count": 63,
+    "incoming_count": 64,
+    "local_count": 65,
+    "expected_union_count": 66,
+    "incoming_preserves_all_baseline": true,
+    "local_preserves_all_baseline": true,
+    "incoming_additions": [
+      "ASTIS-RT-20260911-SPHMCGaussianArcLaw"
+    ],
+    "local_additions": [
+      "ASTIS-RT-ANDI-OPT-GradientEnergy",
+      "ASTIS-RT-ANDI-OPT-GradientWeightedValue"
+    ],
+    "overlapping_new_ids": [],
+    "recommendation": "Keyed three-way union; all existing objects exact. Reject any same-id concurrent semantic edit rather than silently choose a side."
+  },
+  "ledger_union": {
+    "local_exact_base_prefix": true,
+    "incoming_exact_base_prefix": true,
+    "local_tail_rows": 8,
+    "incoming_tail_rows": 10,
+    "exact_duplicate_tail_rows": 0,
+    "required_order": "Exact base bytes, then complete local unique tail in original order, then complete incoming unique tail in original order; remove only exact duplicate whole rows. Preserve every original timestamp and from_state. Do not chronological-sort or rewrite historical transition preconditions.",
+    "PoissonQueryTail": "Incoming original-owner STABILIZING->MERGED must survive and replay after the local historical STABILIZING->VERIFIED release; final reconciled state MERGED. Branch-local event timestamps describe original recording, not canonical merge order.",
+    "GaussianArcLaw": "After row union its incoming state is STABILIZING; append the separately authorized attributed STABILIZING->VERIFIED release based on actual merged artifact preservation. Do not manufacture original-owner MERGED.",
+    "final_queue": "After authorized Gaussian release, ANDI-OPT-gd-value-001 remains the sole STABILIZING unit, while SmoothGradientArcMoment remains EXPLORING."
+  },
+  "release_authorization": {
+    "advance_id": "ASTIS-SA-20260911-SPHMCGaussianArcLaw",
+    "authorized_transition": "STABILIZING -> VERIFIED",
+    "verifier_attribution": "smoothness_review",
+    "authorized_recorder": "root sole writer",
+    "explicit_authorization": "Authorized on the independently checked actual PR278 merge and exact historical VERIFIED artifact preservation, following reported fresh fetch. Preserve all historical events and no forged owner MERGED. This releases a stale reservation only; no new proof/source or full-paper completion claim."
+  },
+  "required_followup": [
+    "Mechanically merge roots and audit/ledger objects without losing local or incoming rows/artifacts.",
+    "Review final merged candidate both-parent preservation and final sole stabilization state.",
+    "Run canonical complete gate and relevant publication/site/graph/UI checks on merged candidate; fresh fetch again before push."
+  ],
+  "findings": [],
+  "repo_mutations": "None. Requested report written only under /private/tmp."
+}

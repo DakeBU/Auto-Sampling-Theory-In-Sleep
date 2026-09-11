@@ -633,6 +633,142 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientDistance"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-theorem-3-4",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Theorem3.4 · gradient-descent function values",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Theorem3.4 (3.1)-(3.3), Lemma3.1, weighted calculation after Lemma3.5",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "In the section C² Euclidean setting, strong convexity and smoothness give a distance-plus-function decrement for the gradient update. Remark (3.3) allows any comparator z. Applying the forced recurrence and monotonic function values gives the weighted final-gap estimate, then the printed inverse-power closed form and the convex limiting rate. The source prints only h≤1/β; the missing nonnegative-step condition and singular reciprocal endpoints remain visible in separate binding deltas.",
+      "assumptions": [
+        "f is C², α-strongly convex and β-smooth on Euclidean space, with nonnegative curvature moduli.",
+        "The printed step restriction is h≤1/β. The recurrence lemma uses a positive coefficient A; the closed-form calculation sets A=1−αh.",
+        "For the displayed optimization rate, x⋆ is a minimizer, R=‖x₀−x⋆‖, N is an iteration count. The α=0 formula is explicitly interpreted as a limit."
+      ],
+      "formulae": [
+        {
+          "label": "General comparator energy (3.3)",
+          "tex": "\\begin{gathered}\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}"
+        },
+        {
+          "label": "Weighted final-gap proof",
+          "tex": "\\begin{gathered}x_n=T^n(x_0),\\quad q=1-\\alpha h\\ge0,\\\\S_N=\\sum_{k=0}^{N-1}q^k,\\quad R=\\|x_0-z\\|,\\\\2hS_N(f(x_N)-f(z))\\le q^N R^2.\\end{gathered}"
+        },
+        {
+          "label": "Printed inverse-power rate (positive denominator domain)",
+          "tex": "f(x_N)-f(x_\\star)\\le\\frac{\\alpha R^2}{2(q^{-N}-1)}"
+        },
+        {
+          "label": "Convex limiting rate",
+          "tex": "f(x_N)-f(x_\\star)\\le\\frac{R^2}{2Nh}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "comparator-energy",
+          "label": "Actual-gradient one-step comparator energy (3.1),(3.3)"
+        },
+        {
+          "id": "weighted-final-gap",
+          "label": "Actual iterates, signed recurrence and finite weighted final gap"
+        },
+        {
+          "id": "inverse-power-rate",
+          "label": "Printed inverse-power rate and exact positive-domain equivalence"
+        },
+        {
+          "id": "convex-normalized-rate",
+          "label": "Convex 1/(2Nh) rate as a published source theorem"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+          "cell": "ASTIS-SHARED-gradient-step-energy",
+          "role": "proof-edge",
+          "supports": [
+            "comparator-energy"
+          ],
+          "boundary": "This is shared optimization textbook mathematics, not companion-paper progress. C¹ on a complete real Hilbert space generalizes the section’s C² Euclidean setting. Signed α and β are explicit extensions of the nonnegative source moduli; no reciprocal of either is used. The actual comparator formulation is justified by source (3.3). The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean objective.",
+              "lean": "C¹ objective on a complete real inner-product space.",
+              "classification": "generalization",
+              "reason": "Only genuine first derivatives, first-order support and inner-product algebra enter."
+            },
+            {
+              "source": "h≤1/β, with h≥0 omitted.",
+              "lean": "h≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0."
+            },
+            {
+              "source": "Nonnegative strong convexity and smoothness moduli.",
+              "lean": "α and β are real; no additional sign assumptions.",
+              "classification": "generalization",
+              "reason": "The one-step argument uses only the two stated models and h≥0. Signed moduli are a disclosed extension; no reciprocal is used."
+            },
+            {
+              "source": "Minimizer in (3.1), arbitrary z explicitly in (3.3).",
+              "lean": "Arbitrary comparator z; signed function gap.",
+              "classification": "same",
+              "reason": "The source expressly supplies this general comparator inequality; the weighted proof needs gap monotonicity, not gap positivity."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientEnergy"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_descent_weighted_value_bound",
+          "cell": "ASTIS-SHARED-gradient-descent-weighted-value",
+          "role": "proof-edge",
+          "supports": [
+            "weighted-final-gap"
+          ],
+          "boundary": "This is shared optimization textbook mathematics, not companion-paper progress. C¹ on a complete real Hilbert space generalizes the section’s C² Euclidean setting. Signed α and β are explicit extensions of the nonnegative source moduli; no reciprocal of either is used. The actual comparator formulation is justified by source (3.3). The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0. The weighted adapter explicitly assumes αh≤1, the nonnegative coefficient domain used in the source recurrence proof. It allows q=0 as a product-form endpoint extension. N=0 and h=0 are valid division-free cases; they give no normalized rate. For h>0,N>0, the α=0 O(1/N) rate and the positive-α expression αq^N R²/[2(1−q^N)] are compiled test consumers. The latter includes q=0; equivalence to the printed inverse-power expression is only meaningful for q>0 and is not a public declaration here. No complete Theorem3.4 closure is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean objective.",
+              "lean": "C¹ objective on a complete real inner-product space.",
+              "classification": "generalization",
+              "reason": "Only genuine first derivatives, first-order support and inner-product algebra enter."
+            },
+            {
+              "source": "h≤1/β, with h≥0 omitted.",
+              "lean": "h≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints h≤1/β without h≥0. The latter is essential: f(t)=t²/2, α=0, β=1, x=0, z=1 and h=−1 meet the printed upper restriction, but (3.3) would assert 2≤1. The division-free βh≤1 presentation includes β=0; it agrees with the printed reciprocal restriction only for β>0."
+            },
+            {
+              "source": "Nonnegative strong convexity and smoothness moduli.",
+              "lean": "α and β are real; no additional sign assumptions.",
+              "classification": "generalization",
+              "reason": "The one-step argument uses only the two stated models and h≥0. Signed moduli are a disclosed extension; no reciprocal is used."
+            },
+            {
+              "source": "Minimizer in (3.1), arbitrary z explicitly in (3.3).",
+              "lean": "Arbitrary comparator z; signed function gap.",
+              "classification": "same",
+              "reason": "The source expressly supplies this general comparator inequality; the weighted proof needs gap monotonicity, not gap positivity."
+            },
+            {
+              "source": "Lemma3.5 uses A>0; inverse calculation uses q=1−αh.",
+              "lean": "αh≤1, hence q≥0; finite weighted sum, no division, all N∈ℕ.",
+              "classification": "generalization",
+              "reason": "Expose the source coefficient domain, extending it to zero with product-form Gronwall. h=0,N=0,q=0,1 are not interpretations of singular reciprocal formulas."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientWeightedValue"
+        }
+      ]
     }
   ]
 }
