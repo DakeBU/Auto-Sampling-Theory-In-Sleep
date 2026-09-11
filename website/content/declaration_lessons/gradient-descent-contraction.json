@@ -1,0 +1,135 @@
+{
+  "units": [
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
+      "kind": "theorem",
+      "title": "A strongly convex gradient step contracts distances",
+      "statement": "For every pair x,y, the actual step T satisfies the displayed contraction estimate under the stated global curvature and step conditions.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\r=\\sqrt{1-\\alpha h},\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle\\\\{}+\\frac\\beta2\\|y-x\\|^2,\\\\\\|T(y)-T(x)\\|\\le r\\|y-x\\|.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space, f:E→ℝ is C¹, and all point quantifiers range over E. The gradient is the genuine Riesz representative of its Fréchet derivative.",
+        "The real parameters α, β and h are nonnegative and βh≤1.",
+        "f is α-strongly convex on all E: the convex chord inequality has the subtraction (α/2)t(1−t)‖y−x‖² for t∈[0,1]. The displayed β quadratic upper model holds for all x,y.",
+        "Write T(x)=x−h∇f(x) and r=√(1−αh), with the nonnegative real square root (zero on negative arguments)."
+      ],
+      "steps": [
+        {
+          "title": "Use the two compiled curvature inequalities",
+          "text": "For arbitrary x,y define v=y−x, d=∇f(y)−∇f(x) and p=⟨d,v⟩. Strong convexity with α≥0 supplies convexity and the lower pairing bound. Cocoercivity supplies the upper gradient-square bound.",
+          "formula": "\\begin{gathered}\\alpha\\|v\\|^2\\le p,\\quad p\\ge0,\\\\\\|d\\|^2\\le\\beta p.\\end{gathered}",
+          "lean": "StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn; UniformConvexOn.convexOn; ConvexSmoothGradient.gradient_cocoercive."
+        },
+        {
+          "title": "Expand one actual step",
+          "text": "Since h≥0 and βh≤1, multiplying the cocoercivity bound by h² gives h²‖d‖²≤h²βp≤hp. Insert this into the exact squared-norm expansion, then use hp≥αh‖v‖².",
+          "formula": "\\begin{gathered}\\|v-hd\\|^2=\\|v\\|^2-2hp+h^2\\|d\\|^2,\\\\\\|v-hd\\|^2\\le\\|v\\|^2-hp\\\\\\le(1-\\alpha h)\\|v\\|^2.\\end{gathered}",
+          "lean": "norm_sub_sq_real, inner_smul_right, norm_smul; three mul_le_mul_of_nonneg_left applications and nlinarith."
+        },
+        {
+          "title": "Take a square root without adding compatibility",
+          "text": "The squared norm is nonnegative. Taking square roots and factoring the nonnegative factor ‖v‖² yields the asserted distance bound. If 1−αh is negative and v≠0, the squared estimate is impossible; hence no nontrivial negative-coefficient case is hidden.",
+          "formula": "\\sqrt{(1-\\alpha h)\\|v\\|^2}=r\\|v\\|.",
+          "lean": "Real.le_sqrt_of_sq_le; Real.sqrt_mul' with sq_nonneg; Real.sqrt_sq with norm_nonneg."
+        }
+      ],
+      "boundary": [
+        "C¹ on a complete real inner-product space is an explicit extension of the section’s C² Euclidean setting. The source reciprocal restriction is recovered for β>0; the division-free statement also includes β=0 and h=0. If 1−αh<0, the squared bound forces every pairwise distance to vanish, so the norm result remains valid on a singleton space without an unjustified α≤β assumption. No constrained-domain, Riemannian or stochastic method is covered; this is shared optimization background, not companion-paper progress.",
+        "The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6.",
+        "The source specializes to h=1/β and κ=β/α. For 0<α≤β, r^N=(1−1/κ)^(N/2) and the exponential factor is exp(−N/(2κ)). This unit does not formalize the subsequent logarithmic iteration-complexity statement or the improved step of Exercise3.2."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSmoothGradient.gradient_cocoercive"
+      ],
+      "mathlib_dependencies": [
+        "UniformConvexOn.convexOn; ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
+        "norm_sub_sq_real; inner_smul_right; norm_smul; mul_le_mul_of_nonneg_left; Real.le_sqrt_of_sq_le; Real.sqrt_mul'; Real.sqrt_sq"
+      ],
+      "lean_statement": "For every pair x,y, the actual step T satisfies the displayed contraction estimate under the stated global curvature and step conditions.",
+      "lean_proof": "For arbitrary x,y define v=y−x, d=∇f(y)−∇f(x) and p=⟨d,v⟩. Strong convexity with α≥0 supplies convexity and the lower pairing bound. Cocoercivity supplies the upper gradient-square bound. Since h≥0 and βh≤1, multiplying the cocoercivity bound by h² gives h²‖d‖²≤h²βp≤hp. Insert this into the exact squared-norm expansion, then use hp≥αh‖v‖². The squared norm is nonnegative. Taking square roots and factoring the nonnegative factor ‖v‖² yields the asserted distance bound. If 1−αh is negative and v≠0, the squared estimate is impossible; hence no nontrivial negative-coefficient case is hidden.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Sinho Chewi, Theorem3.3 and its proof",
+          "scope": "ASTIS-authored restatement and proof explanation; necessary step condition exposed."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescentStronglyConvex.lean",
+          "label": "Pinned Optlib gradient_method_strong_convex",
+          "scope": "Related stronger interpolation route, Apache-2.0; external reference only, not an imported dependency."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentContraction.lean",
+          "label": "Reciprocal step, one-step termination and zero-modulus consumers",
+          "scope": "Compiled calls of the actual new interfaces."
+        }
+      ]
+    },
+    {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_descent_distance_bound",
+      "kind": "theorem",
+      "title": "Gradient descent approaches a global minimizer",
+      "statement": "For any actual global minimizer x⋆, any initial point x₀ and every natural N (including zero), the actual Nth iterate satisfies the geometric and exponential distance estimates.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\r=\\sqrt{1-\\alpha h},\\quad R=\\|x_0-x_\\star\\|,\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle\\\\{}+\\frac\\beta2\\|y-x\\|^2,\\\\\\|T^N(x_0)-x_\\star\\|\\le r^N R,\\\\r^N R\\le e^{-\\alpha hN/2}R.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space, f:E→ℝ is C¹, and all point quantifiers range over E. The gradient is the genuine Riesz representative of its Fréchet derivative.",
+        "The real parameters α, β and h are nonnegative and βh≤1.",
+        "f is α-strongly convex on all E: the convex chord inequality has the subtraction (α/2)t(1−t)‖y−x‖² for t∈[0,1]. The displayed β quadratic upper model holds for all x,y.",
+        "Write T(x)=x−h∇f(x) and r=√(1−αh), with the nonnegative real square root (zero on negative arguments).",
+        "x⋆ is a supplied global minimizer: f(x⋆)≤f(y) for every y∈E. N is a natural number, T^N denotes function iteration (T⁰ is the identity), and R=‖x₀−x⋆‖. No minimizer existence theorem is claimed."
+      ],
+      "steps": [
+        {
+          "title": "Derive the fixed point from the actual minimum",
+          "text": "Write x⋆ for the supplied global minimizer, x₀ for the initial point, N∈ℕ for the iteration count, R=‖x₀−x⋆‖, T(x)=x−h∇f(x), and r=√(1−αh). A global minimum on the whole space is a local minimum. Fermat’s theorem sets its Fréchet derivative to zero, so the Riesz gradient vanishes.",
+          "formula": "\\nabla f(x_\\star)=0,\\qquad T(x_\\star)=x_\\star.",
+          "lean": "IsMinOn.isLocalMin with Filter.univ_mem; IsLocalMin.fderiv_eq_zero; gradient and map_zero simplification."
+        },
+        {
+          "title": "Iterate the Lipschitz map",
+          "text": "The single-step result means T is r-Lipschitz. Its Nth iterate is r^N-Lipschitz, and x⋆ stays fixed under every iterate. Apply the iterated bound to x₀ and x⋆. N=0 is included.",
+          "formula": "\\|T^N(x_0)-x_\\star\\|\\le r^N R.",
+          "lean": "gradient_step_contraction; lipschitzWith_iff_norm_sub_le; Real.toNNReal; LipschitzWith.iterate.dist_le_mul; Function.IsFixedPt.iterate."
+        },
+        {
+          "title": "Compare with the exponential",
+          "text": "The real inequality 1−a≤e^(−a), applied with a=αh, implies r≤e^(−αh/2). Both sides are nonnegative, so taking natural powers and multiplying by R≥0 preserves order. The exponential product identity gives the final formula.",
+          "formula": "\\begin{gathered}1-\\alpha h\\le e^{-\\alpha h},\\\\r\\le e^{-\\alpha h/2},\\\\r^NR\\le e^{-\\alpha hN/2}R.\\end{gathered}",
+          "lean": "Real.add_one_le_exp; Real.sqrt_le_left; Real.exp_add; pow_le_pow_left₀; Real.exp_nat_mul."
+        }
+      ],
+      "boundary": [
+        "C¹ on a complete real inner-product space is an explicit extension of the section’s C² Euclidean setting. The source reciprocal restriction is recovered for β>0; the division-free statement also includes β=0 and h=0. If 1−αh<0, the squared bound forces every pairwise distance to vanish, so the norm result remains valid on a singleton space without an unjustified α≤β assumption. No constrained-domain, Riemannian or stochastic method is covered; this is shared optimization background, not companion-paper progress.",
+        "The source prints h≤1/β without stating h≥0. Nonnegative step is essential: f(t)=t²/2, α=β=1 and h=−1 gives T(t)=2t, contradicting the claimed factor √2 for distinct points. The reciprocal formula additionally needs β>0. The stray gradient before y−x in the middle proof display is a transcription typo, resolved by the preceding expansion and Proposition1.6.",
+        "The source specializes to h=1/β and κ=β/α. For 0<α≤β, r^N=(1−1/κ)^(N/2) and the exponential factor is exp(−N/(2κ)). This unit does not formalize the subsequent logarithmic iteration-complexity statement or the improved step of Exercise3.2."
+      ],
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction"
+      ],
+      "mathlib_dependencies": [
+        "IsMinOn.isLocalMin; IsLocalMin.fderiv_eq_zero; gradient",
+        "lipschitzWith_iff_norm_sub_le; LipschitzWith.iterate; LipschitzWith.dist_le_mul; Function.IsFixedPt.iterate",
+        "Real.sqrt_le_left; Real.add_one_le_exp; Real.exp_add; pow_le_pow_left₀; Real.exp_nat_mul"
+      ],
+      "lean_statement": "For any actual global minimizer x⋆, any initial point x₀ and every natural N (including zero), the actual Nth iterate satisfies the geometric and exponential distance estimates.",
+      "lean_proof": "Write x⋆ for the supplied global minimizer, x₀ for the initial point, N∈ℕ for the iteration count, R=‖x₀−x⋆‖, T(x)=x−h∇f(x), and r=√(1−αh). A global minimum on the whole space is a local minimum. Fermat’s theorem sets its Fréchet derivative to zero, so the Riesz gradient vanishes. The single-step result means T is r-Lipschitz. Its Nth iterate is r^N-Lipschitz, and x⋆ stays fixed under every iterate. Apply the iterated bound to x₀ and x⋆. N=0 is included. The real inequality 1−a≤e^(−a), applied with a=αh, implies r≤e^(−αh/2). Both sides are nonnegative, so taking natural powers and multiplying by R≥0 preserves order. The exponential product identity gives the final formula.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Sinho Chewi, Theorem3.3 and its proof",
+          "scope": "ASTIS-authored restatement and proof explanation; necessary step condition exposed."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescentStronglyConvex.lean",
+          "label": "Pinned Optlib gradient_method_strong_convex",
+          "scope": "Related stronger interpolation route, Apache-2.0; external reference only, not an imported dependency."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentContraction.lean",
+          "label": "Reciprocal step, one-step termination and zero-modulus consumers",
+          "scope": "Compiled calls of the actual new interfaces."
+        }
+      ]
+    }
+  ]
+}
