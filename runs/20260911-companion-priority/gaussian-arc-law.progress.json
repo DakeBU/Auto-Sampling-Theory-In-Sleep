@@ -14,7 +14,7 @@
     "Actual shifted/scaled input product pushforward equals position/velocity Gaussian product",
     "Actual path derivative with pi/2 scale and negative sine sign"
   ],
-  "boundary": "Scratch results are not PROVED_LOCAL/VERIFIED admission, and neither paper main result is complete.",
+  "boundary": "Full production proof compiled and independently development-reviewed. Anonymous reconstruction pending; no PROVED_LOCAL or VERIFIED admission, and neither paper main result is complete.",
   "local_check": {
     "axioms": [
       "propext",
@@ -44,5 +44,13 @@
     "reviewer": "log_depth_source_review",
     "boundary": "Not independently compiled by source reviewer; no formal encoder-decoder admission. Parameterized measure-family measurability, gradient conditions and MGF/clipping remain separate.",
     "result": "No necessary correction to bounded packet. Actual independent joint law, covariance scales, derivative, endpoints and disclosed all-real/zero-dimensional extensions accepted."
+  },
+  "independent_full_development_review": {
+    "test_sha256": "354df2c4a325e1fe9a0d9e8747f8764d14927d17489803a4224d5000be7158b1",
+    "production_sha256": "6b137642c324565c87fe7bb38bd61c868dd7798995355baf3c2da966a99f9a3d",
+    "commit": "73bfb023e2cc40302332d9b6010493d38c5bce01",
+    "result": "Independent full proof and focused compile PASS3117; complete delta-expanded type isDefEq checked.",
+    "boundary": "Development review, not VERIFIED admission.",
+    "reviewer": "depth_commit_verifier"
   }
 }
