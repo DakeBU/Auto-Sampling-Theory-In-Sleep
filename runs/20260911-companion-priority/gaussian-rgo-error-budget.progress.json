@@ -96,5 +96,26 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/274",
     "state": "MERGED",
     "head": "c1989af1f32793fd2df6e31f6f0c85b0c5a8ef1e"
+  },
+  "post_merge_delivery": {
+    "merge_commit": "0037f804b7658538f9e9a7c8a00058659980f44f",
+    "site_run": "34580079219 SUCCESS",
+    "deployment_job": "103202142479 SUCCESS",
+    "live": {
+      "deployed_commit": "0037f804b7658538f9e9a7c8a00058659980f44f",
+      "merge_commit": "0037f804b7658538f9e9a7c8a00058659980f44f",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-gaussian-rgo-error-budget",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianrgoerrorbudget.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+    },
+    "merge_lean": "34580079177 last observed in_progress; terminal verification pending"
   }
 }
