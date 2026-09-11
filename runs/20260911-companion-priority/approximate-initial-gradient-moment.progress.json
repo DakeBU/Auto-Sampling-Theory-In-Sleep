@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-approximate-initial-gradient-moment",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "gaussian_checkpoint": {
     "path": ".astis/ApproximateInitialGradientMomentGaussian.lean",
     "sha256": "475adc0e2ea56fe4aeff92a5ff0226278b885e51fbfc42432f2e110668adc842",
@@ -87,5 +87,9 @@
     ]
   },
   "admission_boundary": "VERIFIED at7a6a7b3. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json",
+  "integration_notes": {
+    "upstream": "c77771e2d8ec75d8fdbc570fda98dc7baa9c56f3",
+    "boundary": "Upstream tree verified identical to72f5401; ancestry merge has zero tree delta. Root sole stabilization owner. Full gate and original reader/graph QA pending."
+  }
 }

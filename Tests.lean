@@ -162,6 +162,7 @@ import Tests.SmoothedPicardHMCClippedMeanExponential
 import Tests.SmoothedPicardHMCClippedRenyiComparison
 import Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost
 import Tests.SmoothedPicardHMCTerminalReferenceGradientDescent
+import Tests.SmoothedPicardHMCApproximateInitialGradientMoment
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!

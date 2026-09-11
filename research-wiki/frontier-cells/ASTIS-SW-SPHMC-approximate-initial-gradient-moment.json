@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-approximate-initial-gradient-moment.md",
     "planning_review": "Independent log_depth_source_review accepted near-optimal coupling route and exact independent-Gaussian expected square formula, including required cross-term absolute integrability and fixed-call/history boundary.",
-    "execution_boundary": "Root sole writer; predecessor GibbsGradientMoment remains stabilization owner until its actual merge. This successor EXPLORING only.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner; prior Gibbs packet fully merged/delivered. Proof and source binding unchanged.",
     "admission_boundary": "VERIFIED at7a6a7b3. Aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/approximate-initial-gradient-moment.verified-admission.json"
   },
