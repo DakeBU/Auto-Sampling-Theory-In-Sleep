@@ -1,0 +1,28 @@
+{
+  "commit": "fa3c103095a29c3d197125d256085ad62498ad02",
+  "source_digest": "2f0a825b2fcdba7f1557da946e5b71b79bc36134f2e467df7257383997ae7b06",
+  "status": "passed-local-selected-proof",
+  "root_integration": {"session": 14022, "exit_code": 0, "result": "Canonical ASTIS check passed; Tests9175", "log": ".astis/gibbs-gradient-moment-lean-gate-metadata.log"},
+  "reader_build": {"session": 98970, "exit_code": 0, "log": ".astis/gibbs-gradient-moment-reader-build-retry.log"},
+  "reader_check": {"session": 27037, "exit_code": 0, "log": ".astis/gibbs-gradient-moment-reader-check.log", "chapters": 12, "modules": 645, "declarations": 3882, "reviewed_teaching_declarations": 77},
+  "graph_check": ".astis/gibbs-gradient-moment-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, scoped DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=fa3c103#sphmc-gibbs-gradient-moment",
+    "section": "sphmc-gibbs-gradient-moment",
+    "authored_steps": 6,
+    "initial_details": 9,
+    "initial_open_details": 0,
+    "clicked": ["Lean statement · gibbs_gradient_moment", "Lean proof · gibbs_gradient_moment", "Source and reuse", "Third mathematical proof heading", "Graph Fit", "Open reader / evidence card"],
+    "statement_code_characters": 621,
+    "proof_code_characters": 3582,
+    "katex_errors": 0,
+    "parents": "QuadraticRegularization, StrongConvexGibbsIntegrability, StrongConvexFirstOrder, Gaussian integrability and Calculus.Gradient links inspected.",
+    "graph": {"nodes": 5, "edges": 3, "direct_relations": 2, "fit_clicked": true, "screenshot_viewed": true, "status": "Source-present publication; compiled badge not inferred", "source_edge": "source correspondence; not a Lean dependency"},
+    "evidence_card": "Actual module: 5 declarations, current fa3c103 Lean gate passed/Compiled, zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps2/3 weighted integrability and directional IBP formulas readable; all three product L1 checks precede full-space IBP."
+  },
+  "recovered_build_failure": "Earlier session90548 exit1 at frontier validation. fa3c103 corrects the Gibbs route to its only established consumer and binds existing parent root/graph/PR evidence. No Lean/source changes or invented consumers. Retry98970 passed.",
+  "independent_integration": {"reviewer": "depth_commit_verifier", "decision": "accepted", "commit": "fa3c103095a29c3d197125d256085ad62498ad02", "source_digest": "2f0a825b2fcdba7f1557da946e5b71b79bc36134f2e467df7257383997ae7b06", "evidence": "Independent exact HEAD/digest/gate and unchanged admitted production/source binding verified; reviewed validator passed. Final Tests9175, site645/3882/77, graph no omissions, static current commit and9folds checked. Prior frontier failure and actual repair accurately recorded. Root browser provenance remains root. No local integration blockers; faithful transcription authorized."},
+  "boundary": "Independent final local integration accepted. PR/merge/live, global copy/citation/download and both main results remain open."
+}
