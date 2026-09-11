@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-optimal-continuous-cost",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "A continuous transport cost attains its infimum",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.2 optimal coupling prerequisite",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "SPHMC Lemma6.2 chooses an optimal coupling for the pth displacement cost. The expanded ASTIS prerequisite proves the required existence in a generic form: probabilities on complete second-countable metric Borel spaces and a continuous finite nonnegative cost admit a true minimizing coupling, with the minimum allowed to be infinite. No finite-moment or optimizer assumption is made.",
+      "assumptions": [
+        "E,F are complete second-countable metric spaces with their Borel sigma algebras.",
+        "P,Q are probability measures and c:E times F to nonnegative reals is continuous.",
+        "This is a generic expanded prerequisite to the optimal coupling chosen in Lemma6.2, not an additional hypothesis of that lemma."
+      ],
+      "formulae": [
+        {
+          "label": "Optimal cost",
+          "tex": "\\exists\\gamma\\in\\Pi(P,Q),\\qquad\\int c\\,d\\gamma=\\inf_{\\rho\\in\\Pi(P,Q)}\\int c\\,d\\rho."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "optimal-coupling",
+          "label": "Actual optimal coupling with no optimizer premise"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+          "cell": "ASTIS-SW-SPHMC-optimal-continuous-cost",
+          "role": "prerequisite",
+          "supports": [
+            "optimal-coupling"
+          ],
+          "audit_id": "ASTIS-RT-20260911-OptimalContinuousCost",
+          "boundary": "Actual infimum p-cost and bounded-displacement coupling certificate for Lemma6.2; no full Wp/Winfinity metric API, Gaussian reverse transport, Renyi/proxy-warmness, sampler construction, error/cost propagation or full-paper conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "Lemma6.2 invokes an optimal coupling for Euclidean p-distance cost.",
+              "lean": "Continuous nonnegative costs on complete second-countable metric Borel spaces, minimum possibly infinite.",
+              "classification": "generalization",
+              "reason": "Expanded optimizer prerequisite with one actual paper consumer; no assertion this generic statement is printed in the source."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sphmc-truncation",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "The actual SPHMC truncation proxy from an infimum p-cost budget",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma6.2 statement and proof",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "SPHMC v1 Lemma6.2: probabilities P,Q with Wp(P,Q)<=r, real p>=2 and 0<delta<1 admit a proxy Pdag with TV(P,Pdag)<=delta and Winfinity(Pdag,Q)<=r delta^(-1/p). Its proof chooses an optimal coupling and replaces its first coordinate by the second when distance exceeds the threshold. The selected Lean contract expands this as actual infimum p-cost<=r^p, r>=0, and proves a measurable explicit proxy plus a true bounded-displacement coupling and uniform measurable-event TV inequalities. This records the cost/coupling content without a complete Wp/Winfinity metric API. Complete second-countable normed Borel additive groups explicitly generalize the Euclidean source domain; the zero-radius case is included.",
+      "assumptions": [
+        "P,Q are probability measures, p is real with p>=2, r>=0 and 0<delta<1.",
+        "The input budget is the true infimum p-cost<=r^p, not the cost of an assumed coupling.",
+        "Complete second-countable normed Borel additive groups explicitly generalize the source Euclidean domain.",
+        "No separate marginal moment, finite coupling moment or optimal-coupling assumption is added. The output is a real coupling certificate, without introducing full Wasserstein metric APIs."
+      ],
+      "formulae": [
+        {
+          "label": "Truncated proxy",
+          "tex": "t=r\\delta^{-1/p},\\quad T(x,y)=\\begin{cases}x&\\|x-y\\|\\le t,\\\\y&\\|x-y\\|>t,\\end{cases}\\quad\\sup_B|P(B)-P^\\dagger(B)|\\le\\delta,\\quad\\Gamma\\{\\|a-b\\|\\le t\\}=1."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "measurable-proxy",
+          "label": "Explicit measurable proxy probability and true coupling marginals"
+        },
+        {
+          "id": "tv-displacement",
+          "label": "Uniform eventwise TV and exact a.e. displacement bounds, including r=0"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy",
+          "cell": "ASTIS-SW-SPHMC-truncation",
+          "role": "prerequisite",
+          "supports": [
+            "measurable-proxy",
+            "tv-displacement"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCTruncation",
+          "boundary": "Actual infimum p-cost and bounded-displacement coupling certificate for Lemma6.2; no full Wp/Winfinity metric API, Gaussian reverse transport, Renyi/proxy-warmness, sampler construction, error/cost propagation or full-paper conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean probabilities.",
+              "lean": "Complete second-countable normed Borel additive groups, including the zero space.",
+              "classification": "generalization",
+              "reason": "Explicit domain extension; proof uses no finite dimension or scalar structure."
+            },
+            {
+              "source": "Wp(P,Q)<=r and Winfinity(Pdag,Q)<=r delta^(-1/p).",
+              "lean": "True infimum p-cost<=r^p and an actual coupling with a.e. bounded displacement.",
+              "classification": "API-limitation",
+              "reason": "Exact cost and coupling certificates; full Wp/Winfinity metric API is not introduced or claimed."
+            },
+            {
+              "source": "Proof chooses an optimal coupling and applies Markov.",
+              "lean": "Optimizer and its finite moment are proved from the actual infimum budget; r=0 handled separately.",
+              "classification": "source-implicit",
+              "reason": "No extra coupling or finite marginal moment assumption."
+            },
+            {
+              "source": "Real p>=2, 0<delta<1, nonnegative error budget r.",
+              "lean": "Same real restrictions and exact radius r delta^(-1/p).",
+              "classification": "same",
+              "reason": "No weakening of the displayed exponent or constants."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

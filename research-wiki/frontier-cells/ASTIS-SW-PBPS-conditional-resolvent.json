@@ -39,17 +39,53 @@
     ],
     "proof_plan": "proof-blueprints/PBPS-conditional-resolvent.md",
     "planning_review": "depth_commit_verifier bounded exact-API projection route; log_depth_source_review independently checked noncircular weak existence/uniqueness, constants and source/domain boundary; planning only, no compilation or formal acceptance.",
-    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Previous gradient packet merged; website deployed and live anchors checked, merge Lean CI still separate.",
+    "execution_boundary": "Root sole writer; packet actually merged and stabilization lane released.",
     "ownership_note": "One actual PBPS consuming route, no fictitious second consumer.",
     "independent_proof_review": "runs/20260911-companion-priority/conditional-resolvent.independent-proof-review.json",
-    "admission_boundary": "VERIFIED at b2af15c1c30f414e0d117bcfd647a7c8478ec6a4; root aggregate PASS9099 at7e04f4b, original companion and graph QA passed. Final-head CI/merge advice/deployment pending.",
+    "admission_boundary": "Independently VERIFIED, merged PR258, both merge CI SUCCESS and both actual reader entries verified.",
     "independent_verification": "runs/20260911-companion-priority/conditional-resolvent.verified-admission.json",
     "packaging_refresh": "Full local helper proof included in public theorem; focused PASS3298, independent complete-proof review and final hash-bound source audits accepted.",
     "integration": {
-      "progress": "runs/20260911-companion-priority/conditional-resolvent.progress.json",
-      "aggregate_candidate": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
-      "source_digest": "a1dd6fdab0c4597fc590691a0090fba311242f429f21539064b8c523885ab3a4",
-      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258"
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258",
+      "commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+      "candidate": "f80147536a95b27bdca362eb0e01e624b295c35f",
+      "merged_at": "2026-09-10T23:24:20Z",
+      "independent_merge_review": "depth_commit_verifier accepted final fixed head; root verified same-head Lean and site CI success, made ready and merged with match-head-commit. PR description discloses initial stale graph metadata and successful refresh/retry.",
+      "candidate_ci": {
+        "lean": "34541016474 SUCCESS",
+        "site": "34541016477 SUCCESS; PR deployment skipped"
+      },
+      "post_merge": {
+        "lean_run": 34542000493,
+        "site_run": 34542000496,
+        "state": "Both merge-commit runs SUCCESS; deploy website job SUCCESS",
+        "live": {
+          "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+          "http_status": 200,
+          "anchors": [
+            "pbps-closed-graph-resolvent",
+            "pbps-conditional-resolvent"
+          ],
+          "merge_commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+          "merge_commit_present": true,
+          "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+        }
+      },
+      "truth_boundary": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim."
+    },
+    "deployment": {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+      "http_status": 200,
+      "anchors": [
+        "pbps-closed-graph-resolvent",
+        "pbps-conditional-resolvent"
+      ],
+      "merge_commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+      "merge_commit_present": true,
+      "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately.",
+      "site_run": "34542000496 SUCCESS",
+      "deploy_job": "103087032053 SUCCESS",
+      "merge_lean": "34542000493 pending"
     }
   },
   "blocked": {

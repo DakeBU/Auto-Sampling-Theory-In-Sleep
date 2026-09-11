@@ -8,6 +8,7 @@ import AutoSamplingTheory.TechnicalLemmas.Geometry
 import AutoSamplingTheory.TechnicalLemmas.InformationTheory
 import AutoSamplingTheory.TechnicalLemmas.Measure
 import AutoSamplingTheory.TechnicalLemmas.Measure.IsotropicGaussianDensity
+import AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost
 import AutoSamplingTheory.TechnicalLemmas.Probability
 import AutoSamplingTheory.TechnicalLemmas.ProbabilityDistributions
 import AutoSamplingTheory.TechnicalLemmas.Registry

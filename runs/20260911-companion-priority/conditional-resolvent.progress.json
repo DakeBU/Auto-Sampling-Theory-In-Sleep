@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.TechnicalLemmas.FunctionalInequalities.ClosedGraphResolvent.weak_resolvent",
     "AutoSamplingTheory.ExampleCases.ProximalBPS.ConditionalResolvent.conditional_weak_resolvent"
@@ -38,7 +38,6 @@
   },
   "mathematical_status": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim.",
   "remaining": [
-    "Final-head independent merge advice, CI and actual merge/deployment",
     "Explicit weak-gradient distributional identification, local regularity/core and compact Bochner extension",
     "Constant-kernel/mean-zero limit, conditional Poincare and noncompact score variance",
     "All later main-theorem dependencies and full papers"
@@ -61,9 +60,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258",
-    "state": "draft",
-    "head": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
-    "boundary": "Aggregate, local reader and initial CI passed. Final-head independent merge advice/CI and actual merge/deployment remain separate."
+    "state": "MERGED",
+    "head": "f80147536a95b27bdca362eb0e01e624b295c35f",
+    "boundary": "Actual merge, both merge CI SUCCESS, successful deployment and both live anchors/build provenance verified."
   },
   "reader_checks": {
     "candidate": "7e04f4b502505ed5aea1146bf16af25cf2f598e2",
@@ -120,5 +119,47 @@
       "graph": "Both focused graphs:5nodes3edges2relations. Selected actual declarations and clicked exact proof-card links; both Compiled Notmapped. Actual conditional graph screenshot inspected. Solid ownership/import and dashed source links not implication certificates.",
       "boundary": "Local rendered QA only; actual deployment separate."
     }
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/258",
+    "commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+    "candidate": "f80147536a95b27bdca362eb0e01e624b295c35f",
+    "merged_at": "2026-09-10T23:24:20Z",
+    "independent_merge_review": "depth_commit_verifier accepted final fixed head; root verified same-head Lean and site CI success, made ready and merged with match-head-commit. PR description discloses initial stale graph metadata and successful refresh/retry.",
+    "candidate_ci": {
+      "lean": "34541016474 SUCCESS",
+      "site": "34541016477 SUCCESS; PR deployment skipped"
+    },
+    "post_merge": {
+      "lean_run": 34542000493,
+      "site_run": 34542000496,
+      "state": "Both merge-commit runs SUCCESS; deploy website job SUCCESS",
+      "live": {
+        "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+        "http_status": 200,
+        "anchors": [
+          "pbps-closed-graph-resolvent",
+          "pbps-conditional-resolvent"
+        ],
+        "merge_commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+        "merge_commit_present": true,
+        "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately."
+      }
+    },
+    "truth_boundary": "Abstract weak-form prerequisite and actual full-space conditional-law instance only. No pointwise PDE regularity, D*D operator core, compact Bochner extension, epsilon-uniform bound, Poincare, measurable y-to-solution selection, noncompact score variance, process or full-paper claim."
+  },
+  "deployment": {
+    "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/proximal-bouncy-particle.html",
+    "http_status": 200,
+    "anchors": [
+      "pbps-closed-graph-resolvent",
+      "pbps-conditional-resolvent"
+    ],
+    "merge_commit": "b9f23c7b7b0b7e4e813b151725867b29a66b49a9",
+    "merge_commit_present": true,
+    "scope": "Actual HTTP anchors and build provenance. Local disclosure and visual QA recorded separately.",
+    "site_run": "34542000496 SUCCESS",
+    "deploy_job": "103087032053 SUCCESS",
+    "merge_lean": "34542000493 SUCCESS"
   }
 }

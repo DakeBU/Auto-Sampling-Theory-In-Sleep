@@ -1,0 +1,139 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.TechnicalLemmas.Measure.OptimalContinuousCost.exists_optimal_coupling",
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.Truncation.truncated_proxy"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCTruncation",
+    "result": "PASS2621",
+    "hashes": {
+      "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean": "b5e6a819209b051cc140e12e66ffcd0b0a71a3d23607cc4da924aa68abe1e1a0",
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean": "bc0c75a7f5a89d7963a7e722df26d279a22da8b4867f8204da739216f51e36ba",
+      "Tests/SmoothedPicardHMCTruncation.lean": "4c9d58b31e19393384977bc1eaa712956ffc1d5be583dbc14df4e1203ca10049"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/sphmc-truncation.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch",
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-OptimalContinuousCost",
+      "ASTIS-RT-20260911-SPHMCTruncation"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/optimal-continuous-cost.source-review-result.json",
+      "runs/20260911-companion-priority/sphmc-truncation.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "Exact infimum p-cost and actual bounded-displacement proxy construction, the content of Lemma6.2 without introducing a full Wp metric-space API. No Gaussian reverse transport, Renyi warmness, sampler construction, recursive error/cost propagation, unbounded-cost transfer or full-paper conclusion.",
+  "remaining": [
+    "Final-head independent merge advice, CI and actual merge/deployment",
+    "Gaussian likelihood/power moment and independent mixture reverse transport",
+    "Finite marginal moments where required and proxy-warmness",
+    "Actual sampler/error/cost propagation and both complete paper main results",
+    "Remaining agreed source/reader/conversion/download deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/sphmc-truncation.verified-admission.json",
+  "aggregate_gate": {
+    "passed": true,
+    "commit": "27e79663d04278401ce8e1710c37bcb36e8189cf",
+    "source_digest": "43b6b0c0151540952196af8a9c5140299aee05cef1c33d0bf6813fa602d907e7",
+    "generated_at": "2026-09-10T23:42:17.965811+00:00",
+    "commands": [
+      "python3 tools/astis.py check"
+    ],
+    "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available.",
+    "status": "PASS",
+    "jobs": 9102,
+    "exit_code": 0,
+    "log": ".astis\\truncation-aggregate-retry.log",
+    "log_sha256": "f673cf2325492ce9d95609c141e4f9871f57cfaddafc114bdb37d4431beebbd6",
+    "initial_pass": {
+      "commit": "28123dd15535851f3d39422ebaadcd0cc1de5225",
+      "jobs": 9102,
+      "log": ".astis/truncation-aggregate-gate.log"
+    },
+    "retry_reason": "Import moved from Measure.lean, which contains an unrelated legacy declaration, to declaration-free TechnicalLemmas.lean after changed-module publication gate flagged that legacy theorem. Both reviewed production modules unchanged."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/259",
+    "state": "draft",
+    "head": "27e79663d04278401ce8e1710c37bcb36e8189cf",
+    "boundary": "Corrected aggregate, local site/browser/graph passed; final-head independent merge advice, CI and actual deployment pending."
+  },
+  "ci_initial_failure": {
+    "head": "28123dd15535851f3d39422ebaadcd0cc1de5225",
+    "lean_run": "34542940097 FAILURE",
+    "site_run": "34542940080 FAILURE",
+    "cause": "Changed containing Measure.lean triggered publication requirement for untouched legacy integrable_of_measure_eq.",
+    "repair_commit": "27e79663d04278401ce8e1710c37bcb36e8189cf",
+    "repair": "Restored original Measure.lean and added optimizer import to existing declaration-free TechnicalLemmas.lean; actual-base local publication PASS28 after fetching missing merge base."
+  },
+  "reader_checks": {
+    "candidate": "27e79663d04278401ce8e1710c37bcb36e8189cf",
+    "site_build": {
+      "initial_log": ".astis/truncation-site-build.log",
+      "exit_code": 0,
+      "log": ".astis/truncation-site-build-retry.log"
+    },
+    "site_check": {
+      "initial_exit_code": 1,
+      "initial_log": ".astis/truncation-site-check.log",
+      "cause": "Initial site used older aggregate evidence/inventory during root import correction, yielding gate mismatch and a legacy declaration anchor mismatch.",
+      "repair": "Rebuilt the site after corrected root aggregate and current metadata; no changes to reviewed theorem bodies.",
+      "exit_code": 0,
+      "log": ".astis/truncation-site-check-retry.log",
+      "modules": 572,
+      "declarations": 3660
+    },
+    "graph_checks": [
+      {
+        "cell": "ASTIS-SW-SPHMC-optimal-continuous-cost",
+        "exit_code": 0,
+        "log": ".astis/optimal-continuous-cost-graph-check.json"
+      },
+      {
+        "cell": "ASTIS-SW-SPHMC-truncation",
+        "exit_code": 0,
+        "log": ".astis/truncation-graph-check.json"
+      }
+    ],
+    "browser": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "entries": [
+        {
+          "id": "sphmc-optimal-continuous-cost",
+          "proof_steps": 4,
+          "initially_closed_disclosures": 7,
+          "statement_characters": 550,
+          "proof_characters": 1778,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-technicallemmas-measure-optimalcontinuouscost.html#decl-autosamplingtheory-technicallemmas-measure-optimalcontinuouscost-exists--bb1748e5b2"
+        },
+        {
+          "id": "sphmc-truncation",
+          "proof_steps": 6,
+          "initially_closed_disclosures": 9,
+          "statement_characters": 1026,
+          "proof_characters": 8426,
+          "katex_errors": 0,
+          "evidence_card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-truncation.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-truncation-truncated-p-4fb9db74e8"
+        }
+      ],
+      "visual": "Opened both complete statement/proof/reuse disclosures; complete proof tails retain end namespaces. Screenshots checked compact minimum/raw infimum, zero-radius and Markov/exact threshold formulas and explicit source/reuse boundaries. Zero formula errors.",
+      "graph": "Both focused views have5nodes3edges2relations. Selected actual declaration and clicked evidence-card link; both Compiled Notmapped. Solid ownership/import and dashed source correspondence are not implication certificates.",
+      "boundary": "Local QA; actual deployment separate."
+    }
+  }
+}

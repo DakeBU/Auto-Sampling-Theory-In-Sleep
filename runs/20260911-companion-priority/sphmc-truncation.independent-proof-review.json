@@ -1,0 +1,28 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent read-only production proof review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCTruncation",
+  "result": "PASS2621, exit0; parent existing lint only.",
+  "hashes": {
+    "AutoSamplingTheory/TechnicalLemmas/Measure/OptimalContinuousCost.lean": "b5e6a819209b051cc140e12e66ffcd0b0a71a3d23607cc4da924aa68abe1e1a0",
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/Truncation.lean": "bc0c75a7f5a89d7963a7e722df26d279a22da8b4867f8204da739216f51e36ba",
+    "Tests/SmoothedPicardHMCTruncation.lean": "4c9d58b31e19393384977bc1eaa712956ffc1d5be583dbc14df4e1203ca10049"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Actual compact minimum identified with raw transport infimum; no optimizer or finite-moment assumption.",
+    "Actual finite infimum p-cost derives an optimal integrable coupling. Local helpers fixed to outer E preserve the reviewed mathematics.",
+    "Explicit measurable pushforward proxy, actual coupling marginals, uniform eventwise TV bound and exact bounded displacement.",
+    "Zero radius uses actual almost-everywhere diagonal concentration; positive radius uses exact power and Markov.",
+    "Complete second-countable normed group generalization and cost/coupling API boundaries explicit. Tests only query axioms; actual consumer is truncated_proxy."
+  ],
+  "qualifications": [
+    "Source audit, lesson acceptance and fixed-commit admission remain separate."
+  ]
+}

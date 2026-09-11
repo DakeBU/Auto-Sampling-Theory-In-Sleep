@@ -1,0 +1,16 @@
+{
+  "decoder": "truncation_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of independent English anonymous reconstruction, math rendered in plain text without changing quantifiers or scope. Decoder reported supplied hashes, not independently recomputed values; it did not verify packet compiled flag.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-truncation-a.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-OptimalContinuousCost.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "335cddb1a364a04e51caf4e784a6feec84e4c4adf35b92bfd422ed25c9503c52",
+  "lean_statement_sha256": "8fd746e059264a3f8a17abf8f564d2dcbc343db66dd8782276909f58387662dc",
+  "reconstructed_theorem_text": "For every pair of complete second-countable metric spaces E,F equipped with their Borel measurable structures, every probability measure mu on E and nu on F, and every continuous function c:E times F to finite nonnegative reals, there exists a measure gamma on E times F which is a probability, has first marginal mu and second marginal nu, and satisfies the extended nonnegative integral equality integral(c,gamma)=inf{integral(c,eta): eta is a raw measure with first marginal mu and second marginal nu}. The cost is cast to extended nonnegative reals for integration. Both sides take values in [0,infinity], and the minimum is not asserted finite. No boundedness, finite integral or additional moment hypothesis is imposed. There are no numerical constants.",
+  "source_fidelity_verdict": null
+}
