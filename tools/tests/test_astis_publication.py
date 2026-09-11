@@ -17,10 +17,12 @@ class PublicationTest(unittest.TestCase):
     def setUp(self):
         self.items = copy.deepcopy(p.load())
         self.data = copy.deepcopy(p.inputs())
-        # This legacy migration fixture has two proof bindings. New source
-        # files may sort before it; catalog order is not fixture identity.
+        # Identify the source item and its two historical bindings separately:
+        # new, reviewed proof components may be added to the same source item.
         self.item = next(i for i in self.items if i['id'] == 'chewi-opt-v1-prop-1-6')
-        self.binding = self.item['bindings'][0]
+        self.legacy_bindings = [b for b in self.item['bindings']
+                                if b['declaration'] in p.LEGACY_NAMES]
+        self.binding = self.legacy_bindings[0]
         self.name = self.binding['declaration']
 
     def test_current_migration_is_explicit_not_certified(self):
@@ -29,7 +31,9 @@ class PublicationTest(unittest.TestCase):
         with patch.object(p, 'load', return_value=[self.item]):
             state = p.chapter_progress('optimisation', '01')
         self.assertEqual(state['status'], 'partial')
-        self.assertEqual(len(state['proof_declarations']), 2)
+        self.assertEqual(set(state['proof_declarations']),
+                         {b['declaration'] for b in self.item['bindings']})
+        self.assertEqual(len(self.legacy_bindings), 2)
         self.assertFalse(state['source_complete'])
         self.assertEqual(p.chapter_progress('optimisation', '02')['status'], 'scaffold')
 
@@ -59,7 +63,8 @@ class PublicationTest(unittest.TestCase):
         with patch.object(p, 'load', return_value=list(reversed(self.items))):
             self.setUp()
         self.assertEqual(self.item['id'], 'chewi-opt-v1-prop-1-6')
-        self.assertEqual(len(self.item['bindings']), 2)
+        self.assertEqual(len(self.legacy_bindings), 2)
+        self.assertEqual({b['declaration'] for b in self.legacy_bindings}, p.LEGACY_NAMES)
 
     def test_changed_legacy_requires_real_review(self):
         errors = p.validate(self.items, self.data, strict_names={self.name})
@@ -210,7 +215,7 @@ class PublicationTest(unittest.TestCase):
     def test_reader_embeds_statement_proof_and_separate_lean(self):
         import publication_reader
         text = publication_reader.source_card(self.item, self.item['chapter_path'])
-        self.assertEqual(text.count('data-authored-declaration='), 2)
+        self.assertEqual(text.count('data-authored-declaration='), len(self.item['bindings']))
         self.assertNotIn('<h1>', text)
         self.assertIn('pending historical audit', text)
         self.assertIn('TODO — not closed', text)

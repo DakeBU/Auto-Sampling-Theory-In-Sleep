@@ -73,6 +73,36 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.calculus.segment-gradient-integral",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.sub_eq_integral_gradient",
+    upstreamDecl := "Proposition 1.6 proof: segment FTC identity",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "gradient", "FTC", "shared"],
+    saldUse := "Actual parent of the two-segment integral converse; reversed-segment quadratic test",
+    note := "C1 derives continuous, interval-integrable gradient pairing. Complete real inner-product-space generalization; source boundary separately reviewed."
+  },
+  {
+    key := "analysis.strong-convexity.gradient-integral-converse",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.strongConvexOn_univ_of_gradient_mono_integral",
+    upstreamDecl := "Proposition 1.6 (1.5) to (1.3)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "gradient", "FTC", "shared"],
+    saldUse := "Actual parent of the exact C1 equivalence adapter; signed quadratic normalization tested",
+    note := "Source integral proof with explicit Hilbert-space and signed-modulus generalizations. Cancels only s(1-t)>0; endpoints and integrability handled. No C2 claim."
+  },
+  {
+    key := "analysis.strong-convexity.c1-equivalences",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexityC1.convexity_equivalences",
+    upstreamDecl := "Proposition 1.6 part 1, (1.3)-(1.5)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "CONV", "gradient", "equivalence", "optimisation"],
+    saldUse := "Whole-space Euclidean C1 source theorem; stationary-point quadratic-growth and zero-dimension consumers",
+    note := "Nonnegative modulus retained; exact source C1 equivalence independently reviewed. Reuses the shared first-order bound and new integral converse. C2/Hessian and full Proposition1.6 remain open."
+  },
+  {
     key := "analysis.strong-convexity.first-order-lower-bound",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
     upstreamDecl := "Strong_Convex_second_lower",

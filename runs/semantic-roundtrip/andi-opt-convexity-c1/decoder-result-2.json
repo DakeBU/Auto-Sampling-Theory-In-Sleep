@@ -1,0 +1,21 @@
+{
+  "reconstructed_theorem_text": "For every natural number d (including zero), every f:ℝᵈ→ℝ on Euclidean space with its usual inner product and ℓ² norm, and every real m≥0, suppose f is continuously Fréchet differentiable on all of ℝᵈ. Then both equivalences hold: (1) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, f(x)+⟨∇f(x),y−x⟩+(m/2)‖y−x‖²≤f(y); (2) f is m-strongly convex on all of ℝᵈ if and only if, for every x,y∈ℝᵈ, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Here m-strong convexity means that for all x,y and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖².",
+  "objects": "Natural dimension d, Euclidean space EuclideanSpace ℝ (Fin d), real-valued function f, real scalar m, Euclidean gradient ∇f, points x,y, and nonnegative convex-combination weights a,b.",
+  "domains": "d∈ℕ, allowing d=0. f is defined on all real d-dimensional Euclidean space. x,y range over that space. m,a,b are real numbers. Inner products and norms are Euclidean.",
+  "quantifiers": "Universally quantify d∈ℕ, f:EuclideanSpace ℝ (Fin d)→ℝ, and m∈ℝ. Under m≥0 and C¹ regularity, conclude a conjunction of two biconditionals. Each right-hand inequality is universally quantified over its own x,y. Each strong-convexity assertion quantifies over all points and nonnegative weights summing to one.",
+  "assumptions": "m≥0 and f is continuously Fréchet differentiable globally. No strict positivity of m, positive dimension, additional smoothness, or bounded-domain assumption is present.",
+  "conclusion": "The conjunction of (global m-strong convexity ↔ the global first-order lower bound with quadratic coefficient m/2) and (global m-strong convexity ↔ the global gradient inequality with coefficient m). Each biconditional supplies both directions.",
+  "scopes": "Both equivalences share the same f, m, dimension, full domain, and C¹ assumption. The proposition covers m=0 and d=0. It makes no claim here for negative m or arbitrary infinite-dimensional spaces.",
+  "constant_dependencies": "The same m is retained in all three conditions. The first-order lower bound uses exactly m/2, the gradient inequality exactly m, and the convex-combination inequality exactly a b m/2. No dimension-dependent or existential constants appear.",
+  "reconstructed_text_sha256": "3028f6fa5bfda93a67ad296d206fbe805519a2f0f23bc3e4cbe7355ad4bfce2c",
+  "decoder": "c1_blind_decoder",
+  "source_text_visible": false,
+  "input_artifacts": [
+    "/private/tmp/astis-blind-3917/input-2.json"
+  ],
+  "packet_id": "ASTIS-BLIND-269cb97b00e7ac42",
+  "packet_sha256": "231c17fcd85c98c382001e234aca50a9686e5e0507fd9e02913aa42c0fa8815e",
+  "statement_sha256": "269cb97b00e7ac4225a272d0c89a0a5748fd1ef4ffcb7c685752f5057ca4afd6",
+  "ambiguities": [],
+  "decoder_run_sha256": "a19958ba1977567c6f1dbcb46baa91bd288fef4058623b965a51a45f3412a33a"
+}

@@ -1,0 +1,21 @@
+{
+  "reconstructed_theorem_text": "Let E be any complete real inner-product space, f:E→ℝ a continuously Fréchet differentiable function, and m any real number. Suppose that for every x,y∈E, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. Then f is m-strongly convex on all of E in the following precise sense: for every x,y∈E and real a,b≥0 with a+b=1, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖². No nonnegativity assumption on m is imposed.",
+  "objects": "A complete real inner-product space E, a function f:E→ℝ, a real scalar m, gradient ∇f, point pairs x,y, and convex-combination weights a,b.",
+  "domains": "The norm and inner product are those of E. f and its gradient are evaluated on all of E. m,a,b are real; x,y range over all E.",
+  "quantifiers": "Universally quantify E with its displayed structures, f:E→ℝ, and m∈ℝ. Under C¹ regularity and the inequality for all x,y∈E, conclude the displayed convex-combination inequality for all x,y∈E and all a,b∈ℝ with a≥0, b≥0, a+b=1.",
+  "assumptions": "E is a complete real inner-product space. f is C¹ globally. For every x,y, m‖y−x‖²≤⟨∇f(y)−∇f(x),y−x⟩. There is no assumption m≥0 and no finite-dimensionality assumption.",
+  "conclusion": "StrongConvexOn Set.univ m f: globally, f(a x+b y)≤a f(x)+b f(y)−a b(m/2)‖x−y‖² for nonnegative weights summing to one; the full domain is convex.",
+  "scopes": "This proposition asserts one implication from a global gradient inequality to global strong convexity with the given real parameter. It does not assert a converse in this statement. Negative, zero, and positive m are all allowed.",
+  "constant_dependencies": "Exactly the same arbitrary real m occurs in the gradient hypothesis and the conclusion. The quadratic term in the conclusion has coefficient a b m/2; no additional constants or losses occur.",
+  "reconstructed_text_sha256": "709de886aec22235456db4f04fa66519a566f2ee546026e5aea230056c435300",
+  "decoder": "c1_blind_decoder",
+  "source_text_visible": false,
+  "input_artifacts": [
+    "/private/tmp/astis-blind-3917/input-1.json"
+  ],
+  "packet_id": "ASTIS-BLIND-f98a18e4ff3a9704",
+  "packet_sha256": "ed982e949ff591c0d3782f81fba781c8e14cd2cc945b51228ae3798e3014f39e",
+  "statement_sha256": "f98a18e4ff3a97044ebe58d442eadcb05cace962bf597e6ef57dacdeed307cd1",
+  "ambiguities": [],
+  "decoder_run_sha256": "22b0bbbe0965998e602c7f28fbd10c5cef3ea883dedafc08817b2e976f85cc56"
+}
