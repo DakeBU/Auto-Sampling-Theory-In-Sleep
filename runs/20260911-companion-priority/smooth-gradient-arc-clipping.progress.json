@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-clipping",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "remaining": [
-    "Final same-head PR CI",
-    "Actual merge and deployment"
+    "Verify merge CI and exact live deployment"
   ],
-  "boundary": "Complete production theorem locally compiled; full scratch independently development-reviewed. EXPLORING until publication/source admission; target identification, normalized accuracy and costs remain outside. Neither paper main result complete.",
+  "boundary": "Actual PR280 merged after exact-candidate independent integration and successful CI. Merge CI/deployment remain separate; neither paper main result complete.",
   "scratch": ".astis/SmoothGradientArcClipping.lean",
   "scratch_sha256": "49d50cdfa6678a71ee632a0413b43fcd1ec2d5dd2197dae438e7739b966e5e83",
   "development_result": "Complete actual estimator clipping-excess theorem compiled. Source parameter lower bound, MGF range, exact min exponent, actual parent estimator alignment, measurable excess and integrability-before-integral comparison all proved.",
@@ -82,6 +81,13 @@
     "head": "570115e675dd3d5875a522460db0485df79e19be",
     "lean_run": 34605784303,
     "site_run": 34605784332,
-    "observed_state": "Website CI SUCCESS at2026-09-11T13:45:19Z; Lean CI IN_PROGRESS; PR deploy skipped as expected"
+    "observed_state": "Both PR CI SUCCESS; actual MERGED"
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/280",
+    "commit": "fb8a68a13e61a2dd928235e94ac2c56026d16c25",
+    "merged_at": "2026-09-11T13:56:48Z",
+    "candidate": "570115e675dd3d5875a522460db0485df79e19be",
+    "post_merge": "Merge CI and exact deployed provenance pending."
   }
 }
