@@ -33,7 +33,6 @@
   },
   "mathematical_status": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison.",
   "remaining": [
-    "Verify terminal result of actual merge Lean run 34571230714; exact deployed reader already checked",
     "Concrete source parameters and initialized history validity",
     "Cap versus source stopping depth, FORS and actual approximate sampler",
     "Errors and actual-input expected query costs",
@@ -117,5 +116,11 @@
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/271",
     "state": "MERGED",
     "head": "045fbd548f5d2342d4790325392f02f9b6f09781"
+  },
+  "merge_lean_terminal": {
+    "run": "34571230714",
+    "status": "completed",
+    "conclusion": "success",
+    "evidence": "Exact gh run view independently queried after merge; previous pending status superseded."
   }
 }

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 finite recursive error propagation, equations(6.5) and following induction",
   "target_statement": "For the explicit precision-center-count-history state, a probability base mu, measurable variance a>0 and fixed nonnegative precision threshold, construct the same actual ideal target T and Gaussian observation H before arbitrary actual Markov Q and terminal L. Use the actual absorbed finite RGO transition P and output kernels R_n. Prove fiber KL measurability, and define e(s)=0 on stopped states and KL(Q(s)||H(s)) otherwise, t(s)=KL(L(s)||T(s)). For every n,s prove KL(R_n(s)||T(s)) <= sum_{j<n} integral e d(P^j(s)) + integral t d(P^n(s)). The one-step posterior consistency must follow from the actual parent construction, not be assumed. Every error is integrated under actual Q or actual visited state laws. Include infinite-divergence and non-absolute-continuity cases without finite-KL, moment or assumed-measurability premises.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-finite-rgo-program"
   ],
@@ -26,10 +26,22 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCFiniteRGOKLError",
+        "result": "PASS3753, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/FiniteRGOKLError.lean": "b985954172724c7d90e9390f9690d1014403fd9fc4210ba9e54e7a8821fbfaec",
+          "Tests/SmoothedPicardHMCFiniteRGOKLError.lean": "2b824154f1474e1a264dd371750dd03b83306ce4da8038f326ae4ea10a4ac238"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-finite-rgo-kl-error.md",
     "planning_review": "Independent source review approved full finite actual-law sum instead of a state-KL wrapper. Require same T,H before Q,L,n, posterior consistency derived, stop error as if/else, terminal error retained, and all ENNReal branches.",
-    "execution_boundary": "Root sole writer; StoppedRGODepth entering stabilization; this packet EXPLORING."
+    "execution_boundary": "Root sole writer; FiniteRGOKLError sole STABILIZING; GaussianRGOErrorBudget EXPLORING.",
+    "independent_proof_review": "runs/20260911-companion-priority/finite-rgo-kl-error.independent-proof-review.json",
+    "admission_boundary": "VERIFIED at 1701670; no aggregate or reader integration admission yet.",
+    "independent_verification": "runs/20260911-companion-priority/finite-rgo-kl-error.verified-admission.json"
   },
   "blocked": {
     "reason": "",

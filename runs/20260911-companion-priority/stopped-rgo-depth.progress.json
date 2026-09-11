@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth"
   ],
@@ -33,11 +33,90 @@
   },
   "mathematical_status": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Verify terminal merge Lean run34573620613; exact deployed reader provenance already verified",
     "General smoothness scaling and initialized history validity",
     "Concrete FORS and actual approximate sampler",
     "Errors and actual-input expected query costs",
     "Both paper main results and agreed deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/stopped-rgo-depth.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/stopped-rgo-depth.verified-admission.json",
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/272",
+    "commit": "aff74608c5d3d1b3b3fae4dcf3af4c50d7934f27",
+    "candidate": "218b93e35d6cde06ad59b7579c2c5c5cdd8139df",
+    "merged_at": "2026-09-11T07:16:28Z",
+    "candidate_ci": {
+      "lean": "34572543197 SUCCESS",
+      "site": "34572543223 SUCCESS; PR deploy skipped"
+    },
+    "fixed_local_qa": {
+      "commit": "218b93e35d6cde06ad59b7579c2c5c5cdd8139df",
+      "aggregate": {
+        "status": "passed",
+        "jobs": 9134,
+        "source_digest": "662fde2c93e172aca3f89db719b2f914a9ff77859798cf0c98d8b0fd41465569"
+      },
+      "site": {
+        "status": "passed",
+        "modules": 604,
+        "declarations": 3682,
+        "reviewed_teaching": 77,
+        "encoding": "PYTHONUTF8=1; initial GBK check failed before UTF8 retry"
+      },
+      "graph": {
+        "status": "checked",
+        "boundary": "Reference edges are not elaborated dependency certificates."
+      },
+      "browser": {
+        "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-stopped-rgo-depth",
+        "steps": 6,
+        "initially_closed_disclosures": 9,
+        "clicked": [
+          "Lean statement",
+          "Lean proof",
+          "Source and reuse"
+        ],
+        "statement_characters": 1296,
+        "proof_characters": 11268,
+        "math_errors": 0,
+        "screenshot": "Source and reuse and explicit boundary visually inspected in actual browser screenshot.",
+        "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-stoppedrgodepth.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-stoppedrgodepth-stoppe-1c922f9ed5",
+        "card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "displayed_commit": "218b93e35d6c",
+        "boundary": "Local fixed-source QA; no deployment claim."
+      }
+    },
+    "independent_merge_review": "depth_commit_verifier independently accepted the exact candidate, canonical gate9134 and source digest, unchanged VERIFIED production/test, reviewed source binding, preserved root imports, site and graph evidence, and same-head completed Lean/Site CI. Root rechecked MERGEABLE and candidate before match-head merge.",
+    "post_merge": "Merge CI and deployed provenance pending; local QA and candidate CI are not deployment evidence.",
+    "truth_boundary": "The terminal threshold and stage bound are computed from the initial state and then fixed. The scalar source formulas use smoothness normalized to one; a general smoothness parameter needs the source scaling adapter. The actual dimension is positive. C>=8 is a proved sufficient constant, not a source-prescribed numerical value. Arbitrary observation and terminal Markov kernels do not identify the concrete smoothed sampler or FORS. Stage transitions are not gradient queries. No initialization validity, approximation error or expected query-cost result is asserted, and no uniform kernel equality across all initial states is claimed."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/272",
+    "state": "MERGED",
+    "head": "218b93e35d6cde06ad59b7579c2c5c5cdd8139df"
+  },
+  "post_merge_delivery": {
+    "merge_commit": "aff74608c5d3d1b3b3fae4dcf3af4c50d7934f27",
+    "site_run": "34573620649 SUCCESS",
+    "deployment_job": "103181871284 SUCCESS",
+    "live": {
+      "deployed_commit": "aff74608c5d3d1b3b3fae4dcf3af4c50d7934f27",
+      "merge_commit": "aff74608c5d3d1b3b3fae4dcf3af4c50d7934f27",
+      "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "anchor": "sphmc-stopped-rgo-depth",
+      "deployed_provenance": true,
+      "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-stoppedrgodepth.html",
+      "card_http_status": 200,
+      "card_labels": [
+        "Partial",
+        "Not mapped"
+      ],
+      "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+    },
+    "merge_lean": "34573620613 last observed in_progress; terminal verification pending"
+  }
 }

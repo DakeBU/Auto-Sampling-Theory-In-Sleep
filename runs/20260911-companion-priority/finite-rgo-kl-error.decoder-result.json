@@ -1,0 +1,16 @@
+{
+  "decoder": "finite_kl_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent reconstruction, with formula notation converted to ASCII and bound coordinates consistently renamed.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-finite-kl-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCFiniteRGOKLError.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "5e2728e8eb164a5ce41479de3dce6aa001af0bb23a05282d34bbbd61819f038d",
+  "lean_statement_sha256": "2ab533cdcc5ee29bf40abe60d1384c9ec9b453a4e3dcad2d5a818b8dd17a0a5b",
+  "reconstructed_theorem_text": "Let E be a finite-dimensional real inner-product Borel space, mu any probability measure on E, and S=NNReal times E times Nat times E^Nat. Let a:S to R be measurable and positive at every state, and let B be any nonnegative threshold. For s=(b,u,k,h), define F(s,y)=(b+1/a(s),(b*u+y/a(s))/(b+1/a(s)),k+1,h_y), with h_y(0)=y and h_y(m+1)=h(m). Vector division means reciprocal scalar multiplication and the first coordinate remains NNReal.\nThere exist Markov kernels T,H:S to E with T(s) equal to mu normalized by the density exp(-b*norm(x-u)^2/2) and H(s) equal to its convolution with the centered isotropic Gaussian of standard deviation sqrt(a(s)). After these same T,H are fixed, for every Markov Q,L:S to E there exist Markov P:S to S and Markov R_n:S to E, with P(s)=dirac s if B<=b and the F(s,.) pushforward of Q(s) otherwise. R_0=L, and R_(n+1)(s)=L(s) if B<=b and the bind of Q(s) with y mapped to R_n(F(s,y)) otherwise. Equality with the threshold belongs to the stopped branch.\nDefine e(s)=0 if B<=b and KL(Q(s)||H(s)) otherwise, and t(s)=KL(L(s)||T(s)). Both are measurable extended-nonnegative-real functions. For every n and every initial s, KL(R_n(s)||T(s)) <= sum over 0<=j<n of integral e(x) under P^j(s), plus integral t(x) under P^n(s). P^0 is the identity kernel. The terminal term is integrated under the time-n state law, not evaluated at the initial state. The left reference law is T(s) at the initial state. All KL values, sums and nonnegative integrals may be infinity; no absolute continuity or finite entropy assumption is present. For n=0 the sum is empty and the conclusion is KL(L(s)||T(s))<=t(s).\nQuantifiers are all E,mu,a with the displayed structures and assumptions, then all B, then existence of T,H, then all Markov Q,L, then existence of P and the entire sequence R_n, then all n,s. P,R may depend on Q,L; T,H are chosen before them. No approximation quality of Q,L, bounded stopping time or threshold-hitting conclusion is stated.",
+  "source_fidelity_verdict": null
+}

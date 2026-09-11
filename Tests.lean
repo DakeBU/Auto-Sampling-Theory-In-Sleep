@@ -143,6 +143,7 @@ import Tests.SmoothedPicardHMCAdaptiveKLError
 import Tests.SmoothedPicardHMCStateDependentRGO
 import Tests.SmoothedPicardHMCFiniteRGOProgram
 import Tests.SmoothedPicardHMCStoppedRGODepth
+import Tests.SmoothedPicardHMCFiniteRGOKLError
 
 /-!
 Focused Chapter 1.1 stochastic-calculus and Chapter 1.2 Markov/Feller tests are

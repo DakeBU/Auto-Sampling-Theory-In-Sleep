@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-finite-rgo-kl-error",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual finite recursive RGO KL error accumulation",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem6.5 A1 finite recursive error transfer and equation(6.5)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded actual finite recursive error semantics, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure, and mu any probability measure. States are s=(b,u,k,h) in NNReal times E times Nat times E^Nat. Let a(s)>0 be measurable and theta a fixed nonnegative precision threshold. Define F(s,y) by b_new=b+1/a(s), u_new=(b*u+y/a(s))/(b+1/a(s)), count k+1 and history with y prepended. There exist Markov kernels T,H, constructed before all actual kernels, with T(s) the normalized tilt of mu by -b*norm(x-u)^2/2 and H(s) its Gaussian smoothing with standard deviation sqrt(a(s)). For every Markov observation kernel Q and terminal kernel L there exist Markov P and R_n: P(s)=dirac s if theta<=b and otherwise the pushforward of Q(s) under F(s,.); R_0=L; R_(n+1)(s)=L(s) if stopped and otherwise the bind of Q(s) with y mapped to R_n(F(s,y)). Define e(s)=0 if stopped and KL(Q(s)||H(s)) otherwise, and t(s)=KL(L(s)||T(s)). Both e and t are measurable. For every n and initial s, KL(R_n(s)||T(s)) is at most the sum over j<n of the integral of e under P^j(s), plus the integral of t under P^n(s).",
+      "assumptions": [
+        "E is finite-dimensional over the reals with its Borel measurable structure; zero dimension is permitted. mu is a probability measure.",
+        "a is measurable and strictly positive at every state. theta is fixed and nonnegative. Initial precision can be zero or already stopped.",
+        "Q and L are measurable Markov kernels on the complete precision-center-count-history state. No probability density or moment assumption is added.",
+        "T,H are constructed before arbitrary Q,L. F, P and all R_n have their displayed actual program semantics.",
+        "No finite KL, absolute continuity, assumed error measurability, common observation-error budget or terminal-error bound is a premise."
+      ],
+      "formulae": [
+        {
+          "label": "Actual finite recursive KL budget",
+          "tex": "\\operatorname{KL}(R_n(s)\\Vert T(s))\\le\\sum_{j=0}^{n-1}\\int e(x)\\,P^j(s)(dx)+\\int t(x)\\,P^n(s)(dx)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "finite-rgo-kl-error",
+          "label": "Actual finite recursive KL error accumulation"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOKLError.finite_rgo_kl_error",
+          "cell": "ASTIS-SW-SPHMC-finite-rgo-kl-error",
+          "role": "prerequisite",
+          "supports": [
+            "finite-rgo-kl-error"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCFiniteRGOKLError",
+          "boundary": "This proves the error-transfer dependency for the actual finite recursive program. Arbitrary supplied Markov Q and L are not identified with the paper smoothed sampler or FORS. No stage accuracy, adequate stopping cap, initialization validity, or expected query-cost bound is asserted. The terminal residual is retained, including on stopped states. All KL values and budgets are extended nonnegative reals. The source A1 Wasserstein accuracy and equation (6.5) still need an actual observation-kernel instantiation.",
+          "assumption_deltas": [
+            {
+              "source": "The paper uses a Euclidean Gibbs target.",
+              "lean": "Any probability base on a finite real Hilbert Borel space.",
+              "classification": "generalization",
+              "reason": "The error-transfer dependency uses the actual ideal posterior construction and needs neither density nor moments."
+            },
+            {
+              "source": "The recursive update uses its selected two-noise variance.",
+              "lean": "Any measurable positive state-dependent variance a with the same explicit precision-center-history update.",
+              "classification": "generalization",
+              "reason": "The actual source heat choice must later instantiate a; it is not yet the concrete sampler."
+            },
+            {
+              "source": "The recursive execution stops at a fixed terminal level.",
+              "lean": "Any fixed nonnegative precision threshold and every finite cap n.",
+              "classification": "API-limitation",
+              "reason": "The residual at cap n is retained even when a continuing state is capped. No adequate depth is claimed here."
+            },
+            {
+              "source": "A1 uses sampler Wasserstein accuracy, equation(6.5), and terminal FORS accuracy.",
+              "lean": "Exact actual-state integrals of observation KL and terminal KL for arbitrary Markov Q,L.",
+              "classification": "API-limitation",
+              "reason": "This proves their propagation without assuming a KL conclusion. Source numerical accuracy and actual algorithm identification remain separate."
+            },
+            {
+              "source": "Conditional distributions and their errors are used in the recursive proof.",
+              "lean": "Q,L are measurable Markov kernels; fiber KL and stopped error functions are proved measurable, with values in ENNReal.",
+              "classification": "source-implicit",
+              "reason": "This makes measurable kernel semantics explicit and includes singular or infinite-error fibers without extra finiteness assumptions."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
