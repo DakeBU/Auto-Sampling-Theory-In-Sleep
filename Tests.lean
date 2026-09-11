@@ -49,6 +49,7 @@ import Tests.Shared.ConvexityC2
 import Tests.Shared.SmoothnessEquivalences
 import Tests.Shared.ConvexSmoothGradient
 import Tests.Shared.GradientDescentContraction
+import Tests.Shared.GradientDescentValue
 import Tests.ItoTerminalCompletion
 import Tests.ItoHorizonConsistency
 import Tests.ItoHorizonProcessConsistency

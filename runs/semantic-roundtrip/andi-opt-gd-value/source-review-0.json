@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "reviewer": "coco_source",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "reviewer_packet_sha256": "d38cee8b8f8625926cc77a85e437147eecd1ec0108538e8ae687b76339df31fc",
+  "publication_binding_sha256": "d390a83d8d454416500e543cea244f15c7efbe843d3a86e3126b7e076f59da4e",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual Euclidean derivative gradient and gradient update.Arbitrary comparator explicitly allowed in (3.3).",
+      "reconstructed": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Squared distance and actual f(T(x))-f(z).",
+      "relation": "explicit-elaboration",
+      "evidence": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The private descent helper is a direct evaluation of the same global model.",
+      "source": "Actual Euclidean derivative gradient and gradient update.Arbitrary comparator explicitly allowed in (3.3).",
+      "lean": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Squared distance and actual f(T(x))-f(z).",
+      "status": "explicit-elaboration",
+      "explanation": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The private descent helper is a direct evaluation of the same global model."
+    },
+    "domains": {
+      "original": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
+      "reconstructed": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+      "relation": "different",
+      "evidence": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required.",
+      "source": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
+      "lean": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+      "status": "different",
+      "explanation": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required."
+    },
+    "quantifiers": {
+      "original": "Every x,z in (3.3), for printed h<=1/beta.",
+      "reconstructed": "Every x,z and each fixed nonnegative h with beta h<=1.",
+      "relation": "explicit-elaboration",
+      "evidence": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. All point and comparator quantifiers agree on the common source domain; the negative-step exclusion is recorded under assumptions.",
+      "source": "Every x,z in (3.3), for printed h<=1/beta.",
+      "lean": "Every x,z and each fixed nonnegative h with beta h<=1.",
+      "status": "explicit-elaboration",
+      "explanation": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. All point and comparator quantifiers agree on the common source domain; the negative-step exclusion is recorded under assumptions."
+    },
+    "assumptions": {
+      "original": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta.",
+      "reconstructed": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1.",
+      "relation": "different",
+      "evidence": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. No q>=0, optimality of z, or sign restriction on the function gap is needed for one-step energy.",
+      "source": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta.",
+      "lean": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1.",
+      "status": "different",
+      "explanation": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. No q>=0, optimality of z, or sign restriction on the function gap is needed for one-step energy."
+    },
+    "conclusion": {
+      "original": "Source (3.3): squared next distance <=q times squared current distance minus 2h next comparator gap.",
+      "reconstructed": "The same inequality rearranged with 2h next gap on the left.",
+      "relation": "equivalent",
+      "evidence": "On the common scoped source domain the algebra and constants agree. Moving a real-valued gap across an inequality is valid regardless of its sign.",
+      "source": "Source (3.3): squared next distance <=q times squared current distance minus 2h next comparator gap.",
+      "lean": "The same inequality rearranged with 2h next gap on the left.",
+      "status": "equivalent",
+      "explanation": "On the common scoped source domain the algebra and constants agree. Moving a real-valued gap across an inequality is valid regardless of its sign."
+    },
+    "scopes": {
+      "original": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
+      "reconstructed": "Global deterministic statements on univ, arbitrary comparator and signed gaps.",
+      "relation": "same",
+      "evidence": "Source support is scoped to the precise binding. The private helper is inside the reviewed module and lesson proof; public C1 makes the gradient interpretation valid.",
+      "source": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
+      "lean": "Global deterministic statements on univ, arbitrary comparator and signed gaps.",
+      "status": "same",
+      "explanation": "Source support is scoped to the precise binding. The private helper is inside the reviewed module and lesson proof; public C1 makes the gradient interpretation valid."
+    },
+    "constant_dependencies": {
+      "original": "Coefficient 1-alpha h and multiplier 2h with exact quadratic normalization alpha/2, beta/2.",
+      "reconstructed": "Identical coefficient 1-alpha h and multiplier 2h.",
+      "relation": "equivalent",
+      "evidence": "No dimension constant or multiplicative loss. Multiplying support and descent by 2h cancels exactly h^2||gradient f(x)||^2.",
+      "source": "Coefficient 1-alpha h and multiplier 2h with exact quadratic normalization alpha/2, beta/2.",
+      "lean": "Identical coefficient 1-alpha h and multiplier 2h.",
+      "status": "equivalent",
+      "explanation": "No dimension constant or multiplicative loss. Multiplying support and descent by 2h cancels exactly h^2||gradient f(x)||^2."
+    }
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "severity": "informational",
+      "description": "C2 Euclidean nonnegative-modulus source generalized to C1 Hilbert functions with signed real alpha,beta.",
+      "evidence": "Packet lesson and candidate assumptions explicitly retain both signed global model inequalities and disclose all extensions."
+    },
+    {
+      "slot": "assumptions",
+      "severity": "review",
+      "description": "h>=0 is an exposed necessary restriction for the descent route and arbitrary-comparator energy claim.",
+      "evidence": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2. Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails."
+    },
+    {
+      "slot": "scopes",
+      "severity": "informational",
+      "description": "Whole production module, including private step_descent, was reviewed and source coverage is explicit.",
+      "evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem."
+    }
+  ],
+  "verdict": "possible-source-error",
+  "repairs": [
+    {
+      "id": "ASTIS-REPAIR-ANDI-GDV-NONNEGATIVE-STEP",
+      "class": "assumption-addition",
+      "status": "proposed",
+      "necessity": "mathematically-necessary",
+      "proposed_change": "Add h>=0 to the printed h<=1/beta condition for the descent and one-step energy assertions. Preserve the pinned source separately. Do not alter the signed-parameter Hilbert-space generalization or claim to repair the singular inverse-power rate.",
+      "reconstructed_statement": "For a C2 alpha-convex beta-smooth Euclidean function with beta>0, restrict the step to 0<=h<=1/beta and set T(x)=x-h grad f(x). Then f(T(x))-f(x)<=-(h/2)||grad f(x)||^2. For every comparator z, ||T(x)-z||^2+2h(f(T(x))-f(z))<=(1-alpha h)||x-z||^2. This proposal corrects only the missing nonnegative-step domain in Lemma3.1 and (3.1)/(3.3); it makes no claim about the printed inverse-power rate at singular endpoints.",
+      "statement_sha256": "8cecd69957c4f2dea39ebb815b5499f7bd3ada6c1396fbb1e6a900b41d9f25a1",
+      "justification": "The source descent estimate and its general-comparator energy conclusion both fail for negative steps even with a smooth strongly convex quadratic; the proof multiplies inequalities by h or 2h and requires their signs.",
+      "minimality_evidence": "Adding only h>=0 preserves the admissible equality case h=0. The beta>0 reciprocal domain is unchanged. No stronger curvature, smoothness or minimizer hypothesis is proposed. Removing this lower bound admits the explicit counterexamples.",
+      "reference_or_counterexample": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "counterexample": {
+          "descent_missing_nonnegative_step": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2.",
+          "general_comparator_energy_missing_nonnegative_step": "Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails.",
+          "general_comparator_weighted_missing_nonnegative_step": "Same f,alpha,beta,h, take x0=0,z=1,N=2. q=3/2, g_N=-1/2, S2=5/2. Left side is 5/2 while right side is 9/4. This concerns the general-comparator extension, not a claim that the minimizer weighted inequality itself fails for negative h."
+        }
+      },
+      "review": {
+        "state": "pending"
+      },
+      "proposal_author": "coco_source"
+    }
+  ],
+  "review_evidence": "Independent fresh review of ASTIS-REVIEW-b92d92c89bcb917c. Accepted as a disclosed signed-curvature C1 Hilbert-space generalization of the source arbitrary-comparator energy inequality on the explicit h>=0 domain. Source literal negative-step claim is not accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json.",
+  "review_run_sha256": "c61dd4e74292c5a2674a2a9a3d85dc07a9f3b5f38bec06826e640580e19f2cd5",
+  "review_run_artifact": "/private/tmp/andi-gdv-source-review-run.json",
+  "source_review": {
+    "state": "accepted",
+    "decision": "accepted",
+    "reviewer": "coco_source",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "reviewer_packet_sha256": "d38cee8b8f8625926cc77a85e437147eecd1ec0108538e8ae687b76339df31fc",
+    "review_run_sha256": "c61dd4e74292c5a2674a2a9a3d85dc07a9f3b5f38bec06826e640580e19f2cd5",
+    "evidence": "Independent fresh review of ASTIS-REVIEW-b92d92c89bcb917c. Accepted as a disclosed signed-curvature C1 Hilbert-space generalization of the source arbitrary-comparator energy inequality on the explicit h>=0 domain. Source literal negative-step claim is not accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json."
+  },
+  "publication_review": {
+    "decision": "accepted",
+    "scope": "Accepted as a disclosed signed-curvature C1 Hilbert-space generalization of the source arbitrary-comparator energy inequality on the explicit h>=0 domain. Source literal negative-step claim is not accepted.",
+    "whole_module_including_private_helper_reviewed": true,
+    "module_sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+    "private_helper_evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem.",
+    "remaining_truth_boundary": "Accepted scoped/generalized mathematics only. Proposed source repair needs separate exact-proposal review; no pinned source rewrite. Inverse-power and convex-normalized rates remain uncovered publication obligations."
+  }
+}

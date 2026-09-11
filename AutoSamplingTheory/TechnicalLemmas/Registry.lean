@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.comparator-energy",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+    upstreamDecl := "Theorem3.4 (3.1),(3.3)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Arbitrary-comparator energy inequality and actual parent of weighted final value.",
+    note := "C1 complete real Hilbert space and global curvature/upper models; h>=0,beta*h<=1, weighted alpha*h<=1. Whole-module review includes private descent; source step gap separately reviewed. No full inverse-rate or companion-paper claim."
+  },
+  {
+    key := "analysis.gradient-descent.weighted-value",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_descent_weighted_value_bound",
+    upstreamDecl := "Theorem3.4 weighted proof after Lemma3.5",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "convexity", "smoothness", "optimisation"],
+    saldUse := "Actual Nth gradient iterate, signed comparator gap and finite geometric weights; normalized rates exercised in Tests.",
+    note := "C1 complete real Hilbert space and global curvature/upper models; h>=0,beta*h<=1, weighted alpha*h<=1. Whole-module review includes private descent; source step gap separately reviewed. No full inverse-rate or companion-paper claim."
+  },
+  {
     key := "analysis.gradient-descent.step-contraction",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
     upstreamDecl := "Theorem3.3 single-step inequality",

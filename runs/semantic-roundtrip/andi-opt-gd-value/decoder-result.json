@@ -1,0 +1,29 @@
+[
+  {
+    "packet_sha256": "49062d2d1a6f0647e7ba9c78320443aeb8e8b7e164a0c9ae4cd4977f83953bd2",
+    "source_text_visible": false,
+    "reconstructed_theorem": "For every real Hilbert space E (a complete real inner product space, with no finite-dimensional restriction), every function f:E→ℝ, and all real constants α, β, h, assume f is globally continuously Fréchet differentiable; for every x,y∈E and t∈[0,1], f((1−t)x+t y) ≤ (1−t)f(x)+t f(y)−(α/2)t(1−t)‖y−x‖²; h≥0; βh≤1; and for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖². Here ∇f(x) is the actual Riesz representative of the Fréchet derivative of f at x, and define T(x)=x−h∇f(x). Then for every x,z∈E, ‖T(x)−z‖²+2h(f(T(x))−f(z)) ≤ (1−αh)‖x−z‖².",
+    "semantic_notes": [
+      "All parameters and the space are universally quantified; all hypotheses are global. The comparator z is arbitrary and is not required to minimize f.",
+      "The gradient is derived from f; no supplied vector field, supplied derivative, or externally specified sequence is assumed.",
+      "Neither α≥0 nor β≥0 nor h>0 is assumed. The chord condition explicitly allows a real, possibly negative α. There is no αh≤1 hypothesis in this packet.",
+      "The upper quadratic inequality is itself assumed; there is no separately stated Lipschitz-gradient hypothesis.",
+      "The function-value difference is f(T(x))−f(z), with a positive coefficient 2h on the left. No nonnegativity of this difference is assumed.",
+      "At h=0, T(x)=x and the conclusion reduces to ‖x−z‖²≤‖x−z‖². There is no iteration index in this theorem."
+    ]
+  },
+  {
+    "packet_sha256": "f99f4619eed1462a5863d14aace3260697dddd10bef2b3f30eeb611dd614e645",
+    "source_text_visible": false,
+    "reconstructed_theorem": "For every real Hilbert space E (a complete real inner product space, with no finite-dimensional restriction), every function f:E→ℝ, and all real constants α, β, h, assume f is globally continuously Fréchet differentiable; for every x,y∈E and t∈[0,1], f((1−t)x+t y) ≤ (1−t)f(x)+t f(y)−(α/2)t(1−t)‖y−x‖²; h≥0; βh≤1; and for every x,y∈E, f(y) ≤ f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖². Here ∇f(x) is the actual Riesz representative of the Fréchet derivative of f at x, and define T(x)=x−h∇f(x). Assume additionally αh≤1, and write q=1−αh, so q≥0. Then for every x₀,z∈E and every natural number N≥0, with x_N=T^[N](x₀) denoting exactly N repetitions of T, (2h ∑_{k=0}^{N−1} q^k)(f(x_N)−f(z)) ≤ q^N ‖x₀−z‖². The empty sum for N=0 is zero, T^[0] is the identity, and q^0=1 even when q=0.",
+    "semantic_notes": [
+      "The iterates are actual repeated applications of x↦x−h∇f(x), with ∇f the Riesz vector of the actual derivative; no free or supplied iteration sequence appears.",
+      "The comparator z is universally quantified and need not be an optimizer, stationary point, or point satisfying a function-value ordering.",
+      "The additional αh≤1 ensures q≥0, but no α≥0, β≥0, or strict h>0 hypothesis appears. In particular q is not explicitly bounded above by 1.",
+      "The finite geometric sum has N terms with exponents 0 through N−1 and multiplies the single last-iterate value difference f(x_N)−f(z); it is not a weighted sum of function values along the trajectory.",
+      "The bound retains the geometric sum without division, so α=0, h=0, q=0, and N=0 are all included. For α=0, q=1 and the sum is N. For h=0 the left side is zero.",
+      "For N=0 the conclusion is 0≤‖x₀−z‖². For q=0 and N≥1 the sum equals 1 and q^N=0. No positive denominator or positivity of the function-value difference is assumed.",
+      "The right side has exponent N, not N−1, and no final distance term remains on the left."
+    ]
+  }
+]

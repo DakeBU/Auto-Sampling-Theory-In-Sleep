@@ -5,7 +5,7 @@
       "kind": "theorem",
       "title": "One gradient step controls comparator energy",
       "statement": "For every x,z, one actual gradient step obeys the displayed distance-plus-function energy bound.",
-      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\end{gathered}\\begin{gathered}\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\\\\\|T(x)-z\\|^2+2h(f(T(x))-f(z))\\\\\\le(1-\\alpha h)\\|x-z\\|^2.\\end{gathered}",
       "assumptions": [
         "E is a complete real inner-product space and f:E→ℝ is C¹ globally. Its gradient is the actual Riesz representative of its Fréchet derivative.",
         "α,β,h are real numbers; h≥0 and βh≤1. No separate nonnegative-modulus assumption is needed by these two inequalities.",
@@ -68,7 +68,7 @@
       "kind": "theorem",
       "title": "A weighted bound on the final function value",
       "statement": "For every initial point x₀, comparator z and natural N, actual iterates obey the displayed finite-geometric-sum bound under q≥0.",
-      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\end{gathered}\\begin{gathered}x_n=T^n(x_0),\\quad q=1-\\alpha h\\ge0,\\\\S_N=\\sum_{k=0}^{N-1}q^k,\\quad R=\\|x_0-z\\|,\\\\2hS_N(f(x_N)-f(z))\\le q^N R^2.\\end{gathered}",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(y)\\le f(x)+\\langle\\nabla f(x),y-x\\rangle+\\frac\\beta2\\|y-x\\|^2.\\\\x_n=T^n(x_0),\\quad q=1-\\alpha h\\ge0,\\\\S_N=\\sum_{k=0}^{N-1}q^k,\\quad R=\\|x_0-z\\|,\\\\2hS_N(f(x_N)-f(z))\\le q^N R^2.\\end{gathered}",
       "assumptions": [
         "E is a complete real inner-product space and f:E→ℝ is C¹ globally. Its gradient is the actual Riesz representative of its Fréchet derivative.",
         "α,β,h are real numbers; h≥0 and βh≤1. No separate nonnegative-modulus assumption is needed by these two inequalities.",

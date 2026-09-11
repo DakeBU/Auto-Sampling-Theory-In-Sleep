@@ -720,7 +720,7 @@
             {
               "source": "Minimizer in (3.1), arbitrary z explicitly in (3.3).",
               "lean": "Arbitrary comparator z; signed function gap.",
-              "classification": "definitional",
+              "classification": "same",
               "reason": "The source expressly supplies this general comparator inequality; the weighted proof needs gap monotonicity, not gap positivity."
             }
           ],
@@ -756,7 +756,7 @@
             {
               "source": "Minimizer in (3.1), arbitrary z explicitly in (3.3).",
               "lean": "Arbitrary comparator z; signed function gap.",
-              "classification": "definitional",
+              "classification": "same",
               "reason": "The source expressly supplies this general comparator inequality; the weighted proof needs gap monotonicity, not gap positivity."
             },
             {

@@ -1,0 +1,176 @@
+{
+  "reviewer": "smoothness_review",
+  "advance_id": "ANDI-OPT-gd-value-001",
+  "checked_commit": "417d096d91565a8e287fa957cbda1d49ccb5ad2e",
+  "baseline_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+  "review_kind": "Independent proof, focused compiler, private-helper coverage, consumer-domain and authored-explanation review; conditional semantic/publication admission, not aggregate integration certification",
+  "decision": "No proof or test blocker; conditional VERIFIED authorization",
+  "files": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean": {
+      "checked_commit_sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+      "reviewed_working_tree_sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+      "unchanged": true
+    },
+    "Tests/Shared/GradientDescentValue.lean": {
+      "checked_commit_sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+      "reviewed_working_tree_sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+      "unchanged": true
+    },
+    "website/content/declaration_lessons/gradient-descent-value.json": {
+      "checked_commit_sha256": "7a179efd82e9144ca4ac5cef02b1d947d971f82e07d2ea5756df6ec5fac336f9",
+      "reviewed_working_tree_sha256": "6e02740e618b253446de9547136f927707fb60ec8d4d14465eaaf0009fda8a3b",
+      "unchanged": false
+    },
+    "website/content/publications/optimisation.json": {
+      "checked_commit_sha256": "8c224c2b9b40409a0f63327c43483fa25ad6cf7cfdc64e85110244ce09f3c82b",
+      "reviewed_working_tree_sha256": "32df005b27ed3097b299b45c8ce2d0f64e113f5faf5ff744a4c611e57f46ce79",
+      "unchanged": false
+    },
+    "research-wiki/frontier-cells/ASTIS-SHARED-gradient-step-energy.json": {
+      "checked_commit_sha256": "f58298b6ddd738f66a940cf2ca31200a47e26574a61731561a14a810c714d95d",
+      "reviewed_working_tree_sha256": "f58298b6ddd738f66a940cf2ca31200a47e26574a61731561a14a810c714d95d",
+      "unchanged": true
+    },
+    "research-wiki/frontier-cells/ASTIS-SHARED-gradient-descent-weighted-value.json": {
+      "checked_commit_sha256": "46bbf65e10b40855ceedd2b4f453595eabe97c3db3dca0edcc680b8417183843",
+      "reviewed_working_tree_sha256": "46bbf65e10b40855ceedd2b4f453595eabe97c3db3dca0edcc680b8417183843",
+      "unchanged": true
+    },
+    "research-wiki/technical-lemmas/gradient-descent-value.md": {
+      "checked_commit_sha256": "35e801f2e087c04a13fefe64a00190c27a8eaf36e81f7d662eb9acbf36707de6",
+      "reviewed_working_tree_sha256": "35e801f2e087c04a13fefe64a00190c27a8eaf36e81f7d662eb9acbf36707de6",
+      "unchanged": true
+    }
+  },
+  "commands_and_results": [
+    {
+      "command": "env PATH=/Users/andyjm3/.elan/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin LEAN_NUM_THREADS=2 lake build Tests.Shared.GradientDescentValue",
+      "result": "PASS: Build completed successfully (2472 jobs), exit 0, no warnings",
+      "tool_session": 34073
+    },
+    {
+      "command": "Scoped rg scan for sorry/admit/axiom, Prop := True and := trivial in production and tests",
+      "result": "PASS: no matches (rg exit 1)"
+    },
+    {
+      "command": "lake env lean /private/tmp/andi-gdv-axioms.lean",
+      "result": "PASS exit 0; both public declarations depend only on propext, Classical.choice, Quot.sound; transitive dependencies include private step_descent"
+    }
+  ],
+  "mathematical_audit": [
+    "All production declarations inspected, including the sole private helper step_descent. Its upper-model substitution and multiplication by h times gradient norm squared require h>=0 and beta*h<=1, and no additional sign on beta.",
+    "gradient_step_energy_bound uses the genuine gradient and existing C1 strong-convex first-order lower inequality, expands the exact gradient-step squared distance, and combines with descent. Comparator z is arbitrary; its function gap may be negative. Signed alpha/beta are valid.",
+    "gradient_descent_weighted_value_bound defines X by actual Function.iterate, proves antitone function values from step_descent, and obtains an actual distance recurrence. discrete_gronwall_prod_general permits signed forcing, whereas the exponential Gronwall interface would not serve this proof.",
+    "q=1-alpha*h is explicitly nonnegative. The final-gap replacement multiplies the order by -2h and then nonnegative q powers with correct direction. Product simplification and sum reflection preserve endpoints. Only a nonnegative final squared distance is dropped.",
+    "No minimizer, nonnegative function gap, positive modulus, or dimension/nontriviality premise is hidden. N=0, h=0, q=0, q=1, and q>1 are handled by the unnormalized statements.",
+    "Three compiled consumers: alpha=0 normalized O(1/N) explicitly h>0,N>0; q in [0,1) normalized alpha*q^N/(2*(1-q^N)) with N>0 gives positive denominator and derived alpha>0; q=0 exact one-step minimizer value uses actual supplied IsMinOn and h>0. No totalized division is used to claim a source endpoint."
+  ],
+  "private_helper_coverage": {
+    "helpers": [
+      "step_descent"
+    ],
+    "result": "PASS within this review: complete helper calculation is explained in the first lesson unit and genuinely consumed by both public proofs. Independent whole-module source publication admission remains mandatory."
+  },
+  "source_audit_scope": {
+    "source": "Chewi arXiv:2605.07006v1 Theorem 3.4 and Lemma 3.5, comparator inequality (3.3); supporting weighted form for (3.1)-(3.2)",
+    "findings": [
+      "h>=0 is mathematically necessary and explicitly recorded as a source gap, with a valid negative-step counterexample. Independent repair reviewer must accept the exact overlay.",
+      "C1 Hilbert setting, signed moduli, arbitrary comparator, product step-size domain and finite-sum endpoint extension are disclosed. This is not an exact source-domain or full-chapter completion claim.",
+      "Inverse-power rate and normalized convex production theorem remain uncovered obligations; normalized Lean examples are described only as test consumers.",
+      "Lesson accurately explains genuine iterate construction, signed forcing, sums and domain handling; private helper is not hidden."
+    ],
+    "post_commit_reviewed_deltas": [
+      "Publication comparator classification changed twice from unsupported enum definitional to allowed same; original source comparator (3.3) supports same, with no mathematical field changed.",
+      "Lesson joins each pair of adjacent gathered environments into one stacked gathered environment. The same mathematical tokens and order are preserved; no statement/proof/dependency alteration. Current lesson hash bound above."
+    ]
+  },
+  "conditional_authorization": {
+    "authorized_recorder": "root sole writer",
+    "attribution": "smoothness_review",
+    "transition": "PROVED_LOCAL -> VERIFIED",
+    "conditions": [
+      "Independent source-blind decoder and anti-anchored source review accept fresh packet hashes including the reviewed publication enum correction and lesson layout.",
+      "Any mathematically necessary source repair is accepted by a distinct exact-proposal reviewer.",
+      "Real publication check_advance reviewed=True and relevant semantic/publication gates pass, including full private helper coverage.",
+      "Production/test hashes remain exactly as checked; semantic changes require fresh review."
+    ],
+    "boundary": "This authorizes attributed independent proof verification only after those independent gates; does not certify aggregate root imports, Registry, complete canonical gate, graph/site/UI, deployment, merge, or complete source Theorem3.4."
+  },
+  "stale_reservation_review": {
+    "advance_id": "ASTIS-SA-20260911-SPHMCPoissonQueryTail",
+    "historical_verified_commit": "3124c1a39e841c17855bf471e2e8c5d9762fd302",
+    "actual_merged_main": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+    "actual_git_merge": {
+      "pr": 277,
+      "parents": [
+        "1040d8e100b3a28a4317e74eede169764f4cc9b6",
+        "eeab557c58e783d6e5b6e3af3656479c3991ce9d"
+      ],
+      "committed_at": "2026-09-11T19:25:15+08:00",
+      "historical_commit_is_ancestor": true,
+      "evidence": "Local canonical origin/main Git actual two-parent merge; no fresh GitHub API status claim"
+    },
+    "artifacts": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/PoissonQueryTail.lean": {
+        "preserved": true,
+        "main_sha256": "e26ca9f22be281951aa5598cd9724483cfab8705ca17f1d47cf64cd356e28118"
+      },
+      "Tests/SmoothedPicardHMCPoissonQueryTail.lean": {
+        "preserved": true,
+        "main_sha256": "15b1817c59c7ea387c1874c74123087e7aa9f94761637abf779846338cd75f07"
+      },
+      "proof-blueprints/SPHMC-poisson-query-tail.md": {
+        "preserved": true,
+        "main_sha256": "479a166f5aa79d5ec2a859bbebcb28d062e2728db9bb794144e3f8d3e84b4849"
+      },
+      "research-wiki/frontier-cells/ASTIS-SW-SPHMC-poisson-query-tail.json": {
+        "preserved": false,
+        "main_sha256": "f3a33d62150cf05f19e36db95e469d6b4bb1ff36d4563135b81e69b56fa74536"
+      },
+      "runs/20260911-companion-priority/poisson-query-tail.core-review.json": {
+        "preserved": true,
+        "main_sha256": "676c621c817559c06b44c858aadcc0a3200501b6be84254df7d1b04d4f98fb5c"
+      },
+      "runs/20260911-companion-priority/poisson-query-tail.decoder-result.json": {
+        "preserved": true,
+        "main_sha256": "0a96683babae164e43dc9ed560ed310d72d6678113bce6b96969e485f47c995f"
+      },
+      "runs/20260911-companion-priority/poisson-query-tail.progress.json": {
+        "preserved": false,
+        "main_sha256": "499ae7758d45e173c267138c21d615c9789e463ff447e900d1f78e65ef87465c"
+      },
+      "runs/20260911-companion-priority/poisson-query-tail.source-review-result.json": {
+        "preserved": true,
+        "main_sha256": "fbd0617d312fa603be225c5f08fc2b200e7db1d8374682eed70fa09561b9285b"
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCPoissonQueryTail.decoder.json": {
+        "preserved": true,
+        "main_sha256": "a4297f47d5809d9a4e069b14da21b86ae277329b5985434e435db88db3c45efa"
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCPoissonQueryTail.review.json": {
+        "preserved": true,
+        "main_sha256": "7c2a22040ea8941abf3c666db60915cf4143166fb0c6bfac05968c6ef91631c2"
+      },
+      "website/content/declaration_lessons/sphmc-poisson-query-tail.json": {
+        "preserved": true,
+        "main_sha256": "4913311c4836f4187209d31a0f46492f037434cb5887becc6123e370533fe436"
+      },
+      "website/content/publications/sphmc-poisson-query-tail.json": {
+        "preserved": true,
+        "main_sha256": "367c270bdee1df3417c3d2110f59d5cc6ef08324516823d13e49becb007bfc50"
+      }
+    },
+    "accepted_audit_id": "ASTIS-RT-20260911-SPHMCPoissonQueryTail",
+    "accepted_audit_exactly_preserved": true,
+    "source_text_sha256": "8cde07d0bfc6f0f71d2578098dd126ff607ab2a8b2f4c0a6bb7e62f4b20205c4",
+    "source_text_hash_matches": true,
+    "publication_binding_sha256": "5c5e3a16baec06a20f80d4a9997a6c47da352738606205a04cf484717528acf2",
+    "embedded_production_exactly_matches": true,
+    "status_only_changes": "Frontier cell proved_locally -> independently_verified; progress PROVED_LOCAL -> STABILIZING; added historical VERIFIED admission pointer and explicit integration boundary. Mathematical target and accepted artifacts unchanged.",
+    "historical_evidence": "depth_commit_verifier admission independently accepted commit3124c1a with standard axioms, full-source/private-implementation coverage, decoder/reviewer artifact hashes and real publication check. Historical admission not re-labeled as a fresh compile. Earlier development source hash bf4b45... differs from the frozen final source hash e26ca9...; actual historical VERIFIED and merged source are identical, and embedded accepted publication module matches the latter.",
+    "authorization": "Explicitly authorize root sole writer, attributed to smoothness_review, to append STABILIZING -> VERIFIED to release the already-merged historical reservation after fresh canonical fetch confirms no conflicting owner activity. Preserve all old events. Do not forge original-owner MERGED. This is historical artifact-preservation verification, not a new proof/source verdict.",
+    "blockers": []
+  },
+  "repo_mutations": "None by reviewer. Only temporary axiom checker and this requested report written under /private/tmp.",
+  "findings": []
+}

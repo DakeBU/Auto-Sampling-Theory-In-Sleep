@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.4 weighted-sum proof following Lemma3.5",
   "target_statement": "For actual iterates and q=1-alpha*h>=0, 2h(sum k<N q^k)(f(T^N x0)-f(z)) <= q^N ||x0-z||\u00b2, including h=0,N=0,q=0,1.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-gradient-step-energy"
   ],
@@ -27,8 +27,10 @@
     "notes": "Reuse existing first-order support and signed-forcing product Gronwall; no generic recurrence reproof or external module import."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "lake build Tests.Shared.GradientDescentValue PASS2472 independently repeated, no warnings; standard axioms."
+    ],
+    "independent_verification": "smoothness_review at417d096; value_blind decoder, coco_source whole-module source review, converse_source_review exact repair review. See runs/semantic-roundtrip/andi-opt-gd-value.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""
