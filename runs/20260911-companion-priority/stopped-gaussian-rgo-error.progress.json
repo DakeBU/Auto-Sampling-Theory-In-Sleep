@@ -20,14 +20,20 @@
     "artifact": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.independent-proof-review.json"
   },
   "source_fidelity": {
-    "state": "draft",
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
     "audits": [
       "ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/stopped-gaussian-rgo-error.source-review-result.json"
     ]
   },
   "mathematical_status": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here.",
   "remaining": [
-    "Formal source and fixed-commit admission",
+    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete terminal sampler accuracy and initialized reference points",
     "Concrete FORS and proof that the actual Picard sampler satisfies A1",

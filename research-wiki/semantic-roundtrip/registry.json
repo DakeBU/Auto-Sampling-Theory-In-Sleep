@@ -14339,7 +14339,7 @@
     },
     {
       "id": "ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError",
-      "state": "draft",
+      "state": "accepted",
       "source": {
         "source_id": "companion:sphmc-stopped-gaussian-rgo-error",
         "anchor": "Theorem6.5 equations(6.2)-(6.5), same-program stopping and output error",
@@ -14366,7 +14366,14 @@
       },
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "e4d884b7dce86c68d950fe4a10457a56cf0f0363ffc8cbffdce6e81dded0c81b",
+        "review_run_sha256": "b43e2af183110ec95abcc64c06109a465a9e4b2446607df96f1e6c526ac13c67",
+        "run_artifact": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.source-review-result.json",
+        "evidence": "Independent reviewer accepted seven slots, six authored steps and six deltas with no blockers or repairs. Independently recomputed packet, source, printed statement, reconstruction and embedded module hashes. Current production equals embedded text; lesson/publication checked. Binding field authenticated in packet, external binding preimage not reconstructed. Decoder/run artifacts and byte-serialization reconciliation not independently rehashed by source reviewer. No compile or fixed-commit admission in this review. Primary Theorem6.5 and proof compared; source text is attributed expanded contract, not verbatim. Accepted stopping/error prerequisite with domain-mismatch, not equivalence to full source theorem."
       },
       "publication_binding_sha256": "2af405924189b4b92e0b542fdae13ded1f35e4ab6489bfc7c142a7069cec4c44",
       "publication_context": {
@@ -14528,7 +14535,90 @@
         "decoder_run_sha256": "be6f59d3c09ce9b95e75ee7e8b7afc985789d5a90bfa3907b44e7c4356f6263d",
         "lean_statement_sha256": "ad8dbf2d012d285953c65bcd8e51f1011b5bc54944865ea10d77da83f9b515ef",
         "run_artifact": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.decoder-result.json"
-      }
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Recursive RGO targets, observations and backward outputs.",
+          "reconstructed": "Actual T,H, supplied M,L, explicit F,Q,P and R_n.",
+          "relation": "explicit-elaboration",
+          "evidence": "hFeq,hPeq,hReq prove actual shared witnesses."
+        },
+        "domains": {
+          "original": "Euclidean Gibbs targets with source curvature.",
+          "reconstructed": "Any probability base on finite real Hilbert Borel E with positive dimension and unrestricted history.",
+          "relation": "different",
+          "evidence": "No density, smoothness, convexity or marginal moment premise; disclosed generalization."
+        },
+        "quantifiers": {
+          "original": "History-conditional stage guarantees and initial-data-dependent terminal scale/depth.",
+          "reconstructed": "Fix eta,s0,B,J,D,T,H before universal M,L; then construct F,Q,P,R with all-m stability.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual eta depends on all coordinates; B,J stay fixed and output conclusions concern s0."
+        },
+        "assumptions": {
+          "original": "Implemented A1 and terminal construction supplying accuracy.",
+          "reconstructed": "Supplied M accuracy off D; L unrestricted for residual, terminal KL on D only for implication.",
+          "relation": "different",
+          "evidence": "hW supplies transport; hterminal introduced after residual; no stopping conclusion assumed."
+        },
+        "conclusion": {
+          "original": "Recursive allocation plus terminal accuracy yields total error.",
+          "reconstructed": "Actual terminal mass one, cap stability, restricted residual and conditional Delta squared bound.",
+          "relation": "explicit-elaboration",
+          "evidence": "Actual hmass and hrestrict; hbound at J and stability to J+m."
+        },
+        "scopes": {
+          "original": "Full result includes reference points, FORS and complexity.",
+          "reconstructed": "Published stopping/error prerequisite only; no implemented Picard/FORS, history invariant or costs.",
+          "relation": "different",
+          "evidence": "Header, lesson and binding disclose missing work; no extra public F measurability or J upper bound."
+        },
+        "constant_dependencies": {
+          "original": "Local normalized parameters, q=2 and universal sufficient constants.",
+          "reconstructed": "beta=1+b,K=(1+b)/(kappa^-1+b),tau branch,c in (0,1/4),gamma in (0,1],C>=8.",
+          "relation": "different",
+          "evidence": "Parent receives K(b), not baseline kappa. Explicit constants prove depth/interface, not numerical source constants or FORS sufficiency."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "General probability base replaces source Gibbs curvature domain.",
+          "evidence": "First delta and absent curvature hypotheses."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Explicit sufficient constants, q=2 and initial fixed depth.",
+          "evidence": "Second delta; auxiliary depth only positivity."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "A1 is supplied while actual added Gaussian Q is constructed.",
+          "evidence": "Third delta and hprog M L hM hL hW."
+        },
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Actual stopping and error witnesses are explicitly identified.",
+          "evidence": "Fourth delta; hFeq,hPeq,hRp,hReq."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "FORS terminal accuracy remains an interface after unrestricted residual.",
+          "evidence": "Fifth delta and final implication."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "Initialization, reference points, valid history and actual cost remain open.",
+          "evidence": "Sixth delta and header."
+        }
+      ]
     }
   ]
 }
