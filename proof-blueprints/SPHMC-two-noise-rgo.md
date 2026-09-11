@@ -7,3 +7,7 @@ Fixed target and fixed stage parameters, not history-dependent approximate recur
 Use actual characteristic-function uniqueness, convolution multiplication and scaled standard Gaussian characteristic functions to prove heat semigroup. Obtain one exact backward kernel at total time eta+tau from RGOBackward. Identify exact two-noise target recovery. Apply GaussianKL only to nu versus H_eta rho at added time tau, then same-kernel data processing. Do not substitute total time into the input-error denominator.
 
 Root sole writer. Bounded publication packet precedes Lean development.
+
+Before production, source-facing refinement: use the existing actual ENNReal W2 input instead of exposing raw cost. WassersteinSpace.wassersteinDistance_sq and ofReal_pow derive the internal budget; independent source reviewer confirmed the exact definition and no toReal fallback. This removes that specific API gap, not marginal P2 or full metric-space obligations.
+
+Independent fixed-commit VERIFIED at 4e1490a3b6ad2ec096f1d1b1a94f63b107e6c647. Root now sole STABILIZING owner; aggregate and original reader/graph delivery pending. Full paper Goal remains active.

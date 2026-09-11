@@ -1,0 +1,25 @@
+{
+  "reviewer": "depth_commit_verifier",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent production review and focused replay.",
+  "decision": "development-proof-accepted",
+  "command": "lake build Tests.SmoothedPicardHMCTwoNoiseRGO",
+  "result": "PASS3748, exit0, only existing parent lint",
+  "hashes": {
+    "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TwoNoiseRGO.lean": "6876273ff2f930eb3789fa73b5920f4b759007d89a726826053a8bf340748d4f",
+    "Tests/SmoothedPicardHMCTwoNoiseRGO.lean": "d02af47f8ceb8ba708de77674c70ae5e587e9cd287b94eaa583ce505b45d12e9"
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "findings": [
+    "Actual ENNReal W2 square identity and ofReal_pow correctly derive internal quadratic cost, with no toReal infinity fallback or marginal moment inference.",
+    "Actual scaled Gaussian characteristic functions, convolution and uniqueness prove smoothing semigroup without assuming it.",
+    "Same total-time K selected before all nu,r; target is actual two-noise law.",
+    "Proposal budget is against H_eta rho and KL denominator only added2tau.",
+    "eta0,b0,r0 and dimension0 retained; production actual consumer, Tests axiom query only."
+  ],
+  "qualification": "Development proof review only; formal source and fixed-commit admission separate."
+}

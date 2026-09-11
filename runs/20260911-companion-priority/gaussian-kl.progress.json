@@ -193,5 +193,6 @@
     "site_run": "34556944001 SUCCESS",
     "deploy_job": "103132123724 SUCCESS",
     "merge_lean": "34556943874 SUCCESS"
-  }
+  },
+  "ledger_reconciliation_boundary": "Late upstream preservation events project VERIFIED despite existing actual MERGED records and external merge facts. They do not undo merge or authorize requeue. Historical events preserved; explicit independently reviewed projector reconciliation remains separate."
 }

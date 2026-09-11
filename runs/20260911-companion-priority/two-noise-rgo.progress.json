@@ -1,0 +1,114 @@
+{
+  "state": "STABILIZING",
+  "declarations": [
+    "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
+  ],
+  "focused_check": {
+    "command": "lake build Tests.SmoothedPicardHMCTwoNoiseRGO",
+    "result": "PASS3748",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TwoNoiseRGO.lean": "6876273ff2f930eb3789fa73b5920f4b759007d89a726826053a8bf340748d4f",
+      "Tests/SmoothedPicardHMCTwoNoiseRGO.lean": "d02af47f8ceb8ba708de77674c70ae5e587e9cd287b94eaa583ce505b45d12e9"
+    },
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "independent_proof_review": {
+    "artifact": "runs/20260911-companion-priority/two-noise-rgo.independent-proof-review.json"
+  },
+  "source_fidelity": {
+    "state": "accepted",
+    "verdicts": [
+      "domain-mismatch"
+    ],
+    "audits": [
+      "ASTIS-RT-20260911-SPHMCTwoNoiseRGO"
+    ],
+    "artifacts": [
+      "runs/20260911-companion-priority/two-noise-rgo.source-review-result.json"
+    ]
+  },
+  "mathematical_status": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate.",
+  "remaining": [
+    "Integration, aggregate and original reader/graph delivery",
+    "Concrete Gibbs specialization and marginal moment/source parameter obligations",
+    "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
+    "Both paper main results and agreed deliveries"
+  ],
+  "independent_admission": "runs/20260911-companion-priority/two-noise-rgo.verified-admission.json",
+  "integration": {
+    "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+    "aggregate": {
+      "result": "PASS9120",
+      "gate": {
+        "passed": true,
+        "commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1",
+        "source_digest": "11757f502b6d72c95a84e9f5f62bd130f268197ee81531e3cf494e27bf197351",
+        "generated_at": "2026-09-11T03:35:25.290851+00:00",
+        "commands": [
+          "python3 tools/astis.py check"
+        ],
+        "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+      },
+      "log": ".astis/two-noise-rgo-aggregate.log"
+    },
+    "site": {
+      "build": "PASS590 modules3672 declarations",
+      "check": "PASS77 reviewed teaching declarations",
+      "build_log": ".astis/two-noise-rgo-site-build.log",
+      "check_log": ".astis/two-noise-rgo-site-check.log"
+    },
+    "reader": {
+      "page": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "anchor": "sphmc-two-noise-rgo",
+      "proof_steps": 5,
+      "initially_closed_disclosures": 8,
+      "statement_chars": 1087,
+      "proof_chars": 4386,
+      "proof_complete_namespace_end": true,
+      "actual_statement_proof_reuse_clicks": true,
+      "formula_errors": 0,
+      "visual": "Actual screenshot checked exact two-noise recovery and added-time KL denominator tau, with actual W2 input explained."
+    },
+    "graph": {
+      "check": "PASS",
+      "artifact": ".astis/two-noise-rgo-graph-check.json",
+      "focused_nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "actual_card_click": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-twonoisergo-two-noise--0eabe7795f",
+      "local_card_labels": [
+        "Compiled",
+        "Not mapped"
+      ],
+      "boundary": "Solid ownership/import and dashed source correspondence are not elaborated dependency certificates."
+    },
+    "boundary": "Local aggregate and browser QA pinned to this commit; final candidate CI/review/merge/deployment separate."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/265",
+    "state": "DRAFT",
+    "local_qa_commit": "3b6ebad2530f0f5b6b84f31ce653b46bf0ee92c1"
+  },
+  "reservation_resolution": "Release our TwoNoise reservation to VERIFIED while preserving upstream C2 STABILIZING. Proof/source/local integration evidence unchanged; final merge waits for owner release.",
+  "upstream_integration": {
+    "aggregate_jobs": 9122,
+    "gate": {
+      "passed": true,
+      "commit": "e7e724db8a7ad6ad1955cab8b902996ebbda4e2c",
+      "source_digest": "3b0992e641ebd62f487d292f0e972d030601608eba3bafa10dc3ade8374780b4",
+      "generated_at": "2026-09-11T03:56:11.599954+00:00",
+      "commands": [
+        "python3 tools/astis.py check"
+      ],
+      "note": "The canonical ASTIS gate ran Lake build, Tests, and fake-proof checks against the workflow's pinned ATLAS checkout when available."
+    },
+    "tool_tests": "35PASS29.001s",
+    "preservation_review": "depth_commit_verifier accepted e7e724d exact event union and registry46; bad local intermediate merge repaired beforepush",
+    "later_upstream": "ebb6923 C2 owner completion metadata preserved; no new Lean changes",
+    "reservation_resolution": "C2 owner release preserved; TwoNoise resumed sole STABILIZING."
+  }
+}

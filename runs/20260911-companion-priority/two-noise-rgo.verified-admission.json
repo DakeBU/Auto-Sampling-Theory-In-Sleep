@@ -1,0 +1,48 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "4e1490a3b6ad2ec096f1d1b1a94f63b107e6c647",
+    "gate": {
+      "production": "Independent focused PASS3748 reused at unchanged raw hashes; freshly printed complete statement identical to registry and anonymous packet.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "publication": "Independent check_advance reviewed=True PASS",
+      "tests_scope": "Axiom checks only; actual consumer proves Gaussian semigroup and one total-time backward kernel with actual W2 input and added-time KL guarantee."
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260911-SPHMCTwoNoiseRGO",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "two_noise_blind_decoder",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "d6a70f51528eadff525e3368faefbd80079d54df1954ee629fa9e77e0b1d5634",
+        "decoder_packet_sha256": "e3ae30d5f10af7a6c78f66a70ef21b002a22358eb757fe4cb0bfcf71532a07b8",
+        "decoder_run_sha256": "ee088bcd7eec9df2a0f3a51b20ce0e96e1989de855cb6753604496cc547d2280",
+        "reviewer_packet_sha256": "f4d4fa7288faf5bdc9e003fed1b522e650cf5339e276052dbb808e0127408236",
+        "review_run_sha256": "6c22f30621f2274c075a15dcd66c9bebd99de02c840563a3d9e6b0dad0086c22",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Production and focused Tests, standard axioms only"
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo"
+    ],
+    "independent_checks": [
+      "Clean fixed HEAD and worktree/commit consistency verified.",
+      "All source, statement, reconstruction, packet and run hashes verified; external binding preimage independently recomputed.",
+      "Seven slots, five steps, five informational deltas; no blockers or repairs.",
+      "RGO actual merge and lane release independently recorded before this transition; actual deployment remains separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of independent fixed-commit VERIFIED and sole STABILIZING authorization.",
+  "boundary": "The input is Samplinglib actual extended-nonnegative W2, the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. No marginal P2 membership follows from finite transport distance. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint history-dependent kernels, concrete source-time substitutions, approximate recursion, accumulated errors and costs remain separate."
+}

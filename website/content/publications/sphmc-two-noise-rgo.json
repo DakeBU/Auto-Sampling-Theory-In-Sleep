@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-two-noise-rgo",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "An actual two-noise RGO stage with the added-time KL denominator",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem6.5 two-noise stage and Lemma6.3(i) Gaussian KL input control",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded proof, no author endorsement implied."
+      },
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0, eta>=0, tau>0 and u a point. Put rho=mu.tilted(-b*norm(x-u)^2/2). Then rho is probability and H_tau(H_eta rho)=H_(eta+tau)rho as actual measures, where H_s is GaussianSmoothing at standard deviation sqrt(s). There exists one Markov kernel K, selected before all proposal laws nu and radii r, with every-point fiber rho.tilted(-norm(x-y)^2/(2*(eta+tau))), and K composed with H_tau(H_eta rho)=rho. For every probability nu and r>=0 with actual extended-nonnegative WassersteinSpace.wassersteinDistance(nu,H_eta rho)<=ofReal(r), the actual ENNReal KL(K composed with H_tau nu,rho)<=ofReal(r^2/(2*tau)).",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space including zero dimension; mu probability; b>=0 and arbitrary u.",
+        "eta>=0 and tau>0, so total eta+tau>0. Zero existing smoothing time is allowed.",
+        "The kernel may depend on mu,b,eta,tau,u but is chosen before nu,r. No joint measurable choice across these parameters is asserted.",
+        "The proposal input is the actual ENNReal W2(nu,H_eta rho)<=ofReal(r), r>=0. Its exact square identity gives the internal quadratic coupling budget; no toReal fallback, optimizer or marginal moments are supplied.",
+        "General probability base and absence of marginal P2 assumptions explicitly generalize the source Gibbs/P2 setting. This packet uses the existing actual W2 interface; concrete normalized source times and full recursion remain separate."
+      ],
+      "formulae": [
+        {
+          "label": "Actual two-noise stage with W2 input and added-time KL control",
+          "tex": "W_2(\\nu,H_\\eta\\rho)\\le r,\\quad K_{\\eta+\\tau}H_\\tau H_\\eta\\rho=\\rho\\quad\\Longrightarrow\\quad \\operatorname{KL}(K_{\\eta+\\tau}H_\\tau\\nu\\|\\rho)\\le\\frac{r^2}{2\\tau}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "two-noise-stage",
+          "label": "Actual W2-input two-noise backward stage with added-time KL denominator"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TwoNoiseRGO.two_noise_rgo",
+          "cell": "ASTIS-SW-SPHMC-two-noise-rgo",
+          "role": "prerequisite",
+          "supports": [
+            "two-noise-stage"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCTwoNoiseRGO",
+          "boundary": "The input is Samplinglib actual extended-nonnegative W2, defined as the square root of the quadratic coupling infimum; its proved square identity supplies the internal cost budget. Finite W2 does not establish marginal P2 membership. General probability-base target and fixed-stage formulation explicitly generalize source Gibbs/P2. Joint parameter/history kernels, concrete source-time substitutions, approximate recursion, measurable proxies, accumulated errors and costs remain separate. The local semigroup helper is not a separately public Gaussian-law API.",
+          "assumption_deltas": [
+            {
+              "source": "Theorem6.5 uses a regularized Gibbs target and a proposal close to its already-smoothed law in W2.",
+              "lean": "General probability base quadratically tilted; actual Samplinglib ENNReal W2(nu,H_eta rho)<=ofReal(r).",
+              "classification": "generalization",
+              "reason": "The existing exact square identity derives the quadratic budget; finite transport distance does not imply individual marginal P2 membership. Concrete Gibbs potential assumptions are abstracted explicitly."
+            },
+            {
+              "source": "Stage times are normalized by beta_A and compose before the exact backward RGO.",
+              "lean": "eta>=0,tau>0, actual H_tau(H_eta rho)=H_(eta+tau)rho; K at total eta+tau.",
+              "classification": "source-implicit",
+              "reason": "Characteristic functions prove actual Gaussian convolution; concrete normalized stage substitutions remain separate."
+            },
+            {
+              "source": "Gaussian regularization compares the proposal with an already-smoothed target using newly added noise.",
+              "lean": "Actual KL(K composed with H_tau nu,rho)<=ofReal(r^2/(2*tau)), input against H_eta rho.",
+              "classification": "same",
+              "reason": "Denominator uses only added tau, not total eta+tau. KL direction and one fixedK are exact."
+            },
+            {
+              "source": "The kernel is fixed by the target and stage, independently of the approximate input law.",
+              "lean": "One K after mu,b,eta,tau,u and before every nu,r, with every-y normalized fiber and actual two-noise recovery.",
+              "classification": "same",
+              "reason": "No joint measurable parameter/history selection is asserted."
+            },
+            {
+              "source": "Full recursive algorithm uses approximate kernels, error accumulation and expected query costs.",
+              "lean": "Fixed-target exact two-noise stage only.",
+              "classification": "API-limitation",
+              "reason": "Concrete source times, adaptive/history kernels, measurable proxies, approximate sampler, accumulated errors and costs remain separate."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
