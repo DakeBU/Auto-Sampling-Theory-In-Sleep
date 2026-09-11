@@ -16414,94 +16414,94 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "Actual Euclidean derivative gradient and gradient update.Arbitrary comparator explicitly allowed in (3.3).",
-          "reconstructed": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Squared distance and actual f(T(x))-f(z).",
+          "original": "A scalar objective, its Euclidean gradient, actual GD update and arbitrary comparator from (3.3).",
+          "reconstructed": "C1 function with genuine Riesz gradient, actual update and arbitrary comparator z.",
           "relation": "explicit-elaboration",
-          "evidence": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The private descent helper is a direct evaluation of the same global model.",
-          "source": "Actual Euclidean derivative gradient and gradient update.Arbitrary comparator explicitly allowed in (3.3).",
-          "lean": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Squared distance and actual f(T(x))-f(z).",
+          "evidence": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. Both function values are evaluations of the actual objective.",
+          "source": "A scalar objective, its Euclidean gradient, actual GD update and arbitrary comparator from (3.3).",
+          "lean": "C1 function with genuine Riesz gradient, actual update and arbitrary comparator z.",
           "status": "explicit-elaboration",
-          "explanation": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The private descent helper is a direct evaluation of the same global model."
+          "explanation": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. Both function values are evaluations of the actual objective."
         },
         "domains": {
-          "original": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
-          "reconstructed": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+          "original": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+          "reconstructed": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
           "relation": "different",
-          "evidence": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required.",
-          "source": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
-          "lean": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+          "evidence": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence.",
+          "source": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+          "lean": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
           "status": "different",
-          "explanation": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required."
+          "explanation": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence."
         },
         "quantifiers": {
-          "original": "Every x,z in (3.3), for printed h<=1/beta.",
-          "reconstructed": "Every x,z and each fixed nonnegative h with beta h<=1.",
-          "relation": "explicit-elaboration",
-          "evidence": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. All point and comparator quantifiers agree on the common source domain; the negative-step exclusion is recorded under assumptions.",
-          "source": "Every x,z in (3.3), for printed h<=1/beta.",
-          "lean": "Every x,z and each fixed nonnegative h with beta h<=1.",
-          "status": "explicit-elaboration",
-          "explanation": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. All point and comparator quantifiers agree on the common source domain; the negative-step exclusion is recorded under assumptions."
+          "original": "All x,z in the explicit source comparator remark.",
+          "reconstructed": "All x,z at one fixed admitted step.",
+          "relation": "same",
+          "evidence": "Global upper/chord models use one f,alpha,beta,h. No minimizer restriction has been inserted or dropped relative to (3.3).",
+          "source": "All x,z in the explicit source comparator remark.",
+          "lean": "All x,z at one fixed admitted step.",
+          "status": "same",
+          "explanation": "Global upper/chord models use one f,alpha,beta,h. No minimizer restriction has been inserted or dropped relative to (3.3)."
         },
         "assumptions": {
-          "original": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta.",
-          "reconstructed": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1.",
+          "original": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta.",
+          "reconstructed": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1.",
           "relation": "different",
-          "evidence": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. No q>=0, optimality of z, or sign restriction on the function gap is needed for one-step energy.",
-          "source": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta.",
-          "lean": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1.",
+          "evidence": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. No alpha h<=1 or sign of the comparator gap is needed.",
+          "source": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta.",
+          "lean": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1.",
           "status": "different",
-          "explanation": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. No q>=0, optimality of z, or sign restriction on the function gap is needed for one-step energy."
+          "explanation": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. No alpha h<=1 or sign of the comparator gap is needed."
         },
         "conclusion": {
-          "original": "Source (3.3): squared next distance <=q times squared current distance minus 2h next comparator gap.",
-          "reconstructed": "The same inequality rearranged with 2h next gap on the left.",
+          "original": "The (3.3) squared-distance bound with -2h times next function gap.",
+          "reconstructed": "The same real inequality with 2h times next gap moved left.",
           "relation": "equivalent",
-          "evidence": "On the common scoped source domain the algebra and constants agree. Moving a real-valued gap across an inequality is valid regardless of its sign.",
-          "source": "Source (3.3): squared next distance <=q times squared current distance minus 2h next comparator gap.",
-          "lean": "The same inequality rearranged with 2h next gap on the left.",
+          "evidence": "Exactly the same coefficients on the common source domain. Real rearrangement preserves order regardless of gap sign.",
+          "source": "The (3.3) squared-distance bound with -2h times next function gap.",
+          "lean": "The same real inequality with 2h times next gap moved left.",
           "status": "equivalent",
-          "explanation": "On the common scoped source domain the algebra and constants agree. Moving a real-valued gap across an inequality is valid regardless of its sign."
+          "explanation": "Exactly the same coefficients on the common source domain. Real rearrangement preserves order regardless of gap sign."
         },
         "scopes": {
-          "original": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
-          "reconstructed": "Global deterministic statements on univ, arbitrary comparator and signed gaps.",
+          "original": "Global deterministic source statement, arbitrary comparator.",
+          "reconstructed": "Global deterministic inequality on univ, arbitrary comparator.",
           "relation": "same",
-          "evidence": "Source support is scoped to the precise binding. The private helper is inside the reviewed module and lesson proof; public C1 makes the gradient interpretation valid.",
-          "source": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
-          "lean": "Global deterministic statements on univ, arbitrary comparator and signed gaps.",
+          "evidence": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements.",
+          "source": "Global deterministic source statement, arbitrary comparator.",
+          "lean": "Global deterministic inequality on univ, arbitrary comparator.",
           "status": "same",
-          "explanation": "Source support is scoped to the precise binding. The private helper is inside the reviewed module and lesson proof; public C1 makes the gradient interpretation valid."
+          "explanation": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements."
         },
         "constant_dependencies": {
-          "original": "Coefficient 1-alpha h and multiplier 2h with exact quadratic normalization alpha/2, beta/2.",
-          "reconstructed": "Identical coefficient 1-alpha h and multiplier 2h.",
+          "original": "Coefficient 1-alpha h and multiplier 2h.",
+          "reconstructed": "Exactly 1-alpha h and 2h.",
           "relation": "equivalent",
-          "evidence": "No dimension constant or multiplicative loss. Multiplying support and descent by 2h cancels exactly h^2||gradient f(x)||^2.",
-          "source": "Coefficient 1-alpha h and multiplier 2h with exact quadratic normalization alpha/2, beta/2.",
-          "lean": "Identical coefficient 1-alpha h and multiplier 2h.",
+          "evidence": "No dimension factor or altered factor two. The quadratic normalizations alpha/2,beta/2 cancel correctly in the norm expansion.",
+          "source": "Coefficient 1-alpha h and multiplier 2h.",
+          "lean": "Exactly 1-alpha h and 2h.",
           "status": "equivalent",
-          "explanation": "No dimension constant or multiplicative loss. Multiplying support and descent by 2h cancels exactly h^2||gradient f(x)||^2."
+          "explanation": "No dimension factor or altered factor two. The quadratic normalizations alpha/2,beta/2 cancel correctly in the norm expansion."
         }
       },
       "deltas": [
         {
           "slot": "domains",
           "severity": "informational",
-          "description": "C2 Euclidean nonnegative-modulus source generalized to C1 Hilbert functions with signed real alpha,beta.",
-          "evidence": "Packet lesson and candidate assumptions explicitly retain both signed global model inequalities and disclose all extensions."
+          "description": "Disclosed C1 Hilbert and signed-parameter generalization of the source domain.",
+          "evidence": "Current packet lesson assumptions and elaborated statement."
         },
         {
           "slot": "assumptions",
           "severity": "review",
-          "description": "h>=0 is an exposed necessary restriction for the descent route and arbitrary-comparator energy claim.",
-          "evidence": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2. Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails."
+          "description": "The nonnegative-step assumption is necessary and missing from the printed source restriction.",
+          "evidence": "For f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1, source (3.3) energy left side is 2 and right side is 3/2. For descent at x=1, f(2)-f(1)=3/2>1/2. Hence the h>=0 boundary cannot be erased."
         },
         {
           "slot": "scopes",
           "severity": "informational",
-          "description": "Whole production module, including private step_descent, was reviewed and source coverage is explicit.",
-          "evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem."
+          "description": "Current full-module publication provenance now uses the canonical public descent interface.",
+          "evidence": "Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance."
         }
       ],
       "verdict": "possible-source-error",
@@ -16522,11 +16522,11 @@
             "reviewer": "converse_source_review",
             "independent_from_formalizer": true,
             "independent_from_decoder": true,
-            "evidence": "This is a fresh independent exact-proposal review of ASTIS-REPAIR-ANDI-GDV-NONNEGATIVE-STEP. Candidate evidence was limited to runs/semantic-roundtrip/andi-opt-gd-value/repair-reviewer.json. I did not read the registry or prior verdict/source-review files and did not reuse the Theorem 3.3 decision. I am neither andi-gdv-worker nor value_blind and did not author the repair. I decoded reference_or_counterexample, checked it is a string containing valid sorted-key JSON, and inspected each of its three counterexamples.\n\nPrimary-source check: I directly reopened https://arxiv.org/html/2605.07006v1 and inspected Section 3, Lemma 3.1, Theorem 3.4 and remark (3.3). The section assumes C² Euclidean functions. Lemma 3.1 and Theorem 3.4 print h≤1/β. Remark (3.3) explicitly replaces the minimizer with any z. Thus arbitrary-comparator scope is source-backed, rather than a new hypothesis or theorem strengthening silently introduced by this repair.\n\nDescent counterexample: for f(t)=t²/2, β=1, h=−1, x=1, the derivative is t and T(1)=2. The actual increment is 2−1/2=3/2; the printed upper bound is 1/2. All regularity and positive reciprocal requirements hold, and h≤1/β. In fact for every h<0 with x=1 the increment is −h+h²/2, exceeding −h/2 by (h²−h)/2>0. This failure is mathematical and not specific to a Lean API or proof route.\n\nComparator-energy counterexample: the same quadratic is α-strongly convex for α=1/2 as well as β-smooth for β=1; a valid modulus need not be the largest possible one. Its Hessian 1 lies above 1/2 and at the smoothness bound. Set h=−1,x=0,z=1. Then T(0)=0, the left side is 1+2(−1)(−1/2)=2, and the right side is (1+1/2)·1=3/2. The signed gap is −1/2; no assumption in the source arbitrary-comparator statement excludes it. More generally this choice of f,α,β,x,z gives LHS=1−h, RHS=1−h/2, so every h<0 fails. Here z=1 is not a minimizer. This is evidence for necessity in (3.3), not a claim that this example falsifies the minimizer-only specialization (3.1).\n\nWeighted diagnostic also checks exactly: with x₀=0,z=1,N=2 all actual iterates are 0, q=3/2, S₂=1+q=5/2, and the final gap is −1/2. Hence 2hS₂ times the gap is 5/2, whereas q²‖x₀−z‖²=9/4. The example concerns only the stated arbitrary-comparator extension; it establishes neither a failure of the minimizer weighted statement nor a repair of the inverse-power formula. It is valid supplementary obstruction evidence and is not needed for accepting the narrower one-step repair.\n\nSufficiency verified directly with the exact constants: let g=∇f(x), s=x−hg, v=x−z. The quadratic upper model gives f(s)−f(x)≤(−h+βh²/2)‖g‖². Under β>0 and 0≤h≤1/β, βh²≤h and thus f(s)−f(x)≤−h‖g‖²/2. This descent argument needs no convexity hypothesis at all; adding α-convexity is unnecessary for Lemma 3.1 itself. For the energy conclusion, the source lower-support bound is f(z)≥f(x)−⟨g,v⟩+(α/2)‖v‖². Adding the descent bound to its rearrangement gives f(s)−f(z)≤⟨g,v⟩−(α/2)‖v‖²−(h/2)‖g‖². Multiplication by 2h≥0 and addition of ‖v−hg‖²=‖v‖²−2h⟨g,v⟩+h²‖g‖² cancels both gradient terms and yields exactly (1−αh)‖v‖². No sign restriction on f(s)−f(z), no minimizer and no division by h enter. Substituting a supplied minimizer for z recovers (3.1).\n\nMinimality: h=0 yields T=identity, the descent inequality 0≤0, and the energy equality ‖x−z‖²≤‖x−z‖². Excluding that endpoint by h>0 would be unnecessary. Every negative step is ruled out for the unchanged class of smooth objectives by the descent example and for the unchanged arbitrary-comparator class by the energy example. The existing upper endpoint 1/β is retained. Thus adding only h≥0 is minimal as a restriction on the universal step interval for the combined descent/arbitrary-comparator assertions. No additional smoothness, stronger curvature or minimizer assumption is warranted. Necessity is established for these assertions, without asserting that each specialized minimizer statement individually fails at negative h.\n\nPreserved source domain and scope: β>0 remains the ordinary reciprocal domain; βh≤1 is equivalent to h≤1/β only there. The proposed C² Euclidean formulation retains source curvature conventions. The local C¹ Hilbert-space setting and signed α/β parameters are distinct generalizations, not accepted as source repairs. No new αh≤1 restriction is needed for the one-step algebra. In the usual nonnegative compatible source setting it follows from α≤β and the chosen step, but any weighted recurrence needs its own coefficient-domain accounting. The repair does not divide by h, 1−αh or a geometric sum and does not interpret the inverse-power rate at h=0, q=0, q=1 or N=0. Such singular endpoints and limiting normalized rates remain outside this decision.\n\nDecision: accept this exact h≥0 assumption-addition overlay for Lemma 3.1 and the one-step (3.1)/(3.3) assertions. The source remains pinned separately; this is not blanket acceptance of Theorem 3.4 including its inverse-power rate or of the full candidate publication. The reconstruction presents the two conclusions jointly under the energy theorem assumptions; the descent lemma itself should continue to retain its original smoothness-only objective assumption, as the proposed change adds only a step restriction.",
-            "review_run_sha256": "2f6d91814c5ff1d7a1f554a662827cee7521b6fe364a3aea9d6e091339cdffcf",
-            "reviewer_packet_sha256": "b9d3e93fcd71a06bc9c77a014ab52efb5ae49ebdc10644d3e555a1e6cf295283",
+            "evidence": "Independent refreshed exact-proposal review. I read only the current candidate packet repair-reviewer-2-0.json; no registry, prior verdict or source-review output was read. I am distinct from andi-gdv-worker and value_blind. This decision is bound to the current packet and its current publication context, not automatically inherited from any earlier acceptance. Primary-source statements checked against my direct first-hand reading of the pinned official arXiv v1 Section 3: C² Euclidean setting; Lemma 3.1 and Theorem 3.4 print h≤1/β; (3.3) explicitly permits arbitrary z. The new shared-helper implementation does not change those source facts.\n\nThe reference_or_counterexample field is a valid sorted-key JSON string. Decoding preserves the primary source URL and all three explicit counterexamples. For f(t)=t²/2, β=1, h=−1, x=1, T(1)=2 and the descent increment 3/2 exceeds 1/2. For general h<0 its excess above the proposed bound is (h²−h)/2>0. For the energy example f(t)=t²/2, α=1/2, β=1, x=0, z=1, the valid but nonmaximal strong-convexity modulus α gives LHS=1−h and RHS=1−h/2. Thus every h<0 fails, and h=−1 yields 2>3/2. This uses the permitted negative comparator gap and a comparator that is not a minimizer. It does not purport to falsify every minimizer-only specialization. The N=2 weighted diagnostic has q=3/2, S₂=5/2 and gap −1/2, so 2hS₂ gap=5/2>9/4=q²R². This supplemental example is correctly confined to the arbitrary-comparator extension.\n\nNecessity and minimality are unchanged and independently valid: the preceding counterexamples require excluding every negative step for a guarantee uniform over the original objective and comparator classes. At h=0 the step is identity, descent is 0≤0 and the energy inequality is equality. Hence strict h>0 would unnecessarily remove a valid endpoint; no added curvature, regularity or minimizer hypothesis is warranted. β>0 is the retained source reciprocal domain, where βh≤1 is equivalent to h≤1/β. This conclusion is about the combined descent/arbitrary-comparator assertions, not a claim of necessity for every individual special case.\n\nSufficiency with exact normalization: write g=∇f(x), s=x−hg and v=x−z. The quadratic upper model gives f(s)−f(x)≤(−h+βh²/2)‖g‖²≤−h‖g‖²/2 for 0≤h≤1/β. Lower support gives f(z)≥f(x)−⟨g,v⟩+(α/2)‖v‖². Multiply the resulting gap estimate by 2h≥0 and add ‖v−hg‖²=‖v‖²−2h⟨g,v⟩+h²‖g‖². Both gradient terms cancel and leave exactly (1−αh)‖v‖². The proof permits every z and signed gaps. Descent alone uses only the upper model, so Lemma 3.1 must retain its smoothness-only objective assumption; the joint statement includes convexity because its energy conclusion needs lower support.\n\nCurrent-context review: the module now imports GradientDescentBasic and calls GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x for hd in the energy proof and at X n in the weighted proof. The private descent proof is no longer present. The authored lesson now names the canonical shared descent interface and the ASTIS dependency list includes both it and StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn. Its formulas correctly explain the upper-model calculation supplied by that interface. The remaining proof still multiplies lower support and descent by 2h, expands the squared norm, and cancels. The weighted branch explicitly assumes αh≤1 for q≥0, derives decreasing function values using the same shared descent call, permits signed forcing, and uses nonnegative q powers before dropping the final squared norm. These code and lesson changes preserve the repaired mathematical boundary and do not turn this review into a certification of unprovided helper implementation/build artifacts. The local public statement and supplied decoder continue to agree on arbitrary comparator, signed α/β and h≥0.\n\nScope safeguards: C¹ Hilbert-space regularity, signed moduli and the division-free βh≤1 condition outside β>0 are local generalizations, not source repairs. The one-step bound needs no additional αh≤1 assumption. The repair remains confined to the missing nonnegative step in Lemma 3.1 and (3.1)/(3.3), with original source retained separately. It neither interprets inverse powers at q=0 or q=1 nor normalizes at h=0 or N=0; it does not certify the inverse-power or convex normalized rates, nor assert minimizer existence. No change in the revised module or lesson invalidates necessity, minimality, constants or source-domain preservation. Accept the exact proposal in this refreshed context.",
+            "review_run_sha256": "ac8016d46185f986924549024ee67248d3bad6ef4e9f3d409591595e7a8f98c5",
+            "reviewer_packet_sha256": "00e884980f64bf8508357ee1288f9ea06f2c6c13f5eeaf81b9f815535656874c",
             "proposal_sha256": "18a4aea345720418f0274543c7c0cccdeeaacc67453e3bcf3092b9bd36937baf",
-            "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-value/repair-review-result.json"
+            "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-2.json"
           },
           "proposal_author": "coco_source"
         }
@@ -16536,15 +16536,15 @@
         "reviewer": "coco_source",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Independent fresh review of ASTIS-REVIEW-b92d92c89bcb917c. Accepted as a disclosed signed-curvature C1 Hilbert-space generalization of the source arbitrary-comparator energy inequality on the explicit h>=0 domain. Source literal negative-step claim is not accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json.",
-        "review_run_sha256": "f4e4529b617fd715dcd9d0121e042b6856a08fb289228a22540a95ad7b511db5",
-        "reviewer_packet_sha256": "d38cee8b8f8625926cc77a85e437147eecd1ec0108538e8ae687b76339df31fc",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-value/source-review-0.json"
+        "evidence": "Accepted scoped support for source (3.3) comparator energy after explicit h>=0 restriction, with current shared-helper provenance and disclosed algebraic/domain extensions. Not exact source equivalence; no repair accepted. Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance. All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies. Evidence run: /private/tmp/andi-pl-source-review-run-23.json",
+        "review_run_sha256": "8b72079323eb2d5a9125708407ad7381b5f5ca4b5d1deeb83e18b493d37bc899",
+        "reviewer_packet_sha256": "ba025345a1cce6dcbf9fac48bce4fce9138324b123ff77f5f0adb0c63cd6ae1b",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-2.json"
       },
-      "publication_binding_sha256": "d390a83d8d454416500e543cea244f15c7efbe843d3a86e3126b7e076f59da4e",
+      "publication_binding_sha256": "f4e98af75921078c6a5a6c8a76150861320331d51f69a972f1b5a0565662b808",
       "publication_context": {
-        "file": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
-        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.ODE.DiscreteGronwall\nimport Mathlib.Algebra.Ring.GeomSum\n\n/-!\n# Gradient descent: comparator energy and weighted function values\n\nChewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum\nproof after Lemma 3.5. We use the actual gradient and actual iterates, with\narbitrary comparator as explicitly permitted by (3.3). The descent calculation\nis a private implementation of Lemma 3.1. The signed-forcing recurrence is\nMathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.\n\nThe source's step condition needs `h ≥ 0`. The quadratic upper model and C¹\nHilbert setting generalize the section's C² Euclidean hypotheses. We expose\n`α * h ≤ 1` for nonnegative geometric weights. The division-free result includes\nzero step, zero iteration and coefficients zero/one; it does not interpret the\nsource's inverse-power formula at these singular endpoints. No minimizer\nexistence is claimed, and the comparator gap may be negative.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n\nopen Set Finset\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nprivate theorem step_descent {f : E → ℝ} {β h : ℝ}\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x : E) : f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2 := by\n  have hu' := hu x (x - h • gradient f x)\n  have he : x - h • gradient f x - x = -(h • gradient f x) := by abel\n  rw [he, inner_neg_right, inner_smul_right, real_inner_self_eq_norm_sq,\n    norm_neg, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at hu'\n  have hs := mul_le_mul_of_nonneg_right hstep (mul_nonneg hh (sq_nonneg ‖gradient f x‖))\n  nlinarith\n\n/-- One-step energy inequality for every comparator, with the necessary\nnonnegative step explicit. No sign restriction on the comparator gap. -/\ntheorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x z : E) :\n    ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤\n      (1 - α * h) * ‖x - z‖ ^ 2 := by\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  have hd := step_descent hh hstep hu x\n  have hn : z - x = -(x - z) := by abel\n  rw [hn, inner_neg_right, norm_neg] at hl\n  have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)\n  have hd' := mul_le_mul_of_nonneg_left hd (by positivity : 0 ≤ 2 * h)\n  rw [show x - h • gradient f x - z = (x - z) - h • gradient f x by abel,\n    norm_sub_sq_real, inner_smul_right, real_inner_comm (gradient f x),\n    norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]\n  nlinarith\n\n/-- Weighted final function gap for actual gradient-descent iterates. The\ncoefficient domain is explicit and includes both zero and one. -/\ntheorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1) (hcoeff : α * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x₀ z : E) (N : ℕ) :\n    2 * h * (∑ k ∈ range N, (1 - α * h) ^ k) *\n        (f ((fun x => x - h • gradient f x)^[N] x₀) - f z) ≤\n      (1 - α * h) ^ N * ‖x₀ - z‖ ^ 2 := by\n  let T : E → E := fun x => x - h • gradient f x\n  let X : ℕ → E := fun n => T^[n] x₀\n  let q : ℝ := 1 - α * h\n  have hq : 0 ≤ q := sub_nonneg.mpr hcoeff\n  have hX (n : ℕ) : X (n + 1) = T (X n) := Function.iterate_succ_apply' _ _ _\n  have hm : Antitone (fun n => f (X n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hd := step_descent hh hstep hu (X n)\n    rw [hX]\n    dsimp [T]\n    have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity\n    linarith\n  have hr (n : ℕ) (_ : 0 ≤ n) :\n      ‖X (n + 1) - z‖ ^ 2 ≤ q * ‖X n - z‖ ^ 2 + (-2 * h * (f (X (n + 1)) - f z)) := by\n    have he := gradient_step_energy_bound hf hsc hh hstep hu (X n) z\n    rw [hX]\n    dsimp [T, q]\n    linarith\n  have hg := discrete_gronwall_prod_general (u := fun n => ‖X n - z‖ ^ 2)\n    (b := fun n => -2 * h * (f (X (n + 1)) - f z)) (c := fun _ => q) hr (fun _ _ => hq) (Nat.zero_le N)\n  simp only [Finset.prod_const, Nat.card_Ico, Nat.Ico_zero_eq_range, Finset.card_range] at hg\n  have hs : ∑ k ∈ range N, (-2 * h * (f (X (k + 1)) - f z)) * q ^ (N - (k + 1)) ≤\n      ∑ k ∈ range N, (-2 * h * (f (X N) - f z)) * q ^ (N - (k + 1)) := by\n    apply sum_le_sum\n    intro k hk\n    have hm' := hm (by have := mem_range.mp hk; omega : k + 1 ≤ N)\n    apply mul_le_mul_of_nonneg_right _ (pow_nonneg hq _)\n    have hh' : 0 ≤ 2 * h := by positivity\n    nlinarith\n  have hsum : (∑ k ∈ range N, q ^ (N - (k + 1))) = ∑ k ∈ range N, q ^ k := by\n    rw [← sum_range_reflect (fun k => q ^ k) N]\n    apply sum_congr rfl\n    intro k _\n    congr 1\n    omega\n  rw [← mul_sum, hsum] at hs\n  have hu0 : X 0 = x₀ := rfl\n  rw [hu0] at hg\n  have huN := sq_nonneg ‖X N - z‖\n  change 2 * h * (∑ k ∈ range N, q ^ k) * (f (X N) - f z) ≤ q ^ N * ‖x₀ - z‖ ^ 2\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n",
+        "file": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.ODE.DiscreteGronwall\nimport Mathlib.Algebra.Ring.GeomSum\n\n/-!\n# Gradient descent: comparator energy and weighted function values\n\nChewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum\nproof after Lemma 3.5. We use the actual gradient and actual iterates, with\narbitrary comparator as explicitly permitted by (3.3). The descent calculation\nuses the shared public implementation of Lemma 3.1. The signed-forcing recurrence is\nMathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.\n\nThe source's step condition needs `h ≥ 0`. The quadratic upper model and C¹\nHilbert setting generalize the section's C² Euclidean hypotheses. We expose\n`α * h ≤ 1` for nonnegative geometric weights. The division-free result includes\nzero step, zero iteration and coefficients zero/one; it does not interpret the\nsource's inverse-power formula at these singular endpoints. No minimizer\nexistence is claimed, and the comparator gap may be negative.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n\nopen Set Finset\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- One-step energy inequality for every comparator, with the necessary\nnonnegative step explicit. No sign restriction on the comparator gap. -/\ntheorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x z : E) :\n    ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤\n      (1 - α * h) * ‖x - z‖ ^ 2 := by\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x\n  have hn : z - x = -(x - z) := by abel\n  rw [hn, inner_neg_right, norm_neg] at hl\n  have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)\n  have hd' := mul_le_mul_of_nonneg_left hd (by positivity : 0 ≤ 2 * h)\n  rw [show x - h • gradient f x - z = (x - z) - h • gradient f x by abel,\n    norm_sub_sq_real, inner_smul_right, real_inner_comm (gradient f x),\n    norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]\n  nlinarith\n\n/-- Weighted final function gap for actual gradient-descent iterates. The\ncoefficient domain is explicit and includes both zero and one. -/\ntheorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1) (hcoeff : α * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x₀ z : E) (N : ℕ) :\n    2 * h * (∑ k ∈ range N, (1 - α * h) ^ k) *\n        (f ((fun x => x - h • gradient f x)^[N] x₀) - f z) ≤\n      (1 - α * h) ^ N * ‖x₀ - z‖ ^ 2 := by\n  let T : E → E := fun x => x - h • gradient f x\n  let X : ℕ → E := fun n => T^[n] x₀\n  let q : ℝ := 1 - α * h\n  have hq : 0 ≤ q := sub_nonneg.mpr hcoeff\n  have hX (n : ℕ) : X (n + 1) = T (X n) := Function.iterate_succ_apply' _ _ _\n  have hm : Antitone (fun n => f (X n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu (X n)\n    rw [hX]\n    dsimp [T]\n    have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity\n    linarith\n  have hr (n : ℕ) (_ : 0 ≤ n) :\n      ‖X (n + 1) - z‖ ^ 2 ≤ q * ‖X n - z‖ ^ 2 + (-2 * h * (f (X (n + 1)) - f z)) := by\n    have he := gradient_step_energy_bound hf hsc hh hstep hu (X n) z\n    rw [hX]\n    dsimp [T, q]\n    linarith\n  have hg := discrete_gronwall_prod_general (u := fun n => ‖X n - z‖ ^ 2)\n    (b := fun n => -2 * h * (f (X (n + 1)) - f z)) (c := fun _ => q) hr (fun _ _ => hq) (Nat.zero_le N)\n  simp only [Finset.prod_const, Nat.card_Ico, Nat.Ico_zero_eq_range, Finset.card_range] at hg\n  have hs : ∑ k ∈ range N, (-2 * h * (f (X (k + 1)) - f z)) * q ^ (N - (k + 1)) ≤\n      ∑ k ∈ range N, (-2 * h * (f (X N) - f z)) * q ^ (N - (k + 1)) := by\n    apply sum_le_sum\n    intro k hk\n    have hm' := hm (by have := mem_range.mp hk; omega : k + 1 ≤ N)\n    apply mul_le_mul_of_nonneg_right _ (pow_nonneg hq _)\n    have hh' : 0 ≤ 2 * h := by positivity\n    nlinarith\n  have hsum : (∑ k ∈ range N, q ^ (N - (k + 1))) = ∑ k ∈ range N, q ^ k := by\n    rw [← sum_range_reflect (fun k => q ^ k) N]\n    apply sum_congr rfl\n    intro k _\n    congr 1\n    omega\n  rw [← mul_sum, hsum] at hs\n  have hu0 : X 0 = x₀ := rfl\n  rw [hu0] at hg\n  have huN := sq_nonneg ‖X N - z‖\n  change 2 * h * (∑ k ∈ range N, q ^ k) * (f (X N) - f z) ≤ q ^ N * ‖x₀ - z‖ ^ 2\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n",
         "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
         "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
         "source": {
@@ -16611,9 +16611,9 @@
           "steps": [
             {
               "title": "Compute descent for the actual gradient step",
-              "text": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate as a private implementation step.",
+              "text": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate using the canonical shared descent interface.",
               "formula": "\\begin{gathered}f(s)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2,\\\\f(s)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
-              "lean": "private step_descent; inner_smul_right, real_inner_self_eq_norm_sq, norm_smul, mul_le_mul_of_nonneg_right."
+              "lean": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound; inner_smul_right, real_inner_self_eq_norm_sq, norm_smul, mul_le_mul_of_nonneg_right."
             },
             {
               "title": "Use strong first-order support at an arbitrary comparator",
@@ -16629,14 +16629,15 @@
             }
           ],
           "astis_dependencies": [
-            "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound"
           ],
           "mathlib_dependencies": [
             "ContDiff.differentiable_one; DifferentiableAt.hasGradientAt",
             "norm_sub_sq_real; inner_smul_right; real_inner_self_eq_norm_sq; norm_smul"
           ],
           "lean_statement": "Actual-gradient one-step arbitrary-comparator energy bound.",
-          "lean_proof": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate as a private implementation step. The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters. Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
+          "lean_proof": "Put g=∇f(x) and s=T(x)=x−hg. Apply the upper model at x,s. Since h≥0 and βh≤1, βh²‖g‖²≤h‖g‖². This proves the source Lemma3.1 descent estimate using the canonical shared descent interface. The compiled first-order support theorem follows from the source chord definition and the genuine gradient, supplied by C¹ differentiability. Set v=x−z and g=∇f(x). No minimum condition on z enters. Multiply each function inequality by 2h≥0 and insert the exact squared-distance expansion. The h²‖g‖² terms cancel. This gives the stated one-step energy inequality even when the comparator gap is negative.",
           "sources": [
             {
               "url": "https://arxiv.org/html/2605.07006v1#S3",
@@ -16723,106 +16724,100 @@
       },
       "semantic_slots": {
         "objects": {
-          "original": "Actual Euclidean derivative gradient and gradient update. Sequence of actual updates, squared distance and function-value gaps to a minimizer in the weighted proof.",
-          "reconstructed": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Actual Function.iterate T N with arbitrary z and signed gap.",
+          "original": "A scalar objective, its Euclidean gradient, actual GD update and iterated gaps to a minimizer.",
+          "reconstructed": "C1 function with genuine Riesz gradient, actual update and Function.iterate, signed scalar gaps to arbitrary z.",
           "relation": "explicit-elaboration",
-          "evidence": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The recurrence is derived from the actual dynamics before applying discrete Gronwall.",
-          "source": "Actual Euclidean derivative gradient and gradient update. Sequence of actual updates, squared distance and function-value gaps to a minimizer in the weighted proof.",
-          "lean": "Genuine Riesz gradient under C1; T(x)=x-h gradient f(x). Actual Function.iterate T N with arbitrary z and signed gap.",
+          "evidence": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. The recurrence is derived from actual iterates, not assumed.",
+          "source": "A scalar objective, its Euclidean gradient, actual GD update and iterated gaps to a minimizer.",
+          "lean": "C1 function with genuine Riesz gradient, actual update and Function.iterate, signed scalar gaps to arbitrary z.",
           "status": "explicit-elaboration",
-          "explanation": "No arbitrary oracle or recurrence sequence replaces the gradient or iterates. The recurrence is derived from the actual dynamics before applying discrete Gronwall."
+          "explanation": "C1 in the callers provides derivative meaning despite the shared helper having a more general totalized-gradient interface. The recurrence is derived from actual iterates, not assumed."
         },
         "domains": {
-          "original": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
-          "reconstructed": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+          "original": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+          "reconstructed": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
           "relation": "different",
-          "evidence": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required.",
-          "source": "C2 function on all Euclidean d-space; nonnegative source curvature/smoothness moduli and reciprocal step restriction.",
-          "lean": "C1 on any complete real inner-product space; alpha,beta are real without sign restrictions; h>=0 and beta h<=1.",
+          "evidence": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence.",
+          "source": "Euclidean C2, nonnegative source moduli and ordinary reciprocal step domain.",
+          "lean": "C1 on any complete real inner-product space; signed real alpha,beta, division-free beta h<=1.",
           "status": "different",
-          "explanation": "This permits infinite-dimensional spaces, negative curvature parameters and beta=0. These are actual disclosed mathematical extensions, not definitional equivalence. The global chord and upper models remain required."
+          "explanation": "Infinite-dimensional spaces, signed curvature and zero beta are genuinely broader mathematical domains, explicitly disclosed in current lessons; not source equivalence."
         },
         "quantifiers": {
-          "original": "Actual iterates for each N relative to xstar in the weighted proof, with arbitrary-comparator one-step extension in (3.3).",
-          "reconstructed": "Every initial x0, every comparator z, all natural N including zero, and each fixed admitted h.",
+          "original": "Weighted proof for actual iterates relative to a minimizer, all iteration counts in its positive-coefficient domain.",
+          "reconstructed": "Every x0,z and natural N including zero at one fixed admitted step.",
           "relation": "different",
-          "evidence": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. The arbitrary-comparator weighted extension follows the explicit (3.3) permission and does not assume gap nonnegativity.",
-          "source": "Actual iterates for each N relative to xstar in the weighted proof, with arbitrary-comparator one-step extension in (3.3).",
-          "lean": "Every initial x0, every comparator z, all natural N including zero, and each fixed admitted h.",
+          "evidence": "Global upper/chord models use one f,alpha,beta,h. Arbitrary-comparator weighted statement follows the (3.3) extension, with no gap sign assumed.",
+          "source": "Weighted proof for actual iterates relative to a minimizer, all iteration counts in its positive-coefficient domain.",
+          "lean": "Every x0,z and natural N including zero at one fixed admitted step.",
           "status": "different",
-          "explanation": "Pointwise global model quantifiers use one fixed f,alpha,beta,h. The arbitrary-comparator weighted extension follows the explicit (3.3) permission and does not assume gap nonnegativity."
+          "explanation": "Global upper/chord models use one f,alpha,beta,h. Arbitrary-comparator weighted statement follows the (3.3) extension, with no gap sign assumed."
         },
         "assumptions": {
-          "original": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta. Lemma3.5 assumes A>0 and the proof uses A=q.",
-          "reconstructed": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1. Also alpha h<=1, equivalent to q>=0.",
+          "original": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta; Lemma3.5 coefficient A>0.",
+          "reconstructed": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1; alpha h<=1 so q>=0.",
           "relation": "different",
-          "evidence": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. Nonnegative weights are essential for the recurrence comparison; q=0 is a disclosed extension of source A>0, and q<=1 is unnecessary.",
-          "source": "Section C2, alpha-convexity with nonnegative alpha and beta-smoothness; printed h<=1/beta. Lemma3.5 assumes A>0 and the proof uses A=q.",
-          "lean": "C1 and signed alpha chord inequality, signed beta global upper model, h>=0, beta h<=1. Also alpha h<=1, equivalent to q>=0.",
+          "evidence": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. q=0 extends positive A by avoiding inverse powers; q<=1 is unnecessary.",
+          "source": "Section C2, alpha-convex and beta-smooth, printed h<=1/beta; Lemma3.5 coefficient A>0.",
+          "lean": "C1, signed alpha chord inequality, signed beta upper model, h>=0,beta h<=1; alpha h<=1 so q>=0.",
           "status": "different",
-          "explanation": "C1 weakens the section regularity; explicit nonnegative h removes a real source domain omission. No sign assumptions on alpha or beta are secretly restored. Nonnegative weights are essential for the recurrence comparison; q=0 is a disclosed extension of source A>0, and q<=1 is unnecessary."
+          "explanation": "The extra lower bound on h exposes an essential source domain omission. The source regularity and parameter-sign assumptions are weakened transparently. q=0 extends positive A by avoiding inverse powers; q<=1 is unnecessary."
         },
         "conclusion": {
-          "original": "The finite weighted estimate before division in the proof after Lemma3.5.",
-          "reconstructed": "2h sum(k=0..N-1)q^k times final comparator gap <=q^N times initial squared distance.",
+          "original": "The finite weighted final-gap estimate before division.",
+          "reconstructed": "2h sum(k<N)q^k gap_N<=q^N||x0-z||^2.",
           "relation": "equivalent",
-          "evidence": "On the common scoped source domain the algebra and constants agree. Reverse the finite summation index to identify powers q^(N-1-k) with the displayed geometric sum. This equivalence is to the finite weighted inequality, not an inverse formula at endpoints.",
-          "source": "The finite weighted estimate before division in the proof after Lemma3.5.",
-          "lean": "2h sum(k=0..N-1)q^k times final comparator gap <=q^N times initial squared distance.",
+          "evidence": "Exactly the same coefficients on the common source domain. The index-reflected geometric sum matches the source weighted calculation. This is not an assertion about its singular inverse formula.",
+          "source": "The finite weighted final-gap estimate before division.",
+          "lean": "2h sum(k<N)q^k gap_N<=q^N||x0-z||^2.",
           "status": "equivalent",
-          "explanation": "On the common scoped source domain the algebra and constants agree. Reverse the finite summation index to identify powers q^(N-1-k) with the displayed geometric sum. This equivalence is to the finite weighted inequality, not an inverse formula at endpoints."
+          "explanation": "Exactly the same coefficients on the common source domain. The index-reflected geometric sum matches the source weighted calculation. This is not an assertion about its singular inverse formula."
         },
         "scopes": {
-          "original": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
-          "reconstructed": "Global deterministic statements on univ, arbitrary comparator and signed gaps. Natural iteration, no claim of minimizer existence or separately published normalized rate.",
+          "original": "Global deterministic source statement, minimizer-based weighted calculation.",
+          "reconstructed": "Global deterministic inequality on univ, arbitrary comparator, signed forcing/gap, no minimizer existence.",
           "relation": "different",
-          "evidence": "Source support is scoped to the precise binding. A minimizer is not required by the generalized weighted inequality. Inverse-power and convex-normalized obligations are unbound, and tests are only specialization consumers.",
-          "source": "Global deterministic statements; one-step comparator arbitrary. The weighted rate specializes to a minimizer.",
-          "lean": "Global deterministic statements on univ, arbitrary comparator and signed gaps. Natural iteration, no claim of minimizer existence or separately published normalized rate.",
+          "evidence": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements.",
+          "source": "Global deterministic source statement, minimizer-based weighted calculation.",
+          "lean": "Global deterministic inequality on univ, arbitrary comparator, signed forcing/gap, no minimizer existence.",
           "status": "different",
-          "explanation": "Source support is scoped to the precise binding. A minimizer is not required by the generalized weighted inequality. Inverse-power and convex-normalized obligations are unbound, and tests are only specialization consumers."
+          "explanation": "No probabilistic, a.e., restricted-set or existence claim is hidden. Entire current module and the canonical shared helper were reviewed rather than only exported statements."
         },
         "constant_dependencies": {
-          "original": "q=1-alpha h, geometric weights, 2h and initial distance R; source inverse expression uses additional nonzero denominators.",
-          "reconstructed": "Exactly q,2h,S_N and R^2; no inverse of q or of 2h S_N.",
+          "original": "2h, q=1-alpha h, N, initial squared distance.",
+          "reconstructed": "Exactly 2h, q, natural powers/sum and initial squared distance.",
           "relation": "equivalent",
-          "evidence": "No dimension constant or multiplicative loss. N=0,h=0,q=0 and q=1 use finite sums and natural powers; q>1 is allowed, with no implied decaying rate. Positive-domain normalization would additionally need h>0,N>=1 and 0<q<1.",
-          "source": "q=1-alpha h, geometric weights, 2h and initial distance R; source inverse expression uses additional nonzero denominators.",
-          "lean": "Exactly q,2h,S_N and R^2; no inverse of q or of 2h S_N.",
+          "evidence": "No dimension factor or altered factor two. Endpoint cases are handled by finite sums; no 1/q, 1/h or 1/N appears.",
+          "source": "2h, q=1-alpha h, N, initial squared distance.",
+          "lean": "Exactly 2h, q, natural powers/sum and initial squared distance.",
           "status": "equivalent",
-          "explanation": "No dimension constant or multiplicative loss. N=0,h=0,q=0 and q=1 use finite sums and natural powers; q>1 is allowed, with no implied decaying rate. Positive-domain normalization would additionally need h>0,N>=1 and 0<q<1."
+          "explanation": "No dimension factor or altered factor two. Endpoint cases are handled by finite sums; no 1/q, 1/h or 1/N appears."
         }
       },
       "deltas": [
         {
           "slot": "domains",
           "severity": "informational",
-          "description": "C2 Euclidean nonnegative-modulus source generalized to C1 Hilbert functions with signed real alpha,beta.",
-          "evidence": "Packet lesson and candidate assumptions explicitly retain both signed global model inequalities and disclose all extensions."
+          "description": "Disclosed C1 Hilbert and signed-parameter generalization of the source domain.",
+          "evidence": "Current packet lesson assumptions and elaborated statement."
         },
         {
           "slot": "assumptions",
           "severity": "review",
-          "description": "h>=0 is an exposed necessary restriction for the descent route and arbitrary-comparator energy claim.",
-          "evidence": "Take f(t)=t^2/2 on R, beta=1,h=-1,x=1. The printed h<=1/beta holds; T(1)=2 and f(2)-f(1)=3/2 exceeds -(h/2)|grad f(1)|^2=1/2. Take f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1. This f is alpha-strongly convex and beta-smooth. T(0)=0; ||T(0)-1||^2+2h(f(T(0))-f(1))=2 while (1-alpha h)||0-1||^2=3/2. Thus the printed arbitrary-comparator claim fails."
+          "description": "The nonnegative-step assumption is necessary and missing from the printed source restriction.",
+          "evidence": "For f(t)=t^2/2, alpha=1/2,beta=1,h=-1,x=0,z=1, source (3.3) energy left side is 2 and right side is 3/2. For descent at x=1, f(2)-f(1)=3/2>1/2. Hence the h>=0 boundary cannot be erased."
         },
         {
           "slot": "scopes",
           "severity": "informational",
-          "description": "Whole production module, including private step_descent, was reviewed and source coverage is explicit.",
-          "evidence": "Reviewed the entire private theorem statement and every proof line, not merely the exported conclusions. It assumes h>=0, beta h<=1 and the global quadratic upper model at the gradient symbol. Evaluating that model at s=x-h grad f(x) gives f(s)-f(x)<=-h||g||^2+(beta/2)h^2||g||^2. Multiplying beta h<=1 by h||g||^2>=0 proves descent. No beta>=0 or C1 premise is required for this purely algebraic implication from the already supplied upper model. In both public consumers C1 guarantees the gradient is the genuine derivative, recovering the intended source calculus setting. The helper is explained explicitly in both lesson proof chains, as an implementation of Lemma3.1 rather than an independently registered theorem."
-        },
-        {
-          "slot": "assumptions",
-          "severity": "informational",
-          "description": "q>=0 is explicit; q=0 extends source positive-coefficient recurrence through division-free products.",
-          "evidence": "For k<N, g_N<=g_(k+1); multiplication by -2h<=0 reverses this inequality. Multiplication by q^(N-(k+1))>=0 then preserves it. Summing, reversing k and discarding u_N>=0 gives precisely 2h S_N g_N<=q^N u0. No bound q<=1 is needed. N=0 has S0=0, q^0=1 and yields 0<=||x0-z||^2. h=0 gives T=id, q=1 and a zero left coefficient. q=0 gives S_N=1 and q^N=0 for N>=1 without reciprocal evaluation. q=1 gives S_N=N. q>1, possible with negative alpha, is valid though not a decaying optimization rate."
+          "description": "Current full-module publication provenance now uses the canonical public descent interface.",
+          "evidence": "Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance."
         },
         {
           "slot": "scopes",
           "severity": "informational",
-          "description": "Arbitrary comparator permits signed gaps; printed normalized rates are not admitted as separate published theorems.",
-          "evidence": "Binding supports only weighted-final-gap. Lesson test-source scope says compiled specialization tests, not separate registered theorem credit. Neither inverse-power-rate nor convex-normalized-rate is bound to these declarations."
+          "description": "Weighted inequality extends to q=0 and arbitrary signed comparator gaps; normalized-rate publication remains uncovered.",
+          "evidence": "With Xn=T^[n]x0 and q=1-alpha h>=0, establish u_(n+1)<=q u_n-2h gap_(n+1), and descent gives antitone gaps. Product-form Gronwall accepts signed forcing. Because -2h<=0 and q^k>=0, earlier gaps may be replaced by the final gap in the upper bound; discard u_N>=0 and reflect the finite index to obtain exactly 2h sum(q^k)gap_N<=q^N u0. All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies."
         }
       ],
       "verdict": "domain-mismatch",
@@ -16832,15 +16827,15 @@
         "reviewer": "coco_source",
         "independent_from_formalizer": true,
         "independent_from_decoder": true,
-        "evidence": "Independent fresh review of ASTIS-REVIEW-91db7a408ec7c67f. Accepted as a disclosed signed-curvature C1 Hilbert-space and arbitrary-comparator extension of the source finite weighted proof, with q>=0 explicit. Source normalized inverse-power and convex-rate publication obligations remain uncovered; no singular reciprocal endpoint is accepted. Whole production module including private step_descent and both public declarations reviewed line by line from the packet payload. All seven semantic slots, signed curvature/gap, actual gradient/iterates, comparator domain, local symbols/constants, nonnegative multipliers and endpoint behavior checked. Lessons explicitly cover private descent. Compiled specialization tests are not independent published-source theorem evidence; no test execution is certified here. Run artifact: /private/tmp/andi-gdv-source-review-run.json.",
-        "review_run_sha256": "6d2595a32294b417be7ed5d9125cc86a8636657daf04fe28eeb83e216a1ec7a7",
-        "reviewer_packet_sha256": "fc213234bd5d909e60d921a1840220e8882e39b0bc55de68ebfc5e1ca16e19fb",
-        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-value/source-review-1.json"
+        "evidence": "Accepted scoped support for the finite weighted proof after explicit h>=0 restriction, with current shared-helper provenance and disclosed algebraic/domain extensions. Not exact source equivalence; no repair accepted. Read the complete current GDValue module with both public proofs. The old private descent theorem is absent; the import and both descent calls use GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound. Read the full current shared Basic source and verified its h>=0, beta h<=1 and upper-model premises match those at both call sites. Both lessons replace the private-helper explanation with the exact canonical public name and list it in ASTIS dependencies. This review does not rely on an immutable historical acceptance. All local symbols and signs in the current lessons checked. Neither binding claims inverse-power-rate or convex-normalized-rate; those remain uncovered source obligations. Tests are cited only as compiled specializations and are not independently checked or accepted as separately registered source theorems. External Optlib references are not imported proof dependencies. Evidence run: /private/tmp/andi-pl-source-review-run-23.json",
+        "review_run_sha256": "082f1ec880ab63d4e0a6deee460d62fd993640a6ae61a953e1af23f438b54378",
+        "reviewer_packet_sha256": "84ac3263f4fd69a54910535d8a25147cd9c9c117bb1a8140ee13834b9a95207b",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-3.json"
       },
-      "publication_binding_sha256": "1a3e0eeb19041bcf75e80e49b51039637813dd94ea5eb81ad9c613a66deea764",
+      "publication_binding_sha256": "0684d8751d1bc984f7ddd7a969def12030ef02a4ce71879dd79d505066826deb",
       "publication_context": {
-        "file": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
-        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.ODE.DiscreteGronwall\nimport Mathlib.Algebra.Ring.GeomSum\n\n/-!\n# Gradient descent: comparator energy and weighted function values\n\nChewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum\nproof after Lemma 3.5. We use the actual gradient and actual iterates, with\narbitrary comparator as explicitly permitted by (3.3). The descent calculation\nis a private implementation of Lemma 3.1. The signed-forcing recurrence is\nMathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.\n\nThe source's step condition needs `h ≥ 0`. The quadratic upper model and C¹\nHilbert setting generalize the section's C² Euclidean hypotheses. We expose\n`α * h ≤ 1` for nonnegative geometric weights. The division-free result includes\nzero step, zero iteration and coefficients zero/one; it does not interpret the\nsource's inverse-power formula at these singular endpoints. No minimizer\nexistence is claimed, and the comparator gap may be negative.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n\nopen Set Finset\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nprivate theorem step_descent {f : E → ℝ} {β h : ℝ}\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x : E) : f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2 := by\n  have hu' := hu x (x - h • gradient f x)\n  have he : x - h • gradient f x - x = -(h • gradient f x) := by abel\n  rw [he, inner_neg_right, inner_smul_right, real_inner_self_eq_norm_sq,\n    norm_neg, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at hu'\n  have hs := mul_le_mul_of_nonneg_right hstep (mul_nonneg hh (sq_nonneg ‖gradient f x‖))\n  nlinarith\n\n/-- One-step energy inequality for every comparator, with the necessary\nnonnegative step explicit. No sign restriction on the comparator gap. -/\ntheorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x z : E) :\n    ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤\n      (1 - α * h) * ‖x - z‖ ^ 2 := by\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  have hd := step_descent hh hstep hu x\n  have hn : z - x = -(x - z) := by abel\n  rw [hn, inner_neg_right, norm_neg] at hl\n  have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)\n  have hd' := mul_le_mul_of_nonneg_left hd (by positivity : 0 ≤ 2 * h)\n  rw [show x - h • gradient f x - z = (x - z) - h • gradient f x by abel,\n    norm_sub_sq_real, inner_smul_right, real_inner_comm (gradient f x),\n    norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]\n  nlinarith\n\n/-- Weighted final function gap for actual gradient-descent iterates. The\ncoefficient domain is explicit and includes both zero and one. -/\ntheorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1) (hcoeff : α * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x₀ z : E) (N : ℕ) :\n    2 * h * (∑ k ∈ range N, (1 - α * h) ^ k) *\n        (f ((fun x => x - h • gradient f x)^[N] x₀) - f z) ≤\n      (1 - α * h) ^ N * ‖x₀ - z‖ ^ 2 := by\n  let T : E → E := fun x => x - h • gradient f x\n  let X : ℕ → E := fun n => T^[n] x₀\n  let q : ℝ := 1 - α * h\n  have hq : 0 ≤ q := sub_nonneg.mpr hcoeff\n  have hX (n : ℕ) : X (n + 1) = T (X n) := Function.iterate_succ_apply' _ _ _\n  have hm : Antitone (fun n => f (X n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hd := step_descent hh hstep hu (X n)\n    rw [hX]\n    dsimp [T]\n    have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity\n    linarith\n  have hr (n : ℕ) (_ : 0 ≤ n) :\n      ‖X (n + 1) - z‖ ^ 2 ≤ q * ‖X n - z‖ ^ 2 + (-2 * h * (f (X (n + 1)) - f z)) := by\n    have he := gradient_step_energy_bound hf hsc hh hstep hu (X n) z\n    rw [hX]\n    dsimp [T, q]\n    linarith\n  have hg := discrete_gronwall_prod_general (u := fun n => ‖X n - z‖ ^ 2)\n    (b := fun n => -2 * h * (f (X (n + 1)) - f z)) (c := fun _ => q) hr (fun _ _ => hq) (Nat.zero_le N)\n  simp only [Finset.prod_const, Nat.card_Ico, Nat.Ico_zero_eq_range, Finset.card_range] at hg\n  have hs : ∑ k ∈ range N, (-2 * h * (f (X (k + 1)) - f z)) * q ^ (N - (k + 1)) ≤\n      ∑ k ∈ range N, (-2 * h * (f (X N) - f z)) * q ^ (N - (k + 1)) := by\n    apply sum_le_sum\n    intro k hk\n    have hm' := hm (by have := mem_range.mp hk; omega : k + 1 ≤ N)\n    apply mul_le_mul_of_nonneg_right _ (pow_nonneg hq _)\n    have hh' : 0 ≤ 2 * h := by positivity\n    nlinarith\n  have hsum : (∑ k ∈ range N, q ^ (N - (k + 1))) = ∑ k ∈ range N, q ^ k := by\n    rw [← sum_range_reflect (fun k => q ^ k) N]\n    apply sum_congr rfl\n    intro k _\n    congr 1\n    omega\n  rw [← mul_sum, hsum] at hs\n  have hu0 : X 0 = x₀ := rfl\n  rw [hu0] at hg\n  have huN := sq_nonneg ‖X N - z‖\n  change 2 * h * (∑ k ∈ range N, q ^ k) * (f (X N) - f z) ≤ q ^ N * ‖x₀ - z‖ ^ 2\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n",
+        "file": "05808fb8b2cc49995a9a834121debf5f856be31f6aa95eb2bdcf83dfca3ebe1c",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\nimport Mathlib.Analysis.Calculus.ContDiff.Basic\nimport Mathlib.Analysis.ODE.DiscreteGronwall\nimport Mathlib.Algebra.Ring.GeomSum\n\n/-!\n# Gradient descent: comparator energy and weighted function values\n\nChewi, arXiv:2605.07006v1, Theorem 3.4 (3.1), (3.3) and its weighted-sum\nproof after Lemma 3.5. We use the actual gradient and actual iterates, with\narbitrary comparator as explicitly permitted by (3.3). The descent calculation\nuses the shared public implementation of Lemma 3.1. The signed-forcing recurrence is\nMathlib's product-form discrete Grönwall inequality, not a new recurrence lemma.\n\nThe source's step condition needs `h ≥ 0`. The quadratic upper model and C¹\nHilbert setting generalize the section's C² Euclidean hypotheses. We expose\n`α * h ≤ 1` for nonnegative geometric weights. The division-free result includes\nzero step, zero iteration and coefficients zero/one; it does not interpret the\nsource's inverse-power formula at these singular endpoints. No minimizer\nexistence is claimed, and the comparator gap may be negative.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n\nopen Set Finset\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- One-step energy inequality for every comparator, with the necessary\nnonnegative step explicit. No sign restriction on the comparator gap. -/\ntheorem gradient_step_energy_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x z : E) :\n    ‖x - h • gradient f x - z‖ ^ 2 + 2 * h * (f (x - h • gradient f x) - f z) ≤\n      (1 - α * h) * ‖x - z‖ ^ 2 := by\n  have hl := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hsc (fun w _ => (hf.differentiable_one w).hasGradientAt) (mem_univ x) (mem_univ z)\n  have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x\n  have hn : z - x = -(x - z) := by abel\n  rw [hn, inner_neg_right, norm_neg] at hl\n  have hl' := mul_le_mul_of_nonneg_left hl (by positivity : 0 ≤ 2 * h)\n  have hd' := mul_le_mul_of_nonneg_left hd (by positivity : 0 ≤ 2 * h)\n  rw [show x - h • gradient f x - z = (x - z) - h • gradient f x by abel,\n    norm_sub_sq_real, inner_smul_right, real_inner_comm (gradient f x),\n    norm_smul, Real.norm_eq_abs, mul_pow, sq_abs]\n  nlinarith\n\n/-- Weighted final function gap for actual gradient-descent iterates. The\ncoefficient domain is explicit and includes both zero and one. -/\ntheorem gradient_descent_weighted_value_bound {f : E → ℝ} {α β h : ℝ}\n    (hf : ContDiff ℝ 1 f) (hsc : StrongConvexOn univ α f)\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1) (hcoeff : α * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x₀ z : E) (N : ℕ) :\n    2 * h * (∑ k ∈ range N, (1 - α * h) ^ k) *\n        (f ((fun x => x - h • gradient f x)^[N] x₀) - f z) ≤\n      (1 - α * h) ^ N * ‖x₀ - z‖ ^ 2 := by\n  let T : E → E := fun x => x - h • gradient f x\n  let X : ℕ → E := fun n => T^[n] x₀\n  let q : ℝ := 1 - α * h\n  have hq : 0 ≤ q := sub_nonneg.mpr hcoeff\n  have hX (n : ℕ) : X (n + 1) = T (X n) := Function.iterate_succ_apply' _ _ _\n  have hm : Antitone (fun n => f (X n)) := by\n    apply antitone_nat_of_succ_le\n    intro n\n    have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu (X n)\n    rw [hX]\n    dsimp [T]\n    have : 0 ≤ h / 2 * ‖gradient f (X n)‖ ^ 2 := by positivity\n    linarith\n  have hr (n : ℕ) (_ : 0 ≤ n) :\n      ‖X (n + 1) - z‖ ^ 2 ≤ q * ‖X n - z‖ ^ 2 + (-2 * h * (f (X (n + 1)) - f z)) := by\n    have he := gradient_step_energy_bound hf hsc hh hstep hu (X n) z\n    rw [hX]\n    dsimp [T, q]\n    linarith\n  have hg := discrete_gronwall_prod_general (u := fun n => ‖X n - z‖ ^ 2)\n    (b := fun n => -2 * h * (f (X (n + 1)) - f z)) (c := fun _ => q) hr (fun _ _ => hq) (Nat.zero_le N)\n  simp only [Finset.prod_const, Nat.card_Ico, Nat.Ico_zero_eq_range, Finset.card_range] at hg\n  have hs : ∑ k ∈ range N, (-2 * h * (f (X (k + 1)) - f z)) * q ^ (N - (k + 1)) ≤\n      ∑ k ∈ range N, (-2 * h * (f (X N) - f z)) * q ^ (N - (k + 1)) := by\n    apply sum_le_sum\n    intro k hk\n    have hm' := hm (by have := mem_range.mp hk; omega : k + 1 ≤ N)\n    apply mul_le_mul_of_nonneg_right _ (pow_nonneg hq _)\n    have hh' : 0 ≤ 2 * h := by positivity\n    nlinarith\n  have hsum : (∑ k ∈ range N, q ^ (N - (k + 1))) = ∑ k ∈ range N, q ^ k := by\n    rw [← sum_range_reflect (fun k => q ^ k) N]\n    apply sum_congr rfl\n    intro k _\n    congr 1\n    omega\n  rw [← mul_sum, hsum] at hs\n  have hu0 : X 0 = x₀ := rfl\n  rw [hu0] at hg\n  have huN := sq_nonneg ‖X N - z‖\n  change 2 * h * (∑ k ∈ range N, q ^ k) * (f (X N) - f z) ≤ q ^ N * ‖x₀ - z‖ ^ 2\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue\n",
         "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
         "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
         "source": {
@@ -16908,9 +16903,9 @@
           "steps": [
             {
               "title": "Obtain a signed forced recurrence and monotonicity",
-              "text": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and private descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative.",
+              "text": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and shared descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative.",
               "formula": "\\begin{gathered}u_{n+1}\\le q u_n-2h g_{n+1},\\\\g_{n+1}\\le g_n.\\end{gathered}",
-              "lean": "gradient_step_energy_bound; private step_descent; Function.iterate_succ_apply'; antitone_nat_of_succ_le."
+              "lean": "gradient_step_energy_bound; AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound; Function.iterate_succ_apply'; antitone_nat_of_succ_le."
             },
             {
               "title": "Reuse product-form discrete Grönwall",
@@ -16926,7 +16921,8 @@
             }
           ],
           "astis_dependencies": [
-            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound"
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound"
           ],
           "mathlib_dependencies": [
             "discrete_gronwall_prod_general",
@@ -16934,7 +16930,7 @@
             "Finset.sum_le_sum; Finset.sum_range_reflect; Nat.card_Ico; pow_nonneg"
           ],
           "lean_statement": "Actual-iterate finite weighted final comparator gap.",
-          "lean_proof": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and private descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative. Apply Mathlib’s recurrence theorem with constant coefficient q and forcing −2h g_(n+1). This theorem permits signed forcing. Constant products become powers; no inverse of q is introduced, so q=0 is admitted. For k<N, monotonicity gives g_N≤g_(k+1). Multiply by the nonpositive coefficient −2h and then the nonnegative weight q^(N−1−k). Sum, discard u_N≥0, and reverse the finite index. Write S_N=Σ_(k=0)^(N−1)q^k and R=‖x₀−z‖. This proves the final bound also for N=0.",
+          "lean_proof": "Define x_n=T^n(x₀), u_n=‖x_n−z‖², g_n=f(x_n)−f(z), and q=1−αh≥0. The one-step energy inequality gives the recurrence, and shared descent gives g_(n+1)≤g_n. The gaps themselves need not be nonnegative. Apply Mathlib’s recurrence theorem with constant coefficient q and forcing −2h g_(n+1). This theorem permits signed forcing. Constant products become powers; no inverse of q is introduced, so q=0 is admitted. For k<N, monotonicity gives g_N≤g_(k+1). Multiply by the nonpositive coefficient −2h and then the nonnegative weight q^(N−1−k). Sum, discard u_N≥0, and reverse the finite index. Write S_N=Σ_(k=0)^(N−1)q^k and R=‖x₀−z‖. This proves the final bound also for N=0.",
           "sources": [
             {
               "url": "https://arxiv.org/html/2605.07006v1#S3",
@@ -16996,6 +16992,569 @@
           "approved-definition-context"
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-result.json"
+      }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientDescentBasic",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-gradient-step-descent",
+      "source": {
+        "source_id": "chewi-opt-v1-lemma-3-1",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S3; Lemma3.1",
+        "original_text": "Chewi arXiv:2605.07006v1, Section3 assumes C2 Euclidean objectives. In the C² Euclidean setting, β-smoothness gives a quadratic upper model. For the actual gradient update with the printed restriction h≤1/β, the function decrease is at least h/2 times squared gradient norm. Lemma3.1 conclusion: f(x-h grad f(x))-f(x)<=-h/2 ||grad f(x)||². The printed step condition is h<=1/beta, without explicit h>=0.",
+        "text_sha256": "aaa4a3377ffd66da237a6737610fee661bc3296ff9d253f4fa88e4086c9366ed"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean",
+        "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ}\n  {β h : ℝ},\n  0 ≤ h →\n    β * h ≤ 1 →\n      (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n        ∀ (x : E), f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2",
+        "statement_sha256": "c0a032b0307275da258bc031b358af2ad77f546ac78193404eef2a27eae8226b",
+        "compiled": true,
+        "formalizer": "andi-pl-worker",
+        "decoder_context": [
+          "gradient f x is the Riesz vector of the totalized Frechet derivative; no differentiability is imposed by the notation alone.",
+          "IsMinOn f Set.univ z means f(z)<=f(x) for every x in the entire domain.",
+          "Function.iterate T N, written T^[N], is N-fold composition; T^[0] is the identity."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Classical Euclidean derivative gradient and actual update.",
+          "reconstructed": "Lean totalized derivative/Riesz gradient and actual update.",
+          "relation": "different",
+          "evidence": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. This is an algebraic model implication rather than an asserted derivative theorem for arbitrary functions.",
+          "source": "Classical Euclidean derivative gradient and actual update.",
+          "lean": "Lean totalized derivative/Riesz gradient and actual update.",
+          "status": "different",
+          "explanation": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. This is an algebraic model implication rather than an asserted derivative theorem for arbitrary functions."
+        },
+        "domains": {
+          "original": "C2 objective on Euclidean d-space; positive beta reciprocal domain.",
+          "reconstructed": "Arbitrary f on any complete real inner-product space; signed real beta under explicit global model inequalities.",
+          "relation": "different",
+          "evidence": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise.",
+          "source": "C2 objective on Euclidean d-space; positive beta reciprocal domain.",
+          "lean": "Arbitrary f on any complete real inner-product space; signed real beta under explicit global model inequalities.",
+          "status": "different",
+          "explanation": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise."
+        },
+        "quantifiers": {
+          "original": "For every point x and printed h<=1/beta.",
+          "reconstructed": "For every admitted f, space and point x, with h>=0 and beta h<=1.",
+          "relation": "different",
+          "evidence": "The global model and descent hold at all points for the same constants. Space/function class is extended; h domain restricted. The conclusion concerns the concrete gradient expression.",
+          "source": "For every point x and printed h<=1/beta.",
+          "lean": "For every admitted f, space and point x, with h>=0 and beta h<=1.",
+          "status": "different",
+          "explanation": "The global model and descent hold at all points for the same constants. Space/function class is extended; h domain restricted. The conclusion concerns the concrete gradient expression."
+        },
+        "assumptions": {
+          "original": "Source C2 and beta smooth; printed h<=1/beta.",
+          "reconstructed": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise.",
+          "relation": "different",
+          "evidence": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. Upper-model algebra alone suffices.",
+          "source": "Source C2 and beta smooth; printed h<=1/beta.",
+          "lean": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise.",
+          "status": "different",
+          "explanation": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. Upper-model algebra alone suffices."
+        },
+        "conclusion": {
+          "original": "f(Tx)-f(x)<=-(h/2)||grad f(x)||^2.",
+          "reconstructed": "The identical descent expression with the totalized gradient.",
+          "relation": "equivalent",
+          "evidence": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. The coefficient is exactly h/2.",
+          "source": "f(Tx)-f(x)<=-(h/2)||grad f(x)||^2.",
+          "lean": "The identical descent expression with the totalized gradient.",
+          "status": "equivalent",
+          "explanation": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. The coefficient is exactly h/2."
+        },
+        "scopes": {
+          "original": "Global deterministic pointwise decrease from smoothness, no convexity required.",
+          "reconstructed": "Global deterministic model consequence with no convexity.",
+          "relation": "explicit-elaboration",
+          "evidence": "The extended statement does not promise strict convergence outside positive alpha and positive h. At h=0 descent is equality.",
+          "source": "Global deterministic pointwise decrease from smoothness, no convexity required.",
+          "lean": "Global deterministic model consequence with no convexity.",
+          "status": "explicit-elaboration",
+          "explanation": "The extended statement does not promise strict convergence outside positive alpha and positive h. At h=0 descent is equality."
+        },
+        "constant_dependencies": {
+          "original": "beta restricts step and h/2 multiplies squared gradient.",
+          "reconstructed": "Exactly beta h<=1 and -h/2 coefficient.",
+          "relation": "same",
+          "evidence": "All factors and signs checked in the full proof. Multiplication uses h||g||^2>=0 and does not require beta itself nonnegative.",
+          "source": "beta restricts step and h/2 multiplies squared gradient.",
+          "lean": "Exactly beta h<=1 and -h/2 coefficient.",
+          "status": "same",
+          "explanation": "All factors and signs checked in the full proof. Multiplication uses h||g||^2>=0 and does not require beta itself nonnegative."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Totalized-gradient algebraic interface is broader than source classical derivative assumptions.",
+          "evidence": "The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity."
+        },
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Hilbert-space and signed-parameter domain extensions are explicitly disclosed.",
+          "evidence": "Fresh elaborated statement, blind reconstruction and all candidate lesson assumptions agree on absent C1/C2 and real parameters."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "review",
+          "description": "The printed step condition omits the necessary nonnegative lower bound.",
+          "evidence": "f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0."
+        }
+      ],
+      "verdict": "possible-source-error",
+      "repairs": [
+        {
+          "id": "ASTIS-REPAIR-ANDI-PL-DESCENT-NONNEGATIVE-STEP",
+          "class": "assumption-addition",
+          "status": "accepted",
+          "necessity": "mathematically-necessary",
+          "proposed_change": "Add h>=0 to the printed h<=1/beta restriction in Lemma3.1. Retain the original pinned source separately and preserve the local algebraic generalization.",
+          "reconstructed_statement": "Let f:R^d->R be C2 and beta-smooth with beta>0. For every step 0<=h<=1/beta and every x, define T(x)=x-h grad f(x). Then f(T(x))-f(x)<=-(h/2)||grad f(x)||^2.",
+          "statement_sha256": "1c1f243a974a44bd02e19373aa69b3db5a9279fa87c5e5f041aface939939949",
+          "justification": "f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0.",
+          "minimality_evidence": "Only the lower bound h>=0 is added to the source step domain; h=0 remains valid. Source positive modulus/regularity premises are retained. No convexity or strong convexity assumption is added. Omitting the new lower bound admits the explicit quadratic counterexample.",
+          "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Lemma3.1. Exact counterexample: f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0.",
+          "review": {
+            "state": "accepted",
+            "reviewer": "converse_source_review",
+            "independent_from_formalizer": true,
+            "independent_from_decoder": true,
+            "evidence": "Independent exact-proposal review of the complete current descent repair packet, with no registry or prior verdict/source-review files read. I am distinct from andi-pl-worker and pl_blind. The source was checked directly at https://arxiv.org/html/2605.07006v1#S3, Lemma 3.1: the section uses C² Euclidean objectives and prints h≤1/β. The proposal preserves positive β and that regularity while adding h≥0 only.\n\nThe reference is a nonempty plain string, with a complete self-contained quadratic counterexample. f(t)=t²/2 has derivative t and Hessian 1, hence is C² and 1-smooth. For h=−1,x=1 the actual step is 2, the function increment is 3/2, and the claimed upper bound is 1/2. For any h<0 the excess is (h²−h)/2>0. Thus all negative steps must be excluded for a guarantee uniform over the unchanged smooth objective class. This is not a compiler-motivated assumption.\n\nSufficiency: set g=∇f(x). Substituting x−hg in the smooth upper model yields f(x−hg)−f(x)≤(−h+βh²/2)‖g‖². Since β>0 and 0≤h≤1/β, multiplying βh≤1 by h‖g‖²≥0 gives βh²‖g‖²≤h‖g‖² and proves the exact coefficient −h/2. No convexity, strong convexity, minimum or PL hypothesis is needed. At h=0 both sides vanish. Keeping h=0 and the original upper endpoint shows minimality; h>0 would be stronger than necessary.\n\nCurrent code and lesson match this algebra: the module imports only Mathlib and applies the supplied upper model at the actual totalized gradient step; it uses real_inner_self_eq_norm_sq, norm_smul and a nonnegative multiplication before polynomial arithmetic. astis_dependencies is correctly empty. The formal result has no differentiability premise and allows signed β in complete inner-product spaces; the lesson explicitly labels this an algebraic consequence of the supplied global model. These are separate local generalizations, not part of the accepted source repair. An unused α is mentioned in the shared lesson assumptions but expressly declared unused and is not an added source condition or Lean premise.\n\nAccept this exact h≥0 overlay with β>0 reciprocal scope and original C² Euclidean setting retained. No further assumption or conclusion modification is warranted. This review does not certify unrelated PL/weighted rates or infer full repository build status from the packet.",
+            "review_run_sha256": "a0735dae7a9d2b3e179bf51bc9aa25805f7c205ba4eb799bb5d899151c25eef5",
+            "reviewer_packet_sha256": "4c29fa80c2d9bc72093473354090da5213eaf5b3e74eae6593c91304bb38f7af",
+            "proposal_sha256": "01c96d7e5fa04295516f9724c0d98fc93f0d9e08c9f97fb17c9d288a6b703034",
+            "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-0.json"
+          },
+          "proposal_author": "coco_source"
+        }
+      ],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "coco_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted scoped source support for Lemma3.1 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current Basic module and bound lesson/provenance reviewed. Insert T(x)=x-hg into the upper model. Inner product and norm identities give -h||g||^2+(beta/2)h^2||g||^2. From beta h<=1 times h||g||^2>=0 obtain exactly -(h/2)||g||^2. This does not require beta>=0 or a differentiability premise once that global model is assumed. The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity. Run artifact: /private/tmp/andi-pl-source-review-run-01.json",
+        "review_run_sha256": "c9d3c9416f79d102285788f41d7e01aa8b24e30b3f6943473d3aae45b22edab8",
+        "reviewer_packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-0.json"
+      },
+      "publication_binding_sha256": "5b0266281e1213e7c9a3af084c4de432e966f6ef982115e5fc39c6b3523fcd2b",
+      "publication_context": {
+        "file": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef",
+        "current_lean_module": "import Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Tactic.Abel\nimport Mathlib.Tactic.Linarith\n\n/-!\n# Shared gradient-step descent\n\nChewi arXiv:2605.07006v1 Lemma 3.1, with the necessary nonnegative step\nexplicit. This extracts the previously private GradientDescentValue calculation.\nThe global quadratic upper model is the exact input; no convexity or supplied\nrecurrence is assumed. No separate differentiability hypothesis is needed for\nthis algebraic consequence of the model using the actual totalized gradient.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\n\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- Actual gradient-step descent from a global quadratic upper model.\nIncludes a zero step and signed upper-model coefficient. -/\ntheorem gradient_step_descent_of_quadratic_upper_bound {f : E → ℝ} {β h : ℝ}\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x : E) : f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2 := by\n  have hu' := hu x (x - h • gradient f x)\n  have he : x - h • gradient f x - x = -(h • gradient f x) := by abel\n  rw [he, inner_neg_right, inner_smul_right, real_inner_self_eq_norm_sq,\n    norm_neg, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at hu'\n  have hs := mul_le_mul_of_nonneg_right hstep (mul_nonneg hh (sq_nonneg ‖gradient f x‖))\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Lemma3.1",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+        },
+        "statement": "In the C² Euclidean setting, β-smoothness gives a quadratic upper model. For the actual gradient update with the printed restriction h≤1/β, the function decrease is at least h/2 times squared gradient norm.",
+        "formulae": [
+          {
+            "label": "Descent",
+            "tex": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}"
+          }
+        ],
+        "assumptions": [
+          "C² Euclidean objective and β-smoothness; positive β for the printed reciprocal step restriction.",
+          "The printed step condition is h≤1/β; nonnegative h is not explicitly included."
+        ],
+        "obligations": [
+          {
+            "id": "actual-step-descent",
+            "label": "Quadratic upper model to actual-gradient decrease"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+          "kind": "theorem",
+          "title": "Shared descent for an actual gradient step",
+          "statement": "Every actual gradient update obeys the displayed decrease under the global quadratic upper model and nonnegative admissible step.",
+          "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}",
+          "assumptions": [
+            "E is a complete real inner-product space; f:E→ℝ; α,β,h are real scalars, with h≥0 and βh≤1. The descent lemma does not use α.",
+            "The displayed quadratic upper model holds for every x,y∈E. ∇f is Lean’s actual gradient (the Riesz representative of the totalized Fréchet derivative), not a supplied vector field.",
+            "These are algebraic consequences of the model. No separate C¹ or C² premise is needed once the model is supplied; no claim that every arbitrary function satisfies it. The source C² Euclidean setting is a specialization.",
+            "For every x,y: f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖²."
+          ],
+          "steps": [
+            {
+              "title": "Insert the actual update into the upper model",
+              "text": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly.",
+              "formula": "f(Tx)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2.",
+              "lean": "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq; norm_neg; norm_smul; sq_abs."
+            },
+            {
+              "title": "Use the step restriction with its sign",
+              "text": "Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+              "formula": "\\begin{gathered}\\beta h^2\\|g\\|^2\\le h\\|g\\|^2,\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
+              "lean": "mul_nonneg; sq_nonneg; mul_le_mul_of_nonneg_right; nlinarith."
+            }
+          ],
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq",
+            "norm_neg; norm_smul; sq_abs; mul_le_mul_of_nonneg_right"
+          ],
+          "lean_statement": "Actual gradient update and the global upper-model decrease.",
+          "lean_proof": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly. Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S3",
+              "label": "Chewi Lemma3.1",
+              "scope": "ASTIS source restatement; explicit nonnegative-step repair and algebraic Hilbert generalizations."
+            },
+            {
+              "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+              "label": "Pinned Optlib convex_lipschitz",
+              "scope": "Inspected adjacent descent result needs positive step and Lipschitz gradient; external reference, no code port."
+            },
+            {
+              "path": "Tests/Shared/GradientDescentPL.lean",
+              "label": "Actual quadratic and negative-coefficient constant-objective tests",
+              "scope": "Compiled tests, no separate theorem credit."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+          "role": "proof-edge",
+          "supports": [
+            "actual-step-descent"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "C² Euclidean function and smoothness.",
+            "lean": "Complete real Hilbert space, global quadratic upper model in the actual gradient; no separate differentiability premise."
+          },
+          {
+            "source": "Printed h≤1/β.",
+            "lean": "h≥0 and βh≤1."
+          },
+          {
+            "source": "Positive source moduli.",
+            "lean": "Real moduli under the explicit model inequalities."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every real inner-product space E whose induced norm makes it complete, every function f:E→ℝ, and every pair of real numbers β,h, assume (i) h≥0, (ii) βh≤1, and (iii) for all x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖². Then for every x∈E, f(x−h gradient f(x))−f(x)≤−(h/2)‖gradient f(x)‖². Here gradient f(x) is the Riesz vector associated to the totalized Fréchet derivative; the gradient notation itself imposes no differentiability assumption, and this proposition has no separate differentiability assumption. β is an arbitrary real parameter subject only to βh≤1; in particular, neither β>0 nor β≥0 is an explicit hypothesis. The step size may be zero. The norm and real inner product are those on E, and multiplication of h with a vector is real scalar multiplication. All constants in the conclusion are exactly as displayed, and there are no existential or unspecified constants.",
+        "text_sha256": "88b666965499489750fc6ca25fd0a8131c3effef7d8bee1a37c31e49f78a4a07",
+        "decoder": "pl_blind",
+        "decoder_run_sha256": "3b1a71a93172407ceebc31c20211e6b09fe29b6233e4d059e5e4ce3ac7f97845",
+        "decoder_packet_sha256": "91acd3a9068fba0a39a5938e699db04f9c97c965c58ec28ad1ada6d84c3d86f6",
+        "source_text_visible": false,
+        "lean_statement_sha256": "c0a032b0307275da258bc031b358af2ad77f546ac78193404eef2a27eae8226b",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/decoder-result.json"
+      }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientPL",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-gradient-descent-pl",
+      "source": {
+        "source_id": "chewi-opt-v1-theorem-3-6",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S3; Theorem3.6; Definition2.5 and Section2 minimum convention",
+        "original_text": "Chewi arXiv:2605.07006v1, Section3 assumes C2 Euclidean objectives. In the C² Euclidean setting with an attained minimum f★=f(x★), β-smoothness and the PL inequality with α>0 give the displayed last-iterate function-value bound, for the printed restriction h≤1/β. No convexity assumption appears. Definition2.5: alpha>0 and ||grad f(x)||²>=2alpha(f(x)-f(xstar)) for all x. Section2 assumes a minimizer xstar and fstar=f(xstar). Theorem3.6 conclusion: f(T^N x0)-fstar <= (1-alpha h)^N (f(x0)-fstar), T(x)=x-h grad f(x). The printed step condition is h<=1/beta, without explicit h>=0.",
+        "text_sha256": "e91713b19484c63dc9b5ff802ce06c38c4c0b08a1d0b8d417ebc6fede84ca949"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentPL.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ} {α β h : ℝ}\n  {z : E},\n  IsMinOn f Set.univ z →\n    0 ≤ h →\n      β * h ≤ 1 →\n        (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n          (∀ (x : E), 2 * α * (f x - f z) ≤ ‖gradient f x‖ ^ 2) →\n            ∀ (x₀ : E) (N : ℕ), f ((fun x => x - h • gradient f x)^[N] x₀) - f z ≤ (1 - α * h) ^ N * (f x₀ - f z)",
+        "statement_sha256": "cc9a15c34f67c9db2e1d2a6e59639595c9cb28216d5e0fe4c472c4221baafa01",
+        "compiled": true,
+        "formalizer": "andi-pl-worker",
+        "decoder_context": [
+          "gradient f x is the Riesz vector of the totalized Frechet derivative; no differentiability is imposed by the notation alone.",
+          "IsMinOn f Set.univ z means f(z)<=f(x) for every x in the entire domain.",
+          "Function.iterate T N, written T^[N], is N-fold composition; T^[0] is the identity."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Classical Euclidean derivative gradient and actual update, attained minimum and actual GD sequence.",
+          "reconstructed": "Lean totalized derivative/Riesz gradient and actual update, supplied IsMinOn point and actual Function.iterate.",
+          "relation": "different",
+          "evidence": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. The minimum reference value is f(z), never an arbitrary scalar lower estimate.",
+          "source": "Classical Euclidean derivative gradient and actual update, attained minimum and actual GD sequence.",
+          "lean": "Lean totalized derivative/Riesz gradient and actual update, supplied IsMinOn point and actual Function.iterate.",
+          "status": "different",
+          "explanation": "No differentiability premise is imposed by gradient notation in Lean. Under the source smooth specialization the objects agree. The minimum reference value is f(z), never an arbitrary scalar lower estimate."
+        },
+        "domains": {
+          "original": "C2 objective on Euclidean d-space; positive beta reciprocal domain and alpha>0 in PL.",
+          "reconstructed": "Arbitrary f on any complete real inner-product space; signed real alpha,beta under explicit global model inequalities.",
+          "relation": "different",
+          "evidence": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise.",
+          "source": "C2 objective on Euclidean d-space; positive beta reciprocal domain and alpha>0 in PL.",
+          "lean": "Arbitrary f on any complete real inner-product space; signed real alpha,beta under explicit global model inequalities.",
+          "status": "different",
+          "explanation": "Infinite-dimensional and low-regularity inputs, signed parameters and zero beta are disclosed mathematical extensions, not definitional elaboration. The model is a substantive global premise."
+        },
+        "quantifiers": {
+          "original": "For every initial point and natural iteration count, one fixed step and source function/minimum.",
+          "reconstructed": "For every admitted f, space, attained minimizer, initial point and natural N, including zero.",
+          "relation": "different",
+          "evidence": "The global model and PL hold at all points for the same constants. Space/function class is extended; h domain restricted. No sequence or rate constants are existentially chosen.",
+          "source": "For every initial point and natural iteration count, one fixed step and source function/minimum.",
+          "lean": "For every admitted f, space, attained minimizer, initial point and natural N, including zero.",
+          "status": "different",
+          "explanation": "The global model and PL hold at all points for the same constants. Space/function class is extended; h domain restricted. No sequence or rate constants are existentially chosen."
+        },
+        "assumptions": {
+          "original": "Source C2 and beta smooth; printed h<=1/beta; alpha>0 PL, attained global minimum, no convexity.",
+          "reconstructed": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise; IsMinOn and global PL inequality with arbitrary real alpha, no convexity or q>=0 assumption.",
+          "relation": "different",
+          "evidence": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. The attained minimum is preserved; missing q>=0 is handled by a separate proof, not assumed covertly.",
+          "source": "Source C2 and beta smooth; printed h<=1/beta; alpha>0 PL, attained global minimum, no convexity.",
+          "lean": "Global beta quadratic upper model, h>=0,beta h<=1; no differentiability premise; IsMinOn and global PL inequality with arbitrary real alpha, no convexity or q>=0 assumption.",
+          "status": "different",
+          "explanation": "h>=0 is a necessary restriction, not an artifact of Lean. Remaining assumptions are transparently weakened/generalized. The attained minimum is preserved; missing q>=0 is handled by a separate proof, not assumed covertly."
+        },
+        "conclusion": {
+          "original": "f(x_N)-fstar<=(1-alpha h)^N(f(x0)-fstar).",
+          "reconstructed": "The identical value-gap rate using f(z) and actual Function.iterate.",
+          "relation": "equivalent",
+          "evidence": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. No supremum, averaged iterate or supplied recurrence substitutes for the final iterate.",
+          "source": "f(x_N)-fstar<=(1-alpha h)^N(f(x0)-fstar).",
+          "lean": "The identical value-gap rate using f(z) and actual Function.iterate.",
+          "status": "equivalent",
+          "explanation": "On the common smooth source domain with nonnegative h, the formula is identical with no constant loss. No supremum, averaged iterate or supplied recurrence substitutes for the final iterate."
+        },
+        "scopes": {
+          "original": "Global deterministic last-iterate value bound about a minimum, no convexity required.",
+          "reconstructed": "Global deterministic attained-minimum bound with all q signs and no convexity.",
+          "relation": "explicit-elaboration",
+          "evidence": "The extended statement does not promise strict convergence outside positive alpha and positive h. For q<0 all gaps must be zero, including at odd N.",
+          "source": "Global deterministic last-iterate value bound about a minimum, no convexity required.",
+          "lean": "Global deterministic attained-minimum bound with all q signs and no convexity.",
+          "status": "explicit-elaboration",
+          "explanation": "The extended statement does not promise strict convergence outside positive alpha and positive h. For q<0 all gaps must be zero, including at odd N."
+        },
+        "constant_dependencies": {
+          "original": "q=1-alpha h raised to N and coefficient one on initial gap.",
+          "reconstructed": "Exactly q^N and initial gap, no extra multiplicative constant.",
+          "relation": "same",
+          "evidence": "All factors and signs checked in the full proof. PL factor 2 cancels with descent factor h/2; q^0=1 and no inverse of alpha,beta,h,q appears.",
+          "source": "q=1-alpha h raised to N and coefficient one on initial gap.",
+          "lean": "Exactly q^N and initial gap, no extra multiplicative constant.",
+          "status": "same",
+          "explanation": "All factors and signs checked in the full proof. PL factor 2 cancels with descent factor h/2; q^0=1 and no inverse of alpha,beta,h,q appears."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "description": "Totalized-gradient algebraic interface is broader than source classical derivative assumptions.",
+          "evidence": "The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity."
+        },
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "Hilbert-space and signed-parameter domain extensions are explicitly disclosed.",
+          "evidence": "Fresh elaborated statement, blind reconstruction and all candidate lesson assumptions agree on absent C1/C2 and real parameters."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "review",
+          "description": "The printed step condition omits the necessary nonnegative lower bound.",
+          "evidence": "Take f(t)=t^2/2 on R, alpha=beta=1, z=0, x0=1, N=1 and h=-1. These satisfy exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h)."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "description": "No extra q>=0 assumption is needed because the supplied minimum resolves q<0.",
+          "evidence": "For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models."
+        }
+      ],
+      "verdict": "possible-source-error",
+      "repairs": [
+        {
+          "id": "ASTIS-REPAIR-ANDI-PL-RATE-NONNEGATIVE-STEP",
+          "class": "assumption-addition",
+          "status": "accepted",
+          "necessity": "mathematically-necessary",
+          "proposed_change": "Add h>=0 to the printed h<=1/beta restriction in Theorem3.6. Retain the original pinned source separately and preserve the local algebraic generalization.",
+          "reconstructed_statement": "Let f:R^d->R be C2 and beta-smooth with beta>0, admit a global minimizer z, and satisfy ||grad f(x)||^2>=2alpha(f(x)-f(z)) for all x with alpha>0. For every step 0<=h<=1/beta, define T(x)=x-h grad f(x). For every x0 and N in the natural numbers, f(T^[N](x0))-f(z)<=(1-alpha h)^N(f(x0)-f(z)).",
+          "statement_sha256": "199cbe17a03545ede9b486705f419b29f384a004e4d51b1f07d432004055a9b1",
+          "justification": "For f(t)=t^2/2 on R, with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+          "minimality_evidence": "Only the lower bound h>=0 is added to the source step domain; h=0 remains valid. Source positive modulus/regularity/attained-minimum/PL premises are retained. No convexity or q>=0 assumption is added. Omitting the new lower bound admits the explicit quadratic counterexample.",
+          "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1#S3, Theorem3.6. Exact counterexample: For f(t)=t^2/2 on R, with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h).",
+          "review": {
+            "state": "accepted",
+            "reviewer": "converse_source_review",
+            "independent_from_formalizer": true,
+            "independent_from_decoder": true,
+            "review_run_sha256": "de5c83310da220d1a6c4be4fa411061066a651cb0384aeafb7b8d0230de13184",
+            "reviewer_packet_sha256": "dfd114ea1e3864169b12fe458425898c183df99699a2d92eecc07f0d39784b7b",
+            "proposal_sha256": "e93b8050169b9446d415fc4ee46c88499633ed955b3eb82b14f69832b695c458",
+            "evidence": "Independent exact-proposal review of the full repair-reviewer-1-0-v2.json packet. I am distinct from andi-pl-worker and pl_blind, and did not author the proposal. No registry or prior verdict/source-review output was read. I read the refreshed complete candidate and verified that both justification and reference_or_counterexample now explicitly define f(t)=t²/2 on R, eliminating the unbound “Same f” reference. The source, Lean statement, decoder reconstruction and whole-module/lesson context retain their mathematical content. This acceptance is bound to the v2 packet/proposal hashes recorded here.\n\nPrimary-source grounding was checked directly in the bounded session at https://arxiv.org/html/2605.07006v1: Section 3 uses C² Euclidean objectives; Theorem 3.6 combines β-smoothness and PL with α>0 without convexity; Definition 2.5 fixes the 2α normalization; the Section 2 convention supplies an attained minimum. The exact proposal retains these premises and the positive β reciprocal domain, adding only h≥0 to the printed upper restriction.\n\nComplete counterexample: f(t)=t²/2 has derivative t and Hessian 1, is 1-smooth, has global minimizer z=0 and satisfies ‖∇f(t)‖²=t²=2(f(t)−f(0)). Thus α=β=1 meet the source hypotheses. With x₀=1,N=1,h=−1, the actual step is T(1)=2, its gap is 2, and the claimed bound is (1−αh)(f(1)−f(0))=1. The inequality fails. For every h<0, its discrepancy is ((1−h)²−(1−h))/2=(h²−h)/2>0. This is an actual attained-minimum PL counterexample, not a recurrence-only example or an arbitrary-comparator substitution. Every negative step must therefore be excluded for a guarantee uniform over the unchanged class.\n\nSufficiency: let G(x)=f(x)−f(z)≥0 and q=1−αh. The smooth upper model at T(x)=x−h∇f(x), together with β>0 and 0≤h≤1/β, gives G(Tx)≤G(x)−(h/2)‖∇f(x)‖². Multiplying PL by h/2≥0 yields G(Tx)≤qG(x), with coefficient exactly 1 on the initial gap and factor q^N after iteration. For q≥0 the actual iterate successor identity allows geometric induction. For q<0, 0≤G(Tx)≤qG(x) and G(x)≥0 force G(x)=0 for every x; hence both sides vanish for every natural N, including odd N. No illegitimate multiplication of an induction inequality by negative q occurs. A constant objective can satisfy the source assumptions with q<0, so an extra q≥0 or α≤β condition would unnecessarily restrict the theorem.\n\nMinimality and endpoints: h=0 gives T=identity and q=1, so equality for all N; N=0 is equality. If q=0, the recurrence gives zero gap after one step and for all later iterates, while q^0=1 covers N=0. Thus neither h>0 nor q>0 is necessary. β>0 and α>0 remain the source reciprocal and PL domains, and the attained-minimum premise is preserved. No convexity, additional smoothness, nonnegative-coefficient premise, inverse-power interpretation or normalized-rate division is added. The counterexample proves the new h≥0 restriction is mathematically necessary for the literal all-real-step formulation, independently of Lean convenience.\n\nCurrent context matches this proof: GradientDescentPL imports GradientDescentBasic and uses its canonical public gradient_step_descent_of_quadratic_upper_bound. It builds nonnegative gaps from IsMinOn, forms hrec by multiplying PL by h/2, uses le_geom with Function.iterate_succ_apply′ when q≥0, and proves hzero globally when q<0. The lesson states the same alternatives, exact normalization, actual iterates and supplied minimum. Signed local α/β, Hilbert space, and the lack of a separate differentiability premise under a global model are accurately identified as local algebraic generalizations and are not part of this source repair.\n\nDecision accepted for this exact v2 h≥0 proposal. The missing counterexample definition has been repaired without changing the theorem or source domains. No further revision is needed. This is not blanket certification of other rate formulas, public-source completeness or the repository build; the pinned source remains separate from the accepted repair overlay.",
+            "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/repair-review-result-1.json"
+          },
+          "proposal_author": "coco_source"
+        }
+      ],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "coco_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted scoped source support for Theorem3.6 with explicit h>=0 and separately disclosed totalized-gradient, signed-modulus, Hilbert-space generalization. The literal negative-step source assertion and any automatic source repair acceptance are excluded. Entire current PL and imported shared Basic modules and bound lesson/provenance reviewed. Let G(x)=f(x)-f(z). IsMinOn gives G>=0 everywhere. Multiply 2alpha G(x)<=||gradient f(x)||^2 by h/2>=0 and combine shared descent to derive G(Tx)<=q G(x), q=1-alpha h. No convexity, sign of alpha or sign of beta is needed for this algebra. For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models. Run artifact: /private/tmp/andi-pl-source-review-run-01.json",
+        "review_run_sha256": "4d4860e8458b867b7032d2eee9d2a929561664ec7aa418ead43235a0c5e66fb8",
+        "reviewer_packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/source-review-1-selfcontained.json"
+      },
+      "publication_binding_sha256": "ff730327d0ba161bc3960ce1268598306b3e6c97394bb6ea1266c0a7a30b120f",
+      "publication_context": {
+        "file": "382c8a5ba9dae70074114a205eb03c44826cb03c9b20c0f64931ced25fd9bea2",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\nimport Mathlib.Analysis.SpecificLimits.Basic\n\n/-!\n# Gradient descent under a Polyak–Łojasiewicz inequality\n\nChewi arXiv:2605.07006v1 Definition 2.5 and Theorem 3.6, with the necessary\nnonnegative step explicit. The supplied global minimizer keeps the source's\nattainment convention. We use actual gradient iterates, not a supplied scalar\nrecurrence, and do not assume convexity. The algebraic statement permits real\nmoduli: positive PL modulus and positive step give decay when the coefficient\nis nonnegative. A negative coefficient forces every function gap to be zero.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL\n\nopen Set\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- Final-value bound for actual gradient iterates under a PL model.\nNo additional nonnegative-coefficient restriction or convexity is required. -/\ntheorem gradient_descent_pl_value_bound {f : E → ℝ} {α β h : ℝ} {z : E}\n    (hz : IsMinOn f univ z) (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (hpl : ∀ x, 2 * α * (f x - f z) ≤ ‖gradient f x‖ ^ 2)\n    (x₀ : E) (N : ℕ) :\n    f ((fun x => x - h • gradient f x)^[N] x₀) - f z ≤\n      (1 - α * h) ^ N * (f x₀ - f z) := by\n  let T : E → E := fun x => x - h • gradient f x\n  let q : ℝ := 1 - α * h\n  have hnonneg (x : E) : 0 ≤ f x - f z := sub_nonneg.mpr (hz (mem_univ x))\n  have hrec (x : E) : f (T x) - f z ≤ q * (f x - f z) := by\n    have hd := GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound hh hstep hu x\n    have hp := mul_le_mul_of_nonneg_left (hpl x) (show 0 ≤ h / 2 by positivity)\n    dsimp [T, q]\n    nlinarith\n  by_cases hq : 0 ≤ q\n  · have hr := le_geom (u := fun n => f (T^[n] x₀) - f z) hq N (by\n      intro k _\n      rw [Function.iterate_succ_apply']\n      exact hrec _)\n    exact hr\n  · have hzero (x : E) : f x - f z = 0 := by\n      have hc : q * (f x - f z) ≥ 0 := (hnonneg (T x)).trans (hrec x)\n      have hneg : q < 0 := lt_of_not_ge hq\n      have hx := hnonneg x\n      nlinarith\n    change f (T^[N] x₀) - f z ≤ q ^ N * (f x₀ - f z)\n    rw [hzero, hzero, mul_zero]\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Theorem3.6; Definition2.5 and Section2 minimum convention",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+        },
+        "statement": "In the C² Euclidean setting with an attained minimum f★=f(x★), β-smoothness and the PL inequality with α>0 give the displayed last-iterate function-value bound, for the printed restriction h≤1/β. No convexity assumption appears.",
+        "formulae": [
+          {
+            "label": "Final-value rate",
+            "tex": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\quad q=1-\\alpha h,\\\\2\\alpha(f(x)-f(z))\\le\\|\\nabla f(x)\\|^2,\\\\f(T^Nx_0)-f(z)\\le q^N(f(x_0)-f(z)).\\end{gathered}"
+          }
+        ],
+        "assumptions": [
+          "C² Euclidean objective and β-smoothness; positive β for the printed reciprocal step restriction.",
+          "The printed step condition is h≤1/β; nonnegative h is not explicitly included.",
+          "An attained global minimum f★=f(x★); PL normalization ‖∇f(x)‖²≥2α(f(x)−f★) for all x, α>0.",
+          "The sequence consists of actual gradient updates and N is a natural iteration count."
+        ],
+        "obligations": [
+          {
+            "id": "actual-pl-iterate-rate",
+            "label": "PL plus smooth descent to actual Nth-iterate value rate"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+          "kind": "theorem",
+          "title": "PL descent gives the final-value rate",
+          "statement": "For every initial point x₀ and N∈ℕ, actual gradient iterates obey the displayed PL value bound about a supplied global minimizer.",
+          "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\quad q=1-\\alpha h,\\\\2\\alpha(f(x)-f(z))\\le\\|\\nabla f(x)\\|^2,\\\\f(T^Nx_0)-f(z)\\le q^N(f(x_0)-f(z)).\\end{gathered}",
+          "assumptions": [
+            "E is a complete real inner-product space; f:E→ℝ; α,β,h are real scalars, with h≥0 and βh≤1. The descent lemma does not use α.",
+            "The displayed quadratic upper model holds for every x,y∈E. ∇f is Lean’s actual gradient (the Riesz representative of the totalized Fréchet derivative), not a supplied vector field.",
+            "These are algebraic consequences of the model. No separate C¹ or C² premise is needed once the model is supplied; no claim that every arbitrary function satisfies it. The source C² Euclidean setting is a specialization.",
+            "For every x,y: f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖².",
+            "z∈E is a global minimizer: f(z)≤f(x) for all x. The displayed PL model holds globally, in the normalization 2α(f(x)−f(z))≤‖∇f(x)‖².",
+            "x₀∈E and N∈ℕ are arbitrary; T⁰ is the identity. No convexity or nonnegative-coefficient premise is supplied."
+          ],
+          "steps": [
+            {
+              "title": "Build the recurrence from descent and PL",
+              "text": "Let z be the supplied global minimizer, G(x)=f(x)−f(z)≥0 and q=1−αh. Multiply 2αG(x)≤‖∇f(x)‖² by h/2≥0 and combine with the shared descent bound.",
+              "formula": "\\begin{gathered}G(Tx)\\le G(x)-\\tfrac h2\\|\\nabla f(x)\\|^2,\\\\G(Tx)\\le (1-\\alpha h)G(x)=qG(x).\\end{gathered}",
+              "lean": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound; mul_le_mul_of_nonneg_left; IsMinOn; nlinarith."
+            },
+            {
+              "title": "Iterate when the coefficient is nonnegative",
+              "text": "If q≥0, set u_n=G(Tⁿx₀). The actual iterate successor identity gives u_(n+1)≤q u_n. Apply the existing scalar geometric bound; no convexity enters.",
+              "formula": "G(T^Nx_0)\\le q^N G(x_0).",
+              "lean": "Function.iterate_succ_apply'; le_geom."
+            },
+            {
+              "title": "Close the negative-coefficient case without reversing an induction",
+              "text": "If q<0, nonnegative gaps and the one-step bound force G(x)=0 for every x. Both sides of the claimed rate are zero for every natural N, including odd N.",
+              "formula": "\\begin{gathered}0\\le G(Tx)\\le qG(x),\\quad G(x)\\ge0,\\ q<0,\\\\G(x)=0\\quad\\text{for every }x.\\end{gathered}",
+              "lean": "lt_of_not_ge; global minimum lower bound; nlinarith; mul_zero."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound"
+          ],
+          "mathlib_dependencies": [
+            "le_geom",
+            "Function.iterate_succ_apply'",
+            "mul_le_mul_of_nonneg_left; lt_of_not_ge"
+          ],
+          "lean_statement": "Actual gradient iterates and supplied-minimizer PL final-value bound.",
+          "lean_proof": "Let z be the supplied global minimizer, G(x)=f(x)−f(z)≥0 and q=1−αh. Multiply 2αG(x)≤‖∇f(x)‖² by h/2≥0 and combine with the shared descent bound. If q≥0, set u_n=G(Tⁿx₀). The actual iterate successor identity gives u_(n+1)≤q u_n. Apply the existing scalar geometric bound; no convexity enters. If q<0, nonnegative gaps and the one-step bound force G(x)=0 for every x. Both sides of the claimed rate are zero for every natural N, including odd N.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S3",
+              "label": "Chewi Theorem3.6 and Definition2.5",
+              "scope": "ASTIS source restatement; explicit nonnegative-step repair and algebraic Hilbert generalizations."
+            },
+            {
+              "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+              "label": "Pinned Optlib convex_lipschitz",
+              "scope": "Inspected adjacent descent result needs positive step and Lipschitz gradient; external reference, no code port."
+            },
+            {
+              "path": "Tests/Shared/GradientDescentPL.lean",
+              "label": "Actual quadratic and negative-coefficient constant-objective tests",
+              "scope": "Compiled tests, no separate theorem credit."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+          "role": "proof-edge",
+          "supports": [
+            "actual-pl-iterate-rate"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "C² Euclidean function and smoothness.",
+            "lean": "Complete real Hilbert space, global quadratic upper model in the actual gradient; no separate differentiability premise."
+          },
+          {
+            "source": "Printed h≤1/β.",
+            "lean": "h≥0 and βh≤1."
+          },
+          {
+            "source": "Positive source moduli.",
+            "lean": "Real moduli under the explicit model inequalities."
+          },
+          {
+            "source": "Attained global minimum; no explicit q≥0 restriction.",
+            "lean": "Supplied global minimizer, with both signs of q allowed."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every real inner-product space E whose induced norm makes it complete, every function f:E→ℝ, every triple of real parameters α,β,h, and every point z∈E, assume (i) z is a global minimizer, meaning f(z)≤f(x) for every x∈E; (ii) h≥0; (iii) βh≤1; (iv) for every x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖²; and (v) for every x∈E, 2α(f(x)−f(z))≤‖gradient f(x)‖². Then for every starting point x₀∈E and every natural number N, define the actual iterates by xₙ₊₁=xₙ−h gradient f(xₙ). The conclusion is f(x_N)−f(z)≤(1−αh)^N(f(x₀)−f(z)). Equivalently, x_N=T^[N](x₀) for T(x)=x−h gradient f(x), where T^[0] is the identity; thus N=0 is included. The gradient is the Riesz vector of the totalized Fréchet derivative, so the notation carries no differentiability assumption, and none is separately stated. α and β may be any real numbers satisfying the displayed assumptions: positivity of α or β, α≤β, and nonnegativity of 1−αh are not additional hypotheses. h may be zero. The bound concerns these concrete constant-step iterates, with the exact factor (1−αh)^N and coefficient 1 on the initial objective gap; no constants or iterates are existentially chosen.",
+        "text_sha256": "ead3361d3e5fbf88ad34d2230f6e0566f493ec3e66e76314b59a49f8b9c67254",
+        "decoder": "pl_blind",
+        "decoder_run_sha256": "3b1a71a93172407ceebc31c20211e6b09fe29b6233e4d059e5e4ce3ac7f97845",
+        "decoder_packet_sha256": "443b0478e9e3ab137186e1f5c3566f8e6654c671594bce536fda4a96db2a61ab",
+        "source_text_visible": false,
+        "lean_statement_sha256": "cc9a15c34f67c9db2e1d2a6e59639595c9cb28216d5e0fe4c472c4221baafa01",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-pl/decoder-result.json"
       }
     },
     {

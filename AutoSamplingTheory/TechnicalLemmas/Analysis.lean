@@ -1,3 +1,5 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexAEDifferentiable
 import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexSubgradient

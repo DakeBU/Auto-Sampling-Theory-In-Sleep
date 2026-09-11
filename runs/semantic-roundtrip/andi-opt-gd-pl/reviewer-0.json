@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-d7a802c32e8f646a",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "andi-pl-worker",
+    "blind_decoder": "pl_blind",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "chewi-opt-v1-lemma-3-1",
+    "anchor": "https://arxiv.org/html/2605.07006v1#S3; Lemma3.1",
+    "original_text": "Chewi arXiv:2605.07006v1, Section3 assumes C2 Euclidean objectives. In the C² Euclidean setting, β-smoothness gives a quadratic upper model. For the actual gradient update with the printed restriction h≤1/β, the function decrease is at least h/2 times squared gradient norm. Lemma3.1 conclusion: f(x-h grad f(x))-f(x)<=-h/2 ||grad f(x)||². The printed step condition is h<=1/beta, without explicit h>=0.",
+    "text_sha256": "aaa4a3377ffd66da237a6737610fee661bc3296ff9d253f4fa88e4086c9366ed"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+    "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentBasic.lean",
+    "statement": "∀\n  {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] {f : E → ℝ}\n  {β h : ℝ},\n  0 ≤ h →\n    β * h ≤ 1 →\n      (∀ (x y : E), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) →\n        ∀ (x : E), f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2",
+    "statement_sha256": "c0a032b0307275da258bc031b358af2ad77f546ac78193404eef2a27eae8226b",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "For every real inner-product space E whose induced norm makes it complete, every function f:E→ℝ, and every pair of real numbers β,h, assume (i) h≥0, (ii) βh≤1, and (iii) for all x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖². Then for every x∈E, f(x−h gradient f(x))−f(x)≤−(h/2)‖gradient f(x)‖². Here gradient f(x) is the Riesz vector associated to the totalized Fréchet derivative; the gradient notation itself imposes no differentiability assumption, and this proposition has no separate differentiability assumption. β is an arbitrary real parameter subject only to βh≤1; in particular, neither β>0 nor β≥0 is an explicit hypothesis. The step size may be zero. The norm and real inner product are those on E, and multiplication of h with a vector is real scalar multiplication. All constants in the conclusion are exactly as displayed, and there are no existential or unspecified constants.",
+    "text_sha256": "88b666965499489750fc6ca25fd0a8131c3effef7d8bee1a37c31e49f78a4a07",
+    "decoder": "pl_blind",
+    "decoder_packet_sha256": "91acd3a9068fba0a39a5938e699db04f9c97c965c58ec28ad1ada6d84c3d86f6",
+    "decoder_run_sha256": "3b1a71a93172407ceebc31c20211e6b09fe29b6233e4d059e5e4ce3ac7f97845",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "5b0266281e1213e7c9a3af084c4de432e966f6ef982115e5fc39c6b3523fcd2b",
+  "candidate_publication_context": {
+    "file": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef",
+    "current_lean_module": "import Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Tactic.Abel\nimport Mathlib.Tactic.Linarith\n\n/-!\n# Shared gradient-step descent\n\nChewi arXiv:2605.07006v1 Lemma 3.1, with the necessary nonnegative step\nexplicit. This extracts the previously private GradientDescentValue calculation.\nThe global quadratic upper model is the exact input; no convexity or supplied\nrecurrence is assumed. No separate differentiability hypothesis is needed for\nthis algebraic consequence of the model using the actual totalized gradient.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\n\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\n/-- Actual gradient-step descent from a global quadratic upper model.\nIncludes a zero step and signed upper-model coefficient. -/\ntheorem gradient_step_descent_of_quadratic_upper_bound {f : E → ℝ} {β h : ℝ}\n    (hh : 0 ≤ h) (hstep : β * h ≤ 1)\n    (hu : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2)\n    (x : E) : f (x - h • gradient f x) - f x ≤ -(h / 2) * ‖gradient f x‖ ^ 2 := by\n  have hu' := hu x (x - h • gradient f x)\n  have he : x - h • gradient f x - x = -(h • gradient f x) := by abel\n  rw [he, inner_neg_right, inner_smul_right, real_inner_self_eq_norm_sq,\n    norm_neg, norm_smul, Real.norm_eq_abs, mul_pow, sq_abs] at hu'\n  have hs := mul_le_mul_of_nonneg_right hstep (mul_nonneg hh (sq_nonneg ‖gradient f x‖))\n  nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2605.07006v1#S3",
+      "edition": "arXiv:2605.07006v1",
+      "anchor": "Lemma3.1",
+      "wording_status": "faithful paraphrase",
+      "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+    },
+    "statement": "In the C² Euclidean setting, β-smoothness gives a quadratic upper model. For the actual gradient update with the printed restriction h≤1/β, the function decrease is at least h/2 times squared gradient norm.",
+    "formulae": [
+      {
+        "label": "Descent",
+        "tex": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}"
+      }
+    ],
+    "assumptions": [
+      "C² Euclidean objective and β-smoothness; positive β for the printed reciprocal step restriction.",
+      "The printed step condition is h≤1/β; nonnegative h is not explicitly included."
+    ],
+    "obligations": [
+      {
+        "id": "actual-step-descent",
+        "label": "Quadratic upper model to actual-gradient decrease"
+      }
+    ],
+    "lesson": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+      "kind": "theorem",
+      "title": "Shared descent for an actual gradient step",
+      "statement": "Every actual gradient update obeys the displayed decrease under the global quadratic upper model and nonnegative admissible step.",
+      "formula": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}",
+      "assumptions": [
+        "E is a complete real inner-product space; f:E→ℝ; α,β,h are real scalars, with h≥0 and βh≤1. The descent lemma does not use α.",
+        "The displayed quadratic upper model holds for every x,y∈E. ∇f is Lean’s actual gradient (the Riesz representative of the totalized Fréchet derivative), not a supplied vector field.",
+        "These are algebraic consequences of the model. No separate C¹ or C² premise is needed once the model is supplied; no claim that every arbitrary function satisfies it. The source C² Euclidean setting is a specialization.",
+        "For every x,y: f(y)≤f(x)+⟨∇f(x),y−x⟩+(β/2)‖y−x‖²."
+      ],
+      "steps": [
+        {
+          "title": "Insert the actual update into the upper model",
+          "text": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly.",
+          "formula": "f(Tx)-f(x)\\le-h\\|g\\|^2+\\tfrac\\beta2h^2\\|g\\|^2.",
+          "lean": "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq; norm_neg; norm_smul; sq_abs."
+        },
+        {
+          "title": "Use the step restriction with its sign",
+          "text": "Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+          "formula": "\\begin{gathered}\\beta h^2\\|g\\|^2\\le h\\|g\\|^2,\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|g\\|^2.\\end{gathered}",
+          "lean": "mul_nonneg; sq_nonneg; mul_le_mul_of_nonneg_right; nlinarith."
+        }
+      ],
+      "astis_dependencies": [],
+      "mathlib_dependencies": [
+        "inner_neg_right; inner_smul_right; real_inner_self_eq_norm_sq",
+        "norm_neg; norm_smul; sq_abs; mul_le_mul_of_nonneg_right"
+      ],
+      "lean_statement": "Actual gradient update and the global upper-model decrease.",
+      "lean_proof": "Write g=∇f(x), T(x)=x−hg. The displacement is −hg; inner-product and norm identities evaluate the model exactly. Multiply βh≤1 by h‖g‖²≥0. Substituting the result leaves half of the linear decrease.",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "label": "Chewi Lemma3.1",
+          "scope": "ASTIS source restatement; explicit nonnegative-step repair and algebraic Hilbert generalizations."
+        },
+        {
+          "url": "https://github.com/optsuite/optlib/blob/5da27c5f95aa6a8a45b8c14b968ade4c13ff18c3/Optlib/Algorithm/GD/GradientDescent.lean",
+          "label": "Pinned Optlib convex_lipschitz",
+          "scope": "Inspected adjacent descent result needs positive step and Lipschitz gradient; external reference, no code port."
+        },
+        {
+          "path": "Tests/Shared/GradientDescentPL.lean",
+          "label": "Actual quadratic and negative-coefficient constant-objective tests",
+          "scope": "Compiled tests, no separate theorem credit."
+        }
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+      "role": "proof-edge",
+      "supports": [
+        "actual-step-descent"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "C² Euclidean function and smoothness.",
+        "lean": "Complete real Hilbert space, global quadratic upper model in the actual gradient; no separate differentiability premise."
+      },
+      {
+        "source": "Printed h≤1/β.",
+        "lean": "h≥0 and βh≤1."
+      },
+      {
+        "source": "Positive source moduli.",
+        "lean": "Real moduli under the explicit model inequalities."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b"
+}

@@ -1,0 +1,52 @@
+{
+  "reviewer": "coco_source",
+  "role": "independent anti-anchored semantic and publication reviewer of public shared descent and PL rate",
+  "input_artifacts": [
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-pl/reviewer-0.json",
+      "packet_sha256": "43762ab0758e4b08c905a418275fbf8bc3e4c6c9cedd54378e94fc5141936b7b",
+      "publication_binding_sha256": "5b0266281e1213e7c9a3af084c4de432e966f6ef982115e5fc39c6b3523fcd2b",
+      "module_sha256": "3489a169bf3cc4f17f4ba374a2edb1536f9cd5cfdfe67ce57ebbeacca65b1eef"
+    },
+    {
+      "path": "runs/semantic-roundtrip/andi-opt-gd-pl/reviewer-1.json",
+      "packet_sha256": "7944646baedcc4e3bbc89e2e3dfe09cda363b50e5b69907ed4d52e95abd8abbc",
+      "publication_binding_sha256": "ff730327d0ba161bc3960ce1268598306b3e6c97394bb6ea1266c0a7a30b120f",
+      "module_sha256": "382c8a5ba9dae70074114a205eb03c44826cb03c9b20c0f64931ced25fd9bea2"
+    }
+  ],
+  "additional_inputs": [
+    "https://arxiv.org/html/2605.07006v1#S3: Lemma3.1 and Theorem3.6",
+    "https://arxiv.org/html/2605.07006v1#S2: minimum convention at section opening and Definition2.5"
+  ],
+  "independence": {
+    "formalizer": "andi-pl-worker",
+    "decoder": "pl_blind",
+    "reviewer": "coco_source",
+    "prior_verdicts_read": false,
+    "registry_read": false,
+    "all_decisions_fresh": true
+  },
+  "whole_module_review": "Read both complete current packet modules, their imports, every declaration and proof line, whole lessons and exact dependency names. Shared Basic has only the public descent theorem. PL imports Basic and calls exactly the reviewed public descent interface; it has no private shadow descent or assumed scalar recurrence. Existing GDValue source reviews -2/-3 separately record current use of this same public dependency.",
+  "source_check": "Primary source confirms section C2 setting, no explicit h>=0 in either printed restriction, PL alpha>0 without convexity, and the standing attained-minimum convention xstar in argmin f and fstar=f(xstar). These source details are not inferred merely from the reconstruction.",
+  "direct_proof_checks": {
+    "descent": "Insert T(x)=x-hg into the upper model. Inner product and norm identities give -h||g||^2+(beta/2)h^2||g||^2. From beta h<=1 times h||g||^2>=0 obtain exactly -(h/2)||g||^2. This does not require beta>=0 or a differentiability premise once that global model is assumed.",
+    "pl_recurrence": "Let G(x)=f(x)-f(z). IsMinOn gives G>=0 everywhere. Multiply 2alpha G(x)<=||gradient f(x)||^2 by h/2>=0 and combine shared descent to derive G(Tx)<=q G(x), q=1-alpha h. No convexity, sign of alpha or sign of beta is needed for this algebra.",
+    "nonnegative_q": "For q>=0, the actual successor identity for Function.iterate supplies u_(n+1)<=q u_n with u_n=G(T^[n]x0). A standard geometric induction gives u_N<=q^N u0 with exact coefficient one.",
+    "negative_q": "For q<0, 0<=G(Tx)<=q G(x) and G(x)>=0 imply G(x)=0 for every x. Consequently both sides of the conclusion vanish for every N, including odd N; the proof never multiplies an inductive inequality by a negative q. This branch is nonempty: constant functions with sufficiently large alpha h satisfy the models.",
+    "endpoints": "At N=0 the rate is equality. At h=0, T=id and q=1; no strict decrease is asserted. At q=0, all one-step gaps vanish and subsequent gaps remain zero. Signed alpha may give q>1, in which case the inequality is a bound without a convergence claim.",
+    "totalized_gradient": "The two new declarations intentionally omit C1/C2. The gradient is Lean totalized fderiv passed through the Riesz map. It is not a freely supplied vector field, but one must not identify it with an existing classical derivative at arbitrary points. Lessons explicitly state this and the global model premise. Source smooth functions are a specialization; this is not source-equivalent regularity."
+  },
+  "local_symbol_and_publication_checks": [
+    "T,g,beta,h are defined and constants checked in the descent lesson; alpha appears only as an expressly unused shared notation and is not a descent premise.",
+    "PL lesson defines z,G,q,u_n,x0,N,T^0 and the exact PL factor 2. Its attained-minimum premise matches the source convention and no existence theorem is claimed.",
+    "Both lessons identify the totalized derivative and algebraic nature of the extended setting; there is no hidden C1 assertion.",
+    "Public dependency provenance names match all actual calls; no external Optlib module is imported. External-reference and compiled-test descriptions do not become independent theorem credit.",
+    "The phrase source repair in candidate attribution is treated as a disclosed proposed domain restriction, not as evidence of accepted source alteration."
+  ],
+  "counterexamples": {
+    "lemma31": "f(t)=t^2/2 on R, beta=1,h=-1,x=1 satisfies h<=1/beta. T(1)=2; f(2)-f(1)=3/2 but -(h/2)|f prime(1)|^2=1/2, so descent fails. More generally h<0 gives discrepancy h(h-1)/2>0.",
+    "theorem36": "Same f with alpha=beta=1, z=0,x0=1,N=1,h=-1 satisfies exact PL and all printed source premises. The new gap is f(2)=2, but (1-alpha h)(f(1)-f(0))=1. Thus 2<=1 is false. For every h<0, (1-h)^2>(1-h)."
+  },
+  "limits": "No independent compiler run, test-file inspection or external Optlib source/license audit. No old verdict or registry read. Review is of exact current packet-bound source/statement/module/lesson content; compiler/test execution claims remain packet or coordinator evidence. Proposed repairs are not accepted."
+}

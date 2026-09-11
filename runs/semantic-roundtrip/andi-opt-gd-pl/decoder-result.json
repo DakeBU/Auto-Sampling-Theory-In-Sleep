@@ -1,0 +1,12 @@
+[
+  {
+    "packet_sha256": "91acd3a9068fba0a39a5938e699db04f9c97c965c58ec28ad1ada6d84c3d86f6",
+    "source_text_visible": false,
+    "reconstructed_theorem": "For every real inner-product space E whose induced norm makes it complete, every function f:E→ℝ, and every pair of real numbers β,h, assume (i) h≥0, (ii) βh≤1, and (iii) for all x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖². Then for every x∈E, f(x−h gradient f(x))−f(x)≤−(h/2)‖gradient f(x)‖². Here gradient f(x) is the Riesz vector associated to the totalized Fréchet derivative; the gradient notation itself imposes no differentiability assumption, and this proposition has no separate differentiability assumption. β is an arbitrary real parameter subject only to βh≤1; in particular, neither β>0 nor β≥0 is an explicit hypothesis. The step size may be zero. The norm and real inner product are those on E, and multiplication of h with a vector is real scalar multiplication. All constants in the conclusion are exactly as displayed, and there are no existential or unspecified constants."
+  },
+  {
+    "packet_sha256": "443b0478e9e3ab137186e1f5c3566f8e6654c671594bce536fda4a96db2a61ab",
+    "source_text_visible": false,
+    "reconstructed_theorem": "For every real inner-product space E whose induced norm makes it complete, every function f:E→ℝ, every triple of real parameters α,β,h, and every point z∈E, assume (i) z is a global minimizer, meaning f(z)≤f(x) for every x∈E; (ii) h≥0; (iii) βh≤1; (iv) for every x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖²; and (v) for every x∈E, 2α(f(x)−f(z))≤‖gradient f(x)‖². Then for every starting point x₀∈E and every natural number N, define the actual iterates by xₙ₊₁=xₙ−h gradient f(xₙ). The conclusion is f(x_N)−f(z)≤(1−αh)^N(f(x₀)−f(z)). Equivalently, x_N=T^[N](x₀) for T(x)=x−h gradient f(x), where T^[0] is the identity; thus N=0 is included. The gradient is the Riesz vector of the totalized Fréchet derivative, so the notation carries no differentiability assumption, and none is separately stated. α and β may be any real numbers satisfying the displayed assumptions: positivity of α or β, α≤β, and nonnegativity of 1−αh are not additional hypotheses. h may be zero. The bound concerns these concrete constant-step iterates, with the exact factor (1−αh)^N and coefficient 1 on the initial objective gap; no constants or iterates are existentially chosen."
+  }
+]

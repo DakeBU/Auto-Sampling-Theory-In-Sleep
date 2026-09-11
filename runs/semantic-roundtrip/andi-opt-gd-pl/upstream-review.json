@@ -1,0 +1,135 @@
+{
+  "reviewer": "smoothness_review",
+  "checked_upstream_commit": "bfd7aaf36b9c64d40d8e1503e383de089949b667",
+  "baseline": "25e2670d736a381123408023181e3b70a9a945ce",
+  "historical_verified_commit": "6618fd17331f2e8775ec42b2676aeb930face5e8",
+  "review_type": "Read-only incoming preservation/conflict/queue review, not companion proof reproduction",
+  "decision": "Merge strategy approved with explicit per-id audit exceptions; historical stale reservation release authorized",
+  "findings": [],
+  "upstream_git": {
+    "actual_merge_pr": 279,
+    "parents": [
+      "25e2670d736a381123408023181e3b70a9a945ce",
+      "34340bf3d1d87e4882839a30df9aeb00895cffa8"
+    ],
+    "commit_time": "2026-09-11T21:00:28+08:00",
+    "verified_commit_ancestor": true,
+    "evidence_scope": "Actual Git merge object independently inspected, root reports fresh fetch. No new GitHub CI, compilation or deployment success inferred."
+  },
+  "shared_overlaps": [
+    "research-wiki/semantic-roundtrip/registry.json",
+    "runs/substantive_advances.jsonl"
+  ],
+  "registry_merge": {
+    "baseline_count": 66,
+    "incoming_count": 67,
+    "local_working_snapshot_count": 69,
+    "incoming_changes_to_existing": [],
+    "incoming_additions": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment"
+    ],
+    "authorized_local_rebindings": [
+      "ASTIS-RT-ANDI-OPT-GradientEnergy",
+      "ASTIS-RT-ANDI-OPT-GradientWeightedValue"
+    ],
+    "local_additions": [
+      "ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment",
+      "ASTIS-RT-ANDI-OPT-GradientDescentBasic",
+      "ASTIS-RT-ANDI-OPT-GradientPL"
+    ],
+    "overlapping_divergent_edits": [],
+    "expected_union_count": 69,
+    "rule": "Three-way union by stable audit id. Preserve 65 of incoming67 objects exactly; replace the two baseline Value objects only with independently re-reviewed local canonical-helper bindings. Add two local new Basic/PL audits. Do not say all incoming67 objects unchanged when these two intentional rebindings exist. Preserve their old raw packets/results as historical artifacts."
+  },
+  "ledger_merge": {
+    "incoming_exact_base_prefix": true,
+    "incoming_new_rows": 4,
+    "local_exact_base_prefix_at_snapshot": true,
+    "local_new_rows_at_snapshot": 7,
+    "rule": "Freeze local reviewable files in a commit, then use exact common byte prefix + entire saved local raw tail + entire upstream raw tail. Preserve original row bytes, timestamps, from_state and within-tail order. Remove only exact duplicate rows if any; no timestamp sort or latest-state filtering. Tail size must be read from saved local commit, not assume this snapshot remains final.",
+    "required_terminal_event": "Incoming original-owner GaussianArcLaw STABILIZING->MERGED at2026-09-11T12:06:06Z must remain after earlier local historical reservation-release events.",
+    "after_merge": "Append separately authorized historical SmoothGradientArcMoment STABILIZING->VERIFIED release; allow exactly one subsequent local PL stabilization owner only after its own independent admission."
+  },
+  "moment_preservation": {
+    "artifacts": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean": {
+        "exactly_preserved": true,
+        "verified_sha256": "4d705f3e5210d3cbcf7ad8c295b23e318b103f525387e610385442ba1698f75e",
+        "upstream_sha256": "4d705f3e5210d3cbcf7ad8c295b23e318b103f525387e610385442ba1698f75e"
+      },
+      "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean": {
+        "exactly_preserved": true,
+        "verified_sha256": "e4df55ce4d50461bd492405152593a664acb496993cad10bb4e89e768ce5932a",
+        "upstream_sha256": "e4df55ce4d50461bd492405152593a664acb496993cad10bb4e89e768ce5932a"
+      },
+      "proof-blueprints/SPHMC-smooth-gradient-arc-moment.md": {
+        "exactly_preserved": false,
+        "verified_sha256": "b2dab5bfb6c2a207a8debfb9cf08876e28d37a3e8043cb82399e48c756827a1a",
+        "upstream_sha256": "6a42d8cf82db559dc0c768ff1be4f0dffef43c2bb60ec982c3f6c4a55d3450a4"
+      },
+      "research-wiki/frontier-cells/ASTIS-SW-SPHMC-smooth-gradient-arc-moment.json": {
+        "exactly_preserved": false,
+        "verified_sha256": "9d2c98b49897688e6832a1d5998bb401dc6084a776ba7897cb4366ca916801f5",
+        "upstream_sha256": "99906034ecd7e35ab276cfea1fa53137baad0bf7d4f6f1a1951bb5fa4957b2d6"
+      },
+      "runs/20260911-companion-priority/smooth-gradient-arc-moment.decoder-result.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "4215cdfe3359f9af7a1727e9887dc2c44f18b6024d5f2746c1d709ed6a8eac96",
+        "upstream_sha256": "4215cdfe3359f9af7a1727e9887dc2c44f18b6024d5f2746c1d709ed6a8eac96"
+      },
+      "runs/20260911-companion-priority/smooth-gradient-arc-moment.progress.json": {
+        "exactly_preserved": false,
+        "verified_sha256": "cfd800718a5ac78431f5be62cf0a548ee7407c81925cb83cb872a7dddcdc7731",
+        "upstream_sha256": "1140029dfbabea53e13593d5d3d1a45ce00fae88312e9441c78139600c85cda3"
+      },
+      "runs/20260911-companion-priority/smooth-gradient-arc-moment.source-review-result.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "374909dc1aa764f4ed039629df4177da61df8e0a7eaa27df9d5a01e85c72ca9f",
+        "upstream_sha256": "374909dc1aa764f4ed039629df4177da61df8e0a7eaa27df9d5a01e85c72ca9f"
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment.decoder.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "85544ad24b7b13a39bc248cf96abc2704d2882efe4677b7eafe2f6fb52434850",
+        "upstream_sha256": "85544ad24b7b13a39bc248cf96abc2704d2882efe4677b7eafe2f6fb52434850"
+      },
+      "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCSmoothGradientArcMoment.review.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "88ee779192358769a2a9f951124c966e6bb76a2545ff8678e38f3e9d3b2193eb",
+        "upstream_sha256": "88ee779192358769a2a9f951124c966e6bb76a2545ff8678e38f3e9d3b2193eb"
+      },
+      "website/content/declaration_lessons/sphmc-smooth-gradient-arc-moment.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "19a7d7673aa95019a62a869dbe4f0c9d59481432a722de949d8cb5f8c30e39fa",
+        "upstream_sha256": "19a7d7673aa95019a62a869dbe4f0c9d59481432a722de949d8cb5f8c30e39fa"
+      },
+      "website/content/publications/sphmc-smooth-gradient-arc-moment.json": {
+        "exactly_preserved": true,
+        "verified_sha256": "f92e94b59fe384c344f63152968911e12eacbcb071501a3c18052ac23bd471b8",
+        "upstream_sha256": "f92e94b59fe384c344f63152968911e12eacbcb071501a3c18052ac23bd471b8"
+      }
+    },
+    "accepted_audit_exactly_preserved": true,
+    "source_hash": "b13e49389cbeb9428f2e489564d9678170e71fbbbc69f1c48cf55e9f4c0ef373",
+    "source_hash_valid": true,
+    "embedded_whole_module_exact": true,
+    "binding_hash": "e2732d7f7b08564bd37bfb16520616ae35bc4fa9a9cbd829e69617931b419266",
+    "historical_evidence": "depth_commit_verifier VERIFIED6618fd1; historical focused PASS3120, standard axioms,1734-character expanded type defeq,20 private implementations covered, accepted independent decoder blind_reconstruction_i/source log_depth_source_review. Historical evidence read, not rerun or promoted to current combined gate.",
+    "metadata_changes": "Cell/progress updated to admitted/STABILIZING; blueprint adds an explicitly reviewed planned clipping-excess consumer; no mathematical payload or accepted artifacts changed. A stale prose boundary in verified-admission/progress still says review pending; current event/evidence and exact accepted audit are authoritative. Do not rewrite collaborator prose during preservation merge."
+  },
+  "queue_release_authorization": {
+    "advance_id": "ASTIS-SA-20260911-SPHMCSmoothGradientArcMoment",
+    "transition": "STABILIZING -> VERIFIED",
+    "verifier_id": "smoothness_review",
+    "recorded_by": "root sole writer",
+    "authorization": "Explicit historical-preservation release authorized because actual canonical PR279 merge and exact historical VERIFIED artifact preservation are independently established. Preserve original events; do not forge owner MERGED or claim a fresh proof/source certification.",
+    "other_work": "Incoming ledger contains no new actual EXPLORING unit; clipping-excess appears only as a planned/reviewed blueprint next route. Any later owner EXPLORING events must be preserved and never released or taken over by this authorization."
+  },
+  "required_gates": [
+    "After mechanical merge, independently check exact both-parent file/object/ledger preservation and actual final queue.",
+    "Fresh canonical full gate on combined candidate; no earlier local or upstream build result substitutes.",
+    "Revalidate publication and source registry for all four affected local declarations plus preserved incoming source item.",
+    "Regenerate affected module/lemma graphs and reader site, run bounded graph-check/site validations and actual UI checks as appropriate.",
+    "Fresh canonical fetch before push; reconcile any subsequent movement rather than force push."
+  ],
+  "repo_mutations": "None; only requested /private/tmp report written."
+}

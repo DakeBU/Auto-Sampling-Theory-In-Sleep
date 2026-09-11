@@ -769,6 +769,140 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientWeightedValue"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-lemma-3-1",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Lemma3.1 · gradient-step descent",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Lemma3.1",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "In the C² Euclidean setting, β-smoothness gives a quadratic upper model. For the actual gradient update with the printed restriction h≤1/β, the function decrease is at least h/2 times squared gradient norm.",
+      "assumptions": [
+        "C² Euclidean objective and β-smoothness; positive β for the printed reciprocal step restriction.",
+        "The printed step condition is h≤1/β; nonnegative h is not explicitly included."
+      ],
+      "formulae": [
+        {
+          "label": "Descent",
+          "tex": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\\\f(Tx)-f(x)\\le-\\tfrac h2\\|\\nabla f(x)\\|^2.\\end{gathered}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-step-descent",
+          "label": "Quadratic upper model to actual-gradient decrease"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
+          "cell": "ASTIS-SHARED-gradient-step-descent",
+          "role": "proof-edge",
+          "supports": [
+            "actual-step-descent"
+          ],
+          "boundary": "This is shared optimization textbook work, not progress on the companion papers. No convexity, optimizer-existence proof or smoothness-to-upper-model theorem is claimed. The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean function and smoothness.",
+              "lean": "Complete real Hilbert space, global quadratic upper model in the actual gradient; no separate differentiability premise.",
+              "classification": "generalization",
+              "reason": "The proof consumes this model algebraically. The source hypotheses supply it; no smoothness equivalence or arbitrary vector field is asserted."
+            },
+            {
+              "source": "Printed h≤1/β.",
+              "lean": "h≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions."
+            },
+            {
+              "source": "Positive source moduli.",
+              "lean": "Real moduli under the explicit model inequalities.",
+              "classification": "generalization",
+              "reason": "The algebraic finite-step inequality does not need separate sign hypotheses. Positive α and h are required to call the ordinary PL bound geometric decay; β>0 recovers the reciprocal condition."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientDescentBasic"
+        }
+      ]
+    },
+    {
+      "id": "chewi-opt-v1-theorem-3-6",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Theorem3.6 · PL gradient-descent value rate",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Theorem3.6; Definition2.5 and Section2 minimum convention",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "In the C² Euclidean setting with an attained minimum f★=f(x★), β-smoothness and the PL inequality with α>0 give the displayed last-iterate function-value bound, for the printed restriction h≤1/β. No convexity assumption appears.",
+      "assumptions": [
+        "C² Euclidean objective and β-smoothness; positive β for the printed reciprocal step restriction.",
+        "The printed step condition is h≤1/β; nonnegative h is not explicitly included.",
+        "An attained global minimum f★=f(x★); PL normalization ‖∇f(x)‖²≥2α(f(x)−f★) for all x, α>0.",
+        "The sequence consists of actual gradient updates and N is a natural iteration count."
+      ],
+      "formulae": [
+        {
+          "label": "Final-value rate",
+          "tex": "\\begin{gathered}T(x)=x-h\\nabla f(x),\\quad q=1-\\alpha h,\\\\2\\alpha(f(x)-f(z))\\le\\|\\nabla f(x)\\|^2,\\\\f(T^Nx_0)-f(z)\\le q^N(f(x_0)-f(z)).\\end{gathered}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-pl-iterate-rate",
+          "label": "PL plus smooth descent to actual Nth-iterate value rate"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL.gradient_descent_pl_value_bound",
+          "cell": "ASTIS-SHARED-gradient-descent-pl",
+          "role": "proof-edge",
+          "supports": [
+            "actual-pl-iterate-rate"
+          ],
+          "boundary": "This is shared optimization textbook work, not progress on the companion papers. No convexity, optimizer-existence proof or smoothness-to-upper-model theorem is claimed. The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions. The supplied z satisfies f(z)≤f(x) for every x. This preserves the source attainment convention; no minimizer is constructed. The formula permits signed α. A positive PL modulus α>0 and positive h give q<1; in the ordinary branch 0≤q<1 this is geometric decay. The theorem adds no αh≤1 restriction; negative q is necessarily a zero-gap degeneracy. h=0 and N=0 yield equality. Theorem3.6 has its own missing-step counterexample: f(t)=t²/2, α=β=1,h=−1,x₀=1,N=1 gives final gap 2 but proposed upper bound 1. Its source repair remains distinct from the actual compiled theorem.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean function and smoothness.",
+              "lean": "Complete real Hilbert space, global quadratic upper model in the actual gradient; no separate differentiability premise.",
+              "classification": "generalization",
+              "reason": "The proof consumes this model algebraically. The source hypotheses supply it; no smoothness equivalence or arbitrary vector field is asserted."
+            },
+            {
+              "source": "Printed h≤1/β.",
+              "lean": "h≥0 and βh≤1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints only h≤1/β. The explicit h≥0 is necessary: for f(t)=t²/2, β=1,h=−1,x=1, descent would assert 3/2≤1/2. The reciprocal and product step restrictions agree when β>0; signed β and β=0 here are algebraic extensions."
+            },
+            {
+              "source": "Positive source moduli.",
+              "lean": "Real moduli under the explicit model inequalities.",
+              "classification": "generalization",
+              "reason": "The algebraic finite-step inequality does not need separate sign hypotheses. Positive α and h are required to call the ordinary PL bound geometric decay; β>0 recovers the reciprocal condition."
+            },
+            {
+              "source": "Attained global minimum; no explicit q≥0 restriction.",
+              "lean": "Supplied global minimizer, with both signs of q allowed.",
+              "classification": "same",
+              "reason": "Minimum supplies gap≥0. q≥0 uses scalar geometric iteration; q<0 forces every gap to be zero. No optimizer existence conclusion."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientPL"
+        }
+      ]
     }
   ]
 }
