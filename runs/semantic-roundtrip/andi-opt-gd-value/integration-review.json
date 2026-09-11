@@ -1,0 +1,185 @@
+{
+  "reviewer": "smoothness_review",
+  "checked_commit": "fccbf94e9310f9dd7ec5de65d5594a0edd71f58a",
+  "baseline_commit": "38f7c55b21bb71d051f1c0bbad192b0a58117531",
+  "scope": "Bounded final serialized integration review; no proof recompile or full gate duplication",
+  "decision": "ACCEPT conditional on root canonical gate and final site/graph/UI PASS and fresh canonical main allowing safe integration",
+  "findings": [],
+  "frozen_files": {
+    "AutoSamplingTheory/TechnicalLemmas/Analysis/GradientDescentValue.lean": {
+      "sha256": "1e4e0cdcf315543dabe65b5a3db65e47e727899b50acf8544efa315735eab4c6",
+      "matches_prior_review": true
+    },
+    "Tests/Shared/GradientDescentValue.lean": {
+      "sha256": "e0a9b1a144b8d207189edda00133a1e8bd6948bb7fc4b56f732c301c76354c70",
+      "matches_prior_review": true
+    },
+    "website/content/declaration_lessons/gradient-descent-value.json": {
+      "sha256": "6e02740e618b253446de9547136f927707fb60ec8d4d14465eaaf0009fda8a3b",
+      "matches_prior_review": true
+    },
+    "website/content/publications/optimisation.json": {
+      "sha256": "32df005b27ed3097b299b45c8ce2d0f64e113f5faf5ff744a4c611e57f46ce79",
+      "matches_prior_review": true
+    },
+    "research-wiki/technical-lemmas/gradient-descent-value.md": {
+      "sha256": "35e801f2e087c04a13fefe64a00190c27a8eaf36e81f7d662eb9acbf36707de6",
+      "matches_prior_review": true
+    }
+  },
+  "root_coverage": {
+    "analysis_import": "import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue",
+    "tests_import": "import Tests.Shared.GradientDescentValue",
+    "both_present_once": true,
+    "registry_exact_added_entries": [
+      "analysis.gradient-descent.comparator-energy",
+      "analysis.gradient-descent.weighted-value"
+    ],
+    "count_before": 410,
+    "count_after": 412,
+    "count_evidence": "Tests/Basic.lean native_decide expectation updated; compilation is root canonical gate responsibility"
+  },
+  "source_packet_review": [
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientEnergy",
+      "state": "accepted",
+      "verdict": "possible-source-error",
+      "source_review_state": "accepted",
+      "reviewer": "coco_source",
+      "decoder": "value_blind",
+      "formalizer": "andi-gdv-worker",
+      "publication_binding_sha256": "d390a83d8d454416500e543cea244f15c7efbe843d3a86e3126b7e076f59da4e",
+      "packets": {
+        "decoder": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-0.json",
+          "file_sha256": "74b2c391280536fd3f7b1d76a8a4f08c4e30f43efecf9fc689fc4bfae4066776",
+          "canonical_packet_sha256": "49062d2d1a6f0647e7ba9c78320443aeb8e8b7e164a0c9ae4cd4977f83953bd2",
+          "self_hash_valid": true,
+          "matches_audit": true
+        },
+        "reviewer": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/reviewer-0.json",
+          "file_sha256": "cd44dd573b4ef5774bdb76a973ae0a798acbf815ce75ca52f3f0a507a3dfb42d",
+          "canonical_packet_sha256": "d38cee8b8f8625926cc77a85e437147eecd1ec0108538e8ae687b76339df31fc",
+          "self_hash_valid": true,
+          "matches_audit": true
+        }
+      },
+      "runs": {
+        "reconstruction": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-result.json",
+          "sha256": "b7396dc9656fc9e1cffb52a0653240289c590303bf715d7f8d7166f49c965842",
+          "matches_audit": true
+        },
+        "source_review": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/source-review-0.json",
+          "sha256": "f4e4529b617fd715dcd9d0121e042b6856a08fb289228a22540a95ad7b511db5",
+          "matches_audit": true
+        },
+        "repair": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/repair-review-result.json",
+          "sha256": "2f6d91814c5ff1d7a1f554a662827cee7521b6fe364a3aea9d6e091339cdffcf",
+          "matches_audit": true,
+          "reviewer": "converse_source_review",
+          "proposal_hash": "18a4aea345720418f0274543c7c0cccdeeaacc67453e3bcf3092b9bd36937baf"
+        }
+      },
+      "whole_module_matches": true
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-GradientWeightedValue",
+      "state": "source-reviewed",
+      "verdict": "domain-mismatch",
+      "source_review_state": "accepted",
+      "reviewer": "coco_source",
+      "decoder": "value_blind",
+      "formalizer": "andi-gdv-worker",
+      "publication_binding_sha256": "1a3e0eeb19041bcf75e80e49b51039637813dd94ea5eb81ad9c613a66deea764",
+      "packets": {
+        "decoder": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-1.json",
+          "file_sha256": "34893de8a36bf150ab1c7aa22775f91d409773b918f52d10d23a65b2cb362b4f",
+          "canonical_packet_sha256": "f99f4619eed1462a5863d14aace3260697dddd10bef2b3f30eeb611dd614e645",
+          "self_hash_valid": true,
+          "matches_audit": true
+        },
+        "reviewer": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/reviewer-1.json",
+          "file_sha256": "0f9688a2811345b456fab1b5c038dcca404bac7d21ad9d771c8c5599a0054061",
+          "canonical_packet_sha256": "fc213234bd5d909e60d921a1840220e8882e39b0bc55de68ebfc5e1ca16e19fb",
+          "self_hash_valid": true,
+          "matches_audit": true
+        }
+      },
+      "runs": {
+        "reconstruction": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/decoder-result.json",
+          "sha256": "b7396dc9656fc9e1cffb52a0653240289c590303bf715d7f8d7166f49c965842",
+          "matches_audit": true
+        },
+        "source_review": {
+          "path": "runs/semantic-roundtrip/andi-opt-gd-value/source-review-1.json",
+          "sha256": "6d2595a32294b417be7ed5d9125cc86a8636657daf04fe28eeb83e216a1ec7a7",
+          "matches_audit": true
+        }
+      },
+      "whole_module_matches": true
+    }
+  ],
+  "independent_gate_results": [
+    {
+      "command": "/opt/homebrew/bin/python3 with tools.astis_publication.check_advance(two_declarations, reviewed=True)",
+      "result": "PASS"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 tools/astis_publication.py check --base 38f7c55",
+      "result": "PASS 51 source items; explicitly emitted private implementation coverage for step_descent owned by gradient_step_energy_bound"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 tools/astis_semantic_roundtrip.py check",
+      "result": "PASS 65 audits, 3 repair proposals"
+    }
+  ],
+  "environment_note": "An initial default python3 CLI --help attempt encountered old-interpreter f-string SyntaxError in existing astis_site.py; all actual gate commands then used required Homebrew Python successfully. No source change warranted.",
+  "preservation": {
+    "baseline_audits": 63,
+    "candidate_audits": 65,
+    "all_baseline_audit_objects_exact": true,
+    "all_baseline_publication_items_exact": true,
+    "advance_ledger_exact_byte_prefix": true,
+    "advance_ledger_appended_lines": 8,
+    "discovery_ledger_byte_identical": true,
+    "baseline_modified_files": [
+      "AutoSamplingTheory/TechnicalLemmas/Analysis.lean",
+      "AutoSamplingTheory/TechnicalLemmas/Registry.lean",
+      "Tests.lean",
+      "Tests/Basic.lean",
+      "research-wiki/semantic-roundtrip/registry.json",
+      "runs/substantive_advances.jsonl",
+      "website/content/publications/optimisation.json"
+    ],
+    "collaborator_artifacts": "Only shared roots/catalog/count/audit registry/advance ledger/optimisation publication modified among baseline tracked files. All collaborator proof/test/lesson/decoder/reviewer/run artifacts retain exact Git bytes; baseline objects preserved inside shared JSON. No deletions or collaborator proof edits."
+  },
+  "transition_audit": {
+    "new_advance_sequence": [
+      "proposal",
+      "CLAIMED",
+      "EXPLORING",
+      "checkpoint",
+      "PROVED_LOCAL",
+      "VERIFIED",
+      "STABILIZING"
+    ],
+    "new_verifier": "smoothness_review; attributed sole-writer transcription of my conditional authorization, independently admitted packet evidence now checked",
+    "stabilization_owner": "andi-gdv-integration",
+    "historical_release": "PoissonQueryTail STABILIZING -> VERIFIED by smoothness_review is exactly the prior expressly authorized historical-preservation release after root fresh fetch38f7c55. No impersonated original-owner MERGED or rewrite of old history.",
+    "cell_changes": "Both cells only change claimed -> independently_verified and add focused/independent evidence; target/source/reuse fields unchanged."
+  },
+  "truth_boundary": "possible-source-error remains on comparator energy with separately accepted minimal h>=0 repair. Weighted audit remains source-reviewed/domain-mismatch with accepted source review. No claim of exact source theorem, normalized public inverse-power rate, whole Theorem3.4 or companion paper completion. Complete source review explicitly covers private step_descent and both public declarations.",
+  "conditions": [
+    "Root canonical python3 tools/astis.py check completes PASS on this candidate or a content-preserving integration descendant.",
+    "Affected graph regeneration and graph-check, website publication/build and actual UI inspection pass.",
+    "Fresh origin/main does not require unreviewed conflict resolution; preserve collaborator changes if remote advances."
+  ],
+  "repo_mutations": "None by reviewer; only requested /private/tmp report written."
+}
