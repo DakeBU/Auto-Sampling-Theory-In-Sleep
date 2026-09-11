@@ -14336,6 +14336,199 @@
           "evidence": "Terminal integral under actual P^n unchanged."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError",
+      "state": "draft",
+      "source": {
+        "source_id": "companion:sphmc-stopped-gaussian-rgo-error",
+        "anchor": "Theorem6.5 equations(6.2)-(6.5), same-program stopping and output error",
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "original_text": "E has its Borel structure and actual dimension d=finrank_R(E)>0; mu is any probability measure.\nkappa>=1,0<c<1/4,0<Delta<=1/2,0<gamma<=1,C>=8; eta is measurable and in (0,c] at every state.\nq=2 is fixed. B and J are computed once from the fixed initial state s0 and used throughout execution.\nM,L are Markov kernels. Only states outside D require the displayed source-scaled squared-W2 premise for M.\nTerminal KL is unrestricted for the residual inequality. Only the final total-error implication assumes its bound on D; no condition is imposed outside D.\nLet E be a finite-dimensional real inner-product Borel space of positive real dimension d, and mu a probability measure. States s=(b,u,k,h) belong to NNReal times E times Nat times E^Nat. Let eta be measurable with 0<eta(s)<=c at every state. Assume kappa>=1, 0<c<1/4, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Fix s0. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b), ell=2+log(K(b0)*d*2/Delta), B=gamma/(sqrt(d*ell)+ell), J=ceil(C*log(e*K(b0)/B)), and D={s:1/B<=b}. There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing at standard deviation sqrt(a(s)). After T,H are fixed, take any Markov M,L such that at each s outside D, squared W2(M(s),GaussianSmoothing(T(s),sqrt(eta(s)/(1+b))))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)). There exist F,Q,P,R: F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), count to k+1 and prepends y to history; Q(s) is M(s) with independent Gaussian variance tau(b)/(1+b) added; P(s)=dirac s on D and otherwise the F(s,.) pushforward of Q(s). Q,P and all R_n are Markov and R_n=L composed with P^n. B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for all m. Without terminal accuracy assumptions, KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) holds for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.",
+        "text_sha256": "97690622005adc2a6962f2d30b24082b0db122056702ce829734fd030e5ce830"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedGaussianRGOError.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : MeasurableSpace E] [inst_1 : NormedAddCommGroup E] [inst_2 : InnerProductSpace ℝ E]\n  [inst_3 : FiniteDimensional ℝ E] [BorelSpace E] (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ]\n  (η : NNReal × E × ℕ × (ℕ → E) → ℝ),\n  Measurable η →\n    ∀ (κ c Δ γ C : ℝ),\n      1 ≤ κ →\n        0 < c →\n          c < 1 / 4 →\n            (∀ (s : NNReal × E × ℕ × (ℕ → E)), 0 < η s ∧ η s ≤ c) →\n              0 < Module.finrank ℝ E →\n                0 < Δ →\n                  Δ ≤ 1 / 2 →\n                    0 < γ →\n                      γ ≤ 1 →\n                        8 ≤ C →\n                          ∀ (s0 : NNReal × E × ℕ × (ℕ → E)),\n                            have K := fun r => (1 + r) / (κ⁻¹ + r);\n                            have τ := fun r => if 2 ≤ K r then K r else c;\n                            have a := fun s => (η s + τ ↑s.1) / (1 + ↑s.1);\n                            have ell := 2 + Real.log (K ↑s0.1 * ↑(Module.finrank ℝ E) * 2 / Δ);\n                            have B := γ / (√(↑(Module.finrank ℝ E) * ell) + ell);\n                            have J := ⌈C * Real.log (Real.exp 1 * K ↑s0.1 / B)⌉₊;\n                            let D := {s | B⁻¹ ≤ ↑s.1};\n                            ∃ T H,\n                              ProbabilityTheory.IsMarkovKernel T ∧\n                                ProbabilityTheory.IsMarkovKernel H ∧\n                                  (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                      T s = μ.tilted fun x => -(↑s.1 / 2) * ‖x - s.2.1‖ ^ 2) ∧\n                                    (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                        H s =\n                                          AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n                                            (T s) √(a s)) ∧\n                                      ∀ (M L : ProbabilityTheory.Kernel (NNReal × E × ℕ × (ℕ → E)) E),\n                                        ProbabilityTheory.IsMarkovKernel M →\n                                          ProbabilityTheory.IsMarkovKernel L →\n                                            (∀ s ∉ D,\n                                                AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance\n                                                      (M s)\n                                                      (AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n                                                        (T s) √(η s / (1 + ↑s.1))) ^\n                                                    2 ≤\n                                                  ENNReal.ofReal\n                                                    (K ↑s.1 * (2 * τ ↑s.1 * Δ ^ 2 / (K ↑s.1 * (↑J + 1))) /\n                                                      (1 + ↑s.1))) →\n                                              ∃ F Q P R,\n                                                (∀ (s : NNReal × E × ℕ × (ℕ → E)) (y : E),\n                                                    ↑(F (s, y)).1 = ↑s.1 + (a s)⁻¹ ∧\n                                                      (F (s, y)).2 =\n                                                        ((↑s.1 + (a s)⁻¹)⁻¹ • (↑s.1 • s.2.1 + (a s)⁻¹ • y), s.2.2.1 + 1,\n                                                          fun n => Nat.casesOn n y s.2.2.2)) ∧\n                                                  ProbabilityTheory.IsMarkovKernel Q ∧\n                                                    ProbabilityTheory.IsMarkovKernel P ∧\n                                                      (∀ (n : ℕ), ProbabilityTheory.IsMarkovKernel (R n)) ∧\n                                                        (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                                            Q s =\n                                                              AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n                                                                (M s) √(τ ↑s.1 / (1 + ↑s.1))) ∧\n                                                          (∀ (s : NNReal × E × ℕ × (ℕ → E)),\n                                                              P s =\n                                                                if s ∈ D then MeasureTheory.Measure.dirac s\n                                                                else\n                                                                  MeasureTheory.Measure.map (fun y => F (s, y)) (Q s)) ∧\n                                                            (∀ (n : ℕ), R n = L.comp (P ^ n)) ∧\n                                                              0 < B ∧\n                                                                ((P ^ J) s0) D = 1 ∧\n                                                                  (∀ (m : ℕ), (R (J + m)) s0 = (R J) s0) ∧\n                                                                    InformationTheory.klDiv ((R J) s0) (T s0) ≤\n                                                                        ↑J * ENNReal.ofReal (Δ ^ 2 / (↑J + 1)) +\n                                                                          ∫⁻ (x : NNReal × E × ℕ × (ℕ → E)) in D,\n                                                                            InformationTheory.klDiv (L x)\n                                                                              (T x) ∂(P ^ J) s0 ∧\n                                                                      ((∀ s ∈ D,\n                                                                          InformationTheory.klDiv (L s) (T s) ≤\n                                                                            ENNReal.ofReal (Δ ^ 2 / (↑J + 1))) →\n                                                                        ∀ (m : ℕ),\n                                                                          InformationTheory.klDiv ((R (J + m)) s0)\n                                                                              (T s0) ≤\n                                                                            ENNReal.ofReal (Δ ^ 2))",
+        "statement_sha256": "ad8dbf2d012d285953c65bcd8e51f1011b5bc54944865ea10d77da83f9b515ef",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Production focused compile recorded in .astis/stopped-gaussian-production-build.log; independent proof review and fixed-commit admission are separate.",
+        "decoder_context": [
+          "Measure E is a countably additive measure, IsProbabilityMeasure means mass one. A Markov kernel is a measurable family of probability measures.",
+          "State is NNReal times E times Nat times (Nat to E). For s=(b,u,k,h), s.1=b and s.2=(u,k,h). Nat.casesOn n y h prepends y to history. Vector products are scalar multiplication.",
+          "Measure.tilted mu f normalizes exp(f) against mu. GaussianSmoothing.gaussianSmoothing nu sigma adds independent centered isotropic Gaussian noise of standard deviation sigma, so its covariance is sigma squared times identity.",
+          "WassersteinSpace.wassersteinDistance is the actual extended-nonnegative quadratic transport distance used here; its square equals the infimum quadratic displacement cost over couplings. A finite cross displacement bound alone does not assert marginal second moments. klDiv is extended-nonnegative relative entropy.",
+          "Measure.map is pushforward, bind integrates a measure-valued function, and dirac is point mass. P^n is n successive transitions, P^0 identity. Nonnegative integrals can be infinite. n in the displayed multiplication is cast to ENNReal, J in the accuracy expression is cast to Real.",
+          "Set restriction of a measure to D retains only mass on D. A displayed integral over D is a nonnegative integral against that restricted measure. Nat.ceil maps a real number to its nonnegative integer ceiling. The state coordinate b is coerced from NNReal to Real in scalar formulas."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "pending"
+      },
+      "publication_binding_sha256": "2af405924189b4b92e0b542fdae13ded1f35e4ab6489bfc7c142a7069cec4c44",
+      "publication_context": {
+        "file": "ee3ee1735f22d5e743d8b42b9924653e375be8bd9dd73ace9fe4b63f155562bd",
+        "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth\n/-!\n# Actual stopped Gaussian RGO output error\n\nSource: SPHMC arXiv:2609.06906v1 Theorem 6.5 A1, equations (6.2)-(6.5).\nThe normalized smoothness-one schedule uses state-dependent K(b), not the\nbaseline kappa, and fixes the terminal threshold and J from the initial state.\nThe actual Gaussian error program is identified with the stopped program by\nproving equality of all update coordinates and transition fibers. Recursive\noutput powers then transfer terminal support and cap stability.\n\nThe unconditional error bound retains the integral over the actual terminal\nset. The total-Delta-squared conclusion additionally requires a terminal KL\ninterface on that set only. It is first proved at J and then transferred to\nJ+m by output stability, not by applying the linear budget at the larger cap.\n\nSupplied M accuracy and terminal L accuracy are interfaces, not proofs that\nPicard HMC and FORS implement them. Source baseline smoothness is normalized to\none; C>=8 is a sufficient proved constant, and gamma's stated range ensures\ndepth properties rather than FORS sufficiency. No initialization/reference-point\nvalidity, general curvature identification or expected query cost is proved.\nThe auxiliary constant-c depth call only establishes threshold positivity;\nactual stopping comes from StoppedRGODepth. Its separate explicit upper bound\non J is not an additional conclusion of this theorem.\n-/\n\nopen MeasureTheory ProbabilityTheory InformationTheory\nopen scoped ENNReal NNReal\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError\nvariable {E : Type*} [MeasurableSpace E] [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [BorelSpace E]\nlocal notation \"PS\" => ℝ≥0 × E × ℕ × (ℕ → E)\nopen AutoSamplingTheory.TechnicalLemmas.Measure\n\n/-- Align the actual Gaussian error program with the stopped program, retain its\nterminal-set residual, and derive stopped output accuracy from terminal-only KL. -/\ntheorem stopped_gaussian_rgo_error (μ : Measure E) [IsProbabilityMeasure μ]\n    (η : PS → ℝ) (hηm : Measurable η) (κ c Δ γ C : ℝ)\n    (hκ : 1 ≤ κ) (hc : 0 < c) (hc1 : c < 1/4)\n    (hη : ∀ s, 0 < η s ∧ η s ≤ c) (hd : 0 < Module.finrank ℝ E)\n    (hΔ : 0 < Δ) (hΔ1 : Δ ≤ 1/2) (hγ : 0 < γ) (hγ1 : γ ≤ 1) (hC : 8 ≤ C) (s0 : PS) :\n    let K := fun r : ℝ => (1+r)/(κ⁻¹+r)\n    let τ := fun r : ℝ => if 2 ≤ K r then K r else c\n    let a := fun s : PS => (η s+τ s.1)/(1+s.1)\n    let ell := 2+Real.log (K s0.1*Module.finrank ℝ E*2/Δ)\n    let B := γ/(Real.sqrt (Module.finrank ℝ E*ell)+ell)\n    let J := Nat.ceil (C*Real.log (Real.exp 1*K s0.1/B))\n    let D : Set PS := {s | B⁻¹ ≤ (s.1:ℝ)}\n    ∃ T H : Kernel PS E, IsMarkovKernel T ∧ IsMarkovKernel H ∧\n      (∀ s, T s = μ.tilted (fun x => -((s.1:ℝ)/2)*‖x-s.2.1‖^2)) ∧\n      (∀ s, H s = GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (a s))) ∧\n      ∀ M L : Kernel PS E, IsMarkovKernel M → IsMarkovKernel L →\n      (∀ s, s ∉ D → WassersteinSpace.wassersteinDistance (M s)\n        (GaussianSmoothing.gaussianSmoothing (T s) (Real.sqrt (η s/(1+s.1))))^2 ≤\n        ENNReal.ofReal (K s.1*(2*τ s.1*Δ^2/(K s.1*((J:ℝ)+1)))/(1+s.1))) →\n      ∃ (F : PS × E → PS) (Q : Kernel PS E) (P : Kernel PS PS) (R : ℕ → Kernel PS E),\n        (∀ s y, ((F (s,y)).1:ℝ) = (s.1:ℝ)+(a s)⁻¹ ∧\n          (F (s,y)).2 = (((s.1:ℝ)+(a s)⁻¹)⁻¹ • ((s.1:ℝ) • s.2.1+(a s)⁻¹ • y),\n            s.2.2.1+1,fun n => Nat.casesOn n y s.2.2.2)) ∧\n        IsMarkovKernel Q ∧ IsMarkovKernel P ∧ (∀ n, IsMarkovKernel (R n)) ∧\n        (∀ s, Q s = GaussianSmoothing.gaussianSmoothing (M s) (Real.sqrt (τ s.1/(1+s.1)))) ∧\n        (∀ s, P s = if s ∈ D then Measure.dirac s else (Q s).map (fun y => F (s,y))) ∧\n        (∀ n, R n = L ∘ₖ (P^n)) ∧\n        0 < B ∧ (P^J) s0 D = 1 ∧\n        (∀ m, R (J+m) s0 = R J s0) ∧\n        klDiv (R J s0) (T s0) ≤ (J:ℝ≥0∞)*ENNReal.ofReal (Δ^2/((J:ℝ)+1)) +\n          ∫⁻ x in D, klDiv (L x) (T x) ∂(P^J) s0 ∧\n        ((∀ s ∈ D, klDiv (L s) (T s) ≤ ENNReal.ofReal (Δ^2/((J:ℝ)+1))) →\n          ∀ m, klDiv (R (J+m) s0) (T s0) ≤ ENNReal.ofReal (Δ^2)) := by\n  classical\n  have recursive_output_powers (Q L : Kernel (PS) E) [IsMarkovKernel Q] [IsMarkovKernel L]\n      (F : (PS) × E → (PS)) (hF : Measurable F) (D : Set (PS)) [DecidablePred (· ∈ D)]\n      (P : Kernel (PS) (PS)) (R : ℕ → Kernel (PS) E)\n      (hPf : ∀ s, P s = if s ∈ D then Measure.dirac s else (Q s).map (fun y => F (s,y)))\n      (hzero : R 0 = L)\n      (hrec : ∀ n s, R (n+1) s = if s ∈ D then L s else (Q s).bind (fun y => R n (F (s,y)))) :\n      ∀ n, R n = L ∘ₖ (P^n) := by\n    have hstop (n : ℕ) (s : (PS)) (hs : s ∈ D) : R n s = L s := by\n      cases n with\n      | zero => rw [hzero]\n      | succ n => rw [hrec,if_pos hs]\n    have hRstep (n : ℕ) : R (n+1) = R n ∘ₖ P := by\n      ext s t ht\n      rw [Kernel.comp_apply,hPf,hrec]\n      by_cases hs : s ∈ D\n      · rw [if_pos hs,if_pos hs,Measure.dirac_bind (R n).measurable,hstop n s hs]\n      · rw [if_neg hs,if_neg hs]\n        rw [Measure.bind_apply ht (show AEMeasurable (fun y : E => R n (F (s,y))) (Q s)\n            from ((R n).measurable.comp (hF.comp measurable_prodMk_left)).aemeasurable),\n          Measure.bind_apply ht (R n).aemeasurable]\n        exact (lintegral_map ((R n).measurable_coe ht)\n          (show Measurable (fun y : E => F (s,y)) from hF.comp measurable_prodMk_left)).symm\n    intro n\n    induction n with\n    | zero =>\n      change R 0 = L ∘ₖ Kernel.id\n      rw [Kernel.comp_id,hzero]\n    | succ n ih =>\n      rw [hRstep,ih,pow_succ]\n      exact Kernel.comp_assoc L (P^n) P\n  intro K τ a ell B J D\n  have hb : Measurable (fun s : PS => (s.1:ℝ)) := by fun_prop\n  have hKm : Measurable (fun s : PS => K s.1) := by dsimp [K]; fun_prop\n  have hKpos (s : PS) : 0 < K s.1 := by\n    exact div_pos (by positivity) (add_pos_of_pos_of_nonneg\n      (inv_pos.mpr (lt_of_lt_of_le zero_lt_one hκ)) s.1.coe_nonneg)\n  have htm : Measurable (fun s : PS => τ s.1) :=\n    Measurable.ite (measurableSet_le measurable_const hKm) hKm measurable_const\n  have htpos (s : PS) : 0 < τ s.1 := by\n    dsimp [τ]\n    split_ifs with hs\n    · linarith\n    · exact hc\n  have hdepth := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth\n    (r₀ := (s0.1:ℝ)) (η := fun _ => c) hκ hc hc1 s0.1.coe_nonneg\n    (fun _ => ⟨hc,le_rfl⟩) hd (show (2:ℝ) ≤ 2 from le_rfl) hΔ hΔ1 hγ hγ1 hC\n  change 2 ≤ ell ∧ (0 < B ∧ B ≤ 1) ∧ 0 < J ∧ _ ∧ _ ∧ _ at hdepth\n  have hB := hdepth.2.1.1\n  let θ : ℝ≥0 := ⟨B⁻¹,(inv_pos.mpr hB).le⟩\n  obtain ⟨T,H,hT,hH,hTf,hHf,hprog⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget μ\n      (fun s : PS => 1+s.1) (fun s : PS => K s.1) η (fun s : PS => τ s.1)\n      (by fun_prop) hKm hηm htm (fun s => by positivity) hKpos (fun s => (hη s).1.le) htpos θ J Δ hΔ.le\n  let := hT\n  let := hH\n  refine ⟨T,H,hT,hH,hTf,hHf,?_⟩\n  intro M L hM hL hW\n  let := hM\n  let := hL\n  obtain ⟨F,Q,P,R,hFf,hQ,hP,hR,hQf,hPf,hzero,hrec,hlocal,hbound⟩ := hprog M L hM hL hW\n  let := hQ\n  let := hP\n  obtain ⟨F',P',R',hFf',hP',hR',hPf',hRp',hB',hmass,hstable,hJbound⟩ :=\n    AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth μ η hηm κ c 2 Δ γ C\n      hκ hc hc1 hη hd le_rfl hΔ hΔ1 hγ hγ1 hC s0 Q L\n  have hFeq : F = F' := by\n    funext p\n    apply Prod.ext\n    · apply Subtype.ext\n      exact (hFf p.1 p.2).1.trans (hFf' p.1 p.2).1.symm\n    · exact (hFf p.1 p.2).2.trans (hFf' p.1 p.2).2.symm\n  subst F'\n  have hPeq : P = P' := by\n    ext s t ht\n    rw [hPf,hPf']\n    rfl\n  subst P'\n  have ha0 (s : PS) : 0 < a s := div_pos (add_pos (hη s).1 (htpos s)) (by positivity)\n  have hFexact : F = fun p =>\n      (⟨(p.1.1:ℝ)+(a p.1)⁻¹,add_nonneg p.1.1.coe_nonneg (inv_pos.mpr (ha0 p.1)).le⟩,\n        ((p.1.1:ℝ)+(a p.1)⁻¹)⁻¹ • ((p.1.1:ℝ) • p.1.2.1+(a p.1)⁻¹ • p.2),\n        p.1.2.2.1+1,fun n => Nat.casesOn n p.2 p.1.2.2.2) := by\n    funext p\n    apply Prod.ext\n    · exact Subtype.ext (hFf p.1 p.2).1\n    · exact (hFf p.1 p.2).2\n  have ha : Measurable a := (hηm.add htm).div (by fun_prop)\n  have hFm : Measurable F := by\n    rw [hFexact]\n    apply Measurable.prodMk\n    · exact Measurable.subtype_mk (by fun_prop)\n    · apply Measurable.prodMk\n      · fun_prop\n      · apply Measurable.prodMk\n        · fun_prop\n        · apply measurable_pi_lambda\n          intro n\n          cases n <;> fun_prop\n  have hRp : ∀ n, R n = L ∘ₖ (P^n) := recursive_output_powers Q L F hFm D P R hPf hzero hrec\n  have hReq (n : ℕ) : R n = R' n := (hRp n).trans (hRp' n).symm\n  have hstable' (m : ℕ) : R (J+m) s0 = R J s0 := by rw [hReq,hReq]; exact hstable m\n  have hp (n : ℕ) : IsMarkovKernel (P^n) := by\n    induction n with\n    | zero => change IsMarkovKernel Kernel.id; infer_instance\n    | succ n ih =>\n      let := ih\n      rw [pow_succ]\n      change IsMarkovKernel ((P^n) ∘ₖ P)\n      infer_instance\n  let := hp J\n  have hDm : MeasurableSet D := measurableSet_le measurable_const hb\n  have hae : ∀ᵐ x ∂(P^J) s0, x ∈ D := (mem_ae_iff_prob_eq_one hDm).2 hmass\n  have hrestrict : ((P^J) s0).restrict D = (P^J) s0 := Measure.restrict_eq_self_of_ae_mem hae\n  refine ⟨F,Q,P,R,hFf,hQ,hP,hR,hQf,hPf,hRp,hB,hmass,hstable',?_,?_⟩\n  · rw [hrestrict]\n    exact hbound J s0\n  · intro hterminal m\n    rw [hstable']\n    apply (hbound J s0).trans\n    have htbound : (∫⁻ x, klDiv (L x) (T x) ∂(P^J) s0) ≤ ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := by\n      calc\n        _ ≤ ∫⁻ x, ENNReal.ofReal (Δ^2/((J:ℝ)+1)) ∂(P^J) s0 := by\n          apply lintegral_mono_ae\n          filter_upwards [hae] with x hx\n          exact hterminal x hx\n        _ = _ := by simp\n    calc\n      _ ≤ (J:ℝ≥0∞)*ENNReal.ofReal (Δ^2/((J:ℝ)+1)) + ENNReal.ofReal (Δ^2/((J:ℝ)+1)) := add_le_add le_rfl htbound\n      _ = ENNReal.ofReal (Δ^2) := by\n        rw [← add_one_mul]\n        rw [← ENNReal.ofReal_natCast,← ENNReal.ofReal_one,← ENNReal.ofReal_add (by positivity) (by positivity),\n          ← ENNReal.ofReal_mul (by positivity)]\n        congr 1\n        field_simp\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Theorem6.5 equations(6.2)-(6.5), same-program stopping and output error",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded stopped Gaussian output correctness under supplied sampler interfaces, no author endorsement implied."
+        },
+        "statement": "Let E be a finite-dimensional real inner-product Borel space of positive real dimension d, and mu a probability measure. States s=(b,u,k,h) belong to NNReal times E times Nat times E^Nat. Let eta be measurable with 0<eta(s)<=c at every state. Assume kappa>=1, 0<c<1/4, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Fix s0. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b), ell=2+log(K(b0)*d*2/Delta), B=gamma/(sqrt(d*ell)+ell), J=ceil(C*log(e*K(b0)/B)), and D={s:1/B<=b}. There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing at standard deviation sqrt(a(s)). After T,H are fixed, take any Markov M,L such that at each s outside D, squared W2(M(s),GaussianSmoothing(T(s),sqrt(eta(s)/(1+b))))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)). There exist F,Q,P,R: F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), count to k+1 and prepends y to history; Q(s) is M(s) with independent Gaussian variance tau(b)/(1+b) added; P(s)=dirac s on D and otherwise the F(s,.) pushforward of Q(s). Q,P and all R_n are Markov and R_n=L composed with P^n. B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for all m. Without terminal accuracy assumptions, KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) holds for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.",
+        "formulae": [
+          {
+            "label": "Actual stopped Gaussian output error",
+            "tex": "(P^J(s_0))(D)=1,\\quad R_{J+m}(s_0)=R_J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le\\frac{J\\Delta^2}{J+1}+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx)."
+          }
+        ],
+        "assumptions": [
+          "E has its Borel structure and actual dimension d=finrank_R(E)>0; mu is any probability measure.",
+          "kappa>=1,0<c<1/4,0<Delta<=1/2,0<gamma<=1,C>=8; eta is measurable and in (0,c] at every state.",
+          "q=2 is fixed. B and J are computed once from the fixed initial state s0 and used throughout execution.",
+          "M,L are Markov kernels. Only states outside D require the displayed source-scaled squared-W2 premise for M.",
+          "Terminal KL is unrestricted for the residual inequality. Only the final total-error implication assumes its bound on D; no condition is imposed outside D."
+        ],
+        "obligations": [
+          {
+            "id": "stopped-gaussian-rgo-error",
+            "label": "Same actual Gaussian program stopping support and terminal-only error budget"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error",
+          "title": "Actual stopped Gaussian RGO output correctness under sampler interfaces",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+              "label": "SPHMC v1 Theorem 6.5 A1 and equations (6.2)-(6.5)",
+              "scope": "Same-program stopping and error budget under supplied A1 and terminal KL interfaces."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCStoppedGaussianRGOError"
+          ],
+          "statement": "Let E be a finite-dimensional real inner-product Borel space of positive real dimension d, and mu a probability measure. States s=(b,u,k,h) belong to NNReal times E times Nat times E^Nat. Let eta be measurable with 0<eta(s)<=c at every state. Assume kappa>=1, 0<c<1/4, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Fix s0. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b), ell=2+log(K(b0)*d*2/Delta), B=gamma/(sqrt(d*ell)+ell), J=ceil(C*log(e*K(b0)/B)), and D={s:1/B<=b}. There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing at standard deviation sqrt(a(s)). After T,H are fixed, take any Markov M,L such that at each s outside D, squared W2(M(s),GaussianSmoothing(T(s),sqrt(eta(s)/(1+b))))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)). There exist F,Q,P,R: F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), count to k+1 and prepends y to history; Q(s) is M(s) with independent Gaussian variance tau(b)/(1+b) added; P(s)=dirac s on D and otherwise the F(s,.) pushforward of Q(s). Q,P and all R_n are Markov and R_n=L composed with P^n. B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for all m. Without terminal accuracy assumptions, KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) holds for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.",
+          "formula": "(P^J(s_0))(D)=1,\\quad R_{J+m}(s_0)=R_J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le\\frac{J\\Delta^2}{J+1}+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx).",
+          "assumptions": [
+            "E has its Borel structure and actual dimension d=finrank_R(E)>0; mu is any probability measure.",
+            "kappa>=1,0<c<1/4,0<Delta<=1/2,0<gamma<=1,C>=8; eta is measurable and in (0,c] at every state.",
+            "q=2 is fixed. B and J are computed once from the fixed initial state s0 and used throughout execution.",
+            "M,L are Markov kernels. Only states outside D require the displayed source-scaled squared-W2 premise for M.",
+            "Terminal KL is unrestricted for the residual inequality. Only the final total-error implication assumes its bound on D; no condition is imposed outside D."
+          ],
+          "steps": [
+            {
+              "title": "Fix source parameters and the terminal threshold",
+              "text": "Compose the precision coordinate with the rational conditioning function K; positivity follows from kappa>=1 and nonnegative precision. Its branch tau is measurable and positive. Apply LogarithmicDepth with the auxiliary constant sequence c and q=2 to obtain B>0, so 1/B defines a nonnegative threshold. This preliminary call does not establish termination of the actual path.",
+              "formula": "\\beta(s)=1+b(s),\\quad\\kappa(s)=K(b(s)),\\quad B>0,\\quad D=\\{s:B^{-1}\\le b(s)\\}.",
+              "lean": "hKm,hKpos,htm,htpos; auxiliary LogarithmicDepth.terminal_depth and threshold theta."
+            },
+            {
+              "title": "Construct the actual source-accuracy program",
+              "text": "Instantiate GaussianRGOErrorBudget with beta(s)=1+b and kappa(s)=K(b), not the baseline kappa. Its T,H precede the actual M,L. From the continuing-state W2 premise, obtain the actual added-noise Q and the explicit update F, absorbed transition P and recursive outputs R. Retain its finite-depth error bound and terminal residual.",
+              "formula": "Q(s)=H_{\\tau(b)/(1+b)}M(s),\\qquad R_{n+1}(s)=L(s)\\ \\text{on }D,\\quad R_{n+1}(s)=\\int R_n(F(s,y))\\,Q(s)(dy)\\ \\text{off }D.",
+              "lean": "GaussianRGOErrorBudget.gaussian_rgo_error_budget and hprog M L."
+            },
+            {
+              "title": "Prove that the stopping theorem uses the same transition",
+              "text": "Call StoppedRGODepth with the actual Q and the same L and initial parameters. It returns another update and transition. Prove the two updates equal using the real precision coordinate and every remaining coordinate. Their transition fibers then agree because their Q and fixed threshold agree. This transfers the stopping theorem to the actual error program, rather than assuming existential witnesses coincide.",
+              "formula": "F=F^{\\prime},\\qquad P=P^{\\prime}.",
+              "lean": "StoppedRGODepth.stopped_rgo_depth; hFeq via Prod.ext and Subtype.ext; hPeq via kernel extensionality and threshold coercion."
+            },
+            {
+              "title": "Align output kernels and transfer cap stability",
+              "text": "Recover measurability of the actual F from its explicit coordinate formula. For the recursive outputs, prove R_(n+1)=R_n composed with P by splitting stopped and continuing states and using pushforward integration. Induction gives R_n=L composed with P^n. The stopping theorem gives the same formula for its outputs, hence the two output families agree, and stability beyond J transfers to the actual family.",
+              "formula": "R_n=L\\circ_kP^n=R_n^{\\prime},\\qquad R_{J+m}(s_0)=R_J(s_0).",
+              "lean": "hFexact,hFm; local recursive_output_powers; hRp,hReq and hstable'."
+            },
+            {
+              "title": "Restrict the residual to the actual terminal set",
+              "text": "The transferred stopping theorem states that the actual law P^J(s0) gives D mass one. Convert this to almost-everywhere terminal membership, hence restriction to D leaves that measure unchanged. Apply the Gaussian budget at exactly J and rewrite its residual as the integral over D. This step needs no terminal KL bound and includes infinite residual.",
+              "formula": "P^J(s_0)|_D=P^J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le Jc_*+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx),\\quad c_*=\\Delta^2/(J+1).",
+              "lean": "hmass; mem_ae_iff_prob_eq_one, restrict_eq_self_of_ae_mem and hbound J s0."
+            },
+            {
+              "title": "Use terminal-only accuracy and then output stability",
+              "text": "Assume the terminal KL interface only on D. The actual J-step law is almost surely in D, so nonnegative integral monotonicity bounds its residual by one allocation. Add the J observation allocations and use (J+1)*Delta^2/(J+1)=Delta^2. Finally transfer that J-depth bound to every J+m via the already proved equality of output laws. Applying the general linear budget at J+m would not establish this conclusion.",
+              "formula": "Jc_*+c_*=(J+1)c_*=\\Delta^2,\\qquad\\operatorname{KL}(R_{J+m}(s_0)\\Vert T(s_0))\\le\\Delta^2.",
+              "lean": "hterminal,lintegral_mono_ae,probability normalization,ENNReal.ofReal arithmetic and hstable'."
+            }
+          ],
+          "lean_statement": "Actual stopped Gaussian RGO output correctness under supplied A1 and terminal KL interfaces.",
+          "lean_proof": "Source schedule, actual Gaussian program, explicit witness equality, recursive powers, terminal support restriction and J-budget plus cap stability.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianRGOErrorBudget.gaussian_rgo_error_budget",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedRGODepth.stopped_rgo_depth",
+            "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth"
+          ],
+          "mathlib_dependencies": [
+            "MeasureTheory.Measure.bind_apply",
+            "MeasureTheory.lintegral_map",
+            "ProbabilityTheory.Kernel.comp_assoc",
+            "MeasureTheory.mem_ae_iff_prob_eq_one",
+            "MeasureTheory.Measure.restrict_eq_self_of_ae_mem",
+            "MeasureTheory.lintegral_mono_ae"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error",
+          "role": "prerequisite",
+          "supports": [
+            "stopped-gaussian-rgo-error"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Euclidean Gibbs targets with source curvature bounds.",
+            "lean": "Any probability base on a finite real Hilbert Borel space of positive dimension; scalar schedule normalized to baseline smoothness one."
+          },
+          {
+            "source": "Source small constants and logarithmic recursion depth.",
+            "lean": "q=2, C>=8, 0<c<1/4, 0<gamma<=1; B and J fixed from s0."
+          },
+          {
+            "source": "A1 is implemented by the paper sampler.",
+            "lean": "Supplied Markov M satisfies source-scaled squared-W2 accuracy only outside the terminal set; actual Gaussian Q is constructed."
+          },
+          {
+            "source": "The same recursive algorithm stops and returns an accurate sample.",
+            "lean": "Constructed F,P,R are explicitly identified with the stopped program; terminal support and cap stability are proved at the fixed initial state."
+          },
+          {
+            "source": "FORS supplies terminal accuracy.",
+            "lean": "An unconditional residual inequality holds; the final total-error conclusion assumes KL accuracy only on the terminal set."
+          },
+          {
+            "source": "Full main result includes valid initialization and actual expected query costs.",
+            "lean": "No initialization, reference-point, history-validity or query-cost assertion."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure, of positive dimension d, and mu any probability measure. Set S=NNReal times E times Nat times (Nat to E), writing s=(b,u,k,h). Let eta:S to Real be measurable. For any real kappa,c,Delta,gamma,C satisfying kappa>=1,0<c<1/4,0<eta(s)<=c for every s,0<Delta<=1/2,0<gamma<=1,C>=8, and any initial state s0=(b0,u0,k0,h0), define K(r)=(1+r)/(kappa^-1+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b). Define ell=2+log(2*K(b0)*d/Delta), B=gamma/(sqrt(d*ell)+ell), J=Nat.ceil(C*log(e*K(b0)/B)), and D={s:b>=B^-1}.\nThere exist Markov kernels T,H:S to E such that T(s) is mu tilted by x mapped to -(b/2)*norm(x-u)^2, meaning probability proportional to exp(-(b/2)*norm(x-u)^2) mu(dx), and H(s) is T(s) convolved with centered isotropic Gaussian covariance a(s)I.\nFor every pair of Markov M,L:S to E satisfying for every s outside D, squared W2(M(s),G_sqrt(eta(s)/(1+b))(T(s)))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)), there exist F:S times E to S, Markov Q:S to E,P:S to S, and Markov R_n:S to E. For every s,y, F(s,y)=(b+a(s)^-1,(b+a(s)^-1)^-1*(b*u+a(s)^-1*y),k+1,y::h), with real scalar-vector products and history (y::h)(0)=y,(y::h)(n+1)=h(n). Q(s)=G_sqrt(tau(b)/(1+b))(M(s)). P(s)=dirac s on D and the pushforward of Q(s) by F(s,.) off D. For every n, R_n=L composed with P^n: n state transitions then L.\nThen B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for every natural m. Moreover KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If additionally KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.\nG_sigma adds independent centered isotropic Gaussian standard deviation sigma. Wasserstein distance and KL are extended-nonnegative; the nonnegative residual integral may be infinite. No density, moment, convexity or smoothness of mu is assumed. The arbitrary initial counter and history are unrestricted and eta can depend on all coordinates. T,H precede the universal M,L; F,Q,P,R follow them and their approximation assumption. The update and smoothing formulas hold everywhere, the transport premise only off D, and the optional terminal premise throughout D. Stopping, stabilization and final KL concern fixed s0; the reference is T(s0), whereas the residual reference varies as T(x). F measurability is not a separate public conjunct. H does not appear in the later transport premise or entropy conclusions.",
+        "text_sha256": "5ab74c03250060b491dec6285ae3852ee2ecf46f75cf441fe68e4717d7c9ac53",
+        "decoder_packet_sha256": "22589b1c18a05ca76fb7009d62c765fbc63cc99267f02aa83ab546313398ab14",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "stopped_gaussian_blind_decoder",
+        "notes": [
+          "Fresh decoder preserved all parameter ranges, T/H before M/L, explicit actual F/Q/P/R, fixed-state support and cap stability, restricted residual and terminal-only implication; no implementation or cost claim inferred."
+        ],
+        "decoder_run_sha256": "be6f59d3c09ce9b95e75ee7e8b7afc985789d5a90bfa3907b44e7c4356f6263d",
+        "lean_statement_sha256": "ad8dbf2d012d285953c65bcd8e51f1011b5bc54944865ea10d77da83f9b515ef",
+        "run_artifact": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.decoder-result.json"
+      }
     }
   ]
 }

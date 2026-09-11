@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "arXiv:2609.06906v1 Theorem6.5 A1 finite recursive error propagation, equations(6.5) and following induction",
   "target_statement": "In the normalized baseline-smoothness-one setting, with actual finite dimension d>0, kappa>=1,0<c<1/4, measurable history-dependent eta in (0,c],0<Delta<=1/2,0<gamma<=1,C>=8 and q=2, compute B,J once from s0 using the source formulas. Set beta(s)=1+b(s), K(b)=(1+b)/(kappa^-1+b), and source tau=K when K>=2 else c. Instantiate GaussianRGOErrorBudget with kappa(s)=K(b(s)), supplied actual smoothed-output M satisfying its continuing-state source W2 accuracy and arbitrary Markov terminal L. Construct actual T,H,F,Q,P,R. Invoke StoppedRGODepth with this same Q,L, prove F and P witnesses equal via all explicit coordinates and threshold coercions, and derive R_n=L composed with P^n from recursion. Obtain actual terminal support mass one at J and output stability at s0 for every J+m. Bound KL(R_J(s0)||T(s0)) by J*Delta²/(J+1) plus the terminal-set integral of KL(L||T) under P^J(s0), without terminal accuracy assumptions. If terminal KL<=Delta²/(J+1) holds only on that fixed terminal set, conclude KL(R_(J+m)(s0)||T(s0))<=Delta² for every m. Do not substitute J+m into the general linear budget.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-gaussian-rgo-error-budget",
     "ASTIS-SW-SPHMC-stopped-rgo-depth",
@@ -28,10 +28,21 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCStoppedGaussianRGOError",
+        "result": "PASS3761, exit0, only existing parent lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/StoppedGaussianRGOError.lean": "1cc66b628310a257bb76fcf2b57fd0b7b2eae7090ff7c560b4fd5b7edc317697",
+          "Tests/SmoothedPicardHMCStoppedGaussianRGOError.lean": "629a6e6a394ebcdc4893d5437ce8208c95837da9ae4cd9f5cd5804cf9f8afd55"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-stopped-gaussian-rgo-error.md",
     "planning_review": "Independent source reviewer approved same-program witness alignment, terminal support integral, and conditional terminal-only accuracy bound followed by cap stability. Use state K(b), not baseline kappa, in GaussianBudget.",
-    "execution_boundary": "Root sole writer; GaussianRGOErrorBudget undergoing admission; this packet EXPLORING when claimed."
+    "execution_boundary": "Root sole writer; GaussianRGOErrorBudget PR274 remains sole stabilization. StoppedGaussianRGOError stays outside stabilization pending formal source review.",
+    "independent_proof_review": "runs/20260911-companion-priority/stopped-gaussian-rgo-error.independent-proof-review.json",
+    "admission_boundary": "PROVED_LOCAL with independent final production replay; formal source and fixed-commit admission pending."
   },
   "blocked": {
     "reason": "",

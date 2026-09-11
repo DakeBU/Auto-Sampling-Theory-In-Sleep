@@ -1,0 +1,16 @@
+{
+  "decoder": "stopped_gaussian_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent reconstruction, with formula notation converted to ASCII and bound coordinates consistently renamed.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-stopped-gaussian-e.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "22589b1c18a05ca76fb7009d62c765fbc63cc99267f02aa83ab546313398ab14",
+  "lean_statement_sha256": "ad8dbf2d012d285953c65bcd8e51f1011b5bc54944865ea10d77da83f9b515ef",
+  "reconstructed_theorem_text": "Let E be a finite-dimensional real inner-product space with its Borel measurable structure, of positive dimension d, and mu any probability measure. Set S=NNReal times E times Nat times (Nat to E), writing s=(b,u,k,h). Let eta:S to Real be measurable. For any real kappa,c,Delta,gamma,C satisfying kappa>=1,0<c<1/4,0<eta(s)<=c for every s,0<Delta<=1/2,0<gamma<=1,C>=8, and any initial state s0=(b0,u0,k0,h0), define K(r)=(1+r)/(kappa^-1+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b). Define ell=2+log(2*K(b0)*d/Delta), B=gamma/(sqrt(d*ell)+ell), J=Nat.ceil(C*log(e*K(b0)/B)), and D={s:b>=B^-1}.\nThere exist Markov kernels T,H:S to E such that T(s) is mu tilted by x mapped to -(b/2)*norm(x-u)^2, meaning probability proportional to exp(-(b/2)*norm(x-u)^2) mu(dx), and H(s) is T(s) convolved with centered isotropic Gaussian covariance a(s)I.\nFor every pair of Markov M,L:S to E satisfying for every s outside D, squared W2(M(s),G_sqrt(eta(s)/(1+b))(T(s)))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)), there exist F:S times E to S, Markov Q:S to E,P:S to S, and Markov R_n:S to E. For every s,y, F(s,y)=(b+a(s)^-1,(b+a(s)^-1)^-1*(b*u+a(s)^-1*y),k+1,y::h), with real scalar-vector products and history (y::h)(0)=y,(y::h)(n+1)=h(n). Q(s)=G_sqrt(tau(b)/(1+b))(M(s)). P(s)=dirac s on D and the pushforward of Q(s) by F(s,.) off D. For every n, R_n=L composed with P^n: n state transitions then L.\nThen B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for every natural m. Moreover KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If additionally KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.\nG_sigma adds independent centered isotropic Gaussian standard deviation sigma. Wasserstein distance and KL are extended-nonnegative; the nonnegative residual integral may be infinite. No density, moment, convexity or smoothness of mu is assumed. The arbitrary initial counter and history are unrestricted and eta can depend on all coordinates. T,H precede the universal M,L; F,Q,P,R follow them and their approximation assumption. The update and smoothing formulas hold everywhere, the transport premise only off D, and the optional terminal premise throughout D. Stopping, stabilization and final KL concern fixed s0; the reference is T(s0), whereas the residual reference varies as T(x). F measurability is not a separate public conjunct. H does not appear in the later transport premise or entropy conclusions.",
+  "source_fidelity_verdict": null
+}

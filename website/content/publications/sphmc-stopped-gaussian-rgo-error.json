@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-stopped-gaussian-rgo-error",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual stopped Gaussian RGO output correctness under sampler interfaces",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Theorem6.5 equations(6.2)-(6.5), same-program stopping and output error",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded stopped Gaussian output correctness under supplied sampler interfaces, no author endorsement implied."
+      },
+      "statement": "Let E be a finite-dimensional real inner-product Borel space of positive real dimension d, and mu a probability measure. States s=(b,u,k,h) belong to NNReal times E times Nat times E^Nat. Let eta be measurable with 0<eta(s)<=c at every state. Assume kappa>=1, 0<c<1/4, 0<Delta<=1/2, 0<gamma<=1 and C>=8. Fix s0. Define K(r)=(1+r)/(1/kappa+r), tau(r)=K(r) if K(r)>=2 and c otherwise, a(s)=(eta(s)+tau(b))/(1+b), ell=2+log(K(b0)*d*2/Delta), B=gamma/(sqrt(d*ell)+ell), J=ceil(C*log(e*K(b0)/B)), and D={s:1/B<=b}. There exist Markov T,H with T(s) the normalized quadratic tilt of mu at precision b and center u, and H(s) its Gaussian smoothing at standard deviation sqrt(a(s)). After T,H are fixed, take any Markov M,L such that at each s outside D, squared W2(M(s),GaussianSmoothing(T(s),sqrt(eta(s)/(1+b))))<=ofReal(K(b)*[2*tau(b)*Delta^2/(K(b)*(J+1))]/(1+b)). There exist F,Q,P,R: F updates precision to b+1/a(s), center to (b*u+y/a(s))/(b+1/a(s)), count to k+1 and prepends y to history; Q(s) is M(s) with independent Gaussian variance tau(b)/(1+b) added; P(s)=dirac s on D and otherwise the F(s,.) pushforward of Q(s). Q,P and all R_n are Markov and R_n=L composed with P^n. B>0, P^J(s0)(D)=1, and R_(J+m)(s0)=R_J(s0) for all m. Without terminal accuracy assumptions, KL(R_J(s0)||T(s0))<=J*ofReal(Delta^2/(J+1))+integral over D of KL(L(x)||T(x)) under P^J(s0). If KL(L(s)||T(s))<=ofReal(Delta^2/(J+1)) holds for every s in D, then KL(R_(J+m)(s0)||T(s0))<=ofReal(Delta^2) for every natural m.",
+      "assumptions": [
+        "E has its Borel structure and actual dimension d=finrank_R(E)>0; mu is any probability measure.",
+        "kappa>=1,0<c<1/4,0<Delta<=1/2,0<gamma<=1,C>=8; eta is measurable and in (0,c] at every state.",
+        "q=2 is fixed. B and J are computed once from the fixed initial state s0 and used throughout execution.",
+        "M,L are Markov kernels. Only states outside D require the displayed source-scaled squared-W2 premise for M.",
+        "Terminal KL is unrestricted for the residual inequality. Only the final total-error implication assumes its bound on D; no condition is imposed outside D."
+      ],
+      "formulae": [
+        {
+          "label": "Actual stopped Gaussian output error",
+          "tex": "(P^J(s_0))(D)=1,\\quad R_{J+m}(s_0)=R_J(s_0),\\qquad\\operatorname{KL}(R_J(s_0)\\Vert T(s_0))\\le\\frac{J\\Delta^2}{J+1}+\\int_D\\operatorname{KL}(L(x)\\Vert T(x))\\,P^J(s_0)(dx)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "stopped-gaussian-rgo-error",
+          "label": "Same actual Gaussian program stopping support and terminal-only error budget"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StoppedGaussianRGOError.stopped_gaussian_rgo_error",
+          "cell": "ASTIS-SW-SPHMC-stopped-gaussian-rgo-error",
+          "role": "prerequisite",
+          "supports": [
+            "stopped-gaussian-rgo-error"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCStoppedGaussianRGOError",
+          "boundary": "M is supplied with the displayed A1 squared-W2 guarantee. The final Delta^2 conclusion additionally assumes terminal KL only on the fixed terminal set. Neither condition is a proof that Picard HMC or FORS implements the interface. The source scalar formulas use baseline smoothness one; no curvature properties of arbitrary mu are established. C>=8 is a proved sufficient depth constant, and gamma in (0,1] is a depth condition, not FORS sufficiency. Initial reference points, history validity and query costs remain open. Threshold and J are fixed using s0; cap stability is a fiber identity at s0. The auxiliary constant-c depth call only proves B>0; actual termination uses StoppedRGODepth. An explicit upper bound on J and measurability of F are not separate public conclusions here.",
+          "assumption_deltas": [
+            {
+              "source": "Euclidean Gibbs targets with source curvature bounds.",
+              "lean": "Any probability base on a finite real Hilbert Borel space of positive dimension; scalar schedule normalized to baseline smoothness one.",
+              "classification": "generalization",
+              "reason": "No source curvature properties of arbitrary mu or general smoothness rescaling are established."
+            },
+            {
+              "source": "Source small constants and logarithmic recursion depth.",
+              "lean": "q=2, C>=8, 0<c<1/4, 0<gamma<=1; B and J fixed from s0.",
+              "classification": "API-limitation",
+              "reason": "These prove the stopping/error interface; gamma range alone is not FORS sufficiency. The auxiliary constant-c depth invocation only proves B positivity."
+            },
+            {
+              "source": "A1 is implemented by the paper sampler.",
+              "lean": "Supplied Markov M satisfies source-scaled squared-W2 accuracy only outside the terminal set; actual Gaussian Q is constructed.",
+              "classification": "API-limitation",
+              "reason": "Concrete Picard HMC implementation and proof of A1 remain independent obligations."
+            },
+            {
+              "source": "The same recursive algorithm stops and returns an accurate sample.",
+              "lean": "Constructed F,P,R are explicitly identified with the stopped program; terminal support and cap stability are proved at the fixed initial state.",
+              "classification": "same",
+              "reason": "Witness equality is proved for all update coordinates, transition fibers and recursive output powers; never assumed."
+            },
+            {
+              "source": "FORS supplies terminal accuracy.",
+              "lean": "An unconditional residual inequality holds; the final total-error conclusion assumes KL accuracy only on the terminal set.",
+              "classification": "API-limitation",
+              "reason": "The terminal sampler is supplied, and no condition outside the terminal set is added. FORS accuracy and actual implementation remain open."
+            },
+            {
+              "source": "Full main result includes valid initialization and actual expected query costs.",
+              "lean": "No initialization, reference-point, history-validity or query-cost assertion.",
+              "classification": "API-limitation",
+              "reason": "TV proximity is not used to transfer unbounded costs; actual-input cost remains a separate proof boundary."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
