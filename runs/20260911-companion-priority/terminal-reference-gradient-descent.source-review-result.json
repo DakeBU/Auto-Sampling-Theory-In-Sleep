@@ -1,0 +1,183 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent reviewer in current thread.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "2d7aab8d9a240c6d3ec55457fbce711f2c5821f368be0b4a98dd9729659962c4",
+  "source_sha256": "fe2eefeb3adaa936a8e94707284b3a7d4e4a9d3e7c3b7c15fe1b6a801445d4da",
+  "statement_sha256": "3eb914a674746149f984ac3ec853ffd112108e16c2a3f42a3a864adb4c7fbc0a",
+  "reconstruction_sha256": "3e950adbf66060e01a1442a04ba24a7df10dc745dbd9f25623051a1c7732ed26",
+  "module_sha256": "e36b971c0835b60b9d9c92cbe763249efd6ca8e2c2f08c70bfd123d5d3e52e91",
+  "module_raw_sha256": "1845f0463edd9df2cf2dabba2327928bf839da7ec4c1ce15a676b66e420f2821",
+  "publication_binding_sha256": "1d7e64f72dfab0c5bb408cb13acec2c74a4733bf4e79f9689f199239b25ad7bb",
+  "semantic_slots": {
+    "objects": {
+      "original": "Terminal GD on actual regularized potential producing a residual-qualified reference.",
+      "reconstructed": "Actual F, gradient map T, least successful N and stopped xp.",
+      "relation": "explicit-elaboration",
+      "evidence": "Models and residual follow from actual Hessian and gradient; no supplied successful index or minimizer."
+    },
+    "domains": {
+      "original": "Euclidean space with strongly convex base in recursive application.",
+      "reconstructed": "Finite-dimensional complete real inner-product Borel space, d=finrank>0, finite A>0, nonnegative m<=b.",
+      "relation": "different",
+      "evidence": "Coordinate-free and nonnegative-base extensions disclosed; infinite A and zero dimension excluded."
+    },
+    "quantifiers": {
+      "original": "Fixed terminal parameters and starting point, followed by moment-based cost.",
+      "reconstructed": "Fixed parameters; pointwise all v; probability law and M only in expectation clause.",
+      "relation": "explicit-elaboration",
+      "evidence": "No joint random-parameter measurability; termination independent of law."
+    },
+    "assumptions": {
+      "original": "Actual smooth curvature; source separately proves stage-specific moments.",
+      "reconstructed": "C2 Hessian bounds, nonnegative m<=b, finite positive A, true positive dimension, actual gradient-square L1 and integral<=M for cost.",
+      "relation": "different",
+      "evidence": "Recursive-history moment exposed, not proved; M>=0 derived."
+    },
+    "conclusion": {
+      "original": "Terminal threshold/residual and local GD work controlled by initial gradient.",
+      "reconstructed": "Measurable first hit/output, success, residual, earlier strict failure, ceiling/count bound and conditional count L1/expectation.",
+      "relation": "explicit-elaboration",
+      "evidence": "Expected bound 2+k*log(1+A*M/d), not full summed stage cost."
+    },
+    "scopes": {
+      "original": "Local terminal preparation component of Section 6.3.",
+      "reconstructed": "Actual fixed-parameter construction and N+1 count convention with conditional starting-law cost.",
+      "relation": "same",
+      "evidence": "No history moment, retained invariant, stage summation, joint sampler or evaluator trace."
+    },
+    "constant_dependencies": {
+      "original": "Condition-number-prefactored GD estimate and universal constants.",
+      "reconstructed": "Same step1/c; stronger exp(-n/k) gradient-square decay, explicit ceiling and additive2.",
+      "relation": "different",
+      "evidence": "Stronger estimate proved and disclosed; not attributed as printed constants."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual derivatives and regularization give gradient/curvature; upper model derived from -U and exact quadratic expansion."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Adjacent-iterate contraction and positive-step cancellation yield stronger actual gradient decay without minimizer."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Ceiling certificate proves attainment before Nat.find, including zero initial gradient and k=1."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Continuous finite iterates yield measurable success events; measurable_find and Measurable.find prove index/output measurability; minimality gives strict earlier failure."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Residual equals -A times gradient; squared threshold gives sqrt(d*A)."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Log L1 established before tangent integration; M>=0 derived; count L1 established before expectation."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Instantiation preserves pointwise and conditional-law quantifiers; N+1 charges one base gradient per visited point including final check."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 7,
+    "declarations": [
+      "gradient_decay",
+      "stopping_certificate",
+      "firstIndex",
+      "stopped_program",
+      "expected_count",
+      "quadratic_upper",
+      "regularized_data"
+    ],
+    "evidence": "Complete scratch read and entire embedded production compared; documentation, whitespace and print removal only; seven authored steps cover all private declarations."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Coordinate-free extension; dimension equality remains genuine assumption.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Coordinate-free extension; dimension equality remains genuine assumption."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Nonnegative base curvature; positive regularization preserves a,c>0.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Nonnegative base curvature; positive regularization preserves a,c>0."
+    },
+    {
+      "slot": "domains",
+      "classification": "same",
+      "description": "Finite positive A and d in selected terminal component; infinite initial parameter excluded.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Finite positive A and d in selected terminal component; infinite initial parameter excluded."
+    },
+    {
+      "slot": "constant_dependencies",
+      "classification": "source-implicit",
+      "description": "Stronger same-algorithm estimate and explicit sufficient constants disclosed.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Stronger same-algorithm estimate and explicit sufficient constants disclosed."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "source-implicit",
+      "description": "Finite attainment, first-hit minimality, measurability and count L1 proved.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Finite attainment, first-hit minimality, measurability and count L1 proved."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "One base gradient per visited point with reuse, including final check; no evaluator/compiler theorem.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: One base gradient per visited point with reuse, including final check; no evaluator/compiler theorem."
+    },
+    {
+      "slot": "scopes",
+      "classification": "source-implicit",
+      "description": "Actual initial gradient moment explicit local input; no history-moment or total stage-cost completion.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Actual initial gradient moment explicit local input; no history-moment or total stage-cost completion."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Residual is terminal consumer interface; joint sampling and cache sharing separate.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer accepted: Residual is terminal consumer interface; joint sampling and cache sharing separate."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored source review accepted seven slots, seven steps, eight deltas and seven private declarations. Fresh primary Section6.3 inspection; attributed expanded local proof component. Canonical packet, source, expanded statement, reconstruction, embedded module and raw production hashes independently recomputed; current lesson/publication matched. Binding authenticated inside packet, external preimage not recomputed. Registry/prior verdicts not read. No Lean compilation, Meta replay, decoder artifact/test/toolchain preimage or fixed-commit admission independently verified by this reviewer. No blockers/repairs; faithful transcription authorized. Source acceptance only, no VERIFIED."
+}

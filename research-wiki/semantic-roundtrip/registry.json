@@ -19769,6 +19769,344 @@
           "evidence": "Independent reviewer accepted: xp supplied;cachedgradientcharged,findingxpexcluded;recursionseparate."
         }
       ]
+    },
+    {
+      "id": "ASTIS-RT-20260912-SPHMCTerminalReferenceGradientDescent",
+      "state": "accepted",
+      "source": {
+        "source_id": "companion:sphmc-terminal-reference-gradient-descent",
+        "anchor": "Section6.3 Reference point construction and Terminal stage: actual GD and local moment-to-query-cost component",
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "original_text": "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra. The real parameter d is strictly positive and equals finrank(E). U:E->R is C2. Nonnegative real numbers m,b satisfy m<=b, and the genuine Hessian obeys m*norm(v)^2 <= D2U(x)[v,v] <= b*norm(v)^2 at every x,v.\nFix a finite real A>0 and u in E. Define F(x)=U(x)+norm(x-u)^2/(2A), a=m+1/A, c=b+1/A and k=c/a. Define the actual gradient-descent map T(x)=x-(1/c)*grad F(x). All gradients are the actual derivatives of these functions.\nFor every starting point v, N(v) is the least natural n with norm(grad F(T^n(v)))^2<=d/A if such an n exists, and zero otherwise. Let x_plus(v)=T^N(v)(v). The proof establishes finite attainment for every v, so the fallback branch never occurs. The specified query count is N(v)+1: evaluate grad U once at each visited point, form the quadratic-gradient term algebraically, check the threshold and reuse this gradient for an update when required. The final successful check is charged.\nOnly the expected-cost clause additionally takes an arbitrary probability starting law mu and a real M with actual norm(grad F(v))^2 integrable under mu and integral at most M. M need not be separately assumed nonnegative: the proof derives it. These are explicit inputs, not established properties of the recursive sampler history.\nThe derived a,c are positive and k>=1. The exact gradient is grad F(x)=grad U(x)+(x-u)/A. Both N and x_plus are measurable. For every v, the output satisfies norm(grad F(x_plus(v)))^2<=d/A and the exact center-residual identity norm(u-A*grad U(x_plus(v))-x_plus(v))=A*norm(grad F(x_plus(v)))<=sqrt(d*A). All j<N(v) strictly fail the stopping test. N(v)<=ceil(k*log(1+A*norm(grad F(v))^2/d)), and N(v)+1<=k*log(1+A*norm(grad F(v))^2/d)+2. Under the additional starting-law moment hypotheses, N+1 is genuinely integrable and its expectation is at most 2+k*log(1+A*M/d).",
+        "text_sha256": "fe2eefeb3adaa936a8e94707284b3a7d4e4a9d3e7c3b7c15fe1b6a801445d4da"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TerminalReferenceGradientDescent.lean",
+        "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E]\n  [FiniteDimensional ℝ E] [inst_4 : MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {m b : NNReal},\n  ContDiff ℝ 2 U →\n    (∀ (x v : E), ↑m * ‖v‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ U) x) v) v ∧ ((fderiv ℝ (fderiv ℝ U) x) v) v ≤ ↑b * ‖v‖ ^ 2) →\n      m ≤ b →\n        ∀ {A d : ℝ},\n          0 < A →\n            0 < d →\n              d = ↑(Module.finrank ℝ E) →\n                ∀ (u : E),\n                  have F := fun x => U x + A⁻¹ / 2 * ‖x - u‖ ^ 2;\n                  have a := ↑m + A⁻¹;\n                  have c := ↑b + A⁻¹;\n                  have k := c / a;\n                  have T := fun x => x - c⁻¹ • gradient F x;\n                  have N := fun v => if h : ∃ n, ‖gradient F (T^[n] v)‖ ^ 2 ≤ d / A then Nat.find h else 0;\n                  have xp := fun v => T^[N v] v;\n                  0 < a ∧\n                    0 < c ∧\n                      1 ≤ k ∧\n                        (∀ (x : E), gradient F x = gradient U x + A⁻¹ • (x - u)) ∧\n                          Measurable N ∧\n                            Measurable xp ∧\n                              (∀ (v : E),\n                                  ‖gradient F (xp v)‖ ^ 2 ≤ d / A ∧\n                                    ‖u - A • gradient U (xp v) - xp v‖ = A * ‖gradient F (xp v)‖ ∧\n                                      ‖u - A • gradient U (xp v) - xp v‖ ≤ √(d * A) ∧\n                                        (∀ j < N v, d / A < ‖gradient F (T^[j] v)‖ ^ 2) ∧\n                                          N v ≤ ⌈k * Real.log (1 + A * ‖gradient F v‖ ^ 2 / d)⌉₊ ∧\n                                            ↑(N v) + 1 ≤ k * Real.log (1 + A * ‖gradient F v‖ ^ 2 / d) + 2) ∧\n                                ∀ (μ : MeasureTheory.Measure E),\n                                  MeasureTheory.IsProbabilityMeasure μ →\n                                    ∀ (M : ℝ),\n                                      MeasureTheory.Integrable (fun v => ‖gradient F v‖ ^ 2) μ →\n                                        ∫ (v : E), ‖gradient F v‖ ^ 2 ∂μ ≤ M →\n                                          MeasureTheory.Integrable (fun v => ↑(N v) + 1) μ ∧\n                                            ∫ (v : E), ↑(N v) + 1 ∂μ ≤ 2 + k * Real.log (1 + A * M / d)",
+        "statement_sha256": "3eb914a674746149f984ac3ec853ffd112108e16c2a3f42a3a864adb4c7fbc0a",
+        "compiled": true,
+        "formalizer": "root-samplinglib-writer",
+        "compiler_evidence": "Production62ad62cc93f669449accfc561671bd2f51fcde80 independently focused PASS3374 by depth_commit_verifier; standard3/no lint, mathematics unchanged from independently compiled full scratch641f1ac1. Main2281-character expansion independently replayed with Meta.isDefEq and exact SHA3eb914a674746149f984ac3ec853ffd112108e16c2a3f42a3a864adb4c7fbc0a.",
+        "decoder_context": [
+          "NNReal is the type of nonnegative real numbers; the upward arrow denotes the displayed type coercion. Module.finrank is finite real vector-space dimension.",
+          "ContDiff R 2 means twice continuously differentiable. fderiv R is the actual Frechet derivative; (fderiv R (fderiv R U) x v) v evaluates its second derivative on (v,v). gradient is the actual real inner-product gradient. The dot-shaped scalar operation denotes scalar multiplication.",
+          "T^[n] v is the n-fold iterate of T at v, including T^[0] v=v. Nat.find returns the least natural satisfying its supplied existence proof. The dependent conditional has the displayed zero fallback. Natural ceiling is the least nonnegative integer at least its real argument.",
+          "Measurable refers to the displayed sigma-algebras; BorelSpace identifies the state sigma-algebra with its topology. IsProbabilityMeasure mu says mu has total mass one. Integrable means actual Bochner integrability, and the real integral is the Bochner integral.",
+          "All local definitions have been expanded from the compiled theorem type and checked by Meta.isDefEq. The displayed let-bound functions retain their scopes. No source or algorithm identity is supplied."
+        ]
+      },
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "log_depth_source_review",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "reviewer_packet_sha256": "2d7aab8d9a240c6d3ec55457fbce711f2c5821f368be0b4a98dd9729659962c4",
+        "review_run_sha256": "a17e4e88fe459a061c890cebb14e7eb3f70d0d73e4338525ae3b59dd1039607d",
+        "run_artifact": "runs/20260911-companion-priority/terminal-reference-gradient-descent.source-review-result.json",
+        "evidence": "Independent anti-anchored source review accepted seven slots, seven steps, eight deltas and seven private declarations. Fresh primary Section6.3 inspection; attributed expanded local proof component. Canonical packet, source, expanded statement, reconstruction, embedded module and raw production hashes independently recomputed; current lesson/publication matched. Binding authenticated inside packet, external preimage not recomputed. Registry/prior verdicts not read. No Lean compilation, Meta replay, decoder artifact/test/toolchain preimage or fixed-commit admission independently verified by this reviewer. No blockers/repairs; faithful transcription authorized. Source acceptance only, no VERIFIED."
+      },
+      "publication_binding_sha256": "1d7e64f72dfab0c5bb408cb13acec2c74a4733bf4e79f9689f199239b25ad7bb",
+      "publication_context": {
+        "file": "e36b971c0835b60b9d9c92cbe763249efd6ca8e2c2f08c70bfd123d5d3e52e91",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization\nimport AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient\nimport Mathlib.Analysis.Convex.Integral\nimport Mathlib.Analysis.Convex.SpecificFunctions.Basic\nimport Mathlib.MeasureTheory.MeasurableSpace.Constructions\nimport Mathlib.Tactic\n\n/-!\n# Actual gradient descent terminal reference construction\n\nSource consumer: Smoothed Picard Hamiltonian Monte Carlo, arXiv:2609.06906v1,\nsection 6.3, Reference point construction and Terminal stage.\n\nThe regularized potential is the actual U plus its quadratic, not a supplied\nmodel or gradient field. The algorithm uses step 1/(b+1/A), tests the actual\nregularized gradient at every visited point, and returns the first point below\nthe terminal threshold. Adjacent-iterate contraction gives a sharper local\nbound than the source display with its extra condition-number prefactor; the\nalgorithm is unchanged. No minimizer is assumed.\n\nThe finite-dimensional inner-product formulation and nonnegative base Hessian\nmodulus extend the source setting. A is finite and strictly positive, dimension\nis positive, and the public dimension equality is retained even though the\nunderlying threshold argument does not use its numeric value.\n\nThe specified gradient count N+1 includes the initial and final gradient checks:\none U-gradient evaluation per visited point, reused to update the iterate; the\nquadratic-gradient contribution is algebraic. This is a mathematical count\nmodel, not a verified evaluator/compiler trace. Expected cost requires the\nexplicit actual initial gradient-square L1 and moment bound. These inputs are\nnot proved for the recursive sampler history here. Joint random A/u kernels,\nstage summation and the combined terminal sampling program remain separate;\nno cross-module cache saving or TV transport of unbounded cost is asserted.\n-/\n\nopen MeasureTheory Set InnerProductSpace\nopen scoped RealInnerProductSpace NNReal\n\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nprivate theorem gradient_decay {F : E → ℝ} {a b : ℝ}\n    (hF : ContDiff ℝ 1 F) (ha : 0 < a) (hb : 0 < b)\n    (hsc : StrongConvexOn univ a F)\n    (hu : ∀ x y, F y ≤ F x + inner ℝ (gradient F x) (y-x) + b/2*‖y-x‖^2)\n    (v : E) (n : ℕ) :\n    ‖gradient F ((fun x => x-b⁻¹ • gradient F x)^[n] v)‖^2 ≤\n      Real.exp (-(a/b)*(n:ℝ))*‖gradient F v‖^2 := by\n  let T : E → E := fun x => x-b⁻¹ • gradient F x\n  let r := Real.sqrt (1-a/b)\n  have hr : 0 ≤ r := Real.sqrt_nonneg _\n  have hdisp (x : E) : ‖T x-x‖ = b⁻¹*‖gradient F x‖ := by\n    have he : T x-x = -(b⁻¹ • gradient F x) := by dsimp [T]; abel\n    rw [he,norm_neg,norm_smul,Real.norm_eq_abs,abs_of_pos (inv_pos.mpr hb)]\n  have hstep (x : E) : ‖gradient F (T x)‖ ≤ r*‖gradient F x‖ := by\n    have hc := TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction\n      hF hsc ha.le hb.le (inv_nonneg.mpr hb.le)\n      (by rw [mul_inv_cancel₀ hb.ne']) hu x (T x)\n    change ‖T (T x)-T x‖ ≤ Real.sqrt (1-a*b⁻¹)*‖T x-x‖ at hc\n    rw [hdisp,hdisp] at hc\n    have he : Real.sqrt (1-a*b⁻¹)=r := by simp [r,div_eq_mul_inv]\n    rw [he] at hc\n    nlinarith [inv_pos.mpr hb]\n  have hi : ‖gradient F (T^[n] v)‖ ≤ r^n*‖gradient F v‖ := by\n    induction n with\n    | zero => simp\n    | succ n ih =>\n      rw [Function.iterate_succ_apply']\n      calc\n        _ ≤ r*‖gradient F (T^[n] v)‖ := hstep _\n        _ ≤ r*(r^n*‖gradient F v‖) := mul_le_mul_of_nonneg_left ih hr\n        _ = r^(n+1)*‖gradient F v‖ := by rw [pow_succ]; ring\n  have hre : r ≤ Real.exp (-(a/b)/2) := by\n    apply (Real.sqrt_le_left (Real.exp_nonneg _)).mpr\n    have hx := Real.add_one_le_exp (-(a/b))\n    rw [pow_two,← Real.exp_add]\n    have he : -(a/b)/2 + -(a/b)/2 = -(a/b) := by ring\n    rw [he]\n    linarith\n  have hp := mul_le_mul_of_nonneg_right (pow_le_pow_left₀ hr hre n) (norm_nonneg (gradient F v))\n  rw [← Real.exp_nat_mul] at hp\n  have hn := hi.trans hp\n  have hs := pow_le_pow_left₀ (norm_nonneg _) hn 2\n  rw [mul_pow,← Real.exp_nat_mul] at hs\n  have he : (2:ℝ)*((n:ℝ)*(-(a/b)/2)) = -(a/b)*(n:ℝ) := by ring\n  norm_num only [Nat.cast_ofNat] at hs\n  rw [he] at hs\n  exact hs\n\n\nprivate theorem stopping_certificate {k s z : ℝ} (hk : 0 < k) (hs : 0 < s)\n    (hz : 0 ≤ z) :\n    Real.exp (-((Nat.ceil (k*Real.log (1+z/s)) : ℕ):ℝ)/k)*z ≤ s := by\n  have ht : 0 < 1+z/s := by positivity\n  have hn := Nat.le_ceil (k*Real.log (1+z/s))\n  have he : -((Nat.ceil (k*Real.log (1+z/s)) : ℕ):ℝ)/k ≤\n      -Real.log (1+z/s) := by\n    apply (div_le_iff₀ hk).mpr\n    nlinarith\n  have hb := mul_le_mul_of_nonneg_right (Real.exp_le_exp.mpr he) hz\n  rw [Real.exp_neg, Real.exp_log ht] at hb\n  apply hb.trans\n  rw [inv_mul_eq_div]\n  apply (div_le_iff₀ ht).mpr\n  have heq : s*(1+z/s)=s+z := by field_simp\n  rw [heq]\n  linarith\n\n\nprivate def firstIndex (T : E → E) (F : E → ℝ) (s : ℝ) (v : E) : ℕ := by\n  classical\n  exact if h : ∃ n : ℕ, ‖gradient F (T^[n] v)‖^2 ≤ s then Nat.find h else 0\n\nprivate theorem stopped_program [MeasurableSpace E] [BorelSpace E]\n    {F : E → ℝ} {a b s : ℝ}\n    (hF : ContDiff ℝ 1 F) (ha : 0 < a) (hb : 0 < b) (hs : 0 < s)\n    (hsc : StrongConvexOn univ a F)\n    (hu : ∀ x y, F y ≤ F x + inner ℝ (gradient F x) (y-x) + b/2*‖y-x‖^2) :\n    let T : E → E := fun x => x-b⁻¹ • gradient F x\n    let N := firstIndex T F s\n    Measurable N ∧ Measurable (fun v => T^[N v] v) ∧\n    ∀ v, ‖gradient F (T^[N v] v)‖^2 ≤ s ∧\n      (∀ j < N v, s < ‖gradient F (T^[j] v)‖^2) ∧\n      N v ≤ Nat.ceil ((b/a)*Real.log (1+‖gradient F v‖^2/s)) ∧\n      (N v : ℝ)+1 ≤ (b/a)*Real.log (1+‖gradient F v‖^2/s)+2 := by\n  classical\n  let T : E → E := fun x => x-b⁻¹ • gradient F x\n  let N := firstIndex T F s\n  let B (v : E) := Nat.ceil ((b/a)*Real.log (1+‖gradient F v‖^2/s))\n  have hcert (v : E) : ‖gradient F (T^[B v] v)‖^2 ≤ s := by\n    have hd := gradient_decay hF ha hb hsc hu v (B v)\n    have he : -(a/b)*(B v:ℝ) = -(B v:ℝ)/(b/a) := by field_simp\n    rw [he] at hd\n    exact hd.trans (stopping_certificate (div_pos hb ha) hs (sq_nonneg _))\n  have ht (v : E) : ∃ n : ℕ, ‖gradient F (T^[n] v)‖^2 ≤ s := ⟨B v,hcert v⟩\n  have hn (v : E) : N v = Nat.find (ht v) := by\n    simp only [N,firstIndex,dif_pos (ht v)]\n  have hg : Continuous (gradient F) :=\n    TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one hF\n  have hT : Continuous T := continuous_id.sub (hg.const_smul _)\n  have hp (n : ℕ) : MeasurableSet {v : E | ‖gradient F (T^[n] v)‖^2 ≤ s} :=\n    measurableSet_le ((hg.comp (hT.iterate n)).norm.pow 2).measurable measurable_const\n  have hnmeas : Measurable N := by\n    have he : N = fun v => Nat.find (ht v) := funext hn\n    rw [he]\n    exact measurable_find ht hp\n  have homeas : Measurable (fun v => T^[N v] v) := by\n    have he : (fun v => T^[N v] v) = (fun v => T^[Nat.find (ht v)] v) := by\n      funext v; rw [hn]\n    rw [he]\n    exact Measurable.find (fun n => (hT.iterate n).measurable) hp ht\n  refine ⟨hnmeas,homeas,fun v => ?_⟩\n  change ‖gradient F (T^[N v] v)‖^2 ≤ s ∧\n    (∀ j < N v, s < ‖gradient F (T^[j] v)‖^2) ∧\n    N v ≤ B v ∧ (N v:ℝ)+1 ≤ (b/a)*Real.log (1+‖gradient F v‖^2/s)+2\n  have hle : N v ≤ B v := by rw [hn]; exact Nat.find_min' (ht v) (hcert v)\n  refine ⟨?_,?_,hle,?_⟩\n  · rw [hn]; exact Nat.find_spec (ht v)\n  · intro j hj\n    rw [hn] at hj\n    exact lt_of_not_ge (Nat.find_min (ht v) hj)\n  · have hnon : 0 ≤ (b/a)*Real.log (1+‖gradient F v‖^2/s) :=\n      mul_nonneg (div_nonneg hb.le ha.le) (Real.log_nonneg (by nlinarith [div_nonneg (sq_nonneg ‖gradient F v‖) hs.le]))\n    have hc := Nat.ceil_lt_add_one hnon\n    have hcast : (N v:ℝ) ≤ (B v:ℝ) := by exact_mod_cast hle\n    dsimp [B] at hcast\n    linarith\n\n\nprivate theorem expected_count {X : Type*} [MeasurableSpace X]\n    (μ : Measure X) [IsProbabilityMeasure μ] (g : X → ℝ) (N : X → ℕ)\n    {k s M : ℝ} (hk : 0 < k) (hs : 0 < s)\n    (hgm : Measurable g) (hgi : Integrable g μ) (hg : ∀ x, 0 ≤ g x)\n    (hNm : Measurable N) (hM : (∫ x, g x ∂μ) ≤ M)\n    (hbound : ∀ x, (N x:ℝ)+1 ≤ k*Real.log (1+g x/s)+2) :\n    Integrable (fun x => (N x:ℝ)+1) μ ∧\n      (∫ x, (N x:ℝ)+1 ∂μ) ≤ 2+k*Real.log (1+M/s) := by\n  have hM0 : 0 ≤ M := (integral_nonneg hg).trans hM\n  have hden : 0 < 1+M/s := by positivity\n  have hsm : 0 < s+M := by positivity\n  have hpos (x : X) : 0 < 1+g x/s := by have := hg x; positivity\n  have hl0 (x : X) : 0 ≤ Real.log (1+g x/s) :=\n    Real.log_nonneg (by have := div_nonneg (hg x) hs.le; linarith)\n  have hlub (x : X) : Real.log (1+g x/s) ≤ g x/s := by\n    have := Real.log_le_sub_one_of_pos (hpos x)\n    linarith\n  have hlm : Measurable (fun x => Real.log (1+g x/s)) :=\n    (measurable_const.add (hgm.div_const s)).log\n  have hli : Integrable (fun x => Real.log (1+g x/s)) μ :=\n    (hgi.div_const s).mono' hlm.aestronglyMeasurable (Filter.Eventually.of_forall fun x => by\n      rw [Real.norm_eq_abs,abs_of_nonneg (hl0 x)]\n      exact hlub x)\n  have htangent (x : X) : Real.log (1+g x/s) ≤\n      Real.log (1+M/s)+(g x-M)/(s+M) := by\n    have ht := Real.log_le_sub_one_of_pos (div_pos (hpos x) hden)\n    rw [Real.log_div (hpos x).ne' hden.ne'] at ht\n    have he : (1+g x/s)/(1+M/s)-1=(g x-M)/(s+M) := by\n      field_simp; ring\n    rw [he] at ht\n    linarith\n  have hsubi : Integrable (fun x => g x-M) μ := hgi.sub (integrable_const M)\n  have hdivi : Integrable (fun x => (g x-M)/(s+M)) μ := hsubi.div_const _\n  have hri : Integrable (fun x => Real.log (1+M/s)+(g x-M)/(s+M)) μ :=\n    (integrable_const _).add hdivi\n  have hj := integral_mono hli hri htangent\n  rw [integral_add (integrable_const _) hdivi,\n    integral_div,integral_sub hgi (integrable_const M)] at hj\n  simp only [integral_const,probReal_univ,smul_eq_mul,one_mul] at hj\n  have hlog : (∫ x, Real.log (1+g x/s) ∂μ) ≤ Real.log (1+M/s) := by\n    have hn : ((∫ x,g x ∂μ)-M)/(s+M) ≤ 0 :=\n      div_nonpos_of_nonpos_of_nonneg (sub_nonpos.mpr hM) hsm.le\n    linarith\n  have hbi : Integrable (fun x => k*Real.log (1+g x/s)+2) μ :=\n    (hli.const_mul k).add (integrable_const 2)\n  have hNr : Measurable (fun x => (N x:ℝ)) := measurable_from_nat.comp hNm\n  have hci : Integrable (fun x => (N x:ℝ)+1) μ :=\n    hbi.mono' (hNr.add measurable_const).aestronglyMeasurable\n      (Filter.Eventually.of_forall fun x => by\n        rw [Real.norm_eq_abs,abs_of_nonneg (by positivity : 0 ≤ (N x:ℝ)+1)]\n        exact hbound x)\n  refine ⟨hci,?_⟩\n  have hc := integral_mono hci hbi hbound\n  rw [integral_add (hli.const_mul k) (integrable_const 2),integral_const_mul] at hc\n  simp only [integral_const,probReal_univ,smul_eq_mul,one_mul] at hc\n  have hh := mul_le_mul_of_nonneg_left hlog hk.le\n  linarith\n\n\nprivate theorem quadratic_upper {F : E → ℝ} {b : ℝ}\n    (hF : ContDiff ℝ 2 F)\n    (hH : ∀ x v : E, (fderiv ℝ (fderiv ℝ F) x v) v ≤ b*‖v‖^2) :\n    ∀ x y, F y ≤ F x+inner ℝ (gradient F x) (y-x)+b/2*‖y-x‖^2 := by\n  have hd : Differentiable ℝ F := hF.differentiable (by norm_num)\n  have hn : fderiv ℝ (fun x => -F x) = fun x => -fderiv ℝ F x := by\n    funext x\n    exact fderiv_neg\n  have hn2 (x : E) : fderiv ℝ (fderiv ℝ (fun z => -F z)) x =\n      -fderiv ℝ (fderiv ℝ F) x := by\n    rw [hn]\n    exact fderiv_neg\n  have hc : StrongConvexOn univ (-b) (fun x => -F x) :=\n    TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower\n      hF.neg (fun x v => by\n        rw [hn2]\n        simp only [neg_apply]\n        nlinarith [hH x v])\n  have hg (x : E) : HasGradientAt (fun z => -F z) (-gradient F x) x := by\n    rw [hasGradientAt_iff_hasFDerivAt]\n    convert! (hd x).hasGradientAt.hasFDerivAt.neg using 1; simp only [map_neg]\n  intro x y\n  have hl := TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n    hc (fun z _ => hg z) (mem_univ x) (mem_univ y)\n  simp only [inner_neg_left] at hl\n  nlinarith\n\n\nprivate theorem regularized_data {U : E → ℝ} {m b r : ℝ≥0}\n    (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (m:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ U) x v) v ∧\n      (fderiv ℝ (fderiv ℝ U) x v) v ≤ (b:ℝ)*‖v‖^2) (u : E) :\n    let F := fun x => U x+(r:ℝ)/2*‖x-u‖^2\n    ContDiff ℝ 2 F ∧ StrongConvexOn univ ((m:ℝ)+r) F ∧\n      LipschitzWith (b+r) (gradient F) ∧\n      (∀ x, gradient F x=gradient U x+(r:ℝ) • (x-u)) ∧\n      (∀ x y, F y ≤ F x+inner ℝ (gradient F x) (y-x)+((b:ℝ)+r)/2*‖y-x‖^2) := by\n  let F := fun x => U x+(r:ℝ)/2*‖x-u‖^2\n  have hd : Differentiable ℝ U := hU.differentiable (by norm_num)\n  have hF : ContDiff ℝ 2 F :=\n    hU.add (contDiff_const.mul ((contDiff_id.sub contDiff_const).norm_sq (𝕜:=ℝ)))\n  have hbase := TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic (r:=r) hU hH u\n  have hsc : StrongConvexOn univ ((m:ℝ)+r) F := by\n    simpa only [NNReal.coe_add] using hbase.1\n  have hq (x : E) : HasFDerivAt (fun z => (r:ℝ)/2*‖z-u‖^2)\n      ((r:ℝ) • innerSL ℝ (x-u)) x := by\n    convert (((hasFDerivAt_id x).sub_const u).norm_sq).const_mul ((r:ℝ)/2)\n      using 1 <;> first | rfl | (ext v; simp; ring)\n  have hg (x : E) : gradient F x=gradient U x+(r:ℝ) • (x-u) := by\n    apply HasGradientAt.gradient\n    rw [hasGradientAt_iff_hasFDerivAt]\n    change HasFDerivAt (fun z => U z+(r:ℝ)/2*‖z-u‖^2)\n      ((toDual ℝ E) (gradient U x+(r:ℝ) • (x-u))) x\n    convert! (hd x).hasGradientAt.hasFDerivAt.add (hq x) using 1\n    simp only [map_add,map_smul]\n    rfl\n  refine ⟨hF,hsc,hbase.2,hg,?_⟩\n  intro x y\n  have hu := quadratic_upper hU (fun x v => (hH x v).2) x y\n  have hn : ‖y-u‖^2=‖x-u‖^2+2*inner ℝ (x-u) (y-x)+‖y-x‖^2 := by\n    rw [show y-u=(x-u)+(y-x) by abel,norm_add_sq_real]\n  change U y+(r:ℝ)/2*‖y-u‖^2 ≤ U x+(r:ℝ)/2*‖x-u‖^2+\n    inner ℝ (gradient F x) (y-x)+((b:ℝ)+r)/2*‖y-x‖^2\n  rw [hg,inner_add_left,inner_smul_left,hn]\n  simp only [starRingEnd_apply,star_trivial]\n  nlinarith\n\n\n/-- Construct the actual first gradient-descent reference point. Prove the\nstopping/output measurability, exact terminal center residual, first-hit and\nquery-count bounds, and conditional initial-law expected cost. The expectation\nproof uses an integrable logarithmic tangent bound, not an assumed cost moment. -/\ntheorem terminal_reference_gradient_descent [FiniteDimensional ℝ E]\n    [MeasurableSpace E] [BorelSpace E] {U : E → ℝ} {m b : ℝ≥0}\n    (hU : ContDiff ℝ 2 U)\n    (hH : ∀ x v : E, (m:ℝ)*‖v‖^2 ≤ (fderiv ℝ (fderiv ℝ U) x v) v ∧\n      (fderiv ℝ (fderiv ℝ U) x v) v ≤ (b:ℝ)*‖v‖^2)\n    (hmb : m ≤ b) {A d : ℝ} (hA : 0 < A) (hd : 0 < d)\n    (_hdim : d = Module.finrank ℝ E) (u : E) :\n    let F := fun x => U x+A⁻¹/2*‖x-u‖^2\n    let a := (m:ℝ)+A⁻¹\n    let c := (b:ℝ)+A⁻¹\n    let k := c/a\n    let T := fun x => x-c⁻¹ • gradient F x\n    let N := firstIndex T F (d/A)\n    let xp := fun v => T^[N v] v\n    0 < a ∧ 0 < c ∧ 1 ≤ k ∧\n    (∀ x, gradient F x=gradient U x+A⁻¹ • (x-u)) ∧\n    Measurable N ∧ Measurable xp ∧\n    (∀ v, ‖gradient F (xp v)‖^2 ≤ d/A ∧\n      ‖u-A • gradient U (xp v)-xp v‖=A*‖gradient F (xp v)‖ ∧\n      ‖u-A • gradient U (xp v)-xp v‖ ≤ Real.sqrt (d*A) ∧\n      (∀ j < N v, d/A < ‖gradient F (T^[j] v)‖^2) ∧\n      N v ≤ Nat.ceil (k*Real.log (1+A*‖gradient F v‖^2/d)) ∧\n      (N v:ℝ)+1 ≤ k*Real.log (1+A*‖gradient F v‖^2/d)+2) ∧\n    (∀ (μ : Measure E), IsProbabilityMeasure μ → ∀ M : ℝ,\n      Integrable (fun v => ‖gradient F v‖^2) μ →\n      (∫ v, ‖gradient F v‖^2 ∂μ) ≤ M →\n      Integrable (fun v => (N v:ℝ)+1) μ ∧\n      (∫ v, (N v:ℝ)+1 ∂μ) ≤ 2+k*Real.log (1+A*M/d)) := by\n  let r : ℝ≥0 := ⟨A⁻¹,inv_nonneg.mpr hA.le⟩\n  let F := fun x => U x+A⁻¹/2*‖x-u‖^2\n  let a := (m:ℝ)+A⁻¹\n  let c := (b:ℝ)+A⁻¹\n  let k := c/a\n  let T := fun x => x-c⁻¹ • gradient F x\n  let N := firstIndex T F (d/A)\n  let xp := fun v => T^[N v] v\n  have ha : 0 < a := add_pos_of_nonneg_of_pos m.coe_nonneg (inv_pos.mpr hA)\n  have hc : 0 < c := add_pos_of_nonneg_of_pos b.coe_nonneg (inv_pos.mpr hA)\n  have hk : 1 ≤ k := by\n    apply (le_div_iff₀ ha).mpr\n    have hmb' : (m:ℝ) ≤ b := hmb\n    dsimp [a,c]\n    linarith\n  have hdata := regularized_data (r:=r) hU hH u\n  have hF : ContDiff ℝ 2 F := hdata.1\n  have hsc : StrongConvexOn univ a F := hdata.2.1\n  have hg (x : E) : gradient F x=gradient U x+A⁻¹ • (x-u) := hdata.2.2.2.1 x\n  have hu : ∀ x y, F y ≤ F x+inner ℝ (gradient F x) (y-x)+c/2*‖y-x‖^2 :=\n    hdata.2.2.2.2\n  have hp := stopped_program (hF.of_le (by norm_num)) ha hc\n    (div_pos hd hA) hsc hu\n  have ratio (z : ℝ) : z/(d/A)=A*z/d := by field_simp\n  have hres (x : E) : ‖u-A • gradient U x-x‖=A*‖gradient F x‖ := by\n    have he : u-A • gradient U x-x=-(A • gradient F x) := by\n      rw [hg,smul_add,smul_smul,mul_inv_cancel₀ hA.ne',one_smul]\n      abel\n    rw [he,norm_neg,norm_smul,Real.norm_eq_abs,abs_of_pos hA]\n  refine ⟨ha,hc,hk,hg,hp.1,hp.2.1,?_,?_⟩\n  · intro v\n    have hv := hp.2.2 v\n    have hstop : ‖gradient F (xp v)‖^2 ≤ d/A := hv.1\n    have hr : ‖u-A • gradient U (xp v)-xp v‖ ≤ Real.sqrt (d*A) := by\n      apply Real.le_sqrt_of_sq_le\n      rw [hres,mul_pow]\n      have hh := mul_le_mul_of_nonneg_left hstop (sq_nonneg A)\n      have he : A^2*(d/A)=d*A := by field_simp\n      rw [he] at hh\n      exact hh\n    refine ⟨hstop,hres _,hr,hv.2.1,?_,?_⟩\n    · simpa only [ratio] using hv.2.2.1\n    · simpa only [ratio] using hv.2.2.2\n  · intro μ hμ M hgi hM\n    let : IsProbabilityMeasure μ := hμ\n    have hgm : Measurable (fun v => ‖gradient F v‖^2) :=\n      ((TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one\n        (hF.of_le (by norm_num))).norm.pow 2).measurable\n    have he := expected_count μ (fun v => ‖gradient F v‖^2) N (div_pos hc ha)\n      (div_pos hd hA) hgm hgi (fun v => sq_nonneg _) hp.1 hM (fun v => (hp.2.2 v).2.2.2)\n    simpa only [ratio] using he\n\n\n\n\n\n\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2609.06906v1",
+          "edition": "arXiv:2609.06906v1",
+          "anchor": "Section6.3 Reference point construction and Terminal stage: actual GD and local moment-to-query-cost component",
+          "wording_status": "faithful paraphrase",
+          "attribution": "ASTIS expanded mathematical proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Explicit local constants, a stronger same-algorithm proof and domain extensions are disclosed below; the full random-history and summed-cost claim is not asserted."
+        },
+        "statement": "The derived a,c are positive and k>=1. The exact gradient is grad F(x)=grad U(x)+(x-u)/A. Both N and x_plus are measurable. For every v, the output satisfies norm(grad F(x_plus(v)))^2<=d/A and the exact center-residual identity norm(u-A*grad U(x_plus(v))-x_plus(v))=A*norm(grad F(x_plus(v)))<=sqrt(d*A). All j<N(v) strictly fail the stopping test. N(v)<=ceil(k*log(1+A*norm(grad F(v))^2/d)), and N(v)+1<=k*log(1+A*norm(grad F(v))^2/d)+2. Under the additional starting-law moment hypotheses, N+1 is genuinely integrable and its expectation is at most 2+k*log(1+A*M/d).",
+        "formulae": [
+          {
+            "label": "Actual stopped reference",
+            "tex": "N(v)=\\min\\{n\\ge0:\\|\\nabla F(T^nv)\\|^2\\le d/A\\},\\quad x_+(v)=T^{N(v)}v,\\quad \\|u-A\\nabla U(x_+)-x_+\\|\\le\\sqrt{dA}."
+          },
+          {
+            "label": "Conditional starting-law query cost",
+            "tex": "\\|\\nabla F\\|^2\\in L^1(\\mu),\\quad \\mathbb E_\\mu\\|\\nabla F\\|^2\\le M\\quad\\Longrightarrow\\quad N+1\\in L^1(\\mu),\\quad \\mathbb E_\\mu(N+1)\\le2+k\\log(1+AM/d)."
+          }
+        ],
+        "assumptions": [
+          "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra. The real parameter d is strictly positive and equals finrank(E). U:E->R is C2. Nonnegative real numbers m,b satisfy m<=b, and the genuine Hessian obeys m*norm(v)^2 <= D2U(x)[v,v] <= b*norm(v)^2 at every x,v.",
+          "Fix a finite real A>0 and u in E. Define F(x)=U(x)+norm(x-u)^2/(2A), a=m+1/A, c=b+1/A and k=c/a. Define the actual gradient-descent map T(x)=x-(1/c)*grad F(x). All gradients are the actual derivatives of these functions.",
+          "For every starting point v, N(v) is the least natural n with norm(grad F(T^n(v)))^2<=d/A if such an n exists, and zero otherwise. Let x_plus(v)=T^N(v)(v). The proof establishes finite attainment for every v, so the fallback branch never occurs. The specified query count is N(v)+1: evaluate grad U once at each visited point, form the quadratic-gradient term algebraically, check the threshold and reuse this gradient for an update when required. The final successful check is charged.",
+          "Only the expected-cost clause additionally takes an arbitrary probability starting law mu and a real M with actual norm(grad F(v))^2 integrable under mu and integral at most M. M need not be separately assumed nonnegative: the proof derives it. These are explicit inputs, not established properties of the recursive sampler history."
+        ],
+        "obligations": [
+          {
+            "id": "actual-terminal-reference-local-cost",
+            "label": "Actual terminal reference construction and local conditional-moment query cost"
+          }
+        ],
+        "lesson": {
+          "kind": "theorem",
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+          "title": "Actual terminal reference by gradient descent",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2609.06906v1",
+              "label": "SPHMC section6.3 terminal reference construction",
+              "scope": "Actual gradient-descent preparation and the local moment-to-query-cost proof component; history and stage summation remain separate."
+            }
+          ],
+          "tests": [
+            "lake build Tests.SmoothedPicardHMCTerminalReferenceGradientDescent"
+          ],
+          "assumptions": [
+            "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra. The real parameter d is strictly positive and equals finrank(E). U:E->R is C2. Nonnegative real numbers m,b satisfy m<=b, and the genuine Hessian obeys m*norm(v)^2 <= D2U(x)[v,v] <= b*norm(v)^2 at every x,v.",
+            "Fix a finite real A>0 and u in E. Define F(x)=U(x)+norm(x-u)^2/(2A), a=m+1/A, c=b+1/A and k=c/a. Define the actual gradient-descent map T(x)=x-(1/c)*grad F(x). All gradients are the actual derivatives of these functions.",
+            "For every starting point v, N(v) is the least natural n with norm(grad F(T^n(v)))^2<=d/A if such an n exists, and zero otherwise. Let x_plus(v)=T^N(v)(v). The proof establishes finite attainment for every v, so the fallback branch never occurs. The specified query count is N(v)+1: evaluate grad U once at each visited point, form the quadratic-gradient term algebraically, check the threshold and reuse this gradient for an update when required. The final successful check is charged.",
+            "Only the expected-cost clause additionally takes an arbitrary probability starting law mu and a real M with actual norm(grad F(v))^2 integrable under mu and integral at most M. M need not be separately assumed nonnegative: the proof derives it. These are explicit inputs, not established properties of the recursive sampler history."
+          ],
+          "statement": "The derived a,c are positive and k>=1. The exact gradient is grad F(x)=grad U(x)+(x-u)/A. Both N and x_plus are measurable. For every v, the output satisfies norm(grad F(x_plus(v)))^2<=d/A and the exact center-residual identity norm(u-A*grad U(x_plus(v))-x_plus(v))=A*norm(grad F(x_plus(v)))<=sqrt(d*A). All j<N(v) strictly fail the stopping test. N(v)<=ceil(k*log(1+A*norm(grad F(v))^2/d)), and N(v)+1<=k*log(1+A*norm(grad F(v))^2/d)+2. Under the additional starting-law moment hypotheses, N+1 is genuinely integrable and its expectation is at most 2+k*log(1+A*M/d).",
+          "formula": "N(v)=\\min\\{n\\ge0:\\|\\nabla F(T^nv)\\|^2\\le d/A\\},\\quad x_+(v)=T^{N(v)}v,\\quad \\|u-A\\nabla U(x_+)-x_+\\|\\le\\sqrt{dA}.",
+          "steps": [
+            {
+              "title": "Derive the actual regularized gradient and curvature",
+              "text": "The quadratic term has derivative A^{-1}<x-u, .>. Adding it to the derivative of U gives the exact gradient formula. Reuse QuadraticRegularization for strong convexity and gradient Lipschitz continuity. To obtain the quadratic upper model, apply the Hessian-to-strong-convexity theorem to -U with modulus -b, then the first-order lower bound and reverse its signs. Add the exact quadratic expansion. Since A>0 and 0<=m<=b, a,c>0 and k>=1. No model inequality or gradient field is supplied as an assumption.",
+              "formula": "\\nabla F(x)=\\nabla U(x)+A^{-1}(x-u),\\quad a=m+A^{-1},\\quad c=b+A^{-1},\\quad F(y)\\le F(x)+\\langle\\nabla F(x),y-x\\rangle+\\tfrac c2\\|y-x\\|^2.",
+              "lean": "quadratic_upper; regularized_data; AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic; AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower; AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+            },
+            {
+              "title": "Control gradients through adjacent actual iterates",
+              "text": "Apply the existing one-step contraction to x and T(x). Their distance is c^{-1} times the norm of grad F(x); the next distance is c^{-1} times the norm of grad F(T(x)). Cancel the positive step and iterate this inequality. Bound sqrt(1-a/c) by exp(-a/(2c)), then square the resulting norm bound. This uses the source gradient-descent map and needs no supplied minimizer. It is a stronger local proof than the source display with an extra k prefactor, rather than a literal replay of that display.",
+              "formula": "\\|\\nabla F(Tx)\\|\\le\\sqrt{1-a/c}\\,\\|\\nabla F(x)\\|,\\qquad \\|\\nabla F(T^nv)\\|^2\\le e^{-n/k}\\|\\nabla F(v)\\|^2.",
+              "lean": "gradient_decay; AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction; Real.add_one_le_exp"
+            },
+            {
+              "title": "Give a finite stopping certificate including degenerate gradients",
+              "text": "Put s=d/A>0 and z=norm(grad F(v))^2>=0. The natural ceiling n=ceil(k log(1+z/s)) satisfies n>=k log(1+z/s). Therefore exp(-n/k)z<=z/(1+z/s)<=s. This constructs a finite successful index before Nat.find is used. The argument covers z=0 and k=1 without taking log(1-1/k). The ceiling bound and ceil(t)<t+1 for t>=0 later give the extra two units in the real count bound.",
+              "formula": "n=\\lceil k\\log(1+z/s)\\rceil,\\qquad e^{-n/k}z\\le\\frac{z}{1+z/s}\\le s,\\qquad N(v)+1\\le k\\log(1+A\\|\\nabla F(v)\\|^2/d)+2.",
+              "lean": "stopping_certificate; stopped_program; Nat.le_ceil; Nat.ceil_lt_add_one"
+            },
+            {
+              "title": "Prove the first-hit index and stopped output are measurable",
+              "text": "The C1 gradient is continuous, hence T and each finite iterate are continuous. Each event where the nth gradient square is at most s is Borel measurable. The finite-attainment certificate identifies N with Nat.find of this event family. measurable_find proves N measurable, and Measurable.find proves measurability of v mapped to T^N(v)(v). Nat.find_spec gives success and Nat.find_min gives strict failure for every earlier index. Pointwise termination is not used as a substitute for measurability.",
+              "formula": "\\{N=n\\}=\\{\\|\\nabla F(T^nv)\\|^2\\le s\\}\\cap\\bigcap_{j<n}\\{\\|\\nabla F(T^jv)\\|^2>s\\},\\quad N,x_+\\text{ measurable}.",
+              "lean": "firstIndex; stopped_program; AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one; measurable_find; Measurable.find; Nat.find_spec; Nat.find_min"
+            },
+            {
+              "title": "Convert the stopping test into the required terminal residual",
+              "text": "At every x, the exact gradient formula gives u-A grad U(x)-x=-A grad F(x). Because A>0, its norm is A times norm(grad F(x)). At the stopped point, multiply the proved gradient-square threshold by A squared; the result is at most dA. Taking the nonnegative square root yields the center residual used by the terminal sampler. This proves the residual of the constructed point rather than receiving it as input.",
+              "formula": "\\|u-A\\nabla U(x_+)-x_+\\|=A\\|\\nabla F(x_+)\\|,\\qquad A^2\\|\\nabla F(x_+)\\|^2\\le dA.",
+              "lean": "terminal_reference_gradient_descent; regularized_data; Real.le_sqrt_of_sq_le"
+            },
+            {
+              "title": "Establish integrability before the expected-count bound",
+              "text": "For g(v)=norm(grad F(v))^2, the given nonnegative integrable g and Eg<=M imply M>=0. First use 0<=log(1+g/s)<=g/s to prove logarithmic integrability. The log-ratio inequality gives the displayed tangent bound; both sides are integrable before integrating. Its remainder has nonpositive expectation by Eg<=M. Finally, measurability and the pointwise count bound imply N+1 is integrable, and integral monotonicity gives the expected count. This is a direct logarithmic tangent proof, not a call to a Jensen API or a presumption of cost integrability.",
+              "formula": "\\log(1+g/s)\\le\\log(1+M/s)+\\frac{g-M}{s+M},\\qquad N+1\\in L^1(\\mu),\\qquad \\mathbb E_\\mu(N+1)\\le2+k\\log(1+AM/d).",
+              "lean": "expected_count; Real.log_le_sub_one_of_pos; MeasureTheory.Integrable.mono'; MeasureTheory.integral_mono; MeasureTheory.integral_add"
+            },
+            {
+              "title": "Assemble the actual fixed-parameter reference and counting contract",
+              "text": "Instantiate the stopping and expectation lemmas with the genuine F, its proved a,c and threshold d/A. The pointwise conclusions hold for every starting point; the expected-cost clause is then quantified over any probability starting law satisfying the actual gradient moment hypotheses. At an initially successful point N=0 and one gradient check is charged. Each visit needs one U-gradient evaluation because the regularization term is algebraic, and the computed gradient is reused for the next update. The final gradient is charged; no unproved saving is deducted when later combining this construction with a sampler.",
+              "formula": "T(x)=x-c^{-1}\\nabla F(x),\\qquad Q_{\\nabla U}(v)=N(v)+1,\\qquad \\mathbb E_\\mu Q_{\\nabla U}\\le2+\\frac{b+A^{-1}}{m+A^{-1}}\\log\\!\\left(1+\\frac{AM}{d}\\right).",
+              "lean": "terminal_reference_gradient_descent; stopped_program; expected_count; regularized_data"
+            }
+          ],
+          "lean_statement": "Actual regularized gradient, positive curvature constants, measurable first-hit index/output, terminal residual, strict earlier failure, ceiling/count bounds and conditional initial-law L1/expected count.",
+          "lean_proof": "Derive regularized curvature and gradient, contract adjacent actual iterates, construct a finite ceiling certificate, prove measurable first hit, convert its residual and integrate a logarithmic tangent bound.",
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentContraction.gradient_step_contraction",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn",
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+          ],
+          "mathlib_dependencies": [
+            "Nat.le_ceil",
+            "Nat.ceil_lt_add_one",
+            "measurable_find",
+            "Measurable.find",
+            "Nat.find_spec",
+            "Nat.find_min",
+            "Real.log_le_sub_one_of_pos",
+            "MeasureTheory.Integrable.mono'",
+            "MeasureTheory.integral_mono"
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+          "role": "proof-edge",
+          "supports": [
+            "actual-terminal-reference-local-cost"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Section6.3 is stated in Euclidean space.",
+            "lean": "Complete finite-dimensional real inner-product Borel space with d=finrank(E)>0."
+          },
+          {
+            "source": "The recursive application has a strongly convex smooth base potential.",
+            "lean": "Actual C2 Hessian bounds with 0<=m<=b, allowing m=b=0."
+          },
+          {
+            "source": "The terminal stage has finite positive A and positive dimension; the overall recursive interface also discusses infinite initial A0.",
+            "lean": "Finite real A>0 and d>0."
+          },
+          {
+            "source": "The displayed source GD estimate has an extra condition-number prefactor and only universal cost constants.",
+            "lean": "The same step1/c GD has exp(-n/k) gradient-square decay, an explicit natural-ceiling certificate and expectation constant2."
+          },
+          {
+            "source": "First attainment and using a random starting point are implicit in the optimization routine.",
+            "lean": "Actual Nat.find, measurable N and stopped output, strict failure at all earlier indices, genuine log/count L1."
+          },
+          {
+            "source": "The source counts gradient queries for reference preparation.",
+            "lean": "N+1 evaluates the base gradient once per visited point, reusing it for the update and charging the final check."
+          },
+          {
+            "source": "Section6.3 derives stage-specific initial gradient moments and then sums reference costs.",
+            "lean": "The local expected-cost component accepts actual initial gradient-square L1 and Eg<=M for an arbitrary probability starting law."
+          },
+          {
+            "source": "The constructed reference feeds the terminal sampling call inside the recursion.",
+            "lean": "The actual stopped point satisfies the terminal residual for fixed A,u."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E be a finite-dimensional complete real inner-product space with its Borel sigma-algebra, U:E->R twice continuously differentiable, and nonnegative real m<=b with m||w||^2<=D2U(x)[w,w]<=b||w||^2 for all x,w. For real A,d with A>0,d>0,d=dim_R E, and every fixed u in E, define F(x)=U(x)+||x-u||^2/(2A), a=m+1/A,c=b+1/A,k=c/a,T(x)=x-(1/c)grad F(x). T^n is n-fold iteration including T^0(v)=v. N(v) is the least natural n with ||grad F(T^n(v))||^2<=d/A when such an n exists, and zero otherwise; xp(v)=T^N(v)(v). Then a,c>0 and k>=1; grad F(x)=grad U(x)+(x-u)/A for all x; N and xp are measurable. For every v: ||grad F(xp(v))||^2<=d/A; ||u-A grad U(xp(v))-xp(v)||=A||grad F(xp(v))||; that residual is <=sqrt(dA); every natural j<N(v) has d/A<||grad F(T^j(v))||^2; N(v)<=Nat.ceil(k log(1+A||grad F(v)||^2/d)); and real N(v)+1<=k log(1+A||grad F(v)||^2/d)+2. For every probability measure mu on E and every real M, if v->||grad F(v)||^2 is Bochner integrable under mu and its integral<=M, then real N+1 is Bochner integrable and integral(N+1)dmu<=2+k log(1+AM/d).",
+        "text_sha256": "3e950adbf66060e01a1442a04ba24a7df10dc745dbd9f25623051a1c7732ed26",
+        "decoder_packet_sha256": "827236a4ef3d0c5f5394521859fe6423c2bf02ad186c36dd53782ca14142b40f",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "source_text_visible": false,
+        "decoder": "blind_reconstruction_q",
+        "notes": [
+          "Fresh source-blind decoder read only the anonymous packet and approved definitions; no source identity, source-fidelity or compilation verdict.",
+          "All conclusions use one arbitrary fixed u; no joint measurability in(u,v) is asserted. Pointwise conclusions hold for every v,not just almost everywhere.",
+          "The returned stopping inequality shows finite attainment for every v despite the zero fallback; N is the true first-hit index and may be zero.",
+          "The theorem integrates N+1,not N. The Lean statement itself supplies no evaluator/runtime model identifying this with evaluations; any counting convention must remain explicit exposition.",
+          "Positive d with dimension equality excludes zero-dimensional spaces;m may be zero. M is any real; its nonnegativity follows under the nonnegative gradient-square integral hypotheses.",
+          "No specific initial law,density,independence or moment on v itself is assumed; the required moment is the actual squared gradient of F.",
+          "No output distribution, sampling accuracy, integrability of xp, exact minimizer or full-iteration convergence conclusion is asserted.",
+          "a,c,k depend only on m,b,A; the pointwise bound also uses d and the initial gradient magnitude, and the expectation uses M. No genuine ambiguity found."
+        ],
+        "decoder_run_sha256": "ed79b4d89b7feb8870dc798e2f9dd4051229f3f17537618f901fa4cddeee5d17",
+        "lean_statement_sha256": "3eb914a674746149f984ac3ec853ffd112108e16c2a3f42a3a864adb4c7fbc0a",
+        "run_artifact": "runs/20260911-companion-priority/terminal-reference-gradient-descent.decoder-result.json"
+      },
+      "verdict": "domain-mismatch",
+      "semantic_slots": {
+        "objects": {
+          "original": "Terminal GD on actual regularized potential producing a residual-qualified reference.",
+          "reconstructed": "Actual F, gradient map T, least successful N and stopped xp.",
+          "relation": "explicit-elaboration",
+          "evidence": "Models and residual follow from actual Hessian and gradient; no supplied successful index or minimizer."
+        },
+        "domains": {
+          "original": "Euclidean space with strongly convex base in recursive application.",
+          "reconstructed": "Finite-dimensional complete real inner-product Borel space, d=finrank>0, finite A>0, nonnegative m<=b.",
+          "relation": "different",
+          "evidence": "Coordinate-free and nonnegative-base extensions disclosed; infinite A and zero dimension excluded."
+        },
+        "quantifiers": {
+          "original": "Fixed terminal parameters and starting point, followed by moment-based cost.",
+          "reconstructed": "Fixed parameters; pointwise all v; probability law and M only in expectation clause.",
+          "relation": "explicit-elaboration",
+          "evidence": "No joint random-parameter measurability; termination independent of law."
+        },
+        "assumptions": {
+          "original": "Actual smooth curvature; source separately proves stage-specific moments.",
+          "reconstructed": "C2 Hessian bounds, nonnegative m<=b, finite positive A, true positive dimension, actual gradient-square L1 and integral<=M for cost.",
+          "relation": "different",
+          "evidence": "Recursive-history moment exposed, not proved; M>=0 derived."
+        },
+        "conclusion": {
+          "original": "Terminal threshold/residual and local GD work controlled by initial gradient.",
+          "reconstructed": "Measurable first hit/output, success, residual, earlier strict failure, ceiling/count bound and conditional count L1/expectation.",
+          "relation": "explicit-elaboration",
+          "evidence": "Expected bound 2+k*log(1+A*M/d), not full summed stage cost."
+        },
+        "scopes": {
+          "original": "Local terminal preparation component of Section 6.3.",
+          "reconstructed": "Actual fixed-parameter construction and N+1 count convention with conditional starting-law cost.",
+          "relation": "same",
+          "evidence": "No history moment, retained invariant, stage summation, joint sampler or evaluator trace."
+        },
+        "constant_dependencies": {
+          "original": "Condition-number-prefactored GD estimate and universal constants.",
+          "reconstructed": "Same step1/c; stronger exp(-n/k) gradient-square decay, explicit ceiling and additive2.",
+          "relation": "different",
+          "evidence": "Stronger estimate proved and disclosed; not attributed as printed constants."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "classification": "generalization",
+          "description": "Coordinate-free extension; dimension equality remains genuine assumption.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Coordinate-free extension; dimension equality remains genuine assumption."
+        },
+        {
+          "slot": "assumptions",
+          "classification": "generalization",
+          "description": "Nonnegative base curvature; positive regularization preserves a,c>0.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Nonnegative base curvature; positive regularization preserves a,c>0."
+        },
+        {
+          "slot": "domains",
+          "classification": "same",
+          "description": "Finite positive A and d in selected terminal component; infinite initial parameter excluded.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Finite positive A and d in selected terminal component; infinite initial parameter excluded."
+        },
+        {
+          "slot": "constant_dependencies",
+          "classification": "source-implicit",
+          "description": "Stronger same-algorithm estimate and explicit sufficient constants disclosed.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Stronger same-algorithm estimate and explicit sufficient constants disclosed."
+        },
+        {
+          "slot": "quantifiers",
+          "classification": "source-implicit",
+          "description": "Finite attainment, first-hit minimality, measurability and count L1 proved.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Finite attainment, first-hit minimality, measurability and count L1 proved."
+        },
+        {
+          "slot": "objects",
+          "classification": "source-implicit",
+          "description": "One base gradient per visited point with reuse, including final check; no evaluator/compiler theorem.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: One base gradient per visited point with reuse, including final check; no evaluator/compiler theorem."
+        },
+        {
+          "slot": "scopes",
+          "classification": "source-implicit",
+          "description": "Actual initial gradient moment explicit local input; no history-moment or total stage-cost completion.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Actual initial gradient moment explicit local input; no history-moment or total stage-cost completion."
+        },
+        {
+          "slot": "scopes",
+          "classification": "same",
+          "description": "Residual is terminal consumer interface; joint sampling and cache sharing separate.",
+          "severity": "informational",
+          "blocking": false,
+          "evidence": "Independent reviewer accepted: Residual is terminal consumer interface; joint sampling and cache sharing separate."
+        }
+      ]
     }
   ]
 }

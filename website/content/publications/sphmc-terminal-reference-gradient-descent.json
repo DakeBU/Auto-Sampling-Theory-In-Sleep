@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-terminal-reference-gradient-descent",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual terminal reference by gradient descent",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section6.3 Reference point construction and Terminal stage: actual GD and local moment-to-query-cost component",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded mathematical proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Explicit local constants, a stronger same-algorithm proof and domain extensions are disclosed below; the full random-history and summed-cost claim is not asserted."
+      },
+      "statement": "The derived a,c are positive and k>=1. The exact gradient is grad F(x)=grad U(x)+(x-u)/A. Both N and x_plus are measurable. For every v, the output satisfies norm(grad F(x_plus(v)))^2<=d/A and the exact center-residual identity norm(u-A*grad U(x_plus(v))-x_plus(v))=A*norm(grad F(x_plus(v)))<=sqrt(d*A). All j<N(v) strictly fail the stopping test. N(v)<=ceil(k*log(1+A*norm(grad F(v))^2/d)), and N(v)+1<=k*log(1+A*norm(grad F(v))^2/d)+2. Under the additional starting-law moment hypotheses, N+1 is genuinely integrable and its expectation is at most 2+k*log(1+A*M/d).",
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel sigma-algebra. The real parameter d is strictly positive and equals finrank(E). U:E->R is C2. Nonnegative real numbers m,b satisfy m<=b, and the genuine Hessian obeys m*norm(v)^2 <= D2U(x)[v,v] <= b*norm(v)^2 at every x,v.",
+        "Fix a finite real A>0 and u in E. Define F(x)=U(x)+norm(x-u)^2/(2A), a=m+1/A, c=b+1/A and k=c/a. Define the actual gradient-descent map T(x)=x-(1/c)*grad F(x). All gradients are the actual derivatives of these functions.",
+        "For every starting point v, N(v) is the least natural n with norm(grad F(T^n(v)))^2<=d/A if such an n exists, and zero otherwise. Let x_plus(v)=T^N(v)(v). The proof establishes finite attainment for every v, so the fallback branch never occurs. The specified query count is N(v)+1: evaluate grad U once at each visited point, form the quadratic-gradient term algebraically, check the threshold and reuse this gradient for an update when required. The final successful check is charged.",
+        "Only the expected-cost clause additionally takes an arbitrary probability starting law mu and a real M with actual norm(grad F(v))^2 integrable under mu and integral at most M. M need not be separately assumed nonnegative: the proof derives it. These are explicit inputs, not established properties of the recursive sampler history."
+      ],
+      "formulae": [
+        {
+          "label": "Actual stopped reference",
+          "tex": "N(v)=\\min\\{n\\ge0:\\|\\nabla F(T^nv)\\|^2\\le d/A\\},\\quad x_+(v)=T^{N(v)}v,\\quad \\|u-A\\nabla U(x_+)-x_+\\|\\le\\sqrt{dA}."
+        },
+        {
+          "label": "Conditional starting-law query cost",
+          "tex": "\\|\\nabla F\\|^2\\in L^1(\\mu),\\quad \\mathbb E_\\mu\\|\\nabla F\\|^2\\le M\\quad\\Longrightarrow\\quad N+1\\in L^1(\\mu),\\quad \\mathbb E_\\mu(N+1)\\le2+k\\log(1+AM/d)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-terminal-reference-local-cost",
+          "label": "Actual terminal reference construction and local conditional-moment query cost"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+          "cell": "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
+          "role": "proof-edge",
+          "supports": [
+            "actual-terminal-reference-local-cost"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCTerminalReferenceGradientDescent",
+          "boundary": "This constructs an actual fixed-parameter terminal reference point and its specified gradient-query count. It does not assume a minimizer, successful stopping or the desired residual. The same source GD is analyzed using a stronger adjacent-iterate rate without the source display's extra condition-number prefactor. The finite-dimensional coordinate-free formulation and nonnegative base Hessian modulus extend the source setting; positive finite A and positive dimension remain explicit. The dimension equality stays in the public contract even though the underlying threshold proof does not use its numeric value. N+1 is a mathematical count model, not a compiler/evaluator trace. The expectation clause requires the actual starting gradient-square moment; the recursive-history moment, retained-reference invariant and summed stage cost C*kappa0*Lq remain unproved here. Parameters A,u are fixed for the measurable map: no jointly measurable random-parameter kernel is claimed. The output has the residual needed by the terminal sampler, but a combined sampling program and cross-module cache saving have not been proved. No TV transport of unbounded costs or complete-paper result is asserted.",
+          "assumption_deltas": [
+            {
+              "source": "Section6.3 is stated in Euclidean space.",
+              "lean": "Complete finite-dimensional real inner-product Borel space with d=finrank(E)>0.",
+              "classification": "generalization",
+              "reason": "Coordinate-free extension; the dimension equality is still a public assumption despite its unused binder name."
+            },
+            {
+              "source": "The recursive application has a strongly convex smooth base potential.",
+              "lean": "Actual C2 Hessian bounds with 0<=m<=b, allowing m=b=0.",
+              "classification": "generalization",
+              "reason": "Positive finite quadratic precision still gives a,c>0 and all proofs remain valid; this is a base-potential extension, not an omitted convexity assumption."
+            },
+            {
+              "source": "The terminal stage has finite positive A and positive dimension; the overall recursive interface also discusses infinite initial A0.",
+              "lean": "Finite real A>0 and d>0.",
+              "classification": "same",
+              "reason": "This is the terminal preparation component, not an implementation of the infinite initial regularization parameter."
+            },
+            {
+              "source": "The displayed source GD estimate has an extra condition-number prefactor and only universal cost constants.",
+              "lean": "The same step1/c GD has exp(-n/k) gradient-square decay, an explicit natural-ceiling certificate and expectation constant2.",
+              "classification": "source-implicit",
+              "reason": "Adjacent-iterate contraction gives a stronger local proof without changing the algorithm; explicit constants are derived and not attributed as printed source constants."
+            },
+            {
+              "source": "First attainment and using a random starting point are implicit in the optimization routine.",
+              "lean": "Actual Nat.find, measurable N and stopped output, strict failure at all earlier indices, genuine log/count L1.",
+              "classification": "source-implicit",
+              "reason": "Finite attainment precedes the choice; no default integral values or unproved stopping measurability are used."
+            },
+            {
+              "source": "The source counts gradient queries for reference preparation.",
+              "lean": "N+1 evaluates the base gradient once per visited point, reusing it for the update and charging the final check.",
+              "classification": "source-implicit",
+              "reason": "The exact regularized gradient makes its quadratic contribution algebraic. This cost model is not a verified evaluator/compiler trace."
+            },
+            {
+              "source": "Section6.3 derives stage-specific initial gradient moments and then sums reference costs.",
+              "lean": "The local expected-cost component accepts actual initial gradient-square L1 and Eg<=M for an arbitrary probability starting law.",
+              "classification": "source-implicit",
+              "reason": "This exposes the input to the descent-cost argument; it does not prove the random-history moment or total C*kappa0*Lq claim."
+            },
+            {
+              "source": "The constructed reference feeds the terminal sampling call inside the recursion.",
+              "lean": "The actual stopped point satisfies the terminal residual for fixed A,u.",
+              "classification": "same",
+              "reason": "The combined joint probability program, random-parameter kernel and cross-module cache saving remain separate obligations; no full-paper closure follows."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

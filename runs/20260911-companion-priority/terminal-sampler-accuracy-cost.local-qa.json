@@ -1,0 +1,66 @@
+{
+  "commit": "cc1f333938c54ad681aa2f8d6991932cd2c39061",
+  "source_digest": "665fbb600f828566c0545f27c0c68d01cabed9772a54f1efcbfa2d315fe45e7e",
+  "status": "passed-local-selected-proof",
+  "root_integration": {
+    "session": 52624,
+    "exit_code": 0,
+    "result": "Lake9006/Tests9171; canonical ASTIS check passed",
+    "log": ".astis/terminal-sampler-accuracy-cost-canonical-final.log"
+  },
+  "reader_build": {
+    "session": 25947,
+    "exit_code": 0,
+    "log": ".astis/terminal-sampler-accuracy-cost-reader-build-final.log"
+  },
+  "reader_check": {
+    "session": 41098,
+    "exit_code": 0,
+    "log": ".astis/terminal-sampler-accuracy-cost-reader-check.log",
+    "chapters": 12,
+    "modules": 641,
+    "declarations": 3869,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/terminal-sampler-accuracy-cost-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, DOM inspection and viewed screenshots; not independent browser inspection.",
+    "companion": "http://127.0.0.1:8765/example-cases/samplewiki/companions/smoothed-picard-hmc.html?qa=cc1f333",
+    "section": "sphmc-terminal-sampler-accuracy-cost",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "clicked": [
+      "Lean statement \u00b7 terminal_sampler_accuracy_cost",
+      "Lean proof \u00b7 terminal_sampler_accuracy_cost",
+      "Source and reuse",
+      "Sixth mathematical proof heading",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "statement_code_characters": 2094,
+    "proof_code_characters": 4529,
+    "katex_errors": 0,
+    "parents": "ClippedRenyiComparison,ClippedGradientProgram,PoissonQueryTail and two primary sources linked.",
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "fit_clicked": true,
+      "screenshot_viewed": true,
+      "status": "Source-present publication; compiled badge not inferred",
+      "source_edge": "source correspondence; not a Lean dependency"
+    },
+    "evidence_card": "Actual module:15 declarations, Lean gate passed/Compiled, zero placeholders; Not mapped separate.",
+    "proof_screenshot": "Steps5/6 equations and prose readable; cached gradient and full successful batch explicitly charged."
+  },
+  "boundary": "Local selected-proof integration and reader/graph QA only. No PR/merge/live claim. Global copy/citation/download requirements remain open.",
+  "build_correction": "Initial build69707 exited1: missing explicit Samplinglib search label in frontier metadata. Actual searches relabelled,84-cell protocol passed, final candidate rebuilt and rechecked. Source Lean/test/accepted publication unchanged.",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "cc1f333938c54ad681aa2f8d6991932cd2c39061",
+    "source_digest": "665fbb600f828566c0545f27c0c68d01cabed9772a54f1efcbfa2d315fe45e7e",
+    "evidence": "Independent reviewed gate, actual digest, unchanged production/source binding, zero-tree parent merge, corrected actual Samplinglib search labels, Tests9171/site641/3869/77 and no graph omissions checked. Static11folds/current provenance. Root browser evidence remains explicitly root; no remote CI/merge/live/fullpaper or global copy/citation/download acceptance. Faithful transcription authorized."
+  }
+}

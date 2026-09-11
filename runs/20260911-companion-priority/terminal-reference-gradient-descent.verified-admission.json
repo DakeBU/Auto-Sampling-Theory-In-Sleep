@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "5f0529f07cefeb597b06c03ce8767154c1fb874e",
+    "gate": {
+      "production": "Unchanged production/test hashes; independently reviewed PASS3374, standard three axioms, no lint; 2281-character expanded Meta.isDefEq replay accepted.",
+      "publication": "Independent reviewed validator and actual check --base cc1f333938c54ad681aa2f8d6991932cd2c39061 PASS63; all seven private declarations covered. External binding preimage, source, statement, reconstruction, identical anonymous/canonical decoder bytes and decoder/reviewer packet/run hashes independently verified.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCTerminalReferenceGradientDescent",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_q",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "1d7e64f72dfab0c5bb408cb13acec2c74a4733bf4e79f9689f199239b25ad7bb",
+        "decoder_packet_sha256": "827236a4ef3d0c5f5394521859fe6423c2bf02ad186c36dd53782ca14142b40f",
+        "decoder_run_sha256": "ed79b4d89b7feb8870dc798e2f9dd4051229f3f17537618f901fa4cddeee5d17",
+        "reviewer_packet_sha256": "2d7aab8d9a240c6d3ec55457fbce711f2c5821f368be0b4a98dd9729659962c4",
+        "review_run_sha256": "a17e4e88fe459a061c890cebb14e7eb3f70d0d73e4338525ae3b59dd1039607d",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual GD finite first hit, terminal residual and conditional initial-moment count bound."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent"
+    ],
+    "independent_checks": [
+      "Seven semantic slots, seven authored steps, eight informational differences; no blockers/repairs.",
+      "Fixed commit clean; production/test unchanged; sole writer and no other stabilizer.",
+      "Independent external binding recomputation matches 1d7e64f72dfab0c5bb408cb13acec2c74a4733bf4e79f9689f199239b25ad7bb.",
+      "VERIFIED-only. Recursive history moments, joint parameter kernel, combined sampler accounting, aggregate integration and delivery remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted."
+}

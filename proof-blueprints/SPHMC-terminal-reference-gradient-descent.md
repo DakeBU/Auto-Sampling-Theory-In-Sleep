@@ -1,0 +1,9 @@
+# Actual terminal reference gradient descent
+
+SPHMC arXiv:2609.06906v1 section6.3 Reference point construction and Terminal stage
+
+For actual C2 V with global Hessian bounds mI<=HessV<=betaI,0<=m<=beta,A>0,d=finrank E>0, define F=V+norm(x-u)^2/(2A),alpha=m+1/A,betaF=beta+1/A,kappa=betaF/alpha and actual GD T=x-betaF^-1*gradientF. Construct first N(v) with normgradientF(T^N v)^2<=d/A. Prove finite termination, measurable N and output, exact gradient/residual identity and terminal center residual<=sqrt(d*A). Prove N<=Nat.ceil(kappa*log(1+A*normgradientF(v)^2/d)), cost N+1 including final gradient check. For any probability initial law with actual gradient squared L1 and moment<=M derive cost L1 and expected cost<=2+kappa*log(1+A*M/d).
+
+Same actual GD as source section6.3, fixed A/u with explicit supplied initial law moment only for expected bound. Coordinate-free finite-dimensional extension and nonnegative m/beta extension disclosed; positive regularization/dimension. Adjacent-iterate contraction gives stronger gradient bound than printed prefactor-kappa route. No actual recursive-history moment, joint random-parameter kernel, summed stage cost or fullpaper claim. Cost model includes final gradient check and reuses each gradient for the update; downstream cache sharing not silently deducted.
+
+Reuse one-step contraction at adjacent iterates; no supplied minimizer. Derive 1<=kappa before square-root algebra. With t=A*normgradientF(v)^2/d and n=ceil(kappa*log(1+t)), exponential residual ratio <=t/(1+t)<1 establishes termination even at zero gradient or kappa1. Nat.find gives actual firsthit; measurable_find/Measurable.find require measurable predicates from continuous iterates. Derive log integrability from0<=log(1+t)<=t before Jensen; then derive count L1 by pointwise bound. Actual random-history gradient moment and summed stage cost remain missing.
