@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
   "focused_check": {
     "command": "lake build Tests.SmoothedPicardHMCPoissonQueryTail",
@@ -28,11 +28,10 @@
     "boundary": "Pre-review only; no formal encoder-denoiser admission."
   },
   "remaining": [
-    "Independent fixed-commit VERIFIED admission.",
     "Fixed-commit independent admission, aggregate imports, original reader/conversion delivery and integration.",
     "Uniform B control, actual clipped gradient estimator, target/Renyi error, reference point and initialization, gradient query cost and other terminal implementation overhead remain separate."
   ],
-  "admission_boundary": "PROVED_LOCAL after focused compilation and authored publication validation. Independent development proof review and fresh blind reconstruction completed. Formal source review and fixed-commit VERIFIED admission remain pending; no root aggregate imports or main theorem completion claim.",
+  "admission_boundary": "VERIFIED at3124c1a. Aggregate integration, reader/site QA and actual merge/deployment remain separate; neither paper main result is complete.",
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-poisson-query-tail.json",
     "state": "Seven-step proof, publication binding, source-blind reconstruction and formal source review accepted."
@@ -48,5 +47,6 @@
     "artifacts": [
       "runs/20260911-companion-priority/poisson-query-tail.source-review-result.json"
     ]
-  }
+  },
+  "independent_admission": "runs/20260911-companion-priority/poisson-query-tail.verified-admission.json"
 }
