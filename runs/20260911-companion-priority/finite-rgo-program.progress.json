@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram.finite_rgo_program"
   ],
@@ -33,11 +33,89 @@
   },
   "mathematical_status": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison.",
   "remaining": [
-    "Integration, aggregate and original reader/graph delivery",
+    "Verify terminal result of actual merge Lean run 34571230714; exact deployed reader already checked",
     "Concrete source parameters and initialized history validity",
     "Cap versus source stopping depth, FORS and actual approximate sampler",
     "Errors and actual-input expected query costs",
     "Both paper main results and agreed deliveries"
   ],
-  "independent_admission": "runs/20260911-companion-priority/finite-rgo-program.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/finite-rgo-program.verified-admission.json",
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/271",
+    "commit": "5157526e0824d4f20b1687f97cc4b4acf096853c",
+    "candidate": "045fbd548f5d2342d4790325392f02f9b6f09781",
+    "merged_at": "2026-09-11T06:44:30Z",
+    "candidate_ci": {
+      "lean": "34569959193 SUCCESS",
+      "site": "34569959072 SUCCESS; PR deploy skipped"
+    },
+    "fixed_local_qa": {
+      "commit": "045fbd548f5d2342d4790325392f02f9b6f09781",
+      "aggregate": {
+        "status": "passed",
+        "jobs": 9132,
+        "source_digest": "7ff4690d15ec90efb2c9a8e433cc97b81da87b30b32bf81863a6d7df0aa3e8a1",
+        "log": ".astis/finite-rgo-aggregate.log"
+      },
+      "site": {
+        "status": "passed",
+        "modules": 602,
+        "declarations": 3681,
+        "reviewed_teaching": 77
+      },
+      "graph": {
+        "status": "checked",
+        "report": ".astis/finite-rgo-graph-check.json",
+        "boundary": "Reference/correspondence edges are not elaborated dependency certificates."
+      },
+      "browser": {
+        "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-finite-rgo-program",
+        "steps": 5,
+        "initially_closed_disclosures": 8,
+        "clicked": [
+          "Lean statement",
+          "Lean proof",
+          "Source and reuse"
+        ],
+        "statement_characters": 1620,
+        "proof_characters": 11361,
+        "math_errors": 0,
+        "screenshot": "Entry title, attribution and statement visually inspected in actual browser screenshot.",
+        "card": "modules/autosamplingtheory-examplecases-smoothedpicardhmc-finitergoprogram.html#decl-autosamplingtheory-examplecases-smoothedpicardhmc-finitergoprogram-finit-cc53ecdb85",
+        "card_labels": [
+          "Compiled",
+          "Not mapped"
+        ],
+        "displayed_commit": "045fbd548f5d",
+        "boundary": "Local fixed-source QA; no deployed provenance claim."
+      }
+    },
+    "independent_merge_review": "depth_commit_verifier independently accepted the exact candidate, canonical gate9132 and source digest, unchanged VERIFIED production/test, reviewed source binding, preserved root imports, site and graph evidence, and same-head completed Lean/Site CI. Root rechecked MERGEABLE and candidate before match-head merge.",
+    "post_merge": {
+      "lean": "34571230714 observed IN_PROGRESS; terminal result pending",
+      "site": "34571230692 SUCCESS",
+      "deploy_job": "103174282008 SUCCESS",
+      "live": {
+        "deployed_commit": "5157526e0824d4f20b1687f97cc4b4acf096853c",
+        "merge_commit": "5157526e0824d4f20b1687f97cc4b4acf096853c",
+        "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchor": "sphmc-finite-rgo-program",
+        "deployed_provenance": true,
+        "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-finitergoprogram.html",
+        "card_http_status": 200,
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "boundary": "Exact deployed commit and actual HTTP/anchor/labels verified. Earlier local visual QA and PR CI remain distinct."
+      }
+    },
+    "truth_boundary": "Finite capped state execution with a supplied terminal kernel even when the cap is reached before the threshold. No claim that the cap reaches the source stopping depth, that arbitrary initial count/history is valid, or that the state path is a query execution record. Concrete smoothed sampler and FORS, source parameter selection, approximation errors and expected query costs remain separate. Ideal terminal L=T is an oracle comparison."
+  },
+  "pull_request": {
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/271",
+    "state": "MERGED",
+    "head": "045fbd548f5d2342d4790325392f02f9b6f09781"
+  }
 }

@@ -1,0 +1,16 @@
+{
+  "decoder": "stopped_blind_decoder",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful transcription of independent reconstruction, with formula notation converted to ASCII and bound coordinates consistently renamed.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-stopped-d.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260911-SPHMCStoppedRGODepth.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "e26ea94c278de869c44008e7927a448879c7eb1dfca851c7c0aa563e9a227298",
+  "lean_statement_sha256": "f8accd7626b16c62525db43f85ee4c0fdac05e176ba3f51e067d5e7fcc25f87f",
+  "reconstructed_theorem_text": "Let E be a finite-dimensional real inner-product Borel space with actual real dimension d>0, mu any probability measure on E, and S=NNReal times E times Nat times E^Nat. Write s=(b,u,k,h), casting b to a real in arithmetic. For any measurable eta:S to R, parameters kappa,c,q,Delta,gamma,C satisfying kappa>=1,0<c<1/4,0<eta(s)<=c for every state,q>=2,0<Delta<=1/2,0<gamma<=1,C>=8, any initial s0=(b0,u0,k0,h0) and any Markov kernels Q,Lterm:S to E, define K(r)=(1+r)/(kappa^-1+r), tau(r)=K(r) if K(r)>=2 and c otherwise, and a(s)=(eta(s)+tau(b))/(1+b). Put ell=q+log(K(b0)*d*q/Delta), B=gamma/(sqrt(d*ell)+ell) and J=Nat.ceil(C*log(e*K(b0)/B)).\nThere exist a function F:S times E to S, a kernel P:S to S and a sequence R_n:S to E. For all s,y, the real cast of the first coordinate of F(s,y) is b_new=b+1/a(s), and its other coordinates are exactly b_new^-1*(b*u+y/a(s)),k+1,h_new, where h_new(0)=y and h_new(n+1)=h(n). Vector products mean scalar multiplication. P and every R_n are Markov. For every state s, P(s)=dirac s if b>=1/B, and otherwise P(s) is the pushforward of Q(s) by y to F(s,y). For every n, the entire kernel R_n equals Lterm composed with P^n, applying P^n first; P^0 is identity.\nB>0. The J-step state law from the specified s0 assigns mass one to states with precision at least 1/B. For every m, R_(J+m)(s0)=R_J(s0) as output measures at that initial state only, not necessarily as entire kernels. Finally J, cast to a real, is at most (3*C+(C/2)*log(1/gamma))*ell.\nK depends on kappa; tau on kappa,c; a on eta,kappa,c and current state. ell depends on q,kappa,b0,d,Delta; B additionally on gamma; J additionally on C. These constants do not depend on Q,Lterm,mu or the other initial coordinates. The stopping threshold is fixed using s0 although the fiber formula for P holds globally. The existential witnesses follow all supplied data. mu is supplied as a probability measure but does not otherwise occur in the displayed conditions or conclusion; no relation between mu,Q,Lterm beyond probability/Markov assumptions is stated. eta needs only measurability and the global bounds. Measurability of F is not a separate asserted conclusion.",
+  "source_fidelity_verdict": null
+}
