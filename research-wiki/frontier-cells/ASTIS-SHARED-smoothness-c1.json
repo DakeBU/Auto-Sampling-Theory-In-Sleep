@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Definition1.12 equation(1.7), Proposition1.13 C1 clause",
   "target_statement": "For C1 f on a complete real inner-product space and any real beta, the global quadratic upper model with beta/2 is equivalent to the one-sided gradient bound with beta.",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-strong-convex-gradient-monotonicity",
     "ASTIS-SHARED-gradient-integral-convexity"
@@ -34,7 +34,7 @@
     "independent_verification": "smoothness_review fixed5434944361508bbe8e41eba9135d071f17978532 proof/test review and build; independent smoothness_blind and smoothness_source accepted exact packet-bound source generalizations.",
     "root_build": "PASS canonical full gate on bbcb641e7127a2f3730fa370b18216e7a9d819ab at 2026-09-11T04:51:46.329733+00:00:9126jobs including rootTests, fake-closure and ATLAS36469declarations/26books. PASS250tests,6skips on synchronized tree; publication39items, semantic49audits,58cells valid.",
     "graph_regeneration": "PASS canonical website build/check:12chapters,405compiled local leaves,596modules,3678declarations. Both cell graph checks PASS. Actual desktop source formulas and C2 sign-reversal proof inspected; focused branch14nodes25edges5direct relations, two actual named parents, solid structural/dashed reference signals, compiled target and partial chapter. Mobile390x844 statement and inspector legible; temporary viewport reset, tab and local server closed. Generalizations remain visible as domain-mismatch; no exact-source badge is forced. Rebuilt after PR266 sync; both affected graph reports are exactly identical to the visually inspected reports, and four reviewed smoothness file hashes remain unchanged.",
-    "pr": ""
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/b8952166ded42202504f446f04c7e54b00320bc0"
   },
   "blocked": {
     "reason": "",

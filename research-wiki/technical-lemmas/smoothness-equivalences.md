@@ -108,3 +108,7 @@ lesson/publication bytes unchanged. Independent preservation review accepted
 the actual ledger/audit conflict resolution and AdaptiveCenter's unchanged
 historical proof/source artifacts; its already-merged stale reservation was
 released with attribution, without impersonating its owner.
+
+Authorized direct-main integration completed atb8952166ded42202504f446f04c7e54b00320bc0.
+Atomic push confirmed main and task branch updated together. Both cells and
+SAU now MERGED; this records actual integration, not a prediction.
