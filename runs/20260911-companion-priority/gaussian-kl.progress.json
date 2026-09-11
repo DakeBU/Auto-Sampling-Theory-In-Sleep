@@ -1,5 +1,5 @@
 {
-  "state": "STABILIZING",
+  "state": "MERGED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianKL.gaussian_kl_reverse_transport"
   ],
@@ -33,7 +33,7 @@
   },
   "mathematical_status": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate.",
   "remaining": [
-    "Final-head CI, independent merge review, actual merge and deployed reader verification",
+    "Verify actual merge CI and deployed reader provenance",
     "Full W2 interface and marginal moment correspondence",
     "Actual recursive kernels, sampler error and query costs",
     "Both paper main results and agreed remaining reader/copy/download deliveries"
@@ -90,9 +90,9 @@
   },
   "pull_request": {
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/263",
-    "state": "DRAFT",
-    "head": "See final PR head; ed623824462ca7fc4878bdec8cf1ba8bf2f4faea is historical local QA only",
-    "boundary": "Conflict resolved locally; new candidate aggregate, CI and independent integration review pending."
+    "state": "MERGED",
+    "head": "2f9923daec3fa721205921835ba54e67ede70895",
+    "boundary": "Actual merge verified; actual merge CI/deployment separate."
   },
   "upstream_integration": {
     "upstream": "b199693",
@@ -163,5 +163,18 @@
       },
       "boundary": "Actual final site artifact QA and new aggregate complete. Final same-head Lean CI and actual merge/deployment remain separate."
     }
+  },
+  "merge": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/263",
+    "commit": "79dc5520010de2234acfc5cc956c88e21dfeb0d8",
+    "candidate": "2f9923daec3fa721205921835ba54e67ede70895",
+    "merged_at": "2026-09-11T03:02:51Z",
+    "independent_merge_review": "depth_commit_verifier accepted preserved C1 integration, fresh aggregate, actual final CI artifact, verified same candidate/rendered tree and same-head Lean/site success; root rechecked MERGEABLE head then match-head merge succeeded.",
+    "candidate_ci": {
+      "lean": "34556099864 SUCCESS",
+      "site": "34556099933 SUCCESS; PR deploy skipped"
+    },
+    "post_merge": "Actual merge CI and deployed reader provenance pending. Prior local/CI artifact records remain bound to their original commits.",
+    "truth_boundary": "Raw infimum-cost formulation explicitly generalizes source marginal P2/W2 presentation; no marginal moments or full W2 API identity inferred. Actual optimal coupling, joint translated Gaussian laws, LLR integrability and KL data processing must be proved. No assumed Gaussian KL, conditional entropy identity or optimizer. Do not pass q>1 power bounds to q=1 using unjustified exponential displacement moments. Recursive kernels, measurable proxy choice, warmness and sampler/error/query costs remain separate."
   }
 }
