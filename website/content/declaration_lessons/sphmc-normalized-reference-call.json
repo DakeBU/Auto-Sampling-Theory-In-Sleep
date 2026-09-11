@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall.normalized_reference_call",
+      "title": "Actual normalized reference and returned sampling precision",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS1",
+          "label": "SPHMC Sections6.1 and6.3 normalization convention and next call",
+          "scope": "Fixed-call normalization of the actual first ad-hit reference and actual sampling laws. General beta, coordinate-free finite dimension and eta=0,t=0,r=0,B=0 extend the source; d>0,tau>0,0<alpha<=beta remain required. The outer W2 input and next normalized output precision are distinct supplied guarantees. No sampler achieving the next budget, all-parameter kernel, measurable sampler selection, conditional history or stage costs are proved. The public transport conclusion is the needed inequality, not a full isometry theorem. For source B=k*epsilon^2, B/c=epsilon^2/a; a here denotes regularized curvature. Returned probability is a standard measurable-pushforward consequence, not an extra public conjunct. Both main results remain incomplete."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCNormalizedReferenceCall"
+      ],
+      "assumptions": [
+        "E is a complete finite-dimensional real inner-product space with its Borel measurable structure and canonical volume; d=dim(E)>0. U is C2 and its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2 for every x,v, with 0<alpha<=beta.",
+        "eta>=0,tau>0,r>=0. The actual probability nu satisfies W2(nu,law(X+sqrt(eta)*Z))^2<=ofReal(r^2), where X has the normalized Gibbs law volume.tilted(-U) and Z is an independent standard Gaussian. This is the outer input to the existing actual reference construction.",
+        "A=eta+tau,a=alpha+1/A,c=beta+1/A,k=c/a. For p=(y,z), u(p)=y+sqrt(tau)*z and F_p(x)=U(x)+norm(x-u(p))^2/(2*A). Here a is a curvature lower bound, not an RGO variance.",
+        "T_p(x)=x-c^(-1)*grad F_p(x). N(p) is the least n with norm(grad F_p(T_p^n(y)))^2<=a*d if such an n exists, otherwise zero; out(p)=T_p^N(p)(y). The inherited finite-hit proof eliminates the default branch.",
+        "S(x)=sqrt(c)*x,R(x)=x/sqrt(c),G_p(x)=F_p(R(x)). pi_p=volume.tilted(-F_p) and pibar_p=volume.tilted(-G_p). Write H(mu,sigma)=law(X+sigma*Z) for independent X~mu,Z~stdGaussian(E). W2 squared is the extended nonnegative infimum of quadratic coupling costs."
+      ],
+      "statement": "N and p->S(out(p)) are measurable. For every p, the actual output satisfies norm(grad F_p(out))^2<=a*d and every earlier iterate strictly fails that threshold. The scaled reference satisfies norm(grad G_p(S(out)))^2<=d/k. G_p is C2 with genuine Hessian bounds [a/c,1]. Both exponential Gibbs weights are integrable with strictly positive integrals, and both tilted laws are probability measures. S#pi_p=pibar_p and grad G_p(S(x))=c^(-1/2)*grad F_p(x). For every next variance t>=0, R#H(pibar_p,sqrt(t))=H(pi_p,sqrt(t/c)). For every actual probability nubar and t,B>=0, a supplied W2(nubar,H(pibar_p,sqrt(t)))^2<=ofReal(B) implies W2(R#nubar,H(pi_p,sqrt(t/c)))^2<=ofReal(B/c).",
+      "formula": "\\|\\nabla G_p(S\\,\\mathrm{out}(p))\\|^2\\le d/k,\\quad S_\\#\\pi_p=\\bar\\pi_p,\\quad R_\\#H(\\bar\\pi_p,\\sqrt t)=H(\\pi_p,\\sqrt{t/c}),\\quad W_2^2\\le B/c.",
+      "boundary": "Fixed-call normalization of the actual first ad-hit reference and actual sampling laws. General beta, coordinate-free finite dimension and eta=0,t=0,r=0,B=0 extend the source; d>0,tau>0,0<alpha<=beta remain required. The outer W2 input and next normalized output precision are distinct supplied guarantees. No sampler achieving the next budget, all-parameter kernel, measurable sampler selection, conditional history or stage costs are proved. The public transport conclusion is the needed inequality, not a full isometry theorem. For source B=k*epsilon^2, B/c=epsilon^2/a; a here denotes regularized curvature. Returned probability is a standard measurable-pushforward consequence, not an extra public conjunct. Both main results remain incomplete.",
+      "steps": [
+        {
+          "title": "Retain the actual first-hit program and pair dependence",
+          "text": "The parent JointReferenceGradientDescent theorem is applied to the same U,eta,tau and actual outer input law. actualIndex is definitionally the same first ad-hit program. Thus N and out are measurable, the stopped gradient satisfies the threshold, and every earlier iterate fails it. Continuous S preserves output measurability. No supplied reference point replaces the program.",
+          "formula": "N(p)=\\min\\{n:\\|\\nabla F_p(T_p^n(p_1))\\|^2\\le ad\\},\\qquad p\\mapsto S(\\mathrm{out}(p))\\text{ is measurable}.",
+          "lean": "actualIndex; normalized_reference_call: hP,hNm,hom,hp,hearly"
+        },
+        {
+          "title": "Differentiate the actual regularized potential",
+          "text": "Differentiate the quadratic norm term twice. Its first derivative is A^(-1) inner(x-u,.) and its second derivative is A^(-1) inner(.,.). Adding these genuine derivatives to those of U shifts both Hessian bounds by A^(-1); no independent Hessian field is assumed.",
+          "formula": "D^2F_p(x)[v,v]=D^2U(x)[v,v]+A^{-1}\\|v\\|^2,\\qquad a\\|v\\|^2\\le D^2F_p(x)[v,v]\\le c\\|v\\|^2.",
+          "lean": "regularized_hessian: hq,hfd,hdd; normalized_reference_call: hreg,hFH"
+        },
+        {
+          "title": "Apply the chain rule and certify the scaled reference",
+          "text": "For any real scalar s, differentiating F(s*x) gives s times its gradient and s^2 times its Hessian quadratic form. Set s=1/sqrt(c), using c>0. The actual stopped threshold ad becomes ad/c=d/k. The same chain rule gives normalized curvature [a/c,1].",
+          "formula": "\\nabla G_p(Sx)=c^{-1/2}\\nabla F_p(x),\\quad D^2G_p(x)[v,v]=c^{-1}D^2F_p(Rx)[v,v],\\quad ad/c=d/k.",
+          "lean": "differential_scaling; normalized_laws: hD,hGH; normalized_reference_call: hi,hb"
+        },
+        {
+          "title": "Prove both Gibbs normalizations before identifying probability laws",
+          "text": "Positive Hessian lower bounds imply strong convexity of F and G. StrongConvexGibbsIntegrability supplies integrability of their actual exponential weights without a minimizer assumption. Positive exponential integrals then give nonzero finite normalizers and actual probability tilted measures.",
+          "formula": "0<Z_F=\\int e^{-F(x)}\\,dx<\\infty,\\qquad 0<Z_G=\\int e^{-G(x)}\\,dx<\\infty.",
+          "lean": "normalized_laws: hI,hIG; HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower; integral_exp_pos; isProbabilityMeasure_tilted"
+        },
+        {
+          "title": "Cancel the same volume Jacobian in numerator and denominator",
+          "text": "For s=sqrt(c)>0, the volume substitution has J=abs((s^d)^(-1))>0. On each measurable B it gives I_F(S^(-1)B)=J*I_G(B), and also Z_F=J*Z_G. The tilted setwise formula cancels J, proving S#pi_F=pi_G. The private identity also supports total-integral degenerate inputs; the actual public consumer separately proves true positive normalization.",
+          "formula": "(S_\\#\\pi_F)(B)=\\frac{J\\int_B e^{-G(x)}dx}{JZ_G}=\\pi_G(B),\\qquad J=c^{-d/2}.",
+          "lean": "scaled_gibbs: hJ,hZ,hI; Measure.integral_comp_smul; tilted_apply_eq_ofReal_integral'"
+        },
+        {
+          "title": "Transform the actual independent Gaussian product law",
+          "text": "Expand H(mu,sigma) as the pushforward of mu.prod(stdGaussian) by (x,z)->x+sigma*z. Product-map and map-composition identities show R(SX+sqrt(t)Z)=X+sqrt(t/c)Z. The next t is distinct from the current eta and tau; t=0 is included.",
+          "formula": "R_\\#H(S_\\#\\pi,\\sqrt t)=H(\\pi,c^{-1/2}\\sqrt t)=H(\\pi,\\sqrt{t/c}).",
+          "lean": "scaled_smoothing: law,hp; normalized_laws: hsm; Measure.map_prod_map; Measure.map_map; Real.sqrt_div"
+        },
+        {
+          "title": "Push each coupling and take the cost infimum",
+          "text": "For any coupling gamma, map the pair by (x,y)->(s*x,s*y). Its two marginals are exactly the scaled marginals, and its quadratic cost is s^2 times the original cost. Since ofReal(s^2) is positive and finite for nonzero s, it commutes with both indexed infima defining transport cost, even for infinite cost or an empty coupling set. No optimal coupling or separate second-moment assumption is used.",
+          "formula": "\\int\\|sx-sy\\|^2d\\gamma=s^2\\int\\|x-y\\|^2d\\gamma,\\quad W_2^2(s_\\#\\mu,s_\\#\\nu)\\le s^2W_2^2(\\mu,\\nu).",
+          "lean": "scaled_wasserstein: hcouple,hcost; ENNReal.mul_iInf_of_ne; Transport.transportCost_le_lintegral_of_isCoupling"
+        },
+        {
+          "title": "Propagate the supplied next-call precision",
+          "text": "Apply the coupling bound with s=1/sqrt(c), substitute the proved smoothing-law identity, and use the nonnegative supplied budget B. This yields actual returned squared precision B/c. The source choice B=k*epsilon^2 therefore returns epsilon^2/a. This step consumes the normalized sampler guarantee; constructing that sampler and propagating conditional histories and total costs remain separate.",
+          "formula": "W_2^2(\\bar\\nu,H(\\bar\\pi,\\sqrt t))\\le B\\Longrightarrow W_2^2(R_\\#\\bar\\nu,H(\\pi,\\sqrt{t/c}))\\le B/c;\\quad \\frac{k\\varepsilon^2}{c}=\\frac{\\varepsilon^2}{a}.",
+          "lean": "normalized_laws: hprec; normalized_reference_call: hprec"
+        }
+      ],
+      "lean_statement": "Actual first-hit reference normalization,genuine Hessian,positive Gibbs laws,Gaussian variance and returned Wasserstein precision.",
+      "lean_proof": "Chain rules,actual first-hit parent,positive strong-convex Gibbs normalization,Haar substitution,product maps,and arbitrary-coupling infimum scaling.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent.joint_reference_gradient_descent",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.HessianStrongConvexity.strongConvexOn_univ_of_fderiv2_lower",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.WassersteinSpace.wassersteinDistance_sq",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.Transport.transportCost_le_lintegral_of_isCoupling"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.Measure.integral_comp_smul",
+        "MeasureTheory.tilted_apply_eq_ofReal_integral'",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.Measure.map_map",
+        "ENNReal.mul_iInf_of_ne"
+      ]
+    }
+  ]
+}

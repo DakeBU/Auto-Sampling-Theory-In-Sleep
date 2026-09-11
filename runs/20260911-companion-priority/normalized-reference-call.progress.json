@@ -61,5 +61,24 @@
       "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/NormalizedReferenceCall.lean": "de3ef695654cb35a4cf6aed3173fe691db6fea4d8900f691508deed59a7e1fb7",
       "Tests/SmoothedPicardHMCNormalizedReferenceCall.lean": "afd0af935b72427097ead5755678cf14b1fe5a94c96bc286c1e4c11bc45170a4"
     }
+  },
+  "expanded_statement": {
+    "file": ".astis/normalized-reference-call-expanded.log",
+    "characters": 9862,
+    "sha256": "0404ff0dd7ef9851841a30be35da5ea3b2aa73b9a680db9841630d085979ac86",
+    "session": 77963,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier replayed full expansion of actualIndex,three W2 costs and Gaussian product-map laws,Meta.isDefEq passed,exact length/hash."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "00950be3651b978a9cbeceab476df938f7a21c3f",
+    "result": "FocusedPASS3726,standard3/no newlint; exact reviewed mathematics and fakeclosure scan passed. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-normalized-reference-call.json",
+    "state": "Eight authored proof steps,six differences; formal source review pending."
   }
 }
