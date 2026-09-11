@@ -1,5 +1,5 @@
 {
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "declarations": [
     "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery"
   ],
@@ -33,10 +33,10 @@
   },
   "mathematical_status": "Joint state/center measurability for fixed base,precision andvariance, not joint selection over all base/precision/variance/history parameters. Input must be actual ideal joint lambda compProd H, not arbitrary correlated center-observation law. General probability base abstracts source Gibbs; no marginal moments, approximate recursive kernel, measurable proxy,error orcost guarantee. Expanded source-needed probability semantics, not a verbatim paper theorem.",
   "remaining": [
-    "Independent fixed-commit admission",
     "Integration, aggregate and original reader/graph delivery",
     "Concrete Gibbs specialization and joint parameter/history obligations",
     "Actual approximate recursive kernels, time identification, accumulated errors and query costs",
     "Both paper main results and agreed deliveries"
-  ]
+  ],
+  "independent_admission": "runs/20260911-companion-priority/adaptive-center-rgo.verified-admission.json"
 }
