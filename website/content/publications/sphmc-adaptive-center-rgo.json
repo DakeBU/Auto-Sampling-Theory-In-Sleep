@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-adaptive-center-rgo",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "A measurable random-center RGO with actual joint recovery",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1#S6.SS2.SSS1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma 6.4 (6.1) and Theorem 6.5 ideal random-center recursion",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang; ASTIS expanded joint-kernel semantics, no author endorsement implied."
+      },
+      "statement": "Let mu be a probability measure on a finite-dimensional real inner-product Borel space, b>=0 and a>0. There exist Markov kernels T,H from E to E and B from E times E to E times E, chosen before every probability center law nu. For every u, T(u) is mu tilted by -b*norm(x-u)^2/2 and H(u) is its actual Gaussian smoothing at standard deviation sqrt(a). For every u,y, B(u,y) retains u and draws x from T(u) tilted by -norm(x-y)^2/(2a); equivalently it draws from mu with precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y). For every probability nu, B composed with the actual joint measure nu compProd H equals nu compProd T.",
+      "assumptions": [
+        "Finite-dimensional real inner-product Borel space, including dimension zero; arbitrary probability base mu.",
+        "Fixed b>=0 and a>0. No density, curvature, moments or extra normalizability premise.",
+        "All three kernels precede the universally quantified probability center law. Fiber formulas hold for every u,y.",
+        "The input conditional observation kernel is exactly H. Arbitrary center laws do not mean arbitrary center-observation joint laws.",
+        "This explicitly generalizes the source Gibbs/Euclidean setting and exposes its needed ideal joint semantics."
+      ],
+      "formulae": [
+        {
+          "label": "Actual retained-center joint recovery",
+          "tex": "B\\circ_m(\\nu\\otimes_m H)=\\nu\\otimes_m T,\\qquad B(u,y)=(x\\mapsto(u,x))_\\#\\left[T(u).\\mathrm{tilted}\\left(-\\frac{\\|x-y\\|^2}{2a}\\right)\\right]."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "adaptive-center-joint-recovery",
+          "label": "Globally measurable ideal center-dependent RGO and actual joint recovery"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.AdaptiveCenterRGO.adaptive_center_recovery",
+          "cell": "ASTIS-SW-SPHMC-adaptive-center-rgo",
+          "role": "prerequisite",
+          "supports": [
+            "adaptive-center-joint-recovery"
+          ],
+          "audit_id": "ASTIS-RT-20260911-SPHMCAdaptiveCenterRGO",
+          "boundary": "Fixed probability base, precision and variance. Actual ideal joint input only. No joint selection over base/precision/variance/history parameters, arbitrary correlated input, approximate recursion, measurable proxies, error or query cost guarantee.",
+          "assumption_deltas": [
+            {
+              "source": "Theorem 6.5 uses a concrete Gibbs target and a center depending on the current observation.",
+              "lean": "Arbitrary probability base on finite-dimensional real inner-product Borel E, including dimension zero.",
+              "classification": "generalization",
+              "reason": "Density, curvature and moment hypotheses are unnecessary for this exact ideal-kernel identity; concrete source specialization remains separate."
+            },
+            {
+              "source": "Lemma 6.4 (6.1) gives the updated quadratic target.",
+              "lean": "Every (u,y) fiber uses precision b+a^-1 and center (b+a^-1)^-1*(b*u+a^-1*y), with b>=0,a>0.",
+              "classification": "same",
+              "reason": "The normalized tilt identity is proved everywhere; b=0 is handled without inverting zero."
+            },
+            {
+              "source": "The ideal stage requires a center-dependent backward kernel.",
+              "lean": "Construct global measurable T,H,B before every probability center law; B retains the original center.",
+              "classification": "source-implicit",
+              "reason": "Expanded source-needed joint semantics. Pointwise RGO choices prove sections of an already constructed kernel and do not assert measurable choice."
+            },
+            {
+              "source": "Ideal forward/backward recovery underlies the recursive construction.",
+              "lean": "Actual B composed with nu compProd H equals nu compProd T for all probability nu.",
+              "classification": "source-implicit",
+              "reason": "Full joint measure equality, not merely output marginal recovery; input conditional observation kernel must be H."
+            },
+            {
+              "source": "The full theorem analyzes approximate recursive samplers and expected query cost.",
+              "lean": "Fixed base,precision,variance exact ideal joint recovery only.",
+              "classification": "API-limitation",
+              "reason": "No joint selection over all parameters/history, arbitrary correlated inputs, measurable proxies, approximate recursion, errors or costs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
