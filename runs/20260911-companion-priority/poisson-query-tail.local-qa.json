@@ -1,0 +1,56 @@
+{
+  "commit": "eeab557c58e783d6e5b6e3af3656479c3991ce9d",
+  "independent_integration": {
+    "reviewer": "depth_commit_verifier",
+    "result": "Accepted exact candidate; unchanged VERIFIED3124c1a production/test/source binding; additive root imports; independently recomputed matching source digest; sole STABILIZING."
+  },
+  "aggregate": {
+    "status": "passed",
+    "jobs": 9148,
+    "source_digest": "f3b8d54ce5b3e055c297f536ad624832ff71c992b164363b183221c3cd04e397",
+    "log": ".astis/poisson-tail-integration-gate.log"
+  },
+  "site": {
+    "status": "passed",
+    "modules": 618,
+    "declarations": 3753,
+    "reviewed_teaching": 77
+  },
+  "browser": {
+    "entry": "example-cases/samplewiki/companions/smoothed-picard-hmc.html#sphmc-poisson-query-tail",
+    "displayed_commit": "eeab557c58e7",
+    "steps": 7,
+    "initially_closed_disclosures": 10,
+    "math_errors": 0,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Exact module and namespace context"
+    ],
+    "statement_characters": 869,
+    "proof_characters": 1970,
+    "card_labels": [
+      "Compiled",
+      "Not mapped"
+    ],
+    "fresh_query": "qa=eeab557-tail"
+  },
+  "graph": {
+    "report": ".astis/poisson-tail-final-graph-check.json",
+    "actual_browser_focus": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonQueryTail.poisson_query_tail",
+    "nodes": 5,
+    "edges": 3,
+    "direct_relations": 2,
+    "label": "PARTIAL; Source-present publication; compiled badge not inferred",
+    "boundary": "Source correspondence is not a Lean dependency certificate."
+  },
+  "ci": {
+    "lean_run": 34592831533,
+    "lean_status": "success",
+    "site_run": 34592832030,
+    "site_status": "success",
+    "deploy": "skipped on PR"
+  },
+  "boundary": "Exact-candidate local integration, independent review, browser/graph and both PR CI passed. Actual merge confirmed; post-merge CI/deployment remain separate. Neither paper main result is complete."
+}

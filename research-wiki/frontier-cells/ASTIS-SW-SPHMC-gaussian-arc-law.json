@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SW-SPHMC-gaussian-arc-law",
+  "route": "samplewiki-route",
+  "title": "Actual Gaussian gradient-arc joint law",
+  "mode": "faithfulPaper",
+  "source_anchor": "SPHMC arXiv:2609.06906v1 Appendix A.1/A.4(2), via arXiv:2602.01338v1 Appendix D.1 Claim 1 gradient-arc estimator",
+  "target_statement": "On a finite-dimensional real inner product space, eta>0 and fixed center h, for actual independent X~N(h,eta I), Z~N(0,eta I), gamma_r=h+sin(pi*r/2)(X-h)+cos(pi*r/2)Z and v_r=(pi/2)(cos(pi*r/2)(X-h)-sin(pi*r/2)Z), prove the actual joint pushforward N(h,eta I) product N(0,(pi/2)^2 eta I), path derivative, endpoints and necessary joint measurability. Prove independence through the product law, not separate Gaussian marginals.",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [
+    "Actual gradient-arc estimator W in D.1 Claim 1, consumed by SPHMC Appendix A.4(2)"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GaussianSmoothing.scaledStdGaussian and SPHMC local modules: no actual arc joint law",
+      "Mathlib stdGaussian_map, charFunDual_prod, Gaussian product law, WithLp 2 product inner product"
+    ],
+    "classification": "missing",
+    "decision": "new_route_local",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GaussianArcLaw.gaussian_arc_law",
+    "canonical_shared_cell": ""
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-gaussian-arc-law.md",
+    "planning_review": "Independent log_depth_source_review confirmed exact joint law, derivative, endpoint signs, real consumer and separate source discrepancy.",
+    "execution_boundary": "Root sole writer; GaussianArcLaw EXPLORING after actual parent PR277 merge. No STABILIZING packet."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Orthogonal Gaussian invariance is existing mathematical machinery; no new cross-domain equivalence claimed."
+  },
+  "outside_library_review": {
+    "status": "consulted",
+    "need": "Actual joint law required to integrate the velocity Gaussian in the estimator exponential moment.",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2602.01338v1",
+        "anchor": "D.1 Claim 1 and Claim 2",
+        "hypothesis_adapter": "Equal isotropic input variance; centered auxiliary; position mean h; velocity scale pi/2."
+      }
+    ],
+    "fidelity_boundary": "All real r is a disclosed extension of source r in [0,1]. Starting position is h+Z, not h. No gradient regularity is required for the Gaussian path law. The actual W inner-product consumer later needs Holder gradients and center-distance hypotheses. No MGF, clipping accuracy, terminal sampler or paper main result is claimed. Printed D.1 Claim 1 missing log 2 is a separately source-audited possible-source-error; no silent repair is admitted."
+  }
+}
