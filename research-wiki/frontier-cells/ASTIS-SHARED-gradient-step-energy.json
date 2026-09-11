@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-gradient-step-energy",
+  "route": "shared",
+  "title": "Gradient-step comparator energy inequality",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.4 (3.1), (3.3), Lemma3.1",
+  "target_statement": "For the actual gradient step T(x)=x-h grad f(x), ||T(x)-z||\u00b2+2h(f(T(x))-f(z)) <= (1-alpha*h)||x-z||\u00b2 for every comparator z.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-strong-convex-first-order"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Theorem-3.4",
+    "shared:gradient-descent"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib / ASTIS analysis modules and frontier cells; no existing general-alpha energy/value bound",
+      "Mathlib db584cd Analysis.ODE.DiscreteGronwall.discrete_gronwall_prod_general, geom_sum_mul_neg",
+      "Optlib 5da27c5 point_descent_for_convex and gradient_method (alpha=0), CvxLean c62c2f bounded search; independent smoothness_review report"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentValue.gradient_step_energy_bound",
+    "canonical_shared_cell": "ASTIS-SHARED-gradient-step-energy",
+    "notes": "Reuse existing first-order support and signed-forcing product Gronwall; no generic recurrence reproof or external module import."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Section3 Theorem3.4 (3.1)-(3.3), Lemma3.1 and Lemma3.5",
+    "detail_status": "omitted",
+    "gap": "Printed h<=1/beta omits necessary h>=0. Weighted monotonicity requires q>=0. Reciprocal rate undefined at h=0,N=0,q=0,1.",
+    "consulted": [
+      {
+        "source": "Chewi exact norm expansion/descent proof and pinned Mathlib product Gronwall",
+        "anchor": "Theorem3.4 general comparator (3.3), weighted proof after Lemma3.5",
+        "hypothesis_adapter": "C1 complete real Hilbert space generalizes C2 Euclidean setting; beta*h<=1 avoids reciprocal beta domain; h>=0 explicit; weighted adapter exposes alpha*h<=1. No minimizer needed for arbitrary comparator."
+      }
+    ],
+    "fidelity_boundary": "Shared optimization textbook dependency, not companion-paper progress. Two division-free public inequalities; normalized convex/positive-coefficient rates only compiled test consumers if supplied. No claim of full Theorem3.4 chapter closure, minimizer existence, or validity of inverse formula at zero."
+  }
+}
