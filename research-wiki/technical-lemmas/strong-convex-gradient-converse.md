@@ -125,3 +125,8 @@ checks. Publication (33 items), semantic registry (36 audits), cells (45),
 graph retains the same three connections; unchanged source/lesson/layout reuse
 the recorded desktop/mobile visual inspection. This closes integration of the
 Optlib-shaped converse, not the full Chewi Proposition 1.6 or its integral route.
+
+Direct main integration landed as [`e8d54e1`](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/commit/e8d54e1f7db1917538c8b5f83b5fdc49863f7f78).
+Both remote main and the task branch were updated by the confirmed ordinary
+atomic push. SAU and Frontier Cell are now MERGED; post-merge hosted CI and
+website deployment remain separate from local acceptance.
