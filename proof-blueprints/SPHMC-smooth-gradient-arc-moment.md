@@ -16,3 +16,27 @@ Proof: actual joint product law permits integrating independent velocity first. 
 Reuse: GaussianPowerMoment.lean has a local linear_exp proof (not callable by name); reuse map_eq_gaussianReal/integrable_exp_mul_gaussianReal and existing audited proof route. No explicit high-dimensional norm-square exponential moment found in bounded Gaussian modules. Derive via stdGaussian orthonormal basis product, integral_fintype_prod_eq_pow / Integrable.fintype_prod and one-dimensional Gaussian density integral; Mathlib GaussianIntegral.lean integrable_exp_neg_mul_sq/integral_gaussian. Fernique existence alone cannot supply needed constants/range.
 
 Source Claim1 has no positive lambda lower bound. Printed logarithmic bound missing log2 remains possible-source-error; proof and Claim2 use factor2. Proposed result must be a disclosed source-proof-supported contract, not a silent repair. Full clipping, mean identification with target log-weight, normalized Renyi, initialization and gradient cost remain later consumers.
+
+## Compiled actual consumer checkpoint
+
+The production module and focused test now compile (3120 jobs, standard three
+axioms, no lint). Its single public theorem calls the actual GaussianArcLaw
+through private implementation lemmas. Both integrability and the moment bound
+are pulled back to the original independent Gaussian inputs; the estimator uses
+the actual gradient of a differentiable function. The norm initialization is
+converted to its squared form, and the probability integral is proved at least
+one before taking its logarithm.
+
+Independent complete development compile and mathematical review accepted the
+frozen scratch hash recorded in the progress file. Source preaudit likewise
+found no missing assumptions. These are development reviews, not formal
+encoder-denoiser admission. Production permits beta=0, zero dimension and all
+real times; these valid extensions must appear explicitly in the publication.
+The center is arbitrary subject to the source distance bound; construction of
+the actual source center remains a separate consumer.
+
+Next: author the lesson and binding, use the already compiled delta-expanded
+statement (with definitional equality checked) for a fresh anonymous decoder,
+then perform formal source review and fixed-commit production verification.
+The lane remains EXPLORING until publication validation; both main results
+remain incomplete.

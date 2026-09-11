@@ -1,9 +1,9 @@
 {
   "remaining": [
-    "Transfer true-gradient product result through actual GaussianArcLaw pushforward",
-    "Source norm-center initialization adapter and logarithmic conclusion with log2",
-    "Independent full production proof and source admission",
-    "Reader delivery and integration"
+    "Author publication lesson and binding with precise source deltas",
+    "Fresh anonymous decoder and formal independent source audit",
+    "Commit-bound production verification and admission",
+    "Aggregate integration, reader/graph delivery, merge and deployment"
   ],
   "local_check": {
     "log": ".astis/smooth-gradient-arc-scratch.log",
@@ -15,12 +15,12 @@
     ],
     "command": "lake env lean .astis/SmoothGradientArcMoment.lean"
   },
-  "development_result": "Source range/constants, norm-controlled field product moment, and true differentiable-function gradient product moment now compile. True gradient result includes HasGradientAt, actual Gaussian product input and bound 2*exp(10*d*eta^2*lambda^2*beta^2). Original arc pushforward transfer and log form remain pending.",
-  "scratch_sha256": "5c24029eeed22eeb4dbb380672670d0a1f20abf5ac2b353be7f6c8941b15e1ef",
+  "development_result": "Complete actual smooth-gradient arc consumer compiles: true derivative/gradient, actual independent Gaussian input and arc velocity, source norm initialization, measurable and integrable exponential estimator, factor2 MGF and log2 bound.",
+  "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
   "state": "EXPLORING",
   "scratch": ".astis/SmoothGradientArcMoment.lean",
   "cell": "ASTIS-SW-SPHMC-smooth-gradient-arc-moment",
-  "boundary": "No production estimator theorem or paper result proved yet.",
+  "boundary": "Production Lean and focused test compiled; complete scratch independently reviewed. EXPLORING only until authored publication validation and formal source admission. Neither paper main result is complete.",
   "independent_quadratic_core": {
     "result": "Independent compile and mathematical development review accepted; no integrability circularity; final finite moment retains t<1/2.",
     "reviewer": "depth_commit_verifier",
@@ -30,5 +30,31 @@
     "result": "Independent focused compile and mathematical review accepted product integrability before Fubini, positional domination, factor2 and exact constants. Later source constant and true gradient assembly not covered by this review.",
     "sha256": "6c40632fc0b352fc9a4554b35368c9b37a93e8be500416dc58c7c183c58d77d9",
     "reviewer": "depth_commit_verifier"
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean",
+    "test": "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean": "e130a17501c90d91a178d113e1e52aaa3656ffec7237e38c27cdae4f5237a5fa",
+      "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean": "b4936c5eaab2df47ab8ab4857d6d91c2f5fafd265aa7812f3eacd9c2b6682bb3"
+    },
+    "focused_command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcMoment",
+    "focused_log": ".astis/smooth-gradient-arc-focused.log",
+    "result": "PASS3120; standard three axioms; no lint",
+    "public_declarations": 1,
+    "private_implementations": 20
+  },
+  "independent_complete_development": {
+    "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
+    "proof_reviewer": "depth_commit_verifier",
+    "proof_result": "Independent complete compile exit0, standard three axioms, no lint. Actual GaussianArcLaw call, correct pushforward, velocity scale/sign, integrability before Fubini and log, range/constants accepted. No VERIFIED admission.",
+    "source_reviewer": "log_depth_source_review",
+    "source_result": "Full actual estimator consumer and source-proof factor2/log2 contract accepted in preaudit. Disclose beta=0, d=0, all-real r, arbitrary residual-controlled center. Printed no-log2 Claim1 not silently repaired. Formal anonymous roundtrip remains pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/smooth-gradient-arc-expanded-statement.txt",
+    "text_sha256": "e97812dcc3fb6addb12e9bcd8ccde818865ad47b5e757211f983127ddb868dbd",
+    "definitionally_equal": true,
+    "private_arc_and_velocity_expanded": true
   }
 }

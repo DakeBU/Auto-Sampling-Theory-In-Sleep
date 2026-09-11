@@ -102,7 +102,34 @@
           "result": "Fixed47f995c accepted; unchanged VERIFIED proof/binding; preserved imports; source detail matches reviewed boundary; sole STABILIZING; independently recomputed digest and PASS9150/site evidence."
         }
       },
-      "post_merge": "Merge CI and deployed provenance pending."
+      "post_merge": "Merge Lean CI and website deployment succeeded; exact live provenance recorded."
+    },
+    "post_merge_delivery": {
+      "merge_lean": {
+        "run": 34597153457,
+        "status": "success"
+      },
+      "merge_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+      "merge_site": {
+        "run": 34597153459,
+        "status": "success",
+        "deploy_job": 103256021268
+      },
+      "boundary": "Merge Lean CI and website deployment succeeded; actual live provenance independently recorded. Neither paper main result is complete.",
+      "live": {
+        "merge_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
+        "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+        "http_status": 200,
+        "anchor": "sphmc-gaussian-arc-law",
+        "deployed_provenance": true,
+        "card": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-gaussianarclaw.html",
+        "card_http_status": 200,
+        "card_labels": [
+          "Partial",
+          "Not mapped"
+        ],
+        "boundary": "Actual deployed commit, HTTP status, original anchor and labels verified. Local visual checks and candidate CI remain separately pinned."
+      }
     }
   },
   "blocked": {

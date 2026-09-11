@@ -1,8 +1,5 @@
 {
-  "remaining": [
-    "Verify merge CI and deployed reader provenance.",
-    "Aggregate integration, original reader/graph QA, merge and deployment"
-  ],
+  "remaining": [],
   "state": "MERGED",
   "cell": "ASTIS-SW-SPHMC-gaussian-arc-law",
   "scratch_sha256": "1d03511b1d0b6426c489265de1af155a7aeed894de8a14c45cc621d2df12b80a",
@@ -12,7 +9,7 @@
     "Actual shifted/scaled input product pushforward equals position/velocity Gaussian product",
     "Actual path derivative with pi/2 scale and negative sine sign"
   ],
-  "boundary": "Full production proof compiled and independently development-reviewed. Anonymous reconstruction pending; no PROVED_LOCAL or VERIFIED admission, and neither paper main result is complete.",
+  "boundary": "Packet merged, merge Lean CI and website deployment passed, exact live provenance verified. Both paper main results remain incomplete.",
   "local_check": {
     "axioms": [
       "propext",
@@ -130,19 +127,20 @@
         "result": "Fixed47f995c accepted; unchanged VERIFIED proof/binding; preserved imports; source detail matches reviewed boundary; sole STABILIZING; independently recomputed digest and PASS9150/site evidence."
       }
     },
-    "post_merge": "Merge CI and deployed provenance pending."
+    "post_merge": "Merge Lean CI and website deployment succeeded; exact live provenance recorded."
   },
   "post_merge_delivery": {
     "merge_lean": {
       "run": 34597153457,
-      "status": "in_progress"
+      "status": "success"
     },
     "merge_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
     "merge_site": {
       "run": 34597153459,
-      "status": "success"
+      "status": "success",
+      "deploy_job": 103256021268
     },
-    "boundary": "Actual live provenance verified; final merge Lean CI still running.",
+    "boundary": "Merge Lean CI and website deployment succeeded; actual live provenance independently recorded. Neither paper main result is complete.",
     "live": {
       "merge_commit": "41f04c0ecadc482ffee2db8ef977bceae2a984b1",
       "page": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",

@@ -24,10 +24,26 @@
     "canonical_shared_cell": ""
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCSmoothGradientArcMoment",
+        "result": "PASS3120; standard three axioms; no lint",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/SmoothGradientArcMoment.lean": "e130a17501c90d91a178d113e1e52aaa3656ffec7237e38c27cdae4f5237a5fa",
+          "Tests/SmoothedPicardHMCSmoothGradientArcMoment.lean": "b4936c5eaab2df47ab8ab4857d6d91c2f5fafd265aa7812f3eacd9c2b6682bb3"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-smooth-gradient-arc-moment.md",
     "planning_review": "Independent log_depth_source_review verified source smooth lambda range, factor2 and actual gradient consumer; exact quadratic Gaussian moment needed.",
-    "execution_boundary": "Root sole writer; SmoothGradientArcMoment EXPLORING after actual parent PR278 merge. No STABILIZING packet."
+    "execution_boundary": "Production Lean and focused test compiled; complete scratch independently reviewed. EXPLORING only until authored publication validation and formal source admission. Neither paper main result is complete.",
+    "development_review": {
+      "scratch_sha256": "79d09bfe93bb9ff55c00ca1670ae7618013904a33947d4db1a8f80955750eb89",
+      "proof_reviewer": "depth_commit_verifier",
+      "proof_result": "Independent complete compile exit0, standard three axioms, no lint. Actual GaussianArcLaw call, correct pushforward, velocity scale/sign, integrability before Fubini and log, range/constants accepted. No VERIFIED admission.",
+      "source_reviewer": "log_depth_source_review",
+      "source_result": "Full actual estimator consumer and source-proof factor2/log2 contract accepted in preaudit. Disclose beta=0, d=0, all-real r, arbitrary residual-controlled center. Printed no-log2 Claim1 not silently repaired. Formal anonymous roundtrip remains pending."
+    }
   },
   "blocked": {
     "reason": "",
