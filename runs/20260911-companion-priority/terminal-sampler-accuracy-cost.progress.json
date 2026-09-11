@@ -55,5 +55,19 @@
     },
     "focused_command": "lake build Tests.SmoothedPicardHMCTerminalSamplerAccuracyCost",
     "state": "Focused production PASS3740, session44697 exit0, standard3/no lint. Independent fixed-commit production review and fresh formal source admission pending."
+  },
+  "expanded_statement": {
+    "file": ".astis/terminal-sampler-accuracy-cost-expanded.log",
+    "sha256": "2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742",
+    "characters": 9141,
+    "definitionally_equal": true,
+    "private_names_expanded": "All current local namespace constants, including generated NNReal positivity proof. Initial six-name expansion exposed attemptLaw._proof_1 and was replaced before any decoder.",
+    "independent_review": "depth_commit_verifier accepted corrected9141-character source-free expansion and Meta.isDefEq replay at610b935.",
+    "source_name_free": true
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "610b935b1b6ad6d32322830d0c0c767e1bda3498",
+    "result": "Unchanged reviewed mathematical proof, independent focused PASS3740 standard3; independent corrected expanded9141chars SHA2e7416cc9541b652d17caf853cb132898a145a4cd187643609313706cf0cd742, Meta.isDefEq success and no private/source names or ellipsis. No VERIFIED."
   }
 }
