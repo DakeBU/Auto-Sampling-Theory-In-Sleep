@@ -31,3 +31,20 @@ Reuse the public likelihood theorem and the public scaled-density theorem;
 any needed translation adapter must be proved, not called by a private name.
 
 Development checkpoint: scratcha66ad076d1a28ba3422bfc4dae7e341187803f0edef7e22b17fba703a38a0b5a compiled exit0 session54602, standard3nolint. Exact beta/2 Taylor lower bound uses first-derivative barrier monotonicity; k=1/eta-beta and Young give k/4 envelope; actual volume exponential weight L1 and positive integral proved. Full Gaussian-input normalization and tilted/volume identity remain open. This is not a complete packet or public production admission.
+
+Current production checkpoint: 4d165850ae8b25e5fa2dc5bdbe508f6a12a8a1a8.
+The full target is now proved in IdealRGOIdentification.ideal_rgo_identification:
+three exponential weights are L1 with strictly positive real integrals, and
+the actual unclipped gradient-arc mean tilt equals both the ideal Gaussian tilt
+and the explicit normalized canonical-volume density. Root and independent
+focused builds PASS3659; standard three axioms, no lint. Production development
+review accepted, not formal VERIFIED. Six-step lesson and fresh anonymous
+reconstruction are authored; formal source review and integration remain.
+The earlier scratch-only/open-target notes above are historical checkpoints.
+
+Next mathematical consumer after this packet's admission: integrate the existing
+fixed-time clipping exponential bound under the actual uniform-time product,
+then use Jensen to control the exponential of the actual mean difference.
+Only then derive both normalized RN-power integrals for clipped-versus-ideal
+Renyi accuracy. Normalizers and both directions must be controlled; actual
+program cost remains under its own input law, without TV cost transport.
