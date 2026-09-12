@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-enhanced-terminal-execution.md",
     "planning_review": "Independent log_depth_source_review primary-source audit pins epsilon_J=Delta0/sqrt(J+1); source choices and local sufficient constants separated.",
-    "execution_boundary": "Root sole writer. TerminalFORSKernel remains sole stabilization owner, PR295 pending.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent terminalFORS fully merged,CI/live delivered. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at a9f6854;aggregate integration,original reader/graph QA,merge/live separate.",
     "independent_verification": "runs/20260911-companion-priority/enhanced-terminal-execution.verified-admission.json"
   },
