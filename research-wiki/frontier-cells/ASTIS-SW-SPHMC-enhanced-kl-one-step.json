@@ -6,7 +6,7 @@
   "title": "Actual enhanced-state one-step KL recurrence",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3 and Section6.3 after(6.5),actual conditional output KL recurrence",
   "target_statement": "For the actual enhanced-state absorbed transition and real Gibbs base muV=volume.tilted(-V), construct target T,ideal Gaussian observation H and posterior K. Prove one-step KL((R composed P)s||Ts)<=active observation KL(Qs||Hs)+integral KL(Rt||Tt)dPs for every actual Markov R, with derived error measurability and all infinite/non-AC cases. Derive posterior recovery and conditional-reference target alignment rather than assume them.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SW-SPHMC-observation-conditional-kernel"
   ],
@@ -28,10 +28,20 @@
     "notes": "Actual conditional reference mixture aligned to real Gibbs posterior; oldstate deterministic recurrence not substituted."
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCEnhancedKLOneStep",
+        "result": "PASS3779; standard three axioms; no new-module lint (historical dependency warnings separate)",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/EnhancedKLOneStep.lean": "a56d45889e3712486ed8cba8ff063ecd0f59a16f7d8cf6746286b4b18449505a",
+          "Tests/SmoothedPicardHMCEnhancedKLOneStep.lean": "fdb23d3b6c0c509943769a8f3d356bb2b3632442a0bfa64cb0a68b406a59c0f2"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-enhanced-kl-one-step.md",
     "planning_review": "Independent log_depth_source_review selected exact real-Gibbs route and checked actualQ versus idealH AE boundary. API-only probe passed.",
-    "execution_boundary": "Root sole writer; ObservationConditionalKernel remains sole stabilization owner pending PR297."
+    "execution_boundary": "Root sole writer; ObservationConditionalKernel remains sole stabilization owner pending PR297.",
+    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
   },
   "blocked": {
     "reason": "",

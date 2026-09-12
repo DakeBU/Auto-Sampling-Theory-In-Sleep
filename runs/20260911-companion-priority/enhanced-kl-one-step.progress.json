@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
   "remaining": [
-    "Independent fixed-production verification",
-    "Expanded statement,fresh blind reconstruction,formal source review and authored reader",
-    "Local admission,integration/reader QA,remote delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "development_checkpoints": [
     {
@@ -82,6 +81,42 @@
     "log": ".astis/enhanced-kl-focused.log",
     "private_declarations": 7,
     "public_declarations": 1,
-    "boundary": "Compiled checkpoint only;fixed production,anonymous reconstruction,formal source/publication gates remain before PROVED_LOCAL/VERIFIED."
-  }
+    "boundary": "Compiled checkpoint only;fixed production,anonymous reconstruction,formal source/publication gates remain before PROVED_LOCAL/VERIFIED.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "cae23a2d4afe0fa95db77944d8fd173c36db2af1",
+      "decision": "fixed-production-accepted",
+      "evidence": "Independent focusedPASS3779 exit0 standard3/no new-module lint;6private theorems+privatefirstIndex+solepublic;namespace/private/doc relocation matches accepted actual scratch exactly;fakeclosure scan clear;faithful recording authorized. Not PROVED_LOCAL/VERIFIED."
+    }
+  },
+  "expanded_statement": {
+    "path": ".astis/enhanced-kl-expanded.log",
+    "characters": 4487,
+    "sha256": "ef8fe6c5207e6d86a83543fe5f303ea66d06073a0b5762f90517c2b7607e3626",
+    "session": 87168,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier independent28668 exit0 Meta.isDefEq,4487characters/exactSHA;no source/private names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_aa",
+    "result": "runs/20260911-companion-priority/enhanced-kl-one-step.decoder-result.json",
+    "packet_sha256": "072cbb91955d2703b4647891caa9a14cae0561663df0f2b25ac129a62bb972d6",
+    "complete_transcription_qa": "accepted by decoder",
+    "reviewer_packet_sha256": "e0e411f989f2f8cb7ed906ef94c895655ee782a746370e4b44fffe82d1287891",
+    "formal_source_review": "accepted; publicationPASS73 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep.one_step_kl_error",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCEnhancedKLOneStep"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-enhanced-kl-one-step.json",
+    "state": "Eight authored steps,7deltas and7private accepted; publicationPASS73."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }

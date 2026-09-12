@@ -6,7 +6,7 @@
   "title": "Actual observation-conditioned retained-reference kernel",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3 and Section6.3 after (6.5)",
   "target_statement": "Construct the jointly measurable conditional retained-state kernel given the actual noisy observation. Identify its observation marginal as Gaussian smoothing of actual M, retain the pre-noise initialized GD reference, and factor the actual remaining output through this disintegration. Prove conditional precision and center support.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SW-SPHMC-reference-carrying-kernel",
     "ASTIS-SW-SPHMC-enhanced-terminal-execution"
@@ -40,9 +40,18 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-observation-conditional-kernel.md",
     "planning_review": "Independent log_depth_source_review selected actual observation-conditioned retained-reference kernel; pinned API-only synthesis passed.",
-    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent enhanced execution merged,Site/live passed;merge Lean still pending. Proof/source binding unchanged.",
+    "execution_boundary": "Actual merge releases stabilization lane. Both main results incomplete.",
     "admission_boundary": "VERIFIED at d1872b9;aggregate integration,original reader/graph QA,merge/live separate.",
-    "independent_verification": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json",
+    "root_build": "runs/20260911-companion-priority/observation-conditional-kernel.local-qa.json:exact6af5598 canonical gate Tests9192,independent final local integration accepted",
+    "graph_regeneration": "Same local QA: full site build/check,graph,actual root browser and independent static review",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/297",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/297",
+      "commit": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+      "merged_at": "2026-09-12T03:44:48Z",
+      "post_merge": "PR Lean34670471170 and Site34670471192 passed;merge CI/live pending."
+    }
   },
   "blocked": {
     "reason": "",

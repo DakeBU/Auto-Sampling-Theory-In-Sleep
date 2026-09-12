@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-enhanced-kl-one-step",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Gibbs enhanced-state one-step KL recurrence",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3,Section6.3 conditional output KL argument after(6.5)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded actual KL recurrence component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Not the numerical stage budget or full main theorem."
+      },
+      "statement": "muV is a probability measure. There exist Markov kernels T,H:S->E and P:S->S, chosen before every remaining-output kernel R, such that for every state s, T_s=muV.tilted(x->-b/2*norm(x-u)^2), H_s=G(T_s,sqrt(v_s)), and P_s=dirac_s when threshold<=b, otherwise P_s is the pushforward of M_s product standardGaussian by U(s,·). Put Q_s=G(M_s,sqrt(tau_s/(beta+b))) and e(s)=0 when threshold<=b, otherwise KL(Q_s||H_s). Then e is measurable. For every actual Markov kernel R:S->E, the function s->KL(R_s||T_s) is measurable and, for every s, KL((R composed with P)_s||T_s)<=e(s)+the nonnegative integral of KL(R_t||T_t) under P_s.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w. The nonnegative parameters satisfy0<alpha<=beta.",
+        "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). eta,tau:S->R are measurable and strictly positive at every state. M:S->E is an actual Markov kernel, and threshold is any nonnegative real. M,eta,tau may depend on all coordinates. No source schedule,reference admissibility,history origin,approximation or moment premise is imposed.",
+        "Set v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z and center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs). For p=(s,(x,z)), define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and D_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w). N_p is the least n with norm(grad F_p(D_p^n(x)))^2<=(alpha+bp_s)*d, or0 if none exists. U(p)=(bp_s,center(p),D_p^N_p(x),k+1,prepend(obs(p),history)). The actual reference is initialized at the pre-noise x.",
+        "Define the actual Gibbs base muV=volume.tilted(-V), using canonical volume. Gaussian smoothing G(mu,sigma) is the law of X+sigma*Z under mu product standardGaussian. All KL values and all displayed integrals are extended nonnegative reals, including infinity. R composed with P first draws the retained state from P and then the output from R."
+      ],
+      "formulae": [
+        {
+          "label": "Actual one-step KL propagation",
+          "tex": "\\operatorname{KL}((R\\circ P)_s\\Vert T_s)\\le e(s)+\\int\\operatorname{KL}(R_t\\Vert T_t)\\,P_s(dt),\\qquad e(s)=\\begin{cases}\\operatorname{KL}(Q_s\\Vert H_s),&b_s<b_*,\\\\0,&b_s\\ge b_*.\\end{cases}"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "enhanced-kl-one-step",
+          "label": "Actual Gibbs enhanced-state one-step KL recurrence"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep.one_step_kl_error",
+          "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
+          "role": "proof-edge",
+          "supports": [
+            "enhanced-kl-one-step"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCEnhancedKLOneStep",
+          "boundary": "Actual enhanced-state one-step KL recurrence for the Section6.3 conditional output argument, not the numerical(6.5) observation budget or full Theorem6.5. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Arbitrary measurable positive steps,state,threshold and actual M,R provide no source schedule,admissibility,accuracy or moments; e may be infinite. T is the nested actual volume-Gibbs tilt, without an extra combined density/normalizer formula. Posterior recovery,conditional target alignment and active projection are proved internally,not public premises. Internal J,C,K and standalone recovery are not returned conjuncts. Conditional support is used only under actualQ,not transferred to idealH. The stopped branch retains remaining-output KL. Numerical stage precision,finite-depth accumulation,terminal accuracy,actual M construction and all query costs remain separate; neither paper is complete.",
+          "assumption_deltas": [
+            {
+              "source": "Source smooth strongly convex Euclidean potentials.",
+              "lean": "Positive finite-dimensional inner-product Borel space and genuine C2 Hessian bounds.",
+              "classification": "API-limitation",
+              "reason": "Stronger differential regularity and explicit domain are disclosed."
+            },
+            {
+              "source": "Source legal schedules,reference and produced history.",
+              "lean": "Arbitrary positive measurable eta,tau,threshold and full initial state.",
+              "classification": "generalization",
+              "reason": "No source schedule,admissibility or history-origin result is borrowed."
+            },
+            {
+              "source": "Source sampler and remaining recursive call have accuracy guarantees.",
+              "lean": "M and R are arbitrary actual Markov kernels;observation KL may be infinite.",
+              "classification": "API-limitation",
+              "reason": "This proves the recurrence structure,not the A1 or(6.5)numerical budget."
+            },
+            {
+              "source": "Source target has a Gibbs potential and a quadratic RGO update.",
+              "lean": "Actual muV=volume.tilted(-V) and nested quadratic tilt,with probability and recovery derived.",
+              "classification": "source-implicit",
+              "reason": "No arbitrary unidentified base;combined volume density/normalizer is not an extra public conclusion."
+            },
+            {
+              "source": "Source conditions on actual observation and full history.",
+              "lean": "Conditional reference target alignment only under actualQ thenC AE.",
+              "classification": "mathematically-necessary",
+              "reason": "No transfer to idealH null sets or deterministic observation-only reference."
+            },
+            {
+              "source": "Finite error estimates arise after source accuracy inputs.",
+              "lean": "All-ENNReal recurrence including non-AC and infinite KL,with measurability proved.",
+              "classification": "generalization",
+              "reason": "No hidden finite-KL,AC or L1 premise;later numerical bounds are separate."
+            },
+            {
+              "source": "Source analysis accumulates errors and bounds final accuracy/cost.",
+              "lean": "One actual enhanced-state KL step,including the unchanged absorbed residual.",
+              "classification": "API-limitation",
+              "reason": "Internal J,C,K/recovery are not returned;finite-depth,terminal accuracy,M construction and costs remain."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
   "remaining": [
-    "Remote PR CI,actual merge and deployment"
+    "Merge Lean CI completion"
   ],
   "development_checkpoints": [
     {
@@ -130,6 +130,13 @@
     "pr_lean_run": 34670471170,
     "pr_site_run": 34670471192,
     "pr_site_result": "SUCCESS",
-    "state": "OPEN; Lean CI pending"
+    "state": "MERGED; PR checks and merge Site SUCCESS; live full merge/declaration verified; merge Lean pending",
+    "merge_commit": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+    "merged_at": "2026-09-12T03:44:48Z",
+    "pr_lean_result": "SUCCESS",
+    "merge_lean_run": 34671196334,
+    "merge_site_run": 34671196304,
+    "merge_site_result": "SUCCESS",
+    "live_delivery": "runs/20260911-companion-priority/observation-conditional-kernel.live-delivery.json"
   }
 }
