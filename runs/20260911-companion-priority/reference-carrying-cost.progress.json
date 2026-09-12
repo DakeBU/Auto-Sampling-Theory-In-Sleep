@@ -1,0 +1,84 @@
+{
+  "cell": "ASTIS-SW-SPHMC-reference-carrying-cost",
+  "state": "STABILIZING",
+  "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD.",
+  "remaining": [
+    "Remote CI and actual merge",
+    "Merge CI and live delivery"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/ReferenceCarryingCostStatewise.lean",
+      "sha256": "04379d073403a8dcd5f52402cbf14f0e3651135214f2fda8ca90e8d62b7d6e10",
+      "session": 60742,
+      "exit_code": 0,
+      "result": "Genuine current regularized Hessian and actual source first-hit statewise expected cost; standard3/no lint. Same enhanced-kernel N identity pending.",
+      "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,standard3/no lint; actual statewise cost and conditional global integrability accepted. No VERIFIED."
+    },
+    {
+      "path": ".astis/ReferenceCarryingCostKernel.lean",
+      "sha256": "c60b0fbb94e4517a5cf99c4ea117309e96702607e4858ee25e8a224d0b652c07",
+      "session": 91231,
+      "exit_code": 0,
+      "result": "Nonnegative actual compProd cost bound; globalL1/real expectation only under integrable statebound. Standard3/no lint; concretecost consumer pending.",
+      "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,standard3/no lint; actual statewise cost and conditional global integrability accepted. No VERIFIED."
+    }
+  ],
+  "complete_scratch": {
+    "path": ".astis/ReferenceCarryingCostComplete.lean",
+    "sha256": "fa8a5478d0edb4c656de12de864905393e1c418c6c536efe068238bffba710cc",
+    "session": 82147,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled stdin exit0 standard3/no lint,actual N via genuine gradients/trajectories,absorbed0/activeN+1 and actual kernel integrals accepted."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "result": "Complete scratch accepted: exact actual N,pre-noise start,genuine current curvature/scales and constants,W2 onlyactive,no desired moments/count assumed. epsilon arbitrary real function,notmeas; raw upper lintegral general convention,not automatically random-budget expectation. SFinite state measure onlyintegral,probability onlyexpectation. Absorbed auxiliarylaw doesnot assertdraws. N+1 per-pointgradient reuse convention,noevaluator/M/FORS/stagesum. DoesnotpubliclyreturnP or assertarbitrary state-law execution origin. Noformaladmission.",
+    "production_delta": "log_depth_source_review accepted new conditional measurable-budget conclusion. No stronger global assumptions; measurable budget still not integrable budget or execution-law provenance. Formalpacketreviewpending."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingCost.lean",
+    "test": "Tests/SmoothedPicardHMCReferenceCarryingCost.lean",
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingCost.lean": "2efaccd406640d48aab22672395ea98a6d8c34aadd7241c93dbd11221c746ccc",
+      "Tests/SmoothedPicardHMCReferenceCarryingCost.lean": "048abe9c456cf6a1d9bffa72d07c16023650f933e3dd52f58ab8c46b323c00ff"
+    },
+    "session": 39071,
+    "exit_code": 0,
+    "state": "FocusedPASS3780,standard3,no newmodulelint. Production adds conditional Measurable epsilon -> Measurable B plus source-boundary explanations; independent updated fixed review pending."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "1cd1a1d2ecd2bdf461cc9c986779e52341c7fd91",
+    "result": "Independent focusedPASS3780 standard3/no newlint. Conditional measurable epsilon -> measurable budget derived from actual piecewise/algebra/log; unchanged actualindex/count/kernelproof. Fixedbyteandfakeclosurechecked. No VERIFIED."
+  },
+  "expanded_statement": {
+    "file": ".astis/reference-carrying-cost-expanded.log",
+    "characters": 4994,
+    "sha256": "16ef3357fc9cc2f0e64b8c7812c87b851109fdb8ae120d5e642870cb30ca17e2",
+    "session": 42818,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed full4994-character type,Meta.isDefEq passed,actualfirstIndex/activeW2/conditionalbudgetmeas/compProd/L1conditions complete and no source names."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-reference-carrying-cost.json",
+    "state": "Eight authored steps,6deltas and4private accepted; publicationPASS69."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost.reference_carrying_cost",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCReferenceCarryingCost"
+    ]
+  },
+  "admission_boundary": "VERIFIED at9365165; aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/reference-carrying-cost.verified-admission.json",
+  "integration_notes": {
+    "upstream": "bdcbcc1112234218383db8ff9a3c008e7777f96f",
+    "boundary": "Canonical gate, full site/check, root browser and graph QA passed; independent final local integration accepted at1bc90fe. Remote CI/merge/live pending."
+  },
+  "local_qa": "runs/20260911-companion-priority/reference-carrying-cost.local-qa.json"
+}

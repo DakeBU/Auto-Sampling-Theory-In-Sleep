@@ -45,6 +45,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ApproximateInitialGradi
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.JointReferenceGradientDescent
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram
 
 /-!

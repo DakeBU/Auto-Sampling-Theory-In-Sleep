@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost.reference_carrying_cost
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost.reference_carrying_cost
