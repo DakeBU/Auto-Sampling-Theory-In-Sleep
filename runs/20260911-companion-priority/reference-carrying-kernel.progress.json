@@ -68,5 +68,13 @@
     "upstream": "3ad156ae79d655334222c2cac4af41b8ade99750",
     "boundary": "Independent final local integration accepted at2f8d34b; canonical gate,fullsite and actual root reader/graph QA passed. Remote delivery separate."
   },
-  "local_qa": "runs/20260911-companion-priority/reference-carrying-kernel.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/reference-carrying-kernel.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/293",
+    "head": "c33c2882b60b1b78bf92ba6b7ff4209cd487b1da",
+    "state": "OPEN",
+    "lean_run": 34660073465,
+    "site_run": 34660073474,
+    "observed": "both IN_PROGRESS; neither merge nor live delivery claimed"
+  }
 }

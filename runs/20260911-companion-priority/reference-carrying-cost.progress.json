@@ -1,0 +1,28 @@
+{
+  "cell": "ASTIS-SW-SPHMC-reference-carrying-cost",
+  "state": "EXPLORING",
+  "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD.",
+  "remaining": [
+    "Identify completed-square enhanced-state actual N with source-potential first hit",
+    "Joint measurable absorbed0/activeN+1 cost and actual kernel-law consumer",
+    "Independent proof/source admission and original reader delivery"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/ReferenceCarryingCostStatewise.lean",
+      "sha256": "04379d073403a8dcd5f52402cbf14f0e3651135214f2fda8ca90e8d62b7d6e10",
+      "session": 60742,
+      "exit_code": 0,
+      "result": "Genuine current regularized Hessian and actual source first-hit statewise expected cost; standard3/no lint. Same enhanced-kernel N identity pending.",
+      "independent_review": "pending"
+    },
+    {
+      "path": ".astis/ReferenceCarryingCostKernel.lean",
+      "sha256": "c60b0fbb94e4517a5cf99c4ea117309e96702607e4858ee25e8a224d0b652c07",
+      "session": 91231,
+      "exit_code": 0,
+      "result": "Nonnegative actual compProd cost bound; globalL1/real expectation only under integrable statebound. Standard3/no lint; concretecost consumer pending.",
+      "independent_review": "pending"
+    }
+  ]
+}
