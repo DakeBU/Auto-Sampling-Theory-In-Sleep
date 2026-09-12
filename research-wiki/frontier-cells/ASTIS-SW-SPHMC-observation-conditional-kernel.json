@@ -50,8 +50,9 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/297",
       "commit": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
       "merged_at": "2026-09-12T03:44:48Z",
-      "post_merge": "PR Lean34670471170 and Site34670471192 passed;merge CI/live pending."
-    }
+      "post_merge": "Merge Lean34671196334 and Site34671196304 SUCCESS; live commit/declaration provenance verified."
+    },
+    "live_delivery": "runs/20260911-companion-priority/observation-conditional-kernel.live-delivery.json"
   },
   "blocked": {
     "reason": "",

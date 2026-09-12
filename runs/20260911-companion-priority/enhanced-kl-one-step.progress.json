@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -118,5 +118,6 @@
     "path": "website/content/declaration_lessons/sphmc-enhanced-kl-one-step.json",
     "state": "Eight authored steps,7deltas and7private accepted; publicationPASS73."
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at 520c11e;aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json"
 }

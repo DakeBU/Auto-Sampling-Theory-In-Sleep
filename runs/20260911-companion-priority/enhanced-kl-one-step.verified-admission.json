@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "520c11ea2d45d381808d7155e7e8029c4c03a5bb",
+    "gate": {
+      "production": "Unchanged independently compiledPASS3779 standard3 and4487-character Meta/isDefEq replay.",
+      "publication": "Independent reviewed=True and publication --base6af5598d90da41a4cbe0f2aa077cfd37d487c743 exit0 PASS73,all7private covered. Allsource/statement/reconstruction/module/test/decoder/reviewer packet/run hashes and canonical anonymous bytes checked; external binding preimage424d7753bde1dbfb6cc0ead179ee1033086df57581419e5fc79f47dca55877f0 and context match.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCEnhancedKLOneStep",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_aa",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "424d7753bde1dbfb6cc0ead179ee1033086df57581419e5fc79f47dca55877f0",
+        "decoder_packet_sha256": "072cbb91955d2703b4647891caa9a14cae0561663df0f2b25ac129a62bb972d6",
+        "decoder_run_sha256": "028f17e897207157d872bfb34ed441e40833b2ad00f25fab98f3058283a32087",
+        "reviewer_packet_sha256": "e0e411f989f2f8cb7ed906ef94c895655ee782a746370e4b44fffe82d1287891",
+        "review_run_sha256": "4deecb558f0cec5b8c79eebdd29e71ee77069354abca4e78b627b5635f7a492a",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual one-step KL error propagation with derived Gibbs recovery,conditional alignment and projection;no global error or costs."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep.one_step_kl_error"
+    ],
+    "independent_checks": [
+      "Fixed 520c11ea2d45d381808d7155e7e8029c4c03a5bb HEAD independently checked; three unrelated parent delivery metadata changes excluded from admission.",
+      "7slots,8steps,7informationaldeltas,7private;no blocker/repair.",
+      "No STABILIZING owner;VERIFIED only,not aggregate/reader/merge/live/mainpaper closure."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability."
+}
