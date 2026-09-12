@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep.one_step_kl_error",
+      "title": "Actual Gibbs enhanced-state one-step KL recurrence",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Section6.3 conditional output after(6.5)",
+          "scope": "Actual enhanced-state one-step KL recurrence for the Section6.3 conditional output argument, not the numerical(6.5) observation budget or full Theorem6.5. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Arbitrary measurable positive steps,state,threshold and actual M,R provide no source schedule,admissibility,accuracy or moments; e may be infinite. T is the nested actual volume-Gibbs tilt, without an extra combined density/normalizer formula. Posterior recovery,conditional target alignment and active projection are proved internally,not public premises. Internal J,C,K and standalone recovery are not returned conjuncts. Conditional support is used only under actualQ,not transferred to idealH. The stopped branch retains remaining-output KL. Numerical stage precision,finite-depth accumulation,terminal accuracy,actual M construction and all query costs remain separate; neither paper is complete."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCEnhancedKLOneStep"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w. The nonnegative parameters satisfy0<alpha<=beta.",
+        "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). eta,tau:S->R are measurable and strictly positive at every state. M:S->E is an actual Markov kernel, and threshold is any nonnegative real. M,eta,tau may depend on all coordinates. No source schedule,reference admissibility,history origin,approximation or moment premise is imposed.",
+        "Set v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z and center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs). For p=(s,(x,z)), define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and D_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w). N_p is the least n with norm(grad F_p(D_p^n(x)))^2<=(alpha+bp_s)*d, or0 if none exists. U(p)=(bp_s,center(p),D_p^N_p(x),k+1,prepend(obs(p),history)). The actual reference is initialized at the pre-noise x.",
+        "Define the actual Gibbs base muV=volume.tilted(-V), using canonical volume. Gaussian smoothing G(mu,sigma) is the law of X+sigma*Z under mu product standardGaussian. All KL values and all displayed integrals are extended nonnegative reals, including infinity. R composed with P first draws the retained state from P and then the output from R."
+      ],
+      "statement": "muV is a probability measure. There exist Markov kernels T,H:S->E and P:S->S, chosen before every remaining-output kernel R, such that for every state s, T_s=muV.tilted(x->-b/2*norm(x-u)^2), H_s=G(T_s,sqrt(v_s)), and P_s=dirac_s when threshold<=b, otherwise P_s is the pushforward of M_s product standardGaussian by U(s,·). Put Q_s=G(M_s,sqrt(tau_s/(beta+b))) and e(s)=0 when threshold<=b, otherwise KL(Q_s||H_s). Then e is measurable. For every actual Markov kernel R:S->E, the function s->KL(R_s||T_s) is measurable and, for every s, KL((R composed with P)_s||T_s)<=e(s)+the nonnegative integral of KL(R_t||T_t) under P_s.",
+      "formula": "\\operatorname{KL}((R\\circ P)_s\\Vert T_s)\\le e(s)+\\int\\operatorname{KL}(R_t\\Vert T_t)\\,P_s(dt),\\qquad e(s)=\\begin{cases}\\operatorname{KL}(Q_s\\Vert H_s),&b_s<b_*,\\\\0,&b_s\\ge b_*.\\end{cases}",
+      "boundary": "Actual enhanced-state one-step KL recurrence for the Section6.3 conditional output argument, not the numerical(6.5) observation budget or full Theorem6.5. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Arbitrary measurable positive steps,state,threshold and actual M,R provide no source schedule,admissibility,accuracy or moments; e may be infinite. T is the nested actual volume-Gibbs tilt, without an extra combined density/normalizer formula. Posterior recovery,conditional target alignment and active projection are proved internally,not public premises. Internal J,C,K and standalone recovery are not returned conjuncts. Conditional support is used only under actualQ,not transferred to idealH. The stopped branch retains remaining-output KL. Numerical stage precision,finite-depth accumulation,terminal accuracy,actual M construction and all query costs remain separate; neither paper is complete.",
+      "steps": [
+        {
+          "title": "Construct the real Gibbs target",
+          "text": "GibbsGradientMoment proves that muV=volume.tilted(-V) is a probability under the actual Hessian assumptions. Apply the generic measurable-state StateDependentRGO construction with b(s),v(s),u(s). This produces Markov T,H and a retained-input posterior B. The public targets remain nested tilts of this actual Gibbs base; no unrelated probability base or unproved normalizer is supplied.",
+          "formula": "\\mu_V=\\mathrm{volume.tilted}(-V),\\quad T_s=\\mu_V.\\mathrm{tilted}(-b_s\\|\\cdot-u_s\\|^2/2).",
+          "lean": "actual_gibbs_posterior: hμ,T,H,B,hTf,hHf"
+        },
+        {
+          "title": "Derive the ideal posterior recovery",
+          "text": "Project B to its second output coordinate to obtain K. Measurable pushforward composition yields the exact posterior precision b+1/v and center (b+1/v)^(-1)(bu+y/v). Instantiate the existing joint recovery with a Dirac input state and evaluate measurable second-coordinate events. The resulting pointwise recovery is H_s K_s=T_s. It is a theorem in the proof,not an input to the public statement.",
+          "formula": "\\int K(s,y)\\,H_s(dy)=T_s.",
+          "lean": "actual_gibbs_posterior: K,hKf,he,hei,hm"
+        },
+        {
+          "title": "Keep the actual reference and distinguish the two noises",
+          "text": "Positivity gives v>0 and bp=b+1/v without truncation. ObservationConditionalKernel supplies the genuine pre-noise initialized first-hit update and its actual absorbed P. Its joint J has observation marginal Q=G(M,sqrt(tau/(beta+b))). Ideal H instead uses sqrt(v)=sqrt((eta+tau)/(beta+b)). ReferenceCarryingKernel supplies the actual joint update measurability used in the projection calculation.",
+          "formula": "Q_s=G(M_s,\\sqrt{\\tau_s/(\\beta+b_s)}),\\quad H_s=G(T_s,\\sqrt{(\\eta_s+\\tau_s)/(\\beta+b_s)}).",
+          "lean": "firstIndex; one_step_kl_error: hβ,hv,hvm,hbp,J,hQ,href,hu,ho,hJs',hPs'"
+        },
+        {
+          "title": "Prove KL measurability including singular fibers",
+          "text": "Express fiber KL by the nonnegative klFun integral of the measurable kernel Radon-Nikodym derivative on the measurable absolute-continuity set,and infinity outside it. Kernel integral measurability proves the fiber KL function measurable. A measurable branch on b>=threshold gives e; the same argument works for every remaining-output R against T.",
+          "formula": "x\\mapsto\\operatorname{KL}(L_x\\Vert K_x)\\quad\\text{is measurable,including }+\\infty.",
+          "lean": "measurable_fiber_kl: hf,heq; one_step_kl_error: heq,he,hmR"
+        },
+        {
+          "title": "Establish the all-ENNReal conditional chain calculation",
+          "text": "For two kernels with the same probability base,the joint KL equals the integral of conditional KL. In the AC case,construct the joint density from the kernel derivative and use its almost-everywhere RN identity. In the non-AC case,a finite conditional integral would imply AE fiber AC and then joint AC,a contradiction. Projecting the joint laws and using the KL compProd chain identity gives the composed-output bound without a finite-KL premise.",
+          "formula": "\\operatorname{KL}(L\\mu\\Vert K\\nu)\\le\\operatorname{KL}(\\mu\\Vert\\nu)+\\int\\operatorname{KL}(L_x\\Vert K_x)\\,\\mu(dx).",
+          "lean": "conditional_kl_integral: hac,hfiber,hwd,hrn,hfinite; composed_kl_bound"
+        },
+        {
+          "title": "Average over the actual conditional reference",
+          "text": "Let C=J.condKernel. Its precision/center support implies T_t=K(s,y) for actual-Q-almost every y and C(s,y)-almost every t. Apply the preceding chain bound with equal bases C(s,y) and a constant target kernel. The base KL is zero and the constant kernel integrates to K(s,y),giving the mixture bound. This does not make the reference a deterministic function of y,and no C-support claim under H is needed.",
+          "formula": "\\operatorname{KL}(R C_{s,y}\\Vert K(s,y))\\le\\int\\operatorname{KL}(R_t\\Vert T_t)\\,C(s,y,dt)\\quad(Q_s\\text{-a.e. }y).",
+          "lean": "mixture_kl_bound: K,hc,hconst; one_step_kl_error: halign; conditional_step: hm"
+        },
+        {
+          "title": "Chain observation error and fold into actual execution",
+          "text": "On the active branch,projecting the same joint update proves P_s=J.snd_s. Disintegration therefore rewrites every nonnegative P_s integral as the actualQ/conditionalC iterated integral. Define the remaining observation kernel by composing R with C. Chain it against the ideal posterior K using Q versus H; ideal recovery identifies the comparator T_s. The mixture bound and nonnegative integration fold the conditional residual into the actual P_s integral.",
+          "formula": "\\operatorname{KL}((R\\circ P)_s\\Vert T_s)\\le\\operatorname{KL}(Q_s\\Vert H_s)+\\int\\operatorname{KL}(R_t\\Vert T_t)\\,P_s(dt).",
+          "lean": "conditional_step: C,LR,KR,hdecomp,hout,hc,hm; one_step_kl_error: hPJ,hc"
+        },
+        {
+          "title": "Handle absorption without erasing terminal error",
+          "text": "When b>=threshold,P_s is Dirac and e(s)=0. Both composed output and residual integral reduce to the same KL(R_s||T_s),so the inequality is reflexive. Combining this with the active calculation proves the statement for every state and every actual Markov R. No observation-error bound,finite-depth sum or terminal accuracy is inferred from the identity.",
+          "formula": "b_s\\ge b_*:\\quad\\operatorname{KL}(R_s\\Vert T_s)\\le0+\\operatorname{KL}(R_s\\Vert T_s).",
+          "lean": "one_step_kl_error: hs,Measure.dirac_bind,lintegral_dirac'"
+        }
+      ],
+      "lean_statement": "Actual Gibbs target,ideal observation and absorbed retained-state transition with measurable all-ENNReal one-step KL error.",
+      "lean_proof": "Real Gibbs posterior recovery,actual conditional-reference alignment,KL mixture/chain and active/stopped execution branches.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.StateDependentRGO.state_dependent_recovery",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel"
+      ],
+      "mathlib_dependencies": [
+        "InformationTheory.klDiv_compProd_eq_add",
+        "InformationTheory.klDiv_map_le",
+        "ProbabilityTheory.Kernel.rnDeriv_eq_rnDeriv_measure",
+        "ProbabilityTheory.Kernel.lintegral_compProd",
+        "MeasureTheory.Measure.dirac_compProd_apply",
+        "MeasureTheory.lintegral_map"
+      ]
+    }
+  ]
+}

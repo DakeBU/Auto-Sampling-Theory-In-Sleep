@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
   "state": "MERGED",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
-  "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
-  ],
+  "remaining": [],
   "development_checkpoints": [
     {
       "path": ".astis/EnhancedTerminalPrecision.lean",
@@ -86,7 +84,7 @@
     "path": "website/content/declaration_lessons/sphmc-enhanced-terminal-execution.json",
     "state": "Ten authored steps,8deltas and12private accepted; publicationPASS71."
   },
-  "admission_boundary": "VERIFIED at a9f6854;aggregate integration,original reader/graph QA,merge/live separate.",
+  "admission_boundary": "Component independently verified, integrated, merged and delivered. Both full paper main results and required global delivery remain incomplete.",
   "independent_admission": "runs/20260911-companion-priority/enhanced-terminal-execution.verified-admission.json",
   "integration_notes": {
     "upstream": "d8979532e1d1ae6fd06eece573033641069724c2",
@@ -105,12 +103,14 @@
     "head": "0ca178937c959e0180fcd43f57c596a8180236c7",
     "pr_lean_run": 34668774958,
     "pr_site_run": 34668774948,
-    "state": "MERGED; PR checks SUCCESS; merge CI/deployment pending",
+    "state": "MERGED; PR checks, merge Lean/Site CI and live delivery passed",
     "merge_commit": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
     "merged_at": "2026-09-12T03:02:52Z",
     "pr_lean_result": "SUCCESS",
     "pr_site_result": "SUCCESS",
     "merge_lean_run": 34669309463,
-    "merge_site_run": 34669309467
+    "merge_site_run": 34669309467,
+    "merge_checks": "Both SUCCESS; live delivery verified",
+    "live_delivery": "runs/20260911-companion-priority/enhanced-terminal-execution.live-delivery.json"
   }
 }

@@ -1,0 +1,142 @@
+{
+  "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
+  "state": "STABILIZING",
+  "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
+  "remaining": [
+    "Remote PR CI,actual merge and deployment"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/EnhancedGibbsPosterior.lean",
+      "sha256": "fb171a39c17b66b61b5b12a3225ca2a0a684c1650b4045f9b987849a958a7902",
+      "root_session": 90411,
+      "exit_code": 0,
+      "result": "Actual volume Gibbs probability,measurable posterior kernels and pointwise recovery derived from joint recovery on Dirac input.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 11805,
+        "exit_code": 0,
+        "decision": "development accepted;standard3,no lint;faithful recording authorized",
+        "boundary": "Not formal source admission or VERIFIED."
+      }
+    },
+    {
+      "path": ".astis/EnhancedKLConditional.lean",
+      "sha256": "fd008f64e257fd55a62e86a6178215874c585272ced40289cfe286116296c6b2",
+      "root_session": 46922,
+      "exit_code": 0,
+      "result": "All-ENNReal KL measurability/chain/mixture and conditional bound. Generic helper still takes P marginal,recovery and actualQ-a.e.alignment; actual assembly removes these inputs.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 96883,
+        "exit_code": 0,
+        "decision": "development accepted;standard3,no lint;faithful recording authorized",
+        "boundary": "Not formal source admission or VERIFIED."
+      }
+    },
+    {
+      "path": ".astis/EnhancedKLActual.lean",
+      "sha256": "78fdd13c56e00cc6f1e04d2c0d338661d8a2670ee6e9361387330d73a384f6c0",
+      "root_session": 69405,
+      "exit_code": 0,
+      "result": "Actual enhanced-state one-step KL:real Gibbs,target/posterior recovery,conditional target alignment,activeP projection and error measurability all derived. No lint.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 9166,
+        "exit_code": 0,
+        "decision": "Full development accepted;standard3,no lint;faithful recording authorized",
+        "boundary": "No observation-error numerical bound,finite-depth accumulation or total cost;not formal source admission or VERIFIED."
+      }
+    }
+  ],
+  "api_check": {
+    "file": ".astis/EnhancedKLAPI.lean",
+    "session": 3428,
+    "exit_code": 0,
+    "result": "Exact Gibbs/recovery/KL/measure API and fullstate typeclasses checked;no theorem in API probe."
+  },
+  "frontier_protocol": "PASS95 before proof development",
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "decision": "Full proof read;no mathematical or source blocker;not independent compilation or formal source admission.",
+    "source": "arXiv2609.06906v1 Section6.3 conditional output KL recurrence after(6.5)",
+    "evidence": "Actual volume Gibbs probability;T/H/K and Dirac recovery;correct distinct variances;target alignment only actualQ thenC AE;all-ENNReal chain/mixture with non-AC cases and derived measurability;stopped branch retains terminal error.",
+    "boundaries": [
+      "Not numerical(6.5)stage budget or M A1 accuracy;observation KL may be infinite.",
+      "Public target is nested actual Gibbs tilt;no combined volume density/normalizer returned.",
+      "Genuine C2/Hessian and positive dimension;arbitrary positive measurable steps/state/threshold not source schedule/admissibility.",
+      "Recovery/alignment/projection are internal interfaces fully eliminated in public theorem.",
+      "J,C,K and standalone posterior recovery are proof constructions,not returned public conjuncts.",
+      "Finite-depth accumulation,terminal error integration,actual M and all costs remain."
+    ]
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/EnhancedKLOneStep.lean",
+    "sha256": "a56d45889e3712486ed8cba8ff063ecd0f59a16f7d8cf6746286b4b18449505a",
+    "test_sha256": "fdb23d3b6c0c509943769a8f3d356bb2b3632442a0bfa64cb0a68b406a59c0f2",
+    "focused_session": 68440,
+    "exit_code": 0,
+    "result": "PASS3779;standard3;no new-module lint,historical dependency warnings separate.",
+    "log": ".astis/enhanced-kl-focused.log",
+    "private_declarations": 7,
+    "public_declarations": 1,
+    "boundary": "Compiled checkpoint only;fixed production,anonymous reconstruction,formal source/publication gates remain before PROVED_LOCAL/VERIFIED.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "cae23a2d4afe0fa95db77944d8fd173c36db2af1",
+      "decision": "fixed-production-accepted",
+      "evidence": "Independent focusedPASS3779 exit0 standard3/no new-module lint;6private theorems+privatefirstIndex+solepublic;namespace/private/doc relocation matches accepted actual scratch exactly;fakeclosure scan clear;faithful recording authorized. Not PROVED_LOCAL/VERIFIED."
+    }
+  },
+  "expanded_statement": {
+    "path": ".astis/enhanced-kl-expanded.log",
+    "characters": 4487,
+    "sha256": "ef8fe6c5207e6d86a83543fe5f303ea66d06073a0b5762f90517c2b7607e3626",
+    "session": 87168,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier independent28668 exit0 Meta.isDefEq,4487characters/exactSHA;no source/private names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_aa",
+    "result": "runs/20260911-companion-priority/enhanced-kl-one-step.decoder-result.json",
+    "packet_sha256": "072cbb91955d2703b4647891caa9a14cae0561663df0f2b25ac129a62bb972d6",
+    "complete_transcription_qa": "accepted by decoder",
+    "reviewer_packet_sha256": "e0e411f989f2f8cb7ed906ef94c895655ee782a746370e4b44fffe82d1287891",
+    "formal_source_review": "accepted; publicationPASS73 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep.one_step_kl_error",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCEnhancedKLOneStep"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-enhanced-kl-one-step.json",
+    "state": "Eight authored steps,7deltas and7private accepted; publicationPASS73."
+  },
+  "admission_boundary": "VERIFIED at 520c11e;aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json",
+  "integration_notes": {
+    "upstream": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+    "boundary": "Independent final local integration accepted at24f5da9;remoteCI/merge/live pending.",
+    "local_qa": "runs/20260911-companion-priority/enhanced-kl-one-step.local-qa.json"
+  },
+  "canonical_gate": {
+    "commit": "24f5da9501edbdfdefb9c4f88165a6d1c2b67bdd",
+    "session": 28363,
+    "exit_code": 0,
+    "source_digest": "634d232203c08619b34352bd2243e1bb472c44bc1cda999e6c15775f94cda4f3",
+    "tests_jobs": 9194,
+    "result": "ASTIS check passed",
+    "log": ".astis/enhanced-kl-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 89478,
+    "state": "completed",
+    "log": ".astis/enhanced-kl-reader-build.log",
+    "exit_code": 0
+  }
+}

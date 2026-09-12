@@ -1,0 +1,69 @@
+{
+  "commit": "24f5da9501edbdfdefb9c4f88165a6d1c2b67bdd",
+  "source_digest": "634d232203c08619b34352bd2243e1bb472c44bc1cda999e6c15775f94cda4f3",
+  "status": "local-integration-accepted",
+  "root_integration": {
+    "session": 28363,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9194",
+    "log": ".astis/enhanced-kl-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 89478,
+    "exit_code": 0,
+    "log": ".astis/enhanced-kl-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 663,
+    "declarations": 3970
+  },
+  "reader_check": {
+    "session": 87443,
+    "exit_code": 0,
+    "log": ".astis/enhanced-kl-reader-check.log",
+    "chapters": 12,
+    "modules": 663,
+    "declarations": 3970,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/enhanced-kl-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-enhanced-kl-one-step",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 2245,
+    "proof_code_characters": 5041,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "GibbsGradientMoment.gibbs_gradient_moment",
+      "StateDependentRGO.state_dependent_recovery",
+      "ObservationConditionalKernel.observation_conditional_kernel",
+      "ReferenceCarryingKernel.reference_carrying_kernel"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "8 named declarations;Compiled exact24f5da9501ed gate;zero placeholders;Not mapped separate."
+  },
+  "boundary": "Local integration accepted for current one-step packet. Remote CI/merge/live and next finite accumulation,M accuracy,costs,both paper main results remain separate.",
+  "independent_final_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "24f5da9501edbdfdefb9c4f88165a6d1c2b67bdd",
+    "decision": "accepted",
+    "evidence": "Exact gate/digest Tests9194/fullreader663modules3970decl77reviewed;unchanged VERIFIED source/test/binding,reviewed=True and correct root imports. Static11defaultclosedfolds2245/5041chars,currentgate module8declCompiledzero placeholders,graphnoomissions/sourceedgesdistinct. Root browser clicks/screenshot/zeroKaTeXerrors remain root observations. Current QA/progress and nextpacket exploration metadata are dirty;nextpacket excluded. Faithful recording authorized."
+  }
+}

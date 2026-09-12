@@ -170,6 +170,7 @@ import Tests.SmoothedPicardHMCReferenceCarryingCost
 import Tests.SmoothedPicardHMCTerminalFORSKernel
 import Tests.SmoothedPicardHMCEnhancedTerminalExecution
 import Tests.SmoothedPicardHMCObservationConditionalKernel
+import Tests.SmoothedPicardHMCEnhancedKLOneStep
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!

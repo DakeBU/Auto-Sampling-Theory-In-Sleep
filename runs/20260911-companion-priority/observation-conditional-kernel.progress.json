@@ -1,10 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
-  "remaining": [
-    "Remote PR CI,actual merge and deployment"
-  ],
+  "remaining": [],
   "development_checkpoints": [
     {
       "path": ".astis/ObservationConditionalJoint.lean",
@@ -117,11 +115,27 @@
     "path": "website/content/declaration_lessons/sphmc-observation-conditional-kernel.json",
     "state": "Seven authored steps,7deltas and4private accepted; publicationPASS72."
   },
-  "admission_boundary": "VERIFIED at d1872b9;aggregate integration,original reader/graph QA,merge/live separate.",
+  "admission_boundary": "Component independently verified, integrated, merged and delivered. Both full paper main results and required global delivery remain incomplete.",
   "independent_admission": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json",
   "integration_notes": {
     "upstream": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
     "boundary": "Independent final local integration accepted at6af5598;remoteCI/merge/live pending.",
     "local_qa": "runs/20260911-companion-priority/observation-conditional-kernel.local-qa.json"
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/297",
+    "head": "00416db4d1bfd5259448cffd0b36573d4bdebae6",
+    "pr_lean_run": 34670471170,
+    "pr_site_run": 34670471192,
+    "pr_site_result": "SUCCESS",
+    "state": "MERGED; PR checks, merge Lean/Site CI and live delivery passed",
+    "merge_commit": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+    "merged_at": "2026-09-12T03:44:48Z",
+    "pr_lean_result": "SUCCESS",
+    "merge_lean_run": 34671196334,
+    "merge_site_run": 34671196304,
+    "merge_site_result": "SUCCESS",
+    "live_delivery": "runs/20260911-companion-priority/observation-conditional-kernel.live-delivery.json",
+    "merge_checks": "Both SUCCESS; live delivery verified"
   }
 }

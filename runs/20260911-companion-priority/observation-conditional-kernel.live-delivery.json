@@ -1,6 +1,6 @@
 {
-  "merge_commit": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
-  "checked_at": "2026-09-12T03:09:57.163551+00:00",
+  "merge_commit": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+  "checked_at": "2026-09-12T03:56:30.898044+00:00",
   "pages": [
     {
       "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
@@ -9,22 +9,22 @@
       "declaration_present": true
     },
     {
-      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-enhancedterminalexecution.html",
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-observationconditionalkernel.html",
       "http_status": 200,
       "commit_present": true,
       "declaration_present": true
     }
   ],
-  "merge_site_run": 34669309467,
+  "merge_site_run": 34671196304,
   "merge_site_result": "SUCCESS",
-  "merge_lean_run": 34669309463,
+  "merge_lean_run": 34671196334,
   "merge_lean_result": "SUCCESS",
   "boundary": "Both merge CI runs passed; live HTTP provenance checked at recorded checked_at. Original local browser evidence remains separate. This component delivery does not complete either paper.",
   "merge_lean_verification": {
-    "command": "gh run view 34669309463 --json status,conclusion,headSha,url",
+    "command": "gh run view 34671196334 --json status,conclusion,headSha,url",
     "status": "completed",
     "conclusion": "success",
-    "headSha": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
-    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/runs/34669309463"
+    "headSha": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/runs/34671196334"
   }
 }
