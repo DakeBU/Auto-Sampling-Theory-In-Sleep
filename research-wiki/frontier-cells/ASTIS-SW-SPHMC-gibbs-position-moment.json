@@ -40,7 +40,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-gibbs-position-moment.md",
     "planning_review": "Independent log_depth_source_review accepted exact identity and d/alpha route, verified public reuse and full-space IBP API; planning only.",
-    "execution_boundary": "Root sole writer; ProximalGaussianEstimator remains sole stabilization owner.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent proximal estimator merged,merge Site and live delivery passed;merge Lean CI remains pending. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at cd9f297;aggregate integration,original reader/graph QA,merge/live and both full main results remain separate.",
     "independent_verification": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json"
   },

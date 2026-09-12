@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -100,5 +100,9 @@
     "state": "Seven authored steps,7deltas and2private accepted; publicationPASS76."
   },
   "admission_boundary": "VERIFIED at cd9f297;aggregate integration,original reader/graph QA,merge/live and both full main results remain separate.",
-  "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json",
+  "integration_notes": {
+    "upstream": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
+    "boundary": "Upstream proximal estimator merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  }
 }
