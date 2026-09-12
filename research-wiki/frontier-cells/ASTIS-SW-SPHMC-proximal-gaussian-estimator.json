@@ -39,7 +39,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-proximal-gaussian-estimator.md",
     "planning_review": "Independent log_depth_source_review accepted source3.2 and parameterized measurable S route, with explicit oracle and moment boundaries.",
-    "execution_boundary": "Root sole writer;EnhancedFiniteOutputKL sole stabilization owner.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent finite-output KL merged,merge Lean/Site and live delivery passed. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at c11730f; aggregate integration,original reader/graph QA,merge/live and both complete main results remain separate.",
     "independent_verification": "runs/20260911-companion-priority/proximal-gaussian-estimator.verified-admission.json"
   },

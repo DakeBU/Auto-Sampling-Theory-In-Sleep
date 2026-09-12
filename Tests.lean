@@ -172,6 +172,7 @@ import Tests.SmoothedPicardHMCEnhancedTerminalExecution
 import Tests.SmoothedPicardHMCObservationConditionalKernel
 import Tests.SmoothedPicardHMCEnhancedKLOneStep
 import Tests.SmoothedPicardHMCEnhancedFiniteOutputKL
+import Tests.SmoothedPicardHMCProximalGaussianEstimator
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!
