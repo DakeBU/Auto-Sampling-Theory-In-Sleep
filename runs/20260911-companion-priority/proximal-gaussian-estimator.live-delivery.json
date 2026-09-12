@@ -1,0 +1,23 @@
+{
+  "merge_commit": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
+  "checked_at": "2026-09-12T06:37:09.846707+00:00",
+  "pages": [
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "http_status": 200,
+      "commit_present": true,
+      "declaration_present": true
+    },
+    {
+      "url": "https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/modules/autosamplingtheory-examplecases-smoothedpicardhmc-proximalgaussianestimator.html",
+      "http_status": 200,
+      "commit_present": true,
+      "declaration_present": true
+    }
+  ],
+  "merge_site_run": 34678245205,
+  "merge_site_result": "SUCCESS",
+  "merge_lean_run": 34678245269,
+  "merge_lean_result": "PENDING",
+  "boundary": "Fresh live HTTP provenance and merge-site success verified;merge Lean CI remains pending. Local browser evidence separate;both complete main results remain incomplete."
+}

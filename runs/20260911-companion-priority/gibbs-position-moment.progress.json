@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "frontier_protocol": "PASS98;publication packet before scratch",
   "development": [
@@ -99,5 +99,6 @@
     "path": "website/content/declaration_lessons/sphmc-gibbs-position-moment.json",
     "state": "Seven authored steps,7deltas and2private accepted; publicationPASS76."
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at cd9f297;aggregate integration,original reader/graph QA,merge/live and both full main results remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json"
 }
