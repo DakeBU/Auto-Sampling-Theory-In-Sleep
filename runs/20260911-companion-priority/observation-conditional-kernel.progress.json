@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -119,5 +119,9 @@
     "state": "Seven authored steps,7deltas and4private accepted; publicationPASS72."
   },
   "admission_boundary": "VERIFIED at d1872b9;aggregate integration,original reader/graph QA,merge/live separate.",
-  "independent_admission": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json",
+  "integration_notes": {
+    "upstream": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
+    "boundary": "Upstream enhanced execution merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  }
 }

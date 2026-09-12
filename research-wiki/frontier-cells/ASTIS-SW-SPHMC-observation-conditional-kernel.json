@@ -40,7 +40,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-observation-conditional-kernel.md",
     "planning_review": "Independent log_depth_source_review selected actual observation-conditioned retained-reference kernel; pinned API-only synthesis passed.",
-    "execution_boundary": "Root sole writer; EnhancedTerminalExecution remains sole stabilization owner in PR296.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent enhanced execution merged,Site/live passed;merge Lean still pending. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at d1872b9;aggregate integration,original reader/graph QA,merge/live separate.",
     "independent_verification": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json"
   },
