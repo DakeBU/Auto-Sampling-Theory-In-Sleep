@@ -50,10 +50,10 @@
       {
         "source": "https://arxiv.org/html/2609.06906v1#A1",
         "anchor": "Theorem A.4(2),Algorithm3.3 terminal branch",
-        "hypothesis_adapter": "Derive terminal reference residual by genuine d/A first hit. Explicit ell>=2 restriction and sufficient threshold retained."
+        "hypothesis_adapter": "Derive terminal reference residual by genuine d/A first hit. The order ell>=2 matches A4(2), with the explicit sufficient threshold retained."
       }
     ],
-    "fidelity_boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The source ell1 gap remains excluded. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams."
+    "fidelity_boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams."
   },
   "source_detail_audit": {
     "primary_edition": "arXiv:2609.06906v1",
@@ -67,6 +67,6 @@
         "hypothesis_adapter": "Actual original-coordinate W2 input; same first hit,absorbed zero cost,and no unconditional globalL1."
       }
     ],
-    "fidelity_boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The source ell1 gap remains excluded. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams."
+    "fidelity_boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams."
   }
 }
