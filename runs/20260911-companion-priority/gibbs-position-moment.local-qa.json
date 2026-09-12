@@ -1,0 +1,70 @@
+{
+  "commit": "d6cd5bb31f8a4d584c41e184a5fdbaca6be376c6",
+  "source_digest": "6443d4b60a23c48bf20eb4d8718e87b504164fbae8173aa9c2a4837bd99a58eb",
+  "status": "independent-final-local-integration-accepted",
+  "root_integration": {
+    "session": 20113,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9200",
+    "log": ".astis/gibbs-position-canonical-gate.log"
+  },
+  "reader_build": {
+    "session": 33265,
+    "result": "Terminal built marker and resulting artifacts verified;old handle unavailable on resumed turn",
+    "log": ".astis/gibbs-position-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 669,
+    "declarations": 3991
+  },
+  "reader_check": {
+    "session": 56448,
+    "exit_code": 0,
+    "log": ".astis/gibbs-position-reader-check.log",
+    "chapters": 12,
+    "modules": 669,
+    "declarations": 3991,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/gibbs-position-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-gibbs-position-moment",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 666,
+    "proof_code_characters": 2842,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "GibbsGradientMoment.gibbs_gradient_moment",
+      "QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+      "StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+      "StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "3 named declarations;Compiled exact d6cd5bb31f8a gate;zero placeholders;Not mapped separate."
+  },
+  "boundary": "Local integration only;remote CI,merge/live and both main results remain separate.",
+  "independent_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "d6cd5bb31f8a4d584c41e184a5fdbaca6be376c6",
+    "decision": "accepted;faithful transcription explicitly authorized",
+    "evidence": "Exact HEAD/gate/recomputed digest matched;Tests9200 and canonical check passed;unchanged admitted production/test/lesson/registry/binding,reviewed=True;only two root imports and sole stabilization owner. Full reader terminal log and check669modules3991declarations77reviewed;static10closed666/2842characters,fourparents,3decl compiled exactgate0placeholder and separate Notmapped;graph0omitted.",
+    "provenance": "Old reader handle unavailable;retained terminal log and artifacts verified. Clicks,7-step visual check,KaTeX and screenshot are root browser evidence."
+  }
+}

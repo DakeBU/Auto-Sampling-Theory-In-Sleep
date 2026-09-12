@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "cd9f297926fb2b156ae0f84ce78a32828b6de9a5",
+    "gate": {
+      "production": "Unchanged production/test bytes;independent PASS3496 and full1081-character Meta equivalence reused. Correct focused target Tests.SmoothedPicardHMCGibbsPositionMoment.",
+      "publication": "Independent publication check --base 2205be68d9273dee34d3343ca789045496dee688 exit0 PASS76;reviewed=True;two private helpers covered. Full external binding preimage recomputed0a16db38ad607c1181515b368fa2f2971c982a6a2f1886734eb7956d570531c2;module,lesson and review context match.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCGibbsPositionMoment",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_ad",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "0a16db38ad607c1181515b368fa2f2971c982a6a2f1886734eb7956d570531c2",
+        "decoder_packet_sha256": "79d72de6a9e87291f5a634fb3aa37a971236ccddd44391a8104301cd39304623",
+        "decoder_run_sha256": "752f3f119e4909b7330343b0e21e2db6a1b34d4b1cb2a1b70b7fa4efeab7fa4a",
+        "reviewer_packet_sha256": "6ae6968f6fdcc40df94585d77c7b530f44de56e6f8bfdb4dba63b3212a04a3a8",
+        "review_run_sha256": "b846fa2afa552119492794ce9571886167644da9cf57083f78ea8a6ee64a4004",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual Gibbs normalization,position/pairing L1,exact pairing=d and position-square<=d/alpha. Genuine global C2/Hessian and supplied stationary point;no actual RGO affine identification,Gaussian transport-Fisher or bias closure."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment"
+    ],
+    "independent_checks": [
+      "Exact cd9f297 HEAD,clean worktree;no competing stabilization owner.",
+      "Source,statement,reconstruction,two packet and two run hash chains passed;anonymous/canonical byte-identical,full transcription/decoder QA match.",
+      "Formal source accepted/domain-mismatch:7slots7steps7deltas,no blocker/repair.",
+      "VERIFIED-only;aggregate,reader,currentPR/deployment and both full main results excluded."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost."
+}

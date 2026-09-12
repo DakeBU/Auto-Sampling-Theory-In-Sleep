@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-gibbs-position-moment",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual Gibbs position moment about a stationary point",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Lemma4.2,equation(4.6) final standardized-potential position moment; source C2/Hessian setting(1.1)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS original proof of the position-moment component needed by Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang,Smoothed Picard Hamiltonian Monte Carlo;not a verbatim theorem or the complete Lemma4.2."
+      },
+      "statement": "The actual mu is a probability measure. The function exp(-U) is integrable against volume and its integral Z is strictly positive. Both norm(x-p)^2 and inner(x-p,gradient U(x)) are integrable against mu. Their actual integrals satisfy integral inner(x-p,gradient U(x)) dmu=d and integral norm(x-p)^2 dmu<=d/alpha.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space,with its complete metric structure; d=dim_R E may be zero. Volume is its canonical Lebesgue measure.",
+        "alpha and beta are nonnegative real numbers,0<alpha and alpha<=beta. U:E->R is twice continuously Frechet differentiable. For every x,v,alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2. The derivatives and gradient are genuine derivatives of U.",
+        "p is any supplied point of E satisfying gradient U(p)=0. Existence of a stationary point is not concluded by this theorem. Set Z=integral exp(-U(x)) dx and mu=volume.tilted(-U); the tilt is the actual normalized exponential measure,not an arbitrary probability law.",
+        "All displayed real integrals are Bochner integrals. Integrability is proved explicitly; no moment bound or vanishing boundary term is supplied."
+      ],
+      "formulae": [
+        {
+          "label": "Actual normalized Gibbs position moment",
+          "tex": "\\mu(dx)=Z^{-1}e^{-U(x)}dx,\\qquad\\int\\langle x-p,\\nabla U(x)\\rangle\\,d\\mu=d,\\qquad\\int\\|x-p\\|^2\\,d\\mu\\le d/\\alpha."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "gibbs-position-moment",
+          "label": "Actual Gibbs position moment about a stationary point"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment",
+          "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
+          "role": "proof-edge",
+          "supports": [
+            "gibbs-position-moment"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCGibbsPositionMoment",
+          "boundary": "Actual normalized volume.tilted(-U),genuine C2 lower/upper Hessian bounds and an explicitly supplied actual stationary point p. The proof establishes normalization,L1,exact position-gradient moment and sharp dimension/curvature bound. General p,positive alpha,finite beta,coordinate-free and zero-dimensional spaces are disclosed extensions. It is not a weakest-hypothesis strong-log-concavity theorem. The source consumer has standardized potential norm(u)^2/2+rho_y(u),p=0,alpha=1,beta=1+eta;stationarity follows from cancellation of the defining linear term. Identification with the affine image of the actual RGO needs the proximal equation and a separate measure-transport proof. No Gaussian transport-Fisher,smoothed-score identity,estimator bias,Picard accuracy,initialization or query-cost theorem is asserted.",
+          "assumption_deltas": [
+            {
+              "source": "Source uses Euclidean positive dimension.",
+              "lean": "Finite-dimensional real inner-product Borel space including dimension zero.",
+              "classification": "generalization",
+              "reason": "The empty-basis case is proved;no infinite-dimensional statement."
+            },
+            {
+              "source": "Source standardized potential has lower curvature1 and upper curvature1+eta.",
+              "lean": "Genuine C2 Hessian bounds0<alpha<=beta with arbitrary finite beta.",
+              "classification": "generalization",
+              "reason": "Source consumer satisfies this contract;the proof is not advertised as a weakest-hypothesis theorem."
+            },
+            {
+              "source": "The source potential is centered at its stationary point zero.",
+              "lean": "An arbitrary actual stationary point p is explicitly supplied.",
+              "classification": "generalization",
+              "reason": "Stationarity is not assumed of an unrelated reference point and existence is not claimed;the source zero-point cancellation remains a separate adapter."
+            },
+            {
+              "source": "Source (4.6) uses the standardized actual RGO law.",
+              "lean": "The measure here is actual volume.tilted(-U).",
+              "classification": "API-limitation",
+              "reason": "The affine RGO identification is still required;it needs the proximal equation and measure transport."
+            },
+            {
+              "source": "Source needs the bound E norm(u)^2<=d.",
+              "lean": "The theorem proves the exact pairing moment d and position bound d/alpha.",
+              "classification": "generalization",
+              "reason": "At alpha=1 the numerical source constant1 is preserved;beta does not enter the final bound."
+            },
+            {
+              "source": "Full-space integrals and IBP underlie the source moment step.",
+              "lean": "Exponential L1,positive normalizer,position/pairing L1 and coordinate IBP are proved.",
+              "classification": "source-implicit",
+              "reason": "No integrability,boundary disappearance or moment identity is a supplied closure assumption."
+            },
+            {
+              "source": "Lemma4.2 also needs Gaussian transport-Fisher and actual score bias.",
+              "lean": "Only the actual Gibbs position-moment component is proved.",
+              "classification": "API-limitation",
+              "reason": "No full bias theorem,Picard accuracy,initialization or expected query cost is claimed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

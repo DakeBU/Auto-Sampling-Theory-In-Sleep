@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment",
+      "title": "Actual Gibbs position moment about a stationary point",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S4.SS1",
+          "label": "SPHMC Lemma4.2,(4.6) position moment",
+          "scope": "Actual normalized volume.tilted(-U),genuine C2 lower/upper Hessian bounds and an explicitly supplied actual stationary point p. The proof establishes normalization,L1,exact position-gradient moment and sharp dimension/curvature bound. General p,positive alpha,finite beta,coordinate-free and zero-dimensional spaces are disclosed extensions. It is not a weakest-hypothesis strong-log-concavity theorem. The source consumer has standardized potential norm(u)^2/2+rho_y(u),p=0,alpha=1,beta=1+eta;stationarity follows from cancellation of the defining linear term. Identification with the affine image of the actual RGO needs the proximal equation and a separate measure-transport proof. No Gaussian transport-Fisher,smoothed-score identity,estimator bias,Picard accuracy,initialization or query-cost theorem is asserted."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCGibbsPositionMoment"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space,with its complete metric structure; d=dim_R E may be zero. Volume is its canonical Lebesgue measure.",
+        "alpha and beta are nonnegative real numbers,0<alpha and alpha<=beta. U:E->R is twice continuously Frechet differentiable. For every x,v,alpha*norm(v)^2<=D2U(x)[v,v]<=beta*norm(v)^2. The derivatives and gradient are genuine derivatives of U.",
+        "p is any supplied point of E satisfying gradient U(p)=0. Existence of a stationary point is not concluded by this theorem. Set Z=integral exp(-U(x)) dx and mu=volume.tilted(-U); the tilt is the actual normalized exponential measure,not an arbitrary probability law.",
+        "All displayed real integrals are Bochner integrals. Integrability is proved explicitly; no moment bound or vanishing boundary term is supplied."
+      ],
+      "statement": "The actual mu is a probability measure. The function exp(-U) is integrable against volume and its integral Z is strictly positive. Both norm(x-p)^2 and inner(x-p,gradient U(x)) are integrable against mu. Their actual integrals satisfy integral inner(x-p,gradient U(x)) dmu=d and integral norm(x-p)^2 dmu<=d/alpha.",
+      "formula": "\\mu(dx)=Z^{-1}e^{-U(x)}dx,\\qquad\\int\\langle x-p,\\nabla U(x)\\rangle\\,d\\mu=d,\\qquad\\int\\|x-p\\|^2\\,d\\mu\\le d/\\alpha.",
+      "boundary": "Actual normalized volume.tilted(-U),genuine C2 lower/upper Hessian bounds and an explicitly supplied actual stationary point p. The proof establishes normalization,L1,exact position-gradient moment and sharp dimension/curvature bound. General p,positive alpha,finite beta,coordinate-free and zero-dimensional spaces are disclosed extensions. It is not a weakest-hypothesis strong-log-concavity theorem. The source consumer has standardized potential norm(u)^2/2+rho_y(u),p=0,alpha=1,beta=1+eta;stationarity follows from cancellation of the defining linear term. Identification with the affine image of the actual RGO needs the proximal equation and a separate measure-transport proof. No Gaussian transport-Fisher,smoothed-score identity,estimator bias,Picard accuracy,initialization or query-cost theorem is asserted.",
+      "steps": [
+        {
+          "title": "Obtain actual Gibbs normalization and gradient integrability",
+          "text": "Use QuadraticRegularization at zero added precision to derive strong convexity from the genuine Hessian. StrongConvexGibbsIntegrability gives exponential-weight L1. The previously compiled GibbsGradientMoment theorem supplies probability and gradient-square L1 under this same normalized tilt. Its numerical gradient bound is not the final position bound.",
+          "formula": "e^{-U}\\in L^1(dx),\\qquad\\|\\nabla U\\|^2\\in L^1(\\mu).",
+          "lean": "stationary_position_integrability: hdata,hg,hprob,hgrad,hweight"
+        },
+        {
+          "title": "Derive pointwise coercivity from the actual stationary point",
+          "text": "Strong convexity gives strong monotonicity of the genuine gradient. Substitute gradient U(p)=0 and use Cauchy-Schwarz. Treat x=p separately before cancelling the positive displacement norm; divide only by alpha>0.",
+          "formula": "\\alpha\\|x-p\\|^2\\le\\langle x-p,\\nabla U(x)\\rangle,\\qquad\\|x-p\\|\\le\\|\\nabla U(x)\\|/\\alpha.",
+          "lean": "stationary_position_integrability: hcoercive,hbound,hz,hn"
+        },
+        {
+          "title": "Prove position and pairing integrability",
+          "text": "Dominate position square by gradient square divided by alpha squared. Probability and the bound t<=1+t^2 give position-norm L1. Cauchy-Schwarz and Young give L1 for the position-gradient pairing. These estimates establish integrability only; they do not replace the source sharp constant with beta/alpha squared.",
+          "formula": "\\|x-p\\|^2\\le\\alpha^{-2}\\|\\nabla U(x)\\|^2,\\qquad|\\langle x-p,\\nabla U(x)\\rangle|\\le\\|x-p\\|^2+\\|\\nabla U(x)\\|^2.",
+          "lean": "stationary_position_integrability: hpos,hlin,hpair"
+        },
+        {
+          "title": "Justify every full-space coordinate IBP input",
+          "text": "For a unit vector v,set f=exp(-U),q(x)=inner(x-p,v),a(x)=D_vU(x). Position and gradient L1/L2 bounds dominate q and qa under the actual tilt. The tilted-integrability equivalence transfers them to volume using the already proved exponential L1. Differentiate the actual functions: D_vq=1 and D_vf=-fa. Thus fq,f D_vq,and (D_vf)q are all integrable before invoking full-space IBP.",
+          "formula": "D_vq=1,\\quad D_vf=-fa,\\quad fq,\\ fD_vq,\\ (D_vf)q\\in L^1(dx).",
+          "lean": "coordinate_position_ibp: hqder,hfder,hqbound,habound,hqμ,hqaμ,hfq,hfqa,hf'q,hfq'"
+        },
+        {
+          "title": "Evaluate each coordinate and sum the finite basis",
+          "text": "The justified IBP identity gives integral f*q*a=integral f=Z for every unit basis vector. Sum the finite orthonormal basis and use its inner-product expansion. Every coordinate term is integrable,so finite sums commute with the integral. In dimension zero the sum is empty and yields zero.",
+          "formula": "\\int e^{-U}\\langle x-p,v\\rangle D_vU\\,dx=Z,\\qquad\\int e^{-U}\\langle x-p,\\nabla U\\rangle\\,dx=dZ.",
+          "lean": "coordinate_position_ibp: hid; gibbs_position_moment: b,hdir,hparseval,heq"
+        },
+        {
+          "title": "Normalize the actual exponential tilt",
+          "text": "The exponential integral is strictly positive by integral_exp_pos and finite by the established integrability. Apply the actual integral_tilted formula and factor out this same normalizer. Cancelling Z in dZ/Z proves the position-gradient identity under mu.",
+          "formula": "0<Z<\\infty,\\qquad\\int\\langle x-p,\\nabla U(x)\\rangle\\,d\\mu=dZ/Z=d.",
+          "lean": "gibbs_position_moment: hZ,htilt,hid"
+        },
+        {
+          "title": "Integrate coercivity to obtain the sharp position moment",
+          "text": "Both position square and the pairing are integrable. Integrate the pointwise strong-convexity inequality,substitute the exact pairing moment d,and divide by positive alpha. The upper curvature beta was used for the integrability route but does not enter this final constant.",
+          "formula": "\\alpha\\int\\|x-p\\|^2d\\mu\\le d\\quad\\Longrightarrow\\quad\\int\\|x-p\\|^2d\\mu\\le d/\\alpha.",
+          "lean": "gibbs_position_moment: hi,integral_const_mul,le_div_iff₀"
+        }
+      ],
+      "lean_statement": "Actual Gibbs normalization,L1,position-gradient=d and position-square<=d/alpha with genuine Hessian and stationary-point assumptions.",
+      "lean_proof": "Actual gradient L1 implies position L1;full-space coordinate IBP and finite basis sum;positive normalizer and actual tilt;integrate coercivity.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.GibbsGradientMoment.gibbs_gradient_moment",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.gradient_inner_lower_bound_of_strongConvexOn",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexGibbsIntegrability.integrable_exp_neg_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.integrable_tilted_iff",
+        "MeasureTheory.integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable",
+        "OrthonormalBasis.sum_inner_mul_inner",
+        "MeasureTheory.integral_finsetSum",
+        "MeasureTheory.integral_exp_pos",
+        "MeasureTheory.integral_tilted",
+        "MeasureTheory.integral_mono"
+      ]
+    }
+  ]
+}

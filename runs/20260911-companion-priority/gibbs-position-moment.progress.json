@@ -1,0 +1,109 @@
+{
+  "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
+  "state": "STABILIZING",
+  "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
+  "remaining": [
+    "PR and remote CI",
+    "Actual merge and deployment"
+  ],
+  "frontier_protocol": "PASS98;publication packet before scratch",
+  "development": [
+    {
+      "file": ".astis/GibbsPositionIntegrability.lean",
+      "sha256": "752cd8eac7c588832e403c990354e158271ea1545bd574bd56e2f3aaca3ca994",
+      "root_session": 77184,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-integrability-round3.log",
+      "result": "Actual tilted position-square,positionnorm,pairing L1 and coercive inequality;standard3,no lint",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 80218,
+        "exit_code": 0,
+        "decision": "Frozen development accepted;standard3,no lint;actual stationary point,positive alpha and zero-distance branch correct;faithful recording authorized."
+      },
+      "boundary": "Integrability only;exact pairing=d and sharp position d/alpha remain. No full SAU admission."
+    },
+    {
+      "file": ".astis/GibbsPositionIBP.lean",
+      "sha256": "357a20c62d83406cf5edf724011ff9ab5e0370da9aafaa9d7915b8f7e1348e37",
+      "root_session": 86426,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-ibp-round4.log",
+      "result": "Actual unnormalized coordinate position-gradient IBP,all three L1 supplied from actual tilted integrability;standard3,no lint",
+      "boundary": "Frozen development only;independent review of full assembly pending.",
+      "independent_review": "Covered by independent full-assembly session75951"
+    },
+    {
+      "file": ".astis/GibbsPositionActual.lean",
+      "sha256": "d7f55865f7cc94f8a9c5720d15605d1b5966425ac28249c23f90ea740aec642d",
+      "root_session": 44444,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-actual-round1.log",
+      "result": "Full actual Gibbs normalized pairing=d and sharp position second moment d/alpha;standard3,no lint",
+      "boundary": "Frozen development only;independent proof/source preaudit,production and formal source admission remain.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 75951,
+        "exit_code": 0,
+        "decision": "Full frozen assembly accepted;standard3,no lint;earlier prefix byte-identical;actual full-space IBP,finite integral sum,positive normalizer and sharp constant checked;faithful recording authorized."
+      }
+    }
+  ],
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "decision": "Full frozen preaudit accepted;no mathematical/source blocker;faithful recording authorized. Not formal source admission.",
+    "boundary": "Source standardized potential p=0,alpha=1,beta=1+eta is the real consumer;linear cancellation gives stationarity. General p/alpha/beta,coordinate-free and zero dimension are extensions. Actual RGO affine law identification,Gaussian transport-Fisher,score and bias remain."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GibbsPositionMoment.lean",
+    "sha256": "7db8778b7f9cd123a0bd7f4e60a810b741bf420bf3d7f28577edd50481018109",
+    "test_sha256": "1fd865bc8b5de4b1ee79e578c750bae1850926fa22c733ea6d0933fe434bf07f",
+    "focused_session": 23844,
+    "exit_code": 0,
+    "result": "PASS3496;standard3;no new-module lint",
+    "log": ".astis/gibbs-position-focused.log",
+    "private_declarations": 2,
+    "public_declarations": 1,
+    "boundary": "Compiled production checkpoint only;fixed independent production/expanded review,fresh decoder and formal source/publication admission remain.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "48dd8b3e7e6b9e15a1d2cab4d08e0dc41d791ace",
+      "decision": "Fixed production and expanded statement accepted;independent focusedPASS3496 and Meta.isDefEq exact1081characters/hash;three namespace declarations,zero placeholders;faithful recording authorized. Not formal admission."
+    }
+  },
+  "expanded_statement": {
+    "log": ".astis/gibbs-position-expanded.log",
+    "session": 27924,
+    "exit_code": 0,
+    "characters": 1081,
+    "sha256": "a85fb1b80a429c56689ae4ec762a46d1d89c03cd2047e6df206f0847b4da9d9c",
+    "definitionally_equal": true,
+    "independent_review": "Exact production48dd8b3 independently replayed focused and Meta;fulltype matched,no hidden project/private names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_ad",
+    "state": "complete;verbatim QA accepted",
+    "packet_sha256": "79d72de6a9e87291f5a634fb3aa37a971236ccddd44391a8104301cd39304623",
+    "binding_sha256": "0a16db38ad607c1181515b368fa2f2971c982a6a2f1886734eb7956d570531c2",
+    "formal_source_review": "accepted; publicationPASS76 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCGibbsPositionMoment"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gibbs-position-moment.json",
+    "state": "Seven authored steps,7deltas and2private accepted; publicationPASS76."
+  },
+  "admission_boundary": "VERIFIED cd9f297 and independent local integration accepted d6cd5bb;remoteCI,merge/live and both main results separate.",
+  "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json",
+  "integration_notes": {
+    "upstream": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
+    "boundary": "Upstream proximal estimator merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  },
+  "local_integration": "runs/20260911-companion-priority/gibbs-position-moment.local-qa.json"
+}
