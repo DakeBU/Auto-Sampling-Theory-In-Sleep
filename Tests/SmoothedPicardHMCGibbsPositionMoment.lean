@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment

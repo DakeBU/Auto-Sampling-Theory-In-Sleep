@@ -32,7 +32,8 @@
       "exit_code": 0,
       "log": ".astis/gibbs-position-ibp-round4.log",
       "result": "Actual unnormalized coordinate position-gradient IBP,all three L1 supplied from actual tilted integrability;standard3,no lint",
-      "boundary": "Frozen development only;independent review of full assembly pending."
+      "boundary": "Frozen development only;independent review of full assembly pending.",
+      "independent_review": "Covered by independent full-assembly session75951"
     },
     {
       "file": ".astis/GibbsPositionActual.lean",
@@ -41,7 +42,30 @@
       "exit_code": 0,
       "log": ".astis/gibbs-position-actual-round1.log",
       "result": "Full actual Gibbs normalized pairing=d and sharp position second moment d/alpha;standard3,no lint",
-      "boundary": "Frozen development only;independent proof/source preaudit,production and formal source admission remain."
+      "boundary": "Frozen development only;independent proof/source preaudit,production and formal source admission remain.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 75951,
+        "exit_code": 0,
+        "decision": "Full frozen assembly accepted;standard3,no lint;earlier prefix byte-identical;actual full-space IBP,finite integral sum,positive normalizer and sharp constant checked;faithful recording authorized."
+      }
     }
-  ]
+  ],
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "decision": "Full frozen preaudit accepted;no mathematical/source blocker;faithful recording authorized. Not formal source admission.",
+    "boundary": "Source standardized potential p=0,alpha=1,beta=1+eta is the real consumer;linear cancellation gives stationarity. General p/alpha/beta,coordinate-free and zero dimension are extensions. Actual RGO affine law identification,Gaussian transport-Fisher,score and bias remain."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/GibbsPositionMoment.lean",
+    "sha256": "7db8778b7f9cd123a0bd7f4e60a810b741bf420bf3d7f28577edd50481018109",
+    "test_sha256": "1fd865bc8b5de4b1ee79e578c750bae1850926fa22c733ea6d0933fe434bf07f",
+    "focused_session": 23844,
+    "exit_code": 0,
+    "result": "PASS3496;standard3;no new-module lint",
+    "log": ".astis/gibbs-position-focused.log",
+    "private_declarations": 2,
+    "public_declarations": 1,
+    "boundary": "Compiled production checkpoint only;fixed independent production/expanded review,fresh decoder and formal source/publication admission remain."
+  }
 }
