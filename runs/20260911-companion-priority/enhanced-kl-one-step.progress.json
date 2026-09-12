@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
   "state": "MERGED",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
-  "remaining": [
-    "Deliver independently reviewed C2 source-wording correction with current finite-output packet"
-  ],
+  "remaining": [],
   "development_checkpoints": [
     {
       "path": ".astis/EnhancedGibbsPosterior.lean",
@@ -159,7 +157,9 @@
   "source_wording_correction": {
     "source": "SPHMC1.1 explicitly C2; no strengthened differentiability assumption",
     "review": "runs/20260911-companion-priority/enhanced-kl-one-step.source-wording-review.json",
-    "state": "independent source review accepted;not yet remotely delivered",
-    "boundary": "Only productionheader and reader/delta wording;Leanstatement/proofs unchanged;old source review preserved historically."
+    "state": "independent source review accepted;live wording verified",
+    "boundary": "Only productionheader and reader/delta wording;Leanstatement/proofs unchanged;old source review preserved historically.",
+    "delivery_commit": "f90328f89451eb8eb3dd8ab6c4c07c69c71dedc2",
+    "live_evidence": "runs/20260911-companion-priority/enhanced-finite-output-kl.live-delivery.json"
   }
 }

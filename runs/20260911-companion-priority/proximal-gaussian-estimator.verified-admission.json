@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "c11730f412a8d97b1da7801c86f3663cd5a7479b",
+    "gate": {
+      "production": "Unchanged production/test bytes; prior independent PASS3707 and full2444-character Meta equivalence reused. Correct focused command: lake build Tests.SmoothedPicardHMCProximalGaussianEstimator.",
+      "publication": "Independent publication check --base a792554b5637150b8406a9a17799c322d75cf216 exit0 PASS75; reviewed=True; four private helpers covered. External binding preimage recomputed 2c34a9a9d028db930b9a44fefbc4b37543bdc73fce6dde280a97355da1dc1401; full module,lesson and review context match.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCProximalGaussianEstimator",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_ac",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "2c34a9a9d028db930b9a44fefbc4b37543bdc73fce6dde280a97355da1dc1401",
+        "decoder_packet_sha256": "cc84438a6c97fc35aae28ef1f8498b4f72db2d93760f6ba5d67e6b327e893ed7",
+        "decoder_run_sha256": "955cdd1039230dea44d8d8fabb75c15c18c29f09fa5e8f17daefdcfcdc749294",
+        "reviewer_packet_sha256": "80ba0266f30304bbc8cc0d986a37093669a0983a86330aad574400241ba67126",
+        "review_run_sha256": "3244b18b03be7f0e53776007df7f3a5373f72e706d274fe2d79d9bce05d5ee20",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual exact proximal Gaussian estimator and parameter kernel,unique minimum,fiber L2 and moments; no score bias,global state moments,finite gradient evaluator or Picard accuracy."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator"
+    ],
+    "independent_checks": [
+      "Exact c11730f HEAD and clean worktree; no competing stabilization owner.",
+      "Source,statement,reconstruction,decoder/reviewer packet and two run hash chains passed. Anonymous/canonical packets byte-identical; complete reconstruction and independent transcription QA match.",
+      "Formal source accepted/domain-mismatch:7slots,8steps,7deltas,no blocker or repair.",
+      "VERIFIED-only; aggregate integration,reader QA,remote delivery and both full main results excluded."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds; arbitrary measurable S, measurable eta,y,0<eta<=1/2. Exact proximal oracle; no finite gradient-query implementation, smoothed-score bias, global state-integrated moment, stage W2 accuracy, initialization cost or full paper theorem."
+}

@@ -1,0 +1,136 @@
+{
+  "cell": "ASTIS-SW-SPHMC-proximal-gaussian-estimator",
+  "state": "STABILIZING",
+  "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds; arbitrary measurable S, measurable eta,y,0<eta<=1/2. Exact proximal oracle; no finite gradient-query implementation, smoothed-score bias, global state-integrated moment, stage W2 accuracy, initialization cost or full paper theorem.",
+  "remaining": [
+    "PR and remote CI",
+    "Actual merge and deployment"
+  ],
+  "frontier_protocol": "PASS97;publication packet before scratch",
+  "development": [
+    {
+      "file": ".astis/ProximalMeasurable.lean",
+      "sha256": "ebcc58399a548fa15b9a66f30d72ec5cd8a75ff7e27cac88c0a5506f332587f1",
+      "root_session": 77568,
+      "exit_code": 0,
+      "log": ".astis/proximal-measurable-round2.log",
+      "result": "Parameterized measurable fixedpoint for generic Lip1 map; standard3,no lint",
+      "boundary": "Frozen development only; actual gradient,unique argmin,kernel,moments and independent review remain.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 79676,
+        "exit_code": 0,
+        "decision": "Frozen development accepted; standard3,no lint; actual measurable iteration limit, no assumed measurable selection. Faithful recording authorized."
+      }
+    },
+    {
+      "file": ".astis/ProximalActualMinimum.lean",
+      "sha256": "076fb9c774e9f895f3b895c8f401c022178a2be08ba60e0ced798b04207c458d",
+      "root_session": 43453,
+      "exit_code": 0,
+      "log": ".astis/proximal-actual-minimum-round6.log",
+      "result": "Actual genuine-gradient proximal point,quantitative quadratic growth and unique global minimum; standard3,no lint; independent review pending.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 22068,
+        "exit_code": 0,
+        "decision": "Frozen development accepted; standard3,no lint; actual gradient/quantitative unique global minimum; faithful recording authorized."
+      }
+    },
+    {
+      "file": ".astis/ProximalGaussianMoment.lean",
+      "sha256": "16cbc71e72755761f219cfe8088cfebc50b1f8ee92d5b480987b8a83b0950cf0",
+      "root_session": 19911,
+      "exit_code": 0,
+      "log": ".astis/proximal-gaussian-moment-round2.log",
+      "result": "Actual Gaussian estimator at fixed p for generic Lip1 g; centered/total square L1 and moment bounds; standard3,no lint; independent review pending.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 47069,
+        "exit_code": 0,
+        "decision": "Frozen development accepted; standard3,no lint; square L1 before integrals, zero dimension included; faithful recording authorized."
+      }
+    },
+    {
+      "file": ".astis/ProximalGaussianActual.lean",
+      "sha256": "cc3e07f3e4a67d611df6db01f61f56c43d1dae80c21bb34ab16615d192b5c3fd",
+      "root_session": 21530,
+      "exit_code": 0,
+      "log": ".astis/proximal-gaussian-actual.log",
+      "result": "Full actual proximal estimator and kernel assembly;standard3,no lint;independent proof review pending.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 85128,
+        "exit_code": 0,
+        "decision": "Full frozen assembly accepted;standard3,no lint;four helper blocks match independently reviewed files;fake-closure clear;faithful recording authorized. Not formal admission."
+      }
+    }
+  ],
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "sha256": "cc3e07f3e4a67d611df6db01f61f56c43d1dae80c21bb34ab16615d192b5c3fd",
+    "decision": "No mathematical/source blocker; exact source3.2 actual gradient estimator. Independent readonly preaudit,not formal encoder admission.",
+    "boundary": "Centered square moment means deviation from gradient V(p),not variance about estimator mean or bias relative to smoothed score. Source kappa>=1 remains an explicit assumption even though proof does not use it. Zero-dimensional/arbitrary-parameter extension disclosed;no finite-gradient implementation,global state moments or Picard accuracy."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProximalGaussianEstimator.lean",
+    "sha256": "9cff67ce692925a2005accfa090b46255e80522b4611e81c8dd212d7462f390b",
+    "test_sha256": "b91e04805001c1f779e679cfe1f19dd20a0b33a5c2e26b70a74dcd47652a88d9",
+    "focused_session": 13040,
+    "exit_code": 0,
+    "result": "PASS3707;standard3;no new-module lint,historical dependency warnings separate",
+    "log": ".astis/proximal-gaussian-focused.log",
+    "private_declarations": 4,
+    "public_declarations": 1,
+    "boundary": "Compiled production checkpoint only;fixed independent production/expanded,anonymous reconstruction,formal source/publication gates remain.",
+    "source_index_correction": {
+      "change": "Four noncomputable sections changed to ordinary sections so the source index preserves the namespace. All declarations are theorems;mathematical statement and proof text unchanged.",
+      "focused_and_expanded_session": 64656,
+      "exit_code": 0,
+      "result": "PASS3707 standard3,no new-module lint;Meta.isDefEq full2444characters unchanged",
+      "sha256": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca"
+    },
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "3a340592b5ac048e01afaa670c37a7b141c8cd45",
+      "decision": "Fixed production accepted;four section-only corrections preserve theorem/proof/test;independent focused3707 and expanded2444 replay reused;actual source scanner locates all5 fullnames;faithful recording authorized. Not VERIFIED."
+    },
+    "current_sha256": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca"
+  },
+  "expanded_statement": {
+    "log": ".astis/proximal-gaussian-expanded-section-fix.log",
+    "session": 64656,
+    "exit_code": 0,
+    "characters": 2444,
+    "sha256": "e95a13401a10cc527d5c5bc2350715d08fbf3f0d2cc64088e4947942510f9018",
+    "definitionally_equal": true,
+    "boundary": "Original section-form fixed7aee independently matched;new section-only source fix awaits fixed review.",
+    "independent_review": "Original independent Meta.isDefEq/exact2444/e95a hash and corrected root64656 expansion independently matched;no hidden names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_ac",
+    "state": "complete;verbatim QA accepted",
+    "packet_sha256": "cc84438a6c97fc35aae28ef1f8498b4f72db2d93760f6ba5d67e6b327e893ed7",
+    "binding_sha256": "2c34a9a9d028db930b9a44fefbc4b37543bdc73fce6dde280a97355da1dc1401",
+    "formal_source_review": "accepted; publicationPASS75 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCProximalGaussianEstimator"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-proximal-gaussian-estimator.json",
+    "state": "Eight authored steps,7deltas and4private accepted; publicationPASS75."
+  },
+  "admission_boundary": "VERIFIED c11730f and independent local integration accepted dec0498;remote CI/merge/live and both main results remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/proximal-gaussian-estimator.verified-admission.json",
+  "integration_notes": {
+    "upstream": "f90328f89451eb8eb3dd8ab6c4c07c69c71dedc2",
+    "boundary": "Upstream finite-output KL merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  },
+  "local_integration": "runs/20260911-companion-priority/proximal-gaussian-estimator.local-qa.json"
+}

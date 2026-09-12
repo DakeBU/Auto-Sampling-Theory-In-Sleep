@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator

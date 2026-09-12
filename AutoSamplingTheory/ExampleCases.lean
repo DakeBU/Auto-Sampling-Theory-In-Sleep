@@ -51,6 +51,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecuti
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedKLOneStep
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram
 
 /-!

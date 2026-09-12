@@ -1,0 +1,68 @@
+{
+  "commit": "dec0498774d5e4420fc68660b70aeaedde664ce8",
+  "source_digest": "03e5da48690976a221b9369a1f61aaa1b5a03ee163a44f2b06ca0cd82394abf1",
+  "status": "independent-final-local-integration-accepted",
+  "root_integration": {
+    "session": 39544,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9198",
+    "log": ".astis/proximal-gaussian-canonical-gate.log"
+  },
+  "reader_build": {
+    "session": 79303,
+    "exit_code": 0,
+    "log": ".astis/proximal-gaussian-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 667,
+    "declarations": 3988
+  },
+  "reader_check": {
+    "session": 49301,
+    "exit_code": 0,
+    "log": ".astis/proximal-gaussian-reader-check.log",
+    "chapters": 12,
+    "modules": 667,
+    "declarations": 3988,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/proximal-gaussian-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-proximal-gaussian-estimator",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 1405,
+    "proof_code_characters": 3822,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+      "StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "5 named declarations;Compiled exact dec0498774d5 gate;zero placeholders;Not mapped separate."
+  },
+  "boundary": "Local integration accepted only;remote CI,merge/live,score bias,Picard accuracy,actual-input total costs and both complete main results remain separate.",
+  "independent_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "dec0498774d5e4420fc68660b70aeaedde664ce8",
+    "decision": "accepted; faithful transcription explicitly authorized",
+    "evidence": "Independent gate/digest and current reviewed=True matched; canonical Tests9198 and reader/check/graph logs verified; unchanged admitted production/test/lesson/registry/binding; static HTML11 default closed,1405/3822 code characters,two parents,5 declarations,Compiled exact gate,zero placeholders and separate Not mapped; graph no omitted connections.",
+    "provenance": "Static artifacts and logs independently checked; browser clicks,8-step display,KaTeX and screenshot are root observations."
+  }
+}

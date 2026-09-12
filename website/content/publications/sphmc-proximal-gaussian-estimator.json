@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-proximal-gaussian-estimator",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual proximal Gaussian estimator and its fiberwise moments",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Equation(3.2),Algorithm3.1 estimator evaluations; normalized source(1.1) and Section2",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS mathematical construction and expanded measurability/moment component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang,Smoothed Picard Hamiltonian Monte Carlo;not a verbatim printed theorem or full algorithm guarantee."
+      },
+      "statement": "There exists a measurable p:S->E such that p_s+eta_s*gradient V(p_s)=y_s. For all s,z,F_s(p_s)+(kappa^(-1)+eta_s^(-1))*norm(z-p_s)^2/2<=F_s(z),and F_s(z)<=F_s(p_s) if and only if z=p_s. Set G(s,z)=gradient V(p_s+sqrt(eta_s)*z). G is jointly measurable. There exists a Markov kernel K:S->E whose fiber is exactly StandardGaussian(E).map(z->G(s,z)). For every s,both G(s,.) and G(s,.)-gradient V(p_s) belong to L2(StandardGaussian(E)); the integral of norm(G(s,z)-gradient V(p_s))^2 is at most eta_s*d,and the integral of norm(G(s,z))^2 is at most 2*norm(gradient V(p_s))^2+2*eta_s*d. Finally norm(w)^2 is integrable under the actual K_s,and its K_s integral satisfies that same total second-moment bound.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with its complete metric structure; d=dim_R E may be zero. S is any measurable space,with no topology,standard Borel hypothesis or probability law required.",
+        "The nonnegative real kappa satisfies kappa>=1. V:E->R is C2 and kappa^(-1)*norm(v)^2<=D2V(x)[v,v]<=norm(v)^2 for every x,v. The normalization is beta=1. Kappa>=1 remains an explicit hypothesis although the proof does not use that inequality.",
+        "eta:S->R and y:S->E are measurable,with 0<eta_s<=1/2 for every s. No uniform positive lower bound on eta is assumed. Define F_s(x)=V(x)+norm(x-y_s)^2/(2 eta_s).",
+        "gradient V is the genuine real inner-product gradient,defined through the Frechet derivative. StandardGaussian(E) has zero mean and identity covariance; in zero dimension it is the Dirac law at zero. All displayed real integrals are Bochner integrals and all asserted L2 properties are with respect to this actual Gaussian law or the specified kernel fiber."
+      ],
+      "formulae": [
+        {
+          "label": "Actual estimator and proximal-point deviation moment",
+          "tex": "G_s(z)=\\nabla V(p_s+\\sqrt{\\eta_s}z),\\quad K_s=(G_s)_\\#\\gamma,\\quad\\int\\|G_s-\\nabla V(p_s)\\|^2d\\gamma\\le\\eta_s d."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "proximal-gaussian-estimator",
+          "label": "Actual proximal Gaussian estimator and its fiberwise moments"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator",
+          "cell": "ASTIS-SW-SPHMC-proximal-gaussian-estimator",
+          "role": "proof-edge",
+          "supports": [
+            "proximal-gaussian-estimator"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCProximalGaussianEstimator",
+          "boundary": "Actual exact proximal Gaussian gradient estimator from source(3.2), with normalized beta=1,kappa>=1,C2 and genuine Hessian bounds. Arbitrary measurable parameter spaces and zero-dimensional finite inner-product Borel spaces are explicit extensions. Step sizes are measurable and in(0,1/2],without a uniform positive lower bound. The same constructed measurable proximal point supplies the true gradient estimator and exact Markov pushforward. Squared deviation is about gradient V(p),not estimator variance about its mean or error relative to the smoothed score. All L2 and moment conclusions are fiberwise; no arbitrary state-law integrability is inferred. No finite gradient evaluator trace or query count,score bias,Picard updates,stage W2 accuracy,initialization/total cost or full main result is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "Source is Euclidean with positive dimension and explicit C2/Hessian bounds.",
+              "lean": "Coordinate-free finite-dimensional real inner-product Borel space,including zero dimension; same genuine C2/Hessian bounds.",
+              "classification": "generalization",
+              "reason": "Zero dimension and coordinate-free presentation are extensions;C2 agrees with source(1.1)."
+            },
+            {
+              "source": "Source estimator is evaluated at algorithmic random centers and step sizes.",
+              "lean": "Any measurable S and measurable eta,y;no topology or probability law on S.",
+              "classification": "generalization",
+              "reason": "The parameterized theorem can consume actual random centers without assuming a measurable proximal selection; no topology or probability law on S is needed."
+            },
+            {
+              "source": "Equation(3.2) uses the exact proximal oracle.",
+              "lean": "The constructed point satisfies the actual proximal equation and unique global minimum.",
+              "classification": "same",
+              "reason": "This identifies the same exact oracle mathematically; a finite gradient evaluator is not supplied."
+            },
+            {
+              "source": "The paper normalizes beta=1 and kappa>=1 in this analysis.",
+              "lean": "Both remain explicit hypotheses;the kappa>=1 binder is unused in the proof.",
+              "classification": "same",
+              "reason": "An unused proof hypothesis is still part of the public theorem and is not silently removed."
+            },
+            {
+              "source": "Later estimator analysis controls error relative to the actual smoothed score.",
+              "lean": "Deviation second moment is centered at gradient V(p),not the estimator mean or smoothed score.",
+              "classification": "API-limitation",
+              "reason": "Neither variance about the estimator mean nor Lemma4.2 score bias is claimed."
+            },
+            {
+              "source": "Full algorithms use random states and charge oracle implementation costs.",
+              "lean": "Only fiberwise L2 and moments of the exact oracle;no state-law integral or gradient evaluator trace.",
+              "classification": "API-limitation",
+              "reason": "Global state moments,Picard output accuracy,initialization and total costs remain separate."
+            },
+            {
+              "source": "The proximal estimator formula is meaningful for positive smoothing parameters;the algorithm selects small parameters.",
+              "lean": "The public construction assumes0<eta_s<=1/2.",
+              "classification": "API-limitation",
+              "reason": "The bound1/2 is a sufficient contraction condition of this construction,not a claimed optimal source threshold. An algorithm consumer must establish this bound for its actual parameters;the theorem does not cover every positive eta."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
