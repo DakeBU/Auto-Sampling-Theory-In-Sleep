@@ -6,7 +6,7 @@
   "title": "Actual enhanced-state one-step KL recurrence",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3 and Section6.3 after(6.5),actual conditional output KL recurrence",
   "target_statement": "For the actual enhanced-state absorbed transition and real Gibbs base muV=volume.tilted(-V), construct target T,ideal Gaussian observation H and posterior K. Prove one-step KL((R composed P)s||Ts)<=active observation KL(Qs||Hs)+integral KL(Rt||Tt)dPs for every actual Markov R, with derived error measurability and all infinite/non-AC cases. Derive posterior recovery and conditional-reference target alignment rather than assume them.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SW-SPHMC-observation-conditional-kernel"
   ],
@@ -40,9 +40,18 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-enhanced-kl-one-step.md",
     "planning_review": "Independent log_depth_source_review selected exact real-Gibbs route and checked actualQ versus idealH AE boundary. API-only probe passed.",
-    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent observation conditional merged,merge Lean/Site and live delivery passed. Proof/source binding unchanged.",
+    "execution_boundary": "Actual merge releases stabilization lane;both paper main results incomplete.",
     "admission_boundary": "VERIFIED at 520c11e;aggregate integration,original reader/graph QA,merge/live separate.",
-    "independent_verification": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json",
+    "root_build": "runs/20260911-companion-priority/enhanced-kl-one-step.local-qa.json:exact24f5da9 canonical gate Tests9194,independent local integration accepted",
+    "graph_regeneration": "Same localQA fullreader/check,graph,actual root browser and independent static review",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/298",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/298",
+      "commit": "8be9d4d8f368176e493ccdb1dc6c5b1df8ab5c72",
+      "merged_at": "2026-09-12T04:34:37Z",
+      "post_merge": "PR Lean34672674515 and Site34672674485 SUCCESS;mergeCI/live pending."
+    }
   },
   "blocked": {
     "reason": "",

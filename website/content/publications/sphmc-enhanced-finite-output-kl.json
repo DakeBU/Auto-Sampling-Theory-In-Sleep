@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-enhanced-finite-output-kl",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual finite-output KL with terminal residual discharged",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Section6.3,A1 conditional KL recursion and terminal stage;q=2",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded actual finite-output component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Not a verbatim printed theorem or the numerical stage budget."
+      },
+      "statement": "muV is a probability measure. There exist Markov kernels Lt:S->E,P:S->S,TG:S->E and H:S->E such that P_s=dirac_s when B^(-1)<=b_s and otherwise P_s is the law of U(s,(X,Z)) under M_s times standardGaussian; the actual terminal stream output law (rho_s).map O_s equals Lt_s; TG_s=muV.tilted(x->-(b_s/2)*norm(x-u_s)^2); and H_s=G(TG_s,sqrt(v_s)). Define Q_s=G(M_s,sqrt(tau_s/(1+b_s))) and e(s)=0 when B^(-1)<=b_s,otherwise KL(Q_s||H_s). Then e is measurable,and for every natural m,KL((Lt composed P^(J+m))(s0)||TG_s0)<=sum(j<J,the nonnegative integral of e under(P^j)(s0))+Delta^2/(J+1). The final real term is embedded in the extended nonnegative reals.",
+      "assumptions": [
+        "E is a positive-dimensional finite-dimensional real inner-product Borel space; d=dim_R E. The nonnegative real kappa satisfies kappa>=1. V:E->R is C2 and kappa^(-1)*norm(w)^2<=D2V(x)[w,w]<=norm(w)^2 for every x,w. This is the normalized beta=1 setting.",
+        "The full state S=NNReal x E x E x Nat x (Nat->E) is written s=(b,u,xref,k,history). eta:S->R is measurable,0<eta_s<=c,0<c<1/4,0<Delta<=1/2. The initial state s0 is arbitrary and M:S->E is any actual Markov kernel. No initial-history origin,reference admissibility,stage approximation or moment guarantee is assumed.",
+        "Write K(r)=(1+r)/(kappa^(-1)+r),tau_s=K(b_s) if K(b_s)>=2 and c otherwise,L=2+log(K(b_s0)*d*2/Delta),B=(1/1024)/(sqrt(d*L)+L),J=ceil(8*log(exp(1)*K(b_s0)/B)),eps=Delta/sqrt(J+1). Real inverses and square roots use their total Lean definitions; the proof establishes the required positive denominators.",
+        "For p=(s,(x,z)),set v_s=(eta_s+tau_s)/(1+b_s),bp_s=b_s+toNNReal(v_s^(-1)),obs(p)=x+sqrt(tau_s/(1+b_s))*z,center(p)=bp_s^(-1)*(b_s*u_s+v_s^(-1)*obs(p)),F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and D_p(w)=w-(1+bp_s)^(-1)*grad F_p(w). N_p is the least n with norm(grad F_p(D_p^n(x)))^2<=(kappa^(-1)+bp_s)*d,or0 if no such n exists. U(p)=(bp_s,center(p),D_p^N_p(x),k+1,prepend(obs(p),history)). The actual reference starts at the pre-noise x.",
+        "For the terminal program,bb_s=max(b_s,B^(-1)),A_s=bb_s^(-1),TF_s(w)=V(w)+bb_s/2*norm(w-u_s)^2 and TD_s(w)=w-(1+bb_s)^(-1)*grad TF_s(w). TN_s is the least n with norm(grad TF_s(TD_s^n(xref_s)))^2<=d*bb_s,or0 if none exists. Put xp_s=TD_s^TN_s(xref_s),g_s=grad V(xp_s),h_s=u_s-A_s*g_s.",
+        "For an auxiliary draw a=(t,z) and terminal candidate x,let theta=pi*t/2 and Z=sqrt(A_s)*z. Define W_s(x,a)=clip[-1,1](inner((pi/2)*(cos(theta)*(x-h_s)-sin(theta)*Z),g_s-grad V(h_s+sin(theta)*(x-h_s)+cos(theta)*Z))). The auxiliary law nu is volume restricted to(0,1] times standardGaussian; the proposal q_s is the law of h_s+sqrt(A_s)*Z0 for standardGaussian Z0.",
+        "One terminal attempt independently draws X~q_s,N~Poisson(2),an infinite iid nu sequence a_i,and U~Uniform[0,1]. It accepts when U<=product(i<N,(1+W_s(X,a_i))/2),with empty product1. rho_s is the law of an infinite iid sequence of such attempts. O_s returns X from the first accepted attempt,or the zero vector if no attempt accepts. This is the actual terminal stream program,with its full independent-product law.",
+        "Let muV=volume.tilted(-V),using canonical volume. Gaussian smoothing G(mu,sigma) is the law of X+sigma*Z under mu times standardGaussian. Tilt is the total normalized exponential reweighting operation; probability is proved,not implicit. Kernel composition Lt composed P first draws a state from P then an output from Lt. KL and nonnegative integrals take extended nonnegative values,possibly infinity."
+      ],
+      "formulae": [
+        {
+          "label": "Actual finite output with explicit observation error",
+          "tex": "\\operatorname{KL}((L_t\\circ P^{J+m})(s_0)\\Vert T_{s_0})\\le\\sum_{j=0}^{J-1}\\int e(s)\\,P^j(s_0,ds)+\\frac{\\Delta^2}{J+1},\\qquad m\\in\\mathbb N."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "enhanced-finite-output-kl",
+          "label": "Actual finite-output KL with terminal residual discharged"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL.finite_output_kl",
+          "cell": "ASTIS-SW-SPHMC-enhanced-finite-output-kl",
+          "role": "proof-edge",
+          "supports": [
+            "enhanced-finite-output-kl"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCEnhancedFiniteOutputKL",
+          "boundary": "Actual q=2 finite output for the Section6.3 A1 recursion and terminal base case. Genuine C2 Hessian bounds and normalized beta=1,kappa>=1 are explicit. Arbitrary actual M has no stage accuracy or cost guarantee;observation KL and its sum may be infinite. Arbitrary initial reference/history need not be a legally produced history. The actual terminal output pushforward and full P law are returned. Terminal support,cap law equality,first-hit criteria,output measurability and costs are consumed parent facts,not all separately returned conjuncts. Capped bb is a terminal-program extension outside support;TG=tpi is used only on terminal support. The exact residual is Delta^2/(J+1). No numerical(6.5)stage budget,final Delta^2 accuracy,initialization/total cost,actual M construction or complete main result is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "Source(1.1) explicitly assumes a C2 potential on Euclidean R^d with genuine Hessian bounds.",
+              "lean": "Positive finite-dimensional inner-product Borel space and genuine C2 Hessian bounds.",
+              "classification": "generalization",
+              "reason": "C2 agrees with the source. The coordinate-free finite-dimensional inner-product Borel formulation generalizes its Euclidean presentation;positive dimension is explicit."
+            },
+            {
+              "source": "Source accuracy routes include different Renyi orders.",
+              "lean": "Normalized beta=1,kappa>=1 and the A1 q=2 finite-output consumer.",
+              "classification": "API-limitation",
+              "reason": "No arbitrary-order A4 result or unnormalized adapter is implied."
+            },
+            {
+              "source": "Source M satisfies stage accuracy requirements.",
+              "lean": "M is arbitrary Markov;actual observation errors are retained,including infinity.",
+              "classification": "API-limitation",
+              "reason": "The numerical(6.5)stage budget and final Delta^2 do not follow yet."
+            },
+            {
+              "source": "Source execution produces admissible references and histories.",
+              "lean": "Initial full state is arbitrary.",
+              "classification": "generalization",
+              "reason": "No history-origin or initialization cost is inferred."
+            },
+            {
+              "source": "Source terminal Gibbs target uses its actual positive precision.",
+              "lean": "Nested volume Gibbs tilt equals Gaussian tilt only on actual terminal support;integrability is derived.",
+              "classification": "source-implicit",
+              "reason": "No assumed normalizer or target identity;outside-support extension is explicit."
+            },
+            {
+              "source": "Source recursion starts from terminal accuracy.",
+              "lean": "Actual dLt/dTG second moment and probability mass derive the terminal KL residual.",
+              "classification": "mathematically-necessary",
+              "reason": "Correct RN direction and L1 conditions precede integral conversion."
+            },
+            {
+              "source": "Source full algorithm analysis also provides stage/global costs.",
+              "lean": "Actual output law and finite error sum only;parent support/cap/first-hit/cost facts are not all public conjuncts.",
+              "classification": "API-limitation",
+              "reason": "No numerical stage accuracy,total cost or full paper completion claim."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
   "remaining": [
-    "Remote PR CI,actual merge and deployment"
+    "Merge Lean CI completion",
+    "Deliver independently reviewed C2 source wording correction with next integration"
   ],
   "development_checkpoints": [
     {
@@ -142,9 +143,23 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/298",
     "head": "2b7e0de24ab13a90cc4a70d53275cb8a267441ae",
-    "state": "OPEN; PR Lean and Site checks running",
+    "state": "MERGED;PR checks SUCCESS;mergeCI/live pending",
     "pr_lean_run": 34672674515,
     "pr_site_run": 34672674485,
-    "boundary": "Exact24f5da9 canonical Lean/reader candidate locally accepted;2b7e0de adds only recorded local QA/progress. No remote completion claim."
+    "boundary": "Exact24f5da9 canonical Lean/reader candidate locally accepted;2b7e0de adds only recorded local QA/progress. No remote completion claim.",
+    "merge_commit": "8be9d4d8f368176e493ccdb1dc6c5b1df8ab5c72",
+    "merged_at": "2026-09-12T04:34:37Z",
+    "pr_lean_result": "SUCCESS",
+    "pr_site_result": "SUCCESS",
+    "merge_lean_run": 34673370488,
+    "merge_site_run": 34673370536,
+    "merge_site_result": "SUCCESS",
+    "live_delivery": "runs/20260911-companion-priority/enhanced-kl-one-step.live-delivery.json"
+  },
+  "source_wording_correction": {
+    "source": "SPHMC1.1 explicitly C2; no strengthened differentiability assumption",
+    "review": "runs/20260911-companion-priority/enhanced-kl-one-step.source-wording-review.json",
+    "state": "independent source review accepted;not yet remotely delivered",
+    "boundary": "Only productionheader and reader/delta wording;Leanstatement/proofs unchanged;old source review preserved historically."
   }
 }

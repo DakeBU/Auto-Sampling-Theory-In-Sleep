@@ -42,13 +42,13 @@
             "enhanced-kl-one-step"
           ],
           "audit_id": "ASTIS-RT-20260912-SPHMCEnhancedKLOneStep",
-          "boundary": "Actual enhanced-state one-step KL recurrence for the Section6.3 conditional output argument, not the numerical(6.5) observation budget or full Theorem6.5. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Arbitrary measurable positive steps,state,threshold and actual M,R provide no source schedule,admissibility,accuracy or moments; e may be infinite. T is the nested actual volume-Gibbs tilt, without an extra combined density/normalizer formula. Posterior recovery,conditional target alignment and active projection are proved internally,not public premises. Internal J,C,K and standalone recovery are not returned conjuncts. Conditional support is used only under actualQ,not transferred to idealH. The stopped branch retains remaining-output KL. Numerical stage precision,finite-depth accumulation,terminal accuracy,actual M construction and all query costs remain separate; neither paper is complete.",
+          "boundary": "Actual enhanced-state one-step KL recurrence for the Section6.3 conditional output argument, not the numerical(6.5) observation budget or full Theorem6.5. C2 genuine Hessian bounds agree with source(1.1); positive finite dimension and0<alpha<=beta are explicit. Arbitrary measurable positive steps,state,threshold and actual M,R provide no source schedule,admissibility,accuracy or moments; e may be infinite. T is the nested actual volume-Gibbs tilt, without an extra combined density/normalizer formula. Posterior recovery,conditional target alignment and active projection are proved internally,not public premises. Internal J,C,K and standalone recovery are not returned conjuncts. Conditional support is used only under actualQ,not transferred to idealH. The stopped branch retains remaining-output KL. Numerical stage precision,finite-depth accumulation,terminal accuracy,actual M construction and all query costs remain separate; neither paper is complete.",
           "assumption_deltas": [
             {
-              "source": "Source smooth strongly convex Euclidean potentials.",
+              "source": "Source(1.1) explicitly assumes a C2 potential on Euclidean R^d with genuine Hessian bounds.",
               "lean": "Positive finite-dimensional inner-product Borel space and genuine C2 Hessian bounds.",
-              "classification": "API-limitation",
-              "reason": "Stronger differential regularity and explicit domain are disclosed."
+              "classification": "generalization",
+              "reason": "C2 agrees with the source. The coordinate-free finite-dimensional inner-product Borel presentation generalizes Euclidean coordinates;positive dimension and curvature inequalities remain explicit."
             },
             {
               "source": "Source legal schedules,reference and produced history.",

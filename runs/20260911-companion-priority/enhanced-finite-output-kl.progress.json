@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-finite-output-kl",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
-    "Fixed production and expanded statement independent checks",
-    "Anonymous reconstruction,formal source/publication admission",
-    "Integration and actual reader/graph/merge/live delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "development": [
     {
@@ -91,12 +90,62 @@
     "log": ".astis/enhanced-finite-kl-focused.log",
     "private_declarations": 12,
     "public_declarations": 1,
-    "boundary": "Compiled production checkpoint;not PROVED_LOCAL or VERIFIED. Fixed production/expanded/source/publication gates pending."
+    "boundary": "Compiled production checkpoint;not PROVED_LOCAL or VERIFIED. Fixed production/expanded/source/publication gates pending.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "5782b0bcd67e74c3a065525d2b2099bea47f4ebe",
+      "decision": "Fixed production accepted;independentPASS3821 exit0 standard3/no newmodulelint;namespace/private/docs port matches frozenactual;12private+1public;not VERIFIED."
+    },
+    "post_source_wording_check": {
+      "session": 25140,
+      "exit_code": 0,
+      "result": "PASS3821 standard3;parent header wording correction only,no theoremchange",
+      "log": ".astis/enhanced-finite-kl-focused-source-correction.log"
+    }
   },
   "source_preaudit": {
     "reviewer": "log_depth_source_review",
     "decision": "Full actual proof preaudit found no mathematical/source blocker;no independent compile or formal admission",
     "read_sha256": "bed238a5abcaae141a0a497945e9bfc88742f4af09f6abe5b6ff586e11378763",
     "boundary": "Remaining code edits repaired Lean typing/rewrites and statement-only unused let names,not mathematics;formal review still required."
+  },
+  "expanded_statement": {
+    "log": ".astis/enhanced-finite-kl-expanded.log",
+    "root_session": 31066,
+    "exit_code": 0,
+    "characters": 9546,
+    "sha256": "40ecc48bc7c1419a3e1417c02a53c1822978e8415b4a3714fc5f478cc7d53129",
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier18881exit0 Meta.isDefEq/exactbytes,no source/private names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_ab",
+    "state": "complete;verbatim QA accepted",
+    "packet_sha256": "24328dfe607681b01201ac66ec8ee785e1af4217f9e7c0f7f4adb14cf392e795",
+    "binding_sha256": "f5f36489370ee16ec7fab9d73f5bb89d9f6b8a071eeb45d831c7fc642f3da9a9",
+    "formal_source_review": "accepted; publicationPASS74 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL.finite_output_kl",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCEnhancedFiniteOutputKL"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-enhanced-finite-output-kl.json",
+    "state": "Eight authored steps,7deltas and12private accepted; publicationPASS74."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate.",
+  "evidence_correction": {
+    "field": "PROVED_LOCAL focused_checks[0].command",
+    "previous_label": "lake build Tests.SmoothedPicardHMCEnhancedKLOneStep",
+    "actual_command": "lake build Tests.SmoothedPicardHMCEnhancedFiniteOutputKL",
+    "sessions": [
+      95335,
+      25140
+    ],
+    "result": "Both exit0 PASS3821 standard3;correct source/test hashes already recorded;historical ledger retained."
   }
 }
