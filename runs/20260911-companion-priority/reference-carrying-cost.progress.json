@@ -3,7 +3,7 @@
   "state": "MERGED",
   "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD.",
   "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
+    "Merge Lean CI completion"
   ],
   "development_checkpoints": [
     {
@@ -87,6 +87,11 @@
     "merged_at": "2026-09-12T01:01:16Z",
     "pr_lean_run": 34662708076,
     "pr_site_run": 34662708075,
-    "state": "MERGED; PR checks passed; merge CI/live pending"
+    "state": "MERGED; PR checks passed; merge CI/live pending",
+    "merge_site_run": 34663525834,
+    "merge_site_result": "SUCCESS",
+    "merge_lean_run": 34663525891,
+    "merge_lean_result": "in_progress",
+    "live_delivery": "runs/20260911-companion-priority/reference-carrying-cost.live-delivery.json"
   }
 }

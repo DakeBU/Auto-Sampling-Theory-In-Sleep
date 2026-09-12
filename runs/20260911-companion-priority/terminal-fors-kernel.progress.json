@@ -3,9 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The source ell1 gap remains excluded. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Connect actual reference and positive terminal parameters to program",
-    "Assemble source Gaussian stream correspondence and fiber accuracy",
-    "Independent full proof/source review and original reader delivery"
+    "Independent complete checkpoint review",
+    "Production, formal encoder-denoiser/source review and original reader delivery",
+    "Aggregate integration and actual merge/live"
   ],
   "development_checkpoints": [
     {
@@ -52,7 +52,31 @@
       "sha256": "9f91f5b50b0957fd39048323808377d0949bb41146d752c40cb37b00c5d90c1b",
       "session": 76113,
       "exit_code": 0,
-      "result": "Actual Markov kernel with explicit program output law,neverhit0 and cached 1+2exp2 cost under true retry law;standard3/no lint. Independent review requested."
+      "result": "Actual Markov kernel with explicit program output law,neverhit0 and cached 1+2exp2 cost under true retry law;standard3/no lint. Independent review requested.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint; exact retry program, Markov output and true-law cached cost accepted."
+    },
+    {
+      "path": ".astis/TerminalFORSCombined.lean",
+      "sha256": "c500a8ecb2f409488efccd7b1e7c898116acb8d42ed5552b8238d54be4766862",
+      "session": 55439,
+      "exit_code": 0,
+      "independent_review": "depth_commit_verifier independently compiled stdin77125exit0 standard3/no lint; actual reference/Hessian-derivedLip/program/RNaccuracy/cost accepted. Stream not yet returned by this checkpoint."
+    },
+    {
+      "path": ".astis/TerminalFORSCorrespondence.lean",
+      "sha256": "a56881cfa56ae09017553fe144d6e3357727eb0111a2c620430f37f403be5fdc",
+      "session": 91075,
+      "exit_code": 0,
+      "result": "Actual Gaussian-scaled source retry law,accepted/fullbatchcount correspondence,AE default difference; standard3/no lint."
     }
-  ]
+  ],
+  "complete_scratch": {
+    "path": ".astis/TerminalFORSComplete.lean",
+    "sha256": "ab317d06a26e5c0ad5dd6d60dfec54ff529c49543075c689f540f33afcdf9b5f",
+    "session": 44243,
+    "exit_code": 0,
+    "result": "Actual generated terminal reference, Markov program/law/termination/cachedcost, two-way RNaccuracy and actual source stream correspondence assembled. Standard3/no lint.",
+    "independent_review": "Requested depth_commit_verifier and log_depth_source_review; pending. No production/VERIFIED claim."
+  },
+  "source_preaudit": "Stream and Scaling frozen files independently source-audited by log_depth_source_review, no block. Whole complete contract preaudit pending."
 }
