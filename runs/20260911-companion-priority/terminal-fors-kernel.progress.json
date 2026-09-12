@@ -1,0 +1,28 @@
+{
+  "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
+  "state": "EXPLORING",
+  "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The source ell1 gap remains excluded. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
+  "remaining": [
+    "Actual jointly measurable terminal reference",
+    "Actual Markov kernel and stream pushforward",
+    "Derived fiber accuracy and cached query bound",
+    "Independent proof/source review and reader delivery"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/TerminalFORSReference.lean",
+      "sha256": "2d2d9de3892e6e5f7029e8baa806622d1f75a5fab4249ec38c16437e100cad9f",
+      "session": 94469,
+      "exit_code": 0,
+      "result": "Jointly measurable actual terminal d/A firsthit and output, finite witness, earlier failure and derived center residual. Standard3/no lint.",
+      "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0 standard3/no lint; genuine terminal threshold and residual accepted. Internal development only,not VERIFIED."
+    },
+    {
+      "path": ".astis/TerminalFORSProposal.lean",
+      "sha256": "c8c8c86e3a861350236d8de02902278e4498770301dd08e2715f8188e3edbc2d",
+      "session": 95685,
+      "exit_code": 0,
+      "result": "Actual varying Gaussian proposal Markov kernel and jointly measurable scaled cached arc estimator. Standard3/no lint; independent review pending."
+    }
+  ]
+}
