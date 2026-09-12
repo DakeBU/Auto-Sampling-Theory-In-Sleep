@@ -1,0 +1,74 @@
+{
+  "commit": "0d89845910b9a1ec0bf9c1e68d1992c7ba72d1fe",
+  "source_digest": "a8a2a0018fb9bd0cf76185ade6d134931617b7814caca28c221ac37557496e5e",
+  "status": "local-integration-accepted",
+  "root_integration": {
+    "session": 2538,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed; Tests9188",
+    "log": ".astis/terminal-fors-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 7691,
+    "exit_code": 0,
+    "log": ".astis/terminal-fors-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 657,
+    "declarations": 3944
+  },
+  "reader_check": {
+    "session": 66193,
+    "exit_code": 0,
+    "log": ".astis/terminal-fors-reader-check.log",
+    "chapters": 12,
+    "modules": 657,
+    "declarations": 3944,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/terminal-fors-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, scoped DOM and viewed graph screenshot; not independent browser inspection.",
+    "section": "sphmc-terminal-fors-kernel",
+    "authored_steps": 10,
+    "initial_details": 13,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 3088,
+    "proof_code_characters": 6002,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+      "PoissonRejection.poisson_rejection_output",
+      "TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+      "QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not a Lean dependency; source-present graph badge does not infer compilation."
+    },
+    "evidence_card": "28 named declarations; Compiled exact candidate gate; zero placeholders; Not mapped separate."
+  },
+  "independent_precheck": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted-precheck-only",
+    "evidence": "Recomputed exact digest, actual Tests9188, unchanged VERIFIED source/test/audit/lesson, reviewed=True, root imports, sole stabilization owner; authorized faithful transcription."
+  },
+  "boundary": "Local integration accepted; remote CI/merge/live, terminal-domain reachability, initialization cost, recursive accuracy/stage costs and both main results separate.",
+  "independent_final_review": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "0d89845910b9a1ec0bf9c1e68d1992c7ba72d1fe",
+    "evidence": "Exact gate/digest and admitted binding, reviewed=True, raw Tests9188 and full build/check counts, static13closed folds3088/6002chars4parents, module28declCompiled currentcommit0placeholders Notmapped separate, graph no omissions/source correspondence not Lean dependency; browser provenance belongs to root. Authorized faithful transcription."
+  }
+}

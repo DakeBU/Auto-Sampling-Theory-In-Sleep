@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "e6365c16db2f76bd5f8f397cbe310ed33da08e45",
+    "gate": {
+      "production": "Unchanged independently compiled PASS3754,standard3 and18933-character Meta/isDefEq replay.",
+      "publication": "Independent reviewed=True and actual publication --base975fb4d0ec46ec263aa6d00d616a6324d08a4918 exit0 PASS70,all27private covered. All source/statement/reconstruction/module/test/decoder/reviewer packet/run hashes and canonical anonymous bytes checked; external binding preimage matches682e1261bb96bdde1d57042dc70eef83fd9ca05b05e1c32ed010eee4d26f2fe9.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCTerminalFORSKernel",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_x",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "682e1261bb96bdde1d57042dc70eef83fd9ca05b05e1c32ed010eee4d26f2fe9",
+        "decoder_packet_sha256": "8ad9a9d5c0bddd2ca5e341d6e3b2a5c5626a7f1c59b36c889e1622b1fd16ea78",
+        "decoder_run_sha256": "54b4eb27832b711da818942104ff65253d7853e6e2c4672cc8c4c198ce158535",
+        "reviewer_packet_sha256": "c27e754dac0366be497be92d1057659212fc3325090326f6a6de92b02cd4b1b8",
+        "review_run_sha256": "2cd4abe0114aeb1333297914fccd70c957ef3b1e3170fd3d210fac8d38965268",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual terminal reference and Markov output program, same-law RN accuracy,true sampling count and stream reparameterization; GD initialization/domain reachability/full source highprob remain separate."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel"
+    ],
+    "independent_checks": [
+      "Fixed e6365c1 clean tree and exact HEAD independently verified.",
+      "Seven semantic slots,ten steps,eight informational deltas,27private,no blocker or mathematical repair.",
+      "No other STABILIZING owner. VERIFIED only,not aggregate/reader/merge/live/mainpaper closure."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams."
+}

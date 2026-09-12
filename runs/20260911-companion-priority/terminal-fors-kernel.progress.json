@@ -1,0 +1,146 @@
+{
+  "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
+  "state": "STABILIZING",
+  "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
+  "remaining": [
+    "Remote PR CI, actual merge and deployment"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/TerminalFORSReference.lean",
+      "sha256": "2d2d9de3892e6e5f7029e8baa806622d1f75a5fab4249ec38c16437e100cad9f",
+      "session": 94469,
+      "exit_code": 0,
+      "result": "Jointly measurable actual terminal d/A firsthit and output, finite witness, earlier failure and derived center residual. Standard3/no lint.",
+      "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0 standard3/no lint; genuine terminal threshold and residual accepted. Internal development only,not VERIFIED."
+    },
+    {
+      "path": ".astis/TerminalFORSProposal.lean",
+      "sha256": "c8c8c86e3a861350236d8de02902278e4498770301dd08e2715f8188e3edbc2d",
+      "session": 95685,
+      "exit_code": 0,
+      "result": "Actual varying Gaussian proposal Markov kernel and jointly measurable scaled cached arc estimator. Standard3/no lint; independent review pending."
+    },
+    {
+      "path": ".astis/TerminalFORSKernelConstruction.lean",
+      "sha256": "0030f216c22c8535a56198f72e6a31b1ea1fb3e4b2fde178916899d668d007f0",
+      "session": 24370,
+      "exit_code": 0,
+      "result": "Actual state-varying Gaussian proposal and fixed-auxiliary clipped cached-estimator Markov output kernel; fiber equals proposal tilt. Standard3/no lint.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint. True parameterized kernel, consistent arc scaling and clipping accepted. Nonpositive A degeneracy allowed only in internal helper; actual positive-precision consumer pending.",
+      "boundary": "Internal kernel constructor only. Must connect actual terminal reference, prove source stream reparameterization and transfer accuracy/cost before full packet admission."
+    },
+    {
+      "path": ".astis/TerminalFORSStream.lean",
+      "sha256": "88bd9a02a42ba9e63d5ccf75966e8088ea43c816b94514b1c1cbc348a160e39b",
+      "session": 62228,
+      "exit_code": 0,
+      "result": "Whole retry-law pushforward, acceptance/output/count preservation, differing defaults AE under neverhit0.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint, actual retry law and successful-batch count accepted."
+    },
+    {
+      "path": ".astis/TerminalFORSScaling.lean",
+      "sha256": "676b7baf65bec12ac0723507ca25c9d437b93c122e4f9febaf7fca1b1b06df48",
+      "session": 43823,
+      "exit_code": 0,
+      "result": "Actual auxiliary Gaussian scale pushforward and clipped cached-estimator mean identity; standard3/no lint. Source preaudit requested."
+    },
+    {
+      "path": ".astis/TerminalFORSKernelProgram.lean",
+      "sha256": "9f91f5b50b0957fd39048323808377d0949bb41146d752c40cb37b00c5d90c1b",
+      "session": 76113,
+      "exit_code": 0,
+      "result": "Actual Markov kernel with explicit program output law,neverhit0 and cached 1+2exp2 cost under true retry law;standard3/no lint. Independent review requested.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint; exact retry program, Markov output and true-law cached cost accepted."
+    },
+    {
+      "path": ".astis/TerminalFORSCombined.lean",
+      "sha256": "c500a8ecb2f409488efccd7b1e7c898116acb8d42ed5552b8238d54be4766862",
+      "session": 55439,
+      "exit_code": 0,
+      "independent_review": "depth_commit_verifier independently compiled stdin77125exit0 standard3/no lint; actual reference/Hessian-derivedLip/program/RNaccuracy/cost accepted. Stream not yet returned by this checkpoint."
+    },
+    {
+      "path": ".astis/TerminalFORSCorrespondence.lean",
+      "sha256": "a56881cfa56ae09017553fe144d6e3357727eb0111a2c620430f37f403be5fdc",
+      "session": 91075,
+      "exit_code": 0,
+      "result": "Actual Gaussian-scaled source retry law,accepted/fullbatchcount correspondence,AE default difference; standard3/no lint."
+    }
+  ],
+  "complete_scratch": {
+    "path": ".astis/TerminalFORSComplete.lean",
+    "sha256": "ab317d06a26e5c0ad5dd6d60dfec54ff529c49543075c689f540f33afcdf9b5f",
+    "session": 44243,
+    "exit_code": 0,
+    "result": "Actual generated terminal reference, Markov program/law/termination/cachedcost, two-way RNaccuracy and actual source stream correspondence assembled. Standard3/no lint.",
+    "independent_review": "depth_commit_verifier independently stdin52212exit0 standard3/no lint; complete actual reference/program/RNaccuracy/cost/source stream accepted. Initial CRLF transport issue resolved without source edits. No VERIFIED."
+  },
+  "source_preaudit": "log_depth_source_review read complete frozen source and accepted. Production must disclose fixedV/ell/eps, allstate terminaldomain, C2/genuineHessian stronger than convexsmooth A4(2),alpha0 convex not nonconvex,positive d/beta,ell>=2,derived sufficientconstants,omitted highprob querybound and jointstream-output/targetkernel/evaluator claims,GDcost separate.",
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TerminalFORSKernel.lean",
+    "test": "Tests/SmoothedPicardHMCTerminalFORSKernel.lean",
+    "session": 44096,
+    "exit_code": 0,
+    "result": "Focused PASS3754 standard3/no new module lint. Public theorem and explicit source/domain boundaries added to independently accepted scratch.",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalFORSKernel.lean": "7428c55f3eab3bb25e4ef1079cee8296d6cbcfd8fa59af8f864e9f870798c466",
+      "Tests\\SmoothedPicardHMCTerminalFORSKernel.lean": "e6334817e0050ae9f4f46b6978a55131fd228221090135d8734f0d3417367f89"
+    }
+  },
+  "expanded_statement": {
+    "path": ".astis/terminal-fors-expanded.log",
+    "characters": 18933,
+    "sha256": "6b7a7701b173fcd25f1ce7e1d22dba49bba890f115d9e544cc9f95d4652bc575",
+    "session": 93593,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier replay49235exit0, identical18933-character hash/Meta.isDefEq and complete actual private definitions. Neutral context explicitly supplies hidden Fin batch-size product index."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-terminal-fors-kernel.json",
+    "state": "Ten authored steps,8deltas and27private accepted; publicationPASS70."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "002077b0793ba1154ebc05ccc02f71f000dcc568",
+    "result": "Independent focused3754PASS standard3/no lint; mathematical content identical to accepted scratch after doc/rename normalization;27private1public and fakeclosure checked."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_x",
+    "packet_sha256": "8ad9a9d5c0bddd2ca5e341d6e3b2a5c5626a7f1c59b36c889e1622b1fd16ea78",
+    "result": "runs/20260911-companion-priority/terminal-fors-kernel.decoder-result.json",
+    "reconstruction_sha256": "c396e7f4f3e8b6893db020e503b7d361f60dd9e54bcc3b3f4f0d653a6ba7c671",
+    "boundary": "Source-blind full reconstruction; explicitly reread updated neutral Fin-index context and reaffirmed full text unchanged. No source verdict."
+  },
+  "formal_source_review": {
+    "reviewer": "log_depth_source_review",
+    "state": "source-doc-correction-awaiting-review",
+    "packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalFORSKernel.reviewer.json",
+    "packet_sha256": "c27e754dac0366be497be92d1057659212fc3325090326f6a6de92b02cd4b1b8",
+    "round1": "runs/20260911-companion-priority/terminal-fors-kernel.source-review-round1.json"
+  },
+  "source_doc_correction": {
+    "scope": "Header and reader metadata only; actual theorem and proof unchanged.",
+    "session": 32374,
+    "exit_code": 0,
+    "result": "FocusedPASS3754 standard3/no lint",
+    "current_raw_production_sha256": "ba89bafb67d3fda3dd516d110bd9afeff9e92ef57e68946c958b3d0599cca9b2",
+    "anonymous_packet_unchanged": true
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCTerminalFORSKernel"
+    ]
+  },
+  "admission_boundary": "VERIFIED at e6365c1; aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json",
+  "integration_notes": {
+    "upstream": "03116219262c6c4ece661a2d8c903faf03df72a3",
+    "boundary": "Independent final local integration accepted at0d89845910b9a1ec0bf9c1e68d1992c7ba72d1fe; remote delivery pending.",
+    "local_qa": "runs/20260911-companion-priority/terminal-fors-kernel.local-qa.json"
+  }
+}

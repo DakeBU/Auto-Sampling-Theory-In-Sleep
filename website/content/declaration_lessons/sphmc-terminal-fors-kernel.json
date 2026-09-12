@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel",
+      "title": "Actual terminal reference, FORS kernel and source program",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Section6.3 terminal reference",
+          "scope": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed."
+        },
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#A1",
+          "label": "SPHMC TheoremA.4(2) terminal sampler",
+          "scope": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCTerminalFORSKernel"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with d=dim(E)>0; S is any measurable state space. V:E->R is fixed and C2. Its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2, with nonnegative alpha<=beta and beta>0.",
+        "The functions b:S->R and u,initial:S->E are measurable and b(s)>0. The fixed parameters ell,eps satisfy ell>=2 and0<eps<=1/2. Every state satisfies 64*beta*(sqrt(d*(ell+log(1/eps)))+ell+log(1/eps))<=b(s). No execution reachability of this terminal domain is assumed or concluded.",
+        "Set A(s)=1/b(s), F_s(x)=V(x)+b(s)/2*norm(x-u(s))^2 and T_s(x)=x-(beta+b(s))^(-1)*grad F_s(x). N(s) is the least n with norm(grad F_s(T_s^n(initial(s))))^2<=d*b(s), with fallback zero if no n exists. Set xp(s)=T_s^N(s)(initial(s)), g(s)=grad V(xp(s)) and h(s)=u(s)-A(s)*g(s). Finite attainment and the reference residual are proved, not additional hypotheses.",
+        "Let nu0 be Lebesgue restricted to Ioc(0,1) product standardGaussian, and q_s the law of h(s)+sqrt(A(s))*Z. For z=(t,zeta), the cached arc estimator is inner((pi/2)*(cos(pi*t/2)*(x-h)-sin(pi*t/2)*zeta),g-grad V(h+sin(pi*t/2)*(x-h)+cos(pi*t/2)*zeta)). W_s uses zeta=sqrt(A(s))*Z and clips this scalar to[-1,1]. The arc time uniform is distinct from the acceptance uniform on Icc(0,1).",
+        "An attempt p=(x,n,(zseq,v)) has law q_s product Poisson(2) product (infinitePi nu0 product uniformIcc(0,1)). It accepts iff v<=product over i:Fin n of(1+W_s(x,zseq(i)))/2. rho_s is the infinite product of independent attempts. output_s is the proposal at the first accepting attempt, or0 if none. queryCount sums each batch size when all earlier attempts failed, including the successful batch. The charged sampling-stage count is1+queryCount.",
+        "The target pi_s is the Gaussian law u(s)+sqrt(A(s))*Z tilted by -V. The original auxiliary law nua_s uses Gaussian variance A(s) instead of the standard Gaussian. Wa_s clips the same cached estimator without scaling inside. The stream map Phi_s scales each auxiliary Gaussian coordinate and preserves every proposal, batch size, arc time and acceptance uniform. The old program default is u(s)."
+      ],
+      "statement": "N and xp are measurable, the actual terminal gradient threshold holds and every earlier iterate fails it, and norm(h-xp)<=sqrt(d*A). There exists a single Markov kernel R on the whole state space whose fiber is the measurable first-success program output law; never-hit has rho_s measure zero and the actual sampling-stage integral of1+queryCount is at most1+2*exp(2). Each pi_s is a probability, pi_s and R(s) are mutually absolutely continuous, both RN ell-powers are integrable under their respective denominator laws with strictly positive integrals at most1+eps^2, and both log-integral/(ell-1) bounds are at most eps^2. Phi_s pushes rho_s to the original retry law, preserves acceptance and full-batch counts on every stream, and makes old default-u output equal to new default-zero output almost everywhere.",
+      "formula": "\\rho_s\\circ\\mathrm{output}_s^{-1}=R_s,\\qquad \\int^- (1+C_s)\\,d\\rho_s\\le1+2e^2,\\qquad \\int\\!\\left(\\frac{d\\pi_s}{dR_s}\\right)^\\ell dR_s\\le1+\\varepsilon^2.",
+      "boundary": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed.",
+      "steps": [
+        {
+          "title": "Construct the actual terminal first hit",
+          "text": "Differentiate the genuine regularized potential and write its GD iterates using grad V and b(s)*(x-u(s)). Induction gives joint measurability of each iterate. The old terminal-GD theorem supplies a finite witness at the same threshold d*b. Measurable least-index selection then gives N and xp, the threshold, and strict failure of every earlier index. It does not replace this index by the inner-stage threshold.",
+          "formula": "N_s=\\min\\{n:\\|\\nabla F_s(T_s^n x_{\\rm init,s})\\|^2\\le db_s\\}.",
+          "lean": "state_iterates; firstIndex; stopped_family; variable_reference"
+        },
+        {
+          "title": "Derive the reference residual and base smoothness",
+          "text": "The genuine gradient identity yields h-xp=-A*grad F_s(xp). Squaring the norm and using the terminal stopping bound gives the source residual sqrt(d*A). Applying the quadratic-regularization theorem with zero added precision derives Lipschitz continuity of grad V directly from its genuine Hessian bounds.",
+          "formula": "\\|h_s-xp_s\\|=A_s\\|\\nabla F_s(xp_s)\\|\\le\\sqrt{dA_s}.",
+          "lean": "variable_reference: he,hstop,hid; terminal_fors_kernel: href,hlip"
+        },
+        {
+          "title": "Build the parameterized Gaussian proposal",
+          "text": "Retain the state with a product kernel and push it through(s,z)->h(s)+sqrt(A(s))*z. Joint measurability proves this is one Markov proposal kernel Q, not an unrelated family of pointwise laws. The constructed g and h are measurable because xp and grad V are measurable.",
+          "formula": "Q_s=\\mathcal L(h_s+\\sqrt{A_s}Z),\\qquad g_s=\\nabla V(xp_s).",
+          "lean": "gaussian_proposal; terminal_fors_kernel: hxp,hVm,hAm,hgm,hhm"
+        },
+        {
+          "title": "Construct the actual rejection output kernel",
+          "text": "Use the fixed auxiliary law nu0. Scale the Gaussian coordinate inside both arc position and velocity, then clip the estimator to[-1,1]. The public Poisson program theorem constructs one Markov R and gives measurability of each actual output function, its exact pushforward law, and the null never-hit event under the same attempt stream.",
+          "formula": "\\rho_s=\\Lambda_s^{\\otimes\\mathbb N},\\quad (\\mathrm{output}_s)_\\#\\rho_s=R_s,\\quad\\rho_s(\\text{never hit})=0.",
+          "lean": "scaledCached; measurable_scaledCached; Attempt; attemptLaw; accepted; output; actual_kernel_program: hW,hb,hRs"
+        },
+        {
+          "title": "Charge the complete sampled batches",
+          "text": "queryCount includes batch n whenever all earlier batches failed, so the successful batch is charged in full. The Poisson parent bounds this actual nonnegative integral by2exp2. The retry law is a probability, so adding the one cached gradient gives1+2exp2. Finding xp is separate and its last gradient check is not silently discounted.",
+          "formula": "C_s(\\omega)=\\sum_{n\\ge0}N_n\\mathbf1\\{\\text{all earlier attempts fail}\\},\\quad\\int^-(1+C_s)d\\rho_s\\le1+2e^2.",
+          "lean": "queryCount; actual_kernel_program: hc0,hc', probability instances,lintegral_add_left"
+        },
+        {
+          "title": "Identify the original scaled auxiliary law",
+          "text": "The map(t,z)->(t,sqrt(A)*z) pushes nu0 to the source auxiliary law nua. Pushforward integration shows the clipped scaled estimator mean is exactly the old clipped cached-estimator mean. This identifies the very same R(s) with the old terminal theorem output tilt.",
+          "formula": "(t,z)\\mapsto(t,\\sqrt{A_s}z),\\quad (f_s)_\\#\\nu_0=\\nu_{A_s},\\quad\\int W_s\\,d\\nu_0=\\int W_s^{a}\\,d\\nu_{A_s}.",
+          "lean": "cachedEstimator; auxiliary_scale; scaled_mean; terminal_fors_kernel: hr"
+        },
+        {
+          "title": "Apply accuracy to that same output law",
+          "text": "Supply the derived reference residual, genuine gradient Lipschitz bound, positive A and explicit terminal threshold to TerminalSamplerAccuracyCost. Replace its qhat by the identified R(s). Both directions retain their own denominator measure: d pi/d R is integrated under R and d R/d pi under pi. This yields probability, mutual AC, integrability, positive moments, moment bounds and the two normalized logarithmic bounds.",
+          "formula": "0<\\int\\!\\left(\\frac{d\\pi_s}{dR_s}\\right)^\\ell dR_s\\le1+\\varepsilon^2,\\quad\\frac{\\log\\int(d\\pi_s/dR_s)^\\ell dR_s}{\\ell-1}\\le\\varepsilon^2\\quad\\text{and reverse}.",
+          "lean": "terminal_fors_kernel: ht,hr,hpi,hpq,hqp,hfi,hri,hfp,hrp,hfb,hrb,hfl,hrl"
+        },
+        {
+          "title": "Push forward the whole retry stream",
+          "text": "First map every auxiliary sequence coordinate, then the attempt product, then every independent retry coordinate. Mathlib infinitePi_map_pi and product pushforwards prove the full law identity. Proposal points, Poisson batch sizes and acceptance uniforms are unchanged; no independence between the current batch size and its acceptance event is used.",
+          "formula": "(\\Phi_s)_\\#\\rho_s=\\rho_s^{a}.",
+          "lean": "Stream.Attempt; Stream.attemptLaw; Stream.attemptMap; Stream.stream_law; source_correspondence: hl"
+        },
+        {
+          "title": "Preserve the actual acceptance and count",
+          "text": "The same Fin N acceptance product is evaluated after auxiliary scaling, including the empty product at N=0. Therefore every accepted event and the first successful index agree. The sum over all batches satisfying prior failure has exactly the same summands, proving pointwise equality of full-batch counts.",
+          "formula": "\\Phi_s(\\omega)_n\\in E_s^a\\iff\\omega_n\\in E_s,\\qquad C_s^a(\\Phi_s\\omega)=C_s(\\omega).",
+          "lean": "Stream.accepted; Stream.output; Stream.queryCount; Stream.stream_program; source_correspondence"
+        },
+        {
+          "title": "Handle defaults only on the null failure event",
+          "text": "With the same fallback, outputs coincide pointwise. The old source default is u(s), while the parameterized program uses0. On a stream with a successful attempt neither default is used. The proved never-hit null event therefore supplies almost-everywhere equality, not equality on every stream. The explicit output-function alignment also checks the B=1 and simplified stream definitions.",
+          "formula": "\\mathrm{output}^{a}_{s,u_s}\\circ\\Phi_s=\\mathrm{output}_{s,0}\\quad\\rho_s\\text{-a.e.}",
+          "lean": "Stream.stream_output_ae; output_eq_stream; source_correspondence; terminal_fors_kernel: hc"
+        }
+      ],
+      "lean_statement": "Actual measurable reference, single terminal Markov kernel, concrete program law/cost, two-way RN accuracy and full source retry-stream correspondence.",
+      "lean_proof": "Genuine terminal firsthit and residual; fixed auxiliary Markov program; true-law cached cost; scaled mean identity; source RN comparison; full infinite-product reparameterization and AE defaults.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.PoissonRejection.poisson_rejection_output",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalSamplerAccuracyCost.terminal_sampler_accuracy_cost",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"
+      ],
+      "mathlib_dependencies": [
+        "MeasureTheory.measurable_find",
+        "MeasureTheory.Measurable.find",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.Measure.infinitePi_map_pi",
+        "MeasureTheory.integral_map",
+        "MeasureTheory.lintegral_add_left"
+      ]
+    }
+  ]
+}
