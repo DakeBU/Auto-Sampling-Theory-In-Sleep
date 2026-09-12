@@ -36,7 +36,7 @@ Neither complete sampling paper is claimed here.
 
 namespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator
 
-noncomputable section
+section
 open Filter Topology
 open scoped NNReal
 
@@ -78,7 +78,7 @@ private theorem parameterized_contraction_point {g : E → E} (hg : LipschitzWit
 
 end
 
-noncomputable section
+section
 open InnerProductSpace
 open scoped RealInnerProductSpace NNReal
 
@@ -141,7 +141,7 @@ private theorem actual_proximal_minimizer
 
 end
 
-noncomputable section
+section
 open MeasureTheory ProbabilityTheory InnerProductSpace
 open scoped NNReal ENNReal RealInnerProductSpace
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
@@ -231,7 +231,7 @@ private theorem actual_gaussian_gradient_moments {g : E → E} (hg : LipschitzWi
 
 end
 
-noncomputable section
+section
 open MeasureTheory ProbabilityTheory InnerProductSpace
 open scoped NNReal ENNReal RealInnerProductSpace
 

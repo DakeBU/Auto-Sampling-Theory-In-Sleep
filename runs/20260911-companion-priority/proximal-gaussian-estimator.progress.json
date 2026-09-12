@@ -83,6 +83,22 @@
     "log": ".astis/proximal-gaussian-focused.log",
     "private_declarations": 4,
     "public_declarations": 1,
-    "boundary": "Compiled production checkpoint only;fixed independent production/expanded,anonymous reconstruction,formal source/publication gates remain."
+    "boundary": "Compiled production checkpoint only;fixed independent production/expanded,anonymous reconstruction,formal source/publication gates remain.",
+    "source_index_correction": {
+      "change": "Four noncomputable sections changed to ordinary sections so the source index preserves the namespace. All declarations are theorems;mathematical statement and proof text unchanged.",
+      "focused_and_expanded_session": 64656,
+      "exit_code": 0,
+      "result": "PASS3707 standard3,no new-module lint;Meta.isDefEq full2444characters unchanged",
+      "sha256": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca"
+    }
+  },
+  "expanded_statement": {
+    "log": ".astis/proximal-gaussian-expanded-section-fix.log",
+    "session": 64656,
+    "exit_code": 0,
+    "characters": 2444,
+    "sha256": "e95a13401a10cc527d5c5bc2350715d08fbf3f0d2cc64088e4947942510f9018",
+    "definitionally_equal": true,
+    "boundary": "Original section-form fixed7aee independently matched;new section-only source fix awaits fixed review."
   }
 }

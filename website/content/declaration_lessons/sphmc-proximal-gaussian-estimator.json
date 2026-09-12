@@ -24,7 +24,23 @@
       "statement": "There exists a measurable p:S->E such that p_s+eta_s*gradient V(p_s)=y_s. For all s,z,F_s(p_s)+(kappa^(-1)+eta_s^(-1))*norm(z-p_s)^2/2<=F_s(z),and F_s(z)<=F_s(p_s) if and only if z=p_s. Set G(s,z)=gradient V(p_s+sqrt(eta_s)*z). G is jointly measurable. There exists a Markov kernel K:S->E whose fiber is exactly StandardGaussian(E).map(z->G(s,z)). For every s,both G(s,.) and G(s,.)-gradient V(p_s) belong to L2(StandardGaussian(E)); the integral of norm(G(s,z)-gradient V(p_s))^2 is at most eta_s*d,and the integral of norm(G(s,z))^2 is at most 2*norm(gradient V(p_s))^2+2*eta_s*d. Finally norm(w)^2 is integrable under the actual K_s,and its K_s integral satisfies that same total second-moment bound.",
       "formula": "G_s(z)=\\nabla V(p_s+\\sqrt{\\eta_s}z),\\quad K_s=(G_s)_\\#\\gamma,\\quad\\int\\|G_s-\\nabla V(p_s)\\|^2d\\gamma\\le\\eta_s d.",
       "boundary": "Actual exact proximal Gaussian gradient estimator from source(3.2), with normalized beta=1,kappa>=1,C2 and genuine Hessian bounds. Arbitrary measurable parameter spaces and zero-dimensional finite inner-product Borel spaces are explicit extensions. Step sizes are measurable and in(0,1/2],without a uniform positive lower bound. The same constructed measurable proximal point supplies the true gradient estimator and exact Markov pushforward. Squared deviation is about gradient V(p),not estimator variance about its mean or error relative to the smoothed score. All L2 and moment conclusions are fiberwise; no arbitrary state-law integrability is inferred. No finite gradient evaluator trace or query count,score bias,Picard updates,stage W2 accuracy,initialization/total cost or full main result is claimed.",
-      "proof_steps": [
+      "lean_statement": "Same measurable exact proximal point,quantitative unique argmin,actual Gaussian estimator and Markov kernel,fiberwise L2 and second moments.",
+      "lean_proof": "Uniform contraction and measurable limit;true regularized gradient and strong convexity;Gaussian moments and integrable domination;actual kernel pushforward and integral transfer.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "ContractingWith.fixedPoint",
+        "ContractingWith.tendsto_iterate_fixedPoint",
+        "measurable_of_tendsto_metrizable",
+        "ProbabilityTheory.covarianceBilin_stdGaussian",
+        "MeasureTheory.memLp_two_iff_integrable_sq_norm",
+        "ProbabilityTheory.Kernel.IsMarkovKernel.map",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.integral_map"
+      ],
+      "steps": [
         {
           "title": "Derive actual gradient Lipschitzness",
           "text": "Use the genuine source Hessian bounds in QuadraticRegularization with zero added precision. This proves the real gradient is 1-Lipschitz; no abstract replacement gradient or supplied Lipschitz premise enters the public theorem.",
@@ -73,22 +89,6 @@
           "formula": "\\int\\|w\\|^2K_s(dw)=\\int\\|G_s(z)\\|^2d\\gamma(z)\\le2\\|\\nabla V(p_s)\\|^2+2\\eta_s d.",
           "lean": "proximal_gaussian_estimator: hm,hGs,hdev,hiK,hintK"
         }
-      ],
-      "lean_statement": "Same measurable exact proximal point,quantitative unique argmin,actual Gaussian estimator and Markov kernel,fiberwise L2 and second moments.",
-      "lean_proof": "Uniform contraction and measurable limit;true regularized gradient and strong convexity;Gaussian moments and integrable domination;actual kernel pushforward and integral transfer.",
-      "astis_dependencies": [
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
-        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
-      ],
-      "mathlib_dependencies": [
-        "ContractingWith.fixedPoint",
-        "ContractingWith.tendsto_iterate_fixedPoint",
-        "measurable_of_tendsto_metrizable",
-        "ProbabilityTheory.covarianceBilin_stdGaussian",
-        "MeasureTheory.memLp_two_iff_integrable_sq_norm",
-        "ProbabilityTheory.Kernel.IsMarkovKernel.map",
-        "MeasureTheory.integrable_map_measure",
-        "MeasureTheory.integral_map"
       ]
     }
   ]
