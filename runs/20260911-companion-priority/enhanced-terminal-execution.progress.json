@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -87,5 +87,6 @@
     "path": "website/content/declaration_lessons/sphmc-enhanced-terminal-execution.json",
     "state": "Ten authored steps,8deltas and12private accepted; publicationPASS71."
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at a9f6854;aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/enhanced-terminal-execution.verified-admission.json"
 }

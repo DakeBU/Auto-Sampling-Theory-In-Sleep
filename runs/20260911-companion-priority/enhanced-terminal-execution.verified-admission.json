@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "a9f68549e238c7768e4ba1293e8291939efa4c57",
+    "gate": {
+      "production": "Unchanged independently compiledPASS3814 standard3 and15740-character Meta/isDefEq replay.",
+      "publication": "Independent reviewed=True and actualpublication --base9dc763987ab5dd92e1de01cd585646e80a167a7c exit0 PASS71,all12private covered. Allsource/statement/reconstruction/module/test/decoder/reviewer packet/run hashes and canonical anonymous bytes checked;externalbindingpreimage matches23a5b80014d331a76a29b21d88bcc73ad0435a8b01b1c3466d2434a48f7d9e26.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCEnhancedTerminalExecution",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_y",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "23a5b80014d331a76a29b21d88bcc73ad0435a8b01b1c3466d2434a48f7d9e26",
+        "decoder_packet_sha256": "f0ba78fb133847d01b0d1b756cd7091d44eb106355d47d4e80af73287abef62b",
+        "decoder_run_sha256": "d13d3fbc5918538feea0d2c1ba896c3d80637a5e22157a3bb8eb12712808d054",
+        "reviewer_packet_sha256": "80d2eb9500930236298b9b6faf0ae2e1468c4403eee7b3a84dd4e2614196f101",
+        "review_run_sha256": "f2ce3fe260c9e3d3648b233ee262444759f186b1bbebf25bf57ba8f8d2c66189",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual absorbed full-state execution,terminal support,constructed terminalkernel and finitecapstability;terminalfiberRN/samplingcost not finalmixedaccuracy or totalexecutioncost."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution"
+    ],
+    "independent_checks": [
+      "Fixed a9f68549e238c7768e4ba1293e8291939efa4c57 cleanHEAD independently checked.",
+      "7slots,10steps,8informationaldeltas,12private;no blocker/repair.",
+      "No STABILIZING owner;VERIFIED only,not aggregate/reader/merge/live/mainpaper closure."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost."
+}
