@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-enhanced-finite-output-kl.md",
     "planning_review": "Independent source reviewer selected q=2 actual terminal KL route;independent verifier pinned RN/klFun/lintegral APIs.",
-    "execution_boundary": "Root sole writer;EnhancedKLOneStep sole stabilization owner.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent one-step KL merged,merge Lean/Site and live delivery passed. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at e22ac105; aggregate integration, original reader/graph QA, merge/live and main results separate.",
     "focused_command_correction": "The historical PROVED_LOCAL event copied the parent test name in its command label. Actual sessions95335 and25140 built Tests.SmoothedPicardHMCEnhancedFiniteOutputKL,exit0 PASS3821;logs and test/source hashes identify the correct checked target. Historical event retained;this metadata corrects the label.",
     "independent_verification": "runs/20260911-companion-priority/enhanced-finite-output-kl.verified-admission.json"

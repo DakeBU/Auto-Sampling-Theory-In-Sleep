@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-finite-output-kl",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -148,5 +148,9 @@
     ],
     "result": "Both exit0 PASS3821 standard3;correct source/test hashes already recorded;historical ledger retained."
   },
-  "independent_admission": "runs/20260911-companion-priority/enhanced-finite-output-kl.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/enhanced-finite-output-kl.verified-admission.json",
+  "integration_notes": {
+    "upstream": "8be9d4d8f368176e493ccdb1dc6c5b1df8ab5c72",
+    "boundary": "Upstream one-step KL merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  }
 }

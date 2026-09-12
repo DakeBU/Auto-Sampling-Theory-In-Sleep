@@ -3,8 +3,7 @@
   "state": "MERGED",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
   "remaining": [
-    "Merge Lean CI completion",
-    "Deliver independently reviewed C2 source wording correction with next integration"
+    "Deliver independently reviewed C2 source-wording correction with current finite-output packet"
   ],
   "development_checkpoints": [
     {
@@ -143,10 +142,10 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/298",
     "head": "2b7e0de24ab13a90cc4a70d53275cb8a267441ae",
-    "state": "MERGED;PR checks SUCCESS;mergeCI/live pending",
+    "state": "MERGED; PR and merge Lean/Site SUCCESS; original live delivery verified",
     "pr_lean_run": 34672674515,
     "pr_site_run": 34672674485,
-    "boundary": "Exact24f5da9 canonical Lean/reader candidate locally accepted;2b7e0de adds only recorded local QA/progress. No remote completion claim.",
+    "boundary": "Original one-step component delivered; C2 wording correction is independently reviewed locally and awaits current finite-output PR deployment.",
     "merge_commit": "8be9d4d8f368176e493ccdb1dc6c5b1df8ab5c72",
     "merged_at": "2026-09-12T04:34:37Z",
     "pr_lean_result": "SUCCESS",
@@ -154,7 +153,8 @@
     "merge_lean_run": 34673370488,
     "merge_site_run": 34673370536,
     "merge_site_result": "SUCCESS",
-    "live_delivery": "runs/20260911-companion-priority/enhanced-kl-one-step.live-delivery.json"
+    "live_delivery": "runs/20260911-companion-priority/enhanced-kl-one-step.live-delivery.json",
+    "merge_lean_result": "SUCCESS"
   },
   "source_wording_correction": {
     "source": "SPHMC1.1 explicitly C2; no strengthened differentiability assumption",
