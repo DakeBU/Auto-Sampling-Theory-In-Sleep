@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-reference-carrying-kernel",
   "state": "MERGED",
   "boundary": "Original-coordinate current output M is a supplied actual Markov kernel,not a supplied accuracy guarantee. Pointwise stopping and reference construction need no W2 input. General beta,coordinate-free positive dimension and arbitrary reference/count/history states are explicit; no history validity invariant or cost claimed. Only one-step projection equality; dependence of M on reference forbids automatic projected-chain Markovness. No constructed accurate smoothed sampler,state-varying terminalFORS,conditional moment,stage cost or complete main result.",
-  "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
-  ],
+  "remaining": [],
   "variable_reference_checkpoint": {
     "path": ".astis/ReferenceCarryingKernelVariable.lean",
     "sha256": "8e2a99e55ad6fae6863a543206fc1a67dce9adb885b389d99c8960abe1849525",
@@ -62,7 +60,7 @@
       "ASTIS-RT-20260912-SPHMCReferenceCarryingKernel"
     ]
   },
-  "admission_boundary": "VERIFIED atb80d89a. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "admission_boundary": "Component independently verified, integrated, merged and delivered. Both full paper main results and required global delivery remain incomplete.",
   "independent_admission": "runs/20260911-companion-priority/reference-carrying-kernel.verified-admission.json",
   "integration_notes": {
     "upstream": "3ad156ae79d655334222c2cac4af41b8ade99750",
@@ -72,7 +70,7 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/293",
     "head": "c33c2882b60b1b78bf92ba6b7ff4209cd487b1da",
-    "state": "MERGED; PR Lean/Site passed; merge CI/live pending",
+    "state": "MERGED; PR checks, merge Lean/Site CI and live delivery passed",
     "lean_run": 34660073465,
     "site_run": 34660073474,
     "observed": "both IN_PROGRESS; neither merge nor live delivery claimed",
@@ -82,6 +80,7 @@
     "site_pr_result": "SUCCESS",
     "merge_lean_run": 34661099344,
     "merge_site_run": 34661099353,
-    "merge_checks": "Both in_progress; actual live pending"
+    "merge_checks": "Both SUCCESS; live delivery verified",
+    "live_delivery": "runs/20260911-companion-priority/reference-carrying-kernel.live-delivery.json"
   }
 }

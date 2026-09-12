@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "93651656271d698bd1c56d65f45f46e785a3ae6a",
+    "gate": {
+      "production": "Unchanged independently compiled PASS3780,Lean4.33.0,standard3 and4994-character Meta/isDefEq replay.",
+      "publication": "Independent reviewed=True and actual publication --basec33c2882b60b1b78bf92ba6b7ff4209cd487b1da exit0 PASS69,all4private covered. All source/statement/reconstruction/module/test/decoder/reviewer packet/run hashes and anonymous/canonical bytes independently checked; externalbindingpreimage matches aafc4dbd753f83113a6d10df7b5453d23faf2b6a0819a5f60800a27b5f212ea9.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCReferenceCarryingCost",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_w",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "aafc4dbd753f83113a6d10df7b5453d23faf2b6a0819a5f60800a27b5f212ea9",
+        "decoder_packet_sha256": "97c6c8a86a01856d1d433d3c3b9e6ecb7cdca15339369893f36333487da2ee27",
+        "decoder_run_sha256": "7094d48580fd117e9e213866c7a05c1e0b0c64338b26970d4f8d7c4f8c343dbc",
+        "reviewer_packet_sha256": "b77b5c9e3accad6941ccd7733a83ec5e8c90564fd0331f5938a48c70b1eb5b1c",
+        "review_run_sha256": "3906d5df7cb13dd1b6e460883f912cfd274ec83fd89383ff5a5dcb867d0e92dc",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual same-reference-index count and actual kernel integration; active W2 remains source input,conditional budget measurability/globalL1 explicit,no desired cost or moment premise."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost.reference_carrying_cost"
+    ],
+    "independent_checks": [
+      "Fixed9365165 PROVED_LOCAL verified; three parent delivery metadata updates present,not called clean; currentproduction/sourcebinding unchanged.",
+      "Seven semantic slots,eight steps,six informational deltas,fourprivate; no blocker/repair.",
+      "VERIFIED-only. Aggregate/site/merge/live,totalrecursivecost and both fullpapers remain separate."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD."
+}

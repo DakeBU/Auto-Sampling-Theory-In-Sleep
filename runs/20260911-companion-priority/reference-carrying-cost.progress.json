@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-reference-carrying-cost",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -74,5 +74,6 @@
       "ASTIS-RT-20260912-SPHMCReferenceCarryingCost"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at9365165; aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/reference-carrying-cost.verified-admission.json"
 }

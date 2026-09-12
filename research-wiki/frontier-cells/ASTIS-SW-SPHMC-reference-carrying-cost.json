@@ -6,7 +6,7 @@
   "title": "Actual reference-carrying statewise query cost",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3 and Section6.3 actual reference-point gradient query cost under the recursive state law",
   "target_statement": "For the actual reference-carrying state and first inner gradient-square hit N,define C=0 at absorbed states and C=N+1 otherwise. Prove joint measurability. From actual original-coordinate Markov output M(s) with source normalized-call W2 budget kappa_s*eps_s^2/beta_s,derive per-state integrability and explicit expectation bound 2+kappa_plus*log(1+4*(eta+tau)*(1+eta)+2*(eta+tau)*kappa_s*eps_s^2/d+tau/(eta+tau)),zero in the absorbed branch. Integrate the actual nonnegative cost under lambda compProd (M product standardGaussian); derive global L1 and real expected-cost bound when the explicit upper bound is lambda-integrable. Keep the actual first-hit,pre-noise initial point and source-completed-square trajectory correspondence.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-reference-carrying-kernel",
     "ASTIS-SW-SPHMC-joint-reference-gradient-descent"
@@ -42,7 +42,8 @@
     "proof_plan": "proof-blueprints/SPHMC-reference-carrying-cost.md",
     "planning_review": "Independent log_depth_source_review chose this shorter actual-input conditional-cost route and derived the explicit bound.",
     "execution_boundary": "Root sole writer; parent ReferenceCarryingKernel is sole stabilization owner,PR293 pending.",
-    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
+    "admission_boundary": "VERIFIED at9365165; aggregate integration,original reader/graph QA,merge/live remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/reference-carrying-cost.verified-admission.json"
   },
   "blocked": {
     "reason": "",
