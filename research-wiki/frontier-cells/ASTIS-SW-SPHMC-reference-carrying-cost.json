@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-reference-carrying-cost.md",
     "planning_review": "Independent log_depth_source_review chose this shorter actual-input conditional-cost route and derived the explicit bound.",
-    "execution_boundary": "Root sole writer; parent ReferenceCarryingKernel is sole stabilization owner,PR293 pending.",
+    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Parent reference-carrying kernel merged,all PR/merge CI and live delivery complete. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at9365165; aggregate integration,original reader/graph QA,merge/live remain separate.",
     "independent_verification": "runs/20260911-companion-priority/reference-carrying-cost.verified-admission.json"
   },

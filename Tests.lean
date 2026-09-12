@@ -166,6 +166,7 @@ import Tests.SmoothedPicardHMCApproximateInitialGradientMoment
 import Tests.SmoothedPicardHMCJointReferenceGradientDescent
 import Tests.SmoothedPicardHMCNormalizedReferenceCall
 import Tests.SmoothedPicardHMCReferenceCarryingKernel
+import Tests.SmoothedPicardHMCReferenceCarryingCost
 import Tests.SmoothedPicardHMCClippedGradientProgram
 
 /-!
