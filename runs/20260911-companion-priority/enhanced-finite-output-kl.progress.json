@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-finite-output-kl",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
-    "Actual merge and deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "development": [
     {
@@ -171,9 +171,15 @@
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/299",
     "head": "a792554b5637150b8406a9a17799c322d75cf216",
-    "state": "OPEN; PR checks running",
+    "state": "MERGED;PR checks SUCCESS;merge CI/live pending",
     "pr_lean_run": 34674842287,
     "pr_site_run": 34674842256,
-    "boundary": "Local integration accepted; remote CI,merge/live remain."
+    "boundary": "Local integration accepted; remote CI,merge/live remain.",
+    "merge_commit": "f90328f89451eb8eb3dd8ab6c4c07c69c71dedc2",
+    "merged_at": "2026-09-12T05:23:00Z",
+    "pr_lean_result": "SUCCESS",
+    "pr_site_result": "SUCCESS",
+    "merge_lean_run": 34675443509,
+    "merge_site_run": 34675443471
   }
 }

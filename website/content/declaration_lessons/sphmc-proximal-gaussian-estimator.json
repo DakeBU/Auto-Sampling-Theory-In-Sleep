@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator",
+      "title": "Actual proximal Gaussian estimator and its fiberwise moments",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S3.SS2",
+          "label": "SPHMC(3.2) and Algorithm3.1",
+          "scope": "Actual exact proximal Gaussian gradient estimator from source(3.2), with normalized beta=1,kappa>=1,C2 and genuine Hessian bounds. Arbitrary measurable parameter spaces and zero-dimensional finite inner-product Borel spaces are explicit extensions. Step sizes are measurable and in(0,1/2],without a uniform positive lower bound. The same constructed measurable proximal point supplies the true gradient estimator and exact Markov pushforward. Squared deviation is about gradient V(p),not estimator variance about its mean or error relative to the smoothed score. All L2 and moment conclusions are fiberwise; no arbitrary state-law integrability is inferred. No finite gradient evaluator trace or query count,score bias,Picard updates,stage W2 accuracy,initialization/total cost or full main result is claimed."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCProximalGaussianEstimator"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with its complete metric structure; d=dim_R E may be zero. S is any measurable space,with no topology,standard Borel hypothesis or probability law required.",
+        "The nonnegative real kappa satisfies kappa>=1. V:E->R is C2 and kappa^(-1)*norm(v)^2<=D2V(x)[v,v]<=norm(v)^2 for every x,v. The normalization is beta=1. Kappa>=1 remains an explicit hypothesis although the proof does not use that inequality.",
+        "eta:S->R and y:S->E are measurable,with 0<eta_s<=1/2 for every s. No uniform positive lower bound on eta is assumed. Define F_s(x)=V(x)+norm(x-y_s)^2/(2 eta_s).",
+        "gradient V is the genuine real inner-product gradient,defined through the Frechet derivative. StandardGaussian(E) has zero mean and identity covariance; in zero dimension it is the Dirac law at zero. All displayed real integrals are Bochner integrals and all asserted L2 properties are with respect to this actual Gaussian law or the specified kernel fiber."
+      ],
+      "statement": "There exists a measurable p:S->E such that p_s+eta_s*gradient V(p_s)=y_s. For all s,z,F_s(p_s)+(kappa^(-1)+eta_s^(-1))*norm(z-p_s)^2/2<=F_s(z),and F_s(z)<=F_s(p_s) if and only if z=p_s. Set G(s,z)=gradient V(p_s+sqrt(eta_s)*z). G is jointly measurable. There exists a Markov kernel K:S->E whose fiber is exactly StandardGaussian(E).map(z->G(s,z)). For every s,both G(s,.) and G(s,.)-gradient V(p_s) belong to L2(StandardGaussian(E)); the integral of norm(G(s,z)-gradient V(p_s))^2 is at most eta_s*d,and the integral of norm(G(s,z))^2 is at most 2*norm(gradient V(p_s))^2+2*eta_s*d. Finally norm(w)^2 is integrable under the actual K_s,and its K_s integral satisfies that same total second-moment bound.",
+      "formula": "G_s(z)=\\nabla V(p_s+\\sqrt{\\eta_s}z),\\quad K_s=(G_s)_\\#\\gamma,\\quad\\int\\|G_s-\\nabla V(p_s)\\|^2d\\gamma\\le\\eta_s d.",
+      "boundary": "Actual exact proximal Gaussian gradient estimator from source(3.2), with normalized beta=1,kappa>=1,C2 and genuine Hessian bounds. Arbitrary measurable parameter spaces and zero-dimensional finite inner-product Borel spaces are explicit extensions. Step sizes are measurable and in(0,1/2],without a uniform positive lower bound. The same constructed measurable proximal point supplies the true gradient estimator and exact Markov pushforward. Squared deviation is about gradient V(p),not estimator variance about its mean or error relative to the smoothed score. All L2 and moment conclusions are fiberwise; no arbitrary state-law integrability is inferred. No finite gradient evaluator trace or query count,score bias,Picard updates,stage W2 accuracy,initialization/total cost or full main result is claimed.",
+      "proof_steps": [
+        {
+          "title": "Derive actual gradient Lipschitzness",
+          "text": "Use the genuine source Hessian bounds in QuadraticRegularization with zero added precision. This proves the real gradient is 1-Lipschitz; no abstract replacement gradient or supplied Lipschitz premise enters the public theorem.",
+          "formula": "\\|\\nabla V(x)-\\nabla V(z)\\|\\le\\|x-z\\|.",
+          "lean": "actual_proximal_minimizer: hLip; proximal_gaussian_estimator: hHprime,hLip"
+        },
+        {
+          "title": "Construct one measurable proximal point",
+          "text": "For every parameter define f_s(x)=y_s-eta_s*gradient V(x). Its Lipschitz constant is at most1/2. Banach contraction constructs p_s. Iterates from the common zero vector are measurable in s by induction; pointwise convergence and the measurable-limit theorem prove the measurability of this same p. The fixed point equation is then rearranged.",
+          "formula": "f_s^{\\,n}(0)\\longrightarrow p_s,\\qquad p_s+\\eta_s\\nabla V(p_s)=y_s.",
+          "lean": "parameterized_contraction_point: f,hc,p,hit,hp,heq"
+        },
+        {
+          "title": "Identify the true regularized gradient",
+          "text": "Differentiate the squared norm after translation and add the genuine derivative of V. The proximal equation and eta_s nonzero give gradient F_s(p_s)=0. This uses the actual potential F_s,not a supplied stationary-point certificate.",
+          "formula": "\\nabla F_s(x)=\\nabla V(x)+\\eta_s^{-1}(x-y_s),\\qquad\\nabla F_s(p_s)=0.",
+          "lean": "actual_proximal_minimizer: hd,hq,hFd,hg,hz"
+        },
+        {
+          "title": "Prove global quadratic growth and unique minimality",
+          "text": "QuadraticRegularization gives curvature m+eta_s inverse,where m=kappa inverse. StrongConvexFirstOrder at the actual stationary point gives the global quadratic lower bound. Its coefficient is strictly positive because eta_s>0,even for the internal helper m=0. If any point has no larger objective value,the squared displacement must vanish. This supplies unique argmin,not merely fixed-point uniqueness.",
+          "formula": "F_s(z)\\ge F_s(p_s)+\\frac{\\kappa^{-1}+\\eta_s^{-1}}2\\|z-p_s\\|^2.",
+          "lean": "actual_proximal_minimizer: hsc,hbound,ha,hnonpos,hn"
+        },
+        {
+          "title": "Establish the actual Gaussian square moment",
+          "text": "The Gaussian L2 identity gives norm-square integrability. In a finite orthonormal basis,the covariance identity and zero mean give unit second moment in each coordinate. Parseval and a justified finite integral sum yield total moment d,including the empty sum in zero dimension. This adapts the private gaussian_square proof in ApproximateInitialGradientMoment without claiming a public theorem call.",
+          "formula": "\\int\\|z\\|^2\\,d\\gamma(z)=d.",
+          "lean": "gaussian_square: hi,b,hdir,hL1"
+        },
+        {
+          "title": "Prove integrability before comparing estimator moments",
+          "text": "For fixed p and positive eta,the genuine Lipschitz estimate bounds the squared deviation from gradient V(p) by eta*norm(z)^2. This integrable Gaussian majorant proves square L1 before integration. The triangle inequality gives total square at most2*norm(gradient V(p))^2+2*eta*norm(z)^2;its own integrable majorant then proves the total bound. This is not a variance or smoothed-score bias assertion.",
+          "formula": "\\|G_s(z)-\\nabla V(p_s)\\|^2\\le\\eta_s\\|z\\|^2,\\quad\\|G_s(z)\\|^2\\le2\\|\\nabla V(p_s)\\|^2+2\\eta_s\\|z\\|^2.",
+          "lean": "actual_gaussian_gradient_moments: hG,hb,hs,hdom,hi,hint,ht,hdom2,hi2"
+        },
+        {
+          "title": "Construct the actual parameter kernel",
+          "text": "Joint measurability follows by composing the continuous gradient with measurable p,eta and the noise coordinate. Form the product of the identity kernel on S and the constant standard Gaussian kernel,then map by this actual G. The Markov map theorem gives probability fibers. Dirac-product and pushforward composition identify each fiber exactly with the Gaussian estimator law.",
+          "formula": "K=(\\mathrm{id}\\times\\mathrm{const}(\\gamma)).\\mathrm{map}(G),\\qquad K_s=(G_s)_\\#\\gamma.",
+          "lean": "proximal_gaussian_estimator: G,hG,K,hK,hKs"
+        },
+        {
+          "title": "Transfer the proved moments to the actual output law",
+          "text": "Apply the fixed-parameter moment proof to the same actual gradient and proximal point. Joint measurability restricts to measurable Gaussian fibers and deviations. The L2 characterization turns the square-integrability results into both MemLp conclusions. The exact fiber identity,integrable-map theorem and integral-map theorem transfer norm-square L1 and its bound to K_s. No integration over a state distribution is taken.",
+          "formula": "\\int\\|w\\|^2K_s(dw)=\\int\\|G_s(z)\\|^2d\\gamma(z)\\le2\\|\\nabla V(p_s)\\|^2+2\\eta_s d.",
+          "lean": "proximal_gaussian_estimator: hm,hGs,hdev,hiK,hintK"
+        }
+      ],
+      "lean_statement": "Same measurable exact proximal point,quantitative unique argmin,actual Gaussian estimator and Markov kernel,fiberwise L2 and second moments.",
+      "lean_proof": "Uniform contraction and measurable limit;true regularized gradient and strong convexity;Gaussian moments and integrable domination;actual kernel pushforward and integral transfer.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+      ],
+      "mathlib_dependencies": [
+        "ContractingWith.fixedPoint",
+        "ContractingWith.tendsto_iterate_fixedPoint",
+        "measurable_of_tendsto_metrizable",
+        "ProbabilityTheory.covarianceBilin_stdGaussian",
+        "MeasureTheory.memLp_two_iff_integrable_sq_norm",
+        "ProbabilityTheory.Kernel.IsMarkovKernel.map",
+        "MeasureTheory.integrable_map_measure",
+        "MeasureTheory.integral_map"
+      ]
+    }
+  ]
+}
