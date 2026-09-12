@@ -3,7 +3,7 @@
   "state": "MERGED",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Merge Lean/Site CI and actual live deployment"
+    "Merge Lean CI completion"
   ],
   "development_checkpoints": [
     {
@@ -148,8 +148,13 @@
     "head": "9dc763987ab5dd92e1de01cd585646e80a167a7c",
     "pr_lean_run": 34666076881,
     "pr_site_run": 34666076902,
-    "state": "MERGED; PR checks passed; merge CI/live pending",
+    "state": "MERGED;PR CI,merge Site and live pages passed;merge Lean pending",
     "merge_commit": "d8979532e1d1ae6fd06eece573033641069724c2",
-    "merged_at": "2026-09-12T02:08:34Z"
+    "merged_at": "2026-09-12T02:08:34Z",
+    "merge_site_run": 34666838526,
+    "merge_site_result": "SUCCESS",
+    "merge_lean_run": 34666838534,
+    "merge_lean_result": "pending",
+    "live_evidence": "runs/20260911-companion-priority/terminal-fors-kernel.live-delivery.json"
   }
 }

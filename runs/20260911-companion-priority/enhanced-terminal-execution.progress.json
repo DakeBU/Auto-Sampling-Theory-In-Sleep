@@ -3,7 +3,6 @@
   "state": "EXPLORING",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Independent fixed production/expanded-type verification",
     "Author original reader lesson and publication binding",
     "Fresh anonymous reconstruction and formal source review",
     "Local integration and remote delivery"
@@ -60,7 +59,13 @@
     "log": ".astis/enhanced-terminal-focused.log",
     "private_declarations": 12,
     "public_declarations": 1,
-    "boundary": "Compiled production checkpoint only; no PROVED_LOCAL/VERIFIED before publication and independent gates."
+    "boundary": "Compiled production checkpoint only; no PROVED_LOCAL/VERIFIED before publication and independent gates.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "17c05c0d3ab954db8716ca636991d0b787673b6e",
+      "decision": "fixed-production-accepted",
+      "evidence": "Independent focused PASS3814 exit0 standard3/no newlint;12private+1public;normalized relocation/private/doc alignment with accepted scratch exact;fake closure scan clear;authorized faithful recording. Not VERIFIED."
+    }
   },
   "expanded_statement": {
     "path": ".astis/enhanced-terminal-expanded.log",
@@ -69,6 +74,6 @@
     "session": 19198,
     "exit_code": 0,
     "definitionally_equal": true,
-    "independent_review": "pending"
+    "independent_review": "depth_commit_verifier independent37574exit0 Meta.isDefEq,15740chars and exactSHA;no source/private names or ellipsis."
   }
 }
