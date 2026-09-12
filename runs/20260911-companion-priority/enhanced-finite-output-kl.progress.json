@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-finite-output-kl",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "development": [
     {
@@ -137,7 +137,7 @@
     "path": "website/content/declaration_lessons/sphmc-enhanced-finite-output-kl.json",
     "state": "Eight authored steps,7deltas and12private accepted; publicationPASS74."
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate.",
+  "admission_boundary": "VERIFIED at e22ac105; aggregate integration, original reader/graph QA, merge/live and main results separate.",
   "evidence_correction": {
     "field": "PROVED_LOCAL focused_checks[0].command",
     "previous_label": "lake build Tests.SmoothedPicardHMCEnhancedKLOneStep",
@@ -147,5 +147,6 @@
       25140
     ],
     "result": "Both exit0 PASS3821 standard3;correct source/test hashes already recorded;historical ledger retained."
-  }
+  },
+  "independent_admission": "runs/20260911-companion-priority/enhanced-finite-output-kl.verified-admission.json"
 }

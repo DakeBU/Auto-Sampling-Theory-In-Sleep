@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "e22ac1057dcf9851d5309c7536eeaa3b1f8b8917",
+    "gate": {
+      "production": "Unchanged independent PASS3821, standard three axioms and 9546-character Meta expansion. Actual focused command: lake build Tests.SmoothedPicardHMCEnhancedFiniteOutputKL; both logs checked, historical command-label correction retained.",
+      "publication": "Independent publication exit0 PASS74; reviewed=True; all source/statement/reconstruction/module/test/anonymous/canonical/decoder/reviewer/run hashes matched. External binding recomputed f5f36489370ee16ec7fab9d73f5bb89d9f6b8a071eeb45d831c7fc642f3da9a9.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCEnhancedFiniteOutputKL",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_ab",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "f5f36489370ee16ec7fab9d73f5bb89d9f6b8a071eeb45d831c7fc642f3da9a9",
+        "decoder_packet_sha256": "24328dfe607681b01201ac66ec8ee785e1af4217f9e7c0f7f4adb14cf392e795",
+        "decoder_run_sha256": "b4aa7fe05b7faaaf0bdd4c1e51b851cafa0f5bbee109dcc827d7244f1be6c2df",
+        "reviewer_packet_sha256": "19a2cea2da610886263ea91cbaa128415f20b5409718db6ac2c6f14f7746ffdc",
+        "review_run_sha256": "32304a7ee54761532a3f001036bebd2110e2186bae4921f2cc8a2ab327252e56",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual finite output KL error sum and terminal residual; no stage numerical budget, total cost or main theorem completion."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL.finite_output_kl"
+    ],
+    "independent_checks": [
+      "Fixed e22ac1057dcf9851d5309c7536eeaa3b1f8b8917 HEAD matched and worktree clean.",
+      "7 slots,8 steps,7 differences; no blocker or repair.",
+      "Parent C2 source-wording correction only, proof unchanged; independently accepted wording and recomputed binding 54d314695d1980f0336325367252f4ad3654bfc8941ec0fca2b1857f498e84f2.",
+      "VERIFIED-only authorization; integration,reader QA,remote delivery and main paper completion excluded."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate."
+}
