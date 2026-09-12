@@ -3,9 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
-    "Derive RN second moment to KL and actual terminal target identity",
-    "Assemble actual finite output error with terminal residual discharged",
-    "Independent proof/source review and delivery"
+    "Fixed production and expanded statement independent checks",
+    "Anonymous reconstruction,formal source/publication admission",
+    "Integration and actual reader/graph/merge/live delivery"
   ],
   "development": [
     {
@@ -60,11 +60,43 @@
         "decision": "frozen development accepted;standard3,no lint;faithful recording authorized",
         "boundary": "Helper interface only;actual full assembly and formal admission remain."
       }
+    },
+    {
+      "file": ".astis/EnhancedFiniteKLActual.lean",
+      "sha256": "266e1bec60de867071426838a4bf94ac1636bc80be6a7503a8253b25f14bd8e3",
+      "root_session": 59566,
+      "exit_code": 0,
+      "result": "Complete actual finite output assembly,standard3,no lint",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 56994,
+        "exit_code": 0,
+        "decision": "Full frozen actual assembly accepted;standard3,no lint;faithful recording authorized",
+        "evidence": "Same actual fullstate P via formula equality,terminal support/target identity,correct RN direction and exact residual,cap J+m;no stage accuracy or costs."
+      }
     }
   ],
   "frontier_protocol": "PASS96;publication packet before scratch;no production admission.",
   "assembly_review": {
     "reviewer": "log_depth_source_review",
     "decision": "No new mathematical premise needed;final consumer supplies Gibbs probability and beta/b<1,exact fullstate P equality and correct RN direction. Readonly route audit,not compiled full assembly."
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/EnhancedFiniteOutputKL.lean",
+    "sha256": "529a562e2b36934a6d3ffd5e23b9f81abe0487c9b07b3da1635fb7dfa4442eba",
+    "test_sha256": "8ab9ee4765a0708d9ba4981981d13e2864ddfe638dbf3a8d12e9f612346a07b4",
+    "focused_session": 95335,
+    "exit_code": 0,
+    "result": "PASS3821;standard3;no new-module lint,historical dependency warnings separate",
+    "log": ".astis/enhanced-finite-kl-focused.log",
+    "private_declarations": 12,
+    "public_declarations": 1,
+    "boundary": "Compiled production checkpoint;not PROVED_LOCAL or VERIFIED. Fixed production/expanded/source/publication gates pending."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "decision": "Full actual proof preaudit found no mathematical/source blocker;no independent compile or formal admission",
+    "read_sha256": "bed238a5abcaae141a0a497945e9bfc88742f4af09f6abe5b6ff586e11378763",
+    "boundary": "Remaining code edits repaired Lean typing/rewrites and statement-only unused let names,not mathematics;formal review still required."
   }
 }

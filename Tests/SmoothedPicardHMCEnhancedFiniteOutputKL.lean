@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL.finite_output_kl
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedFiniteOutputKL.finite_output_kl
