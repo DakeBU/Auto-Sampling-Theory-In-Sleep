@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Independent complete checkpoint review",
-    "Production, formal encoder-denoiser/source review and original reader delivery",
-    "Aggregate integration and actual merge/live"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "development_checkpoints": [
     {
@@ -101,7 +100,7 @@
   },
   "reader_lesson": {
     "path": "website/content/declaration_lessons/sphmc-terminal-fors-kernel.json",
-    "state": "Ten authored steps,eight deltas,27private. Schema/diff precheck only pending accepted whole-module review."
+    "state": "Ten authored steps,8deltas and27private accepted; publicationPASS70."
   },
   "independent_production_review": {
     "reviewer": "depth_commit_verifier",
@@ -129,5 +128,14 @@
     "result": "FocusedPASS3754 standard3/no lint",
     "current_raw_production_sha256": "ba89bafb67d3fda3dd516d110bd9afeff9e92ef57e68946c958b3d0599cca9b2",
     "anonymous_packet_unchanged": true
-  }
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCTerminalFORSKernel"
+    ]
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }
