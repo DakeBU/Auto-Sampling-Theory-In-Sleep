@@ -1,0 +1,23 @@
+{
+  "decoder": "blind_reconstruction_ad",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Verbatim independent anonymous reconstruction with explicit complete-transcription QA.",
+  "source_text_visible": false,
+  "only_input": ".astis/anonymous-reconstruction-ad.json",
+  "canonical_identical_packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCGibbsPositionMoment.decoder.json",
+  "input_artifacts": [
+    "lean-statement",
+    "approved-definition-context"
+  ],
+  "decoder_packet_sha256": "79d72de6a9e87291f5a634fb3aa37a971236ccddd44391a8104301cd39304623",
+  "lean_statement_sha256": "a85fb1b80a429c56689ae4ec762a46d1d89c03cd2047e6df206f0847b4da9d9c",
+  "reconstructed_theorem_text": "匿名包标识：`ASTIS-BLIND-a85fb1b80a429c56`。\n\n- JSON 文件原始字节 SHA-256（本次实际计算）：`8d251e4891161a0d9bba5030868790e3cd985bf9fab6bb126ed5c883888e9d9b`\n- 包内 `packet_sha256`（读取值）：`79d72de6a9e87291f5a634fb3aa37a971236ccddd44391a8104301cd39304623`\n- 包内 `statement_sha256`（读取值）：`a85fb1b80a429c56689ae4ec762a46d1d89c03cd2047e6df206f0847b4da9d9c`\n\n以下仅依据匿名包中的 Lean statement 与定义说明重建。\n\n**完整数学命题**\n\n设 \\(E\\) 是有限维完备实内积空间，具有其范数加法交换群结构，以及与拓扑相容的 Borel 可测空间结构。记 \\(\\lambda\\) 为 \\(E\\) 上的标准体积测度，并记\n\\[\nd=\\dim_{\\mathbb R}E.\n\\]\n给定函数 \\(U:E\\to\\mathbb R\\) 和非负实数 \\(\\alpha,\\beta\\)，假设：\n\n1. \\(0<\\alpha\\)；\n2. \\(\\alpha\\le\\beta\\)；\n3. \\(U\\) 二次连续 Fréchet 可微；\n4. 对每个 \\(x,v\\in E\\)，实际二阶 Fréchet 导数满足\n   \\[\n   \\alpha\\|v\\|^2\n   \\le \\bigl(D(DU)(x)[v]\\bigr)[v]\n   \\le \\beta\\|v\\|^2.\n   \\]\n\n则对每个满足 \\(\\nabla U(p)=0\\) 的点 \\(p\\in E\\)，令\n\\[\n\\mu=\\lambda.\\operatorname{tilted}(-U),\n\\]\n即以 \\(e^{-U}\\) 为权重、按其积分归一化的指数倾斜测度。以下所有结论同时成立：\n\n\\[\n\\mu \\text{ 是概率测度};\n\\]\n\\[\nx\\longmapsto e^{-U(x)}\n\\quad\\text{关于 }\\lambda\\text{ Bochner 可积};\n\\]\n\\[\nZ:=\\int_E e^{-U(x)}\\,\\lambda(dx)>0;\n\\]\n\\[\nx\\longmapsto \\|x-p\\|^2\n\\quad\\text{关于 }\\mu\\text{ Bochner 可积};\n\\]\n\\[\nx\\longmapsto \\langle x-p,\\nabla U(x)\\rangle_{\\mathbb R}\n\\quad\\text{关于 }\\mu\\text{ Bochner 可积};\n\\]\n\\[\n\\int_E\\langle x-p,\\nabla U(x)\\rangle_{\\mathbb R}\\,\\mu(dx)=d;\n\\]\n\\[\n\\int_E\\|x-p\\|^2\\,\\mu(dx)\\le\\frac d\\alpha.\n\\]\n\n这里关于 \\(e^{-U}\\) 的可积性与严格正积分共同保证 \\(0<Z<\\infty\\)，所以归一化可读为\n\\[\n\\mu(A)=\\frac1Z\\int_A e^{-U(x)}\\,\\lambda(dx)\n\\]\n（\\(A\\) 为 Borel 可测集合）。该有效归一化是上述结论保障的，不能仅由 `tilted` 的总定义预先假定。\n\n**七槽重建**\n\n1. **对象 `objects`**  \n   空间 \\(E\\)，势函数 \\(U\\)，非负参数 \\(\\alpha,\\beta\\)，驻点 \\(p\\)，实际 Fréchet 导数 \\(DU,D(DU)\\)，实际实内积梯度 \\(\\nabla U\\)，标准体积测度 \\(\\lambda\\)，归一化指数倾斜测度 \\(\\mu\\)，维数 \\(d\\)。\\(Z\\) 是为说明归一化而引入的记号。\n\n2. **域 `domains`**  \n   \\(E:\\mathrm{Type}\\ u_1\\)，带 `NormedAddCommGroup`、`InnerProductSpace ℝ`、`FiniteDimensional ℝ`、`MeasurableSpace`、`BorelSpace`、`CompleteSpace` 结构。\\(U:E\\to\\mathbb R\\)，\\(\\alpha,\\beta\\in\\mathbb R_{\\ge0}\\)，\\(x,v,p\\in E\\)。显示在实数表达式中的 \\(\\alpha,\\beta,d\\) 均使用对应实数嵌入。\n\n3. **量词 `quantifiers`**  \n   对所有具有上述结构的 \\(E\\)、所有 \\(U\\) 和所有 \\(\\alpha,\\beta\\)，在依次满足正性、参数顺序、\\(C^2\\) 正则性及对所有 \\(x,v\\) 的二阶导数双边界后，对所有满足梯度为零的 \\(p\\)，局部定义 \\(\\mu\\)，得到全部七项合取结论。\n\n4. **假设 `assumptions`**  \n   全部输入为上述空间结构、\\(0<\\alpha\\le\\beta\\)、\\(U\\in C^2\\)、全空间全方向的 Hessian 二次型双边界，以及所给点的 \\(\\nabla U(p)=0\\)。没有额外输入的可积性假设、概率归一化假设或边界衰减假设。连续性所蕴含的可测性质不是另外增添的输入。\n\n5. **结论 `conclusion`**  \n   输出是 \\(\\mu\\) 的概率性、三个明确函数各自关于指定测度的 Bochner 可积性、\\(Z>0\\)、梯度配对积分恒等式 \\(=d\\)，以及以该驻点为中心的二阶矩上界 \\(d/\\alpha\\)。全部积分均为实值 Bochner 积分；没有显式标记测度的指数积分使用标准体积测度 \\(\\lambda\\)。\n\n6. **范围 `scopes`**  \n   导数双边界适用于每个 \\(x,v\\in E\\)，不是仅在 \\(p\\) 或其邻域成立。结论适用于任意给定的驻点 \\(p\\)；声明没有以存在量词输出驻点，也没有显式输出其唯一性或最小化性质。二阶矩以 \\(p\\) 为中心，没有断言 \\(p\\) 是 \\(\\mu\\) 的均值。没有断言协方差矩阵界、其他阶矩、梯度范数可积性或推广到任意测试函数的积分恒等式。没有要求 \\(d>0\\)，也没有将 \\(U(p)\\) 归一化为零。\n\n7. **常数 `constant_dependencies`**  \n   Hessian 下界常数为 \\(\\alpha>0\\)，上界常数为有限非负实数 \\(\\beta\\)，且 \\(\\alpha\\le\\beta\\)。积分恒等式中的精确常数为实数化的维数 \\(d\\)；二阶矩上界的精确常数为 \\(d/\\alpha\\)，没有额外系数。\\(\\beta\\) 出现在输入假设中，没有显式出现在结论的数值界中。归一化因子 \\(Z\\) 由 \\(U\\) 和标准体积测度决定，不依赖所选驻点 \\(p\\)。\n\n未读取匿名包之外的文件或来源；不作来源忠实性判断。",
+  "source_fidelity_verdict": null,
+  "ambiguities": [],
+  "decoder_notes": [
+    "Fresh decoder read only anonymous full expanded statement and neutral notation context.",
+    "Full answer transcribed by sole writer and decoder explicitly verified complete transcription; exact acknowledgement retained.",
+    "No source-fidelity verdict requested or inferred from reconstruction."
+  ],
+  "transcription_qa_verbatim": "已逐段核对指定转录文件：忽略文件首 BOM 和末尾空白后，全部文本、公式、七槽、匿名包标识及三个哈希均与我上一条完整答复一致，无需修正。\n\n允许 root 将该全文记录为我的完整独立解码输出。此确认仅针对转录一致性，不构成来源忠实性判断。本次仅新增只读该指定转录文件，未写入文件。"
+}

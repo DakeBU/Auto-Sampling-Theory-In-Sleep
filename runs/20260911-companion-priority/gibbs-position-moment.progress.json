@@ -1,12 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
   "remaining": [
-    "Independent frozen proof/source preaudit",
-    "Production focused checks and full expanded statement",
-    "Fresh decoder and formal source/publication admission",
-    "Independent integration and delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "frontier_protocol": "PASS98;publication packet before scratch",
   "development": [
@@ -66,6 +64,40 @@
     "log": ".astis/gibbs-position-focused.log",
     "private_declarations": 2,
     "public_declarations": 1,
-    "boundary": "Compiled production checkpoint only;fixed independent production/expanded review,fresh decoder and formal source/publication admission remain."
-  }
+    "boundary": "Compiled production checkpoint only;fixed independent production/expanded review,fresh decoder and formal source/publication admission remain.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "48dd8b3e7e6b9e15a1d2cab4d08e0dc41d791ace",
+      "decision": "Fixed production and expanded statement accepted;independent focusedPASS3496 and Meta.isDefEq exact1081characters/hash;three namespace declarations,zero placeholders;faithful recording authorized. Not formal admission."
+    }
+  },
+  "expanded_statement": {
+    "log": ".astis/gibbs-position-expanded.log",
+    "session": 27924,
+    "exit_code": 0,
+    "characters": 1081,
+    "sha256": "a85fb1b80a429c56689ae4ec762a46d1d89c03cd2047e6df206f0847b4da9d9c",
+    "definitionally_equal": true,
+    "independent_review": "Exact production48dd8b3 independently replayed focused and Meta;fulltype matched,no hidden project/private names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_ad",
+    "state": "complete;verbatim QA accepted",
+    "packet_sha256": "79d72de6a9e87291f5a634fb3aa37a971236ccddd44391a8104301cd39304623",
+    "binding_sha256": "0a16db38ad607c1181515b368fa2f2971c982a6a2f1886734eb7956d570531c2",
+    "formal_source_review": "accepted; publicationPASS76 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.GibbsPositionMoment.gibbs_position_moment",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCGibbsPositionMoment"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-gibbs-position-moment.json",
+    "state": "Seven authored steps,7deltas and2private accepted; publicationPASS76."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }
