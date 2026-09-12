@@ -23,6 +23,15 @@
       "session": 95685,
       "exit_code": 0,
       "result": "Actual varying Gaussian proposal Markov kernel and jointly measurable scaled cached arc estimator. Standard3/no lint; independent review pending."
+    },
+    {
+      "path": ".astis/TerminalFORSKernelConstruction.lean",
+      "sha256": "0030f216c22c8535a56198f72e6a31b1ea1fb3e4b2fde178916899d668d007f0",
+      "session": 24370,
+      "exit_code": 0,
+      "result": "Actual state-varying Gaussian proposal and fixed-auxiliary clipped cached-estimator Markov output kernel; fiber equals proposal tilt. Standard3/no lint.",
+      "independent_review": "Requested depth_commit_verifier; pending.",
+      "boundary": "Internal kernel constructor only. Must connect actual terminal reference, prove source stream reparameterization and transfer accuracy/cost before full packet admission."
     }
   ]
 }
