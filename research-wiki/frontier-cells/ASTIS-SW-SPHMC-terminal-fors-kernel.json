@@ -41,7 +41,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-terminal-fors-kernel.md",
     "planning_review": "Independent log_depth_source_review accepted actual terminal-kernel route including a.e. fallback handling.",
-    "execution_boundary": "Root sole writer. ReferenceCarryingCost remains sole stabilization owner,PR294 pending.",
+    "execution_boundary": "Root sole writer and sole STABILIZING owner. Parent reference-cost fully merged,CI/live delivered. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at e6365c1; aggregate integration,original reader/graph QA,merge/live separate.",
     "independent_verification": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json"
   },
