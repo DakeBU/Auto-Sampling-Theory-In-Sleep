@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-proximal-gaussian-estimator",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds; arbitrary measurable S, measurable eta,y,0<eta<=1/2. Exact proximal oracle; no finite gradient-query implementation, smoothed-score bias, global state-integrated moment, stage W2 accuracy, initialization cost or full paper theorem.",
   "remaining": [
-    "Construct measurable proximal point and prove unique argmin",
-    "Construct actual estimator kernel and fiberwise moments",
-    "Independent proof/source review and delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "frontier_protocol": "PASS97;publication packet before scratch",
   "development": [
@@ -90,7 +89,13 @@
       "exit_code": 0,
       "result": "PASS3707 standard3,no new-module lint;Meta.isDefEq full2444characters unchanged",
       "sha256": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca"
-    }
+    },
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "3a340592b5ac048e01afaa670c37a7b141c8cd45",
+      "decision": "Fixed production accepted;four section-only corrections preserve theorem/proof/test;independent focused3707 and expanded2444 replay reused;actual source scanner locates all5 fullnames;faithful recording authorized. Not VERIFIED."
+    },
+    "current_sha256": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca"
   },
   "expanded_statement": {
     "log": ".astis/proximal-gaussian-expanded-section-fix.log",
@@ -99,6 +104,27 @@
     "characters": 2444,
     "sha256": "e95a13401a10cc527d5c5bc2350715d08fbf3f0d2cc64088e4947942510f9018",
     "definitionally_equal": true,
-    "boundary": "Original section-form fixed7aee independently matched;new section-only source fix awaits fixed review."
-  }
+    "boundary": "Original section-form fixed7aee independently matched;new section-only source fix awaits fixed review.",
+    "independent_review": "Original independent Meta.isDefEq/exact2444/e95a hash and corrected root64656 expansion independently matched;no hidden names or ellipsis."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_ac",
+    "state": "complete;verbatim QA accepted",
+    "packet_sha256": "cc84438a6c97fc35aae28ef1f8498b4f72db2d93760f6ba5d67e6b327e893ed7",
+    "binding_sha256": "2c34a9a9d028db930b9a44fefbc4b37543bdc73fce6dde280a97355da1dc1401",
+    "formal_source_review": "accepted; publicationPASS75 after complete whole-module review"
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ProximalGaussianEstimator.proximal_gaussian_estimator",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCProximalGaussianEstimator"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-proximal-gaussian-estimator.json",
+    "state": "Eight authored steps,7deltas and4private accepted; publicationPASS75."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }

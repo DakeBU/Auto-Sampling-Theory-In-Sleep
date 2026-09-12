@@ -6,7 +6,7 @@
   "title": "Actual parameterized proximal Gaussian estimator",
   "source_anchor": "SPHMC arXiv:2609.06906v1 equation (3.2), Algorithm3.1; explicit C2/Hessian source (1.1), normalized beta=1",
   "target_statement": "Construct measurable exact proximal points for arbitrary measurable state-dependent eta and centers, prove equation and unique global argmin; construct the actual gradient-at-prox-plus-Gaussian Markov kernel and prove fiberwise L2 integrability and centered/total second moment bounds.",
-  "status": "claimed",
+  "status": "proved_locally",
   "parents": [
     "ASTIS-SHARED-quadratic-regularization"
   ],
@@ -27,10 +27,20 @@
     "notes": "No actual proximal oracle found; derive actual measurable fixed point and argmin, not an assumed accuracy wrapper."
   },
   "evidence": {
-    "focused_checks": [],
+    "focused_checks": [
+      {
+        "command": "lake build Tests.SmoothedPicardHMCProximalGaussianEstimator",
+        "result": "PASS3707; standard three axioms; no new-module lint (historical dependency warnings separate)",
+        "hashes": {
+          "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ProximalGaussianEstimator.lean": "97920885d190844421dcf301eb3cbd2617ccdc492115679f524f8323b2cf06ca",
+          "Tests/SmoothedPicardHMCProximalGaussianEstimator.lean": "b91e04805001c1f779e679cfe1f19dd20a0b33a5c2e26b70a74dcd47652a88d9"
+        }
+      }
+    ],
     "proof_plan": "proof-blueprints/SPHMC-proximal-gaussian-estimator.md",
     "planning_review": "Independent log_depth_source_review accepted source3.2 and parameterized measurable S route, with explicit oracle and moment boundaries.",
-    "execution_boundary": "Root sole writer;EnhancedFiniteOutputKL sole stabilization owner."
+    "execution_boundary": "Root sole writer;EnhancedFiniteOutputKL sole stabilization owner.",
+    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
   },
   "blocked": {
     "reason": "",
