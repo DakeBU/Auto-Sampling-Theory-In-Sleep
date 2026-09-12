@@ -34,7 +34,7 @@ Internal J,C,K and their recovery formulas are proof constructions, not extra
 public conjuncts. The absorbed branch has e=0 and P=Dirac but retains the full
 remaining-output KL; terminal error is not discarded.
 
-Genuine C2 Hessian bounds strengthen source regularity; positive finite
+Genuine C2 Hessian bounds agree with source (1.1); positive finite
 dimension and 0<alpha<=beta are explicit. Eta,tau are arbitrary positive
 measurable functions of the full state. Arbitrary initial reference/history,
 threshold and actual Markov M,R carry no source schedule,admissibility,moment

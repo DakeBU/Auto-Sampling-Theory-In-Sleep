@@ -1,0 +1,181 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "b6764c8b4c1e639c2fc5b2e307d20c261ec2ea4722d817753e17112d9af3983d",
+  "source_sha256": "26c7daf1097f7ce1ecee3ac9b5f589bbfbaea91d26eb2d7292e36846ca1f1bf3",
+  "statement_sha256": "ef8fe6c5207e6d86a83543fe5f303ea66d06073a0b5762f90517c2b7607e3626",
+  "reconstruction_sha256": "60c6449ea6bce731ad86d2bb608a53152145d18bd33cae549fd233e8d3afcbef",
+  "module_text_sha256": "2f273aac745555c5f84f0cf97313998b6fb21ae2d7bb9db8b47d382fd2d41f78",
+  "module_raw_sha256": "667219079c62996b5e37d8105ed7eeb7e0b40e28a095bc7bd0e864de1bc5c960",
+  "publication_binding_sha256": "54d314695d1980f0336325367252f4ad3654bfc8941ec0fca2b1857f498e84f2",
+  "semantic_slots": {
+    "objects": {
+      "original": "Current RGO target, actual observation and remaining conditional output.",
+      "reconstructed": "Actual volume Gibbs base, T,H and full-state P constructed.",
+      "relation": "explicit-elaboration",
+      "evidence": "Gibbs probability, posterior recovery and update proved."
+    },
+    "domains": {
+      "original": "Source1.1 explicitly C2 genuine Hessian on Euclidean positive-dimensional space.",
+      "reconstructed": "Positive finite-dimensional inner-product Borel space,C2 genuine Hessian bounds,full state.",
+      "relation": "different",
+      "evidence": "C2/Hessian matches source;coordinate-free finite-dimensional inner-product Borel domain generalizes Euclidean presentation."
+    },
+    "quantifiers": {
+      "original": "Stage recursion conditional on complete history.",
+      "reconstructed": "Same T,H,P before every actual R,pointwise every state.",
+      "relation": "explicit-elaboration",
+      "evidence": "Internal alignment only actual-Q/C nested AE."
+    },
+    "assumptions": {
+      "original": "Source schedule,sampler accuracy,admissibility.",
+      "reconstructed": "Arbitrary positive measurable steps,threshold,Markov M/R;infinite errors allowed.",
+      "relation": "different",
+      "evidence": "Only error propagation,no removed-premise conclusions borrowed."
+    },
+    "conclusion": {
+      "original": "Observation KL plus conditional remaining KL bound.",
+      "reconstructed": "All-ENNReal one-step bound weighted by actual P,error measurability.",
+      "relation": "explicit-elaboration",
+      "evidence": "Current target T_s on left,intermediate T_t inside integral."
+    },
+    "scopes": {
+      "original": "Main recursive error and cost analysis.",
+      "reconstructed": "One actual enhanced-state KL step.",
+      "relation": "different",
+      "evidence": "No finite accumulation,numerical budget,final error or cost."
+    },
+    "constant_dependencies": {
+      "original": "Source Gaussian/RGO scales.",
+      "reconstructed": "Actual tau/(beta+b),ideal(eta+tau)/(beta+b).",
+      "relation": "same",
+      "evidence": "Two variances distinguished,no unspecified error constants."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual Gibbs probability and nested target."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Posterior B.snd and recovery from Dirac state."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Same pre-noise update and distinct noise scales."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "KL measurability including singular fibers."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Conditional KL density calculation and nonAC/infinite branches."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Actual conditional reference mixture with alignment only under Q."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Actual P equals J.snd and disintegration folding."
+      },
+      {
+        "step": 8,
+        "state": "accepted",
+        "reason": "Stopped branch retains remaining KL."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 7,
+    "declarations": [
+      "measurable_fiber_kl",
+      "conditional_kl_integral",
+      "composed_kl_bound",
+      "mixture_kl_bound",
+      "conditional_step",
+      "actual_gibbs_posterior",
+      "firstIndex"
+    ],
+    "evidence": "Entire production proof plus sole public one_step_kl_error covered. Internal recovery/alignment/projection premises discharged by actual assembly. Public does not separately return J/C/K,recovery formula,N termination or cost;reader uses them as proof constructions with correct boundaries."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "C2 and genuine Hessian match source1.1;coordinate-free domain generalization.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent reviewer confirms source1.1 C2 and corrected reader/header;no Lean proposition repair."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Arbitrary parameters,threshold,state carry no source schedule/admissibility.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Arbitrary parameters,threshold,state carry no source schedule/admissibility."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "API-limitation",
+      "description": "Arbitrary M/R permit infinite observation error.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Arbitrary M/R permit infinite observation error."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "Actual Gibbs base and recovery proved,no arbitrary probability base substitution.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Actual Gibbs base and recovery proved,no arbitrary probability base substitution."
+    },
+    {
+      "slot": "quantifiers",
+      "classification": "mathematically-necessary",
+      "description": "Alignment restricted to actual-Q/C nested AE.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Alignment restricted to actual-Q/C nested AE."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "generalization",
+      "description": "All-ENNReal and measurability enhancement.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: All-ENNReal and measurability enhancement."
+    },
+    {
+      "slot": "scopes",
+      "classification": "API-limitation",
+      "description": "One-step scope and absorbed residual explicitly retained.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: One-step scope and absorbed residual explicitly retained."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent bounded source correction accepted:source1.1 explicitlyC2. Unique productiondiff is header strengthen source regularity to agree with source(1.1);Lean theorem/allproofs/7private+public unchanged. Lesson scope,publicationboundary/delta0 corrected consistently;other7slots/8steps/deltas retain original review. Component/packet/module/decoder hashes recomputed,embeddedtextmatches;fullanonymousstatement/reconstruction/QA unchanged. Binding field authenticated,externalpreimage not recomputed;no recompile. Finiteoutputpacket/binding unaffected. No blockers/repairs;sourcewording correction not Lean theorem repair;faithful recording authorized;not VERIFIED.",
+  "supersedes": "runs/20260911-companion-priority/enhanced-kl-one-step.source-review-result.json"
+}

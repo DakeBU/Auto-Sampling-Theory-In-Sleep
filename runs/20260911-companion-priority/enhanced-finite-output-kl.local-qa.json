@@ -1,0 +1,70 @@
+{
+  "commit": "b7cf6f7076bb2d0393bb37ab2f01cc58c76ddd15",
+  "source_digest": "7f4d150ee9f16dfc037007f15b1e4ed51e6a7f08838ef752f1d16231f93db6d6",
+  "status": "independent-final-local-integration-accepted",
+  "root_integration": {
+    "session": 12256,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9196",
+    "log": ".astis/enhanced-finite-kl-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 96269,
+    "exit_code": 0,
+    "log": ".astis/enhanced-finite-kl-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 665,
+    "declarations": 3983
+  },
+  "reader_check": {
+    "session": 58718,
+    "exit_code": 0,
+    "log": ".astis/enhanced-finite-kl-reader-check.log",
+    "chapters": 12,
+    "modules": 665,
+    "declarations": 3983,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/enhanced-finite-kl-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-enhanced-finite-output-kl",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 3302,
+    "proof_code_characters": 9084,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "EnhancedTerminalExecution.enhanced_terminal_execution",
+      "EnhancedKLOneStep.one_step_kl_error",
+      "IdealRGOIdentification.ideal_rgo_identification",
+      "QuadraticRegularization.strongConvexOn_and_lipschitzWith_gradient_add_quadratic"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "13 named declarations;Compiled exact b7cf6f7076bb gate;zero placeholders;Not mapped separate."
+  },
+  "boundary": "Local integration accepted only; remote CI,merge/live, numerical stage accuracy,total costs and both main results remain separate.",
+  "independent_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "b7cf6f7076bb2d0393bb37ab2f01cc58c76ddd15",
+    "decision": "accepted; faithful transcription explicitly authorized",
+    "evidence": "Independent gate/digest and current/parent reviewed=True matched; reader/check/graph logs and static HTML checked; 11 default closed disclosures,3302/9084 code characters,13 declarations,Compiled/current gate/zero placeholders; parent C2 wording matches source1.1.",
+    "provenance": "Static artifacts and logs independently checked; browser interactions,screenshot and zero KaTeX errors are root observations."
+  }
+}

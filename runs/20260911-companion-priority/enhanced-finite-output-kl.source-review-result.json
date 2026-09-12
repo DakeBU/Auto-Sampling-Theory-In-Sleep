@@ -1,0 +1,185 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "19a2cea2da610886263ea91cbaa128415f20b5409718db6ac2c6f14f7746ffdc",
+  "source_sha256": "2a31fda45fe6ab0367d26c05c8fd58f76afa4876c5213bdedd37559da4a30698",
+  "statement_sha256": "40ecc48bc7c1419a3e1417c02a53c1822978e8415b4a3714fc5f478cc7d53129",
+  "reconstruction_sha256": "641e67ae1adc6b2f66e6036e9b9b81741d4c7d861c67310db509476b0fdc02ff",
+  "module_text_sha256": "5bb671e3968aec9c5eeb952b2da4ad122a5fc022474e31acd4fcadd70684fc8f",
+  "module_raw_sha256": "529a562e2b36934a6d3ffd5e23b9f81abe0487c9b07b3da1635fb7dfa4442eba",
+  "publication_binding_sha256": "f5f36489370ee16ec7fab9d73f5bb89d9f6b8a071eeb45d831c7fc642f3da9a9",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual observation,recursive RGO target and terminal FORS.",
+      "reconstructed": "Full-state P,true stream output Lt,Gibbs TG and ideal H.",
+      "relation": "explicit-elaboration",
+      "evidence": "hPeq compares full update;four public fiber formulas match decoder."
+    },
+    "domains": {
+      "original": "Positive-dimensional Euclidean space;source explicitly C2.",
+      "reconstructed": "Positive finite-dimensional real inner-product Borel space,true C2/Hessian.",
+      "relation": "different",
+      "evidence": "C2 matches source;only coordinate-free domain generalizes."
+    },
+    "quantifiers": {
+      "original": "Remaining recursion conditioned on current history.",
+      "reconstructed": "After fixed s0,same Lt/P/TG/H before every m.",
+      "relation": "explicit-elaboration",
+      "evidence": "Eta/M depend on fullstate,no common fixed eta sequence substituted."
+    },
+    "assumptions": {
+      "original": "Stage-accurate sampler and legal history.",
+      "reconstructed": "Arbitrary Markov M,initial reference/history;errors retained.",
+      "relation": "different",
+      "evidence": "No W2,finite KL,history-origin or initialization guarantee assumed."
+    },
+    "conclusion": {
+      "original": "A1 conditional KL recursion and terminal base case.",
+      "reconstructed": "Actual output KL bounded by firstJ actual observation integrals plusDelta²/(J+1).",
+      "relation": "explicit-elaboration",
+      "evidence": "Correct RN moment terminal KL and actual chain sum;no finalDelta²."
+    },
+    "scopes": {
+      "original": "Full analysis includes stage budget and query complexity.",
+      "reconstructed": "Selected finite-output component,allENNReal branches.",
+      "relation": "different",
+      "evidence": "Support/cap/firsthit/cost parent facts not allpublicconjuncts."
+    },
+    "constant_dependencies": {
+      "original": "Source sufficient constants and epsJ=Delta/sqrt(J+1).",
+      "reconstructed": "C=8,gamma=1/1024 sufficient instances and exact residual.",
+      "relation": "explicit-elaboration",
+      "evidence": "Derived precision,parentcompatibility,hepssq;constants not claimed printedliteralvalues."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual fullstate program and terminalstream agree with parent."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Gibbs targets and fullstate P equality derived with stopping coercion."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "L>=2 and0<B<1 provide strictly b>1."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Actual probability gives exponential L1 before tilted_tilted;targetidentified onlyterminalsupport."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Correct dLt/dtpi RN direction,base tpi,massone andsquareL1 beforealgebra."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Actual P^j powers and composition direction,including infiniteerrors."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Actual terminalmassone yieldsAE support before residualintegration."
+      },
+      {
+        "step": 8,
+        "state": "accepted",
+        "reason": "Cap outputlaw reduces toJ;exact square-root identity suppliesDelta²/(J+1)."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 12,
+    "declarations": [
+      "klFun_le_square",
+      "kl_le_second_moment",
+      "actual_terminal_target",
+      "kernel_error_sum",
+      "composed_error_sum",
+      "terminal_precision_large",
+      "firstIndex",
+      "scaledCached",
+      "Attempt",
+      "attemptLaw",
+      "accepted",
+      "output"
+    ],
+    "evidence": "All12private plus solepublic finite_output_kl read and covered by8steps. Two firstIndex instances and retry fallback preserved;public returns actual programlaw,not allparenttermination/support/costconjuncts."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Coordinate-free domain generalizes;C2 explicitly matches source1.1.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Coordinate-free domain generalizes;C2 explicitly matches source1.1."
+    },
+    {
+      "slot": "scopes",
+      "classification": "API-limitation",
+      "description": "q=2 and normalized setting supply A1 selected consumer.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: q=2 and normalized setting supply A1 selected consumer."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "API-limitation",
+      "description": "Arbitrary M retains actual errors,possiblyinfinite.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Arbitrary M retains actual errors,possiblyinfinite."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Arbitrary initial state carries no history-origin or initializationguarantee.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Arbitrary initial state carries no history-origin or initializationguarantee."
+    },
+    {
+      "slot": "objects",
+      "classification": "source-implicit",
+      "description": "Actual terminal target/normalization derived onlyonterminalsupport.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Actual terminal target/normalization derived onlyonterminalsupport."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "mathematically-necessary",
+      "description": "Correct RN direction and L1 arguments precede integralalgebra.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Correct RN direction and L1 arguments precede integralalgebra."
+    },
+    {
+      "slot": "scopes",
+      "classification": "API-limitation",
+      "description": "Output component distinctfrom full numericalaccuracy/totalcost.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal source reviewer accepted: Output component distinctfrom full numericalaccuracy/totalcost."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent formal source reviewer accepted corrected finalpacket only:7slots,8steps,12private+1public,7deltas,no blocker/repair. Source1.1 explicitlyC2;previous strongerC2 wording corrected before this acceptance. Section6.3 A1actualobservation scales/terminalcase and fullproduction reviewed. Source text attributed ASTISexpandedcomponent,notverbatim theorem. Independently recomputed packet/source/statement/reconstruction/module/decoder hashes;embeddedmodule and lesson/publication fields match,singlebinding. Full decoder transcribed and QA accepted. Binding field authenticated,externalpreimage not recomputed;no independentcompile/Meta replay. Faithful recording authorized;not VERIFIED."
+}
