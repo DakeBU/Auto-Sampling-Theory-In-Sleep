@@ -1,0 +1,47 @@
+{
+  "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
+  "state": "EXPLORING",
+  "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
+  "remaining": [
+    "Independent frozen proof/source preaudit",
+    "Production focused checks and full expanded statement",
+    "Fresh decoder and formal source/publication admission",
+    "Independent integration and delivery"
+  ],
+  "frontier_protocol": "PASS98;publication packet before scratch",
+  "development": [
+    {
+      "file": ".astis/GibbsPositionIntegrability.lean",
+      "sha256": "752cd8eac7c588832e403c990354e158271ea1545bd574bd56e2f3aaca3ca994",
+      "root_session": 77184,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-integrability-round3.log",
+      "result": "Actual tilted position-square,positionnorm,pairing L1 and coercive inequality;standard3,no lint",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "session": 80218,
+        "exit_code": 0,
+        "decision": "Frozen development accepted;standard3,no lint;actual stationary point,positive alpha and zero-distance branch correct;faithful recording authorized."
+      },
+      "boundary": "Integrability only;exact pairing=d and sharp position d/alpha remain. No full SAU admission."
+    },
+    {
+      "file": ".astis/GibbsPositionIBP.lean",
+      "sha256": "357a20c62d83406cf5edf724011ff9ab5e0370da9aafaa9d7915b8f7e1348e37",
+      "root_session": 86426,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-ibp-round4.log",
+      "result": "Actual unnormalized coordinate position-gradient IBP,all three L1 supplied from actual tilted integrability;standard3,no lint",
+      "boundary": "Frozen development only;independent review of full assembly pending."
+    },
+    {
+      "file": ".astis/GibbsPositionActual.lean",
+      "sha256": "d7f55865f7cc94f8a9c5720d15605d1b5966425ac28249c23f90ea740aec642d",
+      "root_session": 44444,
+      "exit_code": 0,
+      "log": ".astis/gibbs-position-actual-round1.log",
+      "result": "Full actual Gibbs normalized pairing=d and sharp position second moment d/alpha;standard3,no lint",
+      "boundary": "Frozen development only;independent proof/source preaudit,production and formal source admission remain."
+    }
+  ]
+}

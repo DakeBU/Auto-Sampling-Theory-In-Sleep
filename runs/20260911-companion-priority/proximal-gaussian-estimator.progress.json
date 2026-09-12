@@ -132,5 +132,11 @@
     "upstream": "f90328f89451eb8eb3dd8ab6c4c07c69c71dedc2",
     "boundary": "Upstream finite-output KL merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
   },
-  "local_integration": "runs/20260911-companion-priority/proximal-gaussian-estimator.local-qa.json"
+  "local_integration": "runs/20260911-companion-priority/proximal-gaussian-estimator.local-qa.json",
+  "pr": {
+    "number": 300,
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/300",
+    "head": "2205be6",
+    "state": "OPEN;CI pending"
+  }
 }
