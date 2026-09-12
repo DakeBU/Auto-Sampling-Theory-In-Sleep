@@ -18,6 +18,6 @@
   "merge_site_run": 34678245205,
   "merge_site_result": "SUCCESS",
   "merge_lean_run": 34678245269,
-  "merge_lean_result": "PENDING",
-  "boundary": "Fresh live HTTP provenance and merge-site success verified;merge Lean CI remains pending. Local browser evidence separate;both complete main results remain incomplete."
+  "merge_lean_result": "SUCCESS",
+  "boundary": "Merge Lean/Site CI and fresh live HTTP provenance verified. Both complete main results remain incomplete."
 }

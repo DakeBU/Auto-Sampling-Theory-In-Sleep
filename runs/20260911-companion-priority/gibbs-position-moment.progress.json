@@ -3,7 +3,7 @@
   "state": "STABILIZING",
   "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
+    "PR and remote CI",
     "Actual merge and deployment"
   ],
   "frontier_protocol": "PASS98;publication packet before scratch",
@@ -99,10 +99,11 @@
     "path": "website/content/declaration_lessons/sphmc-gibbs-position-moment.json",
     "state": "Seven authored steps,7deltas and2private accepted; publicationPASS76."
   },
-  "admission_boundary": "VERIFIED at cd9f297;aggregate integration,original reader/graph QA,merge/live and both full main results remain separate.",
+  "admission_boundary": "VERIFIED cd9f297 and independent local integration accepted d6cd5bb;remoteCI,merge/live and both main results separate.",
   "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json",
   "integration_notes": {
     "upstream": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
     "boundary": "Upstream proximal estimator merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
-  }
+  },
+  "local_integration": "runs/20260911-companion-priority/gibbs-position-moment.local-qa.json"
 }

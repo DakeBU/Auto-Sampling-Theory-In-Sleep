@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-proximal-gaussian-estimator",
   "state": "MERGED",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds; arbitrary measurable S, measurable eta,y,0<eta<=1/2. Exact proximal oracle; no finite gradient-query implementation, smoothed-score bias, global state-integrated moment, stage W2 accuracy, initialization cost or full paper theorem.",
-  "remaining": [
-    "Merge Lean CI terminal success"
-  ],
+  "remaining": [],
   "frontier_protocol": "PASS97;publication packet before scratch",
   "development": [
     {
@@ -136,12 +134,12 @@
     "number": 300,
     "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/300",
     "head": "2205be6",
-    "state": "MERGED;PR CI passed;merge CI/live pending"
+    "state": "MERGED;all CI and live delivery verified"
   },
   "remote": {
     "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/300",
     "head": "2205be68d9273dee34d3343ca789045496dee688",
-    "state": "MERGED;merge Site SUCCESS;live provenance verified;merge Lean pending",
+    "state": "MERGED;PR and merge Lean/Site SUCCESS;live provenance verified",
     "merge_commit": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
     "merged_at": "2026-09-12T06:29:09Z",
     "pr_lean_run": 34677503306,
@@ -151,7 +149,7 @@
     "merge_lean_run": 34678245269,
     "merge_site_run": 34678245205,
     "merge_site_result": "SUCCESS",
-    "merge_lean_result": "PENDING",
+    "merge_lean_result": "SUCCESS",
     "live_delivery": "runs/20260911-companion-priority/proximal-gaussian-estimator.live-delivery.json"
   }
 }
