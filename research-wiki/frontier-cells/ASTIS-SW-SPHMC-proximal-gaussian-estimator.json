@@ -6,7 +6,7 @@
   "title": "Actual parameterized proximal Gaussian estimator",
   "source_anchor": "SPHMC arXiv:2609.06906v1 equation (3.2), Algorithm3.1; explicit C2/Hessian source (1.1), normalized beta=1",
   "target_statement": "Construct measurable exact proximal points for arbitrary measurable state-dependent eta and centers, prove equation and unique global argmin; construct the actual gradient-at-prox-plus-Gaussian Markov kernel and prove fiberwise L2 integrability and centered/total second moment bounds.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-quadratic-regularization"
   ],
@@ -40,7 +40,8 @@
     "proof_plan": "proof-blueprints/SPHMC-proximal-gaussian-estimator.md",
     "planning_review": "Independent log_depth_source_review accepted source3.2 and parameterized measurable S route, with explicit oracle and moment boundaries.",
     "execution_boundary": "Root sole writer;EnhancedFiniteOutputKL sole stabilization owner.",
-    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
+    "admission_boundary": "VERIFIED at c11730f; aggregate integration,original reader/graph QA,merge/live and both complete main results remain separate.",
+    "independent_verification": "runs/20260911-companion-priority/proximal-gaussian-estimator.verified-admission.json"
   },
   "blocked": {
     "reason": "",

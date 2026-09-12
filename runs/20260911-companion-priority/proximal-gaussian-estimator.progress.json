@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-proximal-gaussian-estimator",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds; arbitrary measurable S, measurable eta,y,0<eta<=1/2. Exact proximal oracle; no finite gradient-query implementation, smoothed-score bias, global state-integrated moment, stage W2 accuracy, initialization cost or full paper theorem.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "frontier_protocol": "PASS97;publication packet before scratch",
   "development": [
@@ -126,5 +126,6 @@
     "path": "website/content/declaration_lessons/sphmc-proximal-gaussian-estimator.json",
     "state": "Eight authored steps,7deltas and4private accepted; publicationPASS75."
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at c11730f; aggregate integration,original reader/graph QA,merge/live and both complete main results remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/proximal-gaussian-estimator.verified-admission.json"
 }
