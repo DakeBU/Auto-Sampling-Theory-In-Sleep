@@ -3,10 +3,9 @@
   "state": "EXPLORING",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The source ell1 gap remains excluded. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Actual jointly measurable terminal reference",
-    "Actual Markov kernel and stream pushforward",
-    "Derived fiber accuracy and cached query bound",
-    "Independent proof/source review and reader delivery"
+    "Connect actual reference and positive terminal parameters to program",
+    "Assemble source Gaussian stream correspondence and fiber accuracy",
+    "Independent full proof/source review and original reader delivery"
   ],
   "development_checkpoints": [
     {
@@ -30,8 +29,30 @@
       "session": 24370,
       "exit_code": 0,
       "result": "Actual state-varying Gaussian proposal and fixed-auxiliary clipped cached-estimator Markov output kernel; fiber equals proposal tilt. Standard3/no lint.",
-      "independent_review": "Requested depth_commit_verifier; pending.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint. True parameterized kernel, consistent arc scaling and clipping accepted. Nonpositive A degeneracy allowed only in internal helper; actual positive-precision consumer pending.",
       "boundary": "Internal kernel constructor only. Must connect actual terminal reference, prove source stream reparameterization and transfer accuracy/cost before full packet admission."
+    },
+    {
+      "path": ".astis/TerminalFORSStream.lean",
+      "sha256": "88bd9a02a42ba9e63d5ccf75966e8088ea43c816b94514b1c1cbc348a160e39b",
+      "session": 62228,
+      "exit_code": 0,
+      "result": "Whole retry-law pushforward, acceptance/output/count preservation, differing defaults AE under neverhit0.",
+      "independent_review": "depth_commit_verifier independently stdin compiled exit0 standard3/no lint, actual retry law and successful-batch count accepted."
+    },
+    {
+      "path": ".astis/TerminalFORSScaling.lean",
+      "sha256": "676b7baf65bec12ac0723507ca25c9d437b93c122e4f9febaf7fca1b1b06df48",
+      "session": 43823,
+      "exit_code": 0,
+      "result": "Actual auxiliary Gaussian scale pushforward and clipped cached-estimator mean identity; standard3/no lint. Source preaudit requested."
+    },
+    {
+      "path": ".astis/TerminalFORSKernelProgram.lean",
+      "sha256": "9f91f5b50b0957fd39048323808377d0949bb41146d752c40cb37b00c5d90c1b",
+      "session": 76113,
+      "exit_code": 0,
+      "result": "Actual Markov kernel with explicit program output law,neverhit0 and cached 1+2exp2 cost under true retry law;standard3/no lint. Independent review requested."
     }
   ]
 }
