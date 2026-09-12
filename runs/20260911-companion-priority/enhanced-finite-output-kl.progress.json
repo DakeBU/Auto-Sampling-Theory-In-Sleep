@@ -167,5 +167,13 @@
     "exit_code": 0,
     "state": "completed",
     "log": ".astis/enhanced-finite-kl-reader-build.log"
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/299",
+    "head": "a792554b5637150b8406a9a17799c322d75cf216",
+    "state": "OPEN; PR checks running",
+    "pr_lean_run": 34674842287,
+    "pr_site_run": 34674842256,
+    "boundary": "Local integration accepted; remote CI,merge/live remain."
   }
 }
