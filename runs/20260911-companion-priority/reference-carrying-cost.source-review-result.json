@@ -1,0 +1,169 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "b77b5c9e3accad6941ccd7733a83ec5e8c90564fd0331f5938a48c70b1eb5b1c",
+  "source_sha256": "286c47acdb5ae0be92e35aadde5de69dfdc845794e3c33c896c7f0a27486cad8",
+  "statement_sha256": "16ef3357fc9cc2f0e64b8c7812c87b851109fdb8ae120d5e642870cb30ca17e2",
+  "reconstruction_sha256": "f680b9f7e8887d5ae5d96a4a4a8ce90017e19604f8f8e855c0972c636c270571",
+  "module_text_sha256": "faefa1810ad9937098ae02b974df3f0be21ae7d6140eba862f3359c3f4a91317",
+  "module_raw_sha256": "2efaccd406640d48aab22672395ea98a6d8c34aadd7241c93dbd11221c746ccc",
+  "publication_binding_sha256": "aafc4dbd753f83113a6d10df7b5453d23faf2b6a0819a5f60800a27b5f212ea9",
+  "semantic_slots": {
+    "objects": {
+      "original": "Actual current input,reference GD and count.",
+      "reconstructed": "Full state,pre-noise start,same completed-square first hit,actual M product G and compProd.",
+      "relation": "explicit-elaboration",
+      "evidence": "hq,hN identify indices from genuine gradients and all trajectories."
+    },
+    "domains": {
+      "original": "Normalized Euclidean execution states and probability expectations.",
+      "reconstructed": "General beta,coordinate-free positive dimension,arbitrary retained states and SFinite outer measure.",
+      "relation": "different",
+      "evidence": "Extensions disclosed; expectation interpretation only for probability outer measure."
+    },
+    "quantifiers": {
+      "original": "Cost of current active call.",
+      "reconstructed": "W2 required active; all states fiberL1; all SFinite outer measures integral bounds.",
+      "relation": "explicit-elaboration",
+      "evidence": "Global real bound additionally requires Integrable B mu; no reversed conditions."
+    },
+    "assumptions": {
+      "original": "Source current-call precision and positive parameters.",
+      "reconstructed": "Genuine Hessian,actual active W2,measurable positive eta/tau; arbitrary real epsilon function.",
+      "relation": "different",
+      "evidence": "No moment/count bound assumed; epsilon sign/measurability restrictions explicitly relaxed."
+    },
+    "conclusion": {
+      "original": "Reference cost estimate.",
+      "reconstructed": "Measurable nonnegative C,conditional B measurability,fiberL1/bound,extended bound and conditional real bound.",
+      "relation": "explicit-elaboration",
+      "evidence": "Full public conclusion reconstructed; stopping/Nmeas not separate public conclusions."
+    },
+    "scopes": {
+      "original": "One step in reference-cost argument.",
+      "reconstructed": "Single-step auxiliary joint-law integral for actual index.",
+      "relation": "explicit-elaboration",
+      "evidence": "No P output,execution-law origin,stage sum,FORS or totalcost."
+    },
+    "constant_dependencies": {
+      "original": "Source generic cost estimate.",
+      "reconstructed": "2+kappa_plus*log(1+4*(eta+tau)*(1+eta)+2*(eta+tau)*kappa_s*epsilon^2/d+tau/(eta+tau)).",
+      "relation": "explicit-elaboration",
+      "evidence": "Explicit coefficients derive from parent moment bound and algebra,not printed source constants."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Actual quadratic derivatives provide genuine current curvature."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Original-coordinate W2 radius correct,including epsilon0; no initialmoment assumption."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Time scaling and complete logarithm argument simplify correctly."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Gradients,all trajectories and threshold equal,hence actual first index equal."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "ActiveN+1,absorbed0; measurability from parent actualindex."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "Measurable epsilon implies measurable B,not B integrability."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Actual nonnegative compProd integration first; no budget measurability needed."
+      },
+      {
+        "step": 8,
+        "state": "accepted",
+        "reason": "BudgetL1 yields globalcountL1 before real integral comparison."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 4,
+    "declarations": [
+      "regularized_hessian",
+      "firstIndex",
+      "statewise_cost",
+      "integrate_actual_cost"
+    ],
+    "evidence": "All private implementation covered. Reader finitehit,Nmeas and indexalignment are explicitly consumed parent facts,not extra public conjuncts; decoder distinction requires no repair."
+  },
+  "deltas": [
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "General beta,coordinate-free,b0.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: General beta,coordinate-free,b0."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "source-implicit",
+      "description": "Active original-coordinate W2 source input.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Active original-coordinate W2 source input."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Arbitrary real epsilon and conditional budget measurability.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Arbitrary real epsilon and conditional budget measurability."
+    },
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "SFinite integral generalizes probability expectation.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: SFinite integral generalizes probability expectation."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Active visited-point count and absorbed zero,with explicit execution convention.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Active visited-point count and absorbed zero,with explicit execution convention."
+    },
+    {
+      "slot": "scopes",
+      "classification": "same",
+      "description": "Single-step auxiliary integral,not full recursivecost.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent formal reviewer accepted: Single-step auxiliary integral,not full recursivecost."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored Section6.3 source review accepted7semantic slots,8reader steps,4private and6deltas. Public/internal distinction explicitly accepted: parentfinitehit,Nmeas and sameindex are fullproof dependencies,not repeated public conjuncts. General nonnegative upper integral is not automatic measurable random-budget expectation; measurable B not automatically finiteintegral. SFinite mu not automatically executionlaw; absorbedauxiliary representation not actualdraw. N+1 visitedpoint count needs one gradient perpoint/check-update reuse,not evaluatortrace. Recomputed canonical packet/source/statement/reconstruction/fullmodule text hashes; current module matches embedded source. Compared complete scratch: added budget-meas proof and assembly,othercostmath unchanged. Binding only packet field,externalpreimage not recomputed. No registry/oldverdict,independentcompile/Meta/decoder replay or fixedcommittree verification. No blocker/repair; faithful transcription authorized; not VERIFIED. Neither full paper complete."
+}
