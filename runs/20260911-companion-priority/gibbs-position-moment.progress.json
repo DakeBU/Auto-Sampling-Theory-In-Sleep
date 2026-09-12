@@ -1,10 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-gibbs-position-moment",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Finite-dimensional real inner product Borel space including dimension zero; explicit genuine Hessian and stationary-point assumptions. Supplies the source standardized-potential position moment; does not yet identify the affine RGO law, prove Gaussian transport-Fisher, score mean identity, estimator bias, Picard accuracy or query cost.",
   "remaining": [
-    "PR and remote CI",
-    "Actual merge and deployment"
+    "Merge CI and actual deployed reader provenance"
   ],
   "frontier_protocol": "PASS98;publication packet before scratch",
   "development": [
@@ -103,7 +102,20 @@
   "independent_admission": "runs/20260911-companion-priority/gibbs-position-moment.verified-admission.json",
   "integration_notes": {
     "upstream": "9837761a17485e1c7ba407e37ba2f35c51c2b751",
-    "boundary": "Upstream proximal estimator merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+    "boundary": "Root sole stabilization owner;canonical gate and independent reader/graph QA passed;actual PR301 merged."
   },
-  "local_integration": "runs/20260911-companion-priority/gibbs-position-moment.local-qa.json"
+  "local_integration": "runs/20260911-companion-priority/gibbs-position-moment.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/pull/301",
+    "head": "d5fad46aff781c42921e75f41923e7b0698b9bd7",
+    "state": "MERGED;merge CI/live pending",
+    "merge_commit": "e7c1e7523e975eb7a788be5e92b46418e89e2290",
+    "merged_at": "2026-09-12T10:20:54Z",
+    "pr_lean_run": 34687620944,
+    "pr_lean_result": "SUCCESS",
+    "pr_site_run": 34687620945,
+    "pr_site_result": "SUCCESS",
+    "merge_lean_run": 34688207333,
+    "merge_site_run": 34688207366
+  }
 }
