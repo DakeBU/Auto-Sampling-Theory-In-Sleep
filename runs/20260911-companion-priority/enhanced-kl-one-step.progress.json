@@ -138,5 +138,13 @@
     "state": "completed",
     "log": ".astis/enhanced-kl-reader-build.log",
     "exit_code": 0
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/298",
+    "head": "2b7e0de24ab13a90cc4a70d53275cb8a267441ae",
+    "state": "OPEN; PR Lean and Site checks running",
+    "pr_lean_run": 34672674515,
+    "pr_site_run": 34672674485,
+    "boundary": "Exact24f5da9 canonical Lean/reader candidate locally accepted;2b7e0de adds only recorded local QA/progress. No remote completion claim."
   }
 }
