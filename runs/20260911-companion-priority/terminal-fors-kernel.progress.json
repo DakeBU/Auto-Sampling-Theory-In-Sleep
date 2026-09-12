@@ -117,8 +117,17 @@
   },
   "formal_source_review": {
     "reviewer": "log_depth_source_review",
-    "state": "requested-pending",
+    "state": "source-doc-correction-awaiting-review",
     "packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalFORSKernel.reviewer.json",
-    "packet_sha256": "252b1319bfb0d4566c35453adf94df6323967265b500fcac3bffaf01fbfea98a"
+    "packet_sha256": "c27e754dac0366be497be92d1057659212fc3325090326f6a6de92b02cd4b1b8",
+    "round1": "runs/20260911-companion-priority/terminal-fors-kernel.source-review-round1.json"
+  },
+  "source_doc_correction": {
+    "scope": "Header and reader metadata only; actual theorem and proof unchanged.",
+    "session": 32374,
+    "exit_code": 0,
+    "result": "FocusedPASS3754 standard3/no lint",
+    "current_raw_production_sha256": "ba89bafb67d3fda3dd516d110bd9afeff9e92ef57e68946c958b3d0599cca9b2",
+    "anonymous_packet_unchanged": true
   }
 }

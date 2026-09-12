@@ -38,8 +38,8 @@ last GD check against the cache. There is no evaluator/compiler trace.
 The source convex smooth theorem is instantiated under C2 and genuine
 Hessian bounds, which are stronger regularity assumptions. Alpha may be zero:
 this remains convex, not a nonconvex extension. The coordinate-free setting
-requires positive finite dimension and beta>0. The ell>=2 restriction retains
-the disclosed source proof gap at ell=1. Constants 64 and the explicit RN
+requires positive finite dimension and beta>0. The order ell>=2 matches Theorem A.4(2);
+the upstream B.12 proof for 1<ell<2 is not used. Constants 64 and the explicit RN
 and expected-query bounds are proved sufficient refinements, not a claim of
 verbatim source constants. The source high-probability query bound is not
 returned by this theorem. No state-varying V,ell,eps, joint stream-output

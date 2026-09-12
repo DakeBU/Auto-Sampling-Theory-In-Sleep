@@ -1,0 +1,18 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful root transcription of explicit independent review; not root self-review.",
+  "reviewer_packet_sha256": "252b1319bfb0d4566c35453adf94df6323967265b500fcac3bffaf01fbfea98a",
+  "decision": "needs-revision",
+  "typed_verdict": "domain-mismatch",
+  "mathematics": "All ten steps and27private accepted. Actual reference, sameMarkovlaw,RNdenominators,truecachedcost,whole retry-law/count andAEdefaults correct.",
+  "blocking_metadata": [
+    "A4 itself requiresq>=2; cannot attribute an ell>=1 source domain or ell1 gap to this theorem. Use ell>=2 matchesA4; upstreamB12 interval1<ell<2 not used.",
+    "Clarify coordinate-free is the generalization; A4 already permits general beta,whereasSection6.3 is normalized."
+  ],
+  "source_anchors": [
+    "https://arxiv.org/html/2609.06906v1#S6.SS3",
+    "https://arxiv.org/html/2609.06906v1#A1"
+  ],
+  "boundary": "No Lean mathematical repair; no accepted source disposition for old hash. Reviewer only checked binding field,not external preimage."
+}

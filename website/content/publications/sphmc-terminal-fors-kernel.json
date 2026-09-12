@@ -44,7 +44,7 @@
             "actual-terminal-fors-kernel"
           ],
           "audit_id": "ASTIS-RT-20260912-SPHMCTerminalFORSKernel",
-          "boundary": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 retains the disclosed source proof gap. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed.",
+          "boundary": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed.",
           "assumption_deltas": [
             {
               "source": "A4(2) assumes convex smooth potential.",
@@ -53,10 +53,10 @@
               "reason": "Stronger regularity is required by this actual-reference construction; alpha0 is convex, not a nonconvex extension."
             },
             {
-              "source": "Source normalized Euclidean setting.",
-              "lean": "Coordinate-free positive finite dimension and general beta>0.",
+              "source": "Section6.3 uses normalized Euclidean coordinates; A4(2) already allows general beta.",
+              "lean": "Coordinate-free positive finite dimension, with beta>0.",
               "classification": "generalization",
-              "reason": "No zero-dimensional or beta0 claim."
+              "reason": "The extension is coordinate-free; general beta is already allowed by A4(2). No zero-dimensional or beta0 claim."
             },
             {
               "source": "Source fixed terminal call.",
@@ -71,10 +71,10 @@
               "reason": "No reachability proof or behavior outside this terminal domain."
             },
             {
-              "source": "Source Renyi order includes ell>=1.",
-              "lean": "ell>=2,0<eps<=1/2.",
-              "classification": "API-limitation",
-              "reason": "Retains the independently disclosed source proof gap; no silent repair atell1."
+              "source": "Theorem A4(2) uses Renyi order q>=2.",
+              "lean": "ell>=2 matches the source order condition.",
+              "classification": "same",
+              "reason": "The upstream B12 proof for1<ell<2 is not used. The explicit0<eps<=1/2 range also matches A4(2)."
             },
             {
               "source": "Source asymptotic constants and query guarantees.",
