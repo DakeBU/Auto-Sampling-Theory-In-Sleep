@@ -1,0 +1,4 @@
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution
+
+#check AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution
+#print axioms AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution

@@ -1,0 +1,14 @@
+{
+  "reviewer": "log_depth_source_review",
+  "decision": "development-preaudit-accepted",
+  "sha256": "c9c04947cb6c4f67fe5301468aa31587bc7e163e8d2e1e6b43be16ad0f08baac",
+  "scope": "Read all proofs; not independently compiled; no formal source admission.",
+  "source_parameters": "ell=q,eps=Delta/sqrt(J+1); Delta is current recursive-call precision; A1 q=2. C8,gamma1/1024 local sufficient constants.",
+  "accepted": "Actual retained-state path and genuine inner-hit update; derived terminal64 compatibility; actualLt kernel/program and fiberwise RN/cost; probability-one terminal support and kernel-power cap stability.",
+  "required_disclosures": [
+    "bbar=max(b,B^-1) modifies outside-domain target/reference; equal on terminal set. No arbitrary-extension comparison theorem returned.",
+    "Finite kernel-power execution and cap stability; no separate recursive R_n interface or trajectory measure.",
+    "Arbitrary initial reference/count/history; source admissibility not proved.",
+    "Terminal fiber RN/cached sampling cost only; no mixed-output accuracy,M accuracy,GD initialization or accumulated stage cost."
+  ]
+}

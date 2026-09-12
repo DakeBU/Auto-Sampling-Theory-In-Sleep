@@ -3,10 +3,10 @@
   "state": "EXPLORING",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Independent full development proof/source review",
-    "Production theorem and focused test",
-    "Anonymous expanded-statement reconstruction and formal source audit",
-    "Original reader and integration delivery"
+    "Independent fixed production/expanded-type verification",
+    "Author original reader lesson and publication binding",
+    "Fresh anonymous reconstruction and formal source review",
+    "Local integration and remote delivery"
   ],
   "development_checkpoints": [
     {
@@ -47,7 +47,28 @@
       "session": 27254,
       "exit_code": 0,
       "result": "Full retained-state execution reaches terminal domain byJ and uses actual constructed terminalFORS kernel at sourceDelta/sqrt(J+1); cap stability, output law, terminal RN accuracy and sampling-only cost. Standard3/no lint.",
-      "independent_review": "Independent proof/source preaudit requested; no production/admission claim."
+      "independent_review": "depth_commit_verifier independentstdin62641exit0 standard3/no lint,fake closure scan clear; full actual terminal assembly accepted. log_depth_source_review read entire proof and confirmed source parameters,full-state path and actualLt,with exact scope exclusions. Development only."
     }
-  ]
+  ],
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/EnhancedTerminalExecution.lean",
+    "sha256": "c27a0d4b252c6d4bba0ccbcb9f0c370ea6240a90aca090498d7c6f2e418a2980",
+    "test_sha256": "c3cd7be76149a56870adbc9079aa1986cf14788d455ccd5a13a77fd0edcbc886",
+    "focused_session": 36158,
+    "exit_code": 0,
+    "result": "PASS3814; standard3/no new-module lint; historical dependency lint separate.",
+    "log": ".astis/enhanced-terminal-focused.log",
+    "private_declarations": 12,
+    "public_declarations": 1,
+    "boundary": "Compiled production checkpoint only; no PROVED_LOCAL/VERIFIED before publication and independent gates."
+  },
+  "expanded_statement": {
+    "path": ".astis/enhanced-terminal-expanded.log",
+    "characters": 15740,
+    "sha256": "fec9ed0bd1777b77c64f297ed7a09967f1a2094cede1eb251059464c60add721",
+    "session": 19198,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "pending"
+  }
 }
