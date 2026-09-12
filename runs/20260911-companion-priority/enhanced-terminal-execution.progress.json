@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Remote PR CI,actual merge and deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "development_checkpoints": [
     {
@@ -105,6 +105,12 @@
     "head": "0ca178937c959e0180fcd43f57c596a8180236c7",
     "pr_lean_run": 34668774958,
     "pr_site_run": 34668774948,
-    "state": "OPEN; CI pending"
+    "state": "MERGED; PR checks SUCCESS; merge CI/deployment pending",
+    "merge_commit": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
+    "merged_at": "2026-09-12T03:02:52Z",
+    "pr_lean_result": "SUCCESS",
+    "pr_site_result": "SUCCESS",
+    "merge_lean_run": 34669309463,
+    "merge_site_run": 34669309467
   }
 }

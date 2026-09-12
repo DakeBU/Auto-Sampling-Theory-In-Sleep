@@ -1,12 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
   "remaining": [
-    "Independent fixed-production verification",
-    "Expanded statement and fresh anonymous decoder; formal source audit",
-    "Authored source/reader publication and local admission",
-    "Integration/reader QA/merge/live delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "development_checkpoints": [
     {
@@ -91,6 +89,34 @@
     "log": ".astis/observation-conditional-focused.log",
     "private_declarations": 4,
     "public_declarations": 1,
-    "boundary": "Compiled checkpoint only; no PROVED_LOCAL/VERIFIED before independent fixed-commit, expanded-source reconstruction and publication gates."
-  }
+    "boundary": "Compiled checkpoint only; no PROVED_LOCAL/VERIFIED before independent fixed-commit, expanded-source reconstruction and publication gates.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "04d2095e9f1bdc48da5f35c80a09ba5153583c65",
+      "decision": "fixed-production-accepted",
+      "evidence": "Independent focusedPASS3769 exit0 standard3/no new-module lint;4private+1public;normalized relocation/private and unused _W removal exactly align with accepted Active checkpoint; fake-closure scan clear. Faithful recording authorized. Not VERIFIED."
+    }
+  },
+  "expanded_statement": {
+    "path": ".astis/observation-conditional-expanded.log",
+    "characters": 5144,
+    "sha256": "b97f548aa346d3c3e98ddaf00086c08c90b44462cc5f4931f165afebfc9c8bc8",
+    "session": 52810,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier independent17412 exit0 Meta.isDefEq and exact5144chars/SHA; no source/private names or ellipsis."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCObservationConditionalKernel"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-observation-conditional-kernel.json",
+    "state": "Seven authored steps,7deltas and4private accepted; publicationPASS72."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }

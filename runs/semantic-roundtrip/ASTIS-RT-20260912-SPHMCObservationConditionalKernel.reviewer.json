@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-68239f826ea761cd",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_z",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-observation-conditional-kernel",
+    "anchor": "Algorithm3.3,Section6.3 after(6.5)",
+    "original_text": "E is a finite-dimensional real inner-product Borel space of positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2 <= D2V(x)[w,w] <= beta*norm(w)^2 for all x,w. The nonnegative reals alpha,beta satisfy0<alpha<=beta.\nThe full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). M:S->E is an actual Markov kernel. eta,tau:S->R are measurable and strictly positive at every state; they may depend on all coordinates. Fix any nonnegative precision threshold. No source schedule,initial-reference admissibility,history origin,accuracy or moment assumption is imposed.\nPut v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), and obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z. The next center is center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs(s,(x,z))). The observation variance tau_s/(beta+b) is distinct from the RGO update variance v_s.\nDefine F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and T_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w), where p=(s,(x,z)). N_p is the least n with norm(grad F_p(T_p^n(x)))^2 <= (alpha+bp_s)*d, or zero if none exists. The actual update is U(p)=(bp_s,center(p),T_p^N_p(x),k+1,prepend(obs(p),history)). It uses the pre-noise sample x to initialize GD, and retains the full reference and history.\ngamma_E denotes standard Gaussian measure. Gaussian smoothing G(mu,sigma) is the pushforward of mu product the law of sigma*Z under addition. J.fst denotes the observation marginal of a joint kernel J:S->(E x S). J.condKernel is the parameterized Markov conditional state kernel (s,y)->S supplied by standard-Borel disintegration. R composed with P means first draw a state from P and then an output from R.\nThere exist a Markov joint kernel J:S->(E x S) and a Markov absorbed transition P:S->S. For every s, J_s is the pushforward of M_s product gamma_E by (x,z) -> (obs(s,(x,z)),U(s,(x,z))). Its first marginal is exactly G(M_s,sqrt(tau_s/(beta+b))). The kernel identity J.fst compProd J.condKernel=J holds. For each s, for J.fst_s-almost every y, for J.condKernel(s,y)-almost every t, t.precision=bp_s and t.center=bp_s^(-1)*(b*u+v_s^(-1)*y). For every actual Markov R:S->E, every s and every measurable A, the nonnegative integral of R(U(s,(x,z)),A) under M_s product gamma_E equals the iterated nonnegative integral of R(t,A) first under J.condKernel(s,y), then under J.fst_s. P_s is dirac_s when threshold<=b and the pushforward by U otherwise. If b<threshold, (R composed with P)(s,A) equals the same conditional iterated integral.",
+    "text_sha256": "67f54665cbeb7ca71e547db90c53141bb6c22fc7566de6eebd313dd6fe1dcc22"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ObservationConditionalKernel.lean",
+    "statement": "∀ {E : Type u_1} [inst : MeasurableSpace E] [inst_1 : NormedAddCommGroup E] [inst_2 : InnerProductSpace ℝ E]\n  [inst_3 : FiniteDimensional ℝ E] [inst_4 : BorelSpace E] {V : E → ℝ} {α β : NNReal},\n  0 < α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x w : E), ↑α * ‖w‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) w) w ∧ ((fderiv ℝ (fderiv ℝ V) x) w) w ≤ ↑β * ‖w‖ ^ 2) →\n          0 < ↑(Module.finrank ℝ E) →\n            ∀ (η τ : NNReal × E × E × ℕ × (ℕ → E) → ℝ),\n              Measurable η →\n                Measurable τ →\n                  (∀ (s : NNReal × E × E × ℕ × (ℕ → E)), 0 < η s) →\n                    (∀ (s : NNReal × E × E × ℕ × (ℕ → E)), 0 < τ s) →\n                      ∀ (M : ProbabilityTheory.Kernel (NNReal × E × E × ℕ × (ℕ → E)) E)\n                        [ProbabilityTheory.IsMarkovKernel M] (threshold : NNReal),\n                        have d := ↑(Module.finrank ℝ E);\n                        have v := fun s => (η s + τ s) / (↑β + ↑s.1);\n                        have bp := fun s => s.1 + (v s)⁻¹.toNNReal;\n                        have obs := fun p => p.2.1 + √(τ p.1 / (↑β + ↑p.1.1)) • p.2.2;\n                        have center := fun p => (↑(bp p.1))⁻¹ • (↑p.1.1 • p.1.2.1 + (v p.1)⁻¹ • obs p);\n                        have F := fun p x => V x + ↑(bp p.1) / 2 * ‖x - center p‖ ^ 2;\n                        have T := fun p x => x - (↑β + ↑(bp p.1))⁻¹ • gradient (F p) x;\n                        have q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖ ^ 2;\n                        have N := fun s => if h : ∃ n, q n s ≤ (fun p => (↑α + ↑(bp p.1)) * d) s then Nat.find h else 0;\n                        have out := fun p => (T p)^[N p] p.2.1;\n                        have update := fun p =>\n                          (bp p.1, center p, out p, p.1.2.2.2.1 + 1, fun n => Nat.casesOn n (obs p) p.1.2.2.2.2);\n                        ∃ J,\n                          ∃ (hJ : ProbabilityTheory.IsMarkovKernel J),\n                            (∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                J s =\n                                  MeasureTheory.Measure.map (fun z => (obs (s, z), update (s, z)))\n                                    ((M s).prod (ProbabilityTheory.stdGaussian E))) ∧\n                              (∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                  J.fst s =\n                                    MeasureTheory.Measure.map (fun p => p.1 + p.2)\n                                      ((M s).prod\n                                        (MeasureTheory.Measure.map (fun z => √(τ s / (↑β + ↑s.1)) • z)\n                                          (ProbabilityTheory.stdGaussian E)))) ∧\n                                J.fst.compProd J.condKernel = J ∧\n                                  (∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                      ∀ᵐ (y : E) ∂J.fst s,\n                                        ∀ᵐ (t : NNReal × E × E × ℕ × (ℕ → E)) ∂J.condKernel (s, y),\n                                          t.1 = bp s ∧ t.2.1 = (↑(bp s))⁻¹ • (↑s.1 • s.2.1 + (v s)⁻¹ • y)) ∧\n                                    (∀ (R : ProbabilityTheory.Kernel (NNReal × E × E × ℕ × (ℕ → E)) E)\n                                        [ProbabilityTheory.IsMarkovKernel R] (s : NNReal × E × E × ℕ × (ℕ → E))\n                                        (A : Set E),\n                                        MeasurableSet A →\n                                          ∫⁻ (z : E × E),\n                                              (R (update (s, z))) A ∂(M s).prod (ProbabilityTheory.stdGaussian E) =\n                                            ∫⁻ (y : E),\n                                              ∫⁻ (t : NNReal × E × E × ℕ × (ℕ → E)),\n                                                (R t) A ∂J.condKernel (s, y) ∂J.fst s) ∧\n                                      ∃ P,\n                                        ∃ (_ : ProbabilityTheory.IsMarkovKernel P),\n                                          (∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                              P s =\n                                                if threshold ≤ s.1 then MeasureTheory.Measure.dirac s\n                                                else\n                                                  MeasureTheory.Measure.map (fun z => update (s, z))\n                                                    ((M s).prod (ProbabilityTheory.stdGaussian E))) ∧\n                                            ∀ (R : ProbabilityTheory.Kernel (NNReal × E × E × ℕ × (ℕ → E)) E)\n                                              [ProbabilityTheory.IsMarkovKernel R] (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                              s.1 < threshold →\n                                                ∀ (A : Set E),\n                                                  MeasurableSet A →\n                                                    ((R.comp P) s) A =\n                                                      ∫⁻ (y : E),\n                                                        ∫⁻ (t : NNReal × E × E × ℕ × (ℕ → E)),\n                                                          (R t) A ∂J.condKernel (s, y) ∂J.fst s",
+    "statement_sha256": "b97f548aa346d3c3e98ddaf00086c08c90b44462cc5f4931f165afebfc9c8bc8",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Packet ID: `ASTIS-BLIND-b97f548aa346d3c3`\n\nPacket SHA-256 recorded in the packet: `549c3fb5aa2db39058c8373ba545c3bb32dcafe1198d9449d0f21c14d069ffb9`\n\nLean statement SHA-256 recorded in the packet: `b97f548aa346d3c3e98ddaf00086c08c90b44462cc5f4931f165afebfc9c8bc8`\n\nThese are the packet-supplied hashes; I have not independently recomputed them. I read only the designated anonymous packet. No source text was visible. The reconstruction below identifies no source theorem or intended application.\n\n**Objects, assumptions, and definitions**\n\nLet \\(E\\) be any finite-dimensional real inner-product space, equipped with its Borel measurable structure, and let\n\\[\nd=\\dim_{\\mathbb R}E\\in\\mathbb R.\n\\]\nLet \\(V:E\\to\\mathbb R\\) and \\(\\alpha,\\beta\\in\\mathbb R_{\\ge0}\\). Assume:\n\n1. \\(0<\\alpha\\) and \\(\\alpha\\le\\beta\\).\n2. \\(V\\) is twice continuously Fréchet differentiable.\n3. For every \\(x,w\\in E\\),\n   \\[\n   \\alpha\\|w\\|^2\n   \\le (D(DV)(x)[w])[w]\n   \\le \\beta\\|w\\|^2.\n   \\]\n4. \\(0<d\\).\n\nNonnegative real parameters are coerced to real numbers wherever real arithmetic is displayed below.\n\nDefine the state space\n\\[\nS=\\mathbb R_{\\ge0}\\times E\\times E\\times\\mathbb N\\times E^{\\mathbb N}.\n\\]\nIts products are right-associated. Write a state as\n\\(s=(a,m,b,k,h)\\), with \\(h:\\mathbb N\\to E\\) a full infinite sequence. Equip this space with the product measurable structure.\n\nFor every pair of measurable functions \\(\\eta,\\tau:S\\to\\mathbb R\\) satisfying\n\\[\n\\forall s\\in S,\\quad \\eta(s)>0,\\qquad \\tau(s)>0,\n\\]\nevery Markov kernel \\(M:S\\rightsquigarrow E\\), and every threshold\n\\(\\theta\\in\\mathbb R_{\\ge0}\\), make the following definitions.\n\nFor \\(s=(a,m,b,k,h)\\), put\n\\[\nv(s)=\\frac{\\eta(s)+\\tau(s)}{\\beta+a},\n\\qquad\na^+(s)=a+\\operatorname{toNNReal}(v(s)^{-1}).\n\\]\nHere \\(\\operatorname{toNNReal}\\) truncates a real number below at zero. In these hypotheses \\(v(s)>0\\), so this truncation does not change the positive inverse.\n\nFor \\(p=(s,(x,g))\\in S\\times(E\\times E)\\), define\n\\[\n\\begin{aligned}\no(p)&=x+\\sqrt{\\frac{\\tau(s)}{\\beta+a}}\\,g,\\\\\nc(p)&=(a^+(s))^{-1}\\bigl(a\\,m+v(s)^{-1}o(p)\\bigr),\\\\\nF_p(u)&=V(u)+\\frac{a^+(s)}2\\|u-c(p)\\|^2,\\\\\nT_p(u)&=u-(\\beta+a^+(s))^{-1}\\nabla F_p(u),\\\\\nq(n,p)&=\\left\\|\\nabla F_p\\bigl(T_p^{[n]}(x)\\bigr)\\right\\|^2.\n\\end{aligned}\n\\]\nAll scalar-vector products use the real vector-space structure. \\(T_p^{[n]}\\) denotes \\(n\\)-fold iteration, including the identity for \\(n=0\\). The starting point is the newly drawn \\(x\\), not either stored state coordinate \\(m\\) or \\(b\\).\n\nDefine\n\\[\nN(p)=\n\\begin{cases}\n\\min\\{n\\in\\mathbb N:q(n,p)\\le(\\alpha+a^+(s))d\\},\n &\\text{if this set is nonempty},\\\\\n0,&\\text{otherwise},\n\\end{cases}\n\\qquad\nu(p)=T_p^{[N(p)]}(x).\n\\]\nDefine an updated sequence by\n\\[\nh_p^+(0)=o(p),\\qquad h_p^+(n+1)=h(n)\n\\quad(n\\in\\mathbb N),\n\\]\nand the state update\n\\[\nU(p)=\\bigl(a^+(s),c(p),u(p),k+1,h_p^+\\bigr).\n\\]\nThus the observation is prepended to the stored infinite sequence.\n\nLet \\(\\gamma_E\\) be standard Gaussian measure on \\(E\\). All measures below use the indicated product/Borel structures. All integrals are nonnegative Lebesgue integrals with values in \\([0,\\infty]\\).\n\n**Reconstructed conclusion**\n\nThere exists a Markov kernel\n\\[\nJ:S\\rightsquigarrow E\\times S\n\\]\nwith the following five properties.\n\n1. **Joint observation and updated-state distribution.** For every \\(s\\in S\\),\n   \\[\n   J(s)=\n   \\bigl[(x,g)\\mapsto(o(s,(x,g)),U(s,(x,g)))\\bigr]_{\\#}\n   \\bigl(M(s)\\otimes\\gamma_E\\bigr).\n   \\]\n   The product measure means \\(x\\) and \\(g\\) are drawn independently, with respective laws \\(M(s)\\) and \\(\\gamma_E\\).\n\n2. **First-coordinate marginal.** Writing \\(J_1=J.\\mathrm{fst}\\), for every \\(s=(a,m,b,k,h)\\in S\\),\n   \\[\n   J_1(s)\n   =\n   [(x,e)\\mapsto x+e]_{\\#}\n   \\left(\n      M(s)\\otimes\n      \\left[g\\mapsto\\sqrt{\\frac{\\tau(s)}{\\beta+a}}\\,g\\right]_{\\#}\\gamma_E\n   \\right).\n   \\]\n\n3. **Exact kernel disintegration identity.** With\n   \\[\n   C=J.\\mathrm{condKernel}:\n   S\\times E\\rightsquigarrow S,\n   \\]\n   the equality\n   \\[\n   J_1.\\mathrm{compProd}\\,C=J\n   \\]\n   holds as an equality of kernels. The operation first draws \\(y\\) from \\(J_1(s)\\), then draws the updated state from \\(C(s,y)\\).\n\n4. **Conditional first two state coordinates.** For every \\(s=(a,m,b,k,h)\\in S\\), for \\(J_1(s)\\)-almost every \\(y\\in E\\), and then for \\(C(s,y)\\)-almost every \\(t\\in S\\),\n   \\[\n   t_1=a^+(s)\n   \\quad\\text{and}\\quad\n   t_2=(a^+(s))^{-1}\\bigl(a\\,m+v(s)^{-1}y\\bigr),\n   \\]\n   where \\(t_1\\) is the nonnegative-real state coordinate and \\(t_2\\) is its first \\(E\\)-coordinate.\n\n5. **Integration identity for every subsequent Markov kernel.** For every Markov kernel \\(R:S\\rightsquigarrow E\\), every \\(s\\in S\\), and every measurable set \\(A\\subseteq E\\),\n   \\[\n   \\int_{E\\times E}\n      R\\bigl(U(s,(x,g))\\bigr)(A)\\,\n      d\\bigl(M(s)\\otimes\\gamma_E\\bigr)(x,g)\n   =\n   \\int_E\n      \\left[\\int_S R(t)(A)\\,dC(s,y)(t)\\right]\n      dJ_1(s)(y).\n   \\]\n\nFurthermore, there exists a Markov kernel \\(P:S\\rightsquigarrow S\\) such that, for every \\(s=(a,m,b,k,h)\\in S\\),\n\\[\nP(s)=\n\\begin{cases}\n\\delta_s,&\\theta\\le a,\\\\\n[(x,g)\\mapsto U(s,(x,g))]_{\\#}\n  \\bigl(M(s)\\otimes\\gamma_E\\bigr),&\\text{otherwise}.\n\\end{cases}\n\\]\nFor every Markov kernel \\(R:S\\rightsquigarrow E\\), every \\(s=(a,m,b,k,h)\\in S\\) satisfying \\(a<\\theta\\), and every measurable set \\(A\\subseteq E\\),\n\\[\n(R.\\mathrm{comp}\\,P)(s)(A)\n=\n\\int_E\n  \\left[\\int_S R(t)(A)\\,dC(s,y)(t)\\right]\n  dJ_1(s)(y).\n\\]\nHere \\(R.\\mathrm{comp}\\,P\\) first draws a state according to \\(P(s)\\), then an output according to \\(R\\).\n\n**Quantifier scopes and boundaries**\n\nAll assumptions on \\(V,\\alpha,\\beta,E,\\eta,\\tau\\) precede the universal choice of \\(M\\) and \\(\\theta\\). The existential \\(J\\) is chosen after those data and before every subsequent universal choice of \\(s,R,A\\). The same \\(J\\), its marginal \\(J_1\\), and its conditional kernel \\(C\\) appear throughout. The existential \\(P\\) is also chosen before the final universal choices of \\(R,s,A\\); neither \\(J\\) nor \\(P\\) may be chosen separately for each \\(R\\) or \\(A\\).\n\nThe displayed marginal and joint distribution equalities hold for every input state, and the disintegration identity is exact as a kernel equality. The coordinate assertion is specifically\n\\[\n\\forall s,\\quad\n\\text{for }J_1(s)\\text{-a.e. }y,\\quad\n\\text{for }C(s,y)\\text{-a.e. }t.\n\\]\nIt is not a pointwise assertion for every \\(y,t\\). Exceptional observation sets may depend on \\(s\\), and exceptional state sets may depend on \\(s,y\\). No value of the conditional kernel at an exceptional observation is prescribed by that coordinate assertion. The explicit conditional-coordinate conclusion constrains only the first two coordinates; it does not separately state a conditional formula for the remaining coordinates.\n\nThe definition of \\(N\\) includes a fallback to zero when the stopping predicate has no witness. The conclusion does not separately assert existence of such a witness, a bound on \\(N\\), or the gradient inequality at \\(u(p)\\). These must not be added to the reconstructed conclusion merely from the definition.\n\nThe final composition identity is conditional on \\(a<\\theta\\). For \\(a\\ge\\theta\\), including equality, \\(P(s)=\\delta_s\\); the displayed final identity is not asserted there. If \\(\\theta=0\\), no state has \\(a<\\theta\\), so that conditional clause is vacuous, and \\(P\\) is the identity/Dirac transition at every state.\n\nNo distributional constraint on \\(M(s)\\) beyond being a Markov probability kernel is assumed. No approximation error, invariant law, convergence rate, or source-paper theorem is claimed.",
+    "text_sha256": "f2b279ac948025e3344630d238bf718364ee801193eff41ae6f2eb44f060647a",
+    "decoder": "blind_reconstruction_z",
+    "decoder_packet_sha256": "549c3fb5aa2db39058c8373ba545c3bb32dcafe1198d9449d0f21c14d069ffb9",
+    "decoder_run_sha256": "0b6e21720fc974a663f61f6e0f804cb1c7773782c7a795b7c6571099c349e8dc",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "7e17d8dd0bbc428b7aa640717f1e298e49703ba27c7407b3e934004edddf6499",
+  "candidate_publication_context": {
+    "file": "450a8ede057f65d6caddc4f6db4ba7424e115f0b3cc247c6a71b58d6f78b1235",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel\nimport AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing\nimport Mathlib.Probability.Kernel.Disintegration.StandardBorel\nimport Mathlib.Tactic\n\nopen MeasureTheory ProbabilityTheory\nopen scoped NNReal ENNReal\n/-!\n# Condition the actual retained-state update on its noisy observation\n\nSource: SPHMC arXiv:2609.06906v1 Algorithm 3.3 and Section 6.3 after (6.5).\nThe true reference is the first inner gradient-descent hit initialized at the\npre-noise output x. Conditioning on y=x+sqrt(tau/(beta+b))*z must retain its\nconditional randomness. The joint kernel records y and the complete updated\nstate from the same M times Gaussian draw, rather than reconstructing a\nreference as a deterministic function of y.\n\nThe observation marginal is exactly Gaussian smoothing of the supplied actual\nM. Parameterized disintegration supplies a jointly measurable Markov conditional\nkernel. Precision and center have the source deterministic values for almost\nevery observation and then almost every conditional updated state. The full\nreference/count/history remain specified by the joint pushforward law.\n\nNonnegative integration gives the remaining-output factorization for any\nactual Markov output kernel R and measurable event. The actual absorbed state\nkernel P is constructed from ReferenceCarryingKernel; its composed output has\nthis factorization only on b<threshold. J itself describes a hypothetical\nunabsorbed update on every state. It is not the stopped transition on terminal\nstates. Threshold zero makes the active-state interface vacuous.\n\nPositive dimension, positive alpha<=beta and genuine C2 Hessian bounds support\nthe actual GD reference construction. These strengthen source regularity;\ndisintegration itself does not require curvature. Eta and tau are arbitrary\npositive measurable functions of the full state, with no schedule or depth\nclaim. Initial reference/count/history need not be source-admissible. M and R\nhave no approximation or moment guarantee. This theorem proves no ideal\nposterior identification, KL recurrence, full output accuracy or query cost.\nConditional AE versions must be respected by subsequent error integration.\n-/\n\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel\nvariable {E S : Type*} [MeasurableSpace E] [NormedAddCommGroup E]\n  [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [BorelSpace E]\n  [MeasurableSpace S] [StandardBorelSpace S] [Nonempty S]\n\nprivate theorem joint (M : Kernel S E) [IsMarkovKernel M]\n    (sigma : S → ℝ) (hsigma : Measurable sigma)\n    (update : S × (E × E) → S) (hu : Measurable update) :\n    ∃ J : Kernel S (E × S), ∃ hJ : IsMarkovKernel J,\n      letI := hJ\n      (∀ s, J s = ((M s).prod (stdGaussian E)).map\n        (fun z => (z.1+sigma s • z.2,update (s,z)))) ∧\n      (∀ s, J.fst s =\n        AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n          (M s) (sigma s)) ∧\n      J.fst ⊗ₖ J.condKernel = J := by\n  let Q : Kernel S (E × E) := M ×ₖ Kernel.const _ (stdGaussian E)\n  let f : S × (E × E) → E × S :=\n    fun p => (p.2.1+sigma p.1 • p.2.2,update p)\n  have hf : Measurable f := ((by fun_prop : Measurable\n    (fun p : S × (E × E) => p.2.1+sigma p.1 • p.2.2))).prodMk hu\n  let J := (Kernel.id ×ₖ Q).map f\n  have : IsMarkovKernel J := Kernel.IsMarkovKernel.map _ hf\n  have hJs (s : S) : J s = ((M s).prod (stdGaussian E)).map\n      (fun z => (z.1+sigma s • z.2,update (s,z))) := by\n    dsimp only [J]\n    rw [Kernel.map_apply _ hf,Kernel.prod_apply,Kernel.id_apply,Measure.dirac_prod,\n      Measure.map_map hf (by fun_prop)]\n    simp only [Q,Kernel.prod_apply,Kernel.const_apply]\n    rfl\n  refine ⟨J,inferInstance,hJs,?_,Kernel.disintegrate J J.condKernel⟩\n  intro s\n  have hfs : Measurable (fun z : E × E => (z.1+sigma s • z.2,update (s,z))) :=\n    hf.comp (measurable_const.prodMk measurable_id)\n  rw [Kernel.fst_apply,hJs,Measure.map_map measurable_fst hfs]\n  unfold AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n    AutoSamplingTheory.TechnicalLemmas.Measure.CommonNoiseContraction.addNoise\n    AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.scaledStdGaussian\n  have hp := Measure.map_prod_map (M s) (stdGaussian E) measurable_id\n    (by fun_prop : Measurable (fun z : E => sigma s • z))\n  rw [Measure.map_id] at hp\n  rw [hp,Measure.map_map (by fun_prop) (by fun_prop)]\n  rfl\n\n\nprivate def firstIndex (q : ℕ → S → ℝ) (b : S → ℝ) (s : S) : ℕ := by\n  classical\n  exact if h : ∃ n, q n s ≤ b s then Nat.find h else 0\n\n\nlocal notation \"RefState\" E:arg => ℝ≥0 × E × E × ℕ × (ℕ → E)\n\nprivate theorem actual_joint {V : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x w : E, (α:ℝ)*‖w‖^2 ≤ fderiv ℝ (fderiv ℝ V) x w w ∧\n      fderiv ℝ (fderiv ℝ V) x w w ≤ (β:ℝ)*‖w‖^2)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (η τ : RefState E → ℝ) (hη : Measurable η) (hτ : Measurable τ)\n    (hη0 : ∀ s, 0 < η s) (hτ0 : ∀ s, 0 < τ s)\n    (M : Kernel (RefState E) E) [IsMarkovKernel M] (threshold : ℝ≥0) :\n    let d : ℝ := Module.finrank ℝ E\n    let v := fun s : RefState E => (η s+τ s)/((β:ℝ)+s.1)\n    let bp := fun s : RefState E => s.1+Real.toNNReal (v s)⁻¹\n    let obs := fun p : RefState E × (E × E) => p.2.1+Real.sqrt (τ p.1/((β:ℝ)+p.1.1)) • p.2.2\n    let center := fun p : RefState E × (E × E) => (bp p.1:ℝ)⁻¹ •\n      ((p.1.1:ℝ) • p.1.2.1+(v p.1)⁻¹ • obs p)\n    let F := fun p x => V x+(bp p.1:ℝ)/2*‖x-center p‖^2\n    let T := fun p x => x-((β:ℝ)+bp p.1)⁻¹ • gradient (F p) x\n    let q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖^2\n    let N := firstIndex q (fun p => ((α:ℝ)+bp p.1)*d)\n    let out := fun p => (T p)^[N p] p.2.1\n    let update := fun p : RefState E × (E × E) =>\n      (bp p.1,center p,out p,p.1.2.2.2.1+1,fun n => Nat.casesOn n (obs p) p.1.2.2.2.2)\n    ∃ J : Kernel (RefState E) (E × RefState E), ∃ hJ : IsMarkovKernel J,\n      letI := hJ\n      (∀ s, J s = ((M s).prod (stdGaussian E)).map\n        (fun z => (obs (s,z),update (s,z)))) ∧\n      (∀ s, J.fst s =\n        AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n          (M s) (Real.sqrt (τ s/((β:ℝ)+s.1)))) ∧\n      J.fst ⊗ₖ J.condKernel = J := by\n  classical\n  intro d v bp obs center F T q N out update\n  have href := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel\n    hα hαβ hV hH hd η τ hη hτ hη0 hτ0 M threshold\n  have hu : Measurable update := href.2.2.2.1\n  exact joint M (fun s => Real.sqrt (τ s/((β:ℝ)+s.1))) (by fun_prop) update hu\n\n\nprivate theorem actual_conditional {V : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x w : E, (α:ℝ)*‖w‖^2 ≤ fderiv ℝ (fderiv ℝ V) x w w ∧\n      fderiv ℝ (fderiv ℝ V) x w w ≤ (β:ℝ)*‖w‖^2)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (η τ : RefState E → ℝ) (hη : Measurable η) (hτ : Measurable τ)\n    (hη0 : ∀ s, 0 < η s) (hτ0 : ∀ s, 0 < τ s)\n    (M : Kernel (RefState E) E) [IsMarkovKernel M] (threshold : ℝ≥0) :\n    let d : ℝ := Module.finrank ℝ E\n    let v := fun s : RefState E => (η s+τ s)/((β:ℝ)+s.1)\n    let bp := fun s : RefState E => s.1+Real.toNNReal (v s)⁻¹\n    let obs := fun p : RefState E × (E × E) => p.2.1+Real.sqrt (τ p.1/((β:ℝ)+p.1.1)) • p.2.2\n    let center := fun p : RefState E × (E × E) => (bp p.1:ℝ)⁻¹ •\n      ((p.1.1:ℝ) • p.1.2.1+(v p.1)⁻¹ • obs p)\n    let F := fun p x => V x+(bp p.1:ℝ)/2*‖x-center p‖^2\n    let T := fun p x => x-((β:ℝ)+bp p.1)⁻¹ • gradient (F p) x\n    let q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖^2\n    let N := firstIndex q (fun p => ((α:ℝ)+bp p.1)*d)\n    let out := fun p => (T p)^[N p] p.2.1\n    let update := fun p : RefState E × (E × E) =>\n      (bp p.1,center p,out p,p.1.2.2.2.1+1,fun n => Nat.casesOn n (obs p) p.1.2.2.2.2)\n    ∃ J : Kernel (RefState E) (E × RefState E), ∃ hJ : IsMarkovKernel J,\n      letI := hJ\n      (∀ s, J s = ((M s).prod (stdGaussian E)).map\n        (fun z => (obs (s,z),update (s,z)))) ∧\n      (∀ s, J.fst s =\n        AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n          (M s) (Real.sqrt (τ s/((β:ℝ)+s.1)))) ∧\n      J.fst ⊗ₖ J.condKernel = J ∧\n      (∀ s, ∀ᵐ y ∂J.fst s, ∀ᵐ t ∂J.condKernel (s,y),\n        t.1=bp s ∧ t.2.1=(bp s:ℝ)⁻¹ • ((s.1:ℝ) • s.2.1+(v s)⁻¹ • y)) ∧\n      (∀ (R : Kernel (RefState E) E) [IsMarkovKernel R] (s : RefState E)\n        (A : Set E), MeasurableSet A →\n        (∫⁻ z, R (update (s,z)) A ∂(M s).prod (stdGaussian E)) =\n        ∫⁻ y, ∫⁻ t, R t A ∂J.condKernel (s,y) ∂J.fst s) := by\n  classical\n  intro d v bp obs center F T q N out update\n  obtain ⟨J,hJ,hJs,hJfst,hdis⟩ := actual_joint hα hαβ hV hH hd η τ hη hτ hη0 hτ0 M threshold\n  let := hJ\n  have href := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel\n    hα hαβ hV hH hd η τ hη hτ hη0 hτ0 M threshold\n  have hu : Measurable update := href.2.2.2.1\n  have hobs : Measurable obs := by dsimp [obs]; fun_prop\n  have hf (s : RefState E) : Measurable (fun z => (obs (s,z),update (s,z))) :=\n    (hobs.prodMk hu).comp (measurable_const.prodMk measurable_id)\n  refine ⟨J,hJ,hJs,hJfst,hdis,?_,?_⟩\n  · intro s\n    apply Kernel.ae_ae_of_ae_compProd (κ := J.fst) (η := J.condKernel)\n      (p := fun p : E × RefState E =>\n        p.2.1=bp s ∧ p.2.2.1=(bp s:ℝ)⁻¹ • ((s.1:ℝ) • s.2.1+(v s)⁻¹ • p.1))\n    rw [hdis,hJs]\n    have hm : MeasurableSet {p : E × RefState E |\n        p.2.1=bp s ∧ p.2.2.1=(bp s:ℝ)⁻¹ • ((s.1:ℝ) • s.2.1+(v s)⁻¹ • p.1)} := by\n      apply MeasurableSet.inter <;> apply measurableSet_eq_fun <;> fun_prop\n    rw [ae_map_iff (hf s).aemeasurable hm]\n    exact Filter.Eventually.of_forall (fun z => ⟨rfl,rfl⟩)\n  · intro R hR s A hA\n    have hr : Measurable (fun p : E × RefState E => R p.2 A) :=\n      (R.measurable_coe hA).comp measurable_snd\n    have hi := Kernel.lintegral_compProd J.fst J.condKernel s hr\n    rw [hdis,hJs,lintegral_map hr (hf s)] at hi\n    exact hi\n\n\ntheorem observation_conditional_kernel {V : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x w : E, (α:ℝ)*‖w‖^2 ≤ fderiv ℝ (fderiv ℝ V) x w w ∧\n      fderiv ℝ (fderiv ℝ V) x w w ≤ (β:ℝ)*‖w‖^2)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (η τ : RefState E → ℝ) (hη : Measurable η) (hτ : Measurable τ)\n    (hη0 : ∀ s, 0 < η s) (hτ0 : ∀ s, 0 < τ s)\n    (M : Kernel (RefState E) E) [IsMarkovKernel M] (threshold : ℝ≥0) :\n    let d : ℝ := Module.finrank ℝ E\n    let v := fun s : RefState E => (η s+τ s)/((β:ℝ)+s.1)\n    let bp := fun s : RefState E => s.1+Real.toNNReal (v s)⁻¹\n    let obs := fun p : RefState E × (E × E) => p.2.1+Real.sqrt (τ p.1/((β:ℝ)+p.1.1)) • p.2.2\n    let center := fun p : RefState E × (E × E) => (bp p.1:ℝ)⁻¹ •\n      ((p.1.1:ℝ) • p.1.2.1+(v p.1)⁻¹ • obs p)\n    let F := fun p x => V x+(bp p.1:ℝ)/2*‖x-center p‖^2\n    let T := fun p x => x-((β:ℝ)+bp p.1)⁻¹ • gradient (F p) x\n    let q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖^2\n    let N := firstIndex q (fun p => ((α:ℝ)+bp p.1)*d)\n    let out := fun p => (T p)^[N p] p.2.1\n    let update := fun p : RefState E × (E × E) =>\n      (bp p.1,center p,out p,p.1.2.2.2.1+1,fun n => Nat.casesOn n (obs p) p.1.2.2.2.2)\n    ∃ J : Kernel (RefState E) (E × RefState E), ∃ hJ : IsMarkovKernel J,\n      letI := hJ\n      (∀ s, J s = ((M s).prod (stdGaussian E)).map\n        (fun z => (obs (s,z),update (s,z)))) ∧\n      (∀ s, J.fst s =\n        AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing\n          (M s) (Real.sqrt (τ s/((β:ℝ)+s.1)))) ∧\n      J.fst ⊗ₖ J.condKernel = J ∧\n      (∀ s, ∀ᵐ y ∂J.fst s, ∀ᵐ t ∂J.condKernel (s,y),\n        t.1=bp s ∧ t.2.1=(bp s:ℝ)⁻¹ • ((s.1:ℝ) • s.2.1+(v s)⁻¹ • y)) ∧\n      (∀ (R : Kernel (RefState E) E) [IsMarkovKernel R] (s : RefState E)\n        (A : Set E), MeasurableSet A →\n        (∫⁻ z, R (update (s,z)) A ∂(M s).prod (stdGaussian E)) =\n        ∫⁻ y, ∫⁻ t, R t A ∂J.condKernel (s,y) ∂J.fst s) ∧\n      ∃ P : Kernel (RefState E) (RefState E), ∃ hP : IsMarkovKernel P,\n        letI := hP\n        (∀ s, P s=if threshold ≤ s.1 then Measure.dirac s else\n          ((M s).prod (stdGaussian E)).map (fun z => update (s,z))) ∧\n        ∀ (R : Kernel (RefState E) E) [IsMarkovKernel R] (s : RefState E),\n          s.1 < threshold → ∀ A : Set E, MeasurableSet A →\n          (R ∘ₖ P) s A = ∫⁻ y, ∫⁻ t, R t A ∂J.condKernel (s,y) ∂J.fst s := by\n  classical\n  intro d v bp obs center F T q N out update\n  obtain ⟨J,hJ,hJs,hJfst,hdis,hsupp,hfactor⟩ :=\n    actual_conditional hα hαβ hV hH hd η τ hη hτ hη0 hτ0 M threshold\n  let := hJ\n  have href := AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel\n    hα hαβ hV hH hd η τ hη hτ hη0 hτ0 M threshold\n  have hu : Measurable update := href.2.2.2.1\n  obtain ⟨P,hP,hPs,hproj⟩ := href.2.2.2.2.2\n  let := hP\n  refine ⟨J,hJ,hJs,hJfst,hdis,hsupp,hfactor,P,hP,hPs,?_⟩\n  intro R hR s hs A hA\n  rw [Kernel.comp_apply' R P s hA,hPs s,if_neg (not_le.mpr hs)]\n  change (∫⁻ t, R t A ∂(((M s).prod (stdGaussian E)).map\n    (fun z => update (s,z)))) = _\n  have hum : Measurable (fun z : E × E => update (s,z)) :=\n    hu.comp (measurable_const.prodMk measurable_id)\n  rw [lintegral_map (R.measurable_coe hA) hum]\n  exact hfactor R s A hA\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Algorithm3.3,Section6.3 after(6.5)",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS expanded conditional execution component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Not the complete error theorem."
+    },
+    "statement": "There exist a Markov joint kernel J:S->(E x S) and a Markov absorbed transition P:S->S. For every s, J_s is the pushforward of M_s product gamma_E by (x,z) -> (obs(s,(x,z)),U(s,(x,z))). Its first marginal is exactly G(M_s,sqrt(tau_s/(beta+b))). The kernel identity J.fst compProd J.condKernel=J holds. For each s, for J.fst_s-almost every y, for J.condKernel(s,y)-almost every t, t.precision=bp_s and t.center=bp_s^(-1)*(b*u+v_s^(-1)*y). For every actual Markov R:S->E, every s and every measurable A, the nonnegative integral of R(U(s,(x,z)),A) under M_s product gamma_E equals the iterated nonnegative integral of R(t,A) first under J.condKernel(s,y), then under J.fst_s. P_s is dirac_s when threshold<=b and the pushforward by U otherwise. If b<threshold, (R composed with P)(s,A) equals the same conditional iterated integral.",
+    "formulae": [
+      {
+        "label": "Actual conditional execution",
+        "tex": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E)=Q_s\\otimes C_s,\\qquad (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,C(s,y,dt)\\,Q_s(dy)\\quad(b_s< b_*)."
+      }
+    ],
+    "assumptions": [
+      "E is a finite-dimensional real inner-product Borel space of positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2 <= D2V(x)[w,w] <= beta*norm(w)^2 for all x,w. The nonnegative reals alpha,beta satisfy0<alpha<=beta.",
+      "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). M:S->E is an actual Markov kernel. eta,tau:S->R are measurable and strictly positive at every state; they may depend on all coordinates. Fix any nonnegative precision threshold. No source schedule,initial-reference admissibility,history origin,accuracy or moment assumption is imposed.",
+      "Put v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), and obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z. The next center is center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs(s,(x,z))). The observation variance tau_s/(beta+b) is distinct from the RGO update variance v_s.",
+      "Define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and T_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w), where p=(s,(x,z)). N_p is the least n with norm(grad F_p(T_p^n(x)))^2 <= (alpha+bp_s)*d, or zero if none exists. The actual update is U(p)=(bp_s,center(p),T_p^N_p(x),k+1,prepend(obs(p),history)). It uses the pre-noise sample x to initialize GD, and retains the full reference and history.",
+      "gamma_E denotes standard Gaussian measure. Gaussian smoothing G(mu,sigma) is the pushforward of mu product the law of sigma*Z under addition. J.fst denotes the observation marginal of a joint kernel J:S->(E x S). J.condKernel is the parameterized Markov conditional state kernel (s,y)->S supplied by standard-Borel disintegration. R composed with P means first draw a state from P and then an output from R."
+    ],
+    "obligations": [
+      {
+        "id": "observation-conditional-kernel",
+        "label": "Actual observation-conditioned retained-state execution"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+      "title": "Actual observation-conditioned retained-state execution",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Algorithm3.3 and Section6.3 after(6.5)",
+          "scope": "Actual observation-conditioned retained-state execution component, not KL propagation or either complete paper. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Eta,tau and M may depend on all state coordinates. M and R are arbitrary actual Markov kernels with no approximation/moment guarantees, and initial reference/count/history are arbitrary. J describes hypothetical unabsorbed update on all states; its output factorization identifies actual absorbed P only on b<threshold. Threshold0 makes this active interface empty. Precision/center support is doubly almost everywhere, not for all conditional fibers. The reference is not reconstructed from y; its law is retained in the joint pushforward. No ideal posterior,source schedule,depth,initial admissibility,final accuracy,KL recurrence,cost or TV-to-unbounded-cost conclusion."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCObservationConditionalKernel"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space of positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2 <= D2V(x)[w,w] <= beta*norm(w)^2 for all x,w. The nonnegative reals alpha,beta satisfy0<alpha<=beta.",
+        "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). M:S->E is an actual Markov kernel. eta,tau:S->R are measurable and strictly positive at every state; they may depend on all coordinates. Fix any nonnegative precision threshold. No source schedule,initial-reference admissibility,history origin,accuracy or moment assumption is imposed.",
+        "Put v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), and obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z. The next center is center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs(s,(x,z))). The observation variance tau_s/(beta+b) is distinct from the RGO update variance v_s.",
+        "Define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and T_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w), where p=(s,(x,z)). N_p is the least n with norm(grad F_p(T_p^n(x)))^2 <= (alpha+bp_s)*d, or zero if none exists. The actual update is U(p)=(bp_s,center(p),T_p^N_p(x),k+1,prepend(obs(p),history)). It uses the pre-noise sample x to initialize GD, and retains the full reference and history.",
+        "gamma_E denotes standard Gaussian measure. Gaussian smoothing G(mu,sigma) is the pushforward of mu product the law of sigma*Z under addition. J.fst denotes the observation marginal of a joint kernel J:S->(E x S). J.condKernel is the parameterized Markov conditional state kernel (s,y)->S supplied by standard-Borel disintegration. R composed with P means first draw a state from P and then an output from R."
+      ],
+      "statement": "There exist a Markov joint kernel J:S->(E x S) and a Markov absorbed transition P:S->S. For every s, J_s is the pushforward of M_s product gamma_E by (x,z) -> (obs(s,(x,z)),U(s,(x,z))). Its first marginal is exactly G(M_s,sqrt(tau_s/(beta+b))). The kernel identity J.fst compProd J.condKernel=J holds. For each s, for J.fst_s-almost every y, for J.condKernel(s,y)-almost every t, t.precision=bp_s and t.center=bp_s^(-1)*(b*u+v_s^(-1)*y). For every actual Markov R:S->E, every s and every measurable A, the nonnegative integral of R(U(s,(x,z)),A) under M_s product gamma_E equals the iterated nonnegative integral of R(t,A) first under J.condKernel(s,y), then under J.fst_s. P_s is dirac_s when threshold<=b and the pushforward by U otherwise. If b<threshold, (R composed with P)(s,A) equals the same conditional iterated integral.",
+      "formula": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E)=Q_s\\otimes C_s,\\qquad (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,C(s,y,dt)\\,Q_s(dy)\\quad(b_s< b_*).",
+      "steps": [
+        {
+          "title": "Keep the exact pre-noise reference update",
+          "text": "Apply ReferenceCarryingKernel under the genuine Hessian assumptions. Its measurable update contains the true first inner GD hit from x, the precision-weighted center, and the complete reference/count/history. The private firstIndex definition is definitionally the same fallback/least-hit function as the parent. No reference is supplied as a free observation-only function.",
+          "formula": "U(s,x,z)=(b^+,u^+,T_{s,x,z}^{N_{s,x,z}}x,k+1,\\mathrm{prepend}(y,h)).",
+          "lean": "firstIndex; actual_joint: href,hu"
+        },
+        {
+          "title": "Build one joint observation and updated-state law",
+          "text": "Set Q=M times the constant standard Gaussian kernel. Pair the input state with this draw using the identity kernel, then push forward by the measurable pair (obs,update). Both coordinates therefore refer to the same x,z. The product and measurable-map kernel instances prove the resulting J is Markov.",
+          "formula": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E).",
+          "lean": "joint: Q,f,hf,J,hJs"
+        },
+        {
+          "title": "Identify the actual observation marginal",
+          "text": "Project the joint pushforward onto its first coordinate. Composition of measurable maps removes update while preserving the actual observation x+sigma_s*z. The product pushforward identity moves Gaussian scaling into its noise marginal, giving the existing GaussianSmoothing definition exactly. No Wasserstein or KL assumption is used.",
+          "formula": "Q_s=(J_s)_{\\rm fst}=G(M_s,\\sqrt{\\tau_s/(\\beta+b_s)}).",
+          "lean": "joint: hfs,hp,Kernel.fst_apply,Measure.map_map,Measure.map_prod_map"
+        },
+        {
+          "title": "Disintegrate jointly in state and observation",
+          "text": "The full state has a standard Borel structure and is nonempty, and the finite-dimensional observation space is countably generated. The finite Markov J therefore has a parameterized Markov conditional kernel on (s,y). Mathlib disintegrate gives a kernel identity, not separate nonmeasurable choices of a conditional measure for each s.",
+          "formula": "Q\\otimes_{\\rm k}J.\\mathrm{condKernel}=J.",
+          "lean": "joint: Kernel.disintegrate J J.condKernel"
+        },
+        {
+          "title": "Recover deterministic precision and center only almost everywhere",
+          "text": "Under the actual joint pushforward the next precision and center equal their source formulas for every original x,z. Their equality event is measurable. Transfer its full measure through the map, rewrite J by its disintegration, and apply the kernel AE Fubini direction. This gives the nested AE statement; conditional versions on null observation fibers are not constrained.",
+          "formula": "Q_s\\text{-a.e. }y,\\ C(s,y)\\text{-a.e. }t:\\quad b_t=b_s^+,\\quad u_t=(b_s^+)^{-1}(b_su_s+v_s^{-1}y).",
+          "lean": "actual_conditional: hf,hm,Kernel.ae_ae_of_ae_compProd,ae_map_iff"
+        },
+        {
+          "title": "Factor any actual remaining output",
+          "text": "For measurable A the function (y,t)->R(t,A) is measurable and nonnegative. Integrate it against the disintegration and then rewrite the same J as the actual joint pushforward. The nonnegative compProd/map formulas yield the equality without a finite moment or integrability premise. R may depend on the retained reference and history.",
+          "formula": "\\int R(U_s(x,z),A)\\,d(M_s\\otimes\\gamma_E)=\\int\\!\\int R(t,A)\\,dC(s,y)\\,dQ_s(y).",
+          "lean": "actual_conditional: hr,hi,Kernel.lintegral_compProd,lintegral_map"
+        },
+        {
+          "title": "Connect the absorbed execution on its active branch",
+          "text": "Take the actual P constructed by ReferenceCarryingKernel. At b<threshold its law is precisely the update pushforward. The kernel composition integral and the measurable map formula reduce (R composed with P)(s,A) to the preceding equality. At terminal states P is a self-loop, so no such identification with hypothetical continuing J is asserted.",
+          "formula": "b_s<b_*\\Rightarrow (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,dC(s,y)\\,dQ_s(y).",
+          "lean": "observation_conditional_kernel: href,hu,P,hPs,hum,hfactor"
+        }
+      ],
+      "lean_statement": "Actual joint observation and retained-state law, Gaussian marginal, conditional support and active execution factorization.",
+      "lean_proof": "Measurable product pushforward, parameterized disintegration, AE conditional support and nonnegative integration on the actual active branch.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.disintegrate",
+        "ProbabilityTheory.Kernel.condKernel",
+        "ProbabilityTheory.Kernel.ae_ae_of_ae_compProd",
+        "ProbabilityTheory.Kernel.lintegral_compProd",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.lintegral_map"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+      "role": "proof-edge",
+      "supports": [
+        "observation-conditional-kernel"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Source has smooth strongly convex Euclidean potentials.",
+        "lean": "Positive finite-dimensional inner-product Borel E and genuine C2 Hessian bounds alpha,beta."
+      },
+      {
+        "source": "Algorithm3.3 specifies step schedules and produced reference/history.",
+        "lean": "Arbitrary measurable positive eta,tau and arbitrary full initial state."
+      },
+      {
+        "source": "Source M implements an approximate sampler and the remaining call has an accuracy target.",
+        "lean": "M and R are arbitrary actual Markov kernels."
+      },
+      {
+        "source": "Source conditions on observation and complete recursive history.",
+        "lean": "Parameterized joint observation/fullupdatedstate disintegration retains the pre-noise initialized reference."
+      },
+      {
+        "source": "Source terminal branch stops or calls the terminal sampler.",
+        "lean": "J always describes hypothetical continuing update; actual absorbed P composition is identified only for b<threshold."
+      },
+      {
+        "source": "Source conditional formulas are interpreted as conditional laws.",
+        "lean": "Precision and center support hold under nested AE quantifiers."
+      },
+      {
+        "source": "Source main results provide output accuracy and query complexity.",
+        "lean": "Exact joint law and active-branch output factorization only."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "6481c77ffda25e40310d4f764c9db237f9443c508917a71c4c93e9cefcc6e398"
+}
