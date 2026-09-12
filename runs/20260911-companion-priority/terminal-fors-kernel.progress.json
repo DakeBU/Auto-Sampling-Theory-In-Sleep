@@ -89,5 +89,36 @@
       "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalFORSKernel.lean": "7428c55f3eab3bb25e4ef1079cee8296d6cbcfd8fa59af8f864e9f870798c466",
       "Tests\\SmoothedPicardHMCTerminalFORSKernel.lean": "e6334817e0050ae9f4f46b6978a55131fd228221090135d8734f0d3417367f89"
     }
+  },
+  "expanded_statement": {
+    "path": ".astis/terminal-fors-expanded.log",
+    "characters": 18933,
+    "sha256": "6b7a7701b173fcd25f1ce7e1d22dba49bba890f115d9e544cc9f95d4652bc575",
+    "session": 93593,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier replay49235exit0, identical18933-character hash/Meta.isDefEq and complete actual private definitions. Neutral context explicitly supplies hidden Fin batch-size product index."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-terminal-fors-kernel.json",
+    "state": "Ten authored steps,eight deltas,27private. Schema/diff precheck only pending accepted whole-module review."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "002077b0793ba1154ebc05ccc02f71f000dcc568",
+    "result": "Independent focused3754PASS standard3/no lint; mathematical content identical to accepted scratch after doc/rename normalization;27private1public and fakeclosure checked."
+  },
+  "anonymous_reconstruction": {
+    "decoder": "blind_reconstruction_x",
+    "packet_sha256": "8ad9a9d5c0bddd2ca5e341d6e3b2a5c5626a7f1c59b36c889e1622b1fd16ea78",
+    "result": "runs/20260911-companion-priority/terminal-fors-kernel.decoder-result.json",
+    "reconstruction_sha256": "c396e7f4f3e8b6893db020e503b7d361f60dd9e54bcc3b3f4f0d653a6ba7c671",
+    "boundary": "Source-blind full reconstruction; explicitly reread updated neutral Fin-index context and reaffirmed full text unchanged. No source verdict."
+  },
+  "formal_source_review": {
+    "reviewer": "log_depth_source_review",
+    "state": "requested-pending",
+    "packet": "runs/semantic-roundtrip/ASTIS-RT-20260912-SPHMCTerminalFORSKernel.reviewer.json",
+    "packet_sha256": "252b1319bfb0d4566c35453adf94df6323967265b500fcac3bffaf01fbfea98a"
   }
 }

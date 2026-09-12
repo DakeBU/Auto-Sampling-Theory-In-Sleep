@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-terminal-fors-kernel",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual terminal reference, FORS kernel and source program",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3,Section6.3 terminal reference and TheoremA.4(2)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded proof component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Parameterized local terminal program with disclosed restrictions and omitted guarantees, not full A4(2) or a complete paper."
+      },
+      "statement": "N and xp are measurable, the actual terminal gradient threshold holds and every earlier iterate fails it, and norm(h-xp)<=sqrt(d*A). There exists a single Markov kernel R on the whole state space whose fiber is the measurable first-success program output law; never-hit has rho_s measure zero and the actual sampling-stage integral of1+queryCount is at most1+2*exp(2). Each pi_s is a probability, pi_s and R(s) are mutually absolutely continuous, both RN ell-powers are integrable under their respective denominator laws with strictly positive integrals at most1+eps^2, and both log-integral/(ell-1) bounds are at most eps^2. Phi_s pushes rho_s to the original retry law, preserves acceptance and full-batch counts on every stream, and makes old default-u output equal to new default-zero output almost everywhere.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with d=dim(E)>0; S is any measurable state space. V:E->R is fixed and C2. Its genuine Hessian lies between alpha*norm(v)^2 and beta*norm(v)^2, with nonnegative alpha<=beta and beta>0.",
+        "The functions b:S->R and u,initial:S->E are measurable and b(s)>0. The fixed parameters ell,eps satisfy ell>=2 and0<eps<=1/2. Every state satisfies 64*beta*(sqrt(d*(ell+log(1/eps)))+ell+log(1/eps))<=b(s). No execution reachability of this terminal domain is assumed or concluded.",
+        "Set A(s)=1/b(s), F_s(x)=V(x)+b(s)/2*norm(x-u(s))^2 and T_s(x)=x-(beta+b(s))^(-1)*grad F_s(x). N(s) is the least n with norm(grad F_s(T_s^n(initial(s))))^2<=d*b(s), with fallback zero if no n exists. Set xp(s)=T_s^N(s)(initial(s)), g(s)=grad V(xp(s)) and h(s)=u(s)-A(s)*g(s). Finite attainment and the reference residual are proved, not additional hypotheses.",
+        "Let nu0 be Lebesgue restricted to Ioc(0,1) product standardGaussian, and q_s the law of h(s)+sqrt(A(s))*Z. For z=(t,zeta), the cached arc estimator is inner((pi/2)*(cos(pi*t/2)*(x-h)-sin(pi*t/2)*zeta),g-grad V(h+sin(pi*t/2)*(x-h)+cos(pi*t/2)*zeta)). W_s uses zeta=sqrt(A(s))*Z and clips this scalar to[-1,1]. The arc time uniform is distinct from the acceptance uniform on Icc(0,1).",
+        "An attempt p=(x,n,(zseq,v)) has law q_s product Poisson(2) product (infinitePi nu0 product uniformIcc(0,1)). It accepts iff v<=product over i:Fin n of(1+W_s(x,zseq(i)))/2. rho_s is the infinite product of independent attempts. output_s is the proposal at the first accepting attempt, or0 if none. queryCount sums each batch size when all earlier attempts failed, including the successful batch. The charged sampling-stage count is1+queryCount.",
+        "The target pi_s is the Gaussian law u(s)+sqrt(A(s))*Z tilted by -V. The original auxiliary law nua_s uses Gaussian variance A(s) instead of the standard Gaussian. Wa_s clips the same cached estimator without scaling inside. The stream map Phi_s scales each auxiliary Gaussian coordinate and preserves every proposal, batch size, arc time and acceptance uniform. The old program default is u(s)."
+      ],
+      "formulae": [
+        {
+          "label": "Actual terminal program law, cost and accuracy",
+          "tex": "\\rho_s\\circ\\mathrm{output}_s^{-1}=R_s,\\qquad \\int^- (1+C_s)\\,d\\rho_s\\le1+2e^2,\\qquad \\int\\!\\left(\\frac{d\\pi_s}{dR_s}\\right)^\\ell dR_s\\le1+\\varepsilon^2."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-terminal-fors-kernel",
+          "label": "Actual terminal reference, FORS kernel and source program"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel",
+          "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
+          "role": "proof-edge",
+          "supports": [
+            "actual-terminal-fors-kernel"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCTerminalFORSKernel",
+          "boundary": "Parameterized local terminal FORS component with an actual generated reference, not full A4(2) or either paper. V,alpha,beta,ell,eps are fixed; b,u,initial vary and all states meet the sufficient terminal condition. C2/genuine Hessian hypotheses strengthen the source convex-smooth regularity; alpha=0 remains convex, not nonconvex. Positive dimension and beta are required. ell>=2 retains the disclosed source proof gap. Numeric64 and explicit RN/expected constants are proved sufficient refinements, not verbatim source constants. The source high-probability query bound is not returned. The1+2exp2 count excludes reference GD initialization and any cache discount between its last check and the sampler. No joint stream-output measurability, target-family kernel, evaluator trace, terminal-domain reachability, history propagation, stage sum, initialization-cost integral or full composition is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "A4(2) assumes convex smooth potential.",
+              "lean": "C2 and genuine nonnegative Hessian bounds; alpha may0.",
+              "classification": "API-limitation",
+              "reason": "Stronger regularity is required by this actual-reference construction; alpha0 is convex, not a nonconvex extension."
+            },
+            {
+              "source": "Source normalized Euclidean setting.",
+              "lean": "Coordinate-free positive finite dimension and general beta>0.",
+              "classification": "generalization",
+              "reason": "No zero-dimensional or beta0 claim."
+            },
+            {
+              "source": "Source fixed terminal call.",
+              "lean": "One Markov kernel over arbitrary measurable states, with fixedV/ell/eps and measurable b,u,initial.",
+              "classification": "generalization",
+              "reason": "State-varying potentials/errors or joint stream-output measurability are not returned."
+            },
+            {
+              "source": "Recursive execution invokes terminal stage on an admissible domain.",
+              "lean": "Every state satisfies b>0 and the explicit sufficient64 condition.",
+              "classification": "source-implicit",
+              "reason": "No reachability proof or behavior outside this terminal domain."
+            },
+            {
+              "source": "Source Renyi order includes ell>=1.",
+              "lean": "ell>=2,0<eps<=1/2.",
+              "classification": "API-limitation",
+              "reason": "Retains the independently disclosed source proof gap; no silent repair atell1."
+            },
+            {
+              "source": "Source asymptotic constants and query guarantees.",
+              "lean": "Explicit sufficient64 threshold, two-way RN refinements and expected1+2exp2; high-probability bound omitted.",
+              "classification": "API-limitation",
+              "reason": "This component is not the complete A4(2) guarantee."
+            },
+            {
+              "source": "Source algorithm needs an initialized reference and cached gradient.",
+              "lean": "Actual reference constructed; sampler count excludes its GD cost and does not discount the last check.",
+              "classification": "source-implicit",
+              "reason": "No free reference hypothesis, but initialization-cost integration and total query accounting remain separate."
+            },
+            {
+              "source": "Statewise source program uses a default center on never-hit.",
+              "lean": "Parameterized program uses0; equality with old defaultu is onlyAE.",
+              "classification": "source-implicit",
+              "reason": "The actual never-hit null event proves this equality; no all-stream default equivalence."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
