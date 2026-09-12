@@ -3,8 +3,7 @@
   "state": "STABILIZING",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Remote PR CI,actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -91,6 +90,14 @@
   "independent_admission": "runs/20260911-companion-priority/enhanced-terminal-execution.verified-admission.json",
   "integration_notes": {
     "upstream": "d8979532e1d1ae6fd06eece573033641069724c2",
-    "boundary": "Upstream terminalFORS merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+    "boundary": "Independent final local integration accepted for9e17511 Lean gate plus committed Frontier/progress metadata correction and QA. Remote delivery pending.",
+    "reader_round1": {
+      "session": 47921,
+      "exit_code": 1,
+      "log": ".astis/enhanced-terminal-reader-build.log",
+      "failure": "Frontier source_detail_audit.consulted was empty despite omitted detail.",
+      "fix": "Recorded already-used exact background theorems and adapters. No Lean,lesson,publication or semantic binding change;canonical Lean gate source/HEAD retained."
+    },
+    "local_qa": "runs/20260911-companion-priority/enhanced-terminal-execution.local-qa.json"
   }
 }

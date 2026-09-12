@@ -71,7 +71,23 @@
     "primary_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3, Section6.3 (6.4) and terminal stage",
     "detail_status": "omitted",
     "gap": "Retained-reference measurable program and explicit terminal64 compatibility require proof.",
-    "consulted": [],
+    "consulted": [
+      {
+        "source": "Pinned Samplinglib LogarithmicDepth.lean",
+        "anchor": "LogarithmicDepth.terminal_depth",
+        "hypothesis_adapter": "Actual full-state path supplies eta_n=eta(x_n); fixed C8 and gamma1/1024 provide the derived source terminal precision threshold."
+      },
+      {
+        "source": "Pinned Samplinglib ReferenceCarryingKernel.lean and TerminalFORSKernel.lean",
+        "anchor": "reference_carrying_kernel; terminal_fors_kernel",
+        "hypothesis_adapter": "Retain the actual pre-noise firsthit update and construct the same terminal retry output kernel at Delta/sqrt(J+1); terminal extension equals original precision on probability-one terminal domain."
+      },
+      {
+        "source": "Pinned Mathlib Kernel.Composition and Measure map/bind APIs",
+        "anchor": "Kernel.comp_apply; lintegral_map; Measure.bind_congr_right",
+        "hypothesis_adapter": "Jointly measurable full-state update and actual Markov product law give path-support induction and finite cap stability without a projected Markov premise."
+      }
+    ],
     "fidelity_boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost."
   }
 }
