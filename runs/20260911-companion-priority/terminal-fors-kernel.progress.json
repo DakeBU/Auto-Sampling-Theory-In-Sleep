@@ -2,9 +2,7 @@
   "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
   "state": "MERGED",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
-  "remaining": [
-    "Merge Lean CI completion"
-  ],
+  "remaining": [],
   "development_checkpoints": [
     {
       "path": ".astis/TerminalFORSReference.lean",
@@ -136,7 +134,7 @@
       "ASTIS-RT-20260912-SPHMCTerminalFORSKernel"
     ]
   },
-  "admission_boundary": "VERIFIED at e6365c1; aggregate integration,original reader/graph QA,merge/live separate.",
+  "admission_boundary": "Component independently verified, integrated, merged and delivered. Both full paper main results and required global delivery remain incomplete.",
   "independent_admission": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json",
   "integration_notes": {
     "upstream": "03116219262c6c4ece661a2d8c903faf03df72a3",
@@ -148,13 +146,15 @@
     "head": "9dc763987ab5dd92e1de01cd585646e80a167a7c",
     "pr_lean_run": 34666076881,
     "pr_site_run": 34666076902,
-    "state": "MERGED;PR CI,merge Site and live pages passed;merge Lean pending",
+    "state": "MERGED; PR checks, merge Lean/Site CI and live delivery passed",
     "merge_commit": "d8979532e1d1ae6fd06eece573033641069724c2",
     "merged_at": "2026-09-12T02:08:34Z",
     "merge_site_run": 34666838526,
     "merge_site_result": "SUCCESS",
     "merge_lean_run": 34666838534,
     "merge_lean_result": "pending",
-    "live_evidence": "runs/20260911-companion-priority/terminal-fors-kernel.live-delivery.json"
+    "live_evidence": "runs/20260911-companion-priority/terminal-fors-kernel.live-delivery.json",
+    "merge_checks": "Both SUCCESS; live delivery verified",
+    "live_delivery": "runs/20260911-companion-priority/terminal-fors-kernel.live-delivery.json"
   }
 }

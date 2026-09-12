@@ -18,6 +18,13 @@
   "merge_site_run": 34666838526,
   "merge_site_result": "SUCCESS",
   "merge_lean_run": 34666838534,
-  "merge_lean_result": "pending",
-  "boundary": "Fresh live HTTP provenance checked; full merge Lean CI remains pending. Original local browser evidence is separate; neither complete paper is claimed."
+  "merge_lean_result": "SUCCESS",
+  "boundary": "Both merge CI runs passed; live HTTP provenance checked at recorded checked_at. Original local browser evidence remains separate. This component delivery does not complete either paper.",
+  "merge_lean_verification": {
+    "command": "gh run view 34666838534 --json status,conclusion,headSha,url",
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "d8979532e1d1ae6fd06eece573033641069724c2",
+    "url": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/runs/34666838534"
+  }
 }

@@ -1,11 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
-  "state": "EXPLORING",
+  "state": "PROVED_LOCAL",
   "boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost.",
   "remaining": [
-    "Author original reader lesson and publication binding",
-    "Fresh anonymous reconstruction and formal source review",
-    "Local integration and remote delivery"
+    "Independent fixed-commit VERIFIED admission",
+    "Aggregate integration, original reader/graph QA,merge and actual deployment"
   ],
   "development_checkpoints": [
     {
@@ -75,5 +74,18 @@
     "exit_code": 0,
     "definitionally_equal": true,
     "independent_review": "depth_commit_verifier independent37574exit0 Meta.isDefEq,15740chars and exactSHA;no source/private names or ellipsis."
-  }
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCEnhancedTerminalExecution"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-enhanced-terminal-execution.json",
+    "state": "Ten authored steps,8deltas and12private accepted; publicationPASS71."
+  },
+  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
 }
