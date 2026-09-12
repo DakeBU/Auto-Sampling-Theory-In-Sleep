@@ -51,8 +51,9 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/296",
       "commit": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
       "merged_at": "2026-09-12T03:02:52Z",
-      "post_merge": "PR Lean34668774958 and Site34668774948 passed; merge CI/live pending."
-    }
+      "post_merge": "Merge Lean34669309463 and Site34669309467 SUCCESS; live commit/declaration provenance verified."
+    },
+    "live_delivery": "runs/20260911-companion-priority/enhanced-terminal-execution.live-delivery.json"
   },
   "blocked": {
     "reason": "",

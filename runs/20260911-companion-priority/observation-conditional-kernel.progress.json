@@ -123,5 +123,13 @@
     "upstream": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
     "boundary": "Independent final local integration accepted at6af5598;remoteCI/merge/live pending.",
     "local_qa": "runs/20260911-companion-priority/observation-conditional-kernel.local-qa.json"
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/297",
+    "head": "00416db4d1bfd5259448cffd0b36573d4bdebae6",
+    "pr_lean_run": 34670471170,
+    "pr_site_run": 34670471192,
+    "pr_site_result": "SUCCESS",
+    "state": "OPEN; Lean CI pending"
   }
 }
