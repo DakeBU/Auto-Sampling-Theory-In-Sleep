@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution",
+      "title": "Actual enhanced-state termination and terminal FORS execution",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Algorithm3.3 and Section6.3",
+          "scope": "Actual full-state kernel-power execution and terminal fiber guarantees, not Theorem6.5 or either complete paper. C2 genuine Hessian bounds strengthen source regularity; baseline beta=1,positive dimension,kappa>=1. Source ell=q and eps=Delta/sqrt(J+1) are used; A1 requiresq=2. Local8,1/1024 and terminal64 are sufficient constants. M is an arbitrary actual Markov kernel with no accuracy/moment guarantee; initial reference,count,history are arbitrary. bbar=max(b,1/B) changes outside-domain target/initialization and equals b only onD; no comparison theorem for arbitrary extensions is returned. The theorem gives kernel powers and cap stability, not a separate recursive R_n interface or trajectory measure. Terminal RN/cost are fiberwise, not final mixed-output accuracy or whole-execution cost. Sampling count excludes GD initialization, stage queries and cache discounts; no source high-probability count, global cost integrability or TV cost transfer."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCEnhancedTerminalExecution"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with positive dimension d. V:E->R is fixed and C2, with genuine Hessian between kappa^(-1)*norm(w)^2 and norm(w)^2, where kappa is a nonnegative real with kappa>=1. The baseline smoothness is one.",
+        "The full state space is S=NNReal x E x E x Nat x (Nat->E), with s=(b,u,xref,k,history). Fix any initial state s0. M is an actual Markov kernel S->E. eta:S->R is measurable and satisfies0<eta(s)<=c with0<c<1/4. M and eta may depend on all state coordinates. Fix q>=2 and0<Delta<=1/2. Delta is the current recursive-call accuracy; no source accuracy, moment, reference-admissibility or history-validity premise is imposed on M or s0.",
+        "Define K(r)=(1+r)/(1/kappa+r), tau(s)=K(b) if K(b)>=2 and c otherwise, v(s)=(eta(s)+tau(s))/(1+b). Put L=q+log(K(b0)*d*q/Delta), B=(1/1024)/(sqrt(d*L)+L), J=ceil(8*log(exp(1)*K(b0)/B)), and eps=Delta/sqrt(J+1). These parameters remain fixed after choosing s0. The numerical8 and1/1024 are local sufficient constants, not quoted source constants.",
+        "For z=(x,zeta), obs(s,z)=x+sqrt(tau(s)/(1+b))*zeta, bplus=b+toNNReal(1/v(s)) and uplus=bplus^(-1)*(b*u+v(s)^(-1)*obs). Define F(s,z)(w)=V(w)+bplus/2*norm(w-uplus)^2 and T(s,z)(w)=w-(1+bplus)^(-1)*grad F(s,z)(w). N(s,z) is the least n whose true gradient square at T^n(x) is at most(1/kappa+bplus)*d, with fallback zero if no index exists. update(s,z)=(bplus,uplus,T^N(x),k+1,prepend(obs,history)). The pre-noise sample x initializes this actual inner first hit.",
+        "For the terminal extension put bbar(s)=max(b,B^(-1)), A(s)=1/bbar(s), TF_s(w)=V(w)+bbar(s)/2*norm(w-u)^2, TT_s(w)=w-(1+bbar(s))^(-1)*grad TF_s(w). TN(s) is the least n with norm(grad TF_s(TT_s^n(xref)))^2<=d*bbar(s), with fallback zero. Set txp=TT^TN(xref), tg=grad V(txp), th=u-A*tg. This terminal threshold is distinct from the inner threshold.",
+        "Let nu be Lebesgue measure restricted to(0,1] product standardGaussian. The proposal tproposal_s is the law of th+sqrt(A)*Z. For p=(x,(t,Z)), put zeta=sqrt(A)*Z and w=inner((pi/2)*(cos(pi*t/2)*(x-th)-sin(pi*t/2)*zeta),tg-grad V(th+sin(pi*t/2)*(x-th)+cos(pi*t/2)*zeta)). tW_s(p)=min(1,max(-1,w)). Each attempt consists of a proposal, an independent Poisson(2) batch size, an independent infinite nu sequence and an independent acceptance uniform on[0,1]. It accepts iff that uniform is at most the product over i:Fin batchSize of(1+tW_s(proposal,aux_i))/2.",
+        "trho_s is the infinite independent attempt law. output_s is the proposal at the first accepting attempt, or zero if there is no success. queryCount is the sum of every batch size whose earlier attempts all failed, including the successful batch. The sampling-only charged count is1+queryCount. tpi_s is the Gaussian law u+sqrt(A)*Z exponentially tilted by -V. Kernel multiplication/powers use the actual full-state transition; Lt composed with P^n is the resulting output law."
+      ],
+      "statement": "B>0 and0<eps<=1/2. On D={s:b>=1/B}, bbar(s)=b. TN and txp are measurable; the true terminal gradient threshold is attained, every earlier iterate fails it, and norm(th-txp)<=sqrt(d*A). There exist Markov kernels Lt:S->E and P:S->S. P(s) is dirac(s) on D and otherwise the pushforward of M(s) product standardGaussian by update(s,·). (P^J)(s0)(D)=1, and for every natural m, (Lt composed with P^(J+m))(s0)=(Lt composed with P^J)(s0). For every state s, output_s is measurable, trho_s mapped by output_s equals this same Lt(s), never-success has trho_s measure zero, and the nonnegative integral of1+queryCount is at most1+2*exp(2). tpi_s is a probability mutually absolutely continuous with Lt(s); both RN q-powers are integrable under their respective denominator laws, with strictly positive integrals at most1+eps^2, and their logarithms divided by q-1 are at most eps^2.",
+      "formula": "\\varepsilon=\\frac{\\Delta}{\\sqrt{J+1}},\\quad P^J(s_0,D)=1,\\quad (L_t\\circ P^{J+m})(s_0)=(L_t\\circ P^J)(s_0).",
+      "boundary": "Actual full-state kernel-power execution and terminal fiber guarantees, not Theorem6.5 or either complete paper. C2 genuine Hessian bounds strengthen source regularity; baseline beta=1,positive dimension,kappa>=1. Source ell=q and eps=Delta/sqrt(J+1) are used; A1 requiresq=2. Local8,1/1024 and terminal64 are sufficient constants. M is an arbitrary actual Markov kernel with no accuracy/moment guarantee; initial reference,count,history are arbitrary. bbar=max(b,1/B) changes outside-domain target/initialization and equals b only onD; no comparison theorem for arbitrary extensions is returned. The theorem gives kernel powers and cap stability, not a separate recursive R_n interface or trajectory measure. Terminal RN/cost are fiberwise, not final mixed-output accuracy or whole-execution cost. Sampling count excludes GD initialization, stage queries and cache discounts; no source high-probability count, global cost integrability or TV cost transfer.",
+      "steps": [
+        {
+          "title": "Fix the source terminal precision",
+          "text": "With L>=2, the depth bound at C=8 and gamma=1/1024 gives J<=64L because log1024<=10. Thus J+1<=65L. Monotonicity of log, log65<=7 and log L<=L-1 imply log(J+1)<=4L. Since K(b0)*d*q>=1, q+log(1/Delta)<=L. Therefore H=q+log(1/eps)<=3L for the actual eps=Delta/sqrt(J+1). Positivity and eps<=1/2 follow from sqrt(J+1)>=1.",
+          "formula": "H=q+\\log(1/\\varepsilon)\\le L+\\tfrac12\\log(J+1)\\le3L.",
+          "lean": "Precision.compatible: hs0,hs1,heps0,heps1,hlog1024,hj64,hj65,hjlog,hbase,hH,hH3"
+        },
+        {
+          "title": "Derive the sufficient terminal threshold",
+          "text": "The bound H<=3L yields sqrt(dH)<=3sqrt(dL), a sufficient loose bound. Hence64(sqrt(dH)+H)<=192(sqrt(dL)+L)<=1024(sqrt(dL)+L)=1/B. Actual LogarithmicDepth supplies L>=2 and the depth upper bound; compatibility is proved rather than assumed. Its constant eta=c invocation obtains scalar bounds only, while stopping of the actual state-dependent schedule is proved separately below.",
+          "formula": "64(\\sqrt{dH}+H)\\le1024(\\sqrt{dL}+L)=B^{-1}.",
+          "lean": "Precision.compatible: hs; Actual.execution: hdepth,hK0,hdc,hprec,hthreshold"
+        },
+        {
+          "title": "Construct the real reference-carrying transition",
+          "text": "The piecewise tau is measurable and positive. Apply ReferenceCarryingKernel with alpha=1/kappa,beta=1 and threshold1/B. Its actual inner first hit starts at the pre-noise sample, updates the precision and center using the noisy observation, and retains the new reference,count and history. The update is jointly measurable; its sampling law is M_s times fresh Gaussian. The new precision is b+1/v; no projected-state Markov claim is used.",
+          "formula": "P_s=\\begin{cases}\\delta_s,&s\\in D,\\\\(\\mathrm{update}_s)_\\#(M_s\\otimes\\gamma_E),&s\\notin D.\\end{cases}",
+          "lean": "Actual.firstIndex; Actual.execution: htm,ht0,href,hum,hPs,Q,hstep"
+        },
+        {
+          "title": "Compare each absorbed path with its scalar schedule",
+          "text": "For an arbitrary observation sequence define the full absorbed path x_n. Choose the scalar schedule eta_n=eta(x_n); it obeys the same bounds even though it depends on the retained reference/history. Induction shows that either x_n is already terminal or its precision equals the unabsorbed scalar recurrence r_n. Once terminal, the path stays fixed. Applying LogarithmicDepth to this particular schedule forces terminal membership at J.",
+          "formula": "x_n\\in D\\quad\\text{or}\\quad b(x_n)=r_n;\\qquad x_J\\in D.",
+          "lean": "Paths.termination: statePath,statePath_shift,absorbed_precision_path,pathwise_log_depth"
+        },
+        {
+          "title": "Turn pathwise termination into actual probability-one support",
+          "text": "Represent the absorbing kernel as the pushforward of Q_s=M_s times Gaussian by the absorbed update G_s. Induct on the remaining path length: the endpoint lies inD for every continuation, so the inner kernel probability is one at each first observation. Kernel composition and the pushforward nonnegative-integral formula integrate this constant one. This proves the endpoint mass without inventing a trajectory measure.",
+          "formula": "(P^J)(s_0,D)=\\int 1\\,dQ_{s_0}=1.",
+          "lean": "Paths.termination: path_endpoint_mass,hPmap,hmass; Actual.execution: hQ,hpath,hPf"
+        },
+        {
+          "title": "Prove stability under extra finite caps",
+          "text": "For s inD, P_s is dirac(s), so induction gives (Lt composed with P^n)(s)=Lt(s). The probability-one terminal support means the state after J belongs toD almost everywhere. Split P^(J+m) into powers, use associativity and bind congruence, and replace the remaining output law on this full-measure set. This works for each Markov Lt; the final theorem instantiates the actual one constructed below.",
+          "formula": "(L_t\\circ P^{J+m})(s_0)=\\int_D L_t(s)\\,P^J(s_0,ds)=(L_t\\circ P^J)(s_0).",
+          "lean": "Paths.termination: finite_output_stability,hstop,hp; Actual.execution"
+        },
+        {
+          "title": "Extend terminal parameters measurably and construct the terminal reference",
+          "text": "bbar=max(b,1/B) is measurable and positive and meets the derived terminal64 condition everywhere. OnD it equals b, so all terminal parameters agree with the genuine ones there. Apply TerminalFORSKernel to bbar, the actual center and retained reference. It proves measurable TN/txp, least terminal threshold attainment and the center residual; no terminal reference is supplied freely.",
+          "formula": "\\bar b_s=\\max(b_s,B^{-1}),\\quad s\\in D\\Rightarrow\\bar b_s=b_s,\\quad\\|t h_s-t x_{p,s}\\|\\le\\sqrt{d/\\bar b_s}.",
+          "lean": "firstIndex; terminal_extension: hbb,hbb0,hbstep,ht,hn,hx,hres"
+        },
+        {
+          "title": "Use the actual same terminal retry program",
+          "text": "The scaled cached arc estimator, Poisson attempts and first-success output are the concrete definitions used by TerminalFORSKernel. Its kernel Lt has exactly that output pushforward and zero never-success probability. The count includes every attempted full batch, including the successful batch, and one cached gradient charge. The bound1+2exp2 excludes terminal GD and all earlier stage work.",
+          "formula": "(\\mathrm{output}_s)_\\#\\rho_s=L_t(s),\\quad\\rho_s(\\text{never success})=0,\\quad\\int^-(1+C_s)d\\rho_s\\le1+2e^2.",
+          "lean": "scaledCached; Attempt; attemptLaw; accepted; output; queryCount; terminal_extension: hprog"
+        },
+        {
+          "title": "Retain both denominator laws in terminal accuracy",
+          "text": "For each state, the same terminal theorem makes tpi a probability and gives mutual absolute continuity. The q-power of d tpi/d Lt is integrated under Lt; the reverse derivative is integrated under tpi. Both integrals are finite,positive,at most1+eps^2, with normalized log bounds eps^2. OnD these are the actual terminal targets. No mixture or recursive accuracy conclusion follows merely from these fiber bounds.",
+          "formula": "0<\\int(d\\pi_s/dL_t(s))^q\\,dL_t(s)\\le1+\\varepsilon^2\\quad\\text{and reverse}.",
+          "lean": "terminal_extension: hpi,hab,hba,hI1,hI2,hp1,hp2,hu1,hu2,hlog1,hlog2"
+        },
+        {
+          "title": "Close the concrete execution consumer",
+          "text": "First derive the terminal parameter certificate, construct Lt at precisely those parameters, then instantiate the actual enhanced-state execution with this Lt. The resulting P uses the original M and retained-state update; its support and cap-stability conclusions concern the same constructed terminal program. Initial admissibility, M approximation guarantees, final mixed-output accuracy and cumulative query costs remain separate proof obligations.",
+          "formula": "\\nu_{\\rm out}=(L_t\\circ P^J)(s_0),\\qquad\\varepsilon^2=\\Delta^2/(J+1).",
+          "lean": "enhanced_terminal_execution: hfirst,hbound,ht,hactual,hacc"
+        }
+      ],
+      "lean_statement": "Actual retained-state transition, derived terminal parameters, probability-one terminal support and constructed FORS output law with fiber guarantees.",
+      "lean_proof": "Source precision bound, full-state absorbed path comparison, kernel support induction, actual terminal construction and finite cap stability.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.LogarithmicDepth.terminal_depth",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel.terminal_fors_kernel"
+      ],
+      "mathlib_dependencies": [
+        "Real.log_le_log",
+        "Real.log_pow",
+        "Real.sqrt_le_sqrt",
+        "ProbabilityTheory.Kernel.comp_apply",
+        "MeasureTheory.lintegral_map",
+        "MeasureTheory.Measure.bind_congr_right",
+        "MeasureTheory.mem_ae_iff_prob_eq_one"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-enhanced-terminal-execution",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual enhanced-state termination and terminal FORS execution",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3,Section6.3 (6.4) and terminal stage",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded execution component for Fan Chen, Sinho Chewi, Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Actual kernel-power execution and terminal fiber guarantees, not a full main result."
+      },
+      "statement": "B>0 and0<eps<=1/2. On D={s:b>=1/B}, bbar(s)=b. TN and txp are measurable; the true terminal gradient threshold is attained, every earlier iterate fails it, and norm(th-txp)<=sqrt(d*A). There exist Markov kernels Lt:S->E and P:S->S. P(s) is dirac(s) on D and otherwise the pushforward of M(s) product standardGaussian by update(s,·). (P^J)(s0)(D)=1, and for every natural m, (Lt composed with P^(J+m))(s0)=(Lt composed with P^J)(s0). For every state s, output_s is measurable, trho_s mapped by output_s equals this same Lt(s), never-success has trho_s measure zero, and the nonnegative integral of1+queryCount is at most1+2*exp(2). tpi_s is a probability mutually absolutely continuous with Lt(s); both RN q-powers are integrable under their respective denominator laws, with strictly positive integrals at most1+eps^2, and their logarithms divided by q-1 are at most eps^2.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space with positive dimension d. V:E->R is fixed and C2, with genuine Hessian between kappa^(-1)*norm(w)^2 and norm(w)^2, where kappa is a nonnegative real with kappa>=1. The baseline smoothness is one.",
+        "The full state space is S=NNReal x E x E x Nat x (Nat->E), with s=(b,u,xref,k,history). Fix any initial state s0. M is an actual Markov kernel S->E. eta:S->R is measurable and satisfies0<eta(s)<=c with0<c<1/4. M and eta may depend on all state coordinates. Fix q>=2 and0<Delta<=1/2. Delta is the current recursive-call accuracy; no source accuracy, moment, reference-admissibility or history-validity premise is imposed on M or s0.",
+        "Define K(r)=(1+r)/(1/kappa+r), tau(s)=K(b) if K(b)>=2 and c otherwise, v(s)=(eta(s)+tau(s))/(1+b). Put L=q+log(K(b0)*d*q/Delta), B=(1/1024)/(sqrt(d*L)+L), J=ceil(8*log(exp(1)*K(b0)/B)), and eps=Delta/sqrt(J+1). These parameters remain fixed after choosing s0. The numerical8 and1/1024 are local sufficient constants, not quoted source constants.",
+        "For z=(x,zeta), obs(s,z)=x+sqrt(tau(s)/(1+b))*zeta, bplus=b+toNNReal(1/v(s)) and uplus=bplus^(-1)*(b*u+v(s)^(-1)*obs). Define F(s,z)(w)=V(w)+bplus/2*norm(w-uplus)^2 and T(s,z)(w)=w-(1+bplus)^(-1)*grad F(s,z)(w). N(s,z) is the least n whose true gradient square at T^n(x) is at most(1/kappa+bplus)*d, with fallback zero if no index exists. update(s,z)=(bplus,uplus,T^N(x),k+1,prepend(obs,history)). The pre-noise sample x initializes this actual inner first hit.",
+        "For the terminal extension put bbar(s)=max(b,B^(-1)), A(s)=1/bbar(s), TF_s(w)=V(w)+bbar(s)/2*norm(w-u)^2, TT_s(w)=w-(1+bbar(s))^(-1)*grad TF_s(w). TN(s) is the least n with norm(grad TF_s(TT_s^n(xref)))^2<=d*bbar(s), with fallback zero. Set txp=TT^TN(xref), tg=grad V(txp), th=u-A*tg. This terminal threshold is distinct from the inner threshold.",
+        "Let nu be Lebesgue measure restricted to(0,1] product standardGaussian. The proposal tproposal_s is the law of th+sqrt(A)*Z. For p=(x,(t,Z)), put zeta=sqrt(A)*Z and w=inner((pi/2)*(cos(pi*t/2)*(x-th)-sin(pi*t/2)*zeta),tg-grad V(th+sin(pi*t/2)*(x-th)+cos(pi*t/2)*zeta)). tW_s(p)=min(1,max(-1,w)). Each attempt consists of a proposal, an independent Poisson(2) batch size, an independent infinite nu sequence and an independent acceptance uniform on[0,1]. It accepts iff that uniform is at most the product over i:Fin batchSize of(1+tW_s(proposal,aux_i))/2.",
+        "trho_s is the infinite independent attempt law. output_s is the proposal at the first accepting attempt, or zero if there is no success. queryCount is the sum of every batch size whose earlier attempts all failed, including the successful batch. The sampling-only charged count is1+queryCount. tpi_s is the Gaussian law u+sqrt(A)*Z exponentially tilted by -V. Kernel multiplication/powers use the actual full-state transition; Lt composed with P^n is the resulting output law."
+      ],
+      "formulae": [
+        {
+          "label": "Actual finite execution with source terminal precision",
+          "tex": "\\varepsilon=\\frac{\\Delta}{\\sqrt{J+1}},\\quad P^J(s_0,D)=1,\\quad (L_t\\circ P^{J+m})(s_0)=(L_t\\circ P^J)(s_0)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "enhanced-terminal-execution",
+          "label": "Actual enhanced-state termination and terminal FORS execution"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution",
+          "cell": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
+          "role": "proof-edge",
+          "supports": [
+            "enhanced-terminal-execution"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCEnhancedTerminalExecution",
+          "boundary": "Actual full-state kernel-power execution and terminal fiber guarantees, not Theorem6.5 or either complete paper. C2 genuine Hessian bounds strengthen source regularity; baseline beta=1,positive dimension,kappa>=1. Source ell=q and eps=Delta/sqrt(J+1) are used; A1 requiresq=2. Local8,1/1024 and terminal64 are sufficient constants. M is an arbitrary actual Markov kernel with no accuracy/moment guarantee; initial reference,count,history are arbitrary. bbar=max(b,1/B) changes outside-domain target/initialization and equals b only onD; no comparison theorem for arbitrary extensions is returned. The theorem gives kernel powers and cap stability, not a separate recursive R_n interface or trajectory measure. Terminal RN/cost are fiberwise, not final mixed-output accuracy or whole-execution cost. Sampling count excludes GD initialization, stage queries and cache discounts; no source high-probability count, global cost integrability or TV cost transfer.",
+          "assumption_deltas": [
+            {
+              "source": "Source uses normalized smooth strongly convex Euclidean potentials.",
+              "lean": "Coordinate-free positive finite dimension, C2 and genuine Hessian bounds1/kappa and1.",
+              "classification": "API-limitation",
+              "reason": "The differential API requires stronger regularity; normalization is retained."
+            },
+            {
+              "source": "Source fixed small threshold and large depth constants.",
+              "lean": "C=8,gamma=1/1024 and terminal64 compatibility are explicitly proved sufficient.",
+              "classification": "source-implicit",
+              "reason": "These numbers are not source quotations."
+            },
+            {
+              "source": "Section6.3 uses ell=q and terminal Delta/sqrt(J+1).",
+              "lean": "Exactly these parameters, with q>=2 and0<Delta<=1/2.",
+              "classification": "same",
+              "reason": "Delta is the current recursive-call precision; A1 instantiatesq=2."
+            },
+            {
+              "source": "Source M implements a particular smoothed sampler with approximation guarantees.",
+              "lean": "M is any actual full-state Markov kernel.",
+              "classification": "API-limitation",
+              "reason": "Execution and termination need no accuracy; source approximation and mixed-output accuracy are not concluded."
+            },
+            {
+              "source": "Source execution carries an admissible reference and produced history.",
+              "lean": "Arbitrary initial reference,count and history; actual first-hit updates are retained.",
+              "classification": "generalization",
+              "reason": "No initial admissibility or prehistory-origin claim, and hence no borrowed source cost/accuracy."
+            },
+            {
+              "source": "Terminal sampler is called only inside the terminal domain.",
+              "lean": "Measurable extension bbar=max(b,1/B), equal to b onD; P^J has full mass inD.",
+              "classification": "source-implicit",
+              "reason": "Outside-domain target and initialization differ; no arbitrary-extension comparison theorem is returned."
+            },
+            {
+              "source": "Source describes recursive execution.",
+              "lean": "Actual full-state kernel powers and stability for all finite caps afterJ.",
+              "classification": "source-implicit",
+              "reason": "No projected autonomous Markov assumption, separate R_n recursive interface or trajectory measure is returned."
+            },
+            {
+              "source": "Source main results provide accuracy and query complexity.",
+              "lean": "Terminal fiber RN and sampling-only expected count; no whole-output accuracy or cumulative costs.",
+              "classification": "API-limitation",
+              "reason": "GD initialization, stage totals, high-probability cost and global integrability remain open; TV does not transfer unbounded cost."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

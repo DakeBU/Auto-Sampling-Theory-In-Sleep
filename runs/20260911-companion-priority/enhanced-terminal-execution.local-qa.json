@@ -1,0 +1,80 @@
+{
+  "commit": "9e175113602f178904120e1720f026f71eb176d1",
+  "source_digest": "42858532c9a97aa9f40f5deb4b9ce8b293219f7b81e07bed51e7b27bd74473ea",
+  "status": "local-integration-accepted",
+  "root_integration": {
+    "session": 76300,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9190",
+    "log": ".astis/enhanced-terminal-lean-gate.log"
+  },
+  "reader_round1": {
+    "session": 47921,
+    "exit_code": 1,
+    "log": ".astis/enhanced-terminal-reader-build.log",
+    "failure": "Frontier source_detail_audit omitted but consulted empty.",
+    "fix": "Recorded exact already-used background theorem references and adapters;frontier protocolPASS93 and publicationPASS71. Only Frontier metadata/progress changed;Lean source,HEAD,digest,lesson/publication/registry binding unchanged."
+  },
+  "reader_build": {
+    "session": 60685,
+    "exit_code": 0,
+    "log": ".astis/enhanced-terminal-reader-build-round2.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 659,
+    "declarations": 3957
+  },
+  "reader_check": {
+    "session": 16512,
+    "exit_code": 0,
+    "log": ".astis/enhanced-terminal-reader-check.log",
+    "chapters": 12,
+    "modules": 659,
+    "declarations": 3957,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/enhanced-terminal-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-enhanced-terminal-execution",
+    "authored_steps": 10,
+    "initial_details": 13,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 3708,
+    "proof_code_characters": 5289,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "LogarithmicDepth.terminal_depth",
+      "ReferenceCarryingKernel.reference_carrying_kernel",
+      "TerminalFORSKernel.terminal_fors_kernel"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "13 named declarations;Compiled exact9e175113602f gate;zero placeholders;Not mapped separate."
+  },
+  "independent_precheck": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted-precheck-only",
+    "evidence": "Recomputed exactdigest and rawASTIScheck;unchangedVERIFIED source/test/audit/lesson,reviewed=True,correctrootimports,upstreamzero-tree merge and soleSTABILIZINGowner. Finalreviewincludes disclosed metadatafix."
+  },
+  "boundary": "Local integration accepted with disclosed metadatafix;remoteCI/merge/live,conditional-error propagation,M accuracy,initialization/stagecost and both main results separate.",
+  "verification_scope": "Lean gate at9e175113602f178904120e1720f026f71eb176d1 plus the Frontier consulted-background correction,progress correction and this QA report committed with the final local integration record. Reader acceptance is not attributed to9e17511 alone.",
+  "independent_final_review": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "evidence": "Actualround1failure and exactbackground-reference fix verified,unchangedLean/digest/sourcebinding,round2build/check659modules3957decl77reviewed,publicationPASS71,reviewed=True,static13closedfolds3708/5289chars,module13declCompiled0placeholders,graph noomissions/honestedgekinds. Browser provenance belongs to root. Acceptance includes uncommittedFrontier/progress/QA metadata;authorized faithful recording and final candidateSHA to be recorded after commit."
+  }
+}

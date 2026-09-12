@@ -47,6 +47,7 @@ import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.NormalizedReferenceCall
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingCost
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalFORSKernel
+import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution
 import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ClippedGradientProgram
 
 /-!
