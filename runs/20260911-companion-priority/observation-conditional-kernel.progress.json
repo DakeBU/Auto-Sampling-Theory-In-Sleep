@@ -3,8 +3,7 @@
   "state": "STABILIZING",
   "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Remote PR CI,actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -122,6 +121,7 @@
   "independent_admission": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json",
   "integration_notes": {
     "upstream": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
-    "boundary": "Upstream enhanced execution merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+    "boundary": "Independent final local integration accepted at6af5598;remoteCI/merge/live pending.",
+    "local_qa": "runs/20260911-companion-priority/observation-conditional-kernel.local-qa.json"
   }
 }
