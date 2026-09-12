@@ -6,7 +6,7 @@
   "title": "Actual state-varying terminal FORS kernel",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3 terminal branch and TheoremA.4(2)",
   "target_statement": "Construct the actual state-varying terminal FORS Markov kernel from measurable positive variance A,center u and stored reference. Construct its reference via the genuine first terminal gradient-square d/A hit. Use a fixed standard auxiliary law and put state-dependent Gaussian scaling inside the clipped cached arc estimator. Prove actual stream reparameterization preserves acceptance and successful-batch query count and identifies the output law, handling fallback differences only almost everywhere. Derive existing two-direction RN-power/log accuracy and cached query bound from TerminalSamplerAccuracyCost with proved reference residual.",
-  "status": "proved_locally",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SW-SPHMC-terminal-reference-gradient-descent",
     "ASTIS-SW-SPHMC-terminal-sampler-accuracy-cost"
@@ -42,7 +42,8 @@
     "proof_plan": "proof-blueprints/SPHMC-terminal-fors-kernel.md",
     "planning_review": "Independent log_depth_source_review accepted actual terminal-kernel route including a.e. fallback handling.",
     "execution_boundary": "Root sole writer. ReferenceCarryingCost remains sole stabilization owner,PR294 pending.",
-    "admission_boundary": "PROVED_LOCAL; fixed-commit independent VERIFIED pending."
+    "admission_boundary": "VERIFIED at e6365c1; aggregate integration,original reader/graph QA,merge/live separate.",
+    "independent_verification": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json"
   },
   "blocked": {
     "reason": "",

@@ -1,10 +1,10 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
-  "state": "PROVED_LOCAL",
+  "state": "VERIFIED",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Independent fixed-commit VERIFIED admission",
-    "Aggregate integration, original reader/graph QA,merge and actual deployment"
+    "Aggregate integration and original reader/graph QA",
+    "Actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -137,5 +137,6 @@
       "ASTIS-RT-20260912-SPHMCTerminalFORSKernel"
     ]
   },
-  "admission_boundary": "PROVED_LOCAL. Fixed-commit VERIFIED, aggregate integration, original reader/graph QA, merge and actual deployment remain separate."
+  "admission_boundary": "VERIFIED at e6365c1; aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json"
 }
