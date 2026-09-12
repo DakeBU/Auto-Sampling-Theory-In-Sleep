@@ -1,0 +1,46 @@
+{
+  "evidence": {
+    "decision": "VERIFIED",
+    "verifier_id": "depth_commit_verifier",
+    "verified_commit": "d1872b9b14288eac789cf6ed1a23747f019e735f",
+    "gate": {
+      "production": "Unchanged independently compiledPASS3769 standard3 and5144-character Meta/isDefEq replay.",
+      "publication": "Independent reviewed=True and publication --base0ca178937c959e0180fcd43f57c596a8180236c7 exit0 PASS72,all4private covered. Allsource/statement/reconstruction/module/test/decoder/reviewer packet/run hashes and canonical anonymous bytes checked; external binding preimage7e17d8dd0bbc428b7aa640717f1e298e49703ba27c7407b3e934004edddf6499 and context match.",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "source_audit": [
+      {
+        "id": "ASTIS-RT-20260912-SPHMCObservationConditionalKernel",
+        "state": "accepted",
+        "verdict": "domain-mismatch",
+        "decoder": "blind_reconstruction_z",
+        "reviewer": "log_depth_source_review",
+        "publication_binding_sha256": "7e17d8dd0bbc428b7aa640717f1e298e49703ba27c7407b3e934004edddf6499",
+        "decoder_packet_sha256": "549c3fb5aa2db39058c8373ba545c3bb32dcafe1198d9449d0f21c14d069ffb9",
+        "decoder_run_sha256": "0b6e21720fc974a663f61f6e0f804cb1c7773782c7a795b7c6571099c349e8dc",
+        "reviewer_packet_sha256": "6481c77ffda25e40310d4f764c9db237f9443c508917a71c4c93e9cefcc6e398",
+        "review_run_sha256": "5ee93041c9e0a430260539ca5fd852d9158ceee5ee3aa384b2fbf1eb74f61f23",
+        "blocking_issues": []
+      }
+    ],
+    "fake_closure_scan": {
+      "result": "PASS",
+      "scope": "Actual joint update,Gaussian marginal,nested AE conditional precision/center and active-P output factorization;no ideal posterior,KL or costs."
+    },
+    "publication_declarations": [
+      "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel"
+    ],
+    "independent_checks": [
+      "Fixed d1872b9b14288eac789cf6ed1a23747f019e735f cleanHEAD independently checked.",
+      "7slots,7steps,7informationaldeltas,4private;no blocker/repair.",
+      "No STABILIZING owner;VERIFIED only,not aggregate/reader/merge/live/mainpaper closure."
+    ]
+  },
+  "recorded_by": "root-samplinglib-writer",
+  "authorization": "Faithful transcription of explicit independent VERIFIED-only authorization.",
+  "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem."
+}
