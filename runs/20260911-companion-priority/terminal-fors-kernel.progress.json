@@ -3,8 +3,7 @@
   "state": "STABILIZING",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Remote PR CI, actual merge and deployment"
   ],
   "development_checkpoints": [
     {
@@ -141,6 +140,7 @@
   "independent_admission": "runs/20260911-companion-priority/terminal-fors-kernel.verified-admission.json",
   "integration_notes": {
     "upstream": "03116219262c6c4ece661a2d8c903faf03df72a3",
-    "boundary": "Upstream reference-cost merge integrated with zero tree delta. Root sole stabilization owner; canonical gate and reader/graph QA pending."
+    "boundary": "Independent final local integration accepted at0d89845910b9a1ec0bf9c1e68d1992c7ba72d1fe; remote delivery pending.",
+    "local_qa": "runs/20260911-companion-priority/terminal-fors-kernel.local-qa.json"
   }
 }
