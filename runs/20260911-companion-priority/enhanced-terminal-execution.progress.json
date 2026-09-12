@@ -99,5 +99,12 @@
       "fix": "Recorded already-used exact background theorems and adapters. No Lean,lesson,publication or semantic binding change;canonical Lean gate source/HEAD retained."
     },
     "local_qa": "runs/20260911-companion-priority/enhanced-terminal-execution.local-qa.json"
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/296",
+    "head": "0ca178937c959e0180fcd43f57c596a8180236c7",
+    "pr_lean_run": 34668774958,
+    "pr_site_run": 34668774948,
+    "state": "OPEN; CI pending"
   }
 }
