@@ -40,7 +40,7 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-enhanced-kl-one-step.md",
     "planning_review": "Independent log_depth_source_review selected exact real-Gibbs route and checked actualQ versus idealH AE boundary. API-only probe passed.",
-    "execution_boundary": "Root sole writer; ObservationConditionalKernel remains sole stabilization owner pending PR297.",
+    "execution_boundary": "Root sole writer and soleSTABILIZING owner. Parent observation conditional merged,merge Lean/Site and live delivery passed. Proof/source binding unchanged.",
     "admission_boundary": "VERIFIED at 520c11e;aggregate integration,original reader/graph QA,merge/live separate.",
     "independent_verification": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json"
   },

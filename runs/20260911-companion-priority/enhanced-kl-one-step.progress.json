@@ -1,6 +1,6 @@
 {
   "cell": "ASTIS-SW-SPHMC-enhanced-kl-one-step",
-  "state": "VERIFIED",
+  "state": "STABILIZING",
   "boundary": "Positive dimension,genuine C2 Hessian bounds and arbitrary positive measurable eta,tau. Actual M,R carry no approximation guarantees. Conditional reference support only under actualQ,never transferred to idealH. Actual Gibbs base is not arbitrary unrelated mu. No stage error allocation,finite-depth/global output theorem,M construction or query cost. Nested muV tilt need not be rewritten as volume tilt without required exponential integrability.",
   "remaining": [
     "Aggregate integration and original reader/graph QA",
@@ -119,5 +119,9 @@
     "state": "Eight authored steps,7deltas and7private accepted; publicationPASS73."
   },
   "admission_boundary": "VERIFIED at 520c11e;aggregate integration,original reader/graph QA,merge/live separate.",
-  "independent_admission": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json"
+  "independent_admission": "runs/20260911-companion-priority/enhanced-kl-one-step.verified-admission.json",
+  "integration_notes": {
+    "upstream": "4466eebeb2a06253c95ef1eae474c6b462cf78e7",
+    "boundary": "Upstream observation conditional merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+  }
 }
