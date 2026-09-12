@@ -3,8 +3,8 @@
   "state": "STABILIZING",
   "boundary": "Supplied current-call W2 accuracy is the source A1 input,not a proved sampler implementation. Actual moments,first-hit count,per-state integrability and kernel-law expectation must be derived. No TV transfer of unbounded costs,no unconditional global L1,no source stopping-depth or precision schedule,history invariants,stage sum,terminal FORS or complete paper result. N+1 counts visited gradient checks with source explicit reuse convention; absorbed states execute no reference GD.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
-    "Actual merge and deployment"
+    "Remote CI and actual merge",
+    "Merge CI and live delivery"
   ],
   "development_checkpoints": [
     {
@@ -78,6 +78,7 @@
   "independent_admission": "runs/20260911-companion-priority/reference-carrying-cost.verified-admission.json",
   "integration_notes": {
     "upstream": "bdcbcc1112234218383db8ff9a3c008e7777f96f",
-    "boundary": "Upstream reference-carrying-kernel merge integrated with zero tree delta and no conflicts. Root sole stabilization owner. Canonical gate and original reader/graph QA pending."
-  }
+    "boundary": "Canonical gate, full site/check, root browser and graph QA passed; independent final local integration accepted at1bc90fe. Remote CI/merge/live pending."
+  },
+  "local_qa": "runs/20260911-companion-priority/reference-carrying-cost.local-qa.json"
 }

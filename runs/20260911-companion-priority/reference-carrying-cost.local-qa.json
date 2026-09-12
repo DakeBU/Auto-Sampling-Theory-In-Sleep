@@ -1,0 +1,68 @@
+{
+  "commit": "1bc90fe88f1eb25d0eb03fb96a776d7338ce952f",
+  "source_digest": "d40291af54bcd718b00081a54762357d6952cecfe2e2417c1f10a80705ec4e54",
+  "status": "independent-final-local-integration-accepted",
+  "root_integration": {
+    "session": 19243,
+    "exit_code": 0,
+    "result": "Tests9186; ASTIS check passed",
+    "log": ".astis/reference-carrying-cost-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 78520,
+    "exit_code": 0,
+    "chapters": 12,
+    "modules": 655,
+    "declarations": 3916,
+    "compiled_local_leaves": 414,
+    "log": ".astis/reference-carrying-cost-reader-build.log"
+  },
+  "reader_check": {
+    "session": 60381,
+    "exit_code": 0,
+    "reviewed_teaching_declarations": 77,
+    "log": ".astis/reference-carrying-cost-reader-check.log"
+  },
+  "graph_check": ".astis/reference-carrying-cost-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks, scoped DOM and viewed graph screenshot; not independent browser inspection.",
+    "section": "sphmc-reference-carrying-cost",
+    "authored_steps": 8,
+    "initial_details": 11,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 2322,
+    "proof_code_characters": 5045,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "ReferenceCarryingKernel.reference_carrying_kernel",
+      "JointReferenceGradientDescent.joint_reference_gradient_descent"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true
+    },
+    "evidence_card": "5 named declarations, Compiled exact candidate gate, zero placeholders; Not mapped separate."
+  },
+  "independent_precheck": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted-precheck-only",
+    "evidence": "Exact candidate/digest/raw Tests9186; unchanged VERIFIED proof/test/source binding; root imports/upstream zero-tree merge and sole stabilization owner."
+  },
+  "boundary": "Local integration accepted; remote CI, merge/live, execution history, stage totals, terminal FORS and both main results remain separate.",
+  "independent_final_review": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted",
+    "commit": "1bc90fe88f1eb25d0eb03fb96a776d7338ce952f",
+    "evidence": "Exact HEAD/digest/gate, unchanged VERIFIED proof/test/source and reviewed gate; raw build/check counts; static 11 closed folds,2322/5045 characters,two actual parents and commit; graph no omissions and honest edge types. Browser evidence belongs to root,not independently repeated. No local integration blocker. Root authorized to transcribe."
+  }
+}
