@@ -76,7 +76,18 @@
     "session": 44243,
     "exit_code": 0,
     "result": "Actual generated terminal reference, Markov program/law/termination/cachedcost, two-way RNaccuracy and actual source stream correspondence assembled. Standard3/no lint.",
-    "independent_review": "Requested depth_commit_verifier and log_depth_source_review; pending. No production/VERIFIED claim."
+    "independent_review": "depth_commit_verifier independently stdin52212exit0 standard3/no lint; complete actual reference/program/RNaccuracy/cost/source stream accepted. Initial CRLF transport issue resolved without source edits. No VERIFIED."
   },
-  "source_preaudit": "Stream and Scaling frozen files independently source-audited by log_depth_source_review, no block. Whole complete contract preaudit pending."
+  "source_preaudit": "log_depth_source_review read complete frozen source and accepted. Production must disclose fixedV/ell/eps, allstate terminaldomain, C2/genuineHessian stronger than convexsmooth A4(2),alpha0 convex not nonconvex,positive d/beta,ell>=2,derived sufficientconstants,omitted highprob querybound and jointstream-output/targetkernel/evaluator claims,GDcost separate.",
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/TerminalFORSKernel.lean",
+    "test": "Tests/SmoothedPicardHMCTerminalFORSKernel.lean",
+    "session": 44096,
+    "exit_code": 0,
+    "result": "Focused PASS3754 standard3/no new module lint. Public theorem and explicit source/domain boundaries added to independently accepted scratch.",
+    "hashes": {
+      "AutoSamplingTheory\\ExampleCases\\SmoothedPicardHMC\\TerminalFORSKernel.lean": "7428c55f3eab3bb25e4ef1079cee8296d6cbcfd8fa59af8f864e9f870798c466",
+      "Tests\\SmoothedPicardHMCTerminalFORSKernel.lean": "e6334817e0050ae9f4f46b6978a55131fd228221090135d8734f0d3417367f89"
+    }
+  }
 }

@@ -51,8 +51,9 @@
       "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/294",
       "commit": "03116219262c6c4ece661a2d8c903faf03df72a3",
       "merged_at": "2026-09-12T01:01:16Z",
-      "post_merge": "PR Lean34662708076 and Site34662708075 passed; merge CI/live pending."
-    }
+      "post_merge": "Merge Lean34663525891 and Site34663525834 SUCCESS; live commit/declaration provenance verified."
+    },
+    "live_delivery": "runs/20260911-companion-priority/reference-carrying-cost.live-delivery.json"
   },
   "blocked": {
     "reason": "",
