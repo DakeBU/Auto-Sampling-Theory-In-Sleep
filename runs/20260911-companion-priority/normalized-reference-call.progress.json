@@ -1,10 +1,8 @@
 {
   "cell": "ASTIS-SW-SPHMC-normalized-reference-call",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Fixed-call coordinate normalization and actual-law accuracy adapter, including eta0 and next t0,positive dimension and tau>0. Consume the actual first-hit reference rather than a supplied arbitrary point. General beta and coordinate-free finite dimension are explicit extensions. The normalized sampler precision is supplied,not proved. No all-parameter target kernel,measurable sampler selection,conditional random histories,total query costs or complete-paper claim. Current eta,tau and next t are distinct.",
-  "remaining": [
-    "PR/merge CI and actual live deployment"
-  ],
+  "remaining": [],
   "gibbs_checkpoint": {
     "path": ".astis/NormalizedReferenceCallGibbs.lean",
     "sha256": "25cbc6726a39206348a2666f008e29918598f822d915793db78b19c499421e79",
@@ -87,11 +85,26 @@
       "ASTIS-RT-20260912-SPHMCNormalizedReferenceCall"
     ]
   },
-  "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "admission_boundary": "Component independently verified, integrated, merged and delivered. Both full paper main results and required global delivery remain incomplete.",
   "independent_admission": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json",
   "integration_notes": {
     "upstream": "e933038111f3605aff343865a13de05987167fff",
     "boundary": "Independent final local integration accepted at cc0e120; canonicalgate,original reader/graph and root browser QA passed. Remote delivery separate."
   },
-  "local_qa": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json"
+  "local_qa": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json",
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/292",
+    "head": "0382e3786e62cbb13f93717d6e08629b560e890c",
+    "state": "MERGED; PR checks, merge Lean/Site CI and live delivery passed",
+    "lean_run": 34657202388,
+    "site_run": 34657202202,
+    "site_result": "SUCCESS; PR deployment skipped",
+    "merge_commit": "3ad156ae79d655334222c2cac4af41b8ade99750",
+    "merged_at": "2026-09-11T23:28:24Z",
+    "lean_pr_result": "SUCCESS",
+    "merge_lean_run": 34658193453,
+    "merge_site_run": 34658193448,
+    "merge_checks": "Both SUCCESS; live delivery verified",
+    "live_delivery": "runs/20260911-companion-priority/normalized-reference-call.live-delivery.json"
+  }
 }

@@ -1,0 +1,171 @@
+{
+  "reviewer": "log_depth_source_review",
+  "recorded_by": "root-samplinglib-writer",
+  "provenance": "Faithful compact transcription explicitly authorized by independent formal source reviewer.",
+  "independent_from_formalizer": true,
+  "independent_from_decoder": true,
+  "source_review_state": "accepted",
+  "verdict": "domain-mismatch",
+  "reviewer_packet_sha256": "2be16b35f91593210d2153f3da69fac650c2d2e1d7a5d0f5ca9f2b1c64ece480",
+  "source_sha256": "2c15714372fbbd975aa275cfa6eb23ddb2e8c282fae4329a64db5f91e45b0477",
+  "statement_sha256": "3e2d552fff7913fc2f9cd37cd0f2d4f22d2f443f15035fff9c03be144b61e896",
+  "reconstruction_sha256": "0e9bfe2734a3e522a75666864b7887dc311eeae893b99d75a330d8bf878f28b1",
+  "module_text_sha256": "c29adbf0778a0c9b17b281959096947885f444c72e089b124462bccfcc785a09",
+  "module_raw_sha256": "376e38b4826a5d6166ebe3c9fed28c20270e650d60316bfdc814d028ae327808",
+  "publication_binding_sha256": "240b0e922f0fc4d912f99611469ae0fe7620a7c269abe4e3612272ed982a9bf3",
+  "semantic_slots": {
+    "objects": {
+      "original": "Original-coordinate sampler output,new Gaussian,RGO update and reference.",
+      "reconstructed": "Full state,actual product kernel,same pre-noise initial point,true potentials and first-hit output.",
+      "relation": "explicit-elaboration",
+      "evidence": "Decoder recovered noise scale,updated center and stored reference."
+    },
+    "domains": {
+      "original": "Normalized Euclidean valid recursive states.",
+      "reconstructed": "General beta,coordinate-free positive dimension,arbitrary old reference and history.",
+      "relation": "different",
+      "evidence": "Disclosed extensions; positive curvature and positive eta,tau retained."
+    },
+    "quantifiers": {
+      "original": "Call and update under current full state.",
+      "reconstructed": "Deterministic conclusions for all states,inputs and noise; exists full-state Markov kernel.",
+      "relation": "explicit-elaboration",
+      "evidence": "Projection remains indexed by full state,no autonomous projected chain."
+    },
+    "assumptions": {
+      "original": "Actual source call and stopping cutoff.",
+      "reconstructed": "Arbitrary actual Markov M,measurable positive parameters,supplied nonnegative precision threshold.",
+      "relation": "different",
+      "evidence": "No M accuracy,old reference admissibility or valid-history premise."
+    },
+    "conclusion": {
+      "original": "Next RGO parameters and actual reference update.",
+      "reconstructed": "Joint measurability,actual first-hit,gradient/trajectory agreement,scaled admissibility,absorbed kernel and one-step projection.",
+      "relation": "explicit-elaboration",
+      "evidence": "No sampler accuracy,FORS,cost or depth conclusion."
+    },
+    "scopes": {
+      "original": "One recursive algorithm step.",
+      "reconstructed": "Actual single-step enhanced-state construction.",
+      "relation": "explicit-elaboration",
+      "evidence": "Absorption is self-loop,not final sampling."
+    },
+    "constant_dependencies": {
+      "original": "Current smoothness,heat time and updated precision.",
+      "reconstructed": "Noise variance tau/(beta+b),v=(eta+tau)/(beta+b),step1/(beta+bplus).",
+      "relation": "explicit-elaboration",
+      "evidence": "Actual threshold(alpha+bplus)*d and normalized reference bound correct; no new numerical complexity constants."
+    }
+  },
+  "authored_proof_review": {
+    "state": "accepted",
+    "steps": [
+      {
+        "step": 1,
+        "state": "accepted",
+        "reason": "Original-coordinate M; toNNReal does not change positive precision."
+      },
+      {
+        "step": 2,
+        "state": "accepted",
+        "reason": "Actual gradient,varying step,center and initial iterate jointly measurable."
+      },
+      {
+        "step": 3,
+        "state": "accepted",
+        "reason": "Strict terminal index supplies finite witness only; actual inner first-hit output retained."
+      },
+      {
+        "step": 4,
+        "state": "accepted",
+        "reason": "Completing-square constant independent of spatial variable; genuine gradients and all trajectories equal."
+      },
+      {
+        "step": 5,
+        "state": "accepted",
+        "reason": "Store original-coordinate output; prove admissibility after scaling."
+      },
+      {
+        "step": 6,
+        "state": "accepted",
+        "reason": "New reference,count and prepended observation jointly measurable."
+      },
+      {
+        "step": 7,
+        "state": "accepted",
+        "reason": "Actual product kernel retains state then pushes forward; measurable piecewise self-loop."
+      },
+      {
+        "step": 8,
+        "state": "accepted",
+        "reason": "Deletes reference coordinate only; no projected-process Markov conclusion."
+      }
+    ]
+  },
+  "private_coverage": {
+    "state": "accepted",
+    "count": 6,
+    "declarations": [
+      "state_iterates",
+      "firstIndex",
+      "stopped_family",
+      "variable_reference",
+      "quadratic_source_alignment",
+      "scaled_reference_bound"
+    ],
+    "evidence": "All six private declarations fully covered; anonymous reconstruction recovered actual first-hit and unreachable default branch."
+  },
+  "deltas": [
+    {
+      "slot": "objects",
+      "classification": "same",
+      "description": "Original-coordinate output and pre-noise GD initial point.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: Original-coordinate output and pre-noise GD initial point."
+    },
+    {
+      "slot": "conclusion",
+      "classification": "source-implicit",
+      "description": "Actual inner first-hit and stricter finite witness.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: Actual inner first-hit and stricter finite witness."
+    },
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "General beta,coordinate-free space,b=0.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: General beta,coordinate-free space,b=0."
+    },
+    {
+      "slot": "assumptions",
+      "classification": "generalization",
+      "description": "Supplied nonnegative cutoff and zero immediate absorption.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: Supplied nonnegative cutoff and zero immediate absorption."
+    },
+    {
+      "slot": "domains",
+      "classification": "generalization",
+      "description": "Arbitrary old reference and history.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: Arbitrary old reference and history."
+    },
+    {
+      "slot": "scopes",
+      "classification": "source-implicit",
+      "description": "Enhanced Markov kernel and single-step projection.",
+      "severity": "informational",
+      "blocking": false,
+      "evidence": "Independent source reviewer accepted disclosed difference: Enhanced Markov kernel and single-step projection."
+    }
+  ],
+  "blocking_issues": [],
+  "repairs": [],
+  "review_evidence": "Independent anti-anchored source review of Algorithm3.3 and Section6.3 accepted all7semantic slots,8reader steps,6private and6deltas. Original-coordinate identity is M call convention,not proof of normalized-sampler origin. Old xref may affect M,eta,tau; actual GD starts at fresh output. Positive supplied cutoff corresponds to reciprocal precision; source cutoff formula and reachability remain unproved. Recomputed canonical packet,source,statement,reconstruction and full module text hashes; current module matches embedded module. Compared frozen complete scratch: only explanation and diagnostic print removal. No registry or old verdict read. Binding is packet authenticated field,external preimage not recomputed. No independent compile,decoder/Meta replay or fixedcommit-tree verification. No blockers/repairs; not VERIFIED; faithful transcription authorized. Neither complete paper claimed."
+}

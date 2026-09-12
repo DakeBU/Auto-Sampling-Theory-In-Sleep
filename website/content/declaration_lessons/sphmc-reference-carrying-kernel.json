@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+      "title": "Actual reference-carrying recursive Markov transition",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Algorithm3.3 and Section6.3 actual next reference",
+          "scope": "Actual single-step enhanced Markov program,not a sampler-accuracy or cost theorem. M outputs and stored reference are in original coordinates. theta is supplied: positive theta corresponds to A<=Abar iff b>=1/Abar; exact source threshold and finite reachability remain open. theta=0 immediately absorbs. Terminal self-loop neither runs FORS nor returns a final sample. Old reference admissibility and valid initial history are not required. General beta and coordinate-free positive dimension extend the normalized source; alpha,eta,tau are positive,b may be zero. Since M,eta,tau can depend on the deleted reference,one-step projection does not imply that the whole projected process is Markov. No conditional precision,query count,tail,full Gibbs normalization or either main result is concluded."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCReferenceCarryingKernel"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel structure and d=dim(E)>0. V:E->R is C2; 0<alpha<=beta and alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w.",
+        "The complete retained state is s=(b,u,xref,k,h) in NNReal x E x E x Nat x (Nat->E). The precision b is nonnegative; u and xref are original-coordinate points; k is a count and h a padded most-recent-first observation history. No admissibility or valid-history invariant is assumed for the old state.",
+        "eta,tau are measurable positive real functions of the complete retained state. M is an actual Markov kernel from that state to E, interpreted as the current sampler output in ORIGINAL coordinates BEFORE the fresh noise; no sampler accuracy or moment property is assumed. The supplied threshold theta is a nonnegative precision threshold.",
+        "For s and fresh pair (x,z), v(s)=(eta(s)+tau(s))/(beta+b), bplus=b+toNNReal(1/v(s)), y=x+sqrt(tau(s)/(beta+b))*z and uplus=(bplus)^(-1)*(b*u+v(s)^(-1)*y). The theorem proves v>0 and the real equality bplus=b+1/v, so toNNReal does not truncate.",
+        "F_p(w)=V(w)+bplus/2*norm(w-uplus)^2 and W_p(w)=V(w)+b/2*norm(w-u)^2+1/(2v)*norm(w-y)^2 for p=(s,(x,z)). Let T_p(w)=w-(beta+bplus)^(-1)*grad F_p(w), q_n(p)=norm(grad F_p(T_p^n(x)))^2. N(p) is the least n with q_n(p)<=(alpha+bplus)*d if one exists,otherwise zero. out(p)=T_p^N(p)(x),starting at the pre-noise x.",
+        "update(p)=(bplus,uplus,out(p),k+1,hplus), where hplus(0)=y and hplus(n+1)=h(n). project(s)=(b,u,k,h) removes only the reference. oldUpdate(p)=(bplus,uplus,k+1,hplus). G denotes the standard Gaussian probability on E; the product M(s) x G means the new noise is independent conditional on the complete state."
+      ],
+      "statement": "For every state,v>0 and bplus=b+1/v. N,out and update are jointly measurable. For every state/sample/noise triple,the actual stopped gradient-square is at most (alpha+bplus)*d and every earlier iterate strictly exceeds it; grad F_p(w)=grad V(w)+bplus*(w-uplus). The true source potential satisfies W_p(w)=F_p(w)+b*v^(-1)/(2*(b+v^(-1)))*norm(u-y)^2,so their gradients and all GD iterates from x with step1/(beta+bplus) coincide. The scaled reference sqrt(beta+bplus)*out has gradient-square at most d/((beta+bplus)/(alpha+bplus)) for F_p(./sqrt(beta+bplus)). There exists an actual Markov state transition P with P(s)=dirac(s) when theta<=b,and otherwise P(s)=update(s,.)#(M(s) x G). Its single-step reference-deleted marginal is dirac(project(s)) in the first branch and oldUpdate(s,.)#(M(s) x G) in the second.",
+      "formula": "P(s)=\\begin{cases}\\delta_s,&\\theta\\le b,\\\\ \\mathrm{update}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta,\\end{cases}\\qquad \\|\\nabla F_p(\\mathrm{out}(p))\\|^2\\le(\\alpha+b^+)d.",
+      "boundary": "Actual single-step enhanced Markov program,not a sampler-accuracy or cost theorem. M outputs and stored reference are in original coordinates. theta is supplied: positive theta corresponds to A<=Abar iff b>=1/Abar; exact source threshold and finite reachability remain open. theta=0 immediately absorbs. Terminal self-loop neither runs FORS nor returns a final sample. Old reference admissibility and valid initial history are not required. General beta and coordinate-free positive dimension extend the normalized source; alpha,eta,tau are positive,b may be zero. Since M,eta,tau can depend on the deleted reference,one-step projection does not imply that the whole projected process is Markov. No conditional precision,query count,tail,full Gibbs normalization or either main result is concluded.",
+      "steps": [
+        {
+          "title": "Keep coordinates,positive scales and the actual state update explicit",
+          "text": "The state carries the old original-coordinate reference even though it may be arbitrary. M(s) is already in original coordinates. The fresh independent noise forms y,while the GD initial point remains x. Positive beta+b and eta+tau imply v>0; the real coercion of bplus is exactly b+1/v,so the nonnegative-real representation does not alter the precision.",
+          "formula": "v=\\frac{\\eta+\\tau}{\\beta+b}>0,\\quad y=x+\\sqrt{\\frac\\tau{\\beta+b}}z,\\quad b^+=b+v^{-1},\\quad u^+=(b^+)^{-1}(bu+v^{-1}y).",
+          "lean": "reference_carrying_kernel: hbeta,hv,hbp,hbp0,hvm,hbpm,hobsm,hcm"
+        },
+        {
+          "title": "Prove every finite iterate jointly measurable",
+          "text": "For any measurable state space,precision b(s),center u(s),initial state and step may all vary measurably. The true base gradient is continuous by C2. Induct on iterations of the explicit genuine regularized gradient; measurable addition,scalar multiplication and composition prove the full state-to-iterate map measurable.",
+          "formula": "x_{n+1}(s)=x_n(s)-\\gamma(s)\\bigl(\\nabla V(x_n(s))+b(s)(x_n(s)-u(s))\\bigr).",
+          "lean": "state_iterates; variable_reference: hgrad,hgV,hTeq,hm,hq,hevent"
+        },
+        {
+          "title": "Use the strict terminal witness for the actual first inner hit",
+          "text": "At positive bplus,the parent terminal theorem with A=1/bplus gives a finite point hitting d*bplus. Since d*bplus<=(alpha+bplus)*d,this is an existence witness for the actual inner rule. firstIndex takes the least actual hit; measurable_find and Measurable.find give the index and stopped output. Minimality gives strict failure before N. No W2 or moment premise is used,and no equality with the terminal stopping output is claimed.",
+          "formula": "db^+\\le(\\alpha+b^+)d,\\quad N=\\min\\{n:q_n\\le(\\alpha+b^+)d\\},\\quad q_j>(\\alpha+b^+)d\\ (j<N).",
+          "lean": "firstIndex; stopped_family; variable_reference: ht,hs; TerminalReferenceGradientDescent.terminal_reference_gradient_descent"
+        },
+        {
+          "title": "Match the source quadratic update by a genuine constant identity",
+          "text": "Complete the square in the two true quadratic terms. The difference C depends on state and observation but not on the iteration position. Frechet derivatives ignore this additive constant,so the gradients agree and hence every finite GD iterate is identical. The start remains the same pre-noise x.",
+          "formula": "W_p(w)=F_p(w)+C_p,\\quad C_p=\\frac{b v^{-1}}{2(b+v^{-1})}\\|u-y\\|^2,\\quad \\nabla W_p=\\nabla F_p.",
+          "lean": "quadratic_source_alignment: he,hg,hh; reference_carrying_kernel: hsrc; fderiv_add_const"
+        },
+        {
+          "title": "Certify the next normalized reference without changing stored coordinates",
+          "text": "The actual reference stored by update is out in original coordinates. Apply the chain rule to F(./sqrt(cplus)),where cplus=beta+bplus. The scaled gradient is cplus^(-1/2) times the original gradient. The proved first-hit threshold therefore gives d/((beta+bplus)/(alpha+bplus)) for the scaled reference.",
+          "formula": "\\left\\|\\nabla\\bigl[F_p(\\cdot/\\sqrt{c^+})\\bigr](\\sqrt{c^+}\\,\\mathrm{out})\\right\\|^2\\le\\frac{(\\alpha+b^+)d}{c^+}=\\frac{d}{c^+/(\\alpha+b^+)}.",
+          "lean": "scaled_reference_bound; reference_carrying_kernel: hFd,hp"
+        },
+        {
+          "title": "Carry the true reference and observation history together",
+          "text": "Combine the measurable precision,center and stopped-reference maps with count increment. For each history coordinate,use the two cases n=0 and n+1 to prove measurability of prepending y. This yields a measurable full update,not just a measurable center with an untracked reference.",
+          "formula": "\\mathrm{update}(s,x,z)=(b^+,u^+,\\mathrm{out},k+1,h^+),\\quad h^+(0)=y,\\quad h^+(n+1)=h(n).",
+          "lean": "reference_carrying_kernel: hNm,hom,hum; measurable_pi_lambda"
+        },
+        {
+          "title": "Construct the actual Markov transition and absorbing branch",
+          "text": "Take Q=M times the constant standard-Gaussian kernel. Retain the starting state through id times Q and push through the measurable update. Each operation preserves Markov normalization. The measurable set theta<=b selects the identity kernel; its complement uses the constructed continuation kernel. Expanding the kernel map gives the displayed statewise measure formula.",
+          "formula": "Q=M\\times G,\\quad C=(\\mathrm{id}\\times Q).\\mathrm{map}(\\mathrm{update}),\\quad P=\\mathbf1_{\\{\\theta\\le b\\}}\\mathrm{id}+\\mathbf1_{\\{b<\\theta\\}}C.",
+          "lean": "reference_carrying_kernel: Q,hQ,C,hC,hCs,D,hD,P,hP,hPs; Kernel.map_apply; Kernel.prod_apply; Kernel.piecewise_apply"
+        },
+        {
+          "title": "Project only the one-step marginal",
+          "text": "Map each P(s) by project. A stopped dirac stays the projected dirac. Otherwise map-composition removes the reference coordinate from the actual full update,leaving precisely oldUpdate. The identity is at each enhanced state; M,eta,tau may still depend on its reference. No projected-chain Markovness,history invariant or source stopping-depth claim follows.",
+          "formula": "\\mathrm{project}_\\#P(s)=\\begin{cases}\\delta_{\\mathrm{project}(s)},&\\theta\\le b,\\\\ \\mathrm{oldUpdate}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta.\\end{cases}",
+          "lean": "reference_carrying_kernel: hproj,final projection cases; Measure.map_dirac'; Measure.map_map"
+        }
+      ],
+      "lean_statement": "Actual variable-state first-hit reference,source quadratic trajectory identity,normalized admissibility,enhanced Markov transition and one-step projected marginal.",
+      "lean_proof": "Measurable iteration and least hitting,strict terminal witness,quadratic completion and genuine derivatives,chain rule,product-kernel pushforward and measurable absorption.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "measurable_find",
+        "Measurable.find",
+        "fderiv_add_const",
+        "ProbabilityTheory.Kernel.map_apply",
+        "ProbabilityTheory.Kernel.prod_apply",
+        "ProbabilityTheory.Kernel.piecewise_apply",
+        "MeasureTheory.Measure.map_map"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "task": "independent-semantic-source-review",
+  "packet_id": "ASTIS-REVIEW-3222a84114d700c5",
+  "anti_anchoring": {
+    "prior_semantic_slots_included": false,
+    "prior_deltas_included": false,
+    "prior_verdict_included": false,
+    "prior_repairs_included": false
+  },
+  "roles": {
+    "formalizer": "root-samplinglib-writer",
+    "blind_decoder": "blind_reconstruction_v",
+    "reviewer_must_differ_from_both": true
+  },
+  "source": {
+    "source_id": "companion:sphmc-reference-carrying-kernel",
+    "anchor": "Algorithm3.3 and Section6.3: actual reference-carrying recursive state transition",
+    "original_text": "E is a finite-dimensional real inner-product space with its Borel structure and d=dim(E)>0. V:E->R is C2; 0<alpha<=beta and alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w.\nThe complete retained state is s=(b,u,xref,k,h) in NNReal x E x E x Nat x (Nat->E). The precision b is nonnegative; u and xref are original-coordinate points; k is a count and h a padded most-recent-first observation history. No admissibility or valid-history invariant is assumed for the old state.\neta,tau are measurable positive real functions of the complete retained state. M is an actual Markov kernel from that state to E, interpreted as the current sampler output in ORIGINAL coordinates BEFORE the fresh noise; no sampler accuracy or moment property is assumed. The supplied threshold theta is a nonnegative precision threshold.\nFor s and fresh pair (x,z), v(s)=(eta(s)+tau(s))/(beta+b), bplus=b+toNNReal(1/v(s)), y=x+sqrt(tau(s)/(beta+b))*z and uplus=(bplus)^(-1)*(b*u+v(s)^(-1)*y). The theorem proves v>0 and the real equality bplus=b+1/v, so toNNReal does not truncate.\nF_p(w)=V(w)+bplus/2*norm(w-uplus)^2 and W_p(w)=V(w)+b/2*norm(w-u)^2+1/(2v)*norm(w-y)^2 for p=(s,(x,z)). Let T_p(w)=w-(beta+bplus)^(-1)*grad F_p(w), q_n(p)=norm(grad F_p(T_p^n(x)))^2. N(p) is the least n with q_n(p)<=(alpha+bplus)*d if one exists,otherwise zero. out(p)=T_p^N(p)(x),starting at the pre-noise x.\nupdate(p)=(bplus,uplus,out(p),k+1,hplus), where hplus(0)=y and hplus(n+1)=h(n). project(s)=(b,u,k,h) removes only the reference. oldUpdate(p)=(bplus,uplus,k+1,hplus). G denotes the standard Gaussian probability on E; the product M(s) x G means the new noise is independent conditional on the complete state.\nFor every state,v>0 and bplus=b+1/v. N,out and update are jointly measurable. For every state/sample/noise triple,the actual stopped gradient-square is at most (alpha+bplus)*d and every earlier iterate strictly exceeds it; grad F_p(w)=grad V(w)+bplus*(w-uplus). The true source potential satisfies W_p(w)=F_p(w)+b*v^(-1)/(2*(b+v^(-1)))*norm(u-y)^2,so their gradients and all GD iterates from x with step1/(beta+bplus) coincide. The scaled reference sqrt(beta+bplus)*out has gradient-square at most d/((beta+bplus)/(alpha+bplus)) for F_p(./sqrt(beta+bplus)). There exists an actual Markov state transition P with P(s)=dirac(s) when theta<=b,and otherwise P(s)=update(s,.)#(M(s) x G). Its single-step reference-deleted marginal is dirac(project(s)) in the first branch and oldUpdate(s,.)#(M(s) x G) in the second.",
+    "text_sha256": "2c15714372fbbd975aa275cfa6eb23ddb2e8c282fae4329a64db5f91e45b0477"
+  },
+  "lean": {
+    "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingKernel.lean",
+    "statement": "∀ {E : Type u_1} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]\n  [inst_3 : MeasurableSpace E] [BorelSpace E] {V : E → ℝ} {α β : NNReal},\n  0 < α →\n    α ≤ β →\n      ContDiff ℝ 2 V →\n        (∀ (x w : E), ↑α * ‖w‖ ^ 2 ≤ ((fderiv ℝ (fderiv ℝ V) x) w) w ∧ ((fderiv ℝ (fderiv ℝ V) x) w) w ≤ ↑β * ‖w‖ ^ 2) →\n          0 < ↑(Module.finrank ℝ E) →\n            ∀ (η τ : NNReal × E × E × ℕ × (ℕ → E) → ℝ),\n              Measurable η →\n                Measurable τ →\n                  (∀ (s : NNReal × E × E × ℕ × (ℕ → E)), 0 < η s) →\n                    (∀ (s : NNReal × E × E × ℕ × (ℕ → E)), 0 < τ s) →\n                      ∀ (M : ProbabilityTheory.Kernel (NNReal × E × E × ℕ × (ℕ → E)) E)\n                        [ProbabilityTheory.IsMarkovKernel M] (threshold : NNReal),\n                        have d := ↑(Module.finrank ℝ E);\n                        have v := fun s => (η s + τ s) / (↑β + ↑s.1);\n                        have bp := fun s => s.1 + (v s)⁻¹.toNNReal;\n                        have obs := fun p => p.2.1 + √(τ p.1 / (↑β + ↑p.1.1)) • p.2.2;\n                        have center := fun p => (↑(bp p.1))⁻¹ • (↑p.1.1 • p.1.2.1 + (v p.1)⁻¹ • obs p);\n                        have F := fun p x => V x + ↑(bp p.1) / 2 * ‖x - center p‖ ^ 2;\n                        have W := fun p x => V x + ↑p.1.1 / 2 * ‖x - p.1.2.1‖ ^ 2 + (v p.1)⁻¹ / 2 * ‖x - obs p‖ ^ 2;\n                        have T := fun p x => x - (↑β + ↑(bp p.1))⁻¹ • gradient (F p) x;\n                        have q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖ ^ 2;\n                        have N := fun s => if h : ∃ n, q n s ≤ (fun p => (↑α + ↑(bp p.1)) * d) s then Nat.find h else 0;\n                        have out := fun p => (T p)^[N p] p.2.1;\n                        have update := fun p =>\n                          (bp p.1, center p, out p, p.1.2.2.2.1 + 1, fun n => Nat.casesOn n (obs p) p.1.2.2.2.2);\n                        have project := fun s => (s.1, s.2.1, s.2.2.2.1, s.2.2.2.2);\n                        have oldUpdate := fun p =>\n                          (bp p.1, center p, p.1.2.2.2.1 + 1, fun n => Nat.casesOn n (obs p) p.1.2.2.2.2);\n                        (∀ (s : NNReal × E × E × ℕ × (ℕ → E)), 0 < v s ∧ ↑(bp s) = ↑s.1 + (v s)⁻¹) ∧\n                          Measurable N ∧\n                            Measurable out ∧\n                              Measurable update ∧\n                                (∀ (p : (NNReal × E × E × ℕ × (ℕ → E)) × E × E),\n                                    q (N p) p ≤ (↑α + ↑(bp p.1)) * d ∧\n                                      (∀ j < N p, (↑α + ↑(bp p.1)) * d < q j p) ∧\n                                        (∀ (x : E), gradient (F p) x = gradient V x + ↑(bp p.1) • (x - center p)) ∧\n                                          (∀ (x : E),\n                                              W p x =\n                                                F p x +\n                                                  ↑p.1.1 * (v p.1)⁻¹ / (2 * (↑p.1.1 + (v p.1)⁻¹)) *\n                                                    ‖p.1.2.1 - obs p‖ ^ 2) ∧\n                                            (∀ (x : E), gradient (W p) x = gradient (F p) x) ∧\n                                              (∀ (n : ℕ),\n                                                  (fun x => x - (↑β + ↑(bp p.1))⁻¹ • gradient (W p) x)^[n] p.2.1 =\n                                                    (T p)^[n] p.2.1) ∧\n                                                ‖gradient (fun x => F p ((√(↑β + ↑(bp p.1)))⁻¹ • x))\n                                                        (√(↑β + ↑(bp p.1)) • out p)‖ ^\n                                                    2 ≤\n                                                  d / ((↑β + ↑(bp p.1)) / (↑α + ↑(bp p.1)))) ∧\n                                  ∃ P,\n                                    ProbabilityTheory.IsMarkovKernel P ∧\n                                      (∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                          P s =\n                                            if threshold ≤ s.1 then MeasureTheory.Measure.dirac s\n                                            else\n                                              MeasureTheory.Measure.map (fun z => update (s, z))\n                                                ((M s).prod (ProbabilityTheory.stdGaussian E))) ∧\n                                        ∀ (s : NNReal × E × E × ℕ × (ℕ → E)),\n                                          MeasureTheory.Measure.map project (P s) =\n                                            if threshold ≤ s.1 then MeasureTheory.Measure.dirac (project s)\n                                            else\n                                              MeasureTheory.Measure.map (fun z => oldUpdate (s, z))\n                                                ((M s).prod (ProbabilityTheory.stdGaussian E))",
+    "statement_sha256": "3e2d552fff7913fc2f9cd37cd0f2d4f22d2f443f15035fff9c03be144b61e896",
+    "compiled": true
+  },
+  "blind_reconstruction": {
+    "text": "Let \\(E\\) be a finite-dimensional real inner-product space, equipped with its Borel measurable structure, and let \\(d=\\dim_{\\mathbb R}E>0\\). Let \\(V:E\\to\\mathbb R\\) be \\(C^2\\). Assume nonnegative real constants \\(\\alpha,\\beta\\) satisfy \\(0<\\alpha\\le\\beta\\), and for every \\(x,w\\in E\\),\n\\[\n\\alpha\\|w\\|^2\\le D^2V(x)[w,w]\\le\\beta\\|w\\|^2.\n\\]\n\nDefine the state space\n\\[\nS=\\mathbb R_{\\ge0}\\times E\\times E\\times\\mathbb N\\times E^{\\mathbb N}.\n\\]\nWrite a state as \\(s=(b,c,r,k,h)\\): one nonnegative scalar, two vectors, one nonnegative integer, and one infinite vector sequence. Let \\(\\eta,\\tau:S\\to\\mathbb R\\) be arbitrary measurable functions that are strictly positive at every state. Let \\(M:S\\rightsquigarrow E\\) be any Markov kernel, and let \\(a\\ge0\\) be any threshold.\n\nFor each \\(s\\), define\n\\[\nv(s)=\\frac{\\eta(s)+\\tau(s)}{\\beta+b},\n\\qquad\nb^+(s)=b+\\max\\{v(s)^{-1},0\\},\n\\]\nwhere the latter is a nonnegative real.\n\nFor \\(p=(s,y,g)\\in S\\times E\\times E\\), define\n\\[\no(p)=y+\\sqrt{\\frac{\\tau(s)}{\\beta+b}}\\,g,\n\\qquad\nc^+(p)=\\frac{bc+v(s)^{-1}o(p)}{b^+(s)},\n\\]\nand the two functions of \\(x\\in E\\)\n\\[\nF_p(x)=V(x)+\\frac{b^+(s)}2\\|x-c^+(p)\\|^2,\n\\]\n\\[\nW_p(x)=V(x)+\\frac b2\\|x-c\\|^2+\n                 \\frac{v(s)^{-1}}2\\|x-o(p)\\|^2.\n\\]\nSet\n\\[\nT_p(x)=x-\\frac1{\\beta+b^+(s)}\\nabla F_p(x),\n\\qquad\nq_n(p)=\\|\\nabla F_p(T_p^n(y))\\|^2.\n\\]\nHere \\(T_p^0(y)=y\\). Define \\(N(p)\\) to be the least \\(n\\in\\mathbb N\\) satisfying\n\\[\nq_n(p)\\le(\\alpha+b^+(s))d\n\\]\nif such an \\(n\\) exists, and \\(0\\) otherwise. Define the output\n\\[\nu(p)=T_p^{N(p)}(y).\n\\]\n\nDefine the full state update by\n\\[\nU(p)=(b^+(s),c^+(p),u(p),k+1,h^+_p),\n\\]\nwhere\n\\[\nh^+_p(0)=o(p),\\qquad h^+_p(n+1)=h(n).\n\\]\nDefine the projection that deletes the third state coordinate,\n\\[\n\\pi(b,c,r,k,h)=(b,c,k,h),\n\\]\nand the corresponding reduced update\n\\[\nU_0(p)=(b^+(s),c^+(p),k+1,h^+_p).\n\\]\n\nThe theorem asserts all of the following.\n\n1. For every \\(s\\), \\(v(s)>0\\), and consequently\n   \\[\n   b^+(s)=b+v(s)^{-1}\n   \\]\n   as real numbers.\n\n2. The maps \\(N:S\\times E\\times E\\to\\mathbb N\\), \\(u:S\\times E\\times E\\to E\\), and \\(U:S\\times E\\times E\\to S\\) are measurable.\n\n3. For every \\(p=(s,y,g)\\), the selected index actually satisfies its predicate:\n   \\[\n   q_{N(p)}(p)\\le(\\alpha+b^+(s))d.\n   \\]\n   Every earlier index fails it strictly:\n   \\[\n   j<N(p)\\implies q_j(p)>(\\alpha+b^+(s))d.\n   \\]\n   Thus a satisfying finite index exists for every input; the fallback in the definition does not conceal a failure to meet the predicate.\n\n4. For every \\(p\\) and every \\(x\\in E\\),\n   \\[\n   \\nabla F_p(x)=\\nabla V(x)+b^+(s)(x-c^+(p)),\n   \\]\n   and\n   \\[\n   W_p(x)=F_p(x)+\n   \\frac{b\\,v(s)^{-1}}{2(b+v(s)^{-1})}\\|c-o(p)\\|^2.\n   \\]\n   In particular, \\(\\nabla W_p(x)=\\nabla F_p(x)\\). For every \\(n\\in\\mathbb N\\), gradient descent on \\(W_p\\), with step size \\(1/(\\beta+b^+(s))\\) and initial point \\(y\\), has exactly the same \\(n\\)-th iterate as \\(T_p^n(y)\\).\n\n5. If \\(L=\\beta+b^+(s)\\) and \\(\\widetilde F_p(x)=F_p(x/\\sqrt L)\\), then\n   \\[\n   \\|\\nabla\\widetilde F_p(\\sqrt L\\,u(p))\\|^2\n   \\le \\frac{d}{L/(\\alpha+b^+(s))}.\n   \\]\n   The gradient here differentiates the displayed spatial argument, with \\(p\\) fixed.\n\n6. There exists a Markov kernel \\(P:S\\rightsquigarrow S\\) satisfying both kernel identities below, for every state \\(s\\):\n   \\[\n   P(s)=\n   \\begin{cases}\n   \\delta_s,&a\\le b,\\\\\n   U(s,\\cdot,\\cdot)_\\#\\bigl(M(s)\\otimes\\gamma_E\\bigr),&b<a,\n   \\end{cases}\n   \\]\n   where \\(\\gamma_E\\) is the centered Gaussian probability measure with identity covariance. Thus, conditional on the input state in the explicit sense of its transition law, an active transition draws \\(y\\sim M(s)\\) and \\(g\\sim\\gamma_E\\) independently, then applies \\(U\\). A state already at or above threshold stays fixed.\n\n   The projected law satisfies\n   \\[\n   \\pi_\\#P(s)=\n   \\begin{cases}\n   \\delta_{\\pi(s)},&a\\le b,\\\\\n   U_0(s,\\cdot,\\cdot)_\\#\\bigl(M(s)\\otimes\\gamma_E\\bigr),&b<a.\n   \\end{cases}\n   \\]\n\n**Scope and ambiguity notes**\n\n- All assertions are universally quantified over the admissible space, potential, constants, functions, Markov kernel, and threshold. The deterministic assertions hold for every input triple, not merely almost surely.\n- The vector \\(r\\) stored in the third state coordinate is replaced by \\(u(p)\\). The inner iteration starts at the newly supplied \\(y\\), not at \\(r\\). Nevertheless, \\(\\eta,\\tau\\), and \\(M\\) may depend on every coordinate of the full state, including \\(r\\), the counter, and the entire sequence.\n- The predicate defining \\(N\\) concerns the squared gradient norm. The threshold test \\(a\\le b\\) is a separate test governing the outer transition.\n- The projected identity remains indexed by the full state \\(s\\). It does not assert that the projected process is an autonomous Markov chain: the right side may depend on the deleted coordinate through \\(\\eta,\\tau\\), or \\(M\\).\n- No assumptions relate \\(M(s)\\) to \\(V\\) or to a target distribution. The theorem gives no invariance, sampling accuracy, mixing, convergence in law, estimator error, outer threshold-reaching guarantee, or quantitative bound on the number of inner iterations.\n- The sequence update prepends an observation to an infinite sequence; no assumption identifies the sequence with a valid past trajectory.\n- The supplied definitions use total real inversion and division. The hypotheses and positivity conclusion ensure the denominators appearing in the displayed mathematical constructions are positive.\n- No source identity or intended application is determined by this reconstruction.",
+    "text_sha256": "0e9bfe2734a3e522a75666864b7887dc311eeae893b99d75a330d8bf878f28b1",
+    "decoder": "blind_reconstruction_v",
+    "decoder_packet_sha256": "8ba10d6ab1b63287a4c5e4cf3bf243dc1411de21e91af17df2aa82d85ccc0e19",
+    "decoder_run_sha256": "67f92a581e9b1e84d261085642760183f70307c5488953c314fac6d7c6662f93",
+    "source_text_visible": false
+  },
+  "review_contract": {
+    "semantic_slots": [
+      "objects",
+      "domains",
+      "quantifiers",
+      "assumptions",
+      "conclusion",
+      "scopes",
+      "constant_dependencies"
+    ],
+    "slot_relations": [
+      "different",
+      "equivalent",
+      "explicit-elaboration",
+      "missing-from-lean",
+      "missing-from-source",
+      "not-audited",
+      "same",
+      "stronger-in-lean",
+      "weaker-in-lean"
+    ],
+    "verdicts": [
+      "domain-mismatch",
+      "equivalent-after-elaboration",
+      "exact",
+      "implicit-assumption-exposed",
+      "lean-strengthened-assumptions",
+      "lean-weakened-conclusion",
+      "possible-source-error",
+      "quantifier-mismatch",
+      "source-underspecified"
+    ],
+    "repair_classes": [
+      "assumption-addition",
+      "conclusion-correction",
+      "domain-clarification",
+      "micro-correction",
+      "notation-resolution",
+      "quantifier-clarification"
+    ],
+    "repair_necessities": [
+      "formalization-artifact-risk",
+      "mathematically-necessary",
+      "source-implicit",
+      "uncertain"
+    ],
+    "rule": "Text similarity is not semantic equivalence. Repair proposals remain separate from the pinned source theorem."
+  },
+  "output_contract": {
+    "semantic_slots": {
+      "objects": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "domains": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "quantifiers": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "assumptions": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "conclusion": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "scopes": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      },
+      "constant_dependencies": {
+        "original": "",
+        "reconstructed": "",
+        "relation": "not-audited",
+        "evidence": ""
+      }
+    },
+    "deltas": [],
+    "verdict": "",
+    "repairs": [],
+    "reviewer": "",
+    "independent_from_formalizer": true,
+    "independent_from_decoder": true,
+    "review_evidence": "",
+    "review_run_sha256": "",
+    "reviewer_packet_sha256": ""
+  },
+  "publication_binding_sha256": "240b0e922f0fc4d912f99611469ae0fe7620a7c269abe4e3612272ed982a9bf3",
+  "candidate_publication_context": {
+    "file": "c29adbf0778a0c9b17b281959096947885f444c72e089b124462bccfcc785a09",
+    "current_lean_module": "import AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent\nimport AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.FiniteRGOProgram\nimport Mathlib.Tactic\n\nopen MeasureTheory Set InnerProductSpace ProbabilityTheory\nopen scoped RealInnerProductSpace NNReal\n/-!\n# Carry the actual reference through a recursive RGO state transition\n\nSource: Chen, Chewi, Lu and Zhang, arXiv:2609.06906v1, Algorithm 3.3\nand Section 6.3. The current Markov output M is interpreted in original\ncoordinates before the fresh independent noise. The true next quadratic\npotential has the precision-weighted center, and its reference GD starts\nfrom the pre-noise output. A genuine constant-difference identity proves\ngradient and whole-trajectory agreement with the source quadratic update.\n\nThe actual first inner hit is measurable jointly in precision, center,\nstep and initial state. A stricter terminal hit supplies only a finite\nwitness; its stopping time and output are not substituted. The new original-\ncoordinate reference is stored with precision, center, count and history.\nIts scaled version satisfies the next normalized reference condition.\nAn explicit product-kernel pushforward constructs the Markov transition.\n\nThe supplied nonnegative precision threshold gives absorbing self-loops.\nFor positive threshold this matches A<=Abar iff b>=1/Abar; the exact source\nthreshold and finite-time reachability are not proved. Threshold zero is\nan immediate-absorption extension. Absorption does not run FORS or return\na final sample. Previous reference admissibility and valid-history invariants\nare not assumed; arbitrary M,eta,tau may depend on that previous reference.\n\nProjection only identifies one-step marginals. It does not make the projected\nwhole process Markov without a factorization assumption. M is a supplied\nactual Markov kernel, with no accuracy or moment guarantee. Full smoothed\nsampling, terminal kernels, conditional errors and expected query costs remain\nseparate. General beta and coordinate-free positive dimension extend the\nnormalized source setting; alpha,eta,tau are positive and current b may be zero.\n-/\n\nnoncomputable section\nnamespace AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel\nvariable {E X : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]\n  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] [MeasurableSpace X]\n\nprivate theorem state_iterates {g : E → E} (hg : Measurable g)\n    {b step : X → ℝ} {u initial : X → E}\n    (hb : Measurable b) (hs : Measurable step) (hu : Measurable u)\n    (hi : Measurable initial) (n : ℕ) :\n    Measurable (fun s => (fun x => x-step s • (g x+b s • (x-u s)))^[n] (initial s)) := by\n  induction n with\n  | zero => simpa only [Function.iterate_zero,id_eq] using hi\n  | succ n ih =>\n    simp only [Function.iterate_succ_apply']\n    exact ih.sub (hs.smul ((hg.comp ih).add (hb.smul (ih.sub hu))))\n\nprivate def firstIndex (q : ℕ → X → ℝ) (b : X → ℝ) (s : X) : ℕ := by\n  classical\n  exact if h : ∃ n, q n s ≤ b s then Nat.find h else 0\n\nomit [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [BorelSpace E] in\nprivate theorem stopped_family (x : ℕ → X → E) (q : ℕ → X → ℝ) (b : X → ℝ)\n    (hx : ∀ n, Measurable (x n))\n    (hq : ∀ n, MeasurableSet {s | q n s ≤ b s})\n    (ht : ∀ s, ∃ n, q n s ≤ b s) :\n    let N := firstIndex q b\n    Measurable N ∧ Measurable (fun s => x (N s) s) ∧\n      ∀ s, q (N s) s ≤ b s ∧ ∀ j < N s, b s < q j s := by\n  classical\n  let N := firstIndex q b\n  have hn (s : X) : N s=Nat.find (ht s) := by\n    simp only [N,firstIndex,dif_pos (ht s)]\n  have hm : Measurable N := by\n    rw [show N=(fun s => Nat.find (ht s)) from funext hn]\n    exact measurable_find ht hq\n  have ho : Measurable (fun s => x (N s) s) := by\n    simp_rw [hn]\n    exact Measurable.find hx hq ht\n  refine ⟨hm,ho,fun s => ?_⟩\n  change q (N s) s ≤ b s ∧ ∀ j < N s, b s < q j s\n  rw [hn]\n  exact ⟨Nat.find_spec (ht s),fun j hj => lt_of_not_ge (Nat.find_min (ht s) hj)⟩\n\nprivate theorem variable_reference {V : E → ℝ} {α β : ℝ≥0}\n    (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x v : E, (α:ℝ)*‖v‖^2 ≤ fderiv ℝ (fderiv ℝ V) x v v ∧\n      fderiv ℝ (fderiv ℝ V) x v v ≤ (β:ℝ)*‖v‖^2)\n    (hαβ : α ≤ β) (hd : 0 < (Module.finrank ℝ E : ℝ))\n    {b : X → ℝ} {u initial : X → E} (hb : Measurable b)\n    (hb0 : ∀ s, 0 < b s) (hu : Measurable u) (hi : Measurable initial) :\n    let d : ℝ := Module.finrank ℝ E\n    let F := fun s x => V x+b s/2*‖x-u s‖^2\n    let T := fun s x => x-((β:ℝ)+b s)⁻¹ • gradient (F s) x\n    let q := fun n s => ‖gradient (F s) ((T s)^[n] (initial s))‖^2\n    let N := firstIndex q (fun s => ((α:ℝ)+b s)*d)\n    Measurable N ∧ Measurable (fun s => (T s)^[N s] (initial s)) ∧\n      (∀ s x, gradient (F s) x=gradient V x+b s • (x-u s)) ∧\n      ∀ s, q (N s) s ≤ ((α:ℝ)+b s)*d ∧\n        ∀ j < N s, ((α:ℝ)+b s)*d < q j s := by\n  let d : ℝ := Module.finrank ℝ E\n  let F := fun s x => V x+b s/2*‖x-u s‖^2\n  let T := fun s x => x-((β:ℝ)+b s)⁻¹ • gradient (F s) x\n  let q := fun n s => ‖gradient (F s) ((T s)^[n] (initial s))‖^2\n  have hgrad (s : X) (x : E) : gradient (F s) x=gradient V x+b s • (x-u s) := by\n    have h := TerminalReferenceGradientDescent.terminal_reference_gradient_descent\n      hV hH hαβ (inv_pos.mpr (hb0 s)) hd rfl (u s)\n    simpa only [inv_inv] using h.2.2.2.1 x\n  have hgV : Measurable (gradient V) :=\n    (TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one\n      (hV.of_le (by norm_num))).measurable\n  have hTeq : T=(fun s x => x-((β:ℝ)+b s)⁻¹ • (gradient V x+b s • (x-u s))) := by\n    funext s x\n    dsimp [T]\n    rw [hgrad]\n  have hm (n : ℕ) : Measurable (fun s => (T s)^[n] (initial s)) := by\n    rw [hTeq]\n    exact state_iterates hgV hb ((measurable_const.add hb).inv) hu hi n\n  have hq (n : ℕ) : Measurable (q n) := by\n    change Measurable (fun s => ‖gradient (F s) ((T s)^[n] (initial s))‖^2)\n    simp_rw [hgrad]\n    exact ((hgV.comp (hm n)).add (hb.smul ((hm n).sub hu))).norm.pow_const 2\n  have hevent (n : ℕ) : MeasurableSet {s | q n s ≤ ((α:ℝ)+b s)*d} :=\n    measurableSet_le (hq n) ((measurable_const.add hb).mul_const d)\n  have ht (s : X) : ∃ n, q n s ≤ ((α:ℝ)+b s)*d := by\n    have h := TerminalReferenceGradientDescent.terminal_reference_gradient_descent\n      hV hH hαβ (inv_pos.mpr (hb0 s)) hd rfl (u s)\n    simp only [inv_inv] at h\n    have hp := h.2.2.2.2.2.2.1 (initial s)\n    have hle : d/(b s)⁻¹ ≤ ((α:ℝ)+b s)*d := by\n      rw [div_inv_eq_mul]\n      have ha := α.coe_nonneg\n      nlinarith\n    exact ⟨_,hp.1.trans hle⟩\n  have hs := stopped_family (fun n s => (T s)^[n] (initial s)) q\n    (fun s => ((α:ℝ)+b s)*d) hm hevent ht\n  exact ⟨hs.1,hs.2.1,hgrad,hs.2.2⟩\n\nomit [MeasurableSpace E] [BorelSpace E] [MeasurableSpace X] in\nprivate theorem quadratic_source_alignment (V : E → ℝ) {r t : ℝ}\n    (hr : 0 ≤ r) (ht : 0 < t) (u y : E) :\n    let w := (r+t)⁻¹ • (r • u+t • y)\n    let F := fun x => V x+r/2*‖x-u‖^2+t/2*‖x-y‖^2\n    let G := fun x => V x+(r+t)/2*‖x-w‖^2\n    (∀ x, F x=G x+r*t/(2*(r+t))*‖u-y‖^2) ∧\n      (∀ x, gradient F x=gradient G x) ∧\n      ∀ (h : ℝ) (n : ℕ) (x : E),\n        (fun z => z-h • gradient F z)^[n] x =\n          (fun z => z-h • gradient G z)^[n] x := by\n  let w := (r+t)⁻¹ • (r • u+t • y)\n  let F := fun x => V x+r/2*‖x-u‖^2+t/2*‖x-y‖^2\n  let G := fun x => V x+(r+t)/2*‖x-w‖^2\n  have hrt : 0 < r+t := add_pos_of_nonneg_of_pos hr ht\n  have he (x : E) : F x=G x+r*t/(2*(r+t))*‖u-y‖^2 := by\n    dsimp [F,G,w]\n    simp only [← real_inner_self_eq_norm_sq,inner_sub_left,inner_sub_right,\n      inner_add_left,inner_add_right,real_inner_smul_left,real_inner_smul_right]\n    rw [real_inner_comm y u,real_inner_comm u x,real_inner_comm y x]\n    field_simp\n    ring\n  have hg (x : E) : gradient F x=gradient G x := by\n    rw [show F=(fun x => G x+r*t/(2*(r+t))*‖u-y‖^2) from funext he]\n    simp only [gradient,fderiv_add_const]\n  refine ⟨he,hg,fun h n x => ?_⟩\n  have hh : (fun z => z-h • gradient F z)=(fun z => z-h • gradient G z) := by\n    funext z\n    rw [hg]\n  rw [hh]\n\nomit [MeasurableSpace E] [BorelSpace E] [MeasurableSpace X] in\nprivate theorem scaled_reference_bound {F : E → ℝ} (hF : Differentiable ℝ F)\n    {c a d : ℝ} (hc : 0 < c) {x : E} (hx : ‖gradient F x‖^2 ≤ a*d) :\n    ‖gradient (fun z => F ((Real.sqrt c)⁻¹ • z)) (Real.sqrt c • x)‖^2 ≤ d/(c/a) := by\n  let s := (Real.sqrt c)⁻¹\n  let L : E →L[ℝ] E := s • ContinuousLinearMap.id ℝ E\n  have hL (z : E) : HasFDerivAt (fun w : E => s • w) L z :=\n    (hasFDerivAt_id z).const_smul s\n  have hs : Real.sqrt c ≠ 0 := (Real.sqrt_pos.mpr hc).ne'\n  have hscale : s • (Real.sqrt c • x)=x := by\n    simp [s,smul_smul,inv_mul_cancel₀ hs]\n  have hg : gradient (fun z => F (s • z)) (Real.sqrt c • x)=s • gradient F x := by\n    apply HasGradientAt.gradient\n    rw [hasGradientAt_iff_hasFDerivAt]\n    have he : (InnerProductSpace.toDual ℝ E (gradient F x)).comp L =\n        InnerProductSpace.toDual ℝ E (s • gradient F x) := by\n      ext v\n      simp [L]\n    rw [← he]\n    have h : HasFDerivAt (fun z => F (s • z))\n        ((InnerProductSpace.toDual ℝ E (gradient F (s • (Real.sqrt c • x)))).comp L)\n        (Real.sqrt c • x) :=\n      (hF (s • (Real.sqrt c • x))).hasGradientAt.hasFDerivAt.comp _ (hL _)\n    simpa only [hscale] using h\n  rw [hg,norm_smul,Real.norm_eq_abs,mul_pow,sq_abs]\n  have he : s^2=c⁻¹ := by dsimp [s]; rw [inv_pow,Real.sq_sqrt hc.le]\n  rw [he]\n  calc\n    c⁻¹*‖gradient F x‖^2 ≤ c⁻¹*(a*d) := mul_le_mul_of_nonneg_left hx (inv_pos.mpr hc).le\n    _ = d/(c/a) := by field_simp\n\nlocal notation \"RefState\" E:arg => ℝ≥0 × E × E × ℕ × (ℕ → E)\nlocal notation \"OldState\" E:arg => ℝ≥0 × E × ℕ × (ℕ → E)\n\ntheorem reference_carrying_kernel {V : E → ℝ} {α β : ℝ≥0}\n    (hα : 0 < α) (hαβ : α ≤ β) (hV : ContDiff ℝ 2 V)\n    (hH : ∀ x w : E, (α:ℝ)*‖w‖^2 ≤ fderiv ℝ (fderiv ℝ V) x w w ∧\n      fderiv ℝ (fderiv ℝ V) x w w ≤ (β:ℝ)*‖w‖^2)\n    (hd : 0 < (Module.finrank ℝ E : ℝ))\n    (η τ : RefState E → ℝ) (hη : Measurable η) (hτ : Measurable τ)\n    (hη0 : ∀ s, 0 < η s) (hτ0 : ∀ s, 0 < τ s)\n    (M : Kernel (RefState E) E) [IsMarkovKernel M] (threshold : ℝ≥0) :\n    let d : ℝ := Module.finrank ℝ E\n    let v := fun s : RefState E => (η s+τ s)/((β:ℝ)+s.1)\n    let bp := fun s : RefState E => s.1+Real.toNNReal (v s)⁻¹\n    let obs := fun p : RefState E × (E × E) => p.2.1+Real.sqrt (τ p.1/((β:ℝ)+p.1.1)) • p.2.2\n    let center := fun p : RefState E × (E × E) => (bp p.1:ℝ)⁻¹ •\n      ((p.1.1:ℝ) • p.1.2.1+(v p.1)⁻¹ • obs p)\n    let F := fun p x => V x+(bp p.1:ℝ)/2*‖x-center p‖^2\n    let W := fun p x => V x+(p.1.1:ℝ)/2*‖x-p.1.2.1‖^2+(v p.1)⁻¹/2*‖x-obs p‖^2\n    let T := fun p x => x-((β:ℝ)+bp p.1)⁻¹ • gradient (F p) x\n    let q := fun n p => ‖gradient (F p) ((T p)^[n] p.2.1)‖^2\n    let N := firstIndex q (fun p => ((α:ℝ)+bp p.1)*d)\n    let out := fun p => (T p)^[N p] p.2.1\n    let update := fun p : RefState E × (E × E) =>\n      (bp p.1,center p,out p,p.1.2.2.2.1+1,fun n => Nat.casesOn n (obs p) p.1.2.2.2.2)\n    let project := fun s : RefState E => (s.1,s.2.1,s.2.2.2.1,s.2.2.2.2)\n    let oldUpdate := fun p : RefState E × (E × E) =>\n      (bp p.1,center p,p.1.2.2.2.1+1,fun n => Nat.casesOn n (obs p) p.1.2.2.2.2)\n    (∀ s, 0 < v s ∧ (bp s:ℝ)=(s.1:ℝ)+(v s)⁻¹) ∧\n    Measurable N ∧ Measurable out ∧ Measurable update ∧\n    (∀ p, q (N p) p ≤ ((α:ℝ)+bp p.1)*d ∧\n      (∀ j < N p, ((α:ℝ)+bp p.1)*d < q j p) ∧\n      (∀ x, gradient (F p) x=gradient V x+(bp p.1:ℝ) • (x-center p)) ∧\n      (∀ x, W p x=F p x+\n        (p.1.1:ℝ)*(v p.1)⁻¹/(2*((p.1.1:ℝ)+(v p.1)⁻¹))*‖p.1.2.1-obs p‖^2) ∧\n      (∀ x, gradient (W p) x=gradient (F p) x) ∧\n      (∀ n, (fun x => x-((β:ℝ)+bp p.1)⁻¹ • gradient (W p) x)^[n] p.2.1 =\n        (T p)^[n] p.2.1) ∧\n      ‖gradient (fun x => F p ((Real.sqrt ((β:ℝ)+bp p.1))⁻¹ • x))\n          (Real.sqrt ((β:ℝ)+bp p.1) • out p)‖^2 ≤\n        d/(((β:ℝ)+bp p.1)/((α:ℝ)+bp p.1))) ∧\n    ∃ P : Kernel (RefState E) (RefState E), IsMarkovKernel P ∧\n      (∀ s, P s=if threshold ≤ s.1 then Measure.dirac s else\n        ((M s).prod (stdGaussian E)).map (fun z => update (s,z))) ∧\n      (∀ s, (P s).map project=if threshold ≤ s.1 then Measure.dirac (project s) else\n        ((M s).prod (stdGaussian E)).map (fun z => oldUpdate (s,z))) := by\n  classical\n  intro d v bp obs center F W T q N out update project oldUpdate\n  have hβ : 0 < (β:ℝ) := lt_of_lt_of_le (show 0 < (α:ℝ) from hα) (show (α:ℝ) ≤ β from hαβ)\n  have hv (s : RefState E) : 0 < v s :=\n    div_pos (add_pos (hη0 s) (hτ0 s)) (add_pos_of_pos_of_nonneg hβ s.1.coe_nonneg)\n  have hbp (s : RefState E) : (bp s:ℝ)=(s.1:ℝ)+(v s)⁻¹ := by\n    simp only [bp,NNReal.coe_add,Real.coe_toNNReal _ (inv_pos.mpr (hv s)).le]\n  have hbp0 (s : RefState E) : 0 < (bp s:ℝ) := by\n    rw [hbp]\n    exact add_pos_of_nonneg_of_pos s.1.coe_nonneg (inv_pos.mpr (hv s))\n  have hvm : Measurable v := by dsimp [v]; fun_prop\n  have hbpm : Measurable bp := by dsimp [bp]; fun_prop\n  have hobsm : Measurable obs := by dsimp [obs]; fun_prop\n  have hcm : Measurable center := by dsimp [center]; fun_prop\n  have hbpm' : Measurable (fun p : RefState E × (E × E) => (bp p.1:ℝ)) := by fun_prop\n  have href := variable_reference hV hH hαβ hd hbpm' (fun p => hbp0 p.1) hcm\n    (by fun_prop : Measurable (fun p : RefState E × (E × E) => p.2.1))\n  have hNm : Measurable N := href.1\n  have hom : Measurable out := href.2.1\n  have hum : Measurable update := by\n    dsimp [update]\n    apply Measurable.prodMk (by fun_prop)\n    apply Measurable.prodMk hcm\n    apply Measurable.prodMk hom\n    apply Measurable.prodMk (by fun_prop)\n    apply measurable_pi_lambda\n    intro n\n    cases n <;> fun_prop\n  have hproj : Measurable project := by dsimp [project]; fun_prop\n  refine ⟨fun s => ⟨hv s,hbp s⟩,hNm,hom,hum,?_,?_⟩\n  · intro p\n    have hp := href.2.2.2 p\n    have hs := quadratic_source_alignment V p.1.1.coe_nonneg (inv_pos.mpr (hv p.1)) p.1.2.1 (obs p)\n    have hsrc :\n        (∀ x, W p x=F p x+(p.1.1:ℝ)*(v p.1)⁻¹/(2*((p.1.1:ℝ)+(v p.1)⁻¹))*‖p.1.2.1-obs p‖^2) ∧\n        (∀ x, gradient (W p) x=gradient (F p) x) ∧\n        ∀ (h : ℝ) (n : ℕ) (x : E),\n          (fun z => z-h • gradient (W p) z)^[n] x=(fun z => z-h • gradient (F p) z)^[n] x := by\n      simpa only [F,W,center,hbp] using hs\n    refine ⟨hp.1,hp.2,href.2.2.1 p,hsrc.1,hsrc.2.1,fun n => hsrc.2.2 _ n _,?_⟩\n    have hFd : Differentiable ℝ (F p) :=\n      (hV.add (contDiff_const.mul ((contDiff_id.sub contDiff_const).norm_sq (𝕜:=ℝ)))).differentiable\n        (by norm_num)\n    exact scaled_reference_bound hFd (add_pos_of_pos_of_nonneg hβ (bp p.1).coe_nonneg) hp.1\n  · let Q : Kernel (RefState E) (E × E) := M ×ₖ Kernel.const _ (stdGaussian E)\n    have hQ : IsMarkovKernel Q := by dsimp [Q]; infer_instance\n    let C := (Kernel.id ×ₖ Q).map update\n    have hC : IsMarkovKernel C := Kernel.IsMarkovKernel.map _ hum\n    have hCs (s : RefState E) : C s=((M s).prod (stdGaussian E)).map (fun z => update (s,z)) := by\n      dsimp only [C]\n      rw [Kernel.map_apply _ hum,Kernel.prod_apply,Kernel.id_apply,Measure.dirac_prod,\n        Measure.map_map hum (by fun_prop)]\n      simp only [Q,Kernel.prod_apply,Kernel.const_apply]\n      rfl\n    let D : Set (RefState E) := {s | threshold ≤ s.1}\n    have hD : MeasurableSet D := measurableSet_le measurable_const (by fun_prop)\n    let P := Kernel.piecewise hD Kernel.id C\n    have hP : IsMarkovKernel P := by dsimp [P]; infer_instance\n    have hPs (s : RefState E) : P s=if threshold ≤ s.1 then Measure.dirac s else\n        ((M s).prod (stdGaussian E)).map (fun z => update (s,z)) := by\n      simp only [P,Kernel.piecewise_apply,D,mem_ofPred_eq,Kernel.id_apply,hCs]\n    refine ⟨P,hP,hPs,fun s => ?_⟩\n    rw [hPs]\n    by_cases hs : threshold ≤ s.1\n    · rw [if_pos hs,if_pos hs,Measure.map_dirac' hproj]\n    · have hm : Measurable (fun z : E × E => update (s,z)) := hum.comp measurable_prodMk_left\n      rw [if_neg hs,if_neg hs,Measure.map_map hproj hm]\n      rfl\n\nend AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel\n",
+    "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+    "source": {
+      "url": "https://arxiv.org/html/2609.06906v1",
+      "edition": "arXiv:2609.06906v1",
+      "anchor": "Algorithm3.3 and Section6.3: actual reference-carrying recursive state transition",
+      "wording_status": "faithful paraphrase",
+      "attribution": "ASTIS expanded proof component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S.Zhang,Smoothed Picard Hamiltonian Monte Carlo. Actual single-step program semantics,not a full sampling theorem."
+    },
+    "statement": "For every state,v>0 and bplus=b+1/v. N,out and update are jointly measurable. For every state/sample/noise triple,the actual stopped gradient-square is at most (alpha+bplus)*d and every earlier iterate strictly exceeds it; grad F_p(w)=grad V(w)+bplus*(w-uplus). The true source potential satisfies W_p(w)=F_p(w)+b*v^(-1)/(2*(b+v^(-1)))*norm(u-y)^2,so their gradients and all GD iterates from x with step1/(beta+bplus) coincide. The scaled reference sqrt(beta+bplus)*out has gradient-square at most d/((beta+bplus)/(alpha+bplus)) for F_p(./sqrt(beta+bplus)). There exists an actual Markov state transition P with P(s)=dirac(s) when theta<=b,and otherwise P(s)=update(s,.)#(M(s) x G). Its single-step reference-deleted marginal is dirac(project(s)) in the first branch and oldUpdate(s,.)#(M(s) x G) in the second.",
+    "formulae": [
+      {
+        "label": "Actual enhanced transition and first-hit reference",
+        "tex": "P(s)=\\begin{cases}\\delta_s,&\\theta\\le b,\\\\ \\mathrm{update}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta,\\end{cases}\\qquad \\|\\nabla F_p(\\mathrm{out}(p))\\|^2\\le(\\alpha+b^+)d."
+      }
+    ],
+    "assumptions": [
+      "E is a finite-dimensional real inner-product space with its Borel structure and d=dim(E)>0. V:E->R is C2; 0<alpha<=beta and alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w.",
+      "The complete retained state is s=(b,u,xref,k,h) in NNReal x E x E x Nat x (Nat->E). The precision b is nonnegative; u and xref are original-coordinate points; k is a count and h a padded most-recent-first observation history. No admissibility or valid-history invariant is assumed for the old state.",
+      "eta,tau are measurable positive real functions of the complete retained state. M is an actual Markov kernel from that state to E, interpreted as the current sampler output in ORIGINAL coordinates BEFORE the fresh noise; no sampler accuracy or moment property is assumed. The supplied threshold theta is a nonnegative precision threshold.",
+      "For s and fresh pair (x,z), v(s)=(eta(s)+tau(s))/(beta+b), bplus=b+toNNReal(1/v(s)), y=x+sqrt(tau(s)/(beta+b))*z and uplus=(bplus)^(-1)*(b*u+v(s)^(-1)*y). The theorem proves v>0 and the real equality bplus=b+1/v, so toNNReal does not truncate.",
+      "F_p(w)=V(w)+bplus/2*norm(w-uplus)^2 and W_p(w)=V(w)+b/2*norm(w-u)^2+1/(2v)*norm(w-y)^2 for p=(s,(x,z)). Let T_p(w)=w-(beta+bplus)^(-1)*grad F_p(w), q_n(p)=norm(grad F_p(T_p^n(x)))^2. N(p) is the least n with q_n(p)<=(alpha+bplus)*d if one exists,otherwise zero. out(p)=T_p^N(p)(x),starting at the pre-noise x.",
+      "update(p)=(bplus,uplus,out(p),k+1,hplus), where hplus(0)=y and hplus(n+1)=h(n). project(s)=(b,u,k,h) removes only the reference. oldUpdate(p)=(bplus,uplus,k+1,hplus). G denotes the standard Gaussian probability on E; the product M(s) x G means the new noise is independent conditional on the complete state."
+    ],
+    "obligations": [
+      {
+        "id": "actual-reference-carrying-kernel",
+        "label": "Actual reference-carrying recursive Markov transition"
+      }
+    ],
+    "lesson": {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+      "title": "Actual reference-carrying recursive Markov transition",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Algorithm3.3 and Section6.3 actual next reference",
+          "scope": "Actual single-step enhanced Markov program,not a sampler-accuracy or cost theorem. M outputs and stored reference are in original coordinates. theta is supplied: positive theta corresponds to A<=Abar iff b>=1/Abar; exact source threshold and finite reachability remain open. theta=0 immediately absorbs. Terminal self-loop neither runs FORS nor returns a final sample. Old reference admissibility and valid initial history are not required. General beta and coordinate-free positive dimension extend the normalized source; alpha,eta,tau are positive,b may be zero. Since M,eta,tau can depend on the deleted reference,one-step projection does not imply that the whole projected process is Markov. No conditional precision,query count,tail,full Gibbs normalization or either main result is concluded."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCReferenceCarryingKernel"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product space with its Borel structure and d=dim(E)>0. V:E->R is C2; 0<alpha<=beta and alpha*norm(w)^2<=D2V(x)[w,w]<=beta*norm(w)^2 for every x,w.",
+        "The complete retained state is s=(b,u,xref,k,h) in NNReal x E x E x Nat x (Nat->E). The precision b is nonnegative; u and xref are original-coordinate points; k is a count and h a padded most-recent-first observation history. No admissibility or valid-history invariant is assumed for the old state.",
+        "eta,tau are measurable positive real functions of the complete retained state. M is an actual Markov kernel from that state to E, interpreted as the current sampler output in ORIGINAL coordinates BEFORE the fresh noise; no sampler accuracy or moment property is assumed. The supplied threshold theta is a nonnegative precision threshold.",
+        "For s and fresh pair (x,z), v(s)=(eta(s)+tau(s))/(beta+b), bplus=b+toNNReal(1/v(s)), y=x+sqrt(tau(s)/(beta+b))*z and uplus=(bplus)^(-1)*(b*u+v(s)^(-1)*y). The theorem proves v>0 and the real equality bplus=b+1/v, so toNNReal does not truncate.",
+        "F_p(w)=V(w)+bplus/2*norm(w-uplus)^2 and W_p(w)=V(w)+b/2*norm(w-u)^2+1/(2v)*norm(w-y)^2 for p=(s,(x,z)). Let T_p(w)=w-(beta+bplus)^(-1)*grad F_p(w), q_n(p)=norm(grad F_p(T_p^n(x)))^2. N(p) is the least n with q_n(p)<=(alpha+bplus)*d if one exists,otherwise zero. out(p)=T_p^N(p)(x),starting at the pre-noise x.",
+        "update(p)=(bplus,uplus,out(p),k+1,hplus), where hplus(0)=y and hplus(n+1)=h(n). project(s)=(b,u,k,h) removes only the reference. oldUpdate(p)=(bplus,uplus,k+1,hplus). G denotes the standard Gaussian probability on E; the product M(s) x G means the new noise is independent conditional on the complete state."
+      ],
+      "statement": "For every state,v>0 and bplus=b+1/v. N,out and update are jointly measurable. For every state/sample/noise triple,the actual stopped gradient-square is at most (alpha+bplus)*d and every earlier iterate strictly exceeds it; grad F_p(w)=grad V(w)+bplus*(w-uplus). The true source potential satisfies W_p(w)=F_p(w)+b*v^(-1)/(2*(b+v^(-1)))*norm(u-y)^2,so their gradients and all GD iterates from x with step1/(beta+bplus) coincide. The scaled reference sqrt(beta+bplus)*out has gradient-square at most d/((beta+bplus)/(alpha+bplus)) for F_p(./sqrt(beta+bplus)). There exists an actual Markov state transition P with P(s)=dirac(s) when theta<=b,and otherwise P(s)=update(s,.)#(M(s) x G). Its single-step reference-deleted marginal is dirac(project(s)) in the first branch and oldUpdate(s,.)#(M(s) x G) in the second.",
+      "formula": "P(s)=\\begin{cases}\\delta_s,&\\theta\\le b,\\\\ \\mathrm{update}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta,\\end{cases}\\qquad \\|\\nabla F_p(\\mathrm{out}(p))\\|^2\\le(\\alpha+b^+)d.",
+      "steps": [
+        {
+          "title": "Keep coordinates,positive scales and the actual state update explicit",
+          "text": "The state carries the old original-coordinate reference even though it may be arbitrary. M(s) is already in original coordinates. The fresh independent noise forms y,while the GD initial point remains x. Positive beta+b and eta+tau imply v>0; the real coercion of bplus is exactly b+1/v,so the nonnegative-real representation does not alter the precision.",
+          "formula": "v=\\frac{\\eta+\\tau}{\\beta+b}>0,\\quad y=x+\\sqrt{\\frac\\tau{\\beta+b}}z,\\quad b^+=b+v^{-1},\\quad u^+=(b^+)^{-1}(bu+v^{-1}y).",
+          "lean": "reference_carrying_kernel: hbeta,hv,hbp,hbp0,hvm,hbpm,hobsm,hcm"
+        },
+        {
+          "title": "Prove every finite iterate jointly measurable",
+          "text": "For any measurable state space,precision b(s),center u(s),initial state and step may all vary measurably. The true base gradient is continuous by C2. Induct on iterations of the explicit genuine regularized gradient; measurable addition,scalar multiplication and composition prove the full state-to-iterate map measurable.",
+          "formula": "x_{n+1}(s)=x_n(s)-\\gamma(s)\\bigl(\\nabla V(x_n(s))+b(s)(x_n(s)-u(s))\\bigr).",
+          "lean": "state_iterates; variable_reference: hgrad,hgV,hTeq,hm,hq,hevent"
+        },
+        {
+          "title": "Use the strict terminal witness for the actual first inner hit",
+          "text": "At positive bplus,the parent terminal theorem with A=1/bplus gives a finite point hitting d*bplus. Since d*bplus<=(alpha+bplus)*d,this is an existence witness for the actual inner rule. firstIndex takes the least actual hit; measurable_find and Measurable.find give the index and stopped output. Minimality gives strict failure before N. No W2 or moment premise is used,and no equality with the terminal stopping output is claimed.",
+          "formula": "db^+\\le(\\alpha+b^+)d,\\quad N=\\min\\{n:q_n\\le(\\alpha+b^+)d\\},\\quad q_j>(\\alpha+b^+)d\\ (j<N).",
+          "lean": "firstIndex; stopped_family; variable_reference: ht,hs; TerminalReferenceGradientDescent.terminal_reference_gradient_descent"
+        },
+        {
+          "title": "Match the source quadratic update by a genuine constant identity",
+          "text": "Complete the square in the two true quadratic terms. The difference C depends on state and observation but not on the iteration position. Frechet derivatives ignore this additive constant,so the gradients agree and hence every finite GD iterate is identical. The start remains the same pre-noise x.",
+          "formula": "W_p(w)=F_p(w)+C_p,\\quad C_p=\\frac{b v^{-1}}{2(b+v^{-1})}\\|u-y\\|^2,\\quad \\nabla W_p=\\nabla F_p.",
+          "lean": "quadratic_source_alignment: he,hg,hh; reference_carrying_kernel: hsrc; fderiv_add_const"
+        },
+        {
+          "title": "Certify the next normalized reference without changing stored coordinates",
+          "text": "The actual reference stored by update is out in original coordinates. Apply the chain rule to F(./sqrt(cplus)),where cplus=beta+bplus. The scaled gradient is cplus^(-1/2) times the original gradient. The proved first-hit threshold therefore gives d/((beta+bplus)/(alpha+bplus)) for the scaled reference.",
+          "formula": "\\left\\|\\nabla\\bigl[F_p(\\cdot/\\sqrt{c^+})\\bigr](\\sqrt{c^+}\\,\\mathrm{out})\\right\\|^2\\le\\frac{(\\alpha+b^+)d}{c^+}=\\frac{d}{c^+/(\\alpha+b^+)}.",
+          "lean": "scaled_reference_bound; reference_carrying_kernel: hFd,hp"
+        },
+        {
+          "title": "Carry the true reference and observation history together",
+          "text": "Combine the measurable precision,center and stopped-reference maps with count increment. For each history coordinate,use the two cases n=0 and n+1 to prove measurability of prepending y. This yields a measurable full update,not just a measurable center with an untracked reference.",
+          "formula": "\\mathrm{update}(s,x,z)=(b^+,u^+,\\mathrm{out},k+1,h^+),\\quad h^+(0)=y,\\quad h^+(n+1)=h(n).",
+          "lean": "reference_carrying_kernel: hNm,hom,hum; measurable_pi_lambda"
+        },
+        {
+          "title": "Construct the actual Markov transition and absorbing branch",
+          "text": "Take Q=M times the constant standard-Gaussian kernel. Retain the starting state through id times Q and push through the measurable update. Each operation preserves Markov normalization. The measurable set theta<=b selects the identity kernel; its complement uses the constructed continuation kernel. Expanding the kernel map gives the displayed statewise measure formula.",
+          "formula": "Q=M\\times G,\\quad C=(\\mathrm{id}\\times Q).\\mathrm{map}(\\mathrm{update}),\\quad P=\\mathbf1_{\\{\\theta\\le b\\}}\\mathrm{id}+\\mathbf1_{\\{b<\\theta\\}}C.",
+          "lean": "reference_carrying_kernel: Q,hQ,C,hC,hCs,D,hD,P,hP,hPs; Kernel.map_apply; Kernel.prod_apply; Kernel.piecewise_apply"
+        },
+        {
+          "title": "Project only the one-step marginal",
+          "text": "Map each P(s) by project. A stopped dirac stays the projected dirac. Otherwise map-composition removes the reference coordinate from the actual full update,leaving precisely oldUpdate. The identity is at each enhanced state; M,eta,tau may still depend on its reference. No projected-chain Markovness,history invariant or source stopping-depth claim follows.",
+          "formula": "\\mathrm{project}_\\#P(s)=\\begin{cases}\\delta_{\\mathrm{project}(s)},&\\theta\\le b,\\\\ \\mathrm{oldUpdate}(s,\\cdot)_\\#(M(s)\\otimes G),&b<\\theta.\\end{cases}",
+          "lean": "reference_carrying_kernel: hproj,final projection cases; Measure.map_dirac'; Measure.map_map"
+        }
+      ],
+      "lean_statement": "Actual variable-state first-hit reference,source quadratic trajectory identity,normalized admissibility,enhanced Markov transition and one-step projected marginal.",
+      "lean_proof": "Measurable iteration and least hitting,strict terminal witness,quadratic completion and genuine derivatives,chain rule,product-kernel pushforward and measurable absorption.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.TerminalReferenceGradientDescent.terminal_reference_gradient_descent",
+        "AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus.Gradient.continuous_gradient_of_contDiff_one"
+      ],
+      "mathlib_dependencies": [
+        "measurable_find",
+        "Measurable.find",
+        "fderiv_add_const",
+        "ProbabilityTheory.Kernel.map_apply",
+        "ProbabilityTheory.Kernel.prod_apply",
+        "ProbabilityTheory.Kernel.piecewise_apply",
+        "MeasureTheory.Measure.map_map"
+      ]
+    },
+    "binding": {
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+      "role": "proof-edge",
+      "supports": [
+        "actual-reference-carrying-kernel"
+      ]
+    },
+    "candidate_assumptions": [
+      {
+        "source": "Source current sampler output is followed by fresh Gaussian noise.",
+        "lean": "Actual M is in original coordinates; GD starts before fresh noise."
+      },
+      {
+        "source": "Source next reference uses the inner gradient threshold.",
+        "lean": "Actual first(alpha+bplus)*d hit; strictterminal witness only."
+      },
+      {
+        "source": "Normalized Euclidean recursive setting.",
+        "lean": "General beta,coordinate-free d>0,alpha/eta/taupositive,b0allowed."
+      },
+      {
+        "source": "Source precision stopping condition uses an actual cutoff.",
+        "lean": "Supplied nonnegative theta; positive precision-threshold interpretation,theta0 immediateabsorption."
+      },
+      {
+        "source": "References and histories arise along a valid source execution.",
+        "lean": "Arbitrary previous reference,count and history admitted."
+      },
+      {
+        "source": "Recursive state tracks actual source updates.",
+        "lean": "Explicit Markov enhanced transition and single-step projection only."
+      }
+    ]
+  },
+  "publication_review_rule": "Independently compare the current Lean module, its scoped assumptions, source statement and candidate natural-language formula proof. These are claims to check, not previous reviewer verdicts. Do not infer equivalence from a hash or compilation alone.",
+  "packet_sha256": "2be16b35f91593210d2153f3da69fac650c2d2e1d7a5d0f5ca9f2b1c64ece480"
+}

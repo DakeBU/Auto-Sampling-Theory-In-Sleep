@@ -1,0 +1,72 @@
+{
+  "cell": "ASTIS-SW-SPHMC-reference-carrying-kernel",
+  "state": "STABILIZING",
+  "boundary": "Original-coordinate current output M is a supplied actual Markov kernel,not a supplied accuracy guarantee. Pointwise stopping and reference construction need no W2 input. General beta,coordinate-free positive dimension and arbitrary reference/count/history states are explicit; no history validity invariant or cost claimed. Only one-step projection equality; dependence of M on reference forbids automatic projected-chain Markovness. No constructed accurate smoothed sampler,state-varying terminalFORS,conditional moment,stage cost or complete main result.",
+  "remaining": [
+    "Remote CI,actual merge and live deployment"
+  ],
+  "variable_reference_checkpoint": {
+    "path": ".astis/ReferenceCarryingKernelVariable.lean",
+    "sha256": "8e2a99e55ad6fae6863a543206fc1a67dce9adb885b389d99c8960abe1849525",
+    "session": 20933,
+    "exit_code": 0,
+    "result": "Three private helpers plus actual firstIndex; standard three axioms,no lint. State-varying actual gradient-descent first-hit jointly measurable,finite threshold and earlier strict failure from terminal witness only. No W2 or moment premise. Independent development review pending.",
+    "independent_review": "depth_commit_verifier independently compiled frozen source via stdin exit0,three theorem prints standard3/no lint. Joint variable-state iteration/first-hit measurability,true gradient,strict terminal witness only,and absence of W2/moment/probability premises accepted. b(s)>0,d>0 explicit; no actual enhanced kernel consumer or VERIFIED yet."
+  },
+  "complete_scratch": {
+    "path": ".astis/ReferenceCarryingKernelComplete.lean",
+    "sha256": "12b487513f92a6bb576319b2d1e3a52525e2e706fe0d8e8bea151835cba6950f",
+    "session": 45604,
+    "exit_code": 0,
+    "independent_review": "depth_commit_verifier independently compiled via stdin exit0,six theorem prints standard3/no lint. Actual quadratic constant/gradient/trajectory,positive precision,pre-noise start,measurable actual stop and enhanced product-kernel transition accepted. Projection single-step only. No VERIFIED."
+  },
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "result": "Five private lemmas,firstIndex and public proof read; original-coordinate M/pre-noise GD/source scales/actual trajectories/Markov map correct. threshold is supplied precision threshold,zero immediateabsorption extension; not source threshold formula or reachability. Terminalselfloop notFORS/finaloutput. Oldxref admissibility/historyvalidity notassumed. One-step projection only; generalbeta positive-dimensional,alpha/eta/taupositive,b0allowed. No samplerprecision/querycount/history error/fullnormalization Gibbs claim. Freshpacket must expand firstIndex."
+  },
+  "production": {
+    "module": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingKernel.lean",
+    "test": "Tests/SmoothedPicardHMCReferenceCarryingKernel.lean",
+    "state": "Focused PASS3768,standard three axioms,no new-module lint; historical imported warnings replayed.",
+    "session": 67160,
+    "exit_code": 0,
+    "hashes": {
+      "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ReferenceCarryingKernel.lean": "376e38b4826a5d6166ebe3c9fed28c20270e650d60316bfdc814d028ae327808",
+      "Tests/SmoothedPicardHMCReferenceCarryingKernel.lean": "1b04e97d0599a46d2ee3b1c42ea01ca539dd17a8422250375f27cd8d27b2f134"
+    }
+  },
+  "expanded_statement": {
+    "file": ".astis/reference-carrying-kernel-expanded.log",
+    "characters": 4867,
+    "sha256": "3e2d552fff7913fc2f9cd37cd0f2d4f22d2f443f15035fff9c03be144b61e896",
+    "session": 56909,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "source_name_free": true,
+    "independent_review": "depth_commit_verifier independently replayed full4867-character Meta.deltaExpand/isDefEq,exacthash,actual Nat.find and enhanced-state/kernel formulas and no source-name leakage."
+  },
+  "independent_production_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "336db57190f9dd1086630f51041ab659719a21e7",
+    "result": "FocusedPASS3768 standard3/no newlint,reviewed mathematics unchanged,fakeclosure scan passed. No VERIFIED."
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-reference-carrying-kernel.json",
+    "state": "Eight authored steps,6deltas and6private accepted; publicationPASS68."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCReferenceCarryingKernel"
+    ]
+  },
+  "admission_boundary": "VERIFIED atb80d89a. Aggregate integration,original reader/graph QA,merge/live remain separate.",
+  "independent_admission": "runs/20260911-companion-priority/reference-carrying-kernel.verified-admission.json",
+  "integration_notes": {
+    "upstream": "3ad156ae79d655334222c2cac4af41b8ade99750",
+    "boundary": "Independent final local integration accepted at2f8d34b; canonical gate,fullsite and actual root reader/graph QA passed. Remote delivery separate."
+  },
+  "local_qa": "runs/20260911-companion-priority/reference-carrying-kernel.local-qa.json"
+}

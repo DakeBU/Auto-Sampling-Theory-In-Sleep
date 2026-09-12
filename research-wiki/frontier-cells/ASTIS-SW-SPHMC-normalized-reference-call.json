@@ -6,7 +6,7 @@
   "title": "Actual normalized reference and returned sampling law",
   "source_anchor": "SPHMC arXiv:2609.06906v1 Section6.1 normalization convention and Section6.3 next smoothed-sampler call",
   "target_statement": "For the actual regularized potential F_p and actual first ad-hit reference constructed by JointReferenceGradientDescent, set a=alpha+1/A,c=beta+1/A,k=c/a,S(x)=sqrt(c)*x,Fbar_p(x)=F_p(S^-1(x)). Prove actual C2 Hessian bounds[a/c,1], gradient scaling, pairwise measurable scaled reference and its squared-gradient bound d/k. Prove actual normalized Gibbs law S#pi_Fp=pi_Fbarp, with positive finite normalizers/Jacobian justified. For next smoothing variance t>=0 prove S^-1#gaussianSmoothing(pi_Fbarp,sqrt(t))=gaussianSmoothing(pi_Fp,sqrt(t/c)). For every actual normalized probability output law with squared W2 budget R^2,R>=0, derive returned inverse-scaled output squared budget R^2/c; source A1 substitutes R^2=k*epsilon^2. Do not assume these measure equalities or a reference admissibility conclusion.",
-  "status": "independently_verified",
+  "status": "merged",
   "parents": [
     "ASTIS-SW-SPHMC-joint-reference-gradient-descent",
     "ASTIS-SHARED-quadratic-regularization"
@@ -41,9 +41,19 @@
     ],
     "proof_plan": "proof-blueprints/SPHMC-normalized-reference-call.md",
     "planning_review": "Independent log_depth_source_review checked source normalization convention and accepted actual-law/reference/precision route; planning only.",
-    "execution_boundary": "Root sole writer and current sole STABILIZING owner. Parent actual joint reference merged,all PR/merge CI and live delivery complete. Proof/source binding unchanged.",
+    "execution_boundary": "Actual merge releases stabilization lane. Post-merge CI/live tracked separately; neither full main result complete.",
     "admission_boundary": "VERIFIED atd4a1c6b. Aggregate integration,original reader/graph QA,merge/live remain separate.",
-    "independent_verification": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json"
+    "independent_verification": "runs/20260911-companion-priority/normalized-reference-call.verified-admission.json",
+    "root_build": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json: independent exact cc0e120 canonical gate,Tests9182",
+    "graph_regeneration": "runs/20260911-companion-priority/normalized-reference-call.local-qa.json: full reader build/check,graph and actual root browser QA",
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/292",
+    "integration_merge": {
+      "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/292",
+      "commit": "3ad156ae79d655334222c2cac4af41b8ade99750",
+      "merged_at": "2026-09-11T23:28:24Z",
+      "post_merge": "Merge Lean34658193453 and Site34658193448 SUCCESS; live commit/declaration provenance verified."
+    },
+    "live_delivery": "runs/20260911-companion-priority/normalized-reference-call.live-delivery.json"
   },
   "blocked": {
     "reason": "",
