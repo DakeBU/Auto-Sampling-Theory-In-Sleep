@@ -3,7 +3,6 @@
   "state": "STABILIZING",
   "boundary": "Normalized beta=1,kappa>=1,genuine C2 Hessian bounds and source positive measurable eta<=c<1/4,Delta in(0,1/2]. Actual M remains arbitrary;its observation error is explicit and may be infinite. No assumed terminal target identity or terminal KL budget. No implemented stage accuracy,final Delta² bound,total query cost or legal initialization claim. q=2 is the A1 consumer;general q remains separate.",
   "remaining": [
-    "Aggregate integration and original reader/graph QA",
     "Actual merge and deployment"
   ],
   "development": [
@@ -151,6 +150,22 @@
   "independent_admission": "runs/20260911-companion-priority/enhanced-finite-output-kl.verified-admission.json",
   "integration_notes": {
     "upstream": "8be9d4d8f368176e493ccdb1dc6c5b1df8ab5c72",
-    "boundary": "Upstream one-step KL merge integrated with zero tree delta. Root sole stabilization owner;canonical gate and reader/graph QA pending."
+    "boundary": "Independent final local integration accepted at b7cf6f7; remote CI/merge/live pending.",
+    "local_qa": "runs/20260911-companion-priority/enhanced-finite-output-kl.local-qa.json"
+  },
+  "canonical_gate": {
+    "commit": "b7cf6f7076bb2d0393bb37ab2f01cc58c76ddd15",
+    "session": 12256,
+    "exit_code": 0,
+    "source_digest": "7f4d150ee9f16dfc037007f15b1e4ed51e6a7f08838ef752f1d16231f93db6d6",
+    "tests_jobs": 9196,
+    "result": "ASTIS check passed",
+    "log": ".astis/enhanced-finite-kl-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 96269,
+    "exit_code": 0,
+    "state": "completed",
+    "log": ".astis/enhanced-finite-kl-reader-build.log"
   }
 }

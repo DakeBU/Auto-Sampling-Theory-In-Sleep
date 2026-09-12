@@ -18,6 +18,6 @@
   "merge_site_run": 34673370536,
   "merge_site_result": "SUCCESS",
   "merge_lean_run": 34673370488,
-  "merge_lean_result": "pending",
-  "boundary": "Fresh live HTTP provenance checked; full merge Lean CI remains pending. Original local browser evidence is separate; neither complete paper is claimed."
+  "merge_lean_result": "SUCCESS",
+  "boundary": "Original merge Lean/Site CI and fresh live HTTP provenance verified. Independently reviewed C2 source-wording correction awaits current finite-output PR delivery. Neither complete paper is claimed."
 }
