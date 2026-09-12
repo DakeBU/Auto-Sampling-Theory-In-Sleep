@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "route": "samplewiki-route",
+  "mode": "faithfulPaper",
+  "cell_id": "ASTIS-SW-SPHMC-enhanced-terminal-execution",
+  "title": "Actual enhanced-state termination and terminal FORS execution",
+  "source_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3, Section6.3 (6.4) and terminal stage",
+  "target_statement": "Prove actual reference-carrying recursive kernel reaches its fixed terminal domain by the explicit logarithmic depth. Use source epsilon_J=Delta0/sqrt(J+1), prove the terminal64 compatibility from local sufficient constants, and connect the actual TerminalFORSKernel at this precision. Return finite output kernels and cap stability on the full retained state, without projecting away the reference.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SW-SPHMC-reference-carrying-kernel",
+    "ASTIS-SW-SPHMC-terminal-fors-kernel"
+  ],
+  "consumers": [
+    "SPHMC Algorithm3.3 complete finite recursive execution and subsequent error/cost proofs"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib ReferenceCarryingKernel genuine update and retained reference",
+      "Samplinglib TerminalFORSKernel actual terminal output and RN accuracy",
+      "Samplinglib LogarithmicDepth exact source schedule depth",
+      "Samplinglib StoppedRGODepth path support and finite output stability",
+      "Fixed Mathlib kernel composition and map measure APIs"
+    ],
+    "classification": "adapt",
+    "decision": "adapt_existing",
+    "canonical_declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.EnhancedTerminalExecution.enhanced_terminal_execution",
+    "canonical_shared_cell": "",
+    "notes": "Actual Algorithm3.3 consumer; full retained-state adaptation of prior path argument. No reference-deleted Markov chain assumption."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "proof_plan": "proof-blueprints/SPHMC-enhanced-terminal-execution.md",
+    "planning_review": "Independent log_depth_source_review primary-source audit pins epsilon_J=Delta0/sqrt(J+1); source choices and local sufficient constants separated.",
+    "execution_boundary": "Root sole writer. TerminalFORSKernel remains sole stabilization owner, PR295 pending."
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "conceptual_mirror_audit": {
+    "status": "none-found",
+    "discovery_ids": [],
+    "reason": "Actual retained-state program support and terminal precision adapter."
+  },
+  "outside_library_review": {
+    "status": "consulted",
+    "need": "Actual source terminal call precision",
+    "consulted": [
+      {
+        "source": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+        "anchor": "(6.4) and terminal stage",
+        "hypothesis_adapter": "Use Delta0/sqrt(J+1), not global Delta or Delta/(K0*d*q)."
+      }
+    ],
+    "fidelity_boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost."
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2609.06906v1",
+    "primary_anchor": "SPHMC arXiv:2609.06906v1 Algorithm3.3, Section6.3 (6.4) and terminal stage",
+    "detail_status": "omitted",
+    "gap": "Retained-reference measurable program and explicit terminal64 compatibility require proof.",
+    "consulted": [],
+    "fidelity_boundary": "Normalized beta=1, positive dimension and genuine C2 Hessian bounds with alpha=1/kappa. Fixed initial state and recursion accuracy Delta0. Local sufficient C=8,gamma=1/1024 are not quoted source constants. Supplied actual M remains arbitrary Markov; no recursive output accuracy, M construction, initialization-cost integration, accumulated query bound or full main theorem. Almost-sure finite depth does not establish budget integrability. No TV transfer of unbounded cost."
+  }
+}

@@ -1,9 +1,9 @@
 {
   "cell": "ASTIS-SW-SPHMC-terminal-fors-kernel",
-  "state": "STABILIZING",
+  "state": "MERGED",
   "boundary": "Fixed genuine C2 Hessian bounds, positive dimension, ell>=2,0<epsilon<=1/2 and explicit sufficient terminal threshold. The order ell>=2 matches A4(2); the upstream B12 proof for1<ell<2 is not used. Terminal reference initialization cost is separate from1+2exp2; no free reference assumption. Reaching the terminal-state domain, source schedules, initialization cost integration, history accuracy, stage sums, full composition and both main results remain open. Fixed auxiliary reparameterization is not an assumed equality of program laws; prove it. Never claim pointwise output equality when fallback differs on never-hit streams.",
   "remaining": [
-    "Remote PR CI, actual merge and deployment"
+    "Merge Lean/Site CI and actual live deployment"
   ],
   "development_checkpoints": [
     {
@@ -142,5 +142,14 @@
     "upstream": "03116219262c6c4ece661a2d8c903faf03df72a3",
     "boundary": "Independent final local integration accepted at0d89845910b9a1ec0bf9c1e68d1992c7ba72d1fe; remote delivery pending.",
     "local_qa": "runs/20260911-companion-priority/terminal-fors-kernel.local-qa.json"
+  },
+  "remote": {
+    "pr": "https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/pull/295",
+    "head": "9dc763987ab5dd92e1de01cd585646e80a167a7c",
+    "pr_lean_run": 34666076881,
+    "pr_site_run": 34666076902,
+    "state": "MERGED; PR checks passed; merge CI/live pending",
+    "merge_commit": "d8979532e1d1ae6fd06eece573033641069724c2",
+    "merged_at": "2026-09-12T02:08:34Z"
   }
 }
