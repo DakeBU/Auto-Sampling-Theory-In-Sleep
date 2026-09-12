@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "sphmc-observation-conditional-kernel",
+      "library": "samplewiki-route",
+      "chapter": "sphmc-01",
+      "chapter_path": "example-cases/samplewiki/companions/smoothed-picard-hmc.html",
+      "title": "Actual observation-conditioned retained-state execution",
+      "source": {
+        "url": "https://arxiv.org/html/2609.06906v1",
+        "edition": "arXiv:2609.06906v1",
+        "anchor": "Algorithm3.3,Section6.3 after(6.5)",
+        "wording_status": "faithful paraphrase",
+        "attribution": "ASTIS expanded conditional execution component for Fan Chen,Sinho Chewi,Jianfeng Lu and Matthew S. Zhang, Smoothed Picard Hamiltonian Monte Carlo. Not the complete error theorem."
+      },
+      "statement": "There exist a Markov joint kernel J:S->(E x S) and a Markov absorbed transition P:S->S. For every s, J_s is the pushforward of M_s product gamma_E by (x,z) -> (obs(s,(x,z)),U(s,(x,z))). Its first marginal is exactly G(M_s,sqrt(tau_s/(beta+b))). The kernel identity J.fst compProd J.condKernel=J holds. For each s, for J.fst_s-almost every y, for J.condKernel(s,y)-almost every t, t.precision=bp_s and t.center=bp_s^(-1)*(b*u+v_s^(-1)*y). For every actual Markov R:S->E, every s and every measurable A, the nonnegative integral of R(U(s,(x,z)),A) under M_s product gamma_E equals the iterated nonnegative integral of R(t,A) first under J.condKernel(s,y), then under J.fst_s. P_s is dirac_s when threshold<=b and the pushforward by U otherwise. If b<threshold, (R composed with P)(s,A) equals the same conditional iterated integral.",
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space of positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2 <= D2V(x)[w,w] <= beta*norm(w)^2 for all x,w. The nonnegative reals alpha,beta satisfy0<alpha<=beta.",
+        "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). M:S->E is an actual Markov kernel. eta,tau:S->R are measurable and strictly positive at every state; they may depend on all coordinates. Fix any nonnegative precision threshold. No source schedule,initial-reference admissibility,history origin,accuracy or moment assumption is imposed.",
+        "Put v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), and obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z. The next center is center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs(s,(x,z))). The observation variance tau_s/(beta+b) is distinct from the RGO update variance v_s.",
+        "Define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and T_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w), where p=(s,(x,z)). N_p is the least n with norm(grad F_p(T_p^n(x)))^2 <= (alpha+bp_s)*d, or zero if none exists. The actual update is U(p)=(bp_s,center(p),T_p^N_p(x),k+1,prepend(obs(p),history)). It uses the pre-noise sample x to initialize GD, and retains the full reference and history.",
+        "gamma_E denotes standard Gaussian measure. Gaussian smoothing G(mu,sigma) is the pushforward of mu product the law of sigma*Z under addition. J.fst denotes the observation marginal of a joint kernel J:S->(E x S). J.condKernel is the parameterized Markov conditional state kernel (s,y)->S supplied by standard-Borel disintegration. R composed with P means first draw a state from P and then an output from R."
+      ],
+      "formulae": [
+        {
+          "label": "Actual conditional execution",
+          "tex": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E)=Q_s\\otimes C_s,\\qquad (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,C(s,y,dt)\\,Q_s(dy)\\quad(b_s< b_*)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "observation-conditional-kernel",
+          "label": "Actual observation-conditioned retained-state execution"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+          "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
+          "role": "proof-edge",
+          "supports": [
+            "observation-conditional-kernel"
+          ],
+          "audit_id": "ASTIS-RT-20260912-SPHMCObservationConditionalKernel",
+          "boundary": "Actual observation-conditioned retained-state execution component, not KL propagation or either complete paper. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Eta,tau and M may depend on all state coordinates. M and R are arbitrary actual Markov kernels with no approximation/moment guarantees, and initial reference/count/history are arbitrary. J describes hypothetical unabsorbed update on all states; its output factorization identifies actual absorbed P only on b<threshold. Threshold0 makes this active interface empty. Precision/center support is doubly almost everywhere, not for all conditional fibers. The reference is not reconstructed from y; its law is retained in the joint pushforward. No ideal posterior,source schedule,depth,initial admissibility,final accuracy,KL recurrence,cost or TV-to-unbounded-cost conclusion.",
+          "assumption_deltas": [
+            {
+              "source": "Source has smooth strongly convex Euclidean potentials.",
+              "lean": "Positive finite-dimensional inner-product Borel E and genuine C2 Hessian bounds alpha,beta.",
+              "classification": "API-limitation",
+              "reason": "The actual GD differential API uses stronger regularity; conditional measure construction itself does not require curvature."
+            },
+            {
+              "source": "Algorithm3.3 specifies step schedules and produced reference/history.",
+              "lean": "Arbitrary measurable positive eta,tau and arbitrary full initial state.",
+              "classification": "generalization",
+              "reason": "Only actual transition semantics are proved; no source schedule,depth,admissibility or cost is borrowed."
+            },
+            {
+              "source": "Source M implements an approximate sampler and the remaining call has an accuracy target.",
+              "lean": "M and R are arbitrary actual Markov kernels.",
+              "classification": "API-limitation",
+              "reason": "No approximation accuracy or KL recurrence is concluded."
+            },
+            {
+              "source": "Source conditions on observation and complete recursive history.",
+              "lean": "Parameterized joint observation/fullupdatedstate disintegration retains the pre-noise initialized reference.",
+              "classification": "source-implicit",
+              "reason": "This supplies measurable conditional semantics without reconstructing a reference from observation alone."
+            },
+            {
+              "source": "Source terminal branch stops or calls the terminal sampler.",
+              "lean": "J always describes hypothetical continuing update; actual absorbed P composition is identified only for b<threshold.",
+              "classification": "source-implicit",
+              "reason": "No equality with the continuing update on terminal states is claimed; threshold0 has no active states."
+            },
+            {
+              "source": "Source conditional formulas are interpreted as conditional laws.",
+              "lean": "Precision and center support hold under nested AE quantifiers.",
+              "classification": "mathematically-necessary",
+              "reason": "Conditional versions need not satisfy those formulas on null observation fibers."
+            },
+            {
+              "source": "Source main results provide output accuracy and query complexity.",
+              "lean": "Exact joint law and active-branch output factorization only.",
+              "classification": "API-limitation",
+              "reason": "Ideal posterior,KL recurrence,final accuracy and all costs remain separate obligations."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

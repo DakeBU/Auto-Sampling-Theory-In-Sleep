@@ -1,0 +1,127 @@
+{
+  "cell": "ASTIS-SW-SPHMC-observation-conditional-kernel",
+  "state": "STABILIZING",
+  "boundary": "Supplied actual Markov M has no accuracy or moment guarantees. The observation does not determine the retained GD reference. No projection to an autonomous observation-only chain, no marginal KL transfer to the full pre-noise joint law, no final mixed-output error or accumulated cost theorem.",
+  "remaining": [
+    "Remote PR CI,actual merge and deployment"
+  ],
+  "development_checkpoints": [
+    {
+      "path": ".astis/ObservationConditionalJoint.lean",
+      "sha256": "5d7512f00b105be21225e680b057c72737d3a12233f884f9dfb92cb16b6cdd67",
+      "root_session": 5306,
+      "exit_code": 0,
+      "result": "Actual measurable observation/update joint law; exact Gaussian smoothing marginal and parameterized disintegration.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 76963,
+        "exit_code": 0,
+        "decision": "development accepted; both declarations standard three axioms; no mathematical blocker",
+        "boundary": "Not VERIFIED or source-fidelity admission. Conditional support and output factorization not included in this frozen checkpoint."
+      }
+    },
+    {
+      "path": ".astis/ObservationConditionalActual.lean",
+      "sha256": "050a5a153283c2c4cde17d288c1d2fb163b711152a2bd1512035e0b007b7297a",
+      "root_session": 86498,
+      "exit_code": 0,
+      "result": "Instantiates joint law with exact ReferenceCarryingKernel first-hit update from pre-noise x. One unused W lint; unabsorbed update only.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 76963,
+        "exit_code": 0,
+        "decision": "development accepted; both declarations standard three axioms; no mathematical blocker",
+        "boundary": "Not VERIFIED or source-fidelity admission. Conditional support and output factorization not included in this frozen checkpoint."
+      }
+    },
+    {
+      "path": ".astis/ObservationConditionalComplete.lean",
+      "sha256": "1f1d9d6498a75e2300f47357f4910a302a2d2c2b0dfbbde63656a35c84abea1b",
+      "root_session": 22527,
+      "exit_code": 0,
+      "result": "Actual conditional precision/center AE support and remaining-output nonnegative integral factorization. No lint.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 26574,
+        "exit_code": 0,
+        "decision": "development accepted; standard three axioms; no lint; authorized faithful recording",
+        "boundary": "Unabsorbed update; no formal source admission or VERIFIED."
+      }
+    },
+    {
+      "path": ".astis/ObservationConditionalActive.lean",
+      "sha256": "9474cc1339ad26386425c18ebd0ed1942c8219f739fdda3b7287b1693fbffaed",
+      "root_session": 1336,
+      "exit_code": 0,
+      "result": "Actual P active-branch remaining-output factorization; no lint.",
+      "independent_review": {
+        "reviewer": "depth_commit_verifier",
+        "stdin_session": 99806,
+        "exit_code": 0,
+        "decision": "development accepted; standard three axioms; no lint; authorized faithful recording",
+        "boundary": "Only b<threshold identifies P with unabsorbed update; no formal source admission or VERIFIED."
+      }
+    }
+  ],
+  "frontier_protocol": "PASS94 before proof development",
+  "development_boundary": "Current joint law describes unabsorbed update; actual P interpretation requires active-state branch. Do not claim all-state absorbed joint law. Supplied M remains arbitrary.",
+  "source_preaudit": {
+    "reviewer": "log_depth_source_review",
+    "decision": "No mathematical or source blocker found in Complete and active-P interface/proof. No independent compile or formal source admission.",
+    "source": "arXiv:2609.06906v1 Algorithm3.3 and Section6.3 after(6.5)",
+    "boundaries": [
+      "J describes hypothetical unabsorbed update on every state; actual P equality only b<threshold.",
+      "R arbitrary actual remaining-output Markov kernel with no accuracy guarantee.",
+      "Precision/center support only double AE; reference not a deterministic observation function.",
+      "Positive dimension,positive alpha and C2 Hessian assumptions used for actual GD,not disintegration.",
+      "Measurable positive eta/tau,arbitrary threshold; no source schedule/depth/admissible initial history.",
+      "No KL recurrence,ideal posterior identification or cost bound; later integrations must preserve conditional AE versions."
+    ]
+  },
+  "production": {
+    "file": "AutoSamplingTheory/ExampleCases/SmoothedPicardHMC/ObservationConditionalKernel.lean",
+    "sha256": "e3a58d0337d4193eb23546cf6b46cbd18d63ef91a5c722caffa1530c6490eae2",
+    "test_sha256": "585760e41e9d7ae1ba1c7ec590027cce1d73b1b3d404cd2b4dbcc00bc90cd41a",
+    "focused_session": 19743,
+    "exit_code": 0,
+    "result": "PASS3769; standard3; no new-module lint, historical dependency warnings separate.",
+    "log": ".astis/observation-conditional-focused.log",
+    "private_declarations": 4,
+    "public_declarations": 1,
+    "boundary": "Compiled checkpoint only; no PROVED_LOCAL/VERIFIED before independent fixed-commit, expanded-source reconstruction and publication gates.",
+    "independent_review": {
+      "reviewer": "depth_commit_verifier",
+      "commit": "04d2095e9f1bdc48da5f35c80a09ba5153583c65",
+      "decision": "fixed-production-accepted",
+      "evidence": "Independent focusedPASS3769 exit0 standard3/no new-module lint;4private+1public;normalized relocation/private and unused _W removal exactly align with accepted Active checkpoint; fake-closure scan clear. Faithful recording authorized. Not VERIFIED."
+    }
+  },
+  "expanded_statement": {
+    "path": ".astis/observation-conditional-expanded.log",
+    "characters": 5144,
+    "sha256": "b97f548aa346d3c3e98ddaf00086c08c90b44462cc5f4931f165afebfc9c8bc8",
+    "session": 52810,
+    "exit_code": 0,
+    "definitionally_equal": true,
+    "independent_review": "depth_commit_verifier independent17412 exit0 Meta.isDefEq and exact5144chars/SHA; no source/private names or ellipsis."
+  },
+  "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+  "source_fidelity": {
+    "state": "accepted",
+    "verdict": "domain-mismatch",
+    "audits": [
+      "ASTIS-RT-20260912-SPHMCObservationConditionalKernel"
+    ]
+  },
+  "reader_lesson": {
+    "path": "website/content/declaration_lessons/sphmc-observation-conditional-kernel.json",
+    "state": "Seven authored steps,7deltas and4private accepted; publicationPASS72."
+  },
+  "admission_boundary": "VERIFIED at d1872b9;aggregate integration,original reader/graph QA,merge/live separate.",
+  "independent_admission": "runs/20260911-companion-priority/observation-conditional-kernel.verified-admission.json",
+  "integration_notes": {
+    "upstream": "3ebf54d918f6dc68a8d38d6e783baeb2c123e11b",
+    "boundary": "Independent final local integration accepted at6af5598;remoteCI/merge/live pending.",
+    "local_qa": "runs/20260911-companion-priority/observation-conditional-kernel.local-qa.json"
+  }
+}

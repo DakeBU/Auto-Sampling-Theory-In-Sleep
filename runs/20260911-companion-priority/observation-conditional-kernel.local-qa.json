@@ -1,0 +1,72 @@
+{
+  "commit": "6af5598d90da41a4cbe0f2aa077cfd37d487c743",
+  "source_digest": "2f29518f92d0c75dfdcd3060b488497e42be362ffa0f6e4b523c249dae87778a",
+  "status": "local-integration-accepted",
+  "root_integration": {
+    "session": 72857,
+    "exit_code": 0,
+    "result": "Canonical ASTIS check passed;Tests9192",
+    "log": ".astis/observation-conditional-lean-gate.log"
+  },
+  "reader_build": {
+    "session": 69619,
+    "exit_code": 0,
+    "log": ".astis/observation-conditional-reader-build.log",
+    "chapters": 12,
+    "compiled_local_leaves": 414,
+    "modules": 661,
+    "declarations": 3962
+  },
+  "reader_check": {
+    "session": 48556,
+    "exit_code": 0,
+    "log": ".astis/observation-conditional-reader-check.log",
+    "chapters": 12,
+    "modules": 661,
+    "declarations": 3962,
+    "reviewed_teaching_declarations": 77
+  },
+  "graph_check": ".astis/observation-conditional-graph-check.json",
+  "browser": {
+    "provenance": "Actual root browser clicks,scoped DOM and viewed graph screenshot;not independent browser inspection.",
+    "section": "sphmc-observation-conditional-kernel",
+    "authored_steps": 7,
+    "initial_details": 10,
+    "initial_open_details": 0,
+    "katex_errors": 0,
+    "statement_code_characters": 2392,
+    "proof_code_characters": 3353,
+    "clicked": [
+      "Lean statement",
+      "Lean proof",
+      "Source and reuse",
+      "Graph Fit",
+      "Open reader / evidence card"
+    ],
+    "parents": [
+      "ReferenceCarryingKernel.reference_carrying_kernel",
+      "GaussianSmoothing.gaussianSmoothing"
+    ],
+    "graph": {
+      "nodes": 5,
+      "edges": 3,
+      "direct_relations": 2,
+      "omitted_connections": 0,
+      "screenshot_viewed": true,
+      "boundary": "Source correspondence is not Lean dependency;source-present graph status does not infer compilation."
+    },
+    "evidence_card": "5 named declarations;Compiled exact6af5598d90da gate;zero placeholders;Not mapped separate."
+  },
+  "independent_precheck": {
+    "reviewer": "depth_commit_verifier",
+    "decision": "accepted-precheck-only",
+    "evidence": "Exact digest and rawASTIScheck;unchangedVERIFIED source/test/audit/lesson,reviewed=True,correctrootimports,actualmerge8d21e1dd relativefirstparentzero tree delta and soleSTABILIZINGowner."
+  },
+  "boundary": "Local integration accepted. RemoteCI/merge/live,actual Gibbs KL/M accuracy/costs and both complete main results remain separate.",
+  "independent_final_review": {
+    "reviewer": "depth_commit_verifier",
+    "commit": "6af5598d90da41a4cbe0f2aa077cfd37d487c743",
+    "decision": "accepted",
+    "evidence": "Exact gate/digest and reviewed binding;original build/check logs and static reader10closedfolds2392/3353chars2parents;module5declCompiledzero placeholders,Notmappedseparate;graphnoomissions. Root browser provenance accurately distinct from independent static inspection. Sole untracked QA;faithful recording authorized."
+  }
+}

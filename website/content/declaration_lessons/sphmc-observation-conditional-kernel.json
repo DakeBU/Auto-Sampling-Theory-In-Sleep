@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "kind": "theorem",
+      "declaration": "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ObservationConditionalKernel.observation_conditional_kernel",
+      "title": "Actual observation-conditioned retained-state execution",
+      "sources": [
+        {
+          "url": "https://arxiv.org/html/2609.06906v1#S6.SS3",
+          "label": "SPHMC Algorithm3.3 and Section6.3 after(6.5)",
+          "scope": "Actual observation-conditioned retained-state execution component, not KL propagation or either complete paper. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Eta,tau and M may depend on all state coordinates. M and R are arbitrary actual Markov kernels with no approximation/moment guarantees, and initial reference/count/history are arbitrary. J describes hypothetical unabsorbed update on all states; its output factorization identifies actual absorbed P only on b<threshold. Threshold0 makes this active interface empty. Precision/center support is doubly almost everywhere, not for all conditional fibers. The reference is not reconstructed from y; its law is retained in the joint pushforward. No ideal posterior,source schedule,depth,initial admissibility,final accuracy,KL recurrence,cost or TV-to-unbounded-cost conclusion."
+        }
+      ],
+      "tests": [
+        "lake build Tests.SmoothedPicardHMCObservationConditionalKernel"
+      ],
+      "assumptions": [
+        "E is a finite-dimensional real inner-product Borel space of positive dimension d. V:E->R is C2 and its genuine Hessian satisfies alpha*norm(w)^2 <= D2V(x)[w,w] <= beta*norm(w)^2 for all x,w. The nonnegative reals alpha,beta satisfy0<alpha<=beta.",
+        "The full state is S=NNReal x E x E x Nat x (Nat->E), written s=(b,u,xref,k,history). M:S->E is an actual Markov kernel. eta,tau:S->R are measurable and strictly positive at every state; they may depend on all coordinates. Fix any nonnegative precision threshold. No source schedule,initial-reference admissibility,history origin,accuracy or moment assumption is imposed.",
+        "Put v_s=(eta_s+tau_s)/(beta+b), bp_s=b+toNNReal(v_s^(-1)), and obs(s,(x,z))=x+sqrt(tau_s/(beta+b))*z. The next center is center(s,(x,z))=bp_s^(-1)*(b*u+v_s^(-1)*obs(s,(x,z))). The observation variance tau_s/(beta+b) is distinct from the RGO update variance v_s.",
+        "Define F_p(w)=V(w)+bp_s/2*norm(w-center(p))^2 and T_p(w)=w-(beta+bp_s)^(-1)*grad F_p(w), where p=(s,(x,z)). N_p is the least n with norm(grad F_p(T_p^n(x)))^2 <= (alpha+bp_s)*d, or zero if none exists. The actual update is U(p)=(bp_s,center(p),T_p^N_p(x),k+1,prepend(obs(p),history)). It uses the pre-noise sample x to initialize GD, and retains the full reference and history.",
+        "gamma_E denotes standard Gaussian measure. Gaussian smoothing G(mu,sigma) is the pushforward of mu product the law of sigma*Z under addition. J.fst denotes the observation marginal of a joint kernel J:S->(E x S). J.condKernel is the parameterized Markov conditional state kernel (s,y)->S supplied by standard-Borel disintegration. R composed with P means first draw a state from P and then an output from R."
+      ],
+      "statement": "There exist a Markov joint kernel J:S->(E x S) and a Markov absorbed transition P:S->S. For every s, J_s is the pushforward of M_s product gamma_E by (x,z) -> (obs(s,(x,z)),U(s,(x,z))). Its first marginal is exactly G(M_s,sqrt(tau_s/(beta+b))). The kernel identity J.fst compProd J.condKernel=J holds. For each s, for J.fst_s-almost every y, for J.condKernel(s,y)-almost every t, t.precision=bp_s and t.center=bp_s^(-1)*(b*u+v_s^(-1)*y). For every actual Markov R:S->E, every s and every measurable A, the nonnegative integral of R(U(s,(x,z)),A) under M_s product gamma_E equals the iterated nonnegative integral of R(t,A) first under J.condKernel(s,y), then under J.fst_s. P_s is dirac_s when threshold<=b and the pushforward by U otherwise. If b<threshold, (R composed with P)(s,A) equals the same conditional iterated integral.",
+      "formula": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E)=Q_s\\otimes C_s,\\qquad (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,C(s,y,dt)\\,Q_s(dy)\\quad(b_s< b_*).",
+      "boundary": "Actual observation-conditioned retained-state execution component, not KL propagation or either complete paper. C2 genuine Hessian bounds strengthen source regularity; positive finite dimension and0<alpha<=beta are explicit. Eta,tau and M may depend on all state coordinates. M and R are arbitrary actual Markov kernels with no approximation/moment guarantees, and initial reference/count/history are arbitrary. J describes hypothetical unabsorbed update on all states; its output factorization identifies actual absorbed P only on b<threshold. Threshold0 makes this active interface empty. Precision/center support is doubly almost everywhere, not for all conditional fibers. The reference is not reconstructed from y; its law is retained in the joint pushforward. No ideal posterior,source schedule,depth,initial admissibility,final accuracy,KL recurrence,cost or TV-to-unbounded-cost conclusion.",
+      "steps": [
+        {
+          "title": "Keep the exact pre-noise reference update",
+          "text": "Apply ReferenceCarryingKernel under the genuine Hessian assumptions. Its measurable update contains the true first inner GD hit from x, the precision-weighted center, and the complete reference/count/history. The private firstIndex definition is definitionally the same fallback/least-hit function as the parent. No reference is supplied as a free observation-only function.",
+          "formula": "U(s,x,z)=(b^+,u^+,T_{s,x,z}^{N_{s,x,z}}x,k+1,\\mathrm{prepend}(y,h)).",
+          "lean": "firstIndex; actual_joint: href,hu"
+        },
+        {
+          "title": "Build one joint observation and updated-state law",
+          "text": "Set Q=M times the constant standard Gaussian kernel. Pair the input state with this draw using the identity kernel, then push forward by the measurable pair (obs,update). Both coordinates therefore refer to the same x,z. The product and measurable-map kernel instances prove the resulting J is Markov.",
+          "formula": "J_s=(\\mathrm{obs}_s,U_s)_\\#(M_s\\otimes\\gamma_E).",
+          "lean": "joint: Q,f,hf,J,hJs"
+        },
+        {
+          "title": "Identify the actual observation marginal",
+          "text": "Project the joint pushforward onto its first coordinate. Composition of measurable maps removes update while preserving the actual observation x+sigma_s*z. The product pushforward identity moves Gaussian scaling into its noise marginal, giving the existing GaussianSmoothing definition exactly. No Wasserstein or KL assumption is used.",
+          "formula": "Q_s=(J_s)_{\\rm fst}=G(M_s,\\sqrt{\\tau_s/(\\beta+b_s)}).",
+          "lean": "joint: hfs,hp,Kernel.fst_apply,Measure.map_map,Measure.map_prod_map"
+        },
+        {
+          "title": "Disintegrate jointly in state and observation",
+          "text": "The full state has a standard Borel structure and is nonempty, and the finite-dimensional observation space is countably generated. The finite Markov J therefore has a parameterized Markov conditional kernel on (s,y). Mathlib disintegrate gives a kernel identity, not separate nonmeasurable choices of a conditional measure for each s.",
+          "formula": "Q\\otimes_{\\rm k}J.\\mathrm{condKernel}=J.",
+          "lean": "joint: Kernel.disintegrate J J.condKernel"
+        },
+        {
+          "title": "Recover deterministic precision and center only almost everywhere",
+          "text": "Under the actual joint pushforward the next precision and center equal their source formulas for every original x,z. Their equality event is measurable. Transfer its full measure through the map, rewrite J by its disintegration, and apply the kernel AE Fubini direction. This gives the nested AE statement; conditional versions on null observation fibers are not constrained.",
+          "formula": "Q_s\\text{-a.e. }y,\\ C(s,y)\\text{-a.e. }t:\\quad b_t=b_s^+,\\quad u_t=(b_s^+)^{-1}(b_su_s+v_s^{-1}y).",
+          "lean": "actual_conditional: hf,hm,Kernel.ae_ae_of_ae_compProd,ae_map_iff"
+        },
+        {
+          "title": "Factor any actual remaining output",
+          "text": "For measurable A the function (y,t)->R(t,A) is measurable and nonnegative. Integrate it against the disintegration and then rewrite the same J as the actual joint pushforward. The nonnegative compProd/map formulas yield the equality without a finite moment or integrability premise. R may depend on the retained reference and history.",
+          "formula": "\\int R(U_s(x,z),A)\\,d(M_s\\otimes\\gamma_E)=\\int\\!\\int R(t,A)\\,dC(s,y)\\,dQ_s(y).",
+          "lean": "actual_conditional: hr,hi,Kernel.lintegral_compProd,lintegral_map"
+        },
+        {
+          "title": "Connect the absorbed execution on its active branch",
+          "text": "Take the actual P constructed by ReferenceCarryingKernel. At b<threshold its law is precisely the update pushforward. The kernel composition integral and the measurable map formula reduce (R composed with P)(s,A) to the preceding equality. At terminal states P is a self-loop, so no such identification with hypothetical continuing J is asserted.",
+          "formula": "b_s<b_*\\Rightarrow (R\\circ P)(s,A)=\\int\\!\\int R(t,A)\\,dC(s,y)\\,dQ_s(y).",
+          "lean": "observation_conditional_kernel: href,hu,P,hPs,hum,hfactor"
+        }
+      ],
+      "lean_statement": "Actual joint observation and retained-state law, Gaussian marginal, conditional support and active execution factorization.",
+      "lean_proof": "Measurable product pushforward, parameterized disintegration, AE conditional support and nonnegative integration on the actual active branch.",
+      "astis_dependencies": [
+        "AutoSamplingTheory.ExampleCases.SmoothedPicardHMC.ReferenceCarryingKernel.reference_carrying_kernel",
+        "AutoSamplingTheory.TechnicalLemmas.Measure.GaussianSmoothing.gaussianSmoothing"
+      ],
+      "mathlib_dependencies": [
+        "ProbabilityTheory.Kernel.disintegrate",
+        "ProbabilityTheory.Kernel.condKernel",
+        "ProbabilityTheory.Kernel.ae_ae_of_ae_compProd",
+        "ProbabilityTheory.Kernel.lintegral_compProd",
+        "MeasureTheory.Measure.map_prod_map",
+        "MeasureTheory.lintegral_map"
+      ]
+    }
+  ]
+}
