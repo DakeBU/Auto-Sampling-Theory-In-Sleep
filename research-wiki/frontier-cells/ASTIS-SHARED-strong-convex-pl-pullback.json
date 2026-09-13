@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise2.3, Definition2.5 and Section2 attained-minimum convention",
   "target_statement": "For alpha>0 and sigma>=0, differentiable strongly alpha-convex f:F to R with a supplied global minimizer z and differentiable surjective g:E to F, a uniform quadratic lower bound on Dg Dg-adjoint yields a minimizing preimage and the numerical composite-gradient inequality with coefficient alpha*sigma.",
-  "status": "independently_verified",
+  "status": "stabilized",
   "parents": [
     "ASTIS-SHARED-strong-convex-first-order"
   ],
@@ -31,8 +31,8 @@
       "PASS2458; actual nonlinear cubic-surjection consumer, IVT attainment and nonconstant Jacobian coercivity; independent production elaboration, standard axioms only."
     ],
     "independent_verification": "pl_pullback_review 7dc67252227d5fb4d05018526c4b965eb722e47d; decode_57329/pl_source_57329 accepted bound packet in runs/semantic-roundtrip/andi-opt-pl-pullback.",
-    "root_build": "",
-    "graph_regeneration": "",
+    "root_build": "PASS9212 canonical tools/astis.py check at7c9b43d2b9b297cbd7cb8fd8c1dc8f30dd664392; root Tests/Tests.Basic cover new theorem/test; exact source-bound evidence in runs/semantic-roundtrip/andi-opt-pl-pullback/canonical-gate-evidence.json.",
+    "graph_regeneration": "PASS build_site.py/check_site.py:681 modules,4004 declarations,423local leaves. Bounded graph-check PASS; root desktop1280/mobile390 reader/graph inspection completed. Exact parent, solid module ownership and dashed source/scanner/audit links retained. See research-wiki/technical-lemmas/strong-convex-pl-pullback.md.",
     "pr": ""
   },
   "blocked": {

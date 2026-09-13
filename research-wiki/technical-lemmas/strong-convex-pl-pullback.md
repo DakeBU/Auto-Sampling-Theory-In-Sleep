@@ -32,6 +32,54 @@ Focused compilation PASS2458, with actual nonlinear g(x)=x+x³ and f(t)=t²/2.
 The test proves surjectivity by the intermediate value theorem, the nonconstant
 derivative 1+3x², and sigma1 operator coercivity; it consumes the composite
 inequality at the constructed minimizing preimage. Standard axioms only.
-Independent review, source roundtrip, root gate and visual publication pending. Next consumer: use a supplied upper model only when deriving GD rates;
+Independent proof/source review accepted the scoped numeric component. Full gate PASS9212, source-bound JSON retained; publication82, semantic99/6, frontier107 and site/graph checks passed. Next consumer: use a supplied upper model only when deriving GD rates;
 PL does not imply gradient Lipschitz smoothness. Keep full definition regularity
 and positive-modulus source obligations separate.
+
+## Publication and integration evidence
+
+Frozen proof/test/lesson commit7dc67252227d5fb4d05018526c4b965eb722e47d;
+independent verifier pl_pullback_review. Anonymous decoder decode_57329 and
+anti-anchored source reviewer pl_source_57329 accepted the scoped component:
+source-underspecified, no source repair accepted. Negative sigma, the complete C1
+positive-modulus definition package and source multiplicity observation remain
+uncovered. Original98 audits and12 optimisation items and old ledger prefix
+are preserved; no wrapper claim closes a complete exercise/chapter.
+
+The optional independent rectangular smoke established derivative/coercivity
+subproofs but its full wrapper did not compile (missing import/positivity goal).
+It is not a completed test; the committed nonlinear test and generic production
+both compiled. No production finding or extra premise resulted.
+
+Aggregate candidate7c9b43d2b9b297cbd7cb8fd8c1dc8f30dd664392:
+canonical tools/astis.py check PASS9212 including actual root Tests and fake
+closures. Source digest4f7a21c1257ac6f86ee508d18fe17ba1a971f708ddd4c4ab94f7d795b37e453e;
+generated2026-09-13T07:28:19.431131+00:00. Exact JSON copied unedited to
+runs/semantic-roundtrip/andi-opt-pl-pullback/canonical-gate-evidence.json.
+Analysis/Tests first-line imports and Registry423/Tests.Basic integrated.
+Use explicit /opt/homebrew/bin/python3 (3.14 here): default shell Python is too
+old for the site's f-string syntax. No source/toolchain workaround was added.
+
+Graph delta: production/test modules, public theorem, source chapter02 and
+independent audit. One-hop graph has4 direct relations: module declares solid,
+parent StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn scanner
+reference dashed, source correspondence dashed, semantic audit dashed. Source
+scanning is not an exhaustive elaborated dependency export; planned GD consumer
+is not shown as a compiled production implication. No family bridge/badge edits.
+
+Root actual visual inspection (not the independent reviewer's own screenshot):
+- Reader libraries/optimisation/chapter-02.html#chewi-opt-v1-exercise-2-3-pl-pullback:
+  desktop1280x900 and mobile390x844, formula/assumption/boundary/semantic display
+  checked. Source-underspecified and separate Definition2.5 TODO visible.
+  Both Lean disclosures initially closed; opened both. Statement491 code chars,
+  proof1973; actual proof code viewed. KaTeX errors0; document width=scrollWidth
+  1265desktop/375mobile. Long mobile formula uses its own horizontal scroller.
+- Graph focus lean-foundations.html?view=lean&focus=decl%3AAutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl&q=AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl:
+  15nodes20edges,4highlighted direct relations; exact parent, solid/dashed arrows,
+  compiled badge and reader link inspected. Mobile detail wraps full name and
+  width=scrollWidth375. Fit restored after viewport testing.
+- Temporary tabs17/18 closed, viewport reset, localhost preview server stopped.
+
+Next bounded work: audit a substantive downstream use of this interface or an
+uncovered source theorem; do not count a restated PL inequality as new progress.
+Do not infer smoothness or a full definition package from this numerical bound.
