@@ -6,15 +6,15 @@
 
 **Samplinglib:** Verified Sampling, Optimisation, Geometry Theory in Lean
 
-[![Samplinglib](https://img.shields.io/badge/Samplinglib-formal_knowledge_graph-155EEF?style=flat-square)](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
+[![Samplinglib](https://img.shields.io/badge/Samplinglib-formal_knowledge_graph-155EEF?style=flat-square)](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/)
 [![Lean 4](https://img.shields.io/badge/Lean-4-6B4FBB?style=flat-square)](https://lean-lang.org/)
-[![Samplinglib site](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/workflows/blueprint-site.yml/badge.svg)](https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep/actions/workflows/blueprint-site.yml)
+[![Samplinglib site](https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/actions/workflows/blueprint-site.yml/badge.svg)](https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/actions/workflows/blueprint-site.yml)
 
-[**Home**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/)
-· [**Libraries**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/libraries/)
-· [**Current Progress**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/)
-· [**Underlying Lean Graph**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/underlying-lean-graph/)
-· [**Harness**](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/workflow/)
+[**Home**](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/)
+· [**Libraries**](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/libraries/)
+· [**Current Progress**](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/progress/)
+· [**Underlying Lean Graph**](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/underlying-lean-graph/)
+· [**Harness**](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/workflow/)
 
 </div>
 
@@ -77,7 +77,7 @@ Lean compilation does not by itself guarantee source fidelity. Source-facing nod
 <details>
 <summary><strong>Collaborative route protocol</strong></summary>
 
-[Current Progress](https://dakebu.github.io/Auto-Sampling-Theory-In-Sleep/progress/) is one dashboard containing the textbook, SampleWiki, and cross-library formalization routes. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
+[Current Progress](https://dakebu.github.io/Automization-Sampling-Optimisation-Geometry-Lib/progress/) is one dashboard containing the textbook, SampleWiki, and cross-library formalization routes. Collaborators can advance different theorem-sized Frontier Cells while seeing the other routes and the shared Lean floor on the same page.
 
 Persistent cells live under [`research-wiki/frontier-cells/`](research-wiki/frontier-cells/). Their status is evidence-backed and CI-checked by:
 
@@ -128,8 +128,8 @@ publication are supported; their durability is limited by filesystem/device
 flush guarantees, as documented in the implementation.
 
 ```bash
-git clone https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep.git
-cd Auto-Sampling-Theory-In-Sleep
+git clone https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib.git
+cd Automization-Sampling-Optimisation-Geometry-Lib
 python3 tools/astis.py check
 python3 tools/astis_frontier_cells.py check
 ```
@@ -152,7 +152,7 @@ SAU ledger, not from this historical run note.
             Zonghao Chen and Sinho Chewi and Matthew S. Zhang and Hau-San Wong and
             Qingfu Zhang and Atsushi Nitanda},
   year   = {2026},
-  url    = {https://github.com/DakeBU/Auto-Sampling-Theory-In-Sleep}
+  url    = {https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib}
 }
 ```
 
