@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.quadratic-gd.iterate",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+    upstreamDecl := "Exercise3.3 (exact trajectories component)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "quadratic", "optimisation"],
+    saldUse := "Actual centered-quadratic gradient derived by differentiation and symmetry; trajectory is the update operator power.",
+    note := "Symmetric continuous Hilbert operator generalizes the positive-definite Euclidean source. Identities only: no stability, spectral endpoint existence, full-section sharpness or companion-paper completion."
+  },
+  {
+    key := "analysis.quadratic-gd.eigenmode",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_eigenmode",
+    upstreamDecl := "Exercise3.3 (exact trajectories component)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "quadratic", "optimisation"],
+    saldUse := "Given a mode relation, exact trajectory, absolute-value norm factor and squared objective factor; zero vector and unstable steps included.",
+    note := "Symmetric continuous Hilbert operator generalizes the positive-definite Euclidean source. Identities only: no stability, spectral endpoint existence, full-section sharpness or companion-paper completion."
+  },
+  {
     key := "analysis.gradient-step.endpoint-bound",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.gradient_step_endpoint_bound",
     upstreamDecl := "Exercise3.2",

@@ -1,3 +1,4 @@
+import Tests.Shared.QuadraticGradientDescent
 import Tests.Shared.GradientDescentOptimalStep
 import Tests.Shared.GradientDescentStationarity
 import Tests.Shared.GradientDescentPL

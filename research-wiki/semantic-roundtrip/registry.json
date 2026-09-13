@@ -25248,6 +25248,488 @@
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-optimal-step/decoder-result.json"
       }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-QuadraticIterate",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-quadratic-gradient-iterate",
+      "source": {
+        "source_id": "chewi-opt-v1-exercise-3-3",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S3; Exercise3.3; Section3 gradient-descent definition",
+        "original_text": "Chewi arXiv:2605.07006v1 Exercise3.3. Let f(x)=inner(x,A*x)/2 for a positive-definite symmetric matrix A on Euclidean space. Derive the gradient-descent iterates explicitly and check how sharp the results of this section are. The actual update is x_(n+1)=x_n-h gradient f(x_n). The exercise prints no solution. ASTIS-authored faithful paraphrase. The operator-power and eigenmode identities are selected proof components; full assessment of every Section3 rate remains an uncovered source obligation.",
+        "text_sha256": "ef0d6ac8e29d11a3f166b3e8937422c6bc912f7e462f195a72f4c32881cfa860"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/QuadraticGradientDescent.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] (H : E →L[ℝ] E),\n  (↑H).IsSymmetric →\n    ∀ (h : ℝ) (N : ℕ) (x : E),\n      have f := fun z => inner ℝ z (H z) / 2;\n      (fun z => z - h • gradient f z)^[N] x = ((1 - h • H) ^ N) x",
+        "statement_sha256": "140f10213b5a1ede666f47586f21cc69d0de4bd04da5c8832fce866afd27df54",
+        "compiled": true,
+        "formalizer": "andi-qgd-worker",
+        "decoder_context": [
+          "H.IsSymmetric means inner(H*x,y)=inner(x,H*y) for all x,y, on the underlying linear map.",
+          "The numeral 1 as an endomorphism is the identity, multiplication is composition, and its natural powers are composition powers.",
+          "gradient f is the Riesz vector of the totalized Frechet derivative; the literal quadratic is differentiable under the stated bounded linear and symmetry hypotheses.",
+          "Function iteration T^[N] starts at the identity for N=0; all scalar and endomorphism zero-th powers equal one."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "The pinned centered quadratic, its matrix A, and actual GD iterates.",
+          "reconstructed": "The same quadratic construction with a continuous linear H; the update uses gradient of that literal f.",
+          "relation": "explicit-elaboration",
+          "evidence": "The proof computes Df(z)[v]=(inner z (H v)+inner v (H z))/2=inner (H z) v. Thus gradient f z=H z is established, not assumed as an unrelated oracle."
+        },
+        "domains": {
+          "original": "Euclidean real finite-dimensional space.",
+          "reconstructed": "Any complete real inner-product space E with a continuous linear endomorphism H.",
+          "relation": "different",
+          "evidence": "This is a valid domain generalization for the bounded identities, not equivalence of source and Lean domains. Every source matrix induces such a bounded operator. Completeness supports the gradient API; no unbounded operator is included."
+        },
+        "quantifiers": {
+          "original": "Compute the source trajectory from an initial point with a fixed step; assess the section estimates.",
+          "reconstructed": "For every such E,H, every real h, every natural N, and every initial x.",
+          "relation": "explicit-elaboration",
+          "evidence": "The function iterate means N updates of one fixed map, including the identity at N=0. There is no variable-step sequence."
+        },
+        "assumptions": {
+          "original": "Positive-definite symmetric A; the section regularity holds for this quadratic.",
+          "reconstructed": "Symmetric bounded real-linear H; positivity absent; no step restriction.",
+          "relation": "weaker-in-lean",
+          "evidence": "Symmetry alone identifies the gradient. Positivity is unnecessary for these identities but cannot be dropped from conclusions about minimizers or convergence. The derivative is built explicitly, so no hidden differentiability hypothesis or total-gradient default is used. Boundedness supplies quadratic regularity."
+        },
+        "conclusion": {
+          "original": "The exercise requests explicit iterates and sharpness assessment of the section results.",
+          "reconstructed": "T_h^[N](x)=(I-hH)^N x.",
+          "relation": "weaker-in-lean",
+          "evidence": "This proves exactly the publication obligation actual-quadratic-iterates. It does not prove all-section-sharpness. Substitution of the actual gradient turns the update into an endomorphism, whose composition powers equal function iterates."
+        },
+        "scopes": {
+          "original": "Deterministic centered quadratic GD, with the wider exercise asking about optimization estimates.",
+          "reconstructed": "Exact pointwise finite-iterate identities on the whole E, not convergence assertions.",
+          "relation": "different",
+          "evidence": "No measure, almost-everywhere representative, integral, boundary condition, asymptotic limit, or stochastic oracle appears. In the generalized indefinite case zero need not minimize f. No spectrum or eigenbasis is invoked."
+        },
+        "constant_dependencies": {
+          "original": "The requested comparison concerns the constants and step regimes of the section estimates.",
+          "reconstructed": "Only exact h,H,N,x dependence in the operator power.",
+          "relation": "different",
+          "evidence": "No smoothness bound, condition number, extremal eigenvalue, optimized step, or uniform contraction factor is asserted. The identities remain true for unstable and nonpositive steps; such validity cannot certify a convergence regime."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "classification": "generalization",
+          "description": "The matrix/Euclidean source is extended to bounded symmetric operators on complete real inner-product spaces.",
+          "evidence": "The inspected complete module quantifies over E and H : E →L[ℝ] E. The product-rule calculation and composition-power argument remain valid there; the lesson discloses this exact domain."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "classification": "generalization",
+          "description": "Positive definiteness is omitted for the exact identities; arbitrary real steps are permitted.",
+          "evidence": "The proof uses symmetry to derive the gradient and never uses positivity. No decay inequality or minimizer claim is stated. This is an extension of a selected component, not a correction to the source assumptions."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "classification": "source-implicit",
+          "description": "The bounded-operator and complete-inner-product interfaces make the gradient regularity explicit.",
+          "evidence": "On the source Euclidean domain matrix linear maps are bounded and the space is complete. The proof constructs the derivative represented by Hx. The assumptions do not restrict the source case."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "review",
+          "classification": "unresolved",
+          "description": "The full exercise sharpness assessment remains uncovered; accept only the named publication proof component.",
+          "evidence": "The binding supports only actual-quadratic-iterates and explicitly leaves all-section-sharpness uncovered. Neither declaration compares all source estimates, constructs extremal modes, nor proves a sharp worst-case rate."
+        }
+      ],
+      "verdict": "lean-weakened-conclusion",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "qgd_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independent anti-anchored review by qgd_source, distinct from andi-qgd-worker and qgd_blind. Read only the two fresh reviewer packets, required protocol/schema, the current indicated Lean module, and the primary arXiv HTML. Verified current module text equals the packet module. Primary source checked at https://arxiv.org/html/2605.07006v1#S3, Exercise 3.3 (HTML lines 678-680), GD definition (510-513), and nearby parameter discussion/Exercise 3.2. Independently derived the gradient and both algebraic identities and compared all seven semantic slots. The supplied reconstruction and lesson correctly describe the Lean theorem, including arbitrary-step and nonpositive-operator scope; source and Lean are not equivalent as whole statements. Accept the exact bound actual-quadratic-iterates only, with generalizations and residual all-section-sharpness visible. No mathematical/source repair is needed or proposed. Compilation status in the packet was not used as source-fidelity evidence; this review does not independently rerun the compiler.",
+        "review_run_sha256": "da96227d6e6758a0d6daa86f1d7ad2f3afa97dee96486acdf1a29ecff905eb32",
+        "reviewer_packet_sha256": "59991e69a30d6111c2f7ac5c1b25d22f236b7cd065523486231dfbd10b9cae35",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-quadratic-gd/source-review-0.json"
+      },
+      "publication_binding_sha256": "8e8706053dc4a7f0d6de1d485503803a45739a691c43653122335a3acddf24ca",
+      "publication_context": {
+        "file": "fbb313c98ea41622fcc08583fc160f3cd24956c7342ab126fe83d0cd1d692530",
+        "current_lean_module": "import Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Analysis.Calculus.FDeriv.Mul\nimport Mathlib.Analysis.InnerProductSpace.Calculus\nimport Mathlib.Analysis.InnerProductSpace.Symmetric\nimport Mathlib.LinearAlgebra.Eigenspace.Basic\n\n/-!\n# Exact gradient descent on a quadratic objective\n\nChewi arXiv:2605.07006v1 Exercise3.3. Symmetry gives the actual gradient of\n`f(x)=⟪x,Hx⟫/2`; the iteration is then a power of `I-hH`. A supplied eigenmode\nhas an exact trajectory, norm and objective value. The symmetric Hilbert and\narbitrary-step identities extend the positive-definite Euclidean source; they\ndo not assert spectral endpoint existence or convergence for every step.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent\n\nopen InnerProductSpace\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nset_option backward.isDefEq.respectTransparency false in\n/-- Actual quadratic-gradient iterates equal the powers of the linear update. -/\ntheorem quadratic_gradient_iterate (H : E →L[ℝ] E) (hH : H.IsSymmetric)\n    (h : ℝ) (N : ℕ) (x : E) :\n    let f := fun z : E => inner ℝ z (H z) / 2\n    (fun z => z - h • gradient f z)^[N] x = ((1 - h • H) ^ N) x := by\n  let f := fun z : E => inner ℝ z (H z) / 2\n  have hg (z : E) : gradient f z = H z := by\n    have hraw := ((hasFDerivAt_id z).inner ℝ H.hasFDerivAt).const_mul (1 / 2 : ℝ)\n    have hlin : (1 / 2 : ℝ) •\n        ((fderivInnerCLM ℝ (z, H z)).comp ((ContinuousLinearMap.id ℝ E).prod H)) =\n        toDual ℝ E (H z) := by\n      ext v\n      change (1 / 2 : ℝ) * (inner ℝ z (H v) + inner ℝ v (H z)) = inner ℝ (H z) v\n      rw [← hH.apply_clm z v, (real_inner_comm v (H z)).symm]\n      ring\n    have hd : HasFDerivAt f (toDual ℝ E (H z)) z := by\n      convert hraw using 1 <;> first | rfl | exact hlin.symm | (ext v; simp only [f, id_eq]; ring)\n    exact (hasGradientAt_iff_hasFDerivAt.mpr hd).gradient\n  change (fun z => z - h • gradient f z)^[N] x = _\n  simp_rw [hg]\n  exact congrFun (FunLike.coe_pow_eq_iterate (1 - h • H) N).symm x\n\n/-- A supplied eigenmode gives exact iterates, distances to zero and quadratic values.\nNo existence of an eigenvector or stability of the chosen step is assumed. -/\ntheorem quadratic_eigenmode (H : E →L[ℝ] E) (hH : H.IsSymmetric)\n    {μ : ℝ} {x : E} (hx : H x = μ • x) (h : ℝ) (N : ℕ) :\n    let f := fun z : E => inner ℝ z (H z) / 2\n    let z := (fun y => y - h • gradient f y)^[N] x\n    z = (1 - h * μ) ^ N • x ∧\n      ‖z‖ = |1 - h * μ| ^ N * ‖x‖ ∧\n      f z = (1 - h * μ) ^ (2 * N) * f x := by\n  let f := fun z : E => inner ℝ z (H z) / 2\n  let A : E →L[ℝ] E := 1 - h • H\n  have hAx : A x = (1 - h * μ) • x := by\n    simp only [A, sub_apply, one_apply_eq_self,\n      smul_apply, hx, smul_smul, sub_smul, one_smul]\n  have hp : (A ^ N) x = (1 - h * μ) ^ N • x := by\n    by_cases hz : x = 0\n    · simp [hz]\n    · have he : Module.End.HasEigenvector A.toLinearMap (1 - h * μ) x :=\n        ⟨Module.End.mem_eigenspace_iff.mpr hAx, hz⟩\n      have ht := congrArg (fun K : E →ₗ[ℝ] E => K x) (ContinuousLinearMap.toLinearMap_pow A N)\n      convert ht.trans (he.pow_apply N) using 1; rfl\n  have hi := (quadratic_gradient_iterate H hH h N x).trans hp\n  change _ = _ ∧ _ = _ ∧ f _ = _ * f x\n  rw [hi]\n  refine ⟨rfl, ?_, ?_⟩\n  · simp [norm_smul, Real.norm_eq_abs]\n  · simp only [f, map_smul, inner_smul_left, inner_smul_right, RCLike.conj_to_real]\n    rw [Nat.mul_comm 2 N, pow_mul]\n    ring\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Exercise3.3; Section3 gradient-descent definition",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+        },
+        "statement": "For the centered quadratic objective associated with a positive-definite symmetric matrix, derive an explicit expression for gradient-descent iterates and assess how sharp the estimates in this section are. The exercise does not print a solution.",
+        "formulae": [
+          {
+            "label": "Source objective and actual iteration",
+            "tex": "f(x)=\\tfrac12\\langle x,Ax\\rangle,\\quad A\\succ0,\\quad x_{n+1}=x_n-h\\nabla f(x_n)."
+          }
+        ],
+        "assumptions": [
+          "A is a positive-definite symmetric matrix on Euclidean d-space. f(x)=⟨x,Ax⟩/2; gradient descent uses the actual gradient and a constant step h."
+        ],
+        "obligations": [
+          {
+            "id": "actual-quadratic-iterates",
+            "label": "Derive the actual gradient and express every iterate as an operator power"
+          },
+          {
+            "id": "modewise-exact-rates",
+            "label": "Compute the exact trajectory, norm and objective value on a supplied eigenmode"
+          },
+          {
+            "id": "all-section-sharpness",
+            "label": "Assess sharpness of all Section3 estimates, with their exact source hypotheses (not covered)"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+          "kind": "theorem",
+          "title": "Exact gradient descent on a quadratic",
+          "statement": "For every natural iteration count, the actual gradient-descent trajectory equals the indicated operator power.",
+          "formula": "T_h^N(x)=(I-hH)^N x,\\qquad f(x)=\\tfrac12\\langle x,Hx\\rangle.",
+          "assumptions": [
+            "E is a complete real inner-product space. H:E→E is a continuous linear operator symmetric in the sense ⟨Hx,y⟩=⟨x,Hy⟩ for every x,y.",
+            "Define the actual centered objective f(x)=⟨x,Hx⟩/2 and its actual gradient update T_h(x)=x−h∇f(x). h∈ℝ is constant across steps, N∈ℕ, and the initial point x∈E is arbitrary."
+          ],
+          "steps": [
+            {
+              "title": "Differentiate the actual objective",
+              "text": "The product rule for the inner product gives half the sum of two linear terms. Symmetry moves H between arguments, and real inner-product symmetry identifies both terms. This is the continuous linear functional represented by Hx, so uniqueness of the Riesz gradient yields ∇f(x)=Hx.",
+              "formula": "Df(x)[v]=\\tfrac12\\bigl(\\langle x,Hv\\rangle+\\langle v,Hx\\rangle\\bigr)=\\langle Hx,v\\rangle,\\qquad\\nabla f(x)=Hx.",
+              "lean": "HasFDerivAt.inner; HasFDerivAt.const_mul; LinearMap.IsSymmetric.apply_clm; hasGradientAt_iff_hasFDerivAt; HasGradientAt.gradient."
+            },
+            {
+              "title": "Identify every update and its iterates",
+              "text": "Substitute the computed gradient into T_h. The update is the continuous linear endomorphism I−hH. Reuse Mathlib’s identity equating endomorphism powers with function iteration; the zero-th power is the identity.",
+              "formula": "T_h=I-hH\\quad\\Longrightarrow\\quad T_h^N(x)=(I-hH)^Nx.",
+              "lean": "FunLike.coe_pow_eq_iterate; congrFun."
+            }
+          ],
+          "astis_dependencies": [],
+          "mathlib_dependencies": [
+            "HasFDerivAt.inner",
+            "HasFDerivAt.const_mul",
+            "LinearMap.IsSymmetric.apply_clm",
+            "HasGradientAt.gradient",
+            "FunLike.coe_pow_eq_iterate"
+          ],
+          "lean_statement": "Actual quadratic and actual gradient iteration; symmetric continuous linear H on complete real Hilbert E, real h, natural N.",
+          "lean_proof": "The product rule for the inner product gives half the sum of two linear terms. Symmetry moves H between arguments, and real inner-product symmetry identifies both terms. This is the continuous linear functional represented by Hx, so uniqueness of the Riesz gradient yields ∇f(x)=Hx. Substitute the computed gradient into T_h. The update is the continuous linear endomorphism I−hH. Reuse Mathlib’s identity equating endomorphism powers with function iteration; the zero-th power is the identity.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S3",
+              "label": "Chewi Exercise3.3",
+              "scope": "ASTIS-authored derivation of exact quadratic iterations; remaining sharpness analysis stays separate."
+            },
+            {
+              "path": "Tests/Shared/QuadraticGradientDescent.lean",
+              "label": "Diagonal endpoint and unstable-step tests",
+              "scope": "Actual diagonal spectrum 1,3 at balanced step, and scalar unit quadratic at unstable step3; no standalone theorem credit."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+          "role": "proof-edge",
+          "supports": [
+            "actual-quadratic-iterates"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Positive-definite symmetric matrix on Euclidean space.",
+            "lean": "Symmetric continuous linear operator on a complete real Hilbert space; no positivity premise."
+          },
+          {
+            "source": "Actual gradient descent on f(x)=⟨x,Ax⟩/2.",
+            "lean": "Actual gradient of the literal centered quadratic; h∈ℝ constant and N∈ℕ."
+          },
+          {
+            "source": "Write explicit iterates and check sharpness of section estimates.",
+            "lean": "Operator-power formula for all initial points."
+          },
+          {
+            "source": "Quadratic regularity and standard matrix gradient.",
+            "lean": "Bounded operator and real inner product provide a continuously differentiable quadratic; symmetry gives the Riesz gradient."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every complete real inner product space E and every continuous real-linear endomorphism H:E→E satisfying ⟨Hu,v⟩=⟨u,Hv⟩ for all u,v∈E, define f:E→ℝ by f(z)=⟨z,Hz⟩/2. Then for every real h, every natural number N (including zero), and every x∈E, the N-fold iterate starting at x of T(z)=z−h∇f(z) equals (I−hH)^N x. The power of an endomorphism means repeated composition, and the zeroth iterate and zeroth endomorphism power are both the identity. The gradient is taken in the real inner product structure; the displayed quadratic is differentiable under these assumptions. There are no positivity, spectral, finite-dimensionality, or step-size restrictions. In particular h=0 and N=0 are included, and no convergence or contraction conclusion is asserted.",
+        "text_sha256": "51f01f63502ad1582aaf2fe89e4d5d0d7b739e40167cdaa25744072ca7b254c1",
+        "decoder": "qgd_blind",
+        "decoder_run_sha256": "8d9e662878e5184b9f749d08293d072f9f395df53b126a1fa18afa6cd53bee7c",
+        "decoder_packet_sha256": "39b178af2245d1c9d942223febee4ba61e8af18e462014a94d975fe077621b60",
+        "source_text_visible": false,
+        "lean_statement_sha256": "140f10213b5a1ede666f47586f21cc69d0de4bd04da5c8832fce866afd27df54",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-quadratic-gd/decoder-result.json"
+      }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-QuadraticEigenmode",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-quadratic-gradient-eigenmode",
+      "source": {
+        "source_id": "chewi-opt-v1-exercise-3-3",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S3; Exercise3.3; Section3 gradient-descent definition",
+        "original_text": "Chewi arXiv:2605.07006v1 Exercise3.3. Let f(x)=inner(x,A*x)/2 for a positive-definite symmetric matrix A on Euclidean space. Derive the gradient-descent iterates explicitly and check how sharp the results of this section are. The actual update is x_(n+1)=x_n-h gradient f(x_n). The exercise prints no solution. ASTIS-authored faithful paraphrase. The operator-power and eigenmode identities are selected proof components; full assessment of every Section3 rate remains an uncovered source obligation.",
+        "text_sha256": "ef0d6ac8e29d11a3f166b3e8937422c6bc912f7e462f195a72f4c32881cfa860"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_eigenmode",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/QuadraticGradientDescent.lean",
+        "statement": "∀ {E : Type u_1}\n  [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E] (H : E →L[ℝ] E),\n  (↑H).IsSymmetric →\n    ∀ {μ : ℝ} {x : E},\n      H x = μ • x →\n        ∀ (h : ℝ) (N : ℕ),\n          have f := fun z => inner ℝ z (H z) / 2;\n          have z := (fun y => y - h • gradient f y)^[N] x;\n          z = (1 - h * μ) ^ N • x ∧ ‖z‖ = |1 - h * μ| ^ N * ‖x‖ ∧ f z = (1 - h * μ) ^ (2 * N) * f x",
+        "statement_sha256": "04d655de7b6f795440d1c2833cdbeb9d33c7dbb6a9334d7b31914ac30aca9d08",
+        "compiled": true,
+        "formalizer": "andi-qgd-worker",
+        "decoder_context": [
+          "H.IsSymmetric means inner(H*x,y)=inner(x,H*y) for all x,y, on the underlying linear map.",
+          "The numeral 1 as an endomorphism is the identity, multiplication is composition, and its natural powers are composition powers.",
+          "gradient f is the Riesz vector of the totalized Frechet derivative; the literal quadratic is differentiable under the stated bounded linear and symmetry hypotheses.",
+          "Function iteration T^[N] starts at the identity for N=0; all scalar and endomorphism zero-th powers equal one."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "The pinned centered quadratic, its matrix A, and actual GD iterates.",
+          "reconstructed": "The same quadratic construction with a continuous linear H; the update uses gradient of that literal f.",
+          "relation": "explicit-elaboration",
+          "evidence": "The proof computes Df(z)[v]=(inner z (H v)+inner v (H z))/2=inner (H z) v. Thus gradient f z=H z is established, not assumed as an unrelated oracle."
+        },
+        "domains": {
+          "original": "Euclidean real finite-dimensional space.",
+          "reconstructed": "Any complete real inner-product space E with a continuous linear endomorphism H.",
+          "relation": "different",
+          "evidence": "This is a valid domain generalization for the bounded identities, not equivalence of source and Lean domains. Every source matrix induces such a bounded operator. Completeness supports the gradient API; no unbounded operator is included."
+        },
+        "quantifiers": {
+          "original": "Compute the source trajectory from an initial point with a fixed step; assess the section estimates.",
+          "reconstructed": "For every such E,H and real mu, every x satisfying Hx=mu*x, every real h, and every natural N.",
+          "relation": "different",
+          "evidence": "The function iterate means N updates of one fixed map, including the identity at N=0. There is no variable-step sequence. The mode relation is a conditional restriction for this component, not a claim that every initial vector is one eigenvector. x=0 is deliberately allowed; no eigenvector-existence quantifier occurs."
+        },
+        "assumptions": {
+          "original": "Positive-definite symmetric A; the section regularity holds for this quadratic.",
+          "reconstructed": "Symmetric bounded real-linear H; positivity absent; no step restriction. Additionally Hx=mu*x for the supplied initial mode.",
+          "relation": "different",
+          "evidence": "Symmetry alone identifies the gradient. Positivity is unnecessary for these identities but cannot be dropped from conclusions about minimizers or convergence. The derivative is built explicitly, so no hidden differentiability hypothesis or total-gradient default is used. Boundedness supplies quadratic regularity."
+        },
+        "conclusion": {
+          "original": "The exercise requests explicit iterates and sharpness assessment of the section results.",
+          "reconstructed": "z=(1-h*mu)^N*x, norm z=abs(1-h*mu)^N*norm x, and f(z)=(1-h*mu)^(2*N)*f(x).",
+          "relation": "weaker-in-lean",
+          "evidence": "This proves exactly the publication obligation modewise-exact-rates. It does not prove all-section-sharpness. Apply the endomorphism power to the supplied mode, then norm homogeneity and the quadratic identity f(c*x)=c^2*f(x). The squared exponent is 2*N and the norm factor requires absolute value."
+        },
+        "scopes": {
+          "original": "Deterministic centered quadratic GD, with the wider exercise asking about optimization estimates.",
+          "reconstructed": "Exact pointwise finite-iterate identities on the whole E, not convergence assertions.",
+          "relation": "different",
+          "evidence": "No measure, almost-everywhere representative, integral, boundary condition, asymptotic limit, or stochastic oracle appears. In the generalized indefinite case zero need not minimize f. No spectral endpoint exists by force of this statement. The lesson correctly distinguishes an algebraic zero mode from a nonzero eigenvector."
+        },
+        "constant_dependencies": {
+          "original": "The requested comparison concerns the constants and step regimes of the section estimates.",
+          "reconstructed": "Only the exact factor 1-h*mu and its powers; dependence on the initial norm and objective value is explicit.",
+          "relation": "different",
+          "evidence": "No smoothness bound, condition number, extremal eigenvalue, optimized step, or uniform contraction factor is asserted. The identities remain true for unstable and nonpositive steps; such validity cannot certify a convergence regime."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "classification": "generalization",
+          "description": "The matrix/Euclidean source is extended to bounded symmetric operators on complete real inner-product spaces.",
+          "evidence": "The inspected complete module quantifies over E and H : E →L[ℝ] E. The product-rule calculation and composition-power argument remain valid there; the lesson discloses this exact domain."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "classification": "generalization",
+          "description": "Positive definiteness is omitted for the exact identities; arbitrary real steps are permitted.",
+          "evidence": "The proof uses symmetry to derive the gradient and never uses positivity. No decay inequality or minimizer claim is stated. This is an extension of a selected component, not a correction to the source assumptions."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "classification": "source-implicit",
+          "description": "The bounded-operator and complete-inner-product interfaces make the gradient regularity explicit.",
+          "evidence": "On the source Euclidean domain matrix linear maps are bounded and the space is complete. The proof constructs the derivative represented by Hx. The assumptions do not restrict the source case."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "review",
+          "classification": "unresolved",
+          "description": "The full exercise sharpness assessment remains uncovered; accept only the named publication proof component.",
+          "evidence": "The binding supports only modewise-exact-rates and explicitly leaves all-section-sharpness uncovered. Neither declaration compares all source estimates, constructs extremal modes, nor proves a sharp worst-case rate."
+        },
+        {
+          "slot": "quantifiers",
+          "severity": "informational",
+          "classification": "same",
+          "description": "This selected modewise component assumes a supplied mode relation; it does not solve the spectral decomposition or endpoint-attainment obligations.",
+          "evidence": "The hypothesis Hx=mu*x appears explicitly in Lean and the lesson. The proof splits x=0 before invoking HasEigenvector.pow_apply. The zero case and N=0 are both correctly included."
+        }
+      ],
+      "verdict": "lean-weakened-conclusion",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "qgd_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Independent anti-anchored review by qgd_source, distinct from andi-qgd-worker and qgd_blind. Read only the two fresh reviewer packets, required protocol/schema, the current indicated Lean module, and the primary arXiv HTML. Verified current module text equals the packet module. Primary source checked at https://arxiv.org/html/2605.07006v1#S3, Exercise 3.3 (HTML lines 678-680), GD definition (510-513), and nearby parameter discussion/Exercise 3.2. Independently derived the gradient and both algebraic identities and compared all seven semantic slots. The supplied reconstruction and lesson correctly describe the Lean theorem, including arbitrary-step and nonpositive-operator scope; source and Lean are not equivalent as whole statements. Accept the exact bound modewise-exact-rates only, with generalizations and residual all-section-sharpness visible. No mathematical/source repair is needed or proposed. Compilation status in the packet was not used as source-fidelity evidence; this review does not independently rerun the compiler.",
+        "review_run_sha256": "b4e53835601fc980c39c9dba6a312533667c7ec6edbe7a2f4cf79b642970bdc7",
+        "reviewer_packet_sha256": "c4264d2c7d436e0f73900bda519ef7f214dd4fc4e23a1ddd78c71203c1b2bbde",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-quadratic-gd/source-review-1.json"
+      },
+      "publication_binding_sha256": "6c201292e936132622819f4a30ace54a46fcd67f936c108351fc7418d90b9a79",
+      "publication_context": {
+        "file": "fbb313c98ea41622fcc08583fc160f3cd24956c7342ab126fe83d0cd1d692530",
+        "current_lean_module": "import Mathlib.Analysis.Calculus.Gradient.Basic\nimport Mathlib.Analysis.Calculus.FDeriv.Mul\nimport Mathlib.Analysis.InnerProductSpace.Calculus\nimport Mathlib.Analysis.InnerProductSpace.Symmetric\nimport Mathlib.LinearAlgebra.Eigenspace.Basic\n\n/-!\n# Exact gradient descent on a quadratic objective\n\nChewi arXiv:2605.07006v1 Exercise3.3. Symmetry gives the actual gradient of\n`f(x)=⟪x,Hx⟫/2`; the iteration is then a power of `I-hH`. A supplied eigenmode\nhas an exact trajectory, norm and objective value. The symmetric Hilbert and\narbitrary-step identities extend the positive-definite Euclidean source; they\ndo not assert spectral endpoint existence or convergence for every step.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent\n\nopen InnerProductSpace\nopen scoped RealInnerProductSpace\n\nvariable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n\nset_option backward.isDefEq.respectTransparency false in\n/-- Actual quadratic-gradient iterates equal the powers of the linear update. -/\ntheorem quadratic_gradient_iterate (H : E →L[ℝ] E) (hH : H.IsSymmetric)\n    (h : ℝ) (N : ℕ) (x : E) :\n    let f := fun z : E => inner ℝ z (H z) / 2\n    (fun z => z - h • gradient f z)^[N] x = ((1 - h • H) ^ N) x := by\n  let f := fun z : E => inner ℝ z (H z) / 2\n  have hg (z : E) : gradient f z = H z := by\n    have hraw := ((hasFDerivAt_id z).inner ℝ H.hasFDerivAt).const_mul (1 / 2 : ℝ)\n    have hlin : (1 / 2 : ℝ) •\n        ((fderivInnerCLM ℝ (z, H z)).comp ((ContinuousLinearMap.id ℝ E).prod H)) =\n        toDual ℝ E (H z) := by\n      ext v\n      change (1 / 2 : ℝ) * (inner ℝ z (H v) + inner ℝ v (H z)) = inner ℝ (H z) v\n      rw [← hH.apply_clm z v, (real_inner_comm v (H z)).symm]\n      ring\n    have hd : HasFDerivAt f (toDual ℝ E (H z)) z := by\n      convert hraw using 1 <;> first | rfl | exact hlin.symm | (ext v; simp only [f, id_eq]; ring)\n    exact (hasGradientAt_iff_hasFDerivAt.mpr hd).gradient\n  change (fun z => z - h • gradient f z)^[N] x = _\n  simp_rw [hg]\n  exact congrFun (FunLike.coe_pow_eq_iterate (1 - h • H) N).symm x\n\n/-- A supplied eigenmode gives exact iterates, distances to zero and quadratic values.\nNo existence of an eigenvector or stability of the chosen step is assumed. -/\ntheorem quadratic_eigenmode (H : E →L[ℝ] E) (hH : H.IsSymmetric)\n    {μ : ℝ} {x : E} (hx : H x = μ • x) (h : ℝ) (N : ℕ) :\n    let f := fun z : E => inner ℝ z (H z) / 2\n    let z := (fun y => y - h • gradient f y)^[N] x\n    z = (1 - h * μ) ^ N • x ∧\n      ‖z‖ = |1 - h * μ| ^ N * ‖x‖ ∧\n      f z = (1 - h * μ) ^ (2 * N) * f x := by\n  let f := fun z : E => inner ℝ z (H z) / 2\n  let A : E →L[ℝ] E := 1 - h • H\n  have hAx : A x = (1 - h * μ) • x := by\n    simp only [A, sub_apply, one_apply_eq_self,\n      smul_apply, hx, smul_smul, sub_smul, one_smul]\n  have hp : (A ^ N) x = (1 - h * μ) ^ N • x := by\n    by_cases hz : x = 0\n    · simp [hz]\n    · have he : Module.End.HasEigenvector A.toLinearMap (1 - h * μ) x :=\n        ⟨Module.End.mem_eigenspace_iff.mpr hAx, hz⟩\n      have ht := congrArg (fun K : E →ₗ[ℝ] E => K x) (ContinuousLinearMap.toLinearMap_pow A N)\n      convert ht.trans (he.pow_apply N) using 1; rfl\n  have hi := (quadratic_gradient_iterate H hH h N x).trans hp\n  change _ = _ ∧ _ = _ ∧ f _ = _ * f x\n  rw [hi]\n  refine ⟨rfl, ?_, ?_⟩\n  · simp [norm_smul, Real.norm_eq_abs]\n  · simp only [f, map_smul, inner_smul_left, inner_smul_right, RCLike.conj_to_real]\n    rw [Nat.mul_comm 2 N, pow_mul]\n    ring\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Exercise3.3; Section3 gradient-descent definition",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+        },
+        "statement": "For the centered quadratic objective associated with a positive-definite symmetric matrix, derive an explicit expression for gradient-descent iterates and assess how sharp the estimates in this section are. The exercise does not print a solution.",
+        "formulae": [
+          {
+            "label": "Source objective and actual iteration",
+            "tex": "f(x)=\\tfrac12\\langle x,Ax\\rangle,\\quad A\\succ0,\\quad x_{n+1}=x_n-h\\nabla f(x_n)."
+          }
+        ],
+        "assumptions": [
+          "A is a positive-definite symmetric matrix on Euclidean d-space. f(x)=⟨x,Ax⟩/2; gradient descent uses the actual gradient and a constant step h."
+        ],
+        "obligations": [
+          {
+            "id": "actual-quadratic-iterates",
+            "label": "Derive the actual gradient and express every iterate as an operator power"
+          },
+          {
+            "id": "modewise-exact-rates",
+            "label": "Compute the exact trajectory, norm and objective value on a supplied eigenmode"
+          },
+          {
+            "id": "all-section-sharpness",
+            "label": "Assess sharpness of all Section3 estimates, with their exact source hypotheses (not covered)"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_eigenmode",
+          "kind": "theorem",
+          "title": "Exact evolution of a quadratic eigenmode",
+          "statement": "The supplied eigenmode evolves by a scalar geometric factor, with the displayed exact norm and objective-value identities.",
+          "formula": "Hx=\\mu x,\\quad z=T_h^N(x):\\quad z=(1-h\\mu)^Nx,\\quad\\|z\\|=|1-h\\mu|^N\\|x\\|,\\quad f(z)=(1-h\\mu)^{2N}f(x).",
+          "assumptions": [
+            "E is a complete real inner-product space. H:E→E is a continuous linear operator symmetric in the sense ⟨Hx,y⟩=⟨x,Hy⟩ for every x,y.",
+            "Define the actual centered objective f(x)=⟨x,Hx⟩/2 and its actual gradient update T_h(x)=x−h∇f(x). h∈ℝ is constant across steps, N∈ℕ, and the initial point x∈E is arbitrary.",
+            "μ∈ℝ and Hx=μx is supplied for the initial point. x=0 is allowed as an algebraic mode relation; a genuine eigenvector requires x≠0."
+          ],
+          "steps": [
+            {
+              "title": "Transport the supplied mode to the update operator",
+              "text": "The given relation Hx=μx implies (I−hH)x=(1−hμ)x. If x=0, every power identity is immediate. Otherwise this is a genuine nonzero eigenvector of I−hH, so Mathlib’s eigenvector power theorem applies. No eigenvector is constructed.",
+              "formula": "(I-hH)x=(1-h\\mu)x\\quad\\Longrightarrow\\quad (I-hH)^Nx=(1-h\\mu)^Nx.",
+              "lean": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate; Module.End.mem_eigenspace_iff; Module.End.HasEigenvector.pow_apply; ContinuousLinearMap.toLinearMap_pow."
+            },
+            {
+              "title": "Read the exact norm and value",
+              "text": "Take norms of the scalar multiple and use homogeneity. The quadratic is homogeneous of degree two, so its value is multiplied by the square of the trajectory scalar. The absolute value is essential when the update changes sign.",
+              "formula": "\\|c x\\|=|c|\\|x\\|,\\qquad f(cx)=c^2f(x),\\qquad c=(1-h\\mu)^N.",
+              "lean": "norm_smul; Real.norm_eq_abs; map_smul; inner_smul_left; inner_smul_right; pow_mul."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate"
+          ],
+          "mathlib_dependencies": [
+            "Module.End.mem_eigenspace_iff",
+            "Module.End.HasEigenvector.pow_apply",
+            "ContinuousLinearMap.toLinearMap_pow",
+            "norm_smul",
+            "inner_smul_left",
+            "inner_smul_right",
+            "pow_mul"
+          ],
+          "lean_statement": "Actual quadratic and actual gradient iteration; symmetric continuous linear H on complete real Hilbert E, real h, natural N.",
+          "lean_proof": "The given relation Hx=μx implies (I−hH)x=(1−hμ)x. If x=0, every power identity is immediate. Otherwise this is a genuine nonzero eigenvector of I−hH, so Mathlib’s eigenvector power theorem applies. No eigenvector is constructed. Take norms of the scalar multiple and use homogeneity. The quadratic is homogeneous of degree two, so its value is multiplied by the square of the trajectory scalar. The absolute value is essential when the update changes sign.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S3",
+              "label": "Chewi Exercise3.3",
+              "scope": "ASTIS-authored derivation of exact quadratic iterations; remaining sharpness analysis stays separate."
+            },
+            {
+              "path": "Tests/Shared/QuadraticGradientDescent.lean",
+              "label": "Diagonal endpoint and unstable-step tests",
+              "scope": "Actual diagonal spectrum 1,3 at balanced step, and scalar unit quadratic at unstable step3; no standalone theorem credit."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_eigenmode",
+          "role": "proof-edge",
+          "supports": [
+            "modewise-exact-rates"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Positive-definite symmetric matrix on Euclidean space.",
+            "lean": "Symmetric continuous linear operator on a complete real Hilbert space; no positivity premise."
+          },
+          {
+            "source": "Actual gradient descent on f(x)=⟨x,Ax⟩/2.",
+            "lean": "Actual gradient of the literal centered quadratic; h∈ℝ constant and N∈ℕ."
+          },
+          {
+            "source": "Write explicit iterates and check sharpness of section estimates.",
+            "lean": "Given Hx=μx, exact trajectory/norm/value; zero-vector relation allowed."
+          },
+          {
+            "source": "Quadratic regularity and standard matrix gradient.",
+            "lean": "Bounded operator and real inner product provide a continuously differentiable quadratic; symmetry gives the Riesz gradient."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every complete real inner product space E, every continuous real-linear endomorphism H:E→E satisfying ⟨Hu,v⟩=⟨u,Hv⟩ for all u,v∈E, every μ∈ℝ and every x∈E with Hx=μx, define f(y)=⟨y,Hy⟩/2. For every h∈ℝ and N∈ℕ, put z=T^[N](x), where T(y)=y−h∇f(y). Then simultaneously z=(1−hμ)^N x, ‖z‖=|1−hμ|^N‖x‖, and f(z)=(1−hμ)^(2N)f(x). Here iteration at N=0 is the identity and every zeroth power, including 0^0, is 1. Neither x≠0 nor μ>0 nor h>0 is assumed, and there is no step-size restriction. Thus zero starting vectors, zero step size, zero μ, and 1−hμ=0 are included. In the last case z=0 for N≥1, whereas N=0 still gives z=x. These are exact identities and assert no contraction, decay rate, convergence, or sign of f.",
+        "text_sha256": "9631a006b39432519c9f05b54618196c1a251d1f1259b73b9d97f00515fddce6",
+        "decoder": "qgd_blind",
+        "decoder_run_sha256": "8d9e662878e5184b9f749d08293d072f9f395df53b126a1fa18afa6cd53bee7c",
+        "decoder_packet_sha256": "0436274a32ea668772a9ce6cc50ef03ca0d512621c66f1415c342f0b328739c7",
+        "source_text_visible": false,
+        "lean_statement_sha256": "04d655de7b6f795440d1c2833cdbeb9d33c7dbb6a9334d7b31914ac30aca9d08",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-quadratic-gd/decoder-result.json"
+      }
     }
   ]
 }
