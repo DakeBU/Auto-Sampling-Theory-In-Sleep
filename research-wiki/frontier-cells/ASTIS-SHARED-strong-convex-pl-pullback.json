@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-strong-convex-pl-pullback",
+  "route": "shared",
+  "title": "Strong convexity yields PL after a surjective nonlinear parametrization",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Exercise2.3, Definition2.5 and Section2 attained-minimum convention",
+  "target_statement": "For alpha>0 and sigma>=0, differentiable strongly alpha-convex f:F to R with a supplied global minimizer z and differentiable surjective g:E to F, a uniform quadratic lower bound on Dg Dg-adjoint yields a minimizing preimage and the numerical composite-gradient inequality with coefficient alpha*sigma.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-strong-convex-first-order"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Exercise-2.3",
+    "optimisation:Chewi-Theorem-3.6 (planned consumer)"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib StrongConvexFirstOrder supplies first-order quadratic lower bound; GradientDescentPL consumes a PL inequality but does not construct pullback PL",
+      "Mathlib pinned db584cd gradient-toDual, HasFDerivAt.comp, adjoint_inner_left, innerSL_apply_comp; no gradient pullback theorem found in bounded search",
+      "Independent bounded Optlib5da27c5/CvxLean c62c2f searches: only scalar-inner gradient composition / minimizer transport, no vector pullback PL found. runs/semantic-roundtrip/andi-opt-pl-pullback/upstream-review.json"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+    "canonical_shared_cell": "ASTIS-SHARED-strong-convex-pl-pullback",
+    "notes": "Derive actual composite gradient, quantitative gap bound and lifted minimizer; do not assume the composite PL inequality."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Exercise2.3; Definition2.5; Section2",
+    "detail_status": "omitted",
+    "gap": "Exercise omits its solution; explain transposed Jacobian convention, positive PL modulus and source attained-minimum/differentiability conventions.",
+    "consulted": [
+      {
+        "source": "Chewi v1 and Mathlib adjoint/chain-rule API",
+        "anchor": "Exercise2.3 and Gradient.Basic/InnerProductSpace.Adjoint",
+        "hypothesis_adapter": "A=Dg:E to F; the source J is A-adjoint, so J-transpose J=A A-adjoint. Source C2 f is generalized to differentiable. Everywhere Jacobian makes g differentiable but does not supply C1; output is numerical inequality only. Nonnegative sigma includes a degenerate0 case, not a positive PL definition. Surjectivity lifts the source supplied attained minimum."
+      }
+    ],
+    "fidelity_boundary": "Only numerical PL inequality and lifted attained minimum. Hilbert/differentiable extension and sigma0 degenerate case are explicit. Continuity of the composite derivative, positive PL coefficient at sigma0, uniqueness/multiplicity, convexity and an optimization algorithm are not asserted."
+  }
+}

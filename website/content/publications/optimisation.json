@@ -1400,6 +1400,80 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-ConvexGapSharpness"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-exercise-2-3-pl-pullback",
+      "library": "optimisation",
+      "chapter": "02",
+      "chapter_path": "libraries/optimisation/chapter-02.html",
+      "title": "Exercise2.3 · PL inequality under nonlinear parametrization",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S2",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Exercise2.3, Definition2.5, Section2 attained-minimum and smoothness conventions",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored source restatement; no endorsement implied."
+      },
+      "statement": "Exercise2.3 takes an alpha-strongly convex f:R^n→R with alpha>0 and a surjective g:R^d→R^n, d>=n. In the exercise Jacobian convention J is d-by-n and J-transpose J is bounded below by sigma times the identity everywhere. The exercise asks for the PL inequality for f composed with g at constant alpha*sigma, and notes that multiple minimizing preimages can occur. Section2 assumes a twice continuously differentiable objective and an attained minimum. Definition2.5 describes a continuously differentiable objective with a positive PL constant; the exercise does not explicitly state sigma>0 or continuity of the derivative of g.",
+      "assumptions": [
+        "Alpha>0; f is alpha-strongly convex on R^n, in the Section2 smooth attained-minimum setting.",
+        "g:R^d→R^n is surjective, d>=n, and has an everywhere Jacobian J in the stated d-by-n convention.",
+        "J-transpose J>=sigma I everywhere. The exercise does not explicitly state a sign condition on sigma or continuity of J."
+      ],
+      "formulae": [
+        {
+          "label": "Exercise numerical conclusion",
+          "tex": "\\|\\nabla(f\\circ g)(x)\\|^2\\ge2\\alpha\\sigma\\big((f\\circ g)(x)-\\min(f\\circ g)\\big)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "numerical-pl-and-minimum",
+          "label": "Identify the actual composite gradient, lift the attained minimum, and prove the numerical PL inequality"
+        },
+        {
+          "id": "definition-regularity-positive-modulus",
+          "label": "Separate source Definition2.5 C1 and positive-modulus requirements; not inferred from the exercise wording or this numeric component"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+          "cell": "ASTIS-SHARED-strong-convex-pl-pullback",
+          "role": "proof-edge",
+          "supports": [
+            "numerical-pl-and-minimum"
+          ],
+          "boundary": "The conclusion is the numerical PL inequality and a lifted global minimizer. Definition2.5 additionally asks for a continuously differentiable objective and a positive PL constant. The exercise does not explicitly impose continuity of Dg or sigma>0. Neither is silently inferred here: sigma=0 is a degenerate inequality, and continuous differentiability of the composite remains a separate obligation. Real complete Hilbert spaces and everywhere Frechet differentiability generalize the source finite Euclidean spaces and Section2 C2 objective convention. Completeness provides Riesz gradients and adjoints. No infinite-dimensional minimizer-existence theorem is claimed: the source attained minimizer z of f is supplied and surjectivity constructs its preimage. The source uses a d-by-n Jacobian J, transposed relative to Dg:R^d to R^n. Here A=Dg and J corresponds to A-adjoint, so J-transpose J corresponds to A A-adjoint. The assumed operator quadratic form is exactly the adjoint norm square. It is not a lower bound on A on the parameter space. No compiled matrix-coordinate identification theorem is asserted. No convexity, uniqueness or multiplicity of composite minimizers, gradient Lipschitz upper bound, gradient-descent rate, Riemannian statement or companion-paper completion follows. The gradient of the composite and its minimum are conclusions, not supplied certificates.",
+          "assumption_deltas": [
+            {
+              "source": "Finite Euclidean spaces with d>=n.",
+              "lean": "Complete real Hilbert spaces E,F with a surjection and the stated adjoint coercivity.",
+              "classification": "generalization",
+              "reason": "No basis or dimension argument is needed. In Euclidean coordinates the source Jacobian is the adjoint derivative. Matrix-coordinate equivalence is explained, not a newly compiled theorem."
+            },
+            {
+              "source": "Section2 C2 f; g has an everywhere Jacobian.",
+              "lean": "Both maps are everywhere Frechet differentiable; output is the numerical PL inequality only.",
+              "classification": "generalization",
+              "reason": "The proof uses pointwise derivatives and their chain rule. Continuity of Dg and the complete C1 definition package remain explicitly outside the proved component."
+            },
+            {
+              "source": "Exercise gives coefficient sigma without stating positivity; Definition2.5 requires positive PL constant.",
+              "lean": "Sigma>=0; sigma0 gives a degenerate numerical inequality, not a positive PL constant.",
+              "classification": "unresolved",
+              "reason": "The sign/definition boundary is exposed rather than silently treating zero as a positive PL modulus. Positive sigma gives the positive numerical coefficient, but C1 remains separate."
+            },
+            {
+              "source": "Section2 attained minimum of f and surjectivity of g.",
+              "lean": "Supply IsMinOn f univ z; construct xstar with g(xstar)=z and IsMinOn (f∘g) univ xstar.",
+              "classification": "same",
+              "reason": "This transports the source attained minimum; it does not assert new infinite-dimensional existence or uniqueness."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-StrongConvexPLPullback"
+        }
+      ]
     }
   ]
 }
