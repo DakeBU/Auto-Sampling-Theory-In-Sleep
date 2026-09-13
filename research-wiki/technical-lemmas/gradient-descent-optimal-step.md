@@ -104,3 +104,5 @@ reader visual inspection passed as recorded below.
   conceptual mirror or actual planned generic consumer is certified. Any further
   optimal-step iterate bound or C¹ extension needs a separately scoped source/DAG
   delta; the rest of the chapter remains incomplete.
+
+Merged and pushed directly to `main` at `d8bcc55fe0b5a69d62b53a7285d37fcebf0b83be` under standing user authorization. SAU is `MERGED`; stabilization reservation released. Remote post-push CI/deployment is separate from the passed local gate evidence.

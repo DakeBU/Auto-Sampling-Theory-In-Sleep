@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.2",
   "target_statement": "For actual T_h(x)=x-h grad f(x), C2, strong convexity alpha and global upper model beta imply ||T_h(y)-T_h(x)|| <= max(|1-h alpha|,|1-h beta|)||y-x|| for h>=0.",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-gradient-hessian-equivalence",
     "ASTIS-SHARED-smoothness-c2"
@@ -35,7 +35,7 @@
     "independent_verification": "optimal_route_audit 81eec4b2ced5d8cd3d13a33e21a852ec7783f265; gdo_blind,gdo_source independent accepted current-packet evidence in runs/semantic-roundtrip/andi-opt-gd-optimal-step.",
     "root_build": "Canonical tools/astis.py check PASS9204 at 2026-09-13T01:54:17.958018+00:00; root Tests and fake closure/ATLAS check included. source_digest=7803834dc073255e6c8130b1ee44d6ff58ae87daf1e95d2fbc34dd196b7317a1",
     "graph_regeneration": "Site build/check PASS673 modules3995 declarations418 compiled leaves; both cell graph-check PASS. Root CUA desktop1280/mobile390 reader and focused10-node13-edge branch inspected; compiled ownership vs dashed scanner/source links retained. Source and proof disclosures render; no KaTeX errors or page overflow. See technical-lemmas/gradient-descent-optimal-step.md integration notes.",
-    "pr": ""
+    "pr": "No PR: user-authorized direct main integration at https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/commit/d8bcc55fe0b5a69d62b53a7285d37fcebf0b83be"
   },
   "blocked": {
     "reason": "",
