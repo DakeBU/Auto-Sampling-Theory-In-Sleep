@@ -26206,6 +26206,263 @@
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-convex-gap-sharpness/decoder-result.json"
       }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-StrongConvexPLPullback",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-strong-convex-pl-pullback",
+      "source": {
+        "source_id": "chewi-opt-v1-exercise-2-3-pl-pullback",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S2; Exercise2.3, Definition2.5, Section2 attained-minimum and smoothness conventions",
+        "original_text": "Exercise2.3 takes an alpha-strongly convex f:R^n→R with alpha>0 and a surjective g:R^d→R^n, d>=n. In the exercise Jacobian convention J is d-by-n and J-transpose J is bounded below by sigma times the identity everywhere. The exercise asks for the PL inequality for f composed with g at constant alpha*sigma, and notes that multiple minimizing preimages can occur. Section2 assumes a twice continuously differentiable objective and an attained minimum. Definition2.5 describes a continuously differentiable objective with a positive PL constant; the exercise does not explicitly state sigma>0 or continuity of the derivative of g. This publication isolates the numerical inequality and minimizing-preimage component. Definition2.5 C1/positive-modulus requirements remain a separate uncovered obligation; the scoped source comparison must preserve that boundary.",
+        "text_sha256": "c34a1582b4eec6d41462aef21e4119a1476aefa61f86e3e31e0f8417e4fab1fc"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/StrongConvexPLPullback.lean",
+        "statement": "∀ {E : Type u_1}\n  {F : Type u_2} [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : CompleteSpace E]\n  [inst_3 : NormedAddCommGroup F] [inst_4 : InnerProductSpace ℝ F] [inst_5 : CompleteSpace F] {f : F → ℝ} {g : E → F}\n  {α σ : ℝ} {z : F},\n  0 < α →\n    0 ≤ σ →\n      StrongConvexOn Set.univ α f →\n        Differentiable ℝ f →\n          Differentiable ℝ g →\n            Function.Surjective g →\n              IsMinOn f Set.univ z →\n                (∀ (x : E) (v : F),\n                    σ * ‖v‖ ^ 2 ≤ inner ℝ v ((fderiv ℝ g x) ((ContinuousLinearMap.adjoint (fderiv ℝ g x)) v))) →\n                  ∃ xstar,\n                    g xstar = z ∧\n                      IsMinOn (f ∘ g) Set.univ xstar ∧\n                        ∀ (x : E), 2 * (α * σ) * ((f ∘ g) x - (f ∘ g) xstar) ≤ ‖gradient (f ∘ g) x‖ ^ 2",
+        "statement_sha256": "759a6cf1a2a47baab0147074dec7c14988feac636644a4364abeb25b4d919f17",
+        "compiled": true,
+        "formalizer": "andi-pl-pullback-worker",
+        "decoder_context": [
+          "StrongConvexOn univ a f means the global convex chord inequality with subtraction (a/2)*t*(1-t)*norm(y-x)^2 for t in [0,1].",
+          "Differentiable R f means Frechet differentiability at every point. fderiv R f x is the actual continuous linear derivative; gradient f x is its Riesz representing vector on a complete real inner-product space. Differentiability does not assert continuity of the derivative.",
+          "For a continuous linear map A:E to F, its adjoint maps F to E and satisfies inner(A-adjoint v,u)=inner(v,A u). Both inner products are the specified real Hilbert inner products.",
+          "IsMinOn h univ w means h(w)<=h(x) for every x. Function.Surjective g means every element of its codomain has a preimage. Function composition f∘g means x maps to f(g(x))."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "An alpha-strongly convex objective f, a surjective nonlinear parameter map g, the source d-by-n Jacobian J, and the actual gradient of f composed with g.",
+          "reconstructed": "An objective f:F→R, a surjection g:E→F, its Frechet derivative A_x:E→F, its adjoint A_x*:F→E, and the actual Riesz gradient of f composed with g.",
+          "relation": "explicit-elaboration",
+          "evidence": "With E=R^d and F=R^n, the source convention is J=A_x*, so J-transpose J=A_x A_x*. The quadratic form in hjac therefore has the correct orientation and acts on the objective space. The module proves the chain rule for the actual derivative and uses uniqueness of its gradient; it does not assume the desired composite gradient as independent data."
+        },
+        "domains": {
+          "original": "The entire finite-dimensional Euclidean spaces R^d and R^n, with d>=n, using Euclidean inner products.",
+          "reconstructed": "Arbitrary complete real inner-product spaces E and F, potentially infinite-dimensional, with all assumptions and conclusions on Set.univ. No numerical dimension condition is imposed.",
+          "relation": "different",
+          "evidence": "The elaborated typeclass parameters include completeness and real inner products but no finite-dimensionality. The source Euclidean setting is a specialization, not an identical domain. The proof only uses Hilbert adjoints, differentiability, strong convexity and surjectivity; its argument does not need finite-dimensional compactness because a base minimizer is supplied. This generalization is accurately exposed in the lesson and candidate assumption pairs."
+        },
+        "quantifiers": {
+          "original": "The Jacobian bound holds for every parameter x; its positive-semidefinite matrix order quantifies over all objective-space vectors. The PL inequality holds at every x, relative to a globally attained minimum.",
+          "reconstructed": "For each admissible f,g,alpha,sigma and each supplied global base minimizer z, assume the operator bound for every x and v; obtain one xstar with g(xstar)=z and global minimality, and the inequality for every x with this same xstar.",
+          "relation": "explicit-elaboration",
+          "evidence": "The operator hypothesis expands matrix order pointwise. The existential xstar precedes the universal x in the conclusion. Applying surjectivity once to z gives the same witness throughout. Since every minimizing preimage has value f(z), the chosen-witness formulation preserves the source minimum value; it does not make the minimum depend on x."
+        },
+        "assumptions": {
+          "original": "Alpha>0, global alpha-strong convexity, a surjective map with an everywhere Jacobian and uniform lower bound sigma, plus Section 2 smoothness and attained-minimum conventions. The exercise does not explicitly state a sign of sigma or continuity of the derivative of g.",
+          "reconstructed": "Alpha>0 and sigma>=0; global StrongConvexOn; everywhere Frechet differentiability of f and g; global surjectivity; a supplied z with IsMinOn f univ z; uniform coercivity of Dg(x)Dg(x)*. Derivative continuity is not assumed.",
+          "relation": "different",
+          "evidence": "hσ adds a nonnegative-sign restriction absent from the literal exercise. hf weakens the Section 2 C2 assumption to differentiability, sufficient for this numerical proof. hg interprets an everywhere Jacobian as a total derivative suitable for the chain rule, not merely existing coordinate partial derivatives. hz exposes the attained-minimum convention. The module and lesson consistently retain these differences and do not infer C1 of f composed with g."
+        },
+        "conclusion": {
+          "original": "Exercise 2.3 asks for the PL inequality with constant alpha*sigma and remarks on possible multiple minimizing preimages. The scoped publication selects the numerical inequality and a minimizing-preimage component; the full Definition 2.5 package additionally requires C1 and a positive modulus.",
+          "reconstructed": "There exists a preimage xstar of the supplied z that globally minimizes the composite, and 2*(alpha*sigma)*((f composed with g)(x)-(f composed with g)(xstar)) <= norm(gradient(f composed with g)(x))^2 for all x. No C1, positive modulus, uniqueness, or multiple-minimizer example is concluded.",
+          "relation": "equivalent",
+          "evidence": "For the declared numerical-pl-and-minimum scope and sigma>=0, the same gap, gradient, normalization and attained minimum occur. Surjectivity proves the preimage claim. Equivalence here is only of the selected numerical conclusion under the recorded assumptions; it is not equivalence to the entire exercise interpreted through Definition 2.5. The informal observation about multiplicity is not promoted to a universal or existential theorem."
+        },
+        "scopes": {
+          "original": "An unconstrained, global, deterministic exercise about reparametrized strongly convex functions. Its reference to PL invokes a definition requiring regularity and positivity; no stochastic, measure-theoretic or local-domain qualification occurs.",
+          "reconstructed": "A global deterministic numerical gradient-gap theorem on complete real Hilbert spaces. The packet binds it only to numerical-pl-and-minimum and leaves definition-regularity-positive-modulus uncovered.",
+          "relation": "different",
+          "evidence": "Both the whole-module comment and authored lesson explicitly limit the result to the numerical inequality. No convergence theorem, convexity of the composite, uniqueness, or full chapter completion is asserted. The narrower publication support is honest, but cannot discharge the separately listed Definition 2.5 obligation."
+        },
+        "constant_dependencies": {
+          "original": "The strong-convexity parameter is alpha, the Jacobian quadratic-form bound is sigma, and the displayed PL coefficient is alpha*sigma, with the standard factor 2 multiplying the gap.",
+          "reconstructed": "Exactly 2*(alpha*sigma) multiplies the global composite gap. Alpha and sigma are uniform across x and independent of the chosen minimizing preimage; sigma may be zero.",
+          "relation": "explicit-elaboration",
+          "evidence": "The proof first derives 2*alpha*(f(y)-f(z))<=norm(gradient f(y))^2, multiplies by nonnegative sigma, and applies coercivity. There is no additional dimension, Lipschitz, smoothness or norm-conversion factor. Sigma is the squared-singular-value lower bound in finite dimensions, not its square root. If sigma=0, the result is a degenerate norm-square bound and supplies no positive PL constant."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The Lean theorem is a Hilbert-space generalization, not a literal Euclidean-domain reproduction.",
+          "evidence": "CompleteSpace E/F replaces finite Euclidean types and there is no d>=n parameter. The source case specializes to E=R^d,F=R^n; the same operator hypothesis is used."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "review",
+          "description": "Sigma>=0 is an explicit restriction beyond the literal exercise wording; the negative-sigma numerical case is not covered by this declaration.",
+          "evidence": "The source restatement omits the sign, while hσ is required and is consumed by mul_le_mul_of_nonneg_left. For sigma<0 the numerical conclusion would be immediate from a nonnegative objective gap, but that separate branch is not this theorem. Neither this observation nor the zero case resolves the positive-modulus definition obligation."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Smoothness is reduced to Frechet differentiability; the Jacobian is interpreted as an actual total derivative.",
+          "evidence": "hf and hg permit the chain rule and first-order support inequality. C2 of f is unnecessary for the selected numerical result. Merely existing coordinate partial derivatives would not justify the chain rule; the interpretation of Jacobian as a derivative is therefore material. No continuity of Dg or of the composite gradient is supplied."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "The base minimizer is supplied explicitly rather than proved to exist.",
+          "evidence": "hz is IsMinOn f univ z, matching the Section 2 attained-minimum convention. Surjectivity alone lifts that supplied minimum to the composition."
+        },
+        {
+          "slot": "scopes",
+          "severity": "review",
+          "description": "The selected numeric component does not certify the complete Definition 2.5 PL package.",
+          "evidence": "Alpha*sigma may vanish and no continuous differentiability conclusion occurs. The frozen publication keeps definition-regularity-positive-modulus as a separate obligation and the lesson labels the result numerical. This is a retained uncovered boundary, not a completed source repair."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "The source observation that overparametrization can allow multiple minimizers is not separately formalized.",
+          "evidence": "The theorem constructs one minimizing preimage and makes no uniqueness or multiplicity assertion. This is consistent with, but does not prove an example of, the source observation."
+        }
+      ],
+      "verdict": "source-underspecified",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "pl_source_57329",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted solely as the declared numerical inequality and minimizing-preimage component, with the Hilbert-domain generalization and sigma>=0 restriction explicitly retained. The current module and lesson support that component without importing its conclusion as an assumption. This is not exact source equivalence: the source leaves sign/regularity implicit or unspecified, negative sigma is outside this declaration, and C1 plus a positive PL modulus remain uncovered. No source correction or whole-exercise completion is accepted.",
+        "review_run_sha256": "54d3334a01c4159d8d2f7e34ef4f4556ae3ed06a6fd1f1030aea0fa9e860afff",
+        "reviewer_packet_sha256": "5eecaf71f0911ab9dbaedab68a5c147b94db2076c73ddbe240e8ba42eca6bd84",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-pl-pullback/source-review-0.json"
+      },
+      "publication_binding_sha256": "6691dfdab678a5723f04211000971b34c21c7627a30a2d15f469ebc00f2e8f6a",
+      "publication_context": {
+        "file": "77a65d4c5d253b41fd939a392d5a88cd8126c20b0ccc3eb689ba4eb02b12301c",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder\nimport Mathlib.Analysis.InnerProductSpace.Adjoint\nimport Mathlib.Analysis.Calculus.FDeriv.Comp\n\n/-!\n# A numerical PL inequality after nonlinear reparametrization\n\nChewi arXiv:2605.07006v1 Exercise 2.3, with the attained-minimum convention\nfrom Section 2. The derivative maps from the parameter space to the objective\nspace; the source's transposed Jacobian is its adjoint. We prove the numerical\ninequality for differentiable maps on complete real Hilbert spaces, including\nthe degenerate zero lower bound. This does not assert continuous differentiability\nof the composite, uniqueness of a minimizing preimage, or convexity of the composite.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback\n\nopen Set\nopen scoped RealInnerProductSpace\n\nvariable {E F : Type*}\n  [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]\n  [NormedAddCommGroup F] [InnerProductSpace ℝ F] [CompleteSpace F]\n\nset_option backward.isDefEq.respectTransparency false in\n/-- Surjectivity lifts the attained minimum, and the adjoint derivative's\ncoercivity transports strongly convex gap control to the actual composite gradient. -/\ntheorem exists_minimizer_and_pl {f : F → ℝ} {g : E → F} {α σ : ℝ} {z : F}\n    (hα : 0 < α) (hσ : 0 ≤ σ) (hsc : StrongConvexOn univ α f)\n    (hf : Differentiable ℝ f) (hg : Differentiable ℝ g)\n    (hsurj : Function.Surjective g) (hz : IsMinOn f univ z)\n    (hjac : ∀ x v, σ * ‖v‖ ^ 2 ≤\n      inner ℝ v ((fderiv ℝ g x) ((fderiv ℝ g x).adjoint v))) :\n    ∃ xstar, g xstar = z ∧ IsMinOn (f ∘ g) univ xstar ∧\n      ∀ x, 2 * (α * σ) * ((f ∘ g) x - (f ∘ g) xstar) ≤\n        ‖gradient (f ∘ g) x‖ ^ 2 := by\n  obtain ⟨xstar, hxstar⟩ := hsurj z\n  refine ⟨xstar, hxstar, ?_, ?_⟩\n  · intro x _\n    simpa [Function.comp_def, hxstar] using hz (mem_univ (g x))\n  · intro x\n    have hfirst := StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn\n      hsc (fun y _ => (hf y).hasGradientAt) (mem_univ (g x)) (mem_univ z)\n    have hcs := real_inner_le_norm (gradient f (g x)) (g x - z)\n    have hbase : 2 * α * (f (g x) - f z) ≤ ‖gradient f (g x)‖ ^ 2 := by\n      rw [← neg_sub (g x) z, inner_neg_right, norm_neg] at hfirst\n      nlinarith [sq_nonneg (‖gradient f (g x)‖ - α * ‖g x - z‖)]\n    have hchain : HasGradientAt (f ∘ g)\n        ((fderiv ℝ g x).adjoint (gradient f (g x))) x := by\n      apply hasGradientAt_iff_hasFDerivAt.mpr\n      have hc := (hf (g x)).hasGradientAt.hasFDerivAt.comp x (hg x).hasFDerivAt\n      have heq : (InnerProductSpace.toDual ℝ F (gradient f (g x))).comp (fderiv ℝ g x) =\n          InnerProductSpace.toDual ℝ E ((fderiv ℝ g x).adjoint (gradient f (g x))) := by\n        ext v\n        simp [InnerProductSpace.toDual_apply_apply, ContinuousLinearMap.adjoint_inner_left]\n      rw [heq] at hc\n      exact hc\n    have hcoerc := hjac x (gradient f (g x))\n    rw [← ContinuousLinearMap.adjoint_inner_left, real_inner_self_eq_norm_sq] at hcoerc\n    have hmul := mul_le_mul_of_nonneg_left hbase hσ\n    rw [hchain.gradient]\n    dsimp only [Function.comp_def]\n    rw [hxstar]\n    nlinarith\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S2",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Exercise2.3, Definition2.5, Section2 attained-minimum and smoothness conventions",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored source restatement; no endorsement implied."
+        },
+        "statement": "Exercise2.3 takes an alpha-strongly convex f:R^n→R with alpha>0 and a surjective g:R^d→R^n, d>=n. In the exercise Jacobian convention J is d-by-n and J-transpose J is bounded below by sigma times the identity everywhere. The exercise asks for the PL inequality for f composed with g at constant alpha*sigma, and notes that multiple minimizing preimages can occur. Section2 assumes a twice continuously differentiable objective and an attained minimum. Definition2.5 describes a continuously differentiable objective with a positive PL constant; the exercise does not explicitly state sigma>0 or continuity of the derivative of g.",
+        "formulae": [
+          {
+            "label": "Exercise numerical conclusion",
+            "tex": "\\|\\nabla(f\\circ g)(x)\\|^2\\ge2\\alpha\\sigma\\big((f\\circ g)(x)-\\min(f\\circ g)\\big)."
+          }
+        ],
+        "assumptions": [
+          "Alpha>0; f is alpha-strongly convex on R^n, in the Section2 smooth attained-minimum setting.",
+          "g:R^d→R^n is surjective, d>=n, and has an everywhere Jacobian J in the stated d-by-n convention.",
+          "J-transpose J>=sigma I everywhere. The exercise does not explicitly state a sign condition on sigma or continuity of J."
+        ],
+        "obligations": [
+          {
+            "id": "numerical-pl-and-minimum",
+            "label": "Identify the actual composite gradient, lift the attained minimum, and prove the numerical PL inequality"
+          },
+          {
+            "id": "definition-regularity-positive-modulus",
+            "label": "Separate source Definition2.5 C1 and positive-modulus requirements; not inferred from the exercise wording or this numeric component"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+          "kind": "theorem",
+          "title": "A nonlinear parametrization preserves a numerical PL bound",
+          "statement": "Let E and F be complete real inner-product spaces, f:F→R and g:E→F be everywhere Frechet differentiable, alpha>0 and sigma>=0. Assume f is globally alpha-strongly convex, z is its global minimizer, g is surjective, and the derivative satisfies the following quadratic-form bound at every x and every v in F. Then there is a minimizing preimage xstar and the actual composite gradient satisfies the stated numerical PL inequality.",
+          "formula": "\\begin{gathered}A_x=Dg(x),\\qquad\\langle v,A_xA_x^*v\\rangle\\ge\\sigma\\|v\\|^2\\quad(\\forall x\\in E,\\ v\\in F),\\\\\\exists x_\\star\\in E:\\quad g(x_\\star)=z,\\quad x_\\star\\in\\arg\\min(f\\circ g),\\\\2\\alpha\\sigma\\big((f\\circ g)(x)-(f\\circ g)(x_\\star)\\big)\\le\\|\\nabla(f\\circ g)(x)\\|^2\\quad(\\forall x\\in E).\\end{gathered}",
+          "assumptions": [
+            "E,F are real complete inner-product spaces. f:F→R and g:E→F are Frechet differentiable at every point; continuity of their derivatives is not assumed.",
+            "Alpha>0 and sigma>=0 are real constants. StrongConvexOn univ alpha f supplies the global strong convexity inequality.",
+            "A supplied z:F satisfies f(z)<=f(y) for all y:F. The map g is surjective.",
+            "For every x:E and v:F, sigma||v||²<=<v,Dg(x)(Dg(x)-adjoint v)>. This is a bound on the actual Frechet derivative, not on a supplied gradient of the composite."
+          ],
+          "steps": [
+            {
+              "title": "Lift the attained minimum",
+              "text": "Let z be the supplied global minimizer of f. Surjectivity gives xstar with g(xstar)=z. Every g(x) lies in the objective space, so f(g(xstar))=f(z)<=f(g(x)); thus the same xstar minimizes the composite.",
+              "formula": "g(x_\\star)=z,\\qquad (f\\circ g)(x_\\star)=f(z)\\le f(g(x)).",
+              "lean": "Function.Surjective applied to z; IsMinOn transported pointwise."
+            },
+            {
+              "title": "Turn strong convexity into a gradient-gap bound",
+              "text": "At y=g(x), the shared first-order strong-convexity bound at comparator z gives the gap at most <grad f(y),y-z> minus alpha times the squared distance divided by2. Cauchy-Schwarz bounds the inner product. The nonnegative square (norm grad f(y)−alpha norm(y−z))² yields the numerical PL bound for f.",
+              "formula": "\\begin{gathered}f(y)-f(z)\\le\\langle\\nabla f(y),y-z\\rangle-\\frac\\alpha2\\|y-z\\|^2\\\\\\le\\|\\nabla f(y)\\|\\|y-z\\|-\\frac\\alpha2\\|y-z\\|^2,\\\\2\\alpha(f(y)-f(z))\\le\\|\\nabla f(y)\\|^2.\\end{gathered}",
+              "lean": "StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn, real_inner_le_norm, sq_nonneg and positive alpha."
+            },
+            {
+              "title": "Identify the actual composite gradient",
+              "text": "Put A_x=Dg(x). The Frechet chain rule gives D(f∘g)(x)[v]=<grad f(g(x)),A_x v>. The defining adjoint identity rewrites this as <A_x-adjoint grad f(g(x)),v>. Uniqueness of the Riesz representative identifies the actual composite gradient.",
+              "formula": "\\nabla(f\\circ g)(x)=A_x^*\\nabla f(g(x)),\\qquad A_x=Dg(x).",
+              "lean": "HasFDerivAt.comp; hasGradientAt_iff_hasFDerivAt; InnerProductSpace.toDual_apply_apply; ContinuousLinearMap.adjoint_inner_left; HasGradientAt.gradient."
+            },
+            {
+              "title": "Transport the coercivity constant",
+              "text": "Apply the assumed operator lower bound to v=grad f(g(x)). Its quadratic form equals norm(A_x-adjoint v)² by the adjoint identity. Multiply the base gradient-gap bound by nonnegative sigma and combine. Finally use g(xstar)=z to express the same gap relative to the attained composite minimum.",
+              "formula": "\\begin{aligned}\\|\\nabla(f\\circ g)(x)\\|^2&=\\langle v,A_xA_x^*v\\rangle\\ge\\sigma\\|v\\|^2\\\\&\\ge2\\alpha\\sigma\\big((f\\circ g)(x)-(f\\circ g)(x_\\star)\\big).\\end{aligned}",
+              "lean": "ContinuousLinearMap.adjoint_inner_left; real_inner_self_eq_norm_sq; mul_le_mul_of_nonneg_left."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexFirstOrder.firstOrder_lower_bound_of_strongConvexOn"
+          ],
+          "mathlib_dependencies": [
+            "HasFDerivAt.comp",
+            "hasGradientAt_iff_hasFDerivAt",
+            "ContinuousLinearMap.adjoint_inner_left",
+            "real_inner_le_norm",
+            "mul_le_mul_of_nonneg_left"
+          ],
+          "lean_statement": "Construct a preimage of the base minimizer and prove a global numerical gradient-gap inequality for the actual composition.",
+          "lean_proof": "Let z be the supplied global minimizer of f. Surjectivity gives xstar with g(xstar)=z. Every g(x) lies in the objective space, so f(g(xstar))=f(z)<=f(g(x)); thus the same xstar minimizes the composite. At y=g(x), the shared first-order strong-convexity bound at comparator z gives the gap at most <grad f(y),y-z> minus alpha times the squared distance divided by2. Cauchy-Schwarz bounds the inner product. The nonnegative square (norm grad f(y)−alpha norm(y−z))² yields the numerical PL bound for f. Put A_x=Dg(x). The Frechet chain rule gives D(f∘g)(x)[v]=<grad f(g(x)),A_x v>. The defining adjoint identity rewrites this as <A_x-adjoint grad f(g(x)),v>. Uniqueness of the Riesz representative identifies the actual composite gradient. Apply the assumed operator lower bound to v=grad f(g(x)). Its quadratic form equals norm(A_x-adjoint v)² by the adjoint identity. Multiply the base gradient-gap bound by nonnegative sigma and combine. Finally use g(xstar)=z to express the same gap relative to the attained composite minimum.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S2",
+              "label": "Chewi Exercise2.3, Definition2.5 and Section2 conventions",
+              "scope": "Numerical inequality component; the positive-modulus and C1 definition package is kept separate."
+            },
+            {
+              "path": "Tests/Shared/StrongConvexPLPullback.lean",
+              "label": "Actual nonlinear parametrization test",
+              "scope": "Instantiates the theorem with a nonlinear surjection and proves its derivative/minimum certificates."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+          "role": "proof-edge",
+          "supports": [
+            "numerical-pl-and-minimum"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Finite Euclidean spaces with d>=n.",
+            "lean": "Complete real Hilbert spaces E,F with a surjection and the stated adjoint coercivity."
+          },
+          {
+            "source": "Section2 C2 f; g has an everywhere Jacobian.",
+            "lean": "Both maps are everywhere Frechet differentiable; output is the numerical PL inequality only."
+          },
+          {
+            "source": "Exercise gives coefficient sigma without stating positivity; Definition2.5 requires positive PL constant.",
+            "lean": "Sigma>=0; sigma0 gives a degenerate numerical inequality, not a positive PL constant."
+          },
+          {
+            "source": "Section2 attained minimum of f and surjectivity of g.",
+            "lean": "Supply IsMinOn f univ z; construct xstar with g(xstar)=z and IsMinOn (f∘g) univ xstar."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "Let E and F be arbitrary complete real inner-product spaces, with their associated norms, of any dimension. Let f:F->R and g:E->F be everywhere Frechet differentiable maps, let alpha,sigma be real constants satisfying alpha>0 and sigma>=0, and let z be in F. Assume f is globally alpha-strongly convex: for all u,v in F and t in [0,1], f((1-t)u+tv)<=(1-t)f(u)+tf(v)-(alpha/2)t(1-t)||v-u||^2. Assume g is surjective onto all of F, and z is a global minimizer of f, meaning f(z)<=f(y) for every y in F. Finally assume the uniform derivative coercivity bound: for every x in E and v in F, sigma||v||^2 <= <v,Dg(x)(Dg(x)*v)>_F, where Dg(x):E->F is the actual continuous linear Frechet derivative and Dg(x)*:F->E is its Hilbert-space adjoint. Then there exists xstar in E such that g(xstar)=z, (f o g)(xstar)<=(f o g)(x) for every x in E, and for every x in E one has 2 alpha sigma [(f o g)(x)-(f o g)(xstar)] <= ||gradient(f o g)(x)||_E^2. The gradient is the Riesz representative of the derivative in E. The same chosen xstar satisfies all three conclusions, and the inequality is global and uses the same uniform alpha and sigma from the assumptions. The existence of a minimizer z of f is assumed rather than established; the theorem supplies a preimage minimizer for the composition. It does not assert uniqueness of that preimage minimizer, convexity or strong convexity of the composition, injectivity or linearity of g, continuity of either derivative, finite dimensionality, or any algorithmic convergence claim. In particular sigma may be zero, in which case the displayed gradient bound has zero on the left and gives no positive Polyak-Lojasiewicz constant.",
+        "text_sha256": "b932aa537605bcf17591b6cc6a0f3707363d5d45db8f4d3f8a2c82e17b8b05de",
+        "decoder": "decode_57329",
+        "decoder_run_sha256": "c158d5f426b68322c534fbf7ad52a533b057b797639ae02f8a38a48988e85f86",
+        "decoder_packet_sha256": "50a9dc01f3d0ffa3dd075341182dcc2f50281ce0c102f9c8851a394a7e3b6f86",
+        "source_text_visible": false,
+        "lean_statement_sha256": "759a6cf1a2a47baab0147074dec7c14988feac636644a4364abeb25b4d919f17",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-pl-pullback/decoder-result.json"
+      }
     }
   ]
 }

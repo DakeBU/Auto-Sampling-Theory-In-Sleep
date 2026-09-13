@@ -73,6 +73,16 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.strong-convex.nonlinear-pl-pullback",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.StrongConvexPLPullback.exists_minimizer_and_pl",
+    upstreamDecl := "Exercise2.3 (numerical PL inequality component)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "PL", "optimisation"],
+    saldUse := "Strong convexity and adjoint Jacobian coercivity yield a numerical PL bound for a differentiable nonlinear composite, with a lifted global minimizer.",
+    note := "Differentiable Hilbert extension; sigma0 is degenerate. Does not assert composite C1 regularity, full positive-modulus PL definition, convexity, uniqueness or algorithm convergence."
+  },
+  {
     key := "analysis.gradient-descent.convex-gap-sharpness",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
     upstreamDecl := "Exercise3.3 (convex function-value order in Theorem3.4)",

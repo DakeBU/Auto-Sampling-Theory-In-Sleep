@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise2.3, Definition2.5 and Section2 attained-minimum convention",
   "target_statement": "For alpha>0 and sigma>=0, differentiable strongly alpha-convex f:F to R with a supplied global minimizer z and differentiable surjective g:E to F, a uniform quadratic lower bound on Dg Dg-adjoint yields a minimizing preimage and the numerical composite-gradient inequality with coefficient alpha*sigma.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-strong-convex-first-order"
   ],
@@ -27,8 +27,10 @@
     "notes": "Derive actual composite gradient, quantitative gap bound and lifted minimizer; do not assume the composite PL inequality."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "PASS2458; actual nonlinear cubic-surjection consumer, IVT attainment and nonconstant Jacobian coercivity; independent production elaboration, standard axioms only."
+    ],
+    "independent_verification": "pl_pullback_review 7dc67252227d5fb4d05018526c4b965eb722e47d; decode_57329/pl_source_57329 accepted bound packet in runs/semantic-roundtrip/andi-opt-pl-pullback.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""
