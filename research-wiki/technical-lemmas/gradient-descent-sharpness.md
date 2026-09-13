@@ -38,15 +38,16 @@ strongConvexOn_iff_convex, StrongConvexOn.mono, HasDerivAt.hasGradientAt and
 pow_le_pow_left₀. Optlib5da27c5 has GD interpolation and upper-rate theorems;
 CvxLean c62c2f has spectral algebra. The independent bounded search found no
 matching parameterized attained lower witness; no external code was copied.
-Lean4.33.0. Canonical full source audit will be retained in the round-trip folder.
+Lean4.33.0. Canonical full source audit is retained in the round-trip folder.
 
 ## Verification and integration notes
 
 Focused Tests.Shared.GradientDescentSharpness PASS2871, standard axioms only.
 Tests retain a genuine common witness for negative h (growth4^N versus balanced
 2^(-N)), zero h (distance1), and α=β=2 (N=0 distance1, positive iterations0).
-Production and tests compiled; independent review and aggregate admission pending.
-Root Tests import, Registry, full ASTIS gate, reader and graph inspection pending.
+Independent proof verifier sharp_route_review, blind decoder sharp_blind and
+source reviewer sharp_source accepted the scoped packet. Root Tests/Analysis
+imports and Registry421 integrated. Canonical full ASTIS gate, reader and graph checks passed.
 
 Conceptual-mirror audit: none-found. This is attainment within the existing
 Euclidean quadratic gradient mechanism, not a new cross-domain transport.
@@ -56,3 +57,28 @@ Next boundary after admission: select another precise Exercise3.3 comparison
 with its exact source assumptions (for example objective-gap estimates), or a
 source polynomial-method consumer, after a fresh dependency/reuse audit. Do not
 repeat the exact trajectory or fixed-step distance-witness targets.
+
+Full gate candidate `bce17df72799029d4cb60c18a16c4312bc3bd803` passed at `2026-09-13T03:18:56.228144+00:00`;
+source digest `6e390fe3aae1f1a0053199cc060fd35862a169bddec87ca8705a24f6b674bb6e`. Canonical JSON retained in
+`runs/semantic-roundtrip/andi-opt-gd-sharpness/canonical-gate-evidence.json`.
+
+- Canonical gate PASS9208 build jobs, including root Tests and Tests.Basic,
+  fake-closure scan and ATLAS36469 declarations/26books. Publication PASS80 items;
+  semantic PASS97 audits/6 existing repairs; Frontier PASS105 cells. All96 prior
+  audits and10 prior optimisation source items remain unchanged as objects.
+- Site build/check PASS677 modules,4001 declarations,421 local leaves. Bounded
+  graph-check passed. Graph delta adds the new module/declaration, chapter03
+  correspondence and accepted semantic audit. The name scanner detects
+  optimal_gradient_step and quadratic_eigenmode as references to the new theorem;
+  these are dashed scanner edges, not exhaustive elaborated dependency certificates.
+  Module ownership is solid. No completion badge or conceptual mirror was authored.
+- Reader: libraries/optimisation/chapter-03.html#chewi-opt-v1-exercise-3-3-fixed-step-sharpness.
+  Root inspected actual desktop1280/mobile390 statement, formulas, assumptions,
+  remaining boundaries and both initially closed Lean disclosures, then opened
+  statement and proof. KaTeX errors0; page width=scrollWidth1265 desktop and375
+  mobile. Long mobile formulas scroll within their own container.
+- Graph focus: lean-foundations.html?view=lean&focus=decl%3AAutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness.exists_quadratic_worst_case&q=AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness.exists_quadratic_worst_case.
+  Focused branch13 nodes/22 edges/5 highlighted relations was inspected on desktop;
+  mobile detail wraps the full name and displays compiled badge, both references
+  and reader link. This is root visual evidence, not the independent reviewer's
+  own visual inspection. No layout code changed. Preview tabs/server are closed.
