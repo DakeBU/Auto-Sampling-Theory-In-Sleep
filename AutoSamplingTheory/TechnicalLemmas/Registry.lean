@@ -73,6 +73,16 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.sharpness",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness.exists_quadratic_worst_case",
+    upstreamDecl := "Exercise3.3 (fixed-step distance sharpness of Exercise3.2)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "quadratic", "optimisation"],
+    saldUse := "Actual scalar quadratic witnesses the endpoint envelope at every iteration count and its balanced minimax factor, with all function-class certificates proved.",
+    note := "Positive alpha<=beta are valid class bounds, not both tight constants of the witness. Fixed-step distance sharpness only; no full-section or variable/adaptive/oracle lower bound."
+  },
+  {
     key := "analysis.quadratic-gd.iterate",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
     upstreamDecl := "Exercise3.3 (exact trajectories component)",
