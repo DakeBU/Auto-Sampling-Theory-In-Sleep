@@ -83,3 +83,7 @@ Root actual visual inspection (not the independent reviewer's own screenshot):
 Next bounded work: audit a substantive downstream use of this interface or an
 uncovered source theorem; do not count a restated PL inequality as new progress.
 Do not infer smoothness or a full definition package from this numerical bound.
+
+Merged and pushed directly to `main` at `87fbc6f71a71edb200b2367ca5701ffd7c62202a` under standing
+user authorization. SAU `MERGED` releases the single stabilization lane. Remote
+post-push CI/deployment is separate from passed local evidence.
