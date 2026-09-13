@@ -55,7 +55,7 @@ using only propext, Classical.choice, Quot.sound. Actual unit quadratic tests
 exercise arbitrary nonnegative steps, equal moduli, and α=1,β=3; the constant
 objective tests α=0 with β=1. The root Tests.lean and Analysis.lean imports are integrated before the module documentation.
 Independent source-blind decoder: `gdo_blind`; proof verifier: `optimal_route_audit`;
-source reviewer: `gdo_source`. Independent source/proof admission passed; full aggregate checks are pending.
+source reviewer: `gdo_source`. Independent source/proof admission and full aggregate checks passed.
 Artifacts belong in `runs/semantic-roundtrip/andi-opt-gd-optimal-step/`.
 
 Conceptual-mirror audit: none-found. The existing curvature-growth and metric-
@@ -71,4 +71,36 @@ no additional theorem is claimed in this cycle.
 Independent source and proof admission accepted, with disclosed domain-mismatch
 (Hilbert/parameter extensions) and no repair proposal. Root imports and Registry
 entries are integrated (418 local leaves). Full gate, generated branch checks and
-reader visual inspection remain pending.
+reader visual inspection passed as recorded below.
+
+
+- Aggregate candidate `9f461668e6db0c43ebc1fbe9af67acda3f46a64f` passed the canonical
+  gate at `2026-09-13T01:54:17.958018+00:00`: 9204 jobs, including root Tests.Basic
+  and Tests, fake-closure scan, ATLAS36469 declarations/26 books. Copied exact
+  source-bound evidence: `runs/semantic-roundtrip/andi-opt-gd-optimal-step/canonical-gate-evidence.json`.
+- Publication diff check PASS78 source items, semantic check PASS94 audits/6
+  existing repairs, frontier check PASS102 cells. Old92 audit objects and old
+  source items are unchanged. Two new declarations, their source item and lessons
+  are added; no source repair is needed. Registry count418 is local leaves,
+  not a source/book/companion-completion count.
+- Generated site build/check PASS673 modules,3995 declarations,418 local leaves.
+  Both affected `graph-check --cell` calls pass. Graph delta: the production and
+  test modules are present; two new declarations share the actual production
+  owner, chapter03 source binding and separate semantic audits. The endpoint
+  scanner reference to the optimal-step theorem is dashed, not an elaborated
+  dependency certificate. Existing lower/upper Hessian interfaces are reused.
+- Reader: `libraries/optimisation/chapter-03.html#chewi-opt-v1-exercise-3-2`.
+  Focus: `lean-foundations.html?view=lean&focus=decl%3AAutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.optimal_gradient_step&q=AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.optimal_gradient_step`.
+  Root inspected actual rendered reader at desktop1280/mobile390: formulas,
+  hypotheses, accepted domain-mismatch disclosures, all4 initiallyclosed Lean
+  disclosures and the opened optimal statement/proof. KaTeX errors0; document
+  width equals scrollWidth (1265 desktop,375 mobile). Long mobile formulas use
+  their own horizontal scroll area. Focused branch10nodes13edges4highlighted
+  relations: solid module ownership and dashed scanner/source/audit edges are
+  visually distinct. Mobile node detail has the full wrapped name, compiled badge
+  and readable source/reference panel. This is root visual evidence, not the
+  independent verifier's own screenshot inspection. No layout code changed.
+- Remaining boundary: uniform C² curvature-envelope optimization only. No new
+  conceptual mirror or actual planned generic consumer is certified. Any further
+  optimal-step iterate bound or C¹ extension needs a separately scoped source/DAG
+  delta; the rest of the chapter remains incomplete.
