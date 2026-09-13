@@ -6,7 +6,7 @@ Theorem 3.7 and proof; Section 2 attained-minimum convention; Lemma 3.1.
 SAU: `ANDI-OPT-gd-stationarity-001`.
 Cells: `ASTIS-SHARED-gradient-descent-sum-sq` and
 `ASTIS-SHARED-gradient-descent-stationarity`.
-Candidate proof commit: `c592c86` (resolve full SHA from review evidence).
+Candidate proof commit: `c592c86bd16024618fab58a27a00f296bb2c8a34`.
 
 For a complete real Hilbert space, actual gradient update `T(x)=x-h∇f(x)`,
 and the global quadratic upper model with `βh≤1`, the new shared module
@@ -68,11 +68,49 @@ Conceptual-mirror audit: none-found. Accumulated energy dissipation is already
 represented in `family:metric-gradient-flow`; no new cross-space transport or
 PL/coercivity implication is asserted by the averaging argument.
 
-Before final admission: finish independent reviews, root imports and Registry,
-full canonical gate, source-bound site/graph checks and visual inspection.
+Admission complete: independent proof reviewer `gds_integration_review`,
+source-blind decoder `gds_blind`, source reviewer `gds_source`, and independent
+exact-domain-overlay reviewer `gds_repair`. Source acceptance retains
+`domain-mismatch` for the disclosed algebraic/Hilbert generalization. Root imports
+and Registry entries are integrated; the count is 416, not a paper-completion count.
 Do not repeat the historical missing-root-test mistake: put the new import in
 `Tests.lean`'s initial import block, before module documentation.
 
 Next optimization target is selected only after this source boundary is admitted;
 Chewi Exercise 3.2 optimal-step contraction is a candidate requiring a fresh
 reuse/source audit. The unmerged curvature proposal remains separate.
+
+
+## Integration notes
+
+- Frozen aggregate candidate: `ce646467901c8b0d143411782f340716fb6b3637`.
+  Canonical gate PASS9202 at `2026-09-13T01:07:51.631548+00:00`, including root
+  Tests, ATLAS 36469 declarations/26 books, and fake-closure checks. Exact copied
+  source-digest evidence: `runs/semantic-roundtrip/andi-opt-gd-stationarity/canonical-gate-evidence.json`.
+- Publication PASS77 source items, semantic registry PASS92 audits/6 repairs,
+  frontier protocol PASS100 cells. Whole-module publication fingerprints and
+  independent packet/run hashes checked; unchanged prior source/audit objects
+  and the old Basic/PL/Value proofs preserved.
+- Website build/check PASS671 modules, 3993 declarations and 77 reviewed teaching
+  declarations. Both affected `graph-check --cell` calls passed. Added one module
+  and two compiled declarations, their chapter03 bindings, two source audits and
+  the separately accepted domain overlay. Existing shared descent is reused.
+- Reader: `libraries/optimisation/chapter-03.html#chewi-opt-v1-theorem-3-7`.
+  Graph focus: `lean-foundations.html?view=lean&focus=decl%3AAutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.exists_gradient_descent_norm_le&q=AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.exists_gradient_descent_norm_le`.
+  Root inspected actual rendered reader at desktop1280/mobile390: formulas,
+  explicit hypotheses, source mismatch/accepted overlay, all four initially
+  closed Lean disclosures, and opened stationary statement/proof. No KaTeX
+  errors or document overflow. The focused branch has 9 nodes/12 edges and 4
+  direct relations highlighted. Solid module `declares` and dashed incomplete
+  scanner/source correspondence are distinct; both new theorem nodes appear.
+  Mobile fit-view graph labels are small; the node detail panel shows the full
+  wrapped declaration, compiled badge and source/reference evidence. This is
+  root visual evidence, not an independent reviewer screenshot claim.
+- Integrated the exact original-owner historical PR301 MERGED event and the two
+  metadata-file updates from `f0fd96f035cd320f32ded0f7befdc5cb68376aa4`, following
+  independent preservation review. No new transition impersonates that owner,
+  no duplicate event, and no old mathematical evidence is overwritten.
+- Remaining boundary: best-iterate certificate in the explicit model only;
+  neither companion paper is complete. No new conceptual transport is claimed.
+  Next candidate: fresh source/reuse audit of optimal-step contraction,
+  Chewi Exercise3.2. Do not repeat this now-admitted Theorem3.7 work.
