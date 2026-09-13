@@ -87,3 +87,29 @@ Do not infer smoothness or a full definition package from this numerical bound.
 Merged and pushed directly to `main` at `87fbc6f71a71edb200b2367ca5701ffd7c62202a` under standing
 user authorization. SAU `MERGED` releases the single stabilization lane. Remote
 post-push CI/deployment is separate from passed local evidence.
+
+## Post-push contract regression repair
+
+Site run34745599714 and formalization run34745599676 exposed the same stale
+publication test: it required the live Chapter02 to remain scaffold, although
+the reviewed pullback now correctly contributes a partial proof. Earlier local
+Lean/site gates and integration review did not exercise this workflow assertion.
+The repair scopes the empty-chapter assertion to the historical Chapter01-only
+fixture and adds an isolated real pullback regression requiring the exact proof
+declaration, partial status and source_complete false. No proof, source binding,
+reader content or completion policy changes.
+
+Both workflow unit suites pass locally: website209 and formalization84; six
+JavaScript syntax checks and generator compilation also pass.
+Full harness discovery also passes256 tests with6 Windows-only skips. Its first
+sandboxed run had3 localhost socket permission errors; the permitted rerun
+passed without test changes.
+Independent supplementary review is recorded in the existing semantic-roundtrip evidence
+directory, separately from the historical integration review. The Lean-source
+digest remains4f7a21c1257ac6f86ee508d18fe17ba1a971f708ddd4c4ab94f7d795b37e453e,
+so the existing canonical PASS9212 remains applicable to the unchanged Lean input.
+
+Release lesson: before pushing a new chapter contribution, run the website and
+formalization workflow contract suites as well as the canonical Lean gate and
+site build/check. Keep historical migration tests on bounded fixtures; never
+freeze a live chapter at scaffold or hide genuine progress to satisfy a test.

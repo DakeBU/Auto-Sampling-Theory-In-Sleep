@@ -30,12 +30,29 @@ class PublicationTest(unittest.TestCase):
         # The migration fixture remains partial as other source items are added.
         with patch.object(p, 'load', return_value=[self.item]):
             state = p.chapter_progress('optimisation', '01')
+            empty_chapter = p.chapter_progress('optimisation', '02')
         self.assertEqual(state['status'], 'partial')
         self.assertEqual(set(state['proof_declarations']),
                          {b['declaration'] for b in self.item['bindings']})
         self.assertEqual(len(self.legacy_bindings), 2)
         self.assertFalse(state['source_complete'])
-        self.assertEqual(p.chapter_progress('optimisation', '02')['status'], 'scaffold')
+        self.assertEqual(empty_chapter['status'], 'scaffold')
+        self.assertFalse(empty_chapter['proof_declarations'])
+        self.assertFalse(empty_chapter['source_complete'])
+
+    def test_reviewed_pullback_is_partial_not_chapter_completion(self):
+        item = next(i for i in self.items
+                    if i['id'] == 'chewi-opt-v1-exercise-2-3-pl-pullback')
+        # Freeze this source slice so future chapter contributions do not
+        # invalidate the regression or turn a scoped component into completion.
+        with patch.object(p, 'load', return_value=[item]), \
+                patch.object(p, 'inputs', return_value=self.data):
+            state = p.chapter_progress('optimisation', '02')
+        self.assertEqual(state['status'], 'partial')
+        self.assertEqual(state['proof_declarations'], [
+            'AutoSamplingTheory.TechnicalLemmas.Analysis.'
+            'StrongConvexPLPullback.exists_minimizer_and_pl'])
+        self.assertFalse(state['source_complete'])
 
     def test_companion_pages_exist_before_publication_projection(self):
         tree = ast.parse((p.ROOT / 'website/scripts/build_site.py').read_text(encoding='utf-8'))
