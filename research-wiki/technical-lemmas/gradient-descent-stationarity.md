@@ -114,3 +114,5 @@ reuse/source audit. The unmerged curvature proposal remains separate.
   neither companion paper is complete. No new conceptual transport is claimed.
   Next candidate: fresh source/reuse audit of optimal-step contraction,
   Chewi Exercise3.2. Do not repeat this now-admitted Theorem3.7 work.
+
+Merged and pushed directly to `main` at `b00c64ad810af0449bb3c0fae38ff3df8eeed59c` under the standing user authorization. SAU is `MERGED`; its stabilization reservation is released. Remote post-push CI/deployment is separate from the local gate evidence above.

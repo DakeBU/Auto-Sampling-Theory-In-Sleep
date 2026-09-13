@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.7 and proof",
   "target_statement": "Actual gradient iterates: (h/2) sum_{k<N} ||grad f(T^k x0)||^2 <= f(x0)-f(T^N x0). For a supplied global minimizer z, h>0,N>0, there exists k<N with gradient norm <= sqrt(2(f(x0)-f(z))/(N*h)).",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-gradient-descent-sum-sq"
   ],
@@ -33,7 +33,7 @@
     "independent_verification": "gds_integration_review c592c86bd16024618fab58a27a00f296bb2c8a34; gds_blind,gds_source,gds_repair independent current-packet evidence in runs/semantic-roundtrip/andi-opt-gd-stationarity.",
     "root_build": "Canonical ASTIS gate PASS9202 including root Tests, ATLAS and fake-closure checks at ce646467901c8b0d143411782f340716fb6b3637, 2026-09-13T01:07:51.631548+00:00; source digest bf0011c44528a4eaa9408466d2063072b03e534e390df7d80a90a5717d22a52a",
     "graph_regeneration": "build_site.py and check_site.py PASS671 modules/3993 declarations/77 reviewed teaching declarations; both affected graph-check calls PASS. Root CUA desktop1280/mobile390 reader and focused branch inspected; no page overflow or KaTeX errors. Solid declares vs dashed source/reference overlays retained. See gradient-descent-stationarity technical memory integration notes.",
-    "pr": ""
+    "pr": "No PR: user-authorized direct main integration at https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/commit/b00c64ad810af0449bb3c0fae38ff3df8eeed59c"
   },
   "blocked": {
     "reason": "",
