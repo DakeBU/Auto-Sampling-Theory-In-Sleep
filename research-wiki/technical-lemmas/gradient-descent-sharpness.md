@@ -82,3 +82,7 @@ source digest `6e390fe3aae1f1a0053199cc060fd35862a169bddec87ca8705a24f6b674bb6e`
   mobile detail wraps the full name and displays compiled badge, both references
   and reader link. This is root visual evidence, not the independent reviewer's
   own visual inspection. No layout code changed. Preview tabs/server are closed.
+
+Merged and pushed directly to `main` at `d63ab0b916806e84151f627faad15dcc8a71ca17` under standing
+user authorization. SAU `MERGED` releases the single stabilization lane. Remote
+post-push CI/deployment is separate from passed local evidence.

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.3 testing Exercise3.2",
   "target_statement": "For 0<alpha<=beta and every real h, choose mu in {alpha,beta}. The actual scalar quadratic is C2, alpha-strongly convex, beta-smooth and minimized at0; starting at1 its N-step norm equals max(|1-halpha|,|1-hbeta|)^N >= q^N for all N, and the balanced-step norm equals q^N. Bounds alpha,beta need not be tight for this scalar witness.",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-quadratic-gradient-eigenmode",
     "ASTIS-SHARED-gradient-descent-optimal-step"
@@ -34,7 +34,7 @@
     "independent_verification": "sharp_route_review b6bac3b17af4133b420c280c93db53c8e9f16747; sharp_blind/sharp_source accepted current bound packet in runs/semantic-roundtrip/andi-opt-gd-sharpness.",
     "root_build": "PASS canonical tools/astis.py check at bce17df72799029d4cb60c18a16c4312bc3bd803; root Tests/Tests.Basic covered; source-bound evidence in runs/semantic-roundtrip/andi-opt-gd-sharpness/canonical-gate-evidence.json",
     "graph_regeneration": "PASS build_site.py/check_site.py: 677 modules,4001 declarations,421 local leaves; bounded graph-check PASS. Root inspected desktop1280/mobile390 reader and changed branch; see integration notes in research-wiki/technical-lemmas/gradient-descent-sharpness.md.",
-    "pr": ""
+    "pr": "Direct main push, no PR: https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/commit/d63ab0b916806e84151f627faad15dcc8a71ca17"
   },
   "blocked": {
     "reason": "",
