@@ -903,6 +903,120 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientPL"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-theorem-3-7",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Theorem3.7 · nonconvex gradient stationarity",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Theorem3.7 and its proof; Section2 attained-minimum convention",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "For a β-smooth objective and the printed step restriction h≤1/β, the smallest gradient norm among x₀,…,x_(N−1) is bounded by the displayed square root. The proof adds the single-step descent inequalities and bounds the last objective value below by f★.",
+      "assumptions": [
+        "The section uses smooth Euclidean objectives, positive β for the reciprocal restriction, and actual gradient updates x_(k+1)=x_k−h∇f(x_k).",
+        "Section2 fixes an attained global minimum f★=f(x★). No convexity or PL hypothesis appears in Theorem3.7.",
+        "The theorem prints h≤1/β; positive h and a nonempty iteration range are not explicitly included in that line."
+      ],
+      "formulae": [
+        {
+          "label": "Best-iterate stationarity",
+          "tex": "\\min_{0\\le k<N}\\|\\nabla f(x_k)\\|\\le\\sqrt{\\frac{2(f(x_0)-f_\\star)}{Nh}}."
+        },
+        {
+          "label": "Telescoping proof component",
+          "tex": "\\frac h2\\sum_{k=0}^{N-1}\\|\\nabla f(T^k x_0)\\|^2\\le f(x_0)-f(T^N x_0)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "accumulated-descent",
+          "label": "Derive cumulative squared-gradient decrease from actual updates"
+        },
+        {
+          "id": "best-iterate-norm",
+          "label": "Use the global minimum, average and square root to obtain a small-gradient iterate"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.gradient_descent_sum_sq_bound",
+          "cell": "ASTIS-SHARED-gradient-descent-sum-sq",
+          "role": "proof-edge",
+          "supports": [
+            "accumulated-descent"
+          ],
+          "boundary": "No convexity, PL inequality, or stochastic oracle is assumed. These are shared textbook optimization results, not companion-paper completion. The real parameter β need not be positive in this algebraic model. For source β>0, βh≤1 is equivalent to h≤1/β; β=0 and negative β are explicitly broader model domains, not new reciprocal smoothness claims. The source prints only h≤1/β. The normalized theorem additionally needs h>0 and N≥1. For f(t)=t²/2, β=1,x₀=1,z=0,N=1, h=0 or h=−1 makes the Lean-totalized square-root bound equal to 0, although the only tested gradient has norm 1. In ordinary real arithmetic these expressions are undefined. At N=0 the minimum has an empty index set. Proposed domain repairs are separately reviewed; the pinned source wording remains unchanged. The unnormalized sum includes h=0 and N=0; both are equality cases. This proof component alone is not the normalized stationary-iterate guarantee.",
+          "assumption_deltas": [
+            {
+              "source": "Smooth Euclidean objective and β-smoothness.",
+              "lean": "Complete real Hilbert space and the global quadratic upper model in the actual gradient.",
+              "classification": "generalization",
+              "reason": "Only this model is consumed; the source smooth Euclidean case specializes it. No assertion of differentiability of arbitrary objectives or a smoothness equivalence."
+            },
+            {
+              "source": "Positive β and h≤1/β.",
+              "lean": "Real β and βh≤1, with h≥0.",
+              "classification": "generalization",
+              "reason": "Product and reciprocal restrictions agree for β>0. Signed β are permitted only within the explicit algebraic upper model."
+            },
+            {
+              "source": "The printed bound divides by Nh and takes a minimum over 0,…,N−1 without explicit positivity in the theorem line.",
+              "lean": "Unnormalized sum with h≥0,N∈ℕ.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints only h≤1/β. The normalized theorem additionally needs h>0 and N≥1. For f(t)=t²/2, β=1,x₀=1,z=0,N=1, h=0 or h=−1 makes the Lean-totalized square-root bound equal to 0, although the only tested gradient has norm 1. In ordinary real arithmetic these expressions are undefined. At N=0 the minimum has an empty index set. Proposed domain repairs are separately reviewed; the pinned source wording remains unchanged. The unnormalized component retains h=0,N=0 because there is no division or empty minimum."
+            },
+            {
+              "source": "Attained minimum and finite minimum of gradient norms.",
+              "lean": "No lower-bound premise or witness conclusion in this proof component.",
+              "classification": "generalization",
+              "reason": "The cumulative proof is valid before using the source minimum."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientSumSq"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.exists_gradient_descent_norm_le",
+          "cell": "ASTIS-SHARED-gradient-descent-stationarity",
+          "role": "proof-edge",
+          "supports": [
+            "best-iterate-norm"
+          ],
+          "boundary": "No convexity, PL inequality, or stochastic oracle is assumed. These are shared textbook optimization results, not companion-paper completion. The real parameter β need not be positive in this algebraic model. For source β>0, βh≤1 is equivalent to h≤1/β; β=0 and negative β are explicitly broader model domains, not new reciprocal smoothness claims. The source prints only h≤1/β. The normalized theorem additionally needs h>0 and N≥1. For f(t)=t²/2, β=1,x₀=1,z=0,N=1, h=0 or h=−1 makes the Lean-totalized square-root bound equal to 0, although the only tested gradient has norm 1. In ordinary real arithmetic these expressions are undefined. At N=0 the minimum has an empty index set. Proposed domain repairs are separately reviewed; the pinned source wording remains unchanged. The existential witness is equivalent to the finite-minimum upper bound on this nonempty index set. No last-iterate guarantee, convergence of the entire sequence, exact stationary point, or global optimality is concluded. The minimizer is supplied, not constructed. At h=1/β with β>0, the formula gives the source O(βΔ₀/ε²) stationarity scaling; no separate stopping algorithm or oracle-complexity theorem is claimed.",
+          "assumption_deltas": [
+            {
+              "source": "Smooth Euclidean objective and β-smoothness.",
+              "lean": "Complete real Hilbert space and the global quadratic upper model in the actual gradient.",
+              "classification": "generalization",
+              "reason": "Only this model is consumed; the source smooth Euclidean case specializes it. No assertion of differentiability of arbitrary objectives or a smoothness equivalence."
+            },
+            {
+              "source": "Positive β and h≤1/β.",
+              "lean": "Real β and βh≤1, with h>0.",
+              "classification": "generalization",
+              "reason": "Product and reciprocal restrictions agree for β>0. Signed β are permitted only within the explicit algebraic upper model."
+            },
+            {
+              "source": "The printed bound divides by Nh and takes a minimum over 0,…,N−1 without explicit positivity in the theorem line.",
+              "lean": "Strictly positive h and N≥1.",
+              "classification": "mathematically-necessary",
+              "reason": "The source prints only h≤1/β. The normalized theorem additionally needs h>0 and N≥1. For f(t)=t²/2, β=1,x₀=1,z=0,N=1, h=0 or h=−1 makes the Lean-totalized square-root bound equal to 0, although the only tested gradient has norm 1. In ordinary real arithmetic these expressions are undefined. At N=0 the minimum has an empty index set. Proposed domain repairs are separately reviewed; the pinned source wording remains unchanged."
+            },
+            {
+              "source": "Attained minimum and finite minimum of gradient norms.",
+              "lean": "Supplied IsMinOn f univ z and an existential index in Finset.range N.",
+              "classification": "same",
+              "reason": "For N≥1, existence of a term below B is equivalent to the finite minimum being below B. z encodes the source minimizer, without proving existence."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientStationarity"
+        }
+      ]
     }
   ]
 }

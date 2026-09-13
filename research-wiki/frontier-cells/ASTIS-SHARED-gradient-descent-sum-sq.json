@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-gradient-descent-sum-sq",
+  "route": "shared",
+  "title": "Accumulated squared gradients along actual descent",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.7 and proof",
+  "target_statement": "For h>=0,beta*h<=1 and actual gradient upper model, (h/2) sum_{k<N} ||grad f(T^k x0)||^2 <= f(x0)-f(T^N x0), including h=0,N=0.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-gradient-step-descent"
+  ],
+  "consumers": [
+    "ASTIS-SHARED-gradient-descent-stationarity",
+    "optimisation:Chewi-Theorem-3.7-proof"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GradientDescentBasic canonical actual-gradient descent; PL/Value modules; SPHMC TerminalReferenceGradientDescent private gradient_decay (strong convexity, different target)",
+      "Mathlib db584cd Finset.sum_range_sub', exists_le_of_sum_le, sqrt bounds",
+      "Optlib 5da27c5 GD and CvxLean c62c2f scoped nonconvex/stationarity search: no exact candidate located"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.gradient_descent_sum_sq_bound",
+    "canonical_shared_cell": "ASTIS-SHARED-gradient-descent-sum-sq",
+    "notes": "Reuse compiled descent and finite-sum algebra. No convexity/PL assumption or supplied recurrence."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Theorem3.7; Section2 attained-minimum convention; Lemma3.1",
+    "detail_status": "omitted",
+    "gap": "Printed h<=1/beta omits positive h for division; N>=1 implicit in nonempty minimum and denominator.",
+    "consulted": [
+      {
+        "source": "Chewi pinned primary source and Mathlib finite sums",
+        "anchor": "Theorem3.7 proof",
+        "hypothesis_adapter": "Global quadratic upper model in actual gradient; h>0,N>0 for normalized conclusion, supplied global minimizer as source convention."
+      }
+    ],
+    "fidelity_boundary": "Best of first N iterates, not last iterate or global optimality. Shared textbook edge only; source repairs reviewed separately."
+  }
+}
