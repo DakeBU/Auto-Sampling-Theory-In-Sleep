@@ -97,3 +97,7 @@ Final metadata-only site regeneration/check passed; both bounded graph reports
 are byte-identical to the inspected versions. Current Lean source digest still
 matches the canonical gate. Independent integration review is retained at
 `runs/semantic-roundtrip/andi-opt-quadratic-gd/integration-review.json`.
+
+Merged and pushed directly to `main` at `1a7beeef7ef740fda474ff2896ba8334611b41dd` under standing
+user authorization. SAU `MERGED` releases the single stabilization lane. Remote
+post-push CI/deployment is separate from passed local evidence.
