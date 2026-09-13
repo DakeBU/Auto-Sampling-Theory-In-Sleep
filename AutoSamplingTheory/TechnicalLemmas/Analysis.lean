@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness
 import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness
 import AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent
 import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep

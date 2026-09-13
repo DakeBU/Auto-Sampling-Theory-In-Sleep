@@ -1327,6 +1327,79 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientSharpness"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-exercise-3-3-convex-gap-sharpness",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Exercise3.3 · convex function-value order sharpness",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Exercise3.3 testing Theorem3.4 convex specialization and Table1",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored selected-component restatement; no endorsement implied."
+      },
+      "statement": "Exercise3.3 asks the reader to examine Section3 bounds with positive-definite quadratic objectives. This item selects the convex function-value estimate from Theorem3.4: at step1/beta and initial distance R, the upper gap is beta R²/(2N) for positive N. An explicit quadratic family demonstrates its order sharpness at R=1. The exercise does not print the witness or a lower-bound constant.",
+      "assumptions": [
+        "Twice continuously differentiable Euclidean objectives are convex and beta-smooth, with beta>0, an attained minimum and prescribed step1/beta.",
+        "The source upper bound concerns N>0. A worst-case family may depend on the iteration horizon. Positive-definite quadratics are admitted within the convex class."
+      ],
+      "formulae": [
+        {
+          "label": "Source upper bound whose order is tested",
+          "tex": "f(x_N)-f_\\star\\le\\frac{\\beta R^2}{2N},\\qquad N>0,\\quad h=1/\\beta."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "convex-gap-order-witness",
+          "label": "Construct admissible horizon-dependent quadratic with an actual-iterate gap lower bound of reciprocal order"
+        },
+        {
+          "id": "other-section-comparisons",
+          "label": "Other Section3 sharpness comparisons and exact optimal constants remain outside this component"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+          "cell": "ASTIS-SHARED-convex-gradient-gap-sharpness",
+          "role": "proof-edge",
+          "supports": [
+            "convex-gap-order-witness"
+          ],
+          "boundary": "The horizon N is fixed before choosing the objective f_N. Its positive curvature mu_N shrinks with N. This is a family witnessing a worst-case bound over the convex beta-smooth class; it is not a single fixed strongly convex objective with an asymptotic reciprocal tail. Beta is a valid upper curvature bound, not the tight smoothness constant of this scalar witness. The step is prescribed as1/beta, not tuned to its intrinsic curvature. Strong convexity with mu_N>0 implies ordinary convexity. The constant1/16 is an ASTIS-derived convenient lower constant, not an optimal constant or a number printed in the exercise. For N>=1, beta/[16(N+1)]>=beta/(32N); comparison with the source upper bound beta/(2N) shows order sharpness at initial distance1. The theorem states the finite N+1 bound. N=0 is included only as a nonsingular lower-bound identity: the actual initial gap is beta/4. It does not interpret the singular source1/N upper bound at zero. No variable/adaptive-step result, general first-order oracle lower bound, full Exercise3.3 comparison list, acceleration claim or companion-paper completion follows. The function, actual gradients, smoothness model and minimizer are certified, not supplied as hypotheses.",
+          "assumption_deltas": [
+            {
+              "source": "Positive-definite Euclidean quadratic; convex beta-smooth class.",
+              "lean": "Scalar f_N(x)=mu_N x²/2, mu_N=beta/[2(N+1)]>0, all regularity/model/minimizer certificates proved.",
+              "classification": "same",
+              "reason": "One-dimensional positive quadratics are valid source witnesses; positive strong convexity entails convexity."
+            },
+            {
+              "source": "Uniform beta-smooth function class and step1/beta.",
+              "lean": "Mu_N<=beta; beta is a valid upper model parameter, not the tight scalar curvature.",
+              "classification": "source-implicit",
+              "reason": "The prescribed class step need not be the step optimized for the individual witness. The intrinsic tight constants both equal mu_N."
+            },
+            {
+              "source": "Exercise asks how sharp the source estimates are, without printing a solution.",
+              "lean": "For each N choose f_N and prove beta/[16(N+1)] lower bound, initial distance1.",
+              "classification": "same",
+              "reason": "This is an authored order-sharpness proof component. Curvature may shrink with the horizon; no single fixed-objective reciprocal asymptotic or optimal constant is claimed."
+            },
+            {
+              "source": "Source convex normalized upper rate has N>0.",
+              "lean": "The constructed lower bound and exact gap also hold at N=0.",
+              "classification": "generalization",
+              "reason": "All N+1 denominators stay positive. At0 the initial gap is beta/4; no singular source upper rate is interpreted."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-ConvexGapSharpness"
+        }
+      ]
     }
   ]
 }

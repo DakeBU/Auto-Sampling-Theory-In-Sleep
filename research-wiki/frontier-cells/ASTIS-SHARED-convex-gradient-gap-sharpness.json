@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-convex-gradient-gap-sharpness",
+  "route": "shared",
+  "title": "Quadratic witness for the convex gradient-descent function-value order",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.3 testing Theorem3.4 convex function-value rate",
+  "target_statement": "For beta>0 and each N natural, mu=beta/(2(N+1)) defines f(x)=mu*x^2/2. Prove C2, strong convexity with positive mu, global beta upper model and minimizer0; actual GD step1/beta from1 has exact quadratic gap and gap at least beta/(16(N+1)).",
+  "status": "independently_verified",
+  "parents": [
+    "ASTIS-SHARED-gradient-descent-sharpness"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Exercise-3.3-convex-gap",
+    "optimisation:Chewi-Theorem-3.4-convex-rate"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib exists_quadratic_worst_case supplies admissible scalar quadratics and actual norm iterate, not horizon-dependent convex gap lower bound",
+      "Mathlib db584cd Algebra.Order.Ring.Pow one_add_mul_sub_le_pow for Bernoulli estimate",
+      "Independent bounded Optlib5da27c5/CvxLean c62c2f audit: upper-rate/spectral APIs, no matching horizon-dependent lower witness found. runs/semantic-roundtrip/andi-opt-convex-gap-sharpness/upstream-review.json"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+    "canonical_shared_cell": "ASTIS-SHARED-convex-gradient-gap-sharpness",
+    "notes": "Choose horizon-dependent curvature, use genuine existing gradient trajectory, derive quantitative objective lower bound. No duplicate scalar trajectory proof."
+  },
+  "evidence": {
+    "focused_checks": [
+      "PASS2875; actual same-witness upper/lower consumer, N0 and beta4/N1 tests; independent production elaboration, standard axioms only."
+    ],
+    "independent_verification": "sharp_route_review 001c58d3a38d1e7b7c10d7c56a50b584a9171eae; convex_blind/convex_source accepted bound packet in runs/semantic-roundtrip/andi-opt-convex-gap-sharpness.",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Exercise3.3; Theorem3.4 convex limiting rate; Table1",
+    "detail_status": "omitted",
+    "gap": "Exercise asks sharpness checks without a solution. Need quantify horizon-dependent witnesses and distinguish order sharpness from exact constants.",
+    "consulted": [
+      {
+        "source": "Chewi v1; existing scalar quadratic certificates; Mathlib Bernoulli",
+        "anchor": "Section3",
+        "hypothesis_adapter": "Positive scalar curvature depends on horizon; beta is a class smoothness bound, not necessarily tight for this witness. Step1/beta is positive. N0 is a finite lower-bound extension, not a singular 1/N upper rate."
+      }
+    ],
+    "fidelity_boundary": "One class-level O(1/N) order obstruction for GD at step1/beta from1; no optimal numerical constant, uniform fixed witness for all horizons, arbitrary step schedule, oracle lower bound or full Exercise3.3 closure."
+  }
+}

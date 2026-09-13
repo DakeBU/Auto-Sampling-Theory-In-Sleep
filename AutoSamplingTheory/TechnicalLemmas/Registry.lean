@@ -73,6 +73,16 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.convex-gap-sharpness",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+    upstreamDecl := "Exercise3.3 (convex function-value order in Theorem3.4)",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "quadratic", "optimisation"],
+    saldUse := "Horizon-dependent admissible quadratic gives exact actual GD gap and beta/(16(N+1)) lower bound at step1/beta.",
+    note := "Class beta need not be tight. Witness depends on N; no fixed-objective reciprocal tail, optimal constant, full exercise or adaptive/oracle lower bound."
+  },
+  {
     key := "analysis.gradient-descent.sharpness",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness.exists_quadratic_worst_case",
     upstreamDecl := "Exercise3.3 (fixed-step distance sharpness of Exercise3.2)",

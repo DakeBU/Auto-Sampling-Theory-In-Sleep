@@ -25967,6 +25967,245 @@
         ],
         "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-sharpness/decoder-result.json"
       }
+    },
+    {
+      "id": "ASTIS-RT-ANDI-OPT-ConvexGapSharpness",
+      "state": "accepted",
+      "graph_node": "ASTIS-SHARED-convex-gradient-gap-sharpness",
+      "source": {
+        "source_id": "chewi-opt-v1-exercise-3-3-convex-gap-sharpness",
+        "anchor": "https://arxiv.org/html/2605.07006v1#S3; Exercise3.3 testing Theorem3.4 convex specialization and Table1",
+        "original_text": "Exercise3.3 asks the reader to examine Section3 bounds with positive-definite quadratic objectives. This item selects the convex function-value estimate from Theorem3.4: at step1/beta and initial distance R, the upper gap is beta R²/(2N) for positive N. An explicit quadratic family demonstrates its order sharpness at R=1. The exercise does not print the witness or a lower-bound constant. Source: Chewi arXiv:2605.07006v1 Exercise3.3, Theorem3.4 convex function-value specialization and Table1. The selected component is a positive-definite quadratic order-sharpness witness at prescribed step1/beta, initial distance1. Other section comparisons and exact optimal constants are explicitly outside this item.",
+        "text_sha256": "e50c44316ef535b618d8eb7e50bba6bc229b393b0a223a62483f12a4fb913644"
+      },
+      "lean": {
+        "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+        "file": "AutoSamplingTheory/TechnicalLemmas/Analysis/ConvexGradientGapSharpness.lean",
+        "statement": "∀ {β : ℝ},\n  0 < β →\n    ∀ (N : ℕ),\n      have μ := β / (2 * (↑N + 1));\n      have f := fun x => μ * x ^ 2 / 2;\n      0 < μ ∧\n        ContDiff ℝ 2 f ∧\n          StrongConvexOn Set.univ μ f ∧\n            (∀ (x y : ℝ), f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) ∧\n              IsMinOn f Set.univ 0 ∧\n                have z := (fun x => x - 1 / β * gradient f x)^[N] 1;\n                f z - f 0 = β / (4 * (↑N + 1)) * (1 - 1 / (2 * (↑N + 1))) ^ (2 * N) ∧ β / (16 * (↑N + 1)) ≤ f z - f 0",
+        "statement_sha256": "0746c7c5dff2fe6fe7eee9ece81a4eb09c8222ab5343a209080ce057f8a2b0b6",
+        "compiled": true,
+        "formalizer": "andi-convex-worker",
+        "decoder_context": [
+          "StrongConvexOn univ alpha f means the global convex chord inequality with subtraction (alpha/2)*t*(1-t)*norm(y-x)^2, for t in [0,1]. The modulus is a lower bound, not necessarily maximal.",
+          "ContDiff R 2 f means twice continuously Frechet differentiable. gradient f is the Riesz vector of the actual totalized Frechet derivative; for differentiable scalar functions it equals the ordinary derivative.",
+          "IsMinOn f univ 0 means f(0)<=f(x) for every real x. Function iteration T^[N] uses the identity for N=0; all scalar zeroth powers, including 0^0, equal1.",
+          "The real norm is absolute value, and the real inner product is ordinary multiplication. Let expressions scope their definitions over the following conjunctions."
+        ]
+      },
+      "semantic_slots": {
+        "objects": {
+          "original": "Selected positive-definite quadratic example for gradient descent and its objective gap.",
+          "reconstructed": "Explicit f(x)=mu*x^2/2, mu=beta/[2(N+1)], true gradient map T, minimizer 0 and iterate T^[N](1).",
+          "relation": "explicit-elaboration",
+          "evidence": "In one dimension the matrix [mu] is positive definite because mu>0. The reconstruction identifies the actual gradient and iteration, not an assumed recurrence."
+        },
+        "domains": {
+          "original": "Euclidean quadratic class; selected normalized initial distance R=1.",
+          "reconstructed": "The real line, global domain univ, initial point 1 and minimizer 0.",
+          "relation": "explicit-elaboration",
+          "evidence": "A scalar example is an admissible member of the Euclidean class and suffices for its worst-case order obstruction. The item does not claim every dimension, every initial point or arbitrary R scaling is formalized."
+        },
+        "quantifiers": {
+          "original": "Uniform rate tested over the admitted class at each prescribed horizon.",
+          "reconstructed": "For every beta>0 and every natural N, define mu and f from beta and N, then iterate that fixed f exactly N times.",
+          "relation": "explicit-elaboration",
+          "evidence": "The order is forall beta, forall N, explicit f_N; no exchange to one fixed f for all N occurs. Consequently the exponentially decaying trajectory of each individual positive quadratic is consistent with the reciprocal class-level lower bound."
+        },
+        "assumptions": {
+          "original": "Convex beta-smooth objectives, positive beta, step 1/beta and attained minimum.",
+          "reconstructed": "Only beta>0 is assumed; positivity of mu, C2 regularity, mu-strong convexity, global beta upper model and minimum at 0 are conclusions.",
+          "relation": "equivalent",
+          "evidence": "The chosen witness proves admissibility rather than assuming the desired lower bound. Since 0<mu=beta/[2(N+1)]<=beta, its Hessian and gradient satisfy the beta smoothness bound; beta need not be its least possible smoothness constant. No regularity, attainment or trajectory assumption is smuggled into the statement."
+        },
+        "conclusion": {
+          "original": "Selected component tests sharpness in order of the convex function-value rate, without a printed witness or numerical lower constant.",
+          "reconstructed": "An exact objective gap beta/[4(N+1)]*(1-1/[2(N+1)])^(2N) and lower bound beta/[16(N+1)].",
+          "relation": "explicit-elaboration",
+          "evidence": "The supplied formula is an authored solution to the selected exercise component. For N>=1, N+1<=2N gives gap>=beta/(32N), a uniform reciprocal-order obstruction at R=1. The theorem does not purport to reproduce the general upper theorem inside this declaration."
+        },
+        "scopes": {
+          "original": "Exercise3.3 and the convex specialization of Theorem3.4; selected comparison only.",
+          "reconstructed": "An explicit finite-horizon lower-bound family with N=0 also allowed.",
+          "relation": "explicit-elaboration",
+          "evidence": "The primary source asks broader comparisons, but the pinned item excludes them. At N=0, z=1 and the exact gap is beta/4, which exceeds beta/16. This harmless extension does not apply the source upper expression at N=0. There is no optimal-constant, fixed-objective asymptotic, or general-oracle claim."
+        },
+        "constant_dependencies": {
+          "original": "The rate depends on beta and initial distance; the exercise prints no solution constant.",
+          "reconstructed": "R=1; universal coefficient 1/16, denominator N+1; mu and f depend on beta,N; h=1/beta.",
+          "relation": "explicit-elaboration",
+          "evidence": "All dependence is exposed. The source upper coefficient 1/2 is not asserted sharp. The authored lower coefficient is independent of beta and N. Using a valid nontight beta bound is allowed by smoothness-class membership and the explicitly prescribed step."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "objects",
+          "severity": "informational",
+          "classification": "explicit-authored-witness",
+          "description": "The formalization supplies a scalar positive-definite quadratic solution that the exercise does not print.",
+          "evidence": "mu=beta/[2(N+1)]>0 identifies its positive scalar Hessian; the source-facing statement and lesson explicitly attribute the construction to ASTIS."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "classification": "explicit-authored-constant",
+          "description": "The coefficient 1/16 is a proved witness bound, not a source quotation or claim of exact optimality.",
+          "evidence": "Bernoulli gives q^N>=1/2, so beta/(4D)*(q^N)^2>=beta/(16D), D=N+1."
+        },
+        {
+          "slot": "scopes",
+          "severity": "informational",
+          "classification": "zero-horizon-extension",
+          "description": "The lower-bound identity also covers N=0 while the selected source upper comparison uses N>0.",
+          "evidence": "At N=0 the iterate is 1, mu=beta/2 and gap=beta/4; no denominator N is used in the theorem."
+        }
+      ],
+      "verdict": "equivalent-after-elaboration",
+      "repairs": [],
+      "source_review": {
+        "state": "accepted",
+        "reviewer": "convex_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted for the exact selected obligation convex-gap-order-witness. Independently inspected the fresh anti-anchored reviewer packet, its entire current production module, scoped hypotheses, authored lesson, and exact primary source arXiv:2605.07006v1 Section3 (Exercise3.3; Theorem3.4 convex specialization; Table1). The current module exactly equals the embedded module and has SHA256 10cff35e12c204c6db998a1a9944a702950e8424187ee10ec349de33d4ae1a83. The proof explanation matches the module: choose D=N+1 and mu=beta/(2D); specialize the existing quadratic interface to equal endpoints; use actual-iterate norm q^N; enlarge the mu upper model to beta; apply Bernoulli q^N>=1-N/(2D)=(D+1)/(2D)>=1/2; square and multiply the exact gap factor. This certifies the authored selected-component solution and its clear limits. It does not certify compilation independently, the full exercise, or any unreviewed dependency. No mathematical repair is needed.",
+        "review_run_sha256": "04604da57155ba5a07e6cd5dce4da73c715d4dca0f9399afb6d8f86f233c3267",
+        "reviewer_packet_sha256": "33f1c083b086044a4b054e3952a7e0c1230a9f7bfd55086553627c40c52ad906",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convex-gap-sharpness/source-review-0.json"
+      },
+      "publication_binding_sha256": "df602a1d3ea69d3cb38293c86378ee84b04a4d494a6f4a9facae372927403bcd",
+      "publication_context": {
+        "file": "10cff35e12c204c6db998a1a9944a702950e8424187ee10ec349de33d4ae1a83",
+        "current_lean_module": "import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness\nimport Mathlib.Algebra.Order.Ring.Pow\n\n/-!\n# Convex gradient-descent function-value order witnessed by quadratics\n\nChewi arXiv:2605.07006v1 Exercise3.3, testing Theorem3.4 at step `1 / β`.\nThe positive curvature is chosen after the horizon. This proves a class-level\norder obstruction, not an exact optimal constant or a single fixed objective\nwith a reciprocal asymptotic tail. No general oracle lower bound is asserted.\n-/\n\nnamespace AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness\n\nopen Set InnerProductSpace GradientDescentSharpness\n\nset_option backward.isDefEq.respectTransparency false in\n/-- A horizon-dependent positive quadratic has an actual gradient-descent gap\nof order `β / (N + 1)`. The smoothness bound `β` need not be tight. -/\ntheorem quadratic_gap_lower_bound {β : ℝ} (hβ : 0 < β) (N : ℕ) :\n    let μ := β / (2 * ((N : ℝ) + 1))\n    let f : ℝ → ℝ := fun x => μ * x ^ 2 / 2\n    0 < μ ∧ ContDiff ℝ 2 f ∧ StrongConvexOn univ μ f ∧\n      (∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2) ∧\n      IsMinOn f univ 0 ∧\n      let z := (fun x => x - (1 / β) * gradient f x)^[N] 1\n      f z - f 0 = β / (4 * ((N : ℝ) + 1)) *\n        (1 - 1 / (2 * ((N : ℝ) + 1))) ^ (2 * N) ∧\n      β / (16 * ((N : ℝ) + 1)) ≤ f z - f 0 := by\n  let D : ℝ := (N : ℝ) + 1\n  have hD : 0 < D := by dsimp [D]; positivity\n  have hD1 : 1 ≤ D := by dsimp [D]; exact le_add_of_nonneg_left (Nat.cast_nonneg N)\n  let μ := β / (2 * D)\n  have hμ : 0 < μ := div_pos hβ (by positivity)\n  have hμβ : μ ≤ β := by\n    apply (div_le_iff₀ (by positivity : 0 < 2 * D)).mpr\n    nlinarith\n  obtain ⟨ν, hν, _, hf, hc, hu, hm, hn⟩ :=\n    exists_quadratic_worst_case hμ (le_refl μ) (1 / β)\n  have hv : ν = μ := hν.elim id id\n  subst ν\n  let f : ℝ → ℝ := fun x => μ * x ^ 2 / 2\n  let q : ℝ := 1 - 1 / (2 * D)\n  have hq : 0 ≤ q := by\n    have : 1 / (2 * D) ≤ 1 := (div_le_one (by positivity)).mpr (by linarith)\n    dsimp [q]; linarith\n  have he : 1 - 1 / β * μ = q := by\n    dsimp [μ, q]; field_simp\n  have hn' : ‖(fun x => x - (1 / β) * gradient f x)^[N] 1‖ = q ^ N := by\n    simpa only [max_self, he, abs_of_nonneg hq] using (hn N).1\n  have hpow : 1 / 2 ≤ q ^ N := by\n    have hb := one_add_mul_sub_le_pow (by linarith : -1 ≤ q) N\n    have heq : 1 + (N : ℝ) * (q - 1) = (D + 1) / (2 * D) := by\n      dsimp [q, D]; field_simp; ring\n    rw [heq] at hb\n    have : (1 : ℝ) / 2 ≤ (D + 1) / (2 * D) := by\n      apply (le_div_iff₀ (by positivity)).mpr\n      linarith\n    exact this.trans hb\n  have huβ : ∀ x y, f y ≤ f x + inner ℝ (gradient f x) (y - x) + β / 2 * ‖y - x‖ ^ 2 := by\n    intro x y\n    have hh : f y ≤ f x + inner ℝ (gradient f x) (y - x) + μ / 2 * ‖y - x‖ ^ 2 := hu x y\n    nlinarith [mul_nonneg (sub_nonneg.mpr hμβ) (sq_nonneg ‖y - x‖)]\n  change 0 < μ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _\n  refine ⟨hμ, hf, hc, huβ, hm, ?_⟩\n  dsimp only\n  have hvalue : f ((fun x => x - (1 / β) * gradient f x)^[N] 1) - f 0 =\n      β / (4 * D) * (q ^ N) ^ 2 := by\n    have hs : ((fun x => x - (1 / β) * gradient f x)^[N] 1) ^ 2 = (q ^ N) ^ 2 := by\n      simpa only [Real.norm_eq_abs, abs_mul_abs_self, sq] using congrArg (fun r : ℝ => r * r) hn'\n    change μ * _ ^ 2 / 2 - μ * 0 ^ 2 / 2 = _\n    rw [hs]\n    dsimp [μ]; field_simp; ring\n  rw [hvalue]\n  change β / (4 * D) * (q ^ N) ^ 2 = β / (4 * D) * q ^ (2 * N) ∧\n    β / (16 * D) ≤ β / (4 * D) * (q ^ N) ^ 2\n  constructor\n  · rw [Nat.mul_comm 2 N, pow_mul]\n  · have hs : (1 : ℝ) / 4 ≤ (q ^ N) ^ 2 := by nlinarith\n    have := mul_le_mul_of_nonneg_left hs (by positivity : 0 ≤ β / (4 * D))\n    convert this using 1 <;> first | rfl | (field_simp; ring)\n\nend AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness\n",
+        "toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+        "dependencies": "b83ca83b9cf7caa85fa8b023c2ff9a3fb7a7cce7e1c332e810c348535ec49c37",
+        "source": {
+          "url": "https://arxiv.org/html/2605.07006v1#S3",
+          "edition": "arXiv:2605.07006v1",
+          "anchor": "Exercise3.3 testing Theorem3.4 convex specialization and Table1",
+          "wording_status": "faithful paraphrase",
+          "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored selected-component restatement; no endorsement implied."
+        },
+        "statement": "Exercise3.3 asks the reader to examine Section3 bounds with positive-definite quadratic objectives. This item selects the convex function-value estimate from Theorem3.4: at step1/beta and initial distance R, the upper gap is beta R²/(2N) for positive N. An explicit quadratic family demonstrates its order sharpness at R=1. The exercise does not print the witness or a lower-bound constant.",
+        "formulae": [
+          {
+            "label": "Source upper bound whose order is tested",
+            "tex": "f(x_N)-f_\\star\\le\\frac{\\beta R^2}{2N},\\qquad N>0,\\quad h=1/\\beta."
+          }
+        ],
+        "assumptions": [
+          "Twice continuously differentiable Euclidean objectives are convex and beta-smooth, with beta>0, an attained minimum and prescribed step1/beta.",
+          "The source upper bound concerns N>0. A worst-case family may depend on the iteration horizon. Positive-definite quadratics are admitted within the convex class."
+        ],
+        "obligations": [
+          {
+            "id": "convex-gap-order-witness",
+            "label": "Construct admissible horizon-dependent quadratic with an actual-iterate gap lower bound of reciprocal order"
+          },
+          {
+            "id": "other-section-comparisons",
+            "label": "Other Section3 sharpness comparisons and exact optimal constants remain outside this component"
+          }
+        ],
+        "lesson": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+          "kind": "theorem",
+          "title": "Quadratics witness the convex function-value convergence order",
+          "statement": "For every real beta>0 and natural horizon N, the explicit positive scalar quadratic below is C2, mu-strongly convex, admits the global beta quadratic upper model and is minimized at0. Its actual gradient-descent iterate from1 at step1/beta has the following exact gap and lower bound.",
+          "formula": "\\begin{gathered}\\mu=\\frac\\beta{2(N+1)},\\quad f(x)=\\frac\\mu2x^2,\\quad T(x)=x-\\beta^{-1}\\nabla f(x),\\quad x_N=T^N(1),\\\\ f(x_N)-f(0)=\\frac\\beta{4(N+1)}\\left(1-\\frac1{2(N+1)}\\right)^{2N}\\ge\\frac\\beta{16(N+1)}.\\end{gathered}",
+          "assumptions": [
+            "Beta is real and strictly positive; N is natural, including0. The function and positive curvature are chosen from this N; each horizon may use a different function.",
+            "The ambient space is R. The conclusion certifies ContDiff R2 f, StrongConvexOn univ mu f, the global beta upper model f(y)<=f(x)+<gradient f(x),y−x>+beta||y−x||²/2 and IsMinOn f univ0.",
+            "T uses the true gradient, with constant positive step1/beta. Iteration starts at1, at distance1 from the certified minimizer0. T^0 is the identity."
+          ],
+          "steps": [
+            {
+              "title": "Choose curvature after the horizon",
+              "text": "For beta>0 and N natural set D=N+1 and mu=beta/(2D). Then D>=1 and0<mu<=beta. Reuse the compiled scalar-quadratic witness with both curvature endpoints equal to mu. Equality of the endpoints forces that witness to be exactly f(x)=mu x²/2. It supplies C2 regularity, mu strong convexity, minimizer0 and the genuine gradient trajectory.",
+              "formula": "D=N+1,\\qquad \\mu=\\frac\\beta{2D}>0,\\qquad f(x)=\\frac\\mu2x^2,\\qquad x_0=1.",
+              "lean": "GradientDescentSharpness.exists_quadratic_worst_case at equal endpoints; order and positive division."
+            },
+            {
+              "title": "Obtain the exact value along actual gradient iterates",
+              "text": "At the prescribed step1/beta the scalar contraction is q=1−1/(2D), which is nonnegative. The existing norm identity gives norm(x_N)=q^N. Since the objective is mu times the squared norm divided by2 and f(0)=0, this is also an exact objective-gap formula. Enlarging the quadratic upper model from mu to beta verifies the advertised smoothness class.",
+              "formula": "q=1-\\frac1{2D}\\ge0,\\quad x_N=T^N(1),\\quad T(x)=x-\\beta^{-1}\\nabla f(x),\\quad f(x_N)-f(0)=\\frac\\beta{4D}q^{2N}.",
+              "lean": "Existing actual norm identity; abs_mul_abs_self and scalar norm; nonnegative quadratic remainder when mu<=beta."
+            },
+            {
+              "title": "Keep a fixed fraction of the initial distance",
+              "text": "Apply Bernoulli to q and exponent N. The resulting affine lower bound is (D+1)/(2D), at least1/2. Thus even after N steps the selected small curvature leaves at least half of the initial distance.",
+              "formula": "q^N\\ge1+N(q-1)=\\frac{D+1}{2D}\\ge\\frac12.",
+              "lean": "Mathlib one_add_mul_sub_le_pow; positive denominator arithmetic."
+            },
+            {
+              "title": "Convert distance retention into a gap lower bound",
+              "text": "Squaring the nonnegative half-distance bound gives q^(2N)>=1/4. Multiply by the positive beta/(4D) in the exact objective identity. With the source upper rate for N>0, the resulting family obstructs any uniformly faster order at this prescribed step.",
+              "formula": "f(x_N)-f(0)=\\frac\\beta{4D}(q^N)^2\\ge\\frac\\beta{16D}=\\frac\\beta{16(N+1)}.",
+              "lean": "pow_mul; square inequality and mul_le_mul_of_nonneg_left. The general upper bound is composed in the test, not assumed in this proof."
+            }
+          ],
+          "astis_dependencies": [
+            "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentSharpness.exists_quadratic_worst_case"
+          ],
+          "mathlib_dependencies": [
+            "one_add_mul_sub_le_pow",
+            "abs_mul_abs_self",
+            "pow_mul",
+            "mul_le_mul_of_nonneg_left"
+          ],
+          "lean_statement": "Positive beta and natural horizon determine one explicit scalar quadratic, all admissibility certificates, exact actual-iterate objective gap and beta/(16(N+1)) lower bound.",
+          "lean_proof": "For beta>0 and N natural set D=N+1 and mu=beta/(2D). Then D>=1 and0<mu<=beta. Reuse the compiled scalar-quadratic witness with both curvature endpoints equal to mu. Equality of the endpoints forces that witness to be exactly f(x)=mu x²/2. It supplies C2 regularity, mu strong convexity, minimizer0 and the genuine gradient trajectory. At the prescribed step1/beta the scalar contraction is q=1−1/(2D), which is nonnegative. The existing norm identity gives norm(x_N)=q^N. Since the objective is mu times the squared norm divided by2 and f(0)=0, this is also an exact objective-gap formula. Enlarging the quadratic upper model from mu to beta verifies the advertised smoothness class. Apply Bernoulli to q and exponent N. The resulting affine lower bound is (D+1)/(2D), at least1/2. Thus even after N steps the selected small curvature leaves at least half of the initial distance. Squaring the nonnegative half-distance bound gives q^(2N)>=1/4. Multiply by the positive beta/(4D) in the exact objective identity. With the source upper rate for N>0, the resulting family obstructs any uniformly faster order at this prescribed step.",
+          "sources": [
+            {
+              "url": "https://arxiv.org/html/2605.07006v1#S3",
+              "label": "Chewi Exercise3.3 and Theorem3.4",
+              "scope": "Selected convex objective-gap order comparison; explicit witness and constant are ASTIS derivations."
+            },
+            {
+              "path": "Tests/Shared/ConvexGradientGapSharpness.lean",
+              "label": "Same-witness upper/lower bounds and boundary tests",
+              "scope": "Composes the new witness with the existing weighted upper-rate theorem; zero and positive horizon cases."
+            }
+          ]
+        },
+        "binding": {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.ConvexGradientGapSharpness.quadratic_gap_lower_bound",
+          "role": "proof-edge",
+          "supports": [
+            "convex-gap-order-witness"
+          ]
+        },
+        "candidate_assumptions": [
+          {
+            "source": "Positive-definite Euclidean quadratic; convex beta-smooth class.",
+            "lean": "Scalar f_N(x)=mu_N x²/2, mu_N=beta/[2(N+1)]>0, all regularity/model/minimizer certificates proved."
+          },
+          {
+            "source": "Uniform beta-smooth function class and step1/beta.",
+            "lean": "Mu_N<=beta; beta is a valid upper model parameter, not the tight scalar curvature."
+          },
+          {
+            "source": "Exercise asks how sharp the source estimates are, without printing a solution.",
+            "lean": "For each N choose f_N and prove beta/[16(N+1)] lower bound, initial distance1."
+          },
+          {
+            "source": "Source convex normalized upper rate has N>0.",
+            "lean": "The constructed lower bound and exact gap also hold at N=0."
+          }
+        ]
+      },
+      "reconstruction": {
+        "text": "For every real number β>0 and every natural number N (including N=0), define μ=β/[2(N+1)] and f:ℝ→ℝ by f(x)=μx²/2. Then μ>0; f is twice continuously Fréchet differentiable; f is globally μ-strongly convex, meaning that for every x,y∈ℝ and t∈[0,1], f((1−t)x+ty)≤(1−t)f(x)+tf(y)−(μ/2)t(1−t)|y−x|²; for every x,y∈ℝ it satisfies f(y)≤f(x)+f′(x)(y−x)+(β/2)|y−x|²; and 0 is a global minimizer, i.e. f(0)≤f(x) for every x∈ℝ. In addition, let T:ℝ→ℝ be T(x)=x−(1/β)f′(x), and let z=T iterated N times starting at 1 (equivalently x₀=1, xₖ₊₁=xₖ−(1/β)f′(xₖ), z=x_N). Then f(z)−f(0)=β/[4(N+1)]·(1−1/[2(N+1)])^(2N), and β/[16(N+1)]≤f(z)−f(0). Here μ and f depend on both β and the chosen horizon N; the same fixed f is used throughout those N iterations. At N=0 iteration is the identity and z=1; the displayed exponent 2N is zero and its power equals 1. The gradient in the formal statement is the actual Fréchet-gradient, identified here with f′ for this smooth real scalar function. The modulus μ is asserted to be a valid strong convexity lower bound, with no assertion that it is maximal.",
+        "text_sha256": "86f1dd335f69ba5a124196f673193ada48376f90094f17e256d9e8fc09d78cf6",
+        "decoder": "convex_blind",
+        "decoder_run_sha256": "38d7a291142cf77b922057cf086087597e76f5ff67ada0292f67263b50434016",
+        "decoder_packet_sha256": "a864eb5a1a2c8ecc7f1472220d47cc40bed30f07c8549b49fc3aac81b1db9f4f",
+        "source_text_visible": false,
+        "lean_statement_sha256": "0746c7c5dff2fe6fe7eee9ece81a4eb09c8222ab5343a209080ce057f8a2b0b6",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-convex-gap-sharpness/decoder-result.json"
+      }
     }
   ]
 }

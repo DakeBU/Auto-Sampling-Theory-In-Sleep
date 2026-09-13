@@ -1,3 +1,4 @@
+import Tests.Shared.ConvexGradientGapSharpness
 import Tests.Shared.GradientDescentSharpness
 import Tests.Shared.QuadraticGradientDescent
 import Tests.Shared.GradientDescentOptimalStep
