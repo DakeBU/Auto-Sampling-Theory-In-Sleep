@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-quadratic-gradient-iterate",
+  "route": "shared",
+  "title": "Actual quadratic-gradient iterates as operator powers",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.3",
+  "target_statement": "For symmetric bounded real H and f(x)=inner(x,Hx)/2, actual gradient descent satisfies T_h^[N](x)=(I-hH)^N(x).",
+  "status": "claimed",
+  "parents": [],
+  "consumers": [
+    "optimisation:Chewi-Exercise-3.3",
+    "optimisation:Chewi-Section-5-quadratic-polynomial (planned; no compiled consumer)"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "ASTIS Analysis gradient-descent contraction/optimal-step modules prove bounds, not exact quadratic trajectories; no matching cell",
+      "Mathlib db584cd HasFDerivAt.inner, HasGradientAt.gradient, FunLike.coe_pow_eq_iterate, Module.End.HasEigenvector.pow_apply",
+      "Pinned Optlib5da27c5 LASSO.quadratic_gradient and ADMM.Gradient_of_quadratic_forms handle squared norm of A*x via adjoint; no exact symmetric H trajectory; CvxLean c62c2f eigenvector/spectral algebra only"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+    "canonical_shared_cell": "ASTIS-SHARED-quadratic-gradient-iterate",
+    "notes": "Reuse core derivative/power APIs without porting external code. Shared quadratic trajectory interface for exact-rate and planned polynomial-method consumers; no spectral existence claim."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Exercise3.3; Section3 actual GD definition",
+    "detail_status": "omitted",
+    "gap": "Exercise leaves exact iteration and sharpness calculations to reader. Differentiate actual quadratic using symmetry; distinguish given eigenmode from existence of endpoint eigenvectors.",
+    "consulted": [
+      {
+        "source": "Chewi v1 and pinned Mathlib derivative/eigenvector APIs",
+        "anchor": "Exercise3.3",
+        "hypothesis_adapter": "Complete real Hilbert and symmetric continuous linear H generalize positive-definite finite-dimensional source. Positivity is unnecessary for the exact identity; no convergence or spectral endpoints follow for arbitrary H/h."
+      }
+    ],
+    "fidelity_boundary": "Exact trajectory and modewise norm/value only. Source positive-definite Euclidean case specializes it. No existence of eigenvectors, all-section sharpness, accelerated algorithm or companion-paper theorem claimed."
+  }
+}

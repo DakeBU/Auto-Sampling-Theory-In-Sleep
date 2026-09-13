@@ -1142,6 +1142,118 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientOptimalStep"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-exercise-3-3",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Exercise3.3 · exact quadratic gradient descent",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Exercise3.3; Section3 gradient-descent definition",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "For the centered quadratic objective associated with a positive-definite symmetric matrix, derive an explicit expression for gradient-descent iterates and assess how sharp the estimates in this section are. The exercise does not print a solution.",
+      "assumptions": [
+        "A is a positive-definite symmetric matrix on Euclidean d-space. f(x)=⟨x,Ax⟩/2; gradient descent uses the actual gradient and a constant step h."
+      ],
+      "formulae": [
+        {
+          "label": "Source objective and actual iteration",
+          "tex": "f(x)=\\tfrac12\\langle x,Ax\\rangle,\\quad A\\succ0,\\quad x_{n+1}=x_n-h\\nabla f(x_n)."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "actual-quadratic-iterates",
+          "label": "Derive the actual gradient and express every iterate as an operator power"
+        },
+        {
+          "id": "modewise-exact-rates",
+          "label": "Compute the exact trajectory, norm and objective value on a supplied eigenmode"
+        },
+        {
+          "id": "all-section-sharpness",
+          "label": "Assess sharpness of all Section3 estimates, with their exact source hypotheses (not covered)"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_gradient_iterate",
+          "cell": "ASTIS-SHARED-quadratic-gradient-iterate",
+          "role": "proof-edge",
+          "supports": [
+            "actual-quadratic-iterates"
+          ],
+          "boundary": "The source assumes a positive-definite symmetric matrix on Euclidean space. These exact identities extend to bounded symmetric operators on complete real Hilbert spaces, including signed or zero operators and the zero-dimensional space. Positivity and a stability condition on h are unnecessary for identities. The theorem does not assert convergence for arbitrary h or indefinite H. The quadratic is smooth by bounded bilinear calculus; symmetry, not a supplied gradient equality, gives its true gradient. This is a bounded Exercise3.3 proof component. Assessment of every Section3 bound, spectral decomposition/existence, complexity lower bounds, accelerated methods and companion-paper completion remain outside its conclusions. The formula covers every initial point, without choosing an eigenbasis. The source matrix-power notation is instantiated by a continuous linear map on Euclidean space.",
+          "assumption_deltas": [
+            {
+              "source": "Positive-definite symmetric matrix on Euclidean space.",
+              "lean": "Symmetric continuous linear operator on a complete real Hilbert space; no positivity premise.",
+              "classification": "generalization",
+              "reason": "Symmetry suffices to differentiate the quadratic. Operator powers and scalar-mode algebra need no positivity. The source positive-definite finite-dimensional case specializes the theorem; arbitrary Hilbert operators need not have endpoint eigenvectors."
+            },
+            {
+              "source": "Actual gradient descent on f(x)=⟨x,Ax⟩/2.",
+              "lean": "Actual gradient of the literal centered quadratic; h∈ℝ constant and N∈ℕ.",
+              "classification": "same",
+              "reason": "The gradient is computed internally, not assumed. All real steps and N=0 are meaningful for the exact identity, although a convergence claim would require separate step conditions."
+            },
+            {
+              "source": "Write explicit iterates and check sharpness of section estimates.",
+              "lean": "Operator-power formula for all initial points.",
+              "classification": "same",
+              "reason": "This binding covers only the explicit-iterate obligation."
+            },
+            {
+              "source": "Quadratic regularity and standard matrix gradient.",
+              "lean": "Bounded operator and real inner product provide a continuously differentiable quadratic; symmetry gives the Riesz gradient.",
+              "classification": "source-implicit",
+              "reason": "Differentiability follows from bounded bilinear calculus. There are no measure, integral or boundary hypotheses in these algebraic iteration identities."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-QuadraticIterate"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.QuadraticGradientDescent.quadratic_eigenmode",
+          "cell": "ASTIS-SHARED-quadratic-gradient-eigenmode",
+          "role": "proof-edge",
+          "supports": [
+            "modewise-exact-rates"
+          ],
+          "boundary": "The source assumes a positive-definite symmetric matrix on Euclidean space. These exact identities extend to bounded symmetric operators on complete real Hilbert spaces, including signed or zero operators and the zero-dimensional space. Positivity and a stability condition on h are unnecessary for identities. The theorem does not assert convergence for arbitrary h or indefinite H. The quadratic is smooth by bounded bilinear calculus; symmetry, not a supplied gradient equality, gives its true gradient. This is a bounded Exercise3.3 proof component. Assessment of every Section3 bound, spectral decomposition/existence, complexity lower bounds, accelerated methods and companion-paper completion remain outside its conclusions. To use this as a sharpness witness, supply a nonzero endpoint eigenvector and the appropriate positive curvature bounds. At h=2/(α+β), modes μ=α or μ=β give |1−hμ|=(β−α)/(α+β). The concrete diagonal-matrix tests realize both endpoints for α=1,β=3; this is not a general spectral existence theorem. N=0 gives the initial point and value even when 1−hμ=0; the zero-th power is one. A zero mode vector yields zero throughout. For arbitrary Hilbert operators, neither endpoint eigenvectors nor a diagonalizing eigenbasis are asserted.",
+          "assumption_deltas": [
+            {
+              "source": "Positive-definite symmetric matrix on Euclidean space.",
+              "lean": "Symmetric continuous linear operator on a complete real Hilbert space; no positivity premise.",
+              "classification": "generalization",
+              "reason": "Symmetry suffices to differentiate the quadratic. Operator powers and scalar-mode algebra need no positivity. The source positive-definite finite-dimensional case specializes the theorem; arbitrary Hilbert operators need not have endpoint eigenvectors."
+            },
+            {
+              "source": "Actual gradient descent on f(x)=⟨x,Ax⟩/2.",
+              "lean": "Actual gradient of the literal centered quadratic; h∈ℝ constant and N∈ℕ.",
+              "classification": "same",
+              "reason": "The gradient is computed internally, not assumed. All real steps and N=0 are meaningful for the exact identity, although a convergence claim would require separate step conditions."
+            },
+            {
+              "source": "Write explicit iterates and check sharpness of section estimates.",
+              "lean": "Given Hx=μx, exact trajectory/norm/value; zero-vector relation allowed.",
+              "classification": "source-implicit",
+              "reason": "Modewise calculations are the standard proof component for sharpness. Eigenmode existence and the full comparison with every section bound remain uncovered; a nonzero witness is necessary to infer a sharp positive factor."
+            },
+            {
+              "source": "Quadratic regularity and standard matrix gradient.",
+              "lean": "Bounded operator and real inner product provide a continuously differentiable quadratic; symmetry gives the Riesz gradient.",
+              "classification": "source-implicit",
+              "reason": "Differentiability follows from bounded bilinear calculus. There are no measure, integral or boundary hypotheses in these algebraic iteration identities."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-QuadraticEigenmode"
+        }
+      ]
     }
   ]
 }
