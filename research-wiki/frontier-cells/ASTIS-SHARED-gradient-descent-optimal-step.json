@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "cell_id": "ASTIS-SHARED-gradient-descent-optimal-step",
+  "route": "shared",
+  "title": "Optimal constant step for the uniform curvature envelope",
+  "mode": "faithfulPaper",
+  "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.2",
+  "target_statement": "For 0<=alpha<=beta,beta>0, h*=2/(alpha+beta) gives pairwise contraction q=(beta-alpha)/(alpha+beta), and q minimizes max(|1-h alpha|,|1-h beta|) over every real h.",
+  "status": "claimed",
+  "parents": [
+    "ASTIS-SHARED-gradient-step-endpoint-bound"
+  ],
+  "consumers": [
+    "optimisation:Chewi-Exercise-3.2",
+    "shared:contractive-gradient-maps (planned; no compiled consumer)"
+  ],
+  "shared_floor_audit": {
+    "searched": [
+      "Samplinglib GradientDescentContraction: sqrt(1-alpha*h), only beta*h<=1; ConvexityC2 and SmoothnessEquivalences genuine Hessian bounds",
+      "Samplinglib QuadraticRegularization: existing Riesz/symmetry/Rayleigh construction pattern for positive Hessian, not a signed update-map norm bound",
+      "Mathlib db584cd ContinuousLinearMap.norm_eq_iSup_rayleighQuotient, ContDiffAt.isSymmSndFDerivAt, intervalIntegral.integral_eq_sub_of_hasDerivAt, norm_integral_le_of_norm_le_const",
+      "Optlib 5da27c5 Strong_convex_Lipschitz_smooth/gradient_method_strong_convex use alternate shifted-cocoercivity route; CvxLean c62c2f no exact target located"
+    ],
+    "classification": "adapt",
+    "decision": "new_canonical_shared",
+    "canonical_declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.optimal_gradient_step",
+    "canonical_shared_cell": "ASTIS-SHARED-gradient-descent-optimal-step",
+    "notes": "Retain source C2 Hessian-to-operator-norm and segment FTC route; reuse Mathlib Rayleigh formula rather than reprove spectral theorem. No external code port."
+  },
+  "evidence": {
+    "focused_checks": [],
+    "independent_verification": "",
+    "root_build": "",
+    "graph_regeneration": "",
+    "pr": ""
+  },
+  "blocked": {
+    "reason": "",
+    "children": []
+  },
+  "source_detail_audit": {
+    "primary_edition": "arXiv:2605.07006v1",
+    "primary_anchor": "Exercise3.2; Proposition1.6/1.13; Section3 C2 convention",
+    "detail_status": "omitted",
+    "gap": "Curvature interval order, positive denominator and alpha>0 for kappa interpretation must be explicit. Source eigenvalue sketch needs genuine Hessian symmetry and segment integrability.",
+    "consulted": [
+      {
+        "source": "Chewi pinned source; Mathlib Rayleigh and FTC; existing ASTIS C2 interfaces",
+        "anchor": "Exercise3.2 proof sketch",
+        "hypothesis_adapter": "C2 supplies actual derivative and symmetry/continuity; Rayleigh formula generalizes finite-dimensional spectral norm argument to complete real Hilbert spaces. alpha0 is a nonexpansive extension, equal moduli are retained."
+      }
+    ],
+    "fidelity_boundary": "Uniform endpoint-envelope minimax, not an optimal step for every particular objective or oracle complexity theorem. No minimizer, convergence of actual iterates or companion-paper closure claimed."
+  }
+}

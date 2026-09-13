@@ -1017,6 +1017,131 @@
           "audit_id": "ASTIS-RT-ANDI-OPT-GradientStationarity"
         }
       ]
+    },
+    {
+      "id": "chewi-opt-v1-exercise-3-2",
+      "library": "optimisation",
+      "chapter": "03",
+      "chapter_path": "libraries/optimisation/chapter-03.html",
+      "title": "Exercise3.2 · optimal constant gradient step",
+      "source": {
+        "url": "https://arxiv.org/html/2605.07006v1#S3",
+        "edition": "arXiv:2605.07006v1",
+        "anchor": "Exercise3.2 and the Section3 C² convention; Definition1.12 smoothness",
+        "wording_status": "faithful paraphrase",
+        "attribution": "Sinho Chewi, Lectures on Optimization. ASTIS-authored paraphrase; no endorsement implied."
+      },
+      "statement": "For an α-convex and β-smooth C² Euclidean objective, apply the fundamental theorem of calculus to T_h=id−h∇f along the segment between two points. Bound the eigenvalues of DT_h to obtain its operator norm bound and show that h=2/(α+β) minimizes the resulting bound. The resulting factor is (κ−1)/(κ+1), where κ=β/α, improving the preceding gradient-descent estimate.",
+      "assumptions": [
+        "The surrounding section works with C² Euclidean objectives, an α-strong-convexity lower bound and β-smoothness upper bound.",
+        "The condition-number contraction formula is used in the positive-curvature regime 0<α≤β; κ=β/α. Step h is a nonnegative gradient-descent step in the derivative-bound argument."
+      ],
+      "formulae": [
+        {
+          "label": "Segment integral",
+          "tex": "T_h(y)-T_h(x)=\\int_0^1 DT_h(x+t(y-x))(y-x)\\,dt."
+        },
+        {
+          "label": "Endpoint bound and balanced step",
+          "tex": "M_h=\\max\\{|1-h\\alpha|,|1-h\\beta|\\},\\qquad h_\\star=\\frac2{\\alpha+\\beta},\\qquad M_{h_\\star}=\\frac{\\kappa-1}{\\kappa+1}."
+        }
+      ],
+      "obligations": [
+        {
+          "id": "hessian-segment-bound",
+          "label": "Derive the endpoint Lipschitz bound from the actual Hessian and segment integral"
+        },
+        {
+          "id": "balanced-minimax-step",
+          "label": "Select the balanced step and prove minimality of its curvature envelope"
+        }
+      ],
+      "bindings": [
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.gradient_step_endpoint_bound",
+          "cell": "ASTIS-SHARED-gradient-step-endpoint-bound",
+          "role": "proof-edge",
+          "supports": [
+            "hessian-segment-bound"
+          ],
+          "boundary": "The source works in Euclidean space; the Lean theorem extends the same argument to complete real Hilbert spaces using the symmetric Rayleigh norm formula. Completeness supplies the Riesz map and the vector-valued integral. C² regularity supplies the actual gradient derivative, Hessian symmetry, and continuity/integrability along the closed line segment. No additional domination, measurability, boundary or supplied spectral hypothesis is assumed. These are textbook optimisation edges. No minimizer, N-step convergence, stochastic sampling theorem, oracle lower bound or companion-paper completion is asserted. This is the Exercise3.2 derivative/integral proof component before step selection. It does not by itself assert contraction: M_h can exceed one. It includes h=0 and allows signed curvature bounds.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean objective.",
+              "lean": "C² objective on a complete real Hilbert space.",
+              "classification": "generalization",
+              "reason": "The symmetric Rayleigh quotient norm identity replaces the finite-dimensional eigenvalue description and the same vector segment FTC is used."
+            },
+            {
+              "source": "α-convex and β-smooth objective.",
+              "lean": "StrongConvexOn univ α f and the global upper quadratic model in the actual gradient.",
+              "classification": "same",
+              "reason": "Under C² regularity, existing compiled C² equivalences give exactly the lower and upper Hessian quadratic-form bounds used by the source."
+            },
+            {
+              "source": "C² Hessian and segment integral.",
+              "lean": "Actual Riesz Hessian derivative, symmetric continuous linear update derivative, continuous segment derivative.",
+              "classification": "source-implicit",
+              "reason": "C² and completeness discharge the derivative, symmetry and integrability conditions inside the proof; no extra analytic hypothesis is supplied."
+            },
+            {
+              "source": "Positive-curvature condition-number regime.",
+              "lean": "Signed α,β with the actual compatible curvature models and h≥0.",
+              "classification": "generalization",
+              "reason": "The intermediate endpoint argument does not use parameter positivity."
+            },
+            {
+              "source": "Minimize the bound on the update difference.",
+              "lean": "Only the bound component.",
+              "classification": "same",
+              "reason": "No claim of objective-specific best step or oracle complexity. The derivative/FTC route is retained. The step-selection obligation belongs to the separate declaration."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientEndpoint"
+        },
+        {
+          "declaration": "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.optimal_gradient_step",
+          "cell": "ASTIS-SHARED-gradient-descent-optimal-step",
+          "role": "proof-edge",
+          "supports": [
+            "balanced-minimax-step"
+          ],
+          "boundary": "The source works in Euclidean space; the Lean theorem extends the same argument to complete real Hilbert spaces using the symmetric Rayleigh norm formula. Completeness supplies the Riesz map and the vector-valued integral. C² regularity supplies the actual gradient derivative, Hessian symmetry, and continuity/integrability along the closed line segment. No additional domination, measurability, boundary or supplied spectral hypothesis is assumed. These are textbook optimisation edges. No minimizer, N-step convergence, stochastic sampling theorem, oracle lower bound or companion-paper completion is asserted. For the source’s condition-number interpretation assume α>0: κ=β/α and q=(κ−1)/(κ+1)<1. At α=0 the extension gives q=1 (nonexpansive) and κ is undefined. At α=β>0 the map has zero pairwise difference; this does not identify a minimizer without further argument. The explicit order α≤β preserves the zero-dimensional case, where curvature inequalities alone do not imply this order. The result minimizes the endpoint upper envelope; it does not state that every individual objective has its actual smallest Lipschitz constant at h★.",
+          "assumption_deltas": [
+            {
+              "source": "C² Euclidean objective.",
+              "lean": "C² objective on a complete real Hilbert space.",
+              "classification": "generalization",
+              "reason": "The symmetric Rayleigh quotient norm identity replaces the finite-dimensional eigenvalue description and the same vector segment FTC is used."
+            },
+            {
+              "source": "α-convex and β-smooth objective.",
+              "lean": "StrongConvexOn univ α f and the global upper quadratic model in the actual gradient.",
+              "classification": "same",
+              "reason": "Under C² regularity, existing compiled C² equivalences give exactly the lower and upper Hessian quadratic-form bounds used by the source."
+            },
+            {
+              "source": "C² Hessian and segment integral.",
+              "lean": "Actual Riesz Hessian derivative, symmetric continuous linear update derivative, continuous segment derivative.",
+              "classification": "source-implicit",
+              "reason": "C² and completeness discharge the derivative, symmetry and integrability conditions inside the proof; no extra analytic hypothesis is supplied."
+            },
+            {
+              "source": "Positive-curvature condition-number regime.",
+              "lean": "0≤α≤β and β>0; optimal comparison for all real h.",
+              "classification": "generalization",
+              "reason": "At α=0 the extension is nonexpansive and no κ is formed. β>0 gives a positive denominator; α≤β is explicit rather than inferred in the zero-dimensional space. For α>0 this is the source contraction factor."
+            },
+            {
+              "source": "Minimize the bound on the update difference.",
+              "lean": "Pairwise bound at 2/(α+β) and global scalar minimax inequality for the endpoint envelope.",
+              "classification": "same",
+              "reason": "No claim of objective-specific best step or oracle complexity. The derivative/FTC route is retained. The scalar lower bound is proved for all real h, so in particular covers nonnegative descent steps."
+            }
+          ],
+          "audit_id": "ASTIS-RT-ANDI-OPT-GradientOptimalStep"
+        }
+      ]
     }
   ]
 }
