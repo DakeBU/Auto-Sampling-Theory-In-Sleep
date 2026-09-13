@@ -1,3 +1,4 @@
+import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity
 import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic
 import AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentPL
 import AutoSamplingTheory.TechnicalLemmas.Analysis.Calculus

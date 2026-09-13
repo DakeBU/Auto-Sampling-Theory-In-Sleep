@@ -6,12 +6,13 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Theorem3.7 and proof",
   "target_statement": "Actual gradient iterates: (h/2) sum_{k<N} ||grad f(T^k x0)||^2 <= f(x0)-f(T^N x0). For a supplied global minimizer z, h>0,N>0, there exists k<N with gradient norm <= sqrt(2(f(x0)-f(z))/(N*h)).",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-gradient-descent-sum-sq"
   ],
   "consumers": [
-    "optimisation:Chewi-Theorem-3.7"
+    "optimisation:Chewi-Theorem-3.7",
+    "shared:deterministic-gradient-stopping (planned; no compiled consumer)"
   ],
   "shared_floor_audit": {
     "searched": [
@@ -26,8 +27,10 @@
     "notes": "Reuse compiled descent and finite-sum algebra. No convexity/PL assumption or supplied recurrence."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "PASS2436; fresh independent direct production elaboration; standard axioms only."
+    ],
+    "independent_verification": "gds_integration_review c592c86bd16024618fab58a27a00f296bb2c8a34; gds_blind,gds_source,gds_repair independent current-packet evidence in runs/semantic-roundtrip/andi-opt-gd-stationarity.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""

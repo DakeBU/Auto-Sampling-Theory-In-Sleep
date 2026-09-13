@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-descent.sum-sq",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.gradient_descent_sum_sq_bound",
+    upstreamDecl := "Theorem3.7 and proof",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Actual-iterate accumulated squared-gradient bound via canonical descent and finite telescoping; no minimum needed.",
+    note := "Actual gradient and global quadratic upper model; Hilbert algebraic generalization. Explicit domain overlay independently accepted. Best iterate, not last iterate, global optimality or companion-paper completion."
+  },
+  {
+    key := "analysis.gradient-descent.stationarity",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.exists_gradient_descent_norm_le",
+    upstreamDecl := "Theorem3.7 and proof",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Nonconvex best-iterate gradient-norm guarantee from actual updates, supplied global minimum, positive step and nonempty horizon.",
+    note := "Actual gradient and global quadratic upper model; Hilbert algebraic generalization. Explicit domain overlay independently accepted. Best iterate, not last iterate, global optimality or companion-paper completion."
+  },
+  {
     key := "analysis.gradient-descent.step-descent",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentBasic.gradient_step_descent_of_quadratic_upper_bound",
     upstreamDecl := "Lemma3.1",

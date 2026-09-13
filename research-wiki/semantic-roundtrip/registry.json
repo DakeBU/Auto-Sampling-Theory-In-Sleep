@@ -24240,7 +24240,7 @@
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-GradientSumSq",
-      "state": "draft",
+      "state": "accepted",
       "graph_node": "ASTIS-SHARED-gradient-descent-sum-sq",
       "source": {
         "source_id": "chewi-opt-v1-theorem-3-7",
@@ -24262,12 +24262,107 @@
           "Finset.range N is the finite set of natural numbers k with k<N; Real.sqrt is the nonnegative square root, totalized as zero at negative arguments."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
+      "semantic_slots": {
+        "objects": {
+          "source": "Euclidean objective f, its gradient, and the actual recursion x_(k+1)=x_k-h grad f(x_k).",
+          "lean": "Function f:E→ℝ, Mathlib gradient f, and T^[k](x₀) for T(x)=x-h•gradient f(x).",
+          "original": "Euclidean objective f, its gradient, and the actual recursion x_(k+1)=x_k-h grad f(x_k).",
+          "reconstructed": "Function f:E→ℝ, Mathlib gradient f, and T^[k](x₀) for T(x)=x-h•gradient f(x).",
+          "relation": "explicit-elaboration",
+          "evidence": "S3 GD update; current module defines T by precisely that update. The lesson accurately explains totalized Frechet/Riesz gradient, without asserting differentiability for every f."
+        },
+        "domains": {
+          "source": "R^d; S3 assumes C²; beta-smoothness uses beta≥0 in Definition 1.12. The displayed reciprocal presumes beta>0 under ordinary real arithmetic.",
+          "lean": "Any complete real inner-product space, any real beta, and global quadratic upper model. h≥0, N∈ℕ, including h=0 and N=0.",
+          "original": "R^d; S3 assumes C²; beta-smoothness uses beta≥0 in Definition 1.12. The displayed reciprocal presumes beta>0 under ordinary real arithmetic.",
+          "reconstructed": "Any complete real inner-product space, any real beta, and global quadratic upper model. h≥0, N∈ℕ, including h=0 and N=0.",
+          "relation": "different",
+          "evidence": "S3 opening and Definition 1.12 versus module typeclasses, beta binder, hu and hh/hN. This is an explicitly disclosed Hilbert/algebraic generalization, not literal source equivalence."
+        },
+        "quantifiers": {
+          "source": "Any initial point and iteration count in the displayed nonempty best-iterate range; an attained global minimum follows the notes convention.",
+          "lean": "Universal x₀ and every natural N; no minimizer or witness is used in this proof component.",
+          "original": "Any initial point and iteration count in the displayed nonempty best-iterate range; an attained global minimum follows the notes convention.",
+          "reconstructed": "Universal x₀ and every natural N; no minimizer or witness is used in this proof component.",
+          "relation": "different",
+          "evidence": "The module binders are universal. The first declaration stops at an unnormalized cumulative inequality; its role is accumulated-descent only."
+        },
+        "assumptions": {
+          "source": "C² beta-smooth Euclidean objective, attained minimum convention, printed h≤1/beta; the theorem line omits h>0,N≥1.",
+          "lean": "hu is exactly the quadratic upper model with actual totalized gradient; no separate C¹/C² or beta positivity is assumed. beta*h≤1; h≥0; no lower-bound premise.",
+          "original": "C² beta-smooth Euclidean objective, attained minimum convention, printed h≤1/beta; the theorem line omits h>0,N≥1.",
+          "reconstructed": "hu is exactly the quadratic upper model with actual totalized gradient; no separate C¹/C² or beta positivity is assumed. beta*h≤1; h≥0; no lower-bound premise.",
+          "relation": "different",
+          "evidence": "The source itself defines beta-smoothness with this one-sided upper model plus C¹, so do not substitute a Lipschitz-gradient premise. S3 adds C². Source regularity entails the model; the Lean implication takes it as data. Strict step/range restrictions are substantive domain clarification for normalization."
+        },
+        "conclusion": {
+          "source": "Theorem3.7 bounds min_(k<N)||grad f(x_k)|| by sqrt(2(f(x₀)-f★)/(Nh)); its proof sums one-step decrease.",
+          "lean": "h/2 times the sum of squared gradient norms for k<N is at most f(x₀)-f(x_N).",
+          "original": "Theorem3.7 bounds min_(k<N)||grad f(x_k)|| by sqrt(2(f(x₀)-f★)/(Nh)); its proof sums one-step decrease.",
+          "reconstructed": "h/2 times the sum of squared gradient norms for k<N is at most f(x₀)-f(x_N).",
+          "relation": "different",
+          "evidence": "S3 Theorem3.7 and its displayed proof. The accumulated-descent declaration is the unnormalized proof edge before replacing f(x_N) by f★; it alone is not full stationarity theorem coverage."
+        },
+        "scopes": {
+          "source": "Unconstrained, fixed-step actual gradient descent; no convexity or PL assumption; best iterate among the first N.",
+          "lean": "The entire current module uses one fixed T and actual Mathlib gradient. The audited declaration is restricted to accumulated descent and supports only accumulated-descent.",
+          "original": "Unconstrained, fixed-step actual gradient descent; no convexity or PL assumption; best iterate among the first N.",
+          "reconstructed": "The entire current module uses one fixed T and actual Mathlib gradient. The audited declaration is restricted to accumulated descent and supports only accumulated-descent.",
+          "relation": "explicit-elaboration",
+          "evidence": "Both module declarations and both lesson proof narratives were inspected. The shared descent call, successor identity, telescope, minimizer bound, finite averaging and square-root steps match their stated roles."
+        },
+        "constant_dependencies": {
+          "source": "Factor 2, initial objective gap, N and h; beta controls admissible step via reciprocal.",
+          "lean": "Exact factor h/2 in the cumulative inequality; beta appears only through hu and beta*h≤1.",
+          "original": "Factor 2, initial objective gap, N and h; beta controls admissible step via reciprocal.",
+          "reconstructed": "Exact factor h/2 in the cumulative inequality; beta appears only through hu and beta*h≤1.",
+          "relation": "explicit-elaboration",
+          "evidence": "The module formulas preserve all constants. For beta>0, beta*h≤1 iff h≤1/beta. No dimension or convexity constant is introduced; beta=0 is an algebraic extension whose reciprocal expression is not ordinary real arithmetic."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The reusable declaration generalizes the finite-dimensional source setting to complete real inner-product spaces.",
+          "evidence": "The module has CompleteSpace E and no finite-dimensional premise; publication explicitly labels algebraic Hilbert generalization."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Source C²/C¹ regularity and beta≥0 are not Lean premises; the exact upper model is retained.",
+          "evidence": "Definition1.12 is C¹ plus upper model with beta≥0; S3 supplies C². The module instead binds beta:ℝ and hu. This is disclosed in lesson assumptions."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Positive beta is a reciprocal-domain interpretation, not the literal beta-smoothness definition.",
+          "evidence": "Definition1.12 permits beta=0. Candidate wording saying positive beta must be read with its explicit reciprocal restriction qualifier. Keep this distinction in the publication metadata."
+        },
+        {
+          "slot": "conclusion",
+          "severity": "informational",
+          "description": "The cumulative inequality is a scoped proof component, not Theorem3.7 in isolation.",
+          "evidence": "The audited binding supports accumulated-descent only; no witness, minimum or normalization appears."
+        },
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The unnormalized proof includes h=0 and N=0 and does not require attainment.",
+          "evidence": "For h=0 actual iterates are constant; for N=0 the sum is empty and both sides vanish. The telescope needs no lower bound. Negative h cannot generally be added: f(t)=t²/2 on R, beta=1, h=-1, x₀=1 and x_(k+1)=2x_k give at N=1 left=-1/2 and right=-3/2, so the proposed inequality fails."
+        }
+      ],
+      "verdict": "domain-mismatch",
       "repairs": [],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "gds_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted as a correctly explained, scoped source-backed accumulated-descent proof component. This is not a verdict of literal source/Lean equivalence: the full Lean domain is a disclosed Hilbert/algebraic generalization. I read the two fresh reviewer packets only, their identical complete current module, their lessons, and validator schema; I independently checked the pinned primary source https://arxiv.org/html/2605.07006v1 at Definition1.12, S2 convention, S3 opening, Lemma3.1 and Theorem3.7. The proof distributes h/2, applies actual-step descent, uses the successor iterate identity and telescopes; the second theorem uses the true global minimum, positive normalization, a nonempty finite-average witness and the square-root implication. All scopes, constants and endpoints in the lessons agree with the module. The supplied compilation flag was not used as a substitute for semantic review; I did not rerun compilation or inspect dependencies beyond packet contents. No prior audit registry or previous verdicts were read.",
+        "review_run_sha256": "9c61d9aec7892254dc5a9961bf5f5d35ae4c933900d100c5622163bb830f3232",
+        "reviewer_packet_sha256": "8daf4c0d84d62f32f9bc401d415a6f475be45e1ee539676dba30647ed990ebaa",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-stationarity/source-review-0.json"
       },
       "publication_binding_sha256": "84737fbedb2d84d73601a6f8f078114a654f1d565d1fdbfeba77743870e40c48",
       "publication_context": {
@@ -24383,11 +24478,25 @@
             "lean": "No lower-bound premise or witness conclusion in this proof component."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "For every complete real inner product space E, every function f:E→ℝ, and every pair of real numbers β,h, assume h≥0, βh≤1, and, for all x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖². Here gradient f(x) denotes the Riesz vector of the totalized Fréchet derivative; no separate differentiability hypothesis is imposed, and no positivity hypothesis on β is imposed. For every initial point x₀∈E define xₖ=T^[k](x₀), where T(x)=x−h·gradient f(x), h·v is real scalar multiplication, and x₀ is the zeroth iterate. Then for every natural number N, (h/2)∑_{k=0}^{N−1}‖gradient f(xₖ)‖²≤f(x₀)−f(x_N). The sum runs over exactly the natural numbers k<N. N=0 is included, with empty sum zero and x_N=x₀, so the conclusion is 0≤0. h=0 is also included; all iterates then equal x₀ and both sides vanish. No minimizer or lower bound for f is assumed.",
+        "text_sha256": "b5fa0eff674fa3e838fd461444e3af5db205111e6155c7ff7382aa1103b13387",
+        "decoder": "gds_blind",
+        "decoder_run_sha256": "72a36057ed8251d904ac8ecc280227b78e27df73f3b9c5175476e0d45ff5a94e",
+        "decoder_packet_sha256": "95794970d3013baa5a24dff3cecda4a957dea31e5afe26c8a83b40b5322bff78",
+        "source_text_visible": false,
+        "lean_statement_sha256": "e85df7e848fa707eedd9fbb45bf48ecfb4811cd31a0dca2746b70f2e171d5a0c",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-stationarity/decoder-result.json"
       }
     },
     {
       "id": "ASTIS-RT-ANDI-OPT-GradientStationarity",
-      "state": "draft",
+      "state": "accepted",
       "graph_node": "ASTIS-SHARED-gradient-descent-stationarity",
       "source": {
         "source_id": "chewi-opt-v1-theorem-3-7",
@@ -24409,12 +24518,127 @@
           "Finset.range N is the finite set of natural numbers k with k<N; Real.sqrt is the nonnegative square root, totalized as zero at negative arguments."
         ]
       },
-      "semantic_slots": {},
-      "deltas": [],
-      "verdict": "pending",
-      "repairs": [],
+      "semantic_slots": {
+        "objects": {
+          "source": "Euclidean objective f, its gradient, and the actual recursion x_(k+1)=x_k-h grad f(x_k).",
+          "lean": "Function f:E→ℝ, Mathlib gradient f, and T^[k](x₀) for T(x)=x-h•gradient f(x).",
+          "original": "Euclidean objective f, its gradient, and the actual recursion x_(k+1)=x_k-h grad f(x_k).",
+          "reconstructed": "Function f:E→ℝ, Mathlib gradient f, and T^[k](x₀) for T(x)=x-h•gradient f(x).",
+          "relation": "explicit-elaboration",
+          "evidence": "S3 GD update; current module defines T by precisely that update. The lesson accurately explains totalized Frechet/Riesz gradient, without asserting differentiability for every f."
+        },
+        "domains": {
+          "source": "R^d; S3 assumes C²; beta-smoothness uses beta≥0 in Definition 1.12. The displayed reciprocal presumes beta>0 under ordinary real arithmetic.",
+          "lean": "Any complete real inner-product space, any real beta, and global quadratic upper model. h>0, N∈ℕ with N>0.",
+          "original": "R^d; S3 assumes C²; beta-smoothness uses beta≥0 in Definition 1.12. The displayed reciprocal presumes beta>0 under ordinary real arithmetic.",
+          "reconstructed": "Any complete real inner-product space, any real beta, and global quadratic upper model. h>0, N∈ℕ with N>0.",
+          "relation": "different",
+          "evidence": "S3 opening and Definition 1.12 versus module typeclasses, beta binder, hu and hh/hN. This is an explicitly disclosed Hilbert/algebraic generalization, not literal source equivalence."
+        },
+        "quantifiers": {
+          "source": "Any initial point and iteration count in the displayed nonempty best-iterate range; an attained global minimum follows the notes convention.",
+          "lean": "Universal x₀ and positive natural N; supplied global minimizer z; a natural witness k∈Finset.range N.",
+          "original": "Any initial point and iteration count in the displayed nonempty best-iterate range; an attained global minimum follows the notes convention.",
+          "reconstructed": "Universal x₀ and positive natural N; supplied global minimizer z; a natural witness k∈Finset.range N.",
+          "relation": "explicit-elaboration",
+          "evidence": "The module binders are universal. Finset.range N is exactly 0≤k<N; for N>0 a finite minimum bound is equivalent to an index witness."
+        },
+        "assumptions": {
+          "source": "C² beta-smooth Euclidean objective, attained minimum convention, printed h≤1/beta; the theorem line omits h>0,N≥1.",
+          "lean": "hu is exactly the quadratic upper model with actual totalized gradient; no separate C¹/C² or beta positivity is assumed. beta*h≤1; h>0,N>0 and IsMinOn f univ z.",
+          "original": "C² beta-smooth Euclidean objective, attained minimum convention, printed h≤1/beta; the theorem line omits h>0,N≥1.",
+          "reconstructed": "hu is exactly the quadratic upper model with actual totalized gradient; no separate C¹/C² or beta positivity is assumed. beta*h≤1; h>0,N>0 and IsMinOn f univ z.",
+          "relation": "different",
+          "evidence": "The source itself defines beta-smoothness with this one-sided upper model plus C¹, so do not substitute a Lipschitz-gradient premise. S3 adds C². Source regularity entails the model; the Lean implication takes it as data. Strict step/range restrictions are substantive domain clarification for normalization."
+        },
+        "conclusion": {
+          "source": "Theorem3.7 bounds min_(k<N)||grad f(x_k)|| by sqrt(2(f(x₀)-f★)/(Nh)); its proof sums one-step decrease.",
+          "lean": "There exists k<N with the same norm bound, using f(z)=f★.",
+          "original": "Theorem3.7 bounds min_(k<N)||grad f(x_k)|| by sqrt(2(f(x₀)-f★)/(Nh)); its proof sums one-step decrease.",
+          "reconstructed": "There exists k<N with the same norm bound, using f(z)=f★.",
+          "relation": "equivalent",
+          "evidence": "S3 Theorem3.7 and its displayed proof. On the positive-step/nonempty source specialization, the existential and finite minimum statements are equivalent and constants match."
+        },
+        "scopes": {
+          "source": "Unconstrained, fixed-step actual gradient descent; no convexity or PL assumption; best iterate among the first N.",
+          "lean": "The entire current module uses one fixed T and actual Mathlib gradient. The audited declaration supports best-iterate-norm only and makes no last-iterate or global-optimality claim.",
+          "original": "Unconstrained, fixed-step actual gradient descent; no convexity or PL assumption; best iterate among the first N.",
+          "reconstructed": "The entire current module uses one fixed T and actual Mathlib gradient. The audited declaration supports best-iterate-norm only and makes no last-iterate or global-optimality claim.",
+          "relation": "explicit-elaboration",
+          "evidence": "Both module declarations and both lesson proof narratives were inspected. The shared descent call, successor identity, telescope, minimizer bound, finite averaging and square-root steps match their stated roles."
+        },
+        "constant_dependencies": {
+          "source": "Factor 2, initial objective gap, N and h; beta controls admissible step via reciprocal.",
+          "lean": "Exact factor 2 inside sqrt and denominator (N:ℝ)*h; beta appears only through hu and beta*h≤1.",
+          "original": "Factor 2, initial objective gap, N and h; beta controls admissible step via reciprocal.",
+          "reconstructed": "Exact factor 2 inside sqrt and denominator (N:ℝ)*h; beta appears only through hu and beta*h≤1.",
+          "relation": "explicit-elaboration",
+          "evidence": "The module formulas preserve all constants. For beta>0, beta*h≤1 iff h≤1/beta. No dimension or convexity constant is introduced; beta=0 is an algebraic extension whose reciprocal expression is not ordinary real arithmetic."
+        }
+      },
+      "deltas": [
+        {
+          "slot": "domains",
+          "severity": "informational",
+          "description": "The reusable declaration generalizes the finite-dimensional source setting to complete real inner-product spaces.",
+          "evidence": "The module has CompleteSpace E and no finite-dimensional premise; publication explicitly labels algebraic Hilbert generalization."
+        },
+        {
+          "slot": "assumptions",
+          "severity": "informational",
+          "description": "Source C²/C¹ regularity and beta≥0 are not Lean premises; the exact upper model is retained.",
+          "evidence": "Definition1.12 is C¹ plus upper model with beta≥0; S3 supplies C². The module instead binds beta:ℝ and hu. This is disclosed in lesson assumptions."
+        },
+        {
+          "slot": "constant_dependencies",
+          "severity": "informational",
+          "description": "Positive beta is a reciprocal-domain interpretation, not the literal beta-smoothness definition.",
+          "evidence": "Definition1.12 permits beta=0. Candidate wording saying positive beta must be read with its explicit reciprocal restriction qualifier. Keep this distinction in the publication metadata."
+        },
+        {
+          "slot": "domains",
+          "severity": "review",
+          "description": "Theorem3.7 needs explicit positive h and nonempty range; Lean enforces both.",
+          "evidence": "The source line prints only h≤1/beta but divides by Nh and minimizes over k<N. The source overlay proposed below preserves the mathematical setting and makes those domains explicit."
+        }
+      ],
+      "verdict": "domain-mismatch",
+      "repairs": [
+        {
+          "id": "chewi-opt-v1-theorem-3-7-positive-domain-gds-source",
+          "class": "domain-clarification",
+          "status": "accepted",
+          "necessity": "source-implicit",
+          "proposed_change": "State the ordinary reciprocal domain beta>0, the descent step 0<h≤1/beta, and the nonempty iteration range N≥1. Retain the Euclidean C² setting, actual updates, attained minimum and original best-iterate conclusion. Do not import the Lean Hilbert/algebraic extension into the source theorem.",
+          "reconstructed_statement": "For every natural dimension d, let f:R^d→R be twice continuously differentiable and let beta>0. Assume f(y)≤f(x)+<grad f(x),y-x>+(beta/2)||y-x||² for all x,y∈R^d, and let z be a global minimizer of f, with f_star=f(z). For every h with 0<h≤1/beta, every x₀∈R^d and every natural N≥1, define x_(k+1)=x_k-h grad f(x_k) for all natural k starting from x₀. Then min_{0≤k<N}||grad f(x_k)||≤sqrt(2(f(x₀)-f_star)/(N*h)).",
+          "statement_sha256": "2812cb7485a318eff467efdd12607ba876245dc95a6b583e6e5c705d14e28ae1",
+          "justification": "The denominator Nh must be positive for the averaging argument, and a minimum over the first N indices needs N≥1. beta>0 selects the ordinary reciprocal domain from the beta≥0 smoothness definition. These are source-domain clarifications rather than consequences of Lean division conventions.",
+          "minimality_evidence": "Only domains of already present parameters are clarified. No convexity, PL inequality, gradient-Lipschitz condition, coercivity or unique minimizer is added. The source C² and attained-minimum conventions and numerical constant 2 are retained. beta=0 remains a separate algebraic extension through beta*h≤1, not a replacement for the printed reciprocal statement.",
+          "reference_or_counterexample": "Primary source https://arxiv.org/html/2605.07006v1 Definition1.12, S2 convention, S3 and Theorem3.7. Step endpoint: on R take f(t)=t²/2, beta=1, z=0, x₀=1, h=0, N=1 and x_(k+1)=x_k-h*f'(x_k)=x_k, so all x_k=1 and the minimum gradient norm is 1; ordinary Nh division is undefined, while Lean-totalized division gives RHS 0 and a false bound. Negative step: on R take f(t)=t²/2, beta=1, z=0, x₀=1, h=-1, N=1 and x_(k+1)=2x_k; the radicand is -1, not an ordinary real square-root domain, while Real.sqrt makes RHS 0 and the bound false. Empty range: on R take f(t)=t²/2, beta=1, z=0, x₀=1, h=1, N=0 and x_(k+1)=x_k-f'(x_k)=0; there is no k<N and no real-valued finite minimum over that empty range. Reciprocal endpoint: on R take f(t)=0, beta=0, z=0, x₀=1, h=1, N=1 and x_(k+1)=x_k; the algebraic bound holds but 1/beta in ordinary real arithmetic is undefined.",
+          "proposal_author": "gds_source",
+          "review": {
+            "state": "accepted",
+            "reviewer": "gds_repair",
+            "independent_from_formalizer": true,
+            "independent_from_decoder": true,
+            "independent_from_proposer": true,
+            "reviewer_packet_sha256": "c6c7506867738356003260512091a4df480a2916c4deb4b93d87de9244992f90",
+            "proposal_sha256": "7dfed653f0e7a8ea6417d5efa72c8de583b45b9bc72b75e24f885ce8c952fffa",
+            "evidence": "Reviewed only the supplied exact-proposal packet, validator schema, and pinned primary source https://arxiv.org/html/2605.07006v1. Primary-source check: Definition 1.12 defines beta-smoothness by C1 regularity, beta>=0, and the displayed global quadratic upper model; Section 3 explicitly assumes C2 regularity throughout. Section 2 states the attained-minimum convention for the notes. Theorem 3.7 has the proposed best-iterate gradient norm and constant 2, while its printed line omits positive h and nonempty N. Thus retaining Euclidean C2 and attainment is faithful to the source context, although neither is a logically minimal hypothesis of the algebraic descent implication. Exact-proposal assessment: accepted as an explicit ordinary-real-domain overlay, not an amended quotation of the pinned source. For beta>0, h<=1/beta and beta*h<=1 are equivalent. Positive h and positive natural N make the averaging and square root defined with a nonnegative radicand. The C2 upper-model premise is exactly source beta-smoothness in the section context; no convexity, PL, gradient-Lipschitz premise, uniqueness, or coercivity is inserted. Independent sufficiency calculation: setting g_k=grad f(x_k), the actual update and upper model give f(x_(k+1))<=f(x_k)-h*(1-beta*h/2)*||g_k||^2<=f(x_k)-(h/2)*||g_k||^2. Summing and using f(x_N)>=f(z) gives (h/2)*sum ||g_k||^2<=f(x_0)-f(z). A nonempty finite family has a squared norm at most its average; positive division and the monotone nonnegative square root give the exact proposed conclusion. All four witnesses were checked independently. For f(t)=t^2/2 on R, beta=1, z=0 and x_0=1, f is C2, z is a global minimizer, and its upper model holds with equality. With h=0,N=1 the update is x_(k+1)=x_k, the left side is 1, and the ordinary denominator is zero; totalized division would give RHS 0. With h=-1,N=1 the update is x_(k+1)=2*x_k, the left side is 1 and the radicand is -1; ordinary real sqrt is undefined, while Lean Real.sqrt is zero. With h=1,N=0 the update sends every iterate after x_0 to zero, but the indexed family is empty and no real finite minimum or witness exists. For f(t)=0 on R, beta=0,z=0,x_0=1,h=1,N=1 the C2 upper model, attainment and constant update hold, and the algebraic bound is 0<=0; only the printed ordinary reciprocal 1/beta is undefined. These are domain witnesses; the zero-beta case is not a counterexample to the algebraic theorem. Minimality distinction: beta>0 is needed here only to retain the ordinary reciprocal wording within beta>=0, not to ensure convergence of every algebraic extension; h>0 and N>=1 repair existing normalized expressions. The beta=0 algebraic endpoint, arbitrary real beta, complete-Hilbert ambient space, and totalized-gradient/no-separate-regularity Lean implication remain separately labeled extensions. This acceptance neither identifies those extensions with the source nor certifies compilation from a hash.",
+            "review_run_sha256": "d615ffc6f9b016fe92cb1e3a0071c3cf723b477f5abc3854cfe8632ae9193c62",
+            "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-stationarity/repair-review-result.json"
+          }
+        }
+      ],
       "source_review": {
-        "state": "pending"
+        "state": "accepted",
+        "reviewer": "gds_source",
+        "independent_from_formalizer": true,
+        "independent_from_decoder": true,
+        "evidence": "Accepted as a correctly explained, scoped source-backed best-iterate stationarity theorem after explicit source-domain clarification. This is not a verdict of literal source/Lean equivalence: the full Lean domain is a disclosed Hilbert/algebraic generalization. I read the two fresh reviewer packets only, their identical complete current module, their lessons, and validator schema; I independently checked the pinned primary source https://arxiv.org/html/2605.07006v1 at Definition1.12, S2 convention, S3 opening, Lemma3.1 and Theorem3.7. The proof distributes h/2, applies actual-step descent, uses the successor iterate identity and telescopes; the second theorem uses the true global minimum, positive normalization, a nonempty finite-average witness and the square-root implication. All scopes, constants and endpoints in the lessons agree with the module. The supplied compilation flag was not used as a substitute for semantic review; I did not rerun compilation or inspect dependencies beyond packet contents. No prior audit registry or previous verdicts were read.",
+        "review_run_sha256": "4776d4a27ca88141e3e925b82127a4b1230df55236e5ecb3603bca0b4351bb95",
+        "reviewer_packet_sha256": "d01c4fc385f040e896eab33560d0ce04c98e44f56f1a8e648058c6afc8ae1bc2",
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-stationarity/source-review-1.json"
       },
       "publication_binding_sha256": "6f15ff28b9beff88943a36dc348f08557e88a0a33f0740833f4320ab3e274b36",
       "publication_context": {
@@ -24537,6 +24761,20 @@
             "lean": "Supplied IsMinOn f univ z and an existential index in Finset.range N."
           }
         ]
+      },
+      "reconstruction": {
+        "text": "For every complete real inner product space E, every function f:E→ℝ, every pair of real numbers β,h, and every z∈E, assume f(z)≤f(x) for every x∈E, h>0, βh≤1, and, for all x,y∈E, f(y)≤f(x)+⟨gradient f(x),y−x⟩+(β/2)‖y−x‖². Here gradient f(x) denotes the Riesz vector of the totalized Fréchet derivative; no separate differentiability hypothesis is imposed, and no positivity hypothesis on β is imposed. For every initial point x₀∈E, define xₖ=T^[k](x₀), where T(x)=x−h·gradient f(x), h·v is real scalar multiplication, and the zeroth iterate is x₀. For every natural number N>0, there exists a natural number k with 0≤k<N such that ‖gradient f(xₖ)‖≤sqrt(2(f(x₀)−f(z))/((N:ℝ)h)). The square root is the nonnegative real square root, totalized to zero on negative arguments; here its argument is nonnegative because z is a global minimizer and (N:ℝ)h>0. The index set includes k=0 and excludes k=N. N=1 is included and forces k=0. N=0 and h=0 are excluded by the hypotheses. If f(x₀)=f(z), the bound is zero.",
+        "text_sha256": "43a8a61c944639caf23984a601c2ca670ba4a2e1afa78c9227118f3b901a5645",
+        "decoder": "gds_blind",
+        "decoder_run_sha256": "72a36057ed8251d904ac8ecc280227b78e27df73f3b9c5175476e0d45ff5a94e",
+        "decoder_packet_sha256": "7a3686e255ee6efa9dc33ceb3738786e8da01b40060952f33547d5b8d8773c75",
+        "source_text_visible": false,
+        "lean_statement_sha256": "c41215b2f02d83145d2b1ac81be398c58e23647e63d493ccac22645e7e7de354",
+        "input_artifacts": [
+          "lean-statement",
+          "approved-definition-context"
+        ],
+        "run_artifact": "runs/semantic-roundtrip/andi-opt-gd-stationarity/decoder-result.json"
       }
     }
   ]

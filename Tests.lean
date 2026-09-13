@@ -1,3 +1,4 @@
+import Tests.Shared.GradientDescentStationarity
 import Tests.Shared.GradientDescentPL
 import Tests.Basic
 import Tests.HessianStrongConvexity
