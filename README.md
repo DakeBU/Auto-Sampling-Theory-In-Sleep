@@ -1,8 +1,6 @@
 <div align="center">
 
-# Auto-Sampling-Theory-In-Sleep
-
-### An Automated Theorem Proving System and Visualized Lean Library for Sampling, Optimisation, and Geometry
+# An Automated Theorem Proving System and Visualized Lean Library for Sampling, Optimisation, and Geometry
 
 **Samplinglib:** Verified Sampling, Optimisation, Geometry Theory in Lean
 
