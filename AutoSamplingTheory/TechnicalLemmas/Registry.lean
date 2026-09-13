@@ -73,6 +73,26 @@ def sltSourceAnchor (file decl note : String) : SourceAnchor :=
 
 def analysisMemory : List LemmaMemoryEntry := [
   {
+    key := "analysis.gradient-step.endpoint-bound",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.gradient_step_endpoint_bound",
+    upstreamDecl := "Exercise3.2",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Actual-gradient endpoint curvature bound from C2 Hessian bounds, symmetry, Rayleigh norm and explicit segment FTC.",
+    note := "C2 actual-gradient Hilbert extension; explicit parameter domains. Uniform curvature envelope, not an objective-specific optimal step, iterate convergence or companion-paper completion."
+  },
+  {
+    key := "analysis.gradient-step.optimal-step",
+    localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentOptimalStep.optimal_gradient_step",
+    upstreamDecl := "Exercise3.2",
+    upstreamFile := "Chewi Lectures on Optimization arXiv:2605.07006v1",
+    status := LemmaMemoryStatus.formalizedLocal,
+    tags := ["CALC", "smoothness", "optimisation"],
+    saldUse := "Balanced step 2/(alpha+beta) gives factor (beta-alpha)/(alpha+beta), minimizing the endpoint envelope over all real steps.",
+    note := "C2 actual-gradient Hilbert extension; explicit parameter domains. Uniform curvature envelope, not an objective-specific optimal step, iterate convergence or companion-paper completion."
+  },
+  {
     key := "analysis.gradient-descent.sum-sq",
     localDecl := "AutoSamplingTheory.TechnicalLemmas.Analysis.GradientDescentStationarity.gradient_descent_sum_sq_bound",
     upstreamDecl := "Theorem3.7 and proof",

@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.2",
   "target_statement": "For 0<=alpha<=beta,beta>0, h*=2/(alpha+beta) gives pairwise contraction q=(beta-alpha)/(alpha+beta), and q minimizes max(|1-h alpha|,|1-h beta|) over every real h.",
-  "status": "claimed",
+  "status": "independently_verified",
   "parents": [
     "ASTIS-SHARED-gradient-step-endpoint-bound"
   ],
@@ -28,8 +28,10 @@
     "notes": "Retain source C2 Hessian-to-operator-norm and segment FTC route; reuse Mathlib Rayleigh formula rather than reprove spectral theorem. No external code port."
   },
   "evidence": {
-    "focused_checks": [],
-    "independent_verification": "",
+    "focused_checks": [
+      "PASS2869, actual quadratic and constant objective; fresh independent production elaboration, standard axioms only."
+    ],
+    "independent_verification": "optimal_route_audit 81eec4b2ced5d8cd3d13a33e21a852ec7783f265; gdo_blind,gdo_source independent accepted current-packet evidence in runs/semantic-roundtrip/andi-opt-gd-optimal-step.",
     "root_build": "",
     "graph_regeneration": "",
     "pr": ""
