@@ -6,7 +6,7 @@
   "mode": "faithfulPaper",
   "source_anchor": "Chewi arXiv:2605.07006v1 Exercise3.3 testing Theorem3.4 convex function-value rate",
   "target_statement": "For beta>0 and each N natural, mu=beta/(2(N+1)) defines f(x)=mu*x^2/2. Prove C2, strong convexity with positive mu, global beta upper model and minimizer0; actual GD step1/beta from1 has exact quadratic gap and gap at least beta/(16(N+1)).",
-  "status": "stabilized",
+  "status": "merged",
   "parents": [
     "ASTIS-SHARED-gradient-descent-sharpness"
   ],
@@ -33,7 +33,7 @@
     "independent_verification": "sharp_route_review 001c58d3a38d1e7b7c10d7c56a50b584a9171eae; convex_blind/convex_source accepted bound packet in runs/semantic-roundtrip/andi-opt-convex-gap-sharpness.",
     "root_build": "PASS9210 canonical tools/astis.py check at 1ae34ce4671af921069166f22ed3c7d374e88563; root Tests/Tests.Basic covered; exact source-bound JSON in runs/semantic-roundtrip/andi-opt-convex-gap-sharpness/canonical-gate-evidence.json",
     "graph_regeneration": "PASS build_site.py/check_site.py: 679 modules,4002 declarations,422 local leaves. Bounded graph-check PASS; root actual desktop1280/mobile390 reader/branch inspection, no layout changes. See research-wiki/technical-lemmas/convex-gradient-gap-sharpness.md.",
-    "pr": ""
+    "pr": "Direct main push, no PR: https://github.com/DakeBU/Automization-Sampling-Optimisation-Geometry-Lib/commit/4ccbce816286249bb3e075999fc78359d583809b"
   },
   "blocked": {
     "reason": "",

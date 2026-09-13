@@ -81,3 +81,7 @@ source digest `70284874c9dc40f34e43565ccfaa0f919dd2269ace0ab3c8e5db245b80dd11fd`
   wraps the full theorem name. Visual evidence is root-attributed, not the
   independent reviewer's own inspection. No layout code or completion badge was
   changed. Temporary preview tabs/server closed and viewport restored.
+
+Merged and pushed directly to `main` at `4ccbce816286249bb3e075999fc78359d583809b` under standing
+user authorization. SAU `MERGED` releases the single stabilization lane. Remote
+post-push CI/deployment is separate from passed local evidence.
