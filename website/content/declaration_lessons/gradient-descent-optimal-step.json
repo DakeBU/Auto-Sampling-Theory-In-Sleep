@@ -20,7 +20,7 @@
         },
         {
           "title": "Bound the symmetric derivative of the update",
-          "text": "Differentiate T_h to obtain A_z=I−hH_z. C² symmetry makes A_z symmetric. Multiplying the Hessian inequalities by h≥0 puts every Rayleigh value in [1−hβ,1−hα]. Its absolute value is at most the maximum of the endpoint absolute values. Mathlib’s supremum formula bounds the operator norm; the zero vector is treated separately.",
+          "text": "Differentiate T_h to obtain A_z=I−hH_z. C² symmetry makes A_z symmetric. Multiplying the Hessian inequalities by h≥0 puts every Rayleigh value in [1−hβ,1−hα]. Its absolute value is at most the maximum of the endpoint absolute values. Mathlib’s supremum formula bounds the operator norm; the zero vector is treated separately. In this supremum the Rayleigh quotient is assigned value zero at v=0, including when E is the zero space.",
           "formula": "\\|DT_h(z)\\|_{\\rm op}=\\sup_v\\left|\\frac{\\langle (I-hH_z)v,v\\rangle}{\\|v\\|^2}\\right|\\le M_h,\\quad M_h=\\max\\{|1-h\\alpha|,|1-h\\beta|\\}.",
           "lean": "ContDiffAt.isSymmSndFDerivAt; ContinuousLinearMap.norm_eq_iSup_rayleighQuotient; HasFDerivAt.comp; HasFDerivAt.sub; HasFDerivAt.const_smul."
         },
@@ -51,7 +51,7 @@
         "ContinuousLinearMap.le_opNorm"
       ],
       "lean_statement": "C² actual-gradient map, global lower curvature and quadratic upper model; explicit real parameter domains.",
-      "lean_proof": "Apply the strong-convex first-order gradient monotonicity theorem and its C² Hessian equivalence. The upper-model equivalence gives the opposite inequality. The Riesz map turns D²f(z) into a continuous linear operator H_z with the displayed quadratic form. Differentiate T_h to obtain A_z=I−hH_z. C² symmetry makes A_z symmetric. Multiplying the Hessian inequalities by h≥0 puts every Rayleigh value in [1−hβ,1−hα]. Its absolute value is at most the maximum of the endpoint absolute values. Mathlib’s supremum formula bounds the operator norm; the zero vector is treated separately. Set v=y−x. The derivative of t↦T_h(x+tv) is A_(x+tv)v and is continuous. The vector fundamental theorem of calculus expresses the update difference as its integral over [0,1]. Bound the integral norm by the uniform derivative bound times the segment length.",
+      "lean_proof": "Apply the strong-convex first-order gradient monotonicity theorem and its C² Hessian equivalence. The upper-model equivalence gives the opposite inequality. The Riesz map turns D²f(z) into a continuous linear operator H_z with the displayed quadratic form. Differentiate T_h to obtain A_z=I−hH_z. C² symmetry makes A_z symmetric. Multiplying the Hessian inequalities by h≥0 puts every Rayleigh value in [1−hβ,1−hα]. Its absolute value is at most the maximum of the endpoint absolute values. Mathlib’s supremum formula bounds the operator norm; the zero vector is treated separately. In this supremum the Rayleigh quotient is assigned value zero at v=0, including when E is the zero space. Set v=y−x. The derivative of t↦T_h(x+tv) is A_(x+tv)v and is continuous. The vector fundamental theorem of calculus expresses the update difference as its integral over [0,1]. Bound the integral norm by the uniform derivative bound times the segment length.",
       "sources": [
         {
           "url": "https://arxiv.org/html/2605.07006v1#S3",
